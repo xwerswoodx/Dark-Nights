@@ -543,8 +543,42 @@ slot_center_last_reconnoitered_by_faction_time 				= 350
 #slot_center_last_reconnoitered_by_faction_cached_strength 	= 360
 #slot_center_last_reconnoitered_by_faction_friend_strength 	= 370
 
+## UID: 9 - Begin
+#
+slot_center_building_manor          = 550 #v
+slot_center_building_watch_tower    = 551 #v
+slot_center_building_fish_pond      = 552 #t, c, v
+slot_center_building_school         = 553 
+slot_center_building_college        = 554 
+slot_center_building_university     = 555 
+slot_center_building_messenger_post = 556
+slot_center_building_headquarters   = 557
+slot_center_building_timber_camp    = 558
+slot_center_building_iron_mine      = 559
+slot_center_building_clay_pit       = 560
+slot_center_building_mill           = 561
+slot_center_building_farm           = 562
+slot_center_building_religion       = 563
+slot_center_building_statue         = 564
+slot_center_building_workshop       = 565
+slot_center_building_prisoner_tower = 566 #t, c
+slot_center_building_barracks       = 567
+slot_center_building_bank           = 568 #t
 
+village_buildings_begin = slot_center_building_manor
+village_buildings_end   = slot_center_building_prisoner_tower
+castle_buildings_begin  = slot_center_building_fish_pond
+castle_buildings_end    = slot_center_building_bank
+town_buildings_begin    = castle_buildings_begin
+town_buildings_end      = slot_center_building_bank + 1
+#
+## UID: 9 - End
 
+## UID: 10 - Begin
+#
+slot_town_near_shore = 700
+#
+## UID: 10 - End
 
 #slot_party_type values
 ##spt_caravan            = 1

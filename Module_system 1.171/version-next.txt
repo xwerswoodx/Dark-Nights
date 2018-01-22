@@ -1,0 +1,247 @@
+- Dedal taverna sistemi entegre edildi ve geliştirildi. (OSP: Slawomir of Aaarrghh)
+- Deniz savaşları eklendi ve bayrak sorunu giderildi.
+- Bir lady ile flört ederken artık hediye verilebiliyor.
+- Köy yaşlısı veya lonca lideri ile bir kere tanışınca menüde seçenek açılması eklendi.
+- Yeni okuma kitapları.
+- Okuma yeteneği.
+- Kitap okuma süreleri artık okuma yeteneğine göre değişiyor.
+- Kitapcılar artık otomatik güncelleniyor.
+- Gezginlere artık kitapcıların yerini sormak mümkün.
+- Öğrenci olarak başlayanlar +2 okuma yeteneği ve +1 yazarlık yeteneği ile başlıyor.
+- Her karakter başlangıçta rastgele bir kitap alır. (Öğrenciler: 2)
+- Konuşmalar üzerinde düzenlemeler yapıldı.
+--- Krallık ikna konuşma seçeneğindeki ben olsaydı gibi saçma sorunlar çözüldü.
+- Savaş yetenekleri eklendi ve geliştirildi:
+--- İyileştirme (OSP: Chel)
+--- Odaklanma (OSP: Chel)
+--- Koşu (OSP: Chel)
+--- Öfke Patlaması (OSP: Chel)
+--- At Islığı (OSP: Chel)
+--- Savaş Çığlığı (OSP: Chel)
+--- Sataşma (OSP: Chel)
+- Şehir hanlarında multiplayer_profile_troop_male çıkma sorunu düzeltildi. (slot_town_is_near_shore ile slot_town_minstrel çakışıyordu.)
+- Şehir arenalarında kazanılacak para miktarı arttırıldı.
+--- Levele göre artması ayarlandı. (Temel + %level + nam/10)
+- Parti büyüklüğü ve alınabilecek esir sayısı artık nam ile birlikte artıyor.
+- Grup büyüklüğü rapor sayfası düzenlendi.
+- Kara Şövalyeler oyuna eklendi.
+--- Rastgele bir şehrin etrafında çıkıyorlar.
+--- Harita üzerinde en fazla 15 adet olabilir.
+--- Okcuları için: Elven Bow ve Archer Bow eklendi.
+--- Şövalyeler için: Antika Uzun Kılıç, Antika Germen Kılıcı ve Kuzeyli Çifte Baltası eklendi.
+- Eski eşyalardan bazıları tekrardan aktif edildi:
+--- War Shield
+--- Heater Shield
+--- Kite Shield
+--- Large Shield
+--- Battle Shield
+--- Heraldric Shield
+--- Steel Shield
+--- Nomad Shield
+--- Broadsword
+- Artık şehir hanlarındaki asker sayısı nama göre artıyor.
+--- Bu özellik itibari ile şehirlerden gönüllü toplanması iptal edildi.
+- Köyden alınan gönüllü sayısı artık köy ile olan bağ ve nam ile artıyor.
+--- Bazı durumlarda menüde Ayrıl seçeneğinin gelmeme sorunu giderildi.
+- Bir kale fethinden sonra size verilmediği zaman gelen para miktarı arttırıldı. (1000 + (level x 50) + (nam / 2)) (10000 nam 20 level olduğunuzu düşünürsek: (1000 + (20x50) + (10000/2)) = 7000 Dinar
+- Bir lordu para karşılığı satmadığınızda onur gitmesi engellendi.
+--- Bununla birlikte parayla satarsanız 1 onur kaybedersiniz. (Bunun nedeni benim açımdan birini satmak, onu esir tutmaktan daha onursuz bir durum olmasıdır.)
+- Sığırların kişiyi takip etmesi ayarlandı. Artık kafalarına göre dolaşmayacaklar.
+- Savaş sırasında çantanın açılması ayarlandı.
+- Şarap ve Bira artık yiyecek gibi tüketilebiliyor.
+- Yiyeceklerin miktarları değiştirildi.
+- Partideki kişilerin yiyeceği yemek miktarı azaltıldı. (Malum savaştayız, partide değil.)
+- Savaştan kazanılan para arttırıldı.
+- Savaş sırasında ölünce kameraya geçmesi eklendi. (OSP: MadVader)
+- Yeni harita simgeleri eklendi. (OSP: Slawomir of Aaarrghh)
+- İnşaatı hemen bitirme seçeneğindeki binaların aktif olmaması sorunu giderildi.
+- Oyun fontu değiştirildi.
+- Lady hediye verme seçeneği tamamen yeniden kodlandı.
+- Şehirlerde bekleme süresi daha hızlı geçiyor.
+- Gözcü kulelerinde bekleme süresi daha hızlı geçiyor.
+- Kamp bekleme süresi Kamp menüsünden ayarlanabilir.
+- Yeni kılıçlar eklendi (OSP: frozenpainter)
+--- Balta (Hatchet)
+--- Kara Balta (Black Axe)
+--- Ağır Balta (Heavy Hatchet)
+--- Kara Gürz (Black Mace)
+--- Dikenli Gürz (Spiny Mace)
+--- Topuz (Heavy Black Mace)
+--- Yatağan (Yataghan)
+--- Katana
+--- Long Sword (Uzun Kılıç)
+--- Cutlass (Pala)
+--- Gümüş Kılıç (Silver Sword)
+--- Savaş Çekici (War Hammer)
+--- Elven Yayı (Elven Bow - Önceden vardı, texture frozenpainter'inki ile değiştirildi.)
+--- Okçu Yayı (Archer Bow - Önceden vardı, texture frozenpainter'inki ile değiştirildi.)
+--- Kergit Yayı (Khergit Bow)
+--- Tahta Yay (Wooden Bow)
+- Avcılık sistemi eklendi. (OSP: )
+--- Avcılık sistemindeki arena sorunu giderildi. (Hayvanlara hasar verilemiyordu.)
+- Watch Tower crash sorunu giderildi.
+- Windmill ve messenger post oyuna eklendi.
+- İnşaatlar tamamlandığı zaman watch tower, windmill ve messenger post yaratılması eklendi.
+- Dağ kenarındaki bölgelere çıkartma yaparken takılma sorunu giderildi. (Bilgi: frozenpainter)
+- Yeni oyun fontu iptal edildi.
+- Gözcü kulesinde bekleme sistemi ayarlandı.
+- Değirmenin haritaya yansıması kaldırıldı. (Yapılacak bir etkinlik yok.)
+- Haritaya yansıyan Gözcü kulesi ile Ulak karakolu köye bağlandı.
+- Loto sistemi yazıldı.
+- Ulak Karakolu ve Gözcü kulesini partiler arasında düzeltmek başka buglara sebep olduğundan köyle bağlantıları iptal edildi.
+- Dolaşmaya çıkma seçeneğinde artık kişi tek başına spawn olacak.
+- Eğer kişinin sancağı var ise, kamp>bir işe giriş menüsünden onu değiştirebilmesi ayarlandı.
+- Gözcü kulesi ve ulak karakolu tekrardan köye bağlandı.
+- Artık gözcü kulesinde dinlenme için köy ile olan bağ kontrol ediliyor.
+- Hanlarda artık kadın kiralanabiliyor. Kiraladığınız her kadın partiye 2 moral kazandırır. (Öneri: profenix)
+- Hanlarda içki ısmarladığınızda, (100+(asker sayın*5)) altın ödersiniz. Buda grubunuza 3 moral kazandırır. (Öneri: profenix)
+- Kadın karakter tutarken, kendine değil askerlerine kadın kiralamak ayarlandı.
+- Kadınlar sadece geceleri kiralanabilir. (24 saat ara ile)
+- Kadın kiralandığı zaman şehirle olan bağ 1 düşüyor.
+- Labirent eşyaları eklendi. (OSP: Albertus Magnus)
+--- Gelecek ile ilgili planlamalar var.
+--- Hammer eklendi.
+- Deve (Camel) eklendi. (OSP: xenoargh)
+- Çöl Süvarileri (Desert Cavalry) eklendi. Sarranid yakınlarında çıkarlar, en fazla 4 adet bulunur.
+--- Deve kullanıyorlar.
+- Develer artık sadece sarranid pazarında satılacak.
+- Bazı türkçe dil sorunları giderildi.
+- Hanlarda yemek ısmarlama eklendi. (Grup moraline +6)
+--- Ücret: (asker sayısı * 25)
+--- Süre: (asker sayısı / 20)+1 (En fazla 10 saati bulur.)
+--- Bekleme Süresi: 12 saat
+- Yeni kitap şekilleri eklendi, ve var olan kitaplara uygulandı. (OSP: Lav)
+- Bu aralar çoğu modda olduğu için fili bende ekleyim dedim. İlgi var anlaşılan :p (OSP: Rigadoon)
+- Kadınlar için takılar eklendi. (OSP: Broken_one)
+- Çöl Süvarileri artık kara şövalye veya kara avcıya yükseltilebilir.
+- Yeni samuray giysileri eklendi. (OSP: SacredStoneHead)
+--- Kote
+--- Kabuto
+--- Yoroi
+--- Suneate
+- Gizli kasalara yeni samuray giysileride eklendi ve kasalar üç şehre eklendi.
+- Köyler saldırı altındayken veya yağmalandığı zaman artık bağlı binalarda (ulak karakolu, gözcü kulesi) aynı durumda olacak.
+- Karakter menüsünde, beceriler yazısının ve ikonunun becerilerin üzerinde olma sorunu giderildi.
+- Ulak karakolu ve gözcü kulesi artık köyün durumuna göre simge alıyor.
+--- Binalar, köy saldırı altında veya yağmalanmışsa kullanılamaz hale geliyor.
+--- Karlı bölgelerde inşaa edilen ulak karakolu ve gözcü kulesi artık yerine göre simge alıyor. (Köyün karlı bölgede olması şart değil, binaların yeri önemli.)
+- Haydut kampı eklendi.
+--- Loot penceresi açılmama sorunu var.
+- Haydut kampları sahne dosyaları hazırlandı.
+- Can Yenileme (Health Regen) sistemi kuruldu ve geliştirildi. (OSP: Lumos) [Şuanda çalışmıyor, çözülecek.]
+--- Geliştirme: Canlar artık saniyede 1 yerine 12 saniyede 1+(ilk yardım/zorluk seviyesi) adet dolacak.
+--- Zor seviyesine kadar kullanılabilir. (Çok Zor seviyede kullanılamaz.)
+- Zorluk seviyeleri eklendi.
+--- İlk denemeler health regen üzerinde yapılıyor.
+--- İkinci deneme geliştirmeler üzerinde yapıldı.
+- Din sistemi yazılıyor.
+--- Dinler şuan oyun içinde etkin değildir, geliştirilme aşamasındadır.
+--- Oyun başında krallıklar otomatik bir din alacak. (Sabit olmasın diye böyle yapıldı.)
+- Kadın kiralama sistemi askıya alındı. (Bayan üyelerin rahatsız olmaması için.)
+- Dini inanç şehir ve köy menülerine eklendi.
+- Excalibur kılıç çizimleri yapılıyor.
+- Haydut kamplarında, loot ve esir pencerelerindeki hata giderildi.
+- Excalibur kılıç denemeleri yapıldı.
+--- Başarılı.
+- am_hammer texture sorunu giderildi.
+- Yenilen krallığın tekrardan yükselmesi eklendi. (OSP: Rubin)
+- Asker oran göstergesi eklendi. (OSP: Rubin)
+- Tüm eşyaları görme eklendi. (Hile) (OSP: Rubin)
+- Ulak karakolu ve gözcü kulesi simge hatası giderildi.
+- Çöl süvarilerinin, kara şövalye olması kaldırıldı.
+- Esir satınca onur düşmesi bir süreliğine (yeni bir sistem düşünülene kadar) kaldırıldı.
+- Mod dosyasının ismi değiştirildi.
+- Hile menüsüne deniz sahnelerine gitme ayarlandı.
+- Sahne dosyaları düzenlendi.
+--- scn_sea_1 - Denize atlanabilen noktalar kapatıldı ve bazı yerlerdeki taşan barrierler inceltildi.
+--- scn_sea_2 - Denize atlanabilen noktalar kapatıldı, bazı yerdeki taşan bariyerler inceltildi ve merdivene çıkarkenki collapse hatası giderilmek için merdivenin yeri değiştirildi.
+--- scn_sea_3 - Oluşturuldu, sadece gemiler konuldu.
+--- scn_sea_4 - Gemi direğine takılma sorunu giderildi.
+- Kara Şövalyeler artık zorluk seviyesi*8 oranında çıkacaklar. (Çok kolay: 0, Kolay: 8, Normal: 16, Zor: 24, Çok Zor: 32)
+- Çöl Süvarileri artık zorluk seviyesi*3 oranında çıkacaklar. (Çok kolay: 0, Kolay: 3, Normal: 6, Zor: 9, Çok Zor: 12)
+- Oyuna boy sistemi eklendi. (OSP: Pelt)
+--- tf_(fe)male_vshort
+--- tf_(fe)male_short
+--- tf_(fe)male_long
+--- tf_(fe)male_vlong
+--- Bundan sonrası çocuk sisteminde kullanılacak...
+--- tf_(fe)male_child
+--- tf_(fe)male_teen
+--- tf_(fe)male_young
+- Boy sistemi başlangıç menüsüne entegre edildi.
+- Tengircilik ve Nors dinleri eklendi. (Fikir: KızılÇeri)
+- Ülkelerin dinleri sabitlendi: (Fikir: KızılÇeri)
+--- Sarranid: Müslüman
+--- Khergit: Tengir
+--- Rhodok: Hristiyan
+--- Vaegir: Hristiyan
+--- Svadya: Hristiyan
+--- Nord: Nors
+- Okuma yeteneği Okur Yazarlık olarak değiştirildi ve Yazarlık yeteneği tamamen kaldırıldı.
+- Başlangıç menülerinde din seçimine, Tengircilik ve Nors dinleride eklendi.
+- Mod seçeneklerine kara şövalye ve çöl süvarilerini açma/kapatma eklendi. (Fikir: n00bPanda)
+- Artık sizle aynı dine inanan krallıklarla ilişkiniz +10 başlarken, inanmayan krallıklar ile ilişkiniz -25 olarak başlayacak.
+- Turnuvada artık bahis oranları;
+--- Maksimum değer (100 + (nam / 2)) olarak hesaplanacak. Eğer yeterli altın yoksa maksimum altın kişinin olan altını kadar olacak.
+--- Yani eğer kişinin 200 namı varsa maksimum altın (100 + (200/2)) = (100 + 100) = 200 olacakken eğer kişinin 150 altını var ise maksimum altın değeri 200 yerine 150 olacaktır.
+--- Diğer 4 değer ise; maksimum/2, maksimum/4, maksimum/10 ve maksimum/20 şeklinde gitmektedir.
+--- Yani 200 namı olan birisinin maksimum altın değeri 200 iken sıralama; 200, 100, 50, 20, 10 şeklinde olacak.
+--- Ancak eğer 150 altını var ise değerler; 150, 75, 37, 15, 7 şeklinde olacaktır.
+- Karakter raporuna din sekmesi eklendi.
+- Köylere zorla askere alma seçeneği eklendi. (Fikir: celik41, Mod: Azgad)
+--- Her gün gönüllülerle beraber yenileniyor.
+--- Zorla asker almak köy ile olan ilişkiyi 4 azaltıyor.
+--- Asker sayısı 1 ile 12 arasında değişiyor.
+--- FIX: Moral değişince asker sayısının yenilenme sorunu çözüldü.
+--- Cheatmode aktif iken bu değer 5 ile 25 arasında olarak değiştirildi.
+--- FIX: Yağmalı ve saldırı altındayken asker alınabilmesi engellendi.
+- Mühendis kiralama eklendi.
+--- FIX: Mühendis kiralamadaki ufak bir menü hatası giderildi.
+- Bilgisayarın otomatik olarak orta seviye bir mühendis kiraması ayarlandı.
+- Binalara level eklendi ve limit konuldu.
+- Bilgisayardan kullanıcıya geçen kalalerdeki mühendislerin iptali ayarlandı.
+- Kullanıcının mühendisinin işlevsiz kalma sorunu çözüldü.
+- Mühendislerin harcadıkları parayı kesmek yerine haftalık borç listesine yazdırması eklendi.
+- Mühendisler artık yetmediği durumda dışardan odun, kil veya demir alabilir.
+--- Ücreti haftalık borç listesine yazılıyor.
+--- Deneme aşamasında haftalık borçlar silinmiyor. (Dikkat)
+- Bilgisayarın otomatik inşaat başlatması eklendi.
+--- Saldırı altındaki veya yağmalanmış köylerde inşaat yapılması engellendi.
+- Zorla asker almadaki ufak bir kodlama hatası giderildi. (Sürekli 440 asker al gibi uyarı gösterme)
+- İnşaatlara mühendis etkisi eklendi.
+- İnşaatlara merkez bina etkisi eklendi.
+- İnşaatlara zorluk etkisi eklendi.
+- İnşaatlarda seviye arttıkca inşaat ücretinin artması ayarlandı.
+--- Artık otomatik inşaatlarda bu etkilerden tamamen etkilenecek.
+- Kitap yazma sistemi eklendi.
+--- Şimdilik yazılacak kitabı otomatik seçiyor.
+--- Kitabı sadece odadayken yazıyor.
+- Kitap okuma sisteminde değişiklik yapıldı.
+--- Her kitaba ait sayfa sayısı var.
+- Sayfa sayısı kitap yazma sisteminede eklendi.
+- Artık kamp yaparken kitap okuma olmayacak.
+- Oda artık handan kiralanıyor.
+- Artık uyandığı veya kitap okuma/yazmayı bıraktığında direkt odaya gidecek.
+- Yeni atlar eklendi.
+--- Sanjar Atı (Buz/Evlat Mod)
+--- Nordland Atı (Buz/Evlat Mod)
+- Yeni eşyalar eklendi.
+--- Çay (Buz/Evlat Mod)
+--- Zehirli Ok (Buz/Evlat Mod)
+--- Nord Bow (Buz/Evlat Mod)
+- Din menüsündeki geri gitme butonu düzeltildi.
+- Müzisyenlere farklı müzik çaldırma eklendi. (Fikir: Cromcrom - Deneme)
+--- Testler başarısız.
+- Hancıdan oda kiralayınca direkt odaya gitmeme sorunu çözüldü.
+--- Hancının odaya gelmeme sorunu var.
+- Kitap yazmaya başlarken hangi kitabı yazmaya başladığı görünecek.
+- Kitap okumaya başlarken hangi kitabı okumaya başladığı görünecek.
+- Yeterli zekası olmasa dahi kitap yazmaya başlaması hatası giderildi.
+- Kitap yazmadan veya okumadan kalkınca yatak kenarında başlama sorunu giderildi.
+- Kitap yazarken, okurken veya uyurken odaya ek ücret ödenme sorunu giderildi.
+- Hancının odadan kaybolmama sorunu çözüldü.
+- Çantası doluyken kitabı alma hatası giderildi.
+- Okunan bir kitap olmayınca isminin görünmeme hatası giderildi.
+- Ekmek, domuz eti, geyik eti gibi eşyaların sadece 1 kere parti morali vermesi yerine adeti kadar parti morali vermesi ayarlandı.
+- Paralı asker olma sistemi eklendi.
+--- Kodlamalardaki buglar nedeni ile sistem v0.7 ye aktarıldı.

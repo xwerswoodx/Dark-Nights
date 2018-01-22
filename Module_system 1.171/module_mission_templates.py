@@ -16010,5 +16010,83 @@ mission_templates = [
       ],
   ),
 
+  ## UID: 10 - Begin
+  #
+  ("ship_battle", mtf_battle_mode,-1, "You close in and board the enemy ships", [
+      (0,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,4,[]),
+      (1,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,4,[]),
+      (2,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,4,[]),
+      (3,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,4,[]),
+      (4,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,4,[]),
+      (5,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,4,[]),
+      (6,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,4,[]),
+      (7,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,4,[]),
+      (8,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,4,[]),
+      (9,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,4,[]),
+      (10,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,4,[]),
+      (11,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,4,[]),
+      (12,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,4,[]),
+      (13,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,4,[]),
+      (14,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,4,[]),
+      (15,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,4,[]),
+    ], [
+        common_battle_mission_start,
+        common_battle_init_banner,
 
+        (ti_on_agent_spawn, 0, 0, [], [
+            (store_trigger_param_1, ":agent_no"),
+            (call_script, "script_agent_reassign_team", ":agent_no"),
+        ]),
+
+        (0, 0, ti_once, [], [
+            (assign,"$g_battle_won",0),
+            (assign,"$defender_reinforcement_stage",0),
+            (assign,"$attacker_reinforcement_stage",0),
+            (call_script, "script_place_player_banner_near_inventory"),
+            (call_script, "script_combat_music_set_situation_with_culture"),
+        ]),
+
+        common_music_situation_update,
+        common_battle_check_friendly_kills,
+
+        (1, 0, 5, [
+            (lt,"$defender_reinforcement_stage",2),
+            (store_mission_timer_a,":mission_time"),
+            (ge,":mission_time",10),
+            (store_normalized_team_count,":num_defenders", 0),
+            (lt,":num_defenders",6),
+        ], [
+            (add_reinforcements_to_entry, 0, 7),
+            (val_add, "$defender_reinforcement_stage", 1)
+        ]),
+        
+        (1, 0, 5, [
+            (lt,"$attacker_reinforcement_stage",2),
+            (store_mission_timer_a,":mission_time"),
+            (ge,":mission_time",10),
+            (store_normalized_team_count,":num_attackers", 1),
+            (lt,":num_attackers",6),
+        ], [
+            (add_reinforcements_to_entry, 3, 7),
+            (val_add, "$attacker_reinforcement_stage", 1)
+        ]),
+      
+        common_battle_check_victory_condition,
+        common_battle_victory_display,
+        common_battle_tab_press,
+
+        (1, 4, ti_once, [(main_hero_fallen)], [
+            (assign, "$pin_player_fallen", 1),
+            (str_store_string, s5, "str_retreat"),
+            (call_script, "script_simulate_retreat", 10, 20),
+            (assign, "$g_battle_result", -1),
+            (set_mission_result,-1),
+            (call_script, "script_count_mission_casualties_from_agents"),
+            (finish_mission,0)
+        ]),
+
+        (ti_inventory_key_pressed, 0, 0, [(set_trigger_result, 1)], []),
+    ]),
+  #
+  ## UID: 10 - End
 ]

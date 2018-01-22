@@ -13,7 +13,7 @@
   * module_game_menus.py
   ** Deprecated: mnu_tournament_bet
   ** Added: mnu_tournament_bet
-  * game_menus_csv
+  * game_menus.csv
   ** Removed:
   *** mno_bet_100_denars
   *** mno_bet_50_denars
@@ -255,3 +255,60 @@
   *** arena_master_fight_result:arena_master_pre_talk.4
   *** arena_master_fight_result:arena_master_pre_talk.5
   *** arena_master_fight_result:arena_master_pre_talk.6  
+
+9. Yeni binalar için veriler tanımlandı.
+  * module_constants.py
+  ** Added:
+  *** slot_center_building_manor
+  *** slot_center_building_watch_tower
+  *** slot_center_building_fish_pond
+  *** slot_center_building_school
+  *** slot_center_building_college
+  *** slot_center_building_university
+  *** slot_center_building_messenger_post
+  *** slot_center_building_headquarters
+  *** slot_center_building_timber_camp
+  *** slot_center_building_iron_mine
+  *** slot_center_building_clay_pit
+  *** slot_center_building_mill
+  *** slot_center_building_farm
+  *** slot_center_building_religion
+  *** slot_center_building_statue
+  *** slot_center_building_workshop
+  *** slot_center_building_prisoner_tower
+  *** slot_center_building_barracks
+  *** slot_center_building_bank
+  *** village_buildings_begin
+  *** village_buildings_end
+  *** castle_buildings_begin
+  *** castle_buildings_end
+  *** town_buildings_begin
+  *** town_buildings_end
+  
+10. Deniz savaşları eklendi.
+  * module_constants.py
+  ** Added:
+  *** slot_town_near_shore
+  * module_game_menus.py
+  ** Replaced:
+  *** menu_castle_castle:mno_sail_from_port
+  *** menu_simple_encounter:mno_encounter_attack
+  *** menu_join_battle:mno_join_attack
+  *** menu_disembark:mno_disembark_yes
+  *** menu_captivity_wilderness_check:mno_continue
+  * module_party_templates.py
+  ** Added:
+  *** sea_raiders_ships
+  * module_parties.py
+  ** Added:
+  *** ship_raider_spawn_point_1
+  *** ship_raider_spawn_point_2
+  * module_mission_templates.py
+  ** Added:
+  *** mt_ship_battle
+  * module_scripts.py
+  ** Edited:
+  *** script_spawn_bandits
+  * game_menus.csv
+  ** Added:
+  *** mno_sail_from_port

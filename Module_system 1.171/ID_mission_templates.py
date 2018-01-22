@@ -48,3 +48,4 @@ mst_alley_fight = 46
 mst_meeting_merchant = 47
 mst_town_fight = 48
 mst_multiplayer_duel = 49
+mst_ship_battle = 50

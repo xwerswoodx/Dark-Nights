@@ -221,7 +221,6 @@ simple_triggers = [
       (faction_set_slot, ":kingdom_no",  slot_faction_morale_of_player_troops, ":faction_morale"),
     (try_end),
 ]),
-
 	
  (4, #Locate kingdom ladies
     [

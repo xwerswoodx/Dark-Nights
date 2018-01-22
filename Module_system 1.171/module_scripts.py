@@ -33607,6 +33607,17 @@ scripts = [
        (set_spawn_radius, 25),
        (spawn_around_party,":spawn_point","pt_mountain_bandits"),
      (try_end),
+     ## UID: 10 - Begin
+     #
+     (try_begin),
+       (store_num_parties_of_template, ":num_parties", "pt_sea_raiders_ships"),
+       (lt,":num_parties", 40),
+       (store_random,":spawn_point", 0, 2),
+       (val_add,":spawn_point", "p_ship_raider_spawn_point_1"),
+       (spawn_around_party,":spawn_point","pt_sea_raiders_ships"),
+     (try_end),
+     #
+     ## UID: 10 - End
      (try_begin),
        (store_num_parties_of_template, ":num_parties", "pt_forest_bandits"),
        (lt,":num_parties",16), #was 14 at mount&blade, 18 in warband, 16 last decision
