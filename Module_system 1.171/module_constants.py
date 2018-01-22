@@ -1775,15 +1775,31 @@ ctm_training = 4
 vba_normal          = 1
 vba_after_training  = 2
 
-arena_tier1_opponents_to_beat = 3
-arena_tier1_prize = 5
-arena_tier2_opponents_to_beat = 6
-arena_tier2_prize = 10
-arena_tier3_opponents_to_beat = 10
-arena_tier3_prize = 25
-arena_tier4_opponents_to_beat = 20
-arena_tier4_prize = 60
-arena_grand_prize = 250
+## UID: 8 - Begin
+#
+arena_tier1_opponents_to_beat = 5
+arena_tier2_opponents_to_beat = 10
+arena_tier3_opponents_to_beat = 20
+arena_tier4_opponents_to_beat = 30
+arena_tier1_prize = 25
+arena_tier2_prize = 50
+arena_tier3_prize = 100
+arena_tier4_prize = 250
+arena_grand_prize = 500
+#
+## UID: 8 - End
+
+## @Deprecated
+##
+##arena_tier1_opponents_to_beat = 3
+##arena_tier1_prize = 5
+##arena_tier2_opponents_to_beat = 6
+##arena_tier2_prize = 10
+##arena_tier3_opponents_to_beat = 10
+##arena_tier3_prize = 25
+##arena_tier4_opponents_to_beat = 20
+##arena_tier4_prize = 60
+##arena_grand_prize = 250
 
 
 #Additions

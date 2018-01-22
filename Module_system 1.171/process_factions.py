@@ -32,6 +32,12 @@ def compile_relations():
 
 def save_factions(relations):
   file = open(export_dir + "factions.txt","w")
+  ## UID: 6 - Begin
+  #
+  langFile = open(language_dir + "factions.csv", "w")
+  #
+  ## UID: 6 - End
+  
   file.write("factionsfile version 1\n")
   file.write("%d\n"%len(factions))
   for i_faction in xrange(len(factions)):
@@ -40,6 +46,11 @@ def save_factions(relations):
     if len(faction) == 7:
       fac_color = faction[6]
     file.write("fac_%s %s %d %d \n"%(convert_to_identifier(faction[0]), replace_spaces(faction[1]), faction[2], fac_color))
+    ## UID: 6 - Begin
+    #
+    langFile.write("fac_%s|%s\n"%(convert_to_identifier(faction[0]), faction[1]))
+    #
+    ## UID: 6 - End
     for reln in relations[i_faction]:
       file.write(" %f "%reln)
     file.write("\n")
@@ -50,6 +61,11 @@ def save_factions(relations):
     for rank in ranks:
       file.write(" %s "%(replace_spaces(rank)))
   file.close()
+  ## UID: 6 - Begin
+  #
+  langFile.close()
+  #
+  ## UID: 6 - End
 
 def two_to_pow(x):
   result = 1

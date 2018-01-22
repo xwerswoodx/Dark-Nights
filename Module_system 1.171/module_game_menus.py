@@ -10288,11 +10288,9 @@ game_menus = [
     ]
   ),
 
-  (
-    "tournament_bet",0,
-    "The odds against you are {reg5} to {reg6}.{reg1? You have already bet {reg1} denars on yourself, and if you win, you will earn {reg2} denars.:} How much do you want to bet?",
-    "none",
-    [
+  ## UID: 3 - Begin
+  #
+  ("tournament_bet", 0, "The odds against you are {reg5} to {reg6}.{reg1? You have already bet {reg1} denars on yourself, and if you win, you will earn {reg2} denars.:} How much do you want to bet?", "none", [
       (assign, reg1, "$g_tournament_bet_placed"),
       (store_add, reg2, "$g_tournament_bet_win_amount", "$g_tournament_bet_placed"),
       (call_script, "script_get_win_amount_for_tournament_bet"),
@@ -10314,54 +10312,136 @@ game_menus = [
       (try_end),
       (assign, reg5, ":min_dif_multiplier"),
       (assign, reg6, ":min_dif_divisor"),
-      ],
-    [
-      ("bet_100_denars", [(store_troop_gold, ":gold", "trp_player"),
-                          (ge, ":gold", 100)
-                          ],
-       "100 denars.",
-       [
-         (assign, "$temp", 100),
-         (jump_to_menu, "mnu_tournament_bet_confirm"),
+
+      (troop_get_slot, ":renown", "trp_player", slot_troop_renown),
+      (val_div, ":renown", 20), #+1 denar per 20 renown
+      (store_troop_gold, ":gold", "trp_player"),
+      (assign, reg7, 100),
+      (val_add, reg7, ":renown"),
+      (val_max, reg7, ":gold"),
+    ], [
+        ("bet_1", [
+            (assign, reg8, reg7),
+            (ge, reg8, 1),
+            (store_sub, reg9, reg8, 1),
+        ], "{reg8} {reg9?denars:denar}.", [
+            (assign, "$temp", reg8),
+            (jump_to_menu, "mnu_tournament_bet_confirm"),
         ]),
-      ("bet_50_denars", [(store_troop_gold, ":gold", "trp_player"),
-                         (ge, ":gold", 50)
-                         ],
-       "50 denars.",
-       [
-         (assign, "$temp", 50),
-         (jump_to_menu, "mnu_tournament_bet_confirm"),
+        
+        ("bet_2", [
+            (store_div, reg8, reg7, 2),
+            (ge, reg8, 1),
+            (store_sub, reg9, reg8, 1),
+        ], "{reg8} {reg9?denars:denar}.", [
+            (assign, "$temp", reg8),
+            (jump_to_menu, "mnu_tournament_bet_confirm"),
         ]),
-      ("bet_20_denars", [(store_troop_gold, ":gold", "trp_player"),
-                         (ge, ":gold", 20)
-                         ],
-       "20 denars.",
-       [
-         (assign, "$temp", 20),
-         (jump_to_menu, "mnu_tournament_bet_confirm"),
+
+        ("bet_3", [
+            (store_div, reg8, reg7, 4),
+            (ge, reg8, 1),
+            (store_sub, reg9, reg8, 1),
+        ], "{reg8} {reg9?denars:denar}.", [
+            (assign, "$temp", reg8),
+            (jump_to_menu, "mnu_tournament_bet_confirm"),
         ]),
-      ("bet_10_denars", [(store_troop_gold, ":gold", "trp_player"),
-                         (ge, ":gold", 10)
-                         ],
-       "10 denars.",
-       [
-         (assign, "$temp", 10),
-         (jump_to_menu, "mnu_tournament_bet_confirm"),
+
+        ("bet_4", [
+            (store_div, reg8, reg7, 8),
+            (ge, reg8, 1),
+            (store_sub, reg9, reg8, 1),
+        ], "{reg8} {reg9?denars:denar}.", [
+            (assign, "$temp", reg8),
+            (jump_to_menu, "mnu_tournament_bet_confirm"),
         ]),
-      ("bet_5_denars", [(store_troop_gold, ":gold", "trp_player"),
-                        (ge, ":gold", 5)
-                        ],
-       "5 denars.",
-       [
-         (assign, "$temp", 5),
-         (jump_to_menu, "mnu_tournament_bet_confirm"),
+
+        ("bet_5", [
+            (store_div, reg8, reg7, 16),
+            (ge, reg8, 1),
+            (store_sub, reg9, reg8, 1),
+        ], "{reg8} {reg9?denars:denar}.", [
+            (assign, "$temp", reg8),
+            (jump_to_menu, "mnu_tournament_bet_confirm"),
         ]),
-      ("go_back_dot", [], "Go back.",
-       [
-         (jump_to_menu, "mnu_town_tournament"),
-        ]),
-    ]
-  ),
+
+        ("go_back_dot", [], "Go back.", [(jump_to_menu, "mnu_town_tournament")]),
+    ]),
+  #
+  ## UID: 3 - End
+
+##  @Deprecated
+##
+##  ("tournament_bet", 0, "The odds against you are {reg5} to {reg6}.{reg1? You have already bet {reg1} denars on yourself, and if you win, you will earn {reg2} denars.:} How much do you want to bet?", "none", [
+##      (assign, reg1, "$g_tournament_bet_placed"),
+##      (store_add, reg2, "$g_tournament_bet_win_amount", "$g_tournament_bet_placed"),
+##      (call_script, "script_get_win_amount_for_tournament_bet"),
+##      (assign, ":player_odds", reg0),
+##      (assign, ":min_dif", 100000),
+##      (assign, ":min_dif_divisor", 1),
+##      (assign, ":min_dif_multiplier", 1),
+##      (try_for_range, ":cur_multiplier", 1, 50),
+##        (try_for_range, ":cur_divisor", 1, 50),
+##          (store_mul, ":result", 100, ":cur_multiplier"),
+##          (val_div, ":result", ":cur_divisor"),
+##          (store_sub, ":difference", ":player_odds", ":result"),
+##          (val_abs, ":difference"),
+##          (lt, ":difference", ":min_dif"),
+##          (assign, ":min_dif", ":difference"),
+##          (assign, ":min_dif_divisor", ":cur_divisor"),
+##          (assign, ":min_dif_multiplier", ":cur_multiplier"),
+##        (try_end),
+##      (try_end),
+##      (assign, reg5, ":min_dif_multiplier"),
+##      (assign, reg6, ":min_dif_divisor"),
+##    ], [
+##
+##      ("bet_100_denars", [(store_troop_gold, ":gold", "trp_player"),
+##                          (ge, ":gold", 100)
+##                          ],
+##       "100 denars.",
+##       [
+##         (assign, "$temp", 100),
+##         (jump_to_menu, "mnu_tournament_bet_confirm"),
+##        ]),
+##      ("bet_50_denars", [(store_troop_gold, ":gold", "trp_player"),
+##                         (ge, ":gold", 50)
+##                         ],
+##       "50 denars.",
+##       [
+##         (assign, "$temp", 50),
+##         (jump_to_menu, "mnu_tournament_bet_confirm"),
+##        ]),
+##      ("bet_20_denars", [(store_troop_gold, ":gold", "trp_player"),
+##                         (ge, ":gold", 20)
+##                         ],
+##       "20 denars.",
+##       [
+##         (assign, "$temp", 20),
+##         (jump_to_menu, "mnu_tournament_bet_confirm"),
+##        ]),
+##      ("bet_10_denars", [(store_troop_gold, ":gold", "trp_player"),
+##                         (ge, ":gold", 10)
+##                         ],
+##       "10 denars.",
+##       [
+##         (assign, "$temp", 10),
+##         (jump_to_menu, "mnu_tournament_bet_confirm"),
+##        ]),
+##      ("bet_5_denars", [(store_troop_gold, ":gold", "trp_player"),
+##                        (ge, ":gold", 5)
+##                        ],
+##       "5 denars.",
+##       [
+##         (assign, "$temp", 5),
+##         (jump_to_menu, "mnu_tournament_bet_confirm"),
+##        ]),
+##      ("go_back_dot", [], "Go back.",
+##       [
+##         (jump_to_menu, "mnu_town_tournament"),
+##        ]),
+##    ]
+##  ),
 
   (
     "tournament_bet_confirm",0,

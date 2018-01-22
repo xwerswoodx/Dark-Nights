@@ -24468,21 +24468,38 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
  Everyone beats at each other until there is only one fighter left standing.\
  Sounds like fun, eh?", "arena_training_melee_intro_2",[]],
   [anyone|plyr,"arena_training_melee_intro_2", [(eq, "$arena_reward_asked", 0)], "Is there a reward?", "arena_training_melee_intro_reward",[(assign, "$arena_reward_asked", 1)]],
-  [anyone,"arena_training_melee_intro_reward", [(assign, reg1, arena_tier1_opponents_to_beat),(assign, reg11, arena_tier1_prize),
-      (assign, reg2, arena_tier2_opponents_to_beat),(assign, reg12, arena_tier2_prize),
-      (assign, reg3, arena_tier3_opponents_to_beat),(assign, reg13, arena_tier3_prize),
-      (assign, reg4, arena_tier4_opponents_to_beat),(assign, reg14, arena_tier4_prize),
-      (assign, reg15, arena_grand_prize)
+  [anyone,"arena_training_melee_intro_reward", [
+      ## UID: 8 - Begin
+      #
+##      (assign, reg1, arena_tier1_opponents_to_beat),(assign, reg11, arena_tier1_prize),
+##      (assign, reg2, arena_tier2_opponents_to_beat),(assign, reg12, arena_tier2_prize),
+##      (assign, reg3, arena_tier3_opponents_to_beat),(assign, reg13, arena_tier3_prize),
+##      (assign, reg4, arena_tier4_opponents_to_beat),(assign, reg14, arena_tier4_prize),
+##      (assign, reg15, arena_grand_prize)
+      (assign, reg1, arena_tier1_opponents_to_beat),
+      (assign, reg2, arena_tier2_opponents_to_beat),
+      (assign, reg3, arena_tier3_opponents_to_beat),
+      (assign, reg4, arena_tier4_opponents_to_beat),
+      #
+      ## UID: 8 - End
     ], "There is, actually. Some of the wealthy townsmen offer prizes for those fighters who show great skill in the fights.\
  If you can beat {reg1} opponents before going down, you'll earn {reg11} denars. You'll get {reg12} denars for striking down at least {reg2} opponents,\
  {reg13} denars if you can defeat {reg3} opponents, and {reg14} denars if you can survive long enough to beat {reg4} opponents.\
  If you can manage to be the last {man/fighter} standing, you'll earn the great prize of the fights, {reg15} denars. Sounds good, eh?", "arena_training_melee_intro_2",[(assign, "$arena_tournaments_asked", 1),]],
   [anyone,"arena_training_melee_explain_reward", [
-      (assign, reg1, arena_tier1_opponents_to_beat),(assign, reg11, arena_tier1_prize),
-      (assign, reg2, arena_tier2_opponents_to_beat),(assign, reg12, arena_tier2_prize),
-      (assign, reg3, arena_tier3_opponents_to_beat),(assign, reg13, arena_tier3_prize),
-      (assign, reg4, arena_tier4_opponents_to_beat),(assign, reg14, arena_tier4_prize),
-      (assign, reg15, arena_grand_prize)
+      ## UID: 8 - Begin
+      #
+##      (assign, reg1, arena_tier1_opponents_to_beat),(assign, reg11, arena_tier1_prize),
+##      (assign, reg2, arena_tier2_opponents_to_beat),(assign, reg12, arena_tier2_prize),
+##      (assign, reg3, arena_tier3_opponents_to_beat),(assign, reg13, arena_tier3_prize),
+##      (assign, reg4, arena_tier4_opponents_to_beat),(assign, reg14, arena_tier4_prize),
+##      (assign, reg15, arena_grand_prize)
+      (assign, reg1, arena_tier1_opponents_to_beat),
+      (assign, reg2, arena_tier2_opponents_to_beat),
+      (assign, reg3, arena_tier3_opponents_to_beat),
+      (assign, reg4, arena_tier4_opponents_to_beat),
+      #
+      ## UID: 8 - End
       ], "Some of the wealthy townsmen offer prizes for those fighters who show great skill in the fights.\
  If you can beat {reg1} opponents before going down, you'll earn {reg11} denars. You'll get {reg12} denars for striking down at least {reg2} opponents,\
  {reg13} denars if you can defeat {reg3} opponents, and {reg14} denars if you can survive long enough to beat {reg4} opponents.\
@@ -24497,6 +24514,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                      (eq,"$g_talk_troop_met", 0),
                      ],
    "Hello. You seem to be new here. Care to share your name?", "arena_master_intro_1",[]],
+
   [anyone|plyr,"arena_master_intro_1", [], "I am {playername}.", "arena_master_intro_2",[]],
   [anyone,"arena_master_intro_2", [(store_encountered_party,reg(2)),(str_store_party_name,1,reg(2))],
    "Well met {playername}. I am the master of the tournaments here at {s1}. Talk to me if you want to join the fights.", "arena_master_pre_talk",[]],
@@ -24525,65 +24543,130 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
    "Hey, you managed to take down {reg8} opponents. Not bad. But that won't bring you any prize money.\
  Now, if I were you, I would go back there and show everyone what I can do...", "arena_master_pre_talk",[(assign, "$last_training_fight_town", -1)]],
 
-  [anyone ,"arena_master_fight_result",
-   [
-     (eq, "$g_arena_training_won", 0),
-     (lt, "$g_arena_training_kills", arena_tier2_opponents_to_beat),
-     (assign, reg8, "$g_arena_training_kills"),
-     (assign, reg10, arena_tier1_prize),
-     ],
-   "You put up quite a good fight there. Good moves. You definitely show promise.\
- And you earned a prize of {reg10} denars for knocking down {reg8} opponents.", "arena_master_pre_talk",[
-     (call_script, "script_troop_add_gold", "trp_player", arena_tier1_prize),
-     (add_xp_to_troop,5,"trp_player"),
-     (assign, "$last_training_fight_town", -1)]],
+  ## UID: 8 - Begin
+  #
+  [anyone ,"arena_master_fight_result", [
+      (eq, "$g_arena_training_won", 0),
+      (lt, "$g_arena_training_kills", arena_tier2_opponents_to_beat),
+      (assign, reg8, "$g_arena_training_kills"),
+      (call_script, "script_get_arena_reward"),
+      (assign, reg10, reg11),
+    ], "You put up quite a good fight there. Good moves. You definitely show promise.\
+ And you earned a prize of {reg10} denars for knocking down {reg8} opponents.", "arena_master_pre_talk", [
+      (call_script, "script_troop_add_gold", "trp_player", reg10),
+      (add_xp_to_troop, reg8, "trp_player"),
+      (assign, "$last_training_fight_town", -1)
+    ]],
 
-  [anyone ,"arena_master_fight_result",
-   [
-     (eq, "$g_arena_training_won", 0),
-     (lt, "$g_arena_training_kills", arena_tier3_opponents_to_beat),
-     (assign, reg8, "$g_arena_training_kills"),
-     (assign, reg10, arena_tier2_prize),
-     (assign, reg12, arena_tier2_opponents_to_beat),
-     ],
-   "That was a good fight you put up there. You managed to take down no less than {reg8} opponents.\
- And of course, you earned a prize money of {reg10} denars.", "arena_master_pre_talk",[
-     (call_script, "script_troop_add_gold", "trp_player", arena_tier2_prize),
-     (add_xp_to_troop,10,"trp_player"),
-     (assign, "$last_training_fight_town", -1)]],
+  [anyone ,"arena_master_fight_result", [
+      (eq, "$g_arena_training_won", 0),
+      (lt, "$g_arena_training_kills", arena_tier3_opponents_to_beat),
+      (assign, reg8, "$g_arena_training_kills"),
+      (call_script, "script_get_arena_reward"),
+      (assign, reg10, reg12),
+    ], "That was a good fight you put up there. You managed to take down no less than {reg8} opponents.\
+ And of course, you earned a prize money of {reg10} denars.", "arena_master_pre_talk", [
+      (call_script, "script_troop_add_gold", "trp_player", reg10),
+      (add_xp_to_troop, reg8, "trp_player"),
+      (assign, "$last_training_fight_town", -1)
+    ]],
 
-  [anyone ,"arena_master_fight_result",
-   [
-     (eq, "$g_arena_training_won", 0),
-     (lt, "$g_arena_training_kills", arena_tier4_opponents_to_beat),
-     (assign, reg8, "$g_arena_training_kills"),
-     (assign, reg10, arena_tier3_prize)
-     ],
-   "Your performance was amazing! You are without doubt a very skilled fighter.\
- Not everyone can knock down {reg8} people in the fights. Of course you deserve a prize with that performance: {reg10} denars. Nice, eh?", "arena_master_pre_talk",[
-     (call_script, "script_troop_add_gold", "trp_player", arena_tier3_prize),
-     (add_xp_to_troop,10,"trp_player"),
-     (assign, "$last_training_fight_town", -1)]],
+  [anyone ,"arena_master_fight_result", [
+      (eq, "$g_arena_training_won", 0),
+      (lt, "$g_arena_training_kills", arena_tier4_opponents_to_beat),
+      (assign, reg8, "$g_arena_training_kills"),
+      (call_script, "script_get_arena_reward"),
+      (assign, reg10, reg13),
+    ], "Your performance was amazing! You are without doubt a very skilled fighter.\
+ Not everyone can knock down {reg8} people in the fights. Of course you deserve a prize with that performance: {reg10} denars. Nice, eh?", "arena_master_pre_talk", [
+      (call_script, "script_troop_add_gold", "trp_player", reg10),
+      (add_xp_to_troop, reg8, "trp_player"),
+      (assign, "$last_training_fight_town", -1)
+    ]],
 
-  [anyone ,"arena_master_fight_result",
-   [
-     (eq, "$g_arena_training_won", 0),
-     (assign, reg8, "$g_arena_training_kills"),
-     (assign, reg10, arena_tier4_prize),
-     ],
-   "That was damned good fighting, {playername}. You have very good moves, excellent tactics.\
- And you earned a prize of {reg10} denars for knocking down {reg8} opponents.", "arena_master_pre_talk",
-   [
-     (call_script, "script_troop_add_gold", "trp_player", arena_tier4_prize),
-     (add_xp_to_troop,10,"trp_player"),
-     (assign, "$last_training_fight_town", -1),
-     ]],
+  [anyone ,"arena_master_fight_result", [
+      (eq, "$g_arena_training_won", 0),
+      (assign, reg8, "$g_arena_training_kills"),
+      (call_script, "script_get_arena_reward"),
+      (assign, reg10, reg14),
+    ], "That was damned good fighting, {playername}. You have very good moves, excellent tactics.\
+ And you earned a prize of {reg10} denars for knocking down {reg8} opponents.", "arena_master_pre_talk", [
+      (call_script, "script_troop_add_gold", "trp_player", reg10),
+      (add_xp_to_troop, reg8, "trp_player"),
+      (assign, "$last_training_fight_town", -1)
+    ]],
 
-  [anyone ,"arena_master_fight_result", [(assign, reg10, arena_grand_prize)],
-   "Congratulations champion! Your fight there was something to remember! You managed to be the last fighter standing beating down everyone else. And of course you won the grand prize of the fights: {reg10} denars.", "arena_master_pre_talk",[
-     (call_script, "script_troop_add_gold", "trp_player", arena_grand_prize),
-     (add_xp_to_troop,200,"trp_player"),
-     (assign, "$last_training_fight_town", -1)]],
+  [anyone ,"arena_master_fight_result", [
+      (call_script, "script_get_arena_reward"),
+      (assign, reg10, reg15),
+    ], "Congratulations champion! Your fight there was something to remember! You managed to be the last fighter standing beating down everyone else.\
+ And of course you won the grand prize of the fights: {reg10} denars.", "arena_master_pre_talk", [
+      (call_script, "script_troop_add_gold", "trp_player", reg10),
+      (add_xp_to_troop, 200, "trp_player"),
+      (assign, "$last_training_fight_town", -1)
+    ]],
+  #
+  ## UID: 8 - End
+
+##  [anyone ,"arena_master_fight_result",
+##   [
+##     (eq, "$g_arena_training_won", 0),
+##     (lt, "$g_arena_training_kills", arena_tier2_opponents_to_beat),
+##     (assign, reg8, "$g_arena_training_kills"),
+##     (assign, reg10, arena_tier1_prize),
+##     ],
+##   "You put up quite a good fight there. Good moves. You definitely show promise.\
+## And you earned a prize of {reg10} denars for knocking down {reg8} opponents.", "arena_master_pre_talk",[
+##     (call_script, "script_troop_add_gold", "trp_player", arena_tier1_prize),
+##     (add_xp_to_troop,5,"trp_player"),
+##     (assign, "$last_training_fight_town", -1)]],
+##
+##  [anyone ,"arena_master_fight_result",
+##   [
+##     (eq, "$g_arena_training_won", 0),
+##     (lt, "$g_arena_training_kills", arena_tier3_opponents_to_beat),
+##     (assign, reg8, "$g_arena_training_kills"),
+##     (assign, reg10, arena_tier2_prize),
+##     (assign, reg12, arena_tier2_opponents_to_beat),
+##     ],
+##   "That was a good fight you put up there. You managed to take down no less than {reg8} opponents.\
+## And of course, you earned a prize money of {reg10} denars.", "arena_master_pre_talk",[
+##     (call_script, "script_troop_add_gold", "trp_player", arena_tier2_prize),
+##     (add_xp_to_troop,10,"trp_player"),
+##     (assign, "$last_training_fight_town", -1)]],
+##
+##  [anyone ,"arena_master_fight_result",
+##   [
+##     (eq, "$g_arena_training_won", 0),
+##     (lt, "$g_arena_training_kills", arena_tier4_opponents_to_beat),
+##     (assign, reg8, "$g_arena_training_kills"),
+##     (assign, reg10, arena_tier3_prize)
+##     ],
+##   "Your performance was amazing! You are without doubt a very skilled fighter.\
+## Not everyone can knock down {reg8} people in the fights. Of course you deserve a prize with that performance: {reg10} denars. Nice, eh?", "arena_master_pre_talk",[
+##     (call_script, "script_troop_add_gold", "trp_player", arena_tier3_prize),
+##     (add_xp_to_troop,10,"trp_player"),
+##     (assign, "$last_training_fight_town", -1)]],
+##
+##  [anyone ,"arena_master_fight_result",
+##   [
+##     (eq, "$g_arena_training_won", 0),
+##     (assign, reg8, "$g_arena_training_kills"),
+##     (assign, reg10, arena_tier4_prize),
+##     ],
+##   "That was damned good fighting, {playername}. You have very good moves, excellent tactics.\
+## And you earned a prize of {reg10} denars for knocking down {reg8} opponents.", "arena_master_pre_talk",
+##   [
+##     (call_script, "script_troop_add_gold", "trp_player", arena_tier4_prize),
+##     (add_xp_to_troop,10,"trp_player"),
+##     (assign, "$last_training_fight_town", -1),
+##     ]],
+##
+##  [anyone ,"arena_master_fight_result", [(assign, reg10, arena_grand_prize)],
+##   "Congratulations champion! Your fight there was something to remember! You managed to be the last fighter standing beating down everyone else. And of course you won the grand prize of the fights: {reg10} denars.", "arena_master_pre_talk",[
+##     (call_script, "script_troop_add_gold", "trp_player", arena_grand_prize),
+##     (add_xp_to_troop,200,"trp_player"),
+##     (assign, "$last_training_fight_town", -1)]],
 
 
   [anyone ,"start", [(store_conversation_troop,reg(1)),(is_between,reg(1),arena_masters_begin,arena_masters_end)],

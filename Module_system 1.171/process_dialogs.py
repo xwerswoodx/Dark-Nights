@@ -161,6 +161,12 @@ def create_auto_id2(sentence,auto_ids):
  
 def save_sentences(variable_list,variable_uses,sentences,tag_uses,quick_strings,input_states,output_states):
   file = open(export_dir + "conversation.txt","w")
+  ## UID: 6 - Begin
+  #
+  langFile = open(language_dir + "dialog.csv", "w")
+  #
+  ## UID: 6 - End
+  
   file.write("dialogsfile version 2\n")
   file.write("%d\n"%len(sentences))
   # Create an empty dictionary
@@ -170,11 +176,21 @@ def save_sentences(variable_list,variable_uses,sentences,tag_uses,quick_strings,
     try:
       dialog_id = create_auto_id2(sentence,auto_ids)
       file.write("%s %d %d "%(dialog_id,sentence[speaker_pos],input_states[i]))
+      ## UID: 6 - Begin
+      #
+      langFile.write("%s|%s"%(dialog_id, sentence[text_pos]))
+      #
+      ## UID: 6 - End
       save_statement_block(file, 0, 1, sentence[sentence_conditions_pos], variable_list,variable_uses,tag_uses,quick_strings)
 
       file.write("%s "%(string.replace(sentence[text_pos]," ","_")))
       if (len(sentence[text_pos]) == 0):
         file.write("NO_TEXT ")
+        ## UID: 6 - Begin
+        #
+        langFile.write("NO_TEXT")
+        #
+        ## UID: 6 - End
       file.write(" %d "%(output_states[i]))
       save_statement_block(file, 0, 1, sentence[sentence_consequences_pos], variable_list,variable_uses,tag_uses,quick_strings)
       if (len(sentence) > sentence_voice_over_pos):
@@ -182,10 +198,20 @@ def save_sentences(variable_list,variable_uses,sentences,tag_uses,quick_strings,
       else:
         file.write("NO_VOICEOVER ")
       file.write("\n")
+      ## UID: 6 - Begin
+      #
+      langFile.write("\n")
+      #
+      ## UID: 6 - End
     except:
       print "Error in dialog line:"
       print sentence
   file.close()
+  ## UID: 6 - Begin
+  #
+  langFile.close()
+  #
+  ## UID: 6 - End
 
 # Registered cookies is a list which enables the order of cookies to remain fixed across changes.
 # In order to remove cookies not used anymore, edit the cookies_registery.py and remove all entries.

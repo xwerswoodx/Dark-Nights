@@ -30,7 +30,6 @@ def save_python_header():
   file.write("\n\n")
   file.close()
 
-
 print "Exporting scripts..."
 save_python_header()
 variable_uses = []
