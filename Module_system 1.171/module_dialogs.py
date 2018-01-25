@@ -17157,45 +17157,31 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
    ]],
   
 
-  [anyone|plyr,"lady_talk",
-   [
-	 (troop_slot_eq, "$g_talk_troop", slot_troop_met, 2),
-	 (eq, "$g_time_to_spare", 1),
-	 (eq, "$talk_context", tc_courtship),
-     ],
-   "Do you like poetry, my lady?", "lady_recite_poetry",[
-	 (assign, "$g_time_to_spare", 0),
-   ]],
+  [anyone|plyr,"lady_talk", [
+      (troop_slot_eq, "$g_talk_troop", slot_troop_met, 2),
+      (eq, "$g_time_to_spare", 1),
+      (eq, "$talk_context", tc_courtship),
+    ], "Do you like poetry, my lady?", "lady_recite_poetry",[
+        (assign, "$g_time_to_spare", 0),
+    ]],
 
-  [anyone,"lady_recite_poetry", [
-  ],
-   "That would depend on the poem. Did you intend to recite a verse?", "lady_recite_poetry",
-   []],
+  [anyone,"lady_recite_poetry", [], "That would depend on the poem. Did you intend to recite a verse?", "lady_recite_poetry", []],
+   
+  [anyone|plyr,"lady_recite_poetry", [
+      (gt, "$tragic_poem_recitations", 0),
+      (troop_slot_eq, "$g_talk_troop", slot_lady_courtship_tragic_recited, 0),
+    ], "The wind that blows the dry steppe dust...", "lady_recite_poetry_response",[
+        (assign, "$poem_selected", courtship_poem_tragic),
+        (troop_set_slot, "$g_talk_troop", slot_lady_courtship_tragic_recited, 1),
+    ]],
 
-   
-  [anyone|plyr,"lady_recite_poetry",
-   [
-	 (gt, "$tragic_poem_recitations", 0),
-	 (troop_slot_eq, "$g_talk_troop", slot_lady_courtship_tragic_recited, 0),
-	 
-     ],
-   "The wind that blows the dry steppe dust...", "lady_recite_poetry_response",[
-   (assign, "$poem_selected", courtship_poem_tragic),
-   (troop_set_slot, "$g_talk_troop", slot_lady_courtship_tragic_recited, 1),
-
-   ]],
-   
-  [anyone|plyr,"lady_recite_poetry",
-   [
-	 (gt, "$comic_poem_recitations", 0),
-	 (troop_slot_eq, "$g_talk_troop", slot_lady_courtship_comic_recited, 0),
-	 
-     ],
-   "All the silks of Veluca/All the furs of Khudan...", "lady_recite_poetry_response",[
-   (assign, "$poem_selected", courtship_poem_comic),
-   (troop_set_slot, "$g_talk_troop", slot_lady_courtship_comic_recited, 1),
-   
-   ]],
+  [anyone|plyr,"lady_recite_poetry", [
+      (gt, "$comic_poem_recitations", 0),
+      (troop_slot_eq, "$g_talk_troop", slot_lady_courtship_comic_recited, 0),
+    ], "All the silks of Veluca/All the furs of Khudan...", "lady_recite_poetry_response",[
+        (assign, "$poem_selected", courtship_poem_comic),
+        (troop_set_slot, "$g_talk_troop", slot_lady_courtship_comic_recited, 1),
+    ]],
    
   [anyone|plyr,"lady_recite_poetry",
    [
@@ -17243,22 +17229,75 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
     (assign, ":reaction", reg0),
 	(call_script, "script_troop_change_relation_with_troop", "$g_talk_troop", "trp_player", ":reaction"),
     (call_script, "script_courtship_poem_reactions", "$g_talk_troop", "$poem_selected"), #this needs to be twice, as the above resets s11
-   ]],  
+   ]],
 
-   [anyone,"lady_private_conversation_end",
-	[
-	(str_clear, s11),
-	(try_begin),
-		(call_script, "script_troop_get_relation_with_troop", "$g_talk_troop", "trp_player"),
-		(gt, reg0, 0),
-		(str_store_string, s11, "str__do_come_and_see_me_again_soon"),
-	(try_end),
-	],
-	"Time is passing quickly, and we cannot linger here too long.", "lady_pretalk",
-	[
-	(assign, "$g_time_to_spare", 0),
-	]],
+  ## UID: 16 - Begin
+  #
+  [anyone|plyr, "lady_talk", [
+      (troop_slot_eq, "$g_talk_troop", slot_troop_met, 2),
+      (eq, "$talk_context", tc_courtship),
+      (store_current_hours,":cur_hours"),
+      (val_sub, ":cur_hours", 24),
+      (this_or_next|gt, ":cur_hours", "$g_time_to_gift"),
+      (             eq, "$cheat_mode", 1),
+    ], "I have a gift for you.", "lady_talk_gift", []],
 
+  [anyone, "lady_talk_gift", [], "This is so kind my lord. It's my honor to accept your gift?", "lady_talk_gifting", []],
+
+  [anyone|plyr|repeat_for_100, "lady_talk_gifting", [
+      (store_repeat_object, ":gift"),
+      (val_add, ":gift", gifts_begin),
+      (is_between, ":gift", gifts_begin, gifts_end),
+      (neq, ":gift", "itm_iron"),
+      (neq, ":gift", "itm_tools"),
+      (player_has_item, ":gift"),
+      (str_store_item_name, s5, ":gift"),
+    ], "{s5}.", "lady_talk_give_gift", [
+        (store_repeat_object, "$g_gift_no"),
+        (val_add, "$g_gift_no", gifts_begin),
+    ]],
+  
+  [anyone|plyr, "lady_talk_gifting", [], "Forget it.", "lady_pretalk", []],
+
+  [anyone, "lady_talk_give_gift", [(player_has_item, "$g_gift_no")], "Ah, a {s15}, this is {s16} gift my lord.", "lady_private_conversation_end", [
+      (str_store_item_name, s15, "$g_gift_no"),
+      (store_item_value, ":price", "$g_gift_no"),
+      (val_div, ":price", 400),
+      (val_add, ":price", 1),
+
+      (try_begin),
+          (eq, ":price", 1),
+          (str_store_string, s16, "@a very nice"),
+      (else_try),
+          (eq, ":price", 2),
+          (str_store_string, s16, "@a very good"),
+      (else_try),
+          (ge, ":price", 3),
+          (str_store_string, s16, "@a very special"),
+      (try_end),
+      
+      (troop_remove_item, "trp_player", "$g_gift_no"),
+      (call_script, "script_troop_change_relation_with_troop", "$g_talk_troop", "trp_player", ":price"),
+      (store_current_hours, ":cur_hours"),
+      (assign, "$g_time_to_gift", ":cur_hours"),
+    ]],
+
+  [anyone, "lady_talk_give_gift", [(neg|player_has_item, "$g_gift_no")], "It could be very nice to get a gift from you my lord. But seems like you have changed your mind.", "lady_private_conversation_end", [
+      (call_script, "script_troop_change_relation_with_troop", "$g_talk_troop", "trp_player", -3),
+      (store_current_hours, ":hour"),
+      (assign, "$g_time_to_gift", ":hour"),
+    ]],
+  #
+  ## UID: 16 - End
+
+  [anyone,"lady_private_conversation_end", [
+      (str_clear, s11),
+      (try_begin),
+        (call_script, "script_troop_get_relation_with_troop", "$g_talk_troop", "trp_player"),
+        (gt, reg0, 0),
+        (str_store_string, s11, "str__do_come_and_see_me_again_soon"),
+      (try_end),
+    ], "Time is passing quickly, and we cannot linger here too long.", "lady_pretalk", [(assign, "$g_time_to_spare", 0)]],
 	
   [anyone|plyr,"lady_talk",
     [
@@ -24480,6 +24519,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
       (assign, reg2, arena_tier2_opponents_to_beat),
       (assign, reg3, arena_tier3_opponents_to_beat),
       (assign, reg4, arena_tier4_opponents_to_beat),
+      (call_script, "script_get_arena_reward"),
       #
       ## UID: 8 - End
     ], "There is, actually. Some of the wealthy townsmen offer prizes for those fighters who show great skill in the fights.\
@@ -24498,6 +24538,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
       (assign, reg2, arena_tier2_opponents_to_beat),
       (assign, reg3, arena_tier3_opponents_to_beat),
       (assign, reg4, arena_tier4_opponents_to_beat),
+      (call_script, "script_get_arena_reward"),
       #
       ## UID: 8 - End
       ], "Some of the wealthy townsmen offer prizes for those fighters who show great skill in the fights.\

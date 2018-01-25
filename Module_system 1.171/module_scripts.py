@@ -4491,28 +4491,42 @@ scripts = [
       (set_result_string, s1),
   ]),
 
-  #script_game_get_party_companion_limit:
+  ## UID: 19 - Begin
+  #
+  # script_game_get_party_companion_limit:
   # This script is called from the game engine when the companion limit is needed for a party.
   # INPUT: arg1 = none
   # OUTPUT: reg0 = companion_limit
-  ("game_get_party_companion_limit",
-    [
+  ("game_get_party_companion_limit", [
       (assign, ":troop_no", "trp_player"),
 
-      (assign, ":limit", 30),
-      (store_skill_level, ":skill", "skl_leadership", ":troop_no"),
-      (store_attribute_level, ":charisma", ":troop_no", ca_charisma),
-      (val_mul, ":skill", 5),
-      (val_add, ":limit", ":skill"),
-      (val_add, ":limit", ":charisma"),
+      (assign, ":limit", party_size_base),
+      (store_character_level, ":level", "trp_player"),
+      (val_mul, ":level", party_size_per_level),
+      (val_add, ":limit", ":level"),
 
-      (troop_get_slot, ":troop_renown", ":troop_no", slot_troop_renown),
-      (store_div, ":renown_bonus", ":troop_renown", 25),
-      (val_add, ":limit", ":renown_bonus"),
+      (store_attribute_level, ":charisma", ":troop_no", ca_charisma),
+      (val_add, ":limit", ":charisma"),
+      
+      (store_skill_level, ":skill", "skl_leadership", ":troop_no"),
+      (val_mul, ":skill", party_size_per_skill),
+      (val_add, ":limit", ":skill"),
+
+      (troop_get_slot, ":renown", ":troop_no", slot_troop_renown),
+      (val_div, ":renown", party_size_renown),
+      (val_add, ":limit", ":renown"),
+
+      (try_begin),
+          (eq, party_size_without_level, 0),
+          (eq, ":skill", 0),
+          (assign, ":limit", 0),
+      (try_end),
 
       (assign, reg0, ":limit"),
       (set_trigger_result, reg0),
   ]),
+  #
+  ## UID: 19 - End
 
 
   #script_game_reset_player_party_name:
@@ -13818,21 +13832,40 @@ scripts = [
   ]),
 
 
-  #script_game_get_party_prisoner_limit:
+  ## UID: 19 - Begin
+  #
+  # script_game_get_party_prisoner_limit:
   # This script is called from the game engine when the prisoner limit is needed for a party.
   # INPUT: arg1 = party_no
   # OUTPUT: reg0 = prisoner_limit
-  ("game_get_party_prisoner_limit",
-    [
-#      (store_script_param_1, ":party_no"),
+  ("game_get_party_prisoner_limit", [
       (assign, ":troop_no", "trp_player"),
-
-      (assign, ":limit", 0),
+      (assign, ":limit", party_prisoner_base),
+      
+      (store_character_level, ":level", "trp_player"),
+      (val_mul, ":level", party_prisoner_per_level),
+      (val_add, ":limit", ":level"),
+      
       (store_skill_level, ":skill", "skl_prisoner_management", ":troop_no"),
-      (store_mul, ":limit", ":skill", 5),
+      (val_mul, ":skill", party_prisoner_per_skill),
+      (val_add, ":limit", ":skill"),
+
+      (troop_get_slot, ":renown", ":troop_no", slot_troop_renown),
+      (val_div, ":renown", party_prisoner_renown),
+      (val_add, ":limit", ":renown"),
+
+      (try_begin),
+          (eq, party_prisoner_without_level, 0),
+          (eq, ":skill", 0),
+          (assign, ":limit", 0),
+      (try_end),
+
       (assign, reg0, ":limit"),
       (set_trigger_result, reg0),
   ]),
+  #
+  ## UID: 19 - End
+
 
   #script_game_get_item_extra_text:
   # This script is called from the game engine when an item's properties are displayed.
@@ -50899,12 +50932,24 @@ scripts = [
   # reg15: tier5
   ("get_arena_reward", [
       (troop_get_slot, ":renown", "trp_player", slot_troop_renown),
-      (val_div, ":renown", 5),
+      (val_div, ":renown", 10),
       (assign, reg11, arena_tier1_prize),
       (assign, reg12, arena_tier2_prize),
       (assign, reg13, arena_tier3_prize),
       (assign, reg14, arena_tier4_prize),
       (assign, reg15, arena_grand_prize),
+
+      (store_character_level, ":level", "trp_player"),
+      (val_mul, reg11, ":level"),
+      (val_div, reg11, 100),
+      (val_mul, reg12, ":level"),
+      (val_div, reg12, 100),
+      (val_mul, reg13, ":level"),
+      (val_div, reg13, 100),
+      (val_mul, reg14, ":level"),
+      (val_div, reg14, 100),
+      (val_mul, reg15, ":level"),
+      (val_div, reg15, 100),
 
       (val_add, reg15, ":renown"),
       (store_div, ":add", ":renown", 2),
@@ -51013,6 +51058,8 @@ scripts = [
   # reg0: Price of improvement
   # reg1: Maximum level of improvement
   # reg2: Construction time of improvement
+  # reg3: Required improvement
+  # reg4: Required improvement level (set to max level if this value is higher than max or less or equals to 0)
   ("get_improvement_detail_new", [
       (call_script, "script_get_max_skill_of_player_party", "skl_engineer"),
       (assign, ":max", reg0),
@@ -51021,6 +51068,8 @@ scripts = [
       (assign, reg0, 0),
       (assign, reg1, 3),
       (assign, reg2, 0),
+      (assign, reg3, 0),
+      (assign, reg4, 0),
 
       (try_begin),
         (eq, ":improvement_no", slot_center_building_manor),
@@ -51039,12 +51088,7 @@ scripts = [
         (str_store_string, s1, "@A watch tower lets the villagers raise alarm earlier. The time it takes for enemies to loot the village increases by 50%."),
         (assign, reg0, 5000),
         (assign, reg1, 1),
-      (else_try),
-        (eq, ":improvement_no", slot_center_building_school),
-        (str_store_string, s0, "@School"),
-        (str_store_string, s1, "@A shool increases the loyality of the villagers to you by +1 every month."),
-        (assign, reg0, 9000),
-        (assign, reg1, 1),
+--
       (else_try),
         (eq, ":improvement_no", slot_center_building_messenger_post),
         (str_store_string, s0, "@Messenger Post"),
@@ -51093,11 +51137,13 @@ scripts = [
         (str_store_string, s0, "@Farm"),
         (str_store_string, s1, "@A farm increases center prosperity by 7%."),
         (assign, reg0, 6000),
+        (assign, reg3, slot_center_building_mill),
       (else_try),
         (eq, ":improvement_no", slot_center_building_mill),
         (str_store_string, s0, "@Mill"),
         (str_store_string, s1, "@A mill increases center prosperity by 6%."),
         (assign, reg0, 5000),
+        (assign, reg3, slot_center_building_fish_pond),
       (else_try),
         (eq, ":improvement_no", slot_center_building_statue),
         (str_store_string, s0, "@Statue"),
@@ -51108,21 +51154,27 @@ scripts = [
         (str_store_string, s0, "@School"),
         (str_store_string, s1, "@A school increases the loyality of the people to you by 2 every month."),
         (assign, reg0, 5000),
+        (assign, reg1, 1),
       (else_try),
         (eq, ":improvement_no", slot_center_building_college),
         (str_store_string, s0, "@College"),
         (str_store_string, s1, "@A college increases the loyality of the people to you by 4 every month."),
         (assign, reg0, 9000),
+        (assign, reg1, 1),
+        (assign, reg3, slot_center_building_school),
       (else_try),
         (eq, ":improvement_no", slot_center_building_university),
         (str_store_string, s0, "@University"),
         (str_store_string, s1, "@A university increases the loyality of the people to you by 6 every month."),
         (assign, reg0, 9000),
+        (assign, reg1, 1),
+        (assign, reg3, slot_center_building_college),
       (else_try),
         (eq, ":improvement_no", slot_center_building_workshop),
         (str_store_string, s0, "@Workshop"),
         (str_store_string, s1, "@Unknown"),
         (assign, reg0, 0),
+        (assign, reg3, slot_center_building_barracks),
       (else_try),
         (eq, ":improvement_no", slot_center_building_religion),
         (try_begin),
@@ -51162,6 +51214,8 @@ scripts = [
       (call_script, "script_get_improvement_detail_new", ":improvement"),
       (assign, ":price", reg0),
       (assign, ":max", reg1),
+      (assign, ":req", reg3),
+      (assign, ":reqLevel", reg4),
 
       (assign, reg10, 0),
       (try_begin),
@@ -51186,47 +51240,64 @@ scripts = [
         (try_end),
 
         (eq, reg10, 1),
+        (ge, ":req", 1),
         (try_begin),
-          (eq, ":improvement", slot_center_building_college),
-          (call_script, "script_get_improvement_detail_new", slot_center_building_school),
-          (party_slot_ge, ":center", slot_center_building_school, reg1),
+          (call_script, "script_get_improvement_detail_new", ":req"),
+
+          (assign, ":maxLevel", reg1),
+          (try_begin),
+            (le, ":reqLevel", 0),
+            (assign, ":reqLevel", ":maxLevel"),
+          (try_end),
+          (val_min, ":reqLevel", ":maxLevel"),
+
+          (party_slot_ge, ":center", ":req", ":reqLevel"),
           (assign, reg10, 1),
         (else_try),
-          (eq, ":improvement", slot_center_building_college),
-          (assign, reg10, 0),
-        (else_try),
-          (eq, ":improvement", slot_center_building_university),
-          (call_script, "script_get_improvement_detail_new", slot_center_building_college),
-          (party_slot_ge, ":center", slot_center_building_college, reg1),
-          (assign, reg10, 1),
-        (else_try),
-          (eq, ":improvement", slot_center_building_university),
-          (assign, reg10, 0),
-        (else_try),
-          (eq, ":improvement", slot_center_building_mill),
-          (call_script, "script_get_improvement_detail_new", slot_center_building_fish_pond),
-          (party_slot_ge, ":center", slot_center_building_fish_pond, reg1),
-          (assign, reg10, 1),
-        (else_try),
-          (eq, ":improvement", slot_center_building_mill),
-          (assign, reg10, 0),
-        (else_try),
-          (eq, ":improvement", slot_center_building_farm),
-          (call_script, "script_get_improvement_detail_new", slot_center_building_mill),
-          (party_slot_ge, ":center", slot_center_building_mill, reg1),
-          (assign, reg10, 1),
-        (else_try),
-          (eq, ":improvement", slot_center_building_farm),
-          (assign, reg10, 0),
-        (else_try),
-          (eq, ":improvement", slot_center_building_workshop),
-          (call_script, "script_get_improvement_detail_new", slot_center_building_barracks),
-          (party_slot_ge, ":center", slot_center_building_barracks, reg1),
-          (assign, reg10, 1),
-        (else_try),
-          (eq, ":improvement", slot_center_building_workshop),
           (assign, reg10, 0),
         (try_end),
+
+##        (try_begin),
+##          (eq, ":improvement", slot_center_building_college),
+##          (call_script, "script_get_improvement_detail_new", slot_center_building_school),
+##          (party_slot_ge, ":center", slot_center_building_school, reg1),
+##          (assign, reg10, 1),
+##        (else_try),
+##          (eq, ":improvement", slot_center_building_college),
+##          (assign, reg10, 0),
+##        (else_try),
+##          (eq, ":improvement", slot_center_building_university),
+##          (call_script, "script_get_improvement_detail_new", slot_center_building_college),
+##          (party_slot_ge, ":center", slot_center_building_college, reg1),
+##          (assign, reg10, 1),
+##        (else_try),
+##          (eq, ":improvement", slot_center_building_university),
+##          (assign, reg10, 0),
+##        (else_try),
+##          (eq, ":improvement", slot_center_building_mill),
+##          (call_script, "script_get_improvement_detail_new", slot_center_building_fish_pond),
+##          (party_slot_ge, ":center", slot_center_building_fish_pond, reg1),
+##          (assign, reg10, 1),
+##        (else_try),
+##          (eq, ":improvement", slot_center_building_mill),
+##          (assign, reg10, 0),
+##        (else_try),
+##          (eq, ":improvement", slot_center_building_farm),
+##          (call_script, "script_get_improvement_detail_new", slot_center_building_mill),
+##          (party_slot_ge, ":center", slot_center_building_mill, reg1),
+##          (assign, reg10, 1),
+##        (else_try),
+##          (eq, ":improvement", slot_center_building_farm),
+##          (assign, reg10, 0),
+##        (else_try),
+##          (eq, ":improvement", slot_center_building_workshop),
+##          (call_script, "script_get_improvement_detail_new", slot_center_building_barracks),
+##          (party_slot_ge, ":center", slot_center_building_barracks, reg1),
+##          (assign, reg10, 1),
+##        (else_try),
+##          (eq, ":improvement", slot_center_building_workshop),
+##          (assign, reg10, 0),
+##        (try_end),
   
         (try_begin),
           (ge, ":checkWithMoney", 1),

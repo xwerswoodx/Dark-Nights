@@ -580,6 +580,13 @@ slot_town_near_shore = 700
 #
 ## UID: 10 - End
 
+## UID: 16 - Begin
+#
+gifts_begin = "itm_pottery"
+gifts_end = "itm_raw_date_fruit"
+#
+## UID: 16 - End
+
 #slot_party_type values
 ##spt_caravan            = 1
 spt_castle             = 2
@@ -1834,6 +1841,22 @@ arena_grand_prize = 500
 ##arena_tier4_prize = 60
 ##arena_grand_prize = 250
 
+## UID: 19 - Begin
+#
+#Party size
+party_size_base = 50
+party_size_per_level = 2
+party_size_per_skill = 50
+party_size_renown = 20
+party_size_without_level = 1
+
+party_prisoner_base = 25
+party_prisoner_per_level = 1
+party_prisoner_per_skill = 25
+party_prisoner_renown = 50
+party_prisoner_without_level = 0
+#
+## UID: 19 - End
 
 #Additions
 price_adjustment = 25 #the percent by which a trade at a center alters price

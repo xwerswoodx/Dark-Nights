@@ -45,9 +45,9 @@ game_menus = [
        ## UID: 14 - Begin
        #
        ("modder", [], "Module Editor Start", [
-           (try_for_range, ":skill", 0, 42),
-             (troop_raise_skill, "trp_player", ":skill", 5),
-           (try_end),
+##           (try_for_range, ":skill", 0, 42),
+##             (troop_raise_skill, "trp_player", ":skill", 5),
+##           (try_end),
 ##           (try_for_range, ":wpt", 0, 7),
 ##             (troop_raise_proficiency, "trp_player", ":wpt", 400),
 ##           (try_end),
@@ -67,6 +67,7 @@ game_menus = [
            (troop_add_item, "trp_player", "itm_smoked_fish", 0),
            (assign, "$town_entered", 1),
            (assign, "$current_town", "p_town_1"),
+           (assign, "$g_encountered_party", "p_town_1"),
            (jump_to_menu, "mnu_town"),
            (set_jump_mission, "mt_town_default"),
            (jump_to_scene, "scn_town_1_room"),
@@ -74,7 +75,7 @@ game_menus = [
            (reset_visitors),
            (set_visitor, 0, "trp_player"),
            (change_screen_mission),
-           ##           (party_relocate_near_party, "p_main_party", "p_town_6", 2),
+##           (party_relocate_near_party, "p_main_party", "p_town_6", 2),
 ##           (change_screen_return),
         ]),
        #
@@ -3565,7 +3566,12 @@ game_menus = [
       ("cattle_drive_away",[],"Drive the cattle onward.",
        [
         (party_set_slot, "$g_encountered_party", slot_cattle_driven_by_player, 1),
-        (party_set_ai_behavior, "$g_encountered_party", ai_bhvr_driven_by_party),
+        ## UID: 17 - Begin
+        #
+##        (party_set_ai_behavior, "$g_encountered_party", ai_bhvr_driven_by_party),
+        (party_set_ai_behavior, "$g_encountered_party", ai_bhvr_track_party),
+        #
+        ## UID: 17 - End
         (party_set_ai_object,"$g_encountered_party", "p_main_party"),
         (change_screen_return),
         ]
@@ -7631,6 +7637,35 @@ game_menus = [
            (change_screen_mission),
          (try_end),
         ],"Door to the village center."),
+
+      ## UID: 15 - Begin
+      #
+      ("meet_the_village_elder",[
+          (neg|party_slot_eq, "$current_town", slot_village_state, svs_looted),
+          (neg|party_slot_eq, "$current_town", slot_village_state, svs_being_raided),
+          (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
+          (party_get_slot, ":elder", "$current_town", slot_town_elder),
+          (gt, ":elder", 0),
+          (this_or_next|ge, "$cheat_mode", 1),
+          (             troop_slot_ge, ":elder", slot_troop_met, 1),
+        ], "Meet the Village Elder.", [
+            (try_begin),
+              (call_script, "script_cf_enter_center_location_bandit_check"),
+            (else_try),
+             (party_get_slot, ":village_scene", "$current_town", slot_castle_exterior),
+             (modify_visitors_at_site, ":village_scene"),
+             (reset_visitors),
+             (party_get_slot, ":village_elder_troop", "$current_town",slot_town_elder),
+             (set_visitor, 11, ":village_elder_troop"),
+  
+             (set_jump_mission,"mt_village_center"),
+             (jump_to_scene,":village_scene"),
+             (change_screen_map_conversation, ":village_elder_troop"),
+           (try_end),
+        ]),
+      #
+      ## UID: 15 - End
+
       ("village_buy_food",[(party_slot_eq, "$current_town", slot_village_state, 0),
                            (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
                            ],"Buy supplies from the peasants.",
@@ -7727,9 +7762,8 @@ game_menus = [
        [(jump_to_menu,"mnu_village_hostile_action"),
            ]),
       
-      ("village_reports",[(eq, "$cheat_mode", 1),], "{!}CHEAT! Show reports.",
-       [(jump_to_menu,"mnu_center_reports"),
-           ]),
+      ("village_reports",[(eq, "$cheat_mode", 1),], "{!}CHEAT! Show reports.", [(jump_to_menu,"mnu_center_reports")]),
+      
       ("village_leave",[],"Leave...",[(change_screen_return,0)]),
       
     ],
@@ -8024,6 +8058,162 @@ game_menus = [
         (store_sub, reg9, reg8, 1),
       (try_end),      
     ], [
+        ## UID: 18 - Begin
+        #
+        ("center_build_drop_12", [
+            (party_get_slot, ":curImprovement", "$g_encountered_party", slot_center_current_improvement),
+            (gt, ":curImprovement", 0), #Has improvement?
+
+            (party_get_slot, ":finish", "$g_encountered_party", slot_center_improvement_end_hour),
+            (store_current_hours, ":time"),
+            (val_sub, ":finish", ":time"),
+            (val_div, ":finish", 24), #How many hours left?
+            (ge, ":finish", 12), #More than 12 day?
+            
+            (call_script, "script_get_improvement_detail_new", ":curImprovement"),
+            (assign, ":price", reg1),
+            (assign, ":max", reg2),
+
+            (assign, ":cost", ":price"),
+            (val_mul, ":cost", 12),
+            (val_div, ":cost", ":max"),
+            
+            (store_troop_gold, ":gold", "trp_player"),
+            (ge, ":gold", ":cost"),            
+        ], "Decrease construction time 12 days.", [
+            (party_get_slot, ":curImprovement", "$g_encountered_party", slot_center_current_improvement),
+            (call_script, "script_get_improvement_detail_new", ":curImprovement"),
+            (assign, ":price", reg1),
+            (assign, ":max", reg2),
+
+            (assign, ":cost", ":price"),
+            (val_mul, ":cost", 12),
+            (val_div, ":cost", ":max"),
+            
+            (troop_remove_gold, "trp_player", ":cost"),
+            (party_get_slot, ":left", "$g_encountered_party", slot_center_improvement_end_hour),
+            (val_sub, ":left", 288), # 12 * 24
+            (party_set_slot, "$g_encountered_party", slot_center_improvement_end_hour, ":left"),
+            
+            (call_script, "script_check_building_upgrade"), #Check upgrades!
+        ]),
+
+        ("center_build_drop_6", [
+            (party_get_slot, ":curImprovement", "$g_encountered_party", slot_center_current_improvement),
+            (gt, ":curImprovement", 0),
+
+            (party_get_slot, ":finish", "$g_encountered_party", slot_center_improvement_end_hour),
+            (store_current_hours, ":time"),
+            (val_sub, ":finish", ":time"),
+            (val_div, ":finish", 24),
+            (ge, ":finish", 6),
+            
+            (call_script, "script_get_improvement_detail_new", ":curImprovement"),
+            (assign, ":price", reg1),
+            (assign, ":max", reg2),
+
+            (assign, ":cost", ":price"),
+            (val_mul, ":cost", 6),
+            (val_div, ":cost", ":max"),
+            
+            (store_troop_gold, ":gold", "trp_player"),
+            (ge, ":gold", ":cost"),            
+        ], "Decrease construction time 6 days.", [
+            (party_get_slot, ":curImprovement", "$g_encountered_party", slot_center_current_improvement),
+            (call_script, "script_get_improvement_detail_new", ":curImprovement"),
+            (assign, ":price", reg1),
+            (assign, ":max", reg2),
+
+            (assign, ":cost", ":price"),
+            (val_mul, ":cost", 6),
+            (val_div, ":cost", ":max"),
+            
+            (troop_remove_gold, "trp_player", ":cost"),
+            (party_get_slot, ":left", "$g_encountered_party", slot_center_improvement_end_hour),
+            (val_sub, ":left", 144),
+            (party_set_slot, "$g_encountered_party", slot_center_improvement_end_hour, ":left"),
+            
+            (call_script, "script_check_building_upgrade"), #Check upgrades!
+        ]),
+
+        ("center_build_drop_3", [
+            (party_get_slot, ":curImprovement", "$g_encountered_party", slot_center_current_improvement),
+            (gt, ":curImprovement", 0),
+
+            (party_get_slot, ":finish", "$g_encountered_party", slot_center_improvement_end_hour),
+            (store_current_hours, ":time"),
+            (val_sub, ":finish", ":time"),
+            (val_div, ":finish", 24),
+            (ge, ":finish", 3),
+            
+            (call_script, "script_get_improvement_detail_new", ":curImprovement"),
+            (assign, ":price", reg1),
+            (assign, ":max", reg2),
+
+            (assign, ":cost", ":price"),
+            (val_mul, ":cost", 3),
+            (val_div, ":cost", ":max"),
+            
+            (store_troop_gold, ":gold", "trp_player"),
+            (ge, ":gold", ":cost"),            
+        ], "Decrease construction time 3 days.", [
+            (party_get_slot, ":curImprovement", "$g_encountered_party", slot_center_current_improvement),
+            (call_script, "script_get_improvement_detail_new", ":curImprovement"),
+            (assign, ":price", reg1),
+            (assign, ":max", reg2),
+
+            (assign, ":cost", ":price"),
+            (val_mul, ":cost", 3),
+            (val_div, ":cost", ":max"),
+            
+            (troop_remove_gold, "trp_player", ":cost"),
+            (party_get_slot, ":left", "$g_encountered_party", slot_center_improvement_end_hour),
+            (val_sub, ":left", 72),
+            (party_set_slot, "$g_encountered_party", slot_center_improvement_end_hour, ":left"),
+            
+            (call_script, "script_check_building_upgrade"), #Check upgrades!
+        ]),
+
+        ("center_build_drop_1", [
+            (party_get_slot, ":curImprovement", "$g_encountered_party", slot_center_current_improvement),
+            (gt, ":curImprovement", 0),
+
+            (party_get_slot, ":finish", "$g_encountered_party", slot_center_improvement_end_hour),
+            (store_current_hours, ":time"),
+            (val_sub, ":finish", ":time"),
+            (val_div, ":finish", 24),
+            (ge, ":finish", 1),
+            
+            (call_script, "script_get_improvement_detail_new", ":curImprovement"),
+            (assign, ":price", reg1),
+            (assign, ":max", reg2),
+
+            (assign, ":cost", ":price"),
+            (val_mul, ":cost", 1),
+            (val_div, ":cost", ":max"),
+            
+            (store_troop_gold, ":gold", "trp_player"),
+            (ge, ":gold", ":cost"),            
+        ], "Decrease construction time 1 days.", [
+            (party_get_slot, ":curImprovement", "$g_encountered_party", slot_center_current_improvement),
+            (call_script, "script_get_improvement_detail_new", ":curImprovement"),
+            (assign, ":price", reg1),
+            (assign, ":max", reg2),
+
+            (assign, ":cost", ":price"),
+            (val_mul, ":cost", 1),
+            (val_div, ":cost", ":max"),
+            
+            (troop_remove_gold, "trp_player", ":cost"),
+            (party_get_slot, ":left", "$g_encountered_party", slot_center_improvement_end_hour),
+            (val_sub, ":left", 24),
+            (party_set_slot, "$g_encountered_party", slot_center_improvement_end_hour, ":left"),
+            
+            (call_script, "script_check_building_upgrade"), #Check upgrades!
+        ]),
+        #
+        ## UID: 18 - End
+        
         ("center_build_headquarters", [
             (call_script, "script_can_upgrade_building", "$g_encountered_party", slot_center_building_headquarters, 0),
             (eq, reg10, 1),
@@ -9890,8 +10080,46 @@ game_menus = [
 	  "Attempt to visit a lady",
        [
         (jump_to_menu, "mnu_lady_visit"),
-        ], "Door to the garden."),										
-		
+        ], "Door to the garden."),
+
+      ## UID: 15 - Begin
+      #
+      ("meet_the_guild_master", [
+          (party_slot_eq, "$current_town", slot_party_type, spt_town),
+	  (assign, ":can_meet_guild_master", 0),
+          (try_begin),
+              (party_get_slot, ":guild_master_troop", "$current_town", slot_town_elder),
+              (ge, ":guild_master_troop", 1),
+              (neg|troop_slot_eq, ":guild_master_troop", slot_troop_met, 0),
+              (assign, ":can_meet_guild_master", 1),
+          (else_try),
+              (this_or_next|eq, "$g_starting_town", "$current_town"),
+              (this_or_next|party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
+              (             eq, "$cheat_mode", 1),
+              (assign, ":can_meet_guild_master", 1),
+          (try_end),
+          (eq, ":can_meet_guild_master", 1),
+          (this_or_next|eq, "$entry_to_town_forbidden", 0),
+          (             eq, "$sneaked_into_town", 1),
+        ], "Meet the Guild Master.", [
+            (try_begin),
+                (call_script, "script_cf_enter_center_location_bandit_check"),
+            (else_try),
+                (party_get_slot, ":town_scene", "$current_town", slot_town_center),
+                (modify_visitors_at_site, ":town_scene"),
+                (reset_visitors),
+
+                (party_get_slot, ":guild_master_troop", "$current_town", slot_town_elder),
+                (set_visitor,11, ":guild_master_troop"),
+
+                (set_jump_mission, "mt_town_center"),
+                (jump_to_scene, ":town_scene"),
+                (change_screen_map_conversation, ":guild_master_troop"),
+            (try_end),
+        ]),
+      #
+      ## UID: 15 - End
+      
       ("trade_with_merchants",
        [
            (party_slot_eq,"$current_town",slot_party_type, spt_town)

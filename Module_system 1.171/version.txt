@@ -1,4 +1,4 @@
-﻿[v0.1]
+[v0.1]
 1. Recruiting amount of volunteer troops from villages increases with renown and relationship.
   * module_scripts.py
   ** Replaced:
@@ -223,7 +223,7 @@
   *** dlga_start:window_close.4
   **** efendim => beyim
   
-8. Arena rewards increases with renown.
+8. Arena rewards increases with renown and level.
   * module_constants.py
   ** Replaced:
   *** arena_tier1_opponents_to_beat
@@ -305,7 +305,39 @@
   ** Added:
   *** 12h trigger which call script_check_building_upgrade to check time left.
   *** 48h trigger which call script_get_random_improvement for AI construct building by 2% chance.
-  
+  * quick_strings.csv
+  ** Added:
+  *** qstr_Building_of_{s4}_in_
+  *** qstr_Headquarters
+  *** qstr_A_headquarter_reduce
+  *** qstr_Bank
+  *** qstr_A_bank_lets_you_borr
+  *** qstr_Barracks
+  *** qstr_A_barracks_lets_you_
+  *** qstr_Timber_Camp
+  *** qstr_A_timber_camp_increa
+  *** qstr_Iron_Mine
+  *** qstr_An_iron_mine_increas
+  *** qstr_Clay_Pit
+  *** qstr_A_clay_pit_increases
+  *** qstr_Farm
+  *** qstr_A_farm_increases_cen
+  *** qstr_A_mill_increases_cen
+  *** qstr_Statue
+  *** qstr_A_statue_increases_t
+  *** qstr_A_school_increases_t
+  *** qstr_College
+  *** qstr_A_college_increases_
+  *** qstr_University
+  *** qstr_A_university_increas
+  *** qstr_Workshop
+  *** qstr_Unknown
+  *** qstr_Church
+  *** qstr_A_church
+  *** qstr_Mosque
+  *** qstr_A_mosque
+  *** qstr_{s3}_increases_cente
+
 10. Sea Wars added.
   * module_constants.py
   ** Added:
@@ -401,5 +433,66 @@
   * module_game_menus.py
   ** Edited:
   *** menu_start_game_0
-  + BUGS:
+  * game_menus.csv
+  ** Fixed:
+  *** menu_start_game_0 translation issue.
+  ** Added:
+  *** mno_modder
+  ***  + BUGS:
   ++ When player use C button, player can't continue without giving skills.
+
+15. Added talking with village elders and guild masters directly from menu if already met with him.
+  * module_game_menus.py
+  ** Added:
+  *** menu_village:mno_meet_the_village_elder
+  *** menu_town:mno_meet_the_guild_master
+  
+16. Giving a gift to lady added.
+  * module_constants.py
+  ** Added:
+  *** gifts_begin
+  *** gifts_end
+  * module_dialogs.py
+  ** Added:
+  *** dlga_lady_talk:lady_talk_gift
+  *** dlga_lady_talk_gift:lady_talk_gifting
+  *** dlga_lady_talk_gifting:lady_talk_give_gift
+  *** dlga_lady_talk_gifting:lady_pretalk
+  *** dlga_lady_talk_give_gift:lady_private_conversation_end
+  *** dlga_lady_talk_give_gift:lady_private_conversation_end.1
+  * variables.txt
+  ** Added:
+  *** g_gift_no
+  *** g_time_to_gift
+  
+17. Cattles track party after this time.
+  * module_game_menus.py
+  ** Edited:
+  *** menu_cattle_herd:mno_cattle_drive_away
+  
+18. Decreasing construction time system added.
+  * module_game_menus.py
+  ** Added:
+  *** menu_center_manage:mno_center_drop_12
+  *** menu_center_manage:mno_center_drop_6
+  *** menu_center_manage:mno_center_drop_3
+  *** menu_center_manage:mno_center_drop_1
+  
+19. Increasing prisoner and party size with charisma, level and renown added.
+  * module_constants.py
+  ** Added:
+  *** party_size_base
+  *** party_size_per_level
+  *** party_size_per_skill
+  *** party_size_renown
+  *** party_size_without_level
+  *** party_prisoner_base
+  *** party_prisoner_per_level
+  *** party_prisoner_per_skill
+  *** party_prisoner_renown
+  *** party_prisoner_without_level
+  * module_scripts.py
+  ** Replaced:
+  *** script_game_get_party_prisoner_limit
+  *** script_game_get_party_companion_limit
+  
