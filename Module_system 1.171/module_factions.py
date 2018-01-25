@@ -27,7 +27,8 @@ factions = [
   ("innocents","Innocents", ff_always_hide_label, 0.5,[("outlaws",-0.05)], []),
   ("merchants","Merchants", ff_always_hide_label, 0.5,[("outlaws",-0.5),], []),
 
-  ("dark_knights","{!}Dark Knights", 0, 0.5,[("innocents",-0.9),("player_faction",-0.4)], []),
+  ("dark_knights", "Dark Knights", 0, 0.5, [("innocents",-0.9), ("player_faction",-0.4),("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05)], [], 0x000000),
+  ("desert_cavalry", "Desert Cavalry", 0, 0.5, [("kingdom_6", -0.5), ("player_faction", -0.4), ("innocents", -0.9), ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02), ("mountain_bandits", -0.05), ("forest_bandits", -0.05)], [], 0xF0E68C),
 
   ("culture_1",  "{!}culture_1", 0, 0.9, [], []),
   ("culture_2",  "{!}culture_2", 0, 0.9, [], []),

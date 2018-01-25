@@ -333,4 +333,13 @@ parties = [
   ("reserved_3"                  ,"{!}last_spawn_point",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(0., 0),[(trp_looter,15,0)]),
   ("reserved_4"                  ,"{!}last_spawn_point",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(0., 0),[(trp_looter,15,0)]),
   ("reserved_5"                  ,"{!}last_spawn_point",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(0., 0),[(trp_looter,15,0)]),
+
+  ## UID: 11 - Begin
+  #
+  ("bandit_camp_1", "Bandit Camp",  icon_persius_map_bandit_camp|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (25.7, 20.1), [], 40),
+  ("bandit_camp_2", "Bandit Camp",  icon_persius_map_bandit_camp_snow|pf_is_static|pf_always_visible|pf_label_small|pf_hide_defenders, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (88.3, 74.3), [], 40),
+  ("bandit_camps_end", "{!}last_bandit_camp_point", pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners, 0, ai_bhvr_hold, 0, (0.1, 0), []),
+  #
+  ## UID: 11 - End
+
   ]

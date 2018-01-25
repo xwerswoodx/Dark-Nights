@@ -3180,5 +3180,29 @@ scene_props = [
   ]),
 #INVASION MODE END
 
+  ## UID: 11 - Begin
+  #
+  ("persius_bandit_full_camp", 0, "so_bandit_camp", "bo_bandit_camp", []),
+  ("persius_bandit_fence_3a", 0, "fence_1", "bo_fence_1", []),
+  ("persius_bandit_fence_3b", 0, "fence_2", "bo_fence_2", []),
+  ("persius_bandit_fence_3c", 0, "fence_3", "bo_fence_3", []),
+  ("persius_bandit_fence_3d", 0, "fence_4", "bo_fence_4", []),
+  ("persius_bandit_fence_1", 0, "fence_5", "bo_fence_5", []),
+  ("persius_tent_1", 0, "tent", "bo_tent", []),
+  ("persius_camp_fire", 0, "camp_fire", "bo_camp_fire", [
+      (ti_on_scene_prop_init, [
+          (set_position_delta,0,0,20),
+          (particle_system_add_new, "psys_cooking_fire_1"),
+          (particle_system_add_new, "psys_fire_sparks_1"),
+          (particle_system_add_new, "psys_cooking_smoke"),
+          (set_position_delta,0,0,50),
+          (particle_system_add_new, "psys_fire_glow_1"),
+          (particle_system_emit, "psys_fire_glow_1", 9000000),
+        ]),
+    ]),
+  ("persius_rock_without_weapon", 0, "rock_without_weapon", "bo_rock_without_weapon",[]),
+  ("persius_excalibur", 0, "excalibur", "0", []),
+  #
+  ## UID: 11 - End
 
 ]

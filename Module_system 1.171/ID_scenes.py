@@ -557,3 +557,6 @@ scn_sea_2 = 555
 scn_sea_3 = 556
 scn_sea_4 = 557
 scn_sea_5 = 558
+scn_bandit_1_camp = 559
+scn_bandit_2_camp = 560
+scn_bandit_end = 561

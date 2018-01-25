@@ -1070,3 +1070,6 @@ trp_coop_companion_equipment_ui_0_f = 1068
 trp_coop_companion_equipment_ui_1 = 1069
 trp_coop_companion_equipment_ui_1_f = 1070
 trp_coop_companion_equipment_sets_end = 1071
+trp_dark_knight = 1072
+trp_dark_hunter = 1073
+trp_desert_cavalry = 1074

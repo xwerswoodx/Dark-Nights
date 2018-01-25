@@ -255,4 +255,20 @@ map_icons = [
   ("map_flag_kingdom_f",0,"map_flag_kingdom_f", banner_scale,0),
   ("banner_136",0,"map_flag_15", banner_scale,0),
   ("bandit_lair",mcn_no_shadow,"map_bandit_lair", 0.45, 0),
+
+  ## UID: 11 - Begin
+  #
+  ("persius_map_bandit_camp", mcn_no_shadow, "bandit_camp", 0.45, 0),
+  ("persius_map_bandit_camp_raid", mcn_no_shadow, "bandit_camp_raid", 0.45, 0),
+  ("persius_map_bandit_camp_snow", mcn_no_shadow, "bandit_camp_snow", 0.45, 0),
+  ("persius_map_bandit_camp_snow_raid", mcn_no_shadow, "bandit_camp_raid_snow", 0.45, 0),
+  #
+  ## UID: 11 - End
+
+  ## UID: 12 - Begin
+  #
+  ("dedal_map_swadia_king_b",0,"dedal_map_swadia_king_b", avatar_scale,snd_gallop, 0.15, 0.173, 0),
+  ("dedal_map_swadia_lord_a",0,"dedal_map_swadia_lord_a", avatar_scale,snd_gallop, 0.15, 0.173, 0),
+  #
+  ## UID: 12 - End
 ]

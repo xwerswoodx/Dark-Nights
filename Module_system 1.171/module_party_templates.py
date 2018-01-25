@@ -59,7 +59,13 @@ party_templates = [
   ## UID: 10 - End
 
   ("deserters","Deserters",icon_vaegir_knight|carries_goods(3),0,fac_deserters,bandit_personality,[]),
-    
+  ## UID: 12 - Begin
+  #
+  ("dark_hunters","Dark Hunters",icon_dedal_map_swadia_king_b,0,fac_dark_knights,soldier_personality,[(trp_dark_knight,7,35),(trp_dark_hunter,8,25)]),
+  ("desert_cavalry", "Desert Cavalry", icon_dedal_map_swadia_lord_a, 0, fac_desert_cavalry, soldier_personality, [(trp_desert_cavalry, 10, 50)]),
+  #
+  ## UID: 12 - End
+  
   ("merchant_caravan","Merchant Caravan",icon_gray_knight|carries_goods(20)|pf_auto_remove_in_town|pf_quest_party,0,fac_commoners,escorted_merchant_personality,[(trp_caravan_master,1,1),(trp_caravan_guard,5,25)]),
   ("troublesome_bandits","Troublesome Bandits",icon_axeman|carries_goods(9)|pf_quest_party,0,fac_outlaws,bandit_personality,[(trp_bandit,14,55)]),
   ("bandits_awaiting_ransom","Bandits Awaiting Ransom",icon_axeman|carries_goods(9)|pf_auto_remove_in_town|pf_quest_party,0,fac_neutral,bandit_personality,[(trp_bandit,24,58),(trp_kidnapped_girl,1,1,pmf_is_prisoner)]),

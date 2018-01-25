@@ -8,7 +8,6 @@ python process_animations.py
 python process_meshes.py
 python process_sounds.py
 python process_skins.py
-python process_map_icons.py
 python process_factions.py
 python process_items.py
 python process_scenes.py
@@ -16,6 +15,7 @@ python process_troops.py
 python process_particle_sys.py
 python process_scene_props.py
 python process_tableau_materials.py
+python process_map_icons.py
 python process_presentations.py
 python process_party_tmps.py
 python process_parties.py

@@ -36,21 +36,50 @@ from module_constants import *
 ####################################################################################################################
 
 game_menus = [
-  ("start_game_0",menu_text_color(0xFF000000)|mnf_disable_all_keys,
-    "Welcome, adventurer, to Mount and Blade: Warband. Before beginning the game you must create your character. Remember that in the traditional medieval society depicted in the game, war and politics are usually dominated by male members of the nobility. That does not however mean that you should not choose to play a female character, or one who is not of noble birth. Male nobles may have a somewhat easier start, but women and commoners can attain all of the same goals -- and in fact may have a much more interesting if more challenging early game.",
-    "none",
-    [],
-    [
-     ("continue",[],"Continue...",
-       [(jump_to_menu, "mnu_start_game_1"),
-        ]
-       ),
-      ("go_back",[],"Go back",
-       [
-         (change_screen_quit),
-       ]),
-    ]
-  ),
+  ("start_game_0", menu_text_color(0xFF000000)|mnf_disable_all_keys,
+   "Welcome, adventurer, to Mount and Blade: Warband. Before beginning the game you must create your character. Remember that in the traditional medieval society depicted in the game, war and politics are usually dominated by male members of the nobility. That does not however mean that you should not choose to play a female character, or one who is not of noble birth. Male nobles may have a somewhat easier start, but women and commoners can attain all of the same goals -- and in fact may have a much more interesting if more challenging early game.",
+   "none", [], [
+       ("continue",[],"Continue...", [(jump_to_menu, "mnu_start_game_1")]),
+       ("go_back", [], "Go back", [(change_screen_quit)]),
+
+       ## UID: 14 - Begin
+       #
+       ("modder", [], "Module Editor Start", [
+           (try_for_range, ":skill", 0, 42),
+             (troop_raise_skill, "trp_player", ":skill", 5),
+           (try_end),
+##           (try_for_range, ":wpt", 0, 7),
+##             (troop_raise_proficiency, "trp_player", ":wpt", 400),
+##           (try_end),
+##           (try_for_range, ":attr", 0, 5),
+##             (troop_raise_attribute, "trp_player", ":attr", 30),
+##           (try_end),
+           (troop_set_name, "trp_player", "@Mod Editor"),
+           (troop_add_gold, "trp_player", 9999999),
+           (troop_add_item, "trp_player", "itm_persius_sword_01", 17),
+           (troop_add_item, "trp_player", "itm_heater_shield", 17),
+           (troop_add_item, "trp_player", "itm_heater_shield", 17),
+           (troop_add_item, "trp_player", "itm_sanjarinati", 20),
+           (troop_add_item, "trp_player", "itm_bascinet", 17),
+           (troop_add_item, "trp_player", "itm_guard_helmet", 17),
+           (troop_add_item, "trp_player", "itm_black_armor", 17),
+           (troop_add_item, "trp_player", "itm_black_greaves", 17),
+           (troop_add_item, "trp_player", "itm_smoked_fish", 0),
+           (assign, "$town_entered", 1),
+           (assign, "$current_town", "p_town_1"),
+           (jump_to_menu, "mnu_town"),
+           (set_jump_mission, "mt_town_default"),
+           (jump_to_scene, "scn_town_1_room"),
+           (modify_visitors_at_site, "scn_town_1_room"),
+           (reset_visitors),
+           (set_visitor, 0, "trp_player"),
+           (change_screen_mission),
+           ##           (party_relocate_near_party, "p_main_party", "p_town_6", 2),
+##           (change_screen_return),
+        ]),
+       #
+       ## UID: 14 - End
+    ]),
 
   ("start_phase_2",mnf_disable_all_keys,
     "You hear about Calradia, a land torn between rival kingdoms battling each other for supremacy,\
@@ -7552,7 +7581,8 @@ game_menus = [
         (neg|party_slot_eq, "$current_town", slot_village_state, svs_looted),
         (neg|party_slot_eq, "$current_town", slot_village_state, svs_being_raided),
         (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
-        (party_slot_eq, "$current_town", slot_town_lord, "trp_player")
+        (this_or_next|party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
+        (             ge, "$cheat_mode", 1),
         ]
        ,"Manage this village.",
        [
@@ -7937,154 +7967,406 @@ game_menus = [
     ],
   ),
 
-  (
-    "center_manage",0,
-    "{s19}^{reg6?^^You are\
- currently building {s7}. The building will be completed after {reg8} day{reg9?s:}.:}",
-    "none",
-    [(assign, ":num_improvements", 0),
-     (str_clear, s18),
-     (try_begin),
-       (party_slot_eq, "$g_encountered_party", slot_party_type, spt_village),
-       (assign, ":begin", village_improvements_begin),
-       (assign, ":end", village_improvements_end),
-       (str_store_string, s17, "@village"),
-     (else_try),
-       (assign, ":begin", walled_center_improvements_begin),
-       (assign, ":end", walled_center_improvements_end),
-       (party_slot_eq, "$g_encountered_party", slot_party_type, spt_town),
-       (str_store_string, s17, "@town"),
-     (else_try),
-       (str_store_string, s17, "@castle"),
-     (try_end),
-     
-     (try_for_range, ":improvement_no", ":begin", ":end"),
-       (party_slot_ge, "$g_encountered_party", ":improvement_no", 1),
-       (val_add,  ":num_improvements", 1),
-       (call_script, "script_get_improvement_details", ":improvement_no"),
-       (try_begin),
-         (eq,  ":num_improvements", 1),
-         (str_store_string, s18, "@{!}{s0}"),
-       (else_try),
-         (str_store_string, s18, "@{!}{s18}, {s0}"),
-       (try_end),
-     (try_end),
-     
-     (try_begin),
-       (eq,  ":num_improvements", 0),
-       (str_store_string, s19, "@The {s17} has no improvements."),
-     (else_try),
-       (str_store_string, s19, "@The {s17} has the following improvements:{s18}."),
-     (try_end),
-     
-     (assign, reg6, 0),
-     (try_begin),
-       (party_get_slot, ":cur_improvement", "$g_encountered_party", slot_center_current_improvement),
-       (gt, ":cur_improvement", 0),
-       (call_script, "script_get_improvement_details", ":cur_improvement"),
-       (str_store_string, s7, s0),
-       (assign, reg6, 1),
-       (store_current_hours, ":cur_hours"),
-       (party_get_slot, ":finish_time", "$g_encountered_party", slot_center_improvement_end_hour),
-       (val_sub, ":finish_time", ":cur_hours"),
-       (store_div, reg8, ":finish_time", 24),
-       (val_max, reg8, 1),
-       (store_sub, reg9, reg8, 1),
-     (try_end),
-    ],
-    [
-      ("center_build_manor",[(eq, reg6, 0),
-                             (party_slot_eq, "$g_encountered_party", slot_party_type, spt_village),
-                             (party_slot_eq, "$g_encountered_party", slot_center_has_manor, 0),
-                                  ],
-       "Build a manor.",[(assign, "$g_improvement_type", slot_center_has_manor),
-                         (jump_to_menu, "mnu_center_improve"),]),
-      ("center_build_fish_pond",[(eq, reg6, 0),
-                                 (party_slot_eq, "$g_encountered_party", slot_party_type, spt_village),
-                                 (party_slot_eq, "$g_encountered_party", slot_center_has_fish_pond, 0),
-                                  ],
-       "Build a mill.",[(assign, "$g_improvement_type", slot_center_has_fish_pond),
-                             (jump_to_menu, "mnu_center_improve"),]),
-      ("center_build_watch_tower",[(eq, reg6, 0),
-                                   (party_slot_eq, "$g_encountered_party", slot_party_type, spt_village),
-                                   (party_slot_eq, "$g_encountered_party", slot_center_has_watch_tower, 0),
-                                  ],
-       "Build a watch tower.",[(assign, "$g_improvement_type", slot_center_has_watch_tower),
-                               (jump_to_menu, "mnu_center_improve"),]),
-      ("center_build_school",[(eq, reg6, 0),
-                              (party_slot_eq, "$g_encountered_party", slot_party_type, spt_village),
-                              (party_slot_eq, "$g_encountered_party", slot_center_has_school, 0),
-                                  ],
-       "Build a school.",[(assign, "$g_improvement_type", slot_center_has_school),
-                          (jump_to_menu, "mnu_center_improve"),]),
-      ("center_build_messenger_post",[(eq, reg6, 0),
-                                      (party_slot_eq, "$g_encountered_party", slot_center_has_messenger_post, 0),
-                                       ],
-       "Build a messenger post.",[(assign, "$g_improvement_type", slot_center_has_messenger_post),
-                                  (jump_to_menu, "mnu_center_improve"),]),
-      ("center_build_prisoner_tower",[(eq, reg6, 0),
-                                      (this_or_next|party_slot_eq, "$g_encountered_party", slot_party_type, spt_town),
-                                      (party_slot_eq, "$g_encountered_party", slot_party_type, spt_castle),
-                                      (party_slot_eq, "$g_encountered_party", slot_center_has_prisoner_tower, 0),
-                                       ],
-       "Build a prisoner tower.",[(assign, "$g_improvement_type", slot_center_has_prisoner_tower),
-                                  (jump_to_menu, "mnu_center_improve"),]),
-                           
-      ("go_back_dot",[],"Go back.",[(jump_to_menu, "$g_next_menu")]),
-    ],
-  ),
+  ## UID: 9 - Begin
+  #
+  ("center_manage", 0, "{s19}^{reg6?^^You are currently building {s7}. The building will be completed after {reg8} day{reg9?s:}.:}", "none", [
+      (assign, ":count", 0),
+      (str_clear, s18),
+      (try_begin),
+        (party_slot_eq, "$g_encountered_party", slot_party_type, spt_village),
+        (assign, ":start", village_buildings_begin),
+        (assign, ":end", village_buildings_end),
+        (str_store_string, s17, "@village"),
+      (else_try),
+        (party_slot_eq, "$g_encountered_party", slot_party_type, spt_castle),
+        (assign, ":start", castle_buildings_begin),
+        (assign, ":end", castle_buildings_end),
+        (str_store_string, s17, "@castle"),
+      (else_try),
+        (party_slot_eq, "$g_encountered_party", slot_party_type, spt_town),
+        (assign, ":start", town_buildings_begin),
+        (assign, ":end", town_buildings_end),
+        (str_store_string, s17, "@town"),
+      (try_end),
 
-  (
-    "center_improve",0,
-    "{s19} As the party member with the highest engineer skill ({reg2}), {reg3?you reckon:{s3} reckons} that building the {s4} will cost you\
- {reg5} denars and will take {reg6} days.",
-    "none",
-    [(call_script, "script_get_improvement_details", "$g_improvement_type"),
-     (assign, ":improvement_cost", reg0),
-     (str_store_string, s4, s0),
-     (str_store_string, s19, s1),
-     (call_script, "script_get_max_skill_of_player_party", "skl_engineer"),
-     (assign, ":max_skill", reg0),
-     (assign, ":max_skill_owner", reg1),
-     (assign, reg2, ":max_skill"),
+      (try_for_range, ":id", ":start", ":end"),
+        (party_slot_ge, "$g_encountered_party", ":id", 1),
+        (val_add, ":count", 1),
+        (party_get_slot, reg5, "$g_encountered_party", ":id"),
+        (call_script, "script_get_improvement_detail_new", ":id"),
+        (try_begin),
+          (eq, ":count", 1),
+          (str_store_string, s18, "@{!}{s0} ({reg5}/{reg1})"),
+        (else_try),
+          (str_store_string, s18, "@{!}{s18}, {s0} ({reg5}/{reg1})"),
+        (try_end),
+      (try_end),
 
-     (store_sub, ":multiplier", 20, ":max_skill"),
-     (val_mul, ":improvement_cost", ":multiplier"),
-     (val_div, ":improvement_cost", 20),
-     
-     (store_div, ":improvement_time", ":improvement_cost", 100),
-     (val_add, ":improvement_time", 3),
+      (try_begin),
+        (eq, ":count", 0),
+        (str_store_string, s19, "@The {s17} has no improvements."),
+      (else_try),
+        (str_store_string, s19, "@The {s17} has the following improvements: {s18}."),
+      (try_end),
 
-     (assign, reg5, ":improvement_cost"),
-     (assign, reg6, ":improvement_time"),
+      (assign, reg6, 0),
+      (try_begin),
+        (party_get_slot, ":curImprovement", "$g_encountered_party", slot_center_current_improvement),
+        (gt, ":curImprovement", 0),
+        (call_script, "script_get_improvement_detail_new", ":curImprovement"),
+        (str_store_string, s7, s0),
+        (assign, reg6, 1),
+        (store_current_hours, ":time"),
+        (party_get_slot, ":finish", "$g_encountered_party", slot_center_improvement_end_hour),
+        (val_sub, ":finish", ":time"),
+        (store_div, reg8, ":finish", 24),
+        (val_max, reg8, 1),
+        (store_sub, reg9, reg8, 1),
+      (try_end),      
+    ], [
+        ("center_build_headquarters", [
+            (call_script, "script_can_upgrade_building", "$g_encountered_party", slot_center_building_headquarters, 0),
+            (eq, reg10, 1),
+        ], "Build a headquarters.", [
+            (assign, "$g_improvement_type", slot_center_building_headquarters),
+            (jump_to_menu, "mnu_center_improve"),
+        ]),
 
-     (try_begin),
-       (eq, ":max_skill_owner", "trp_player"),
-       (assign, reg3, 1),
-     (else_try),
-       (assign, reg3, 0),
-       (str_store_troop_name, s3, ":max_skill_owner"),
-     (try_end),
-    ],
-    [
-      ("improve_cont",[(store_troop_gold, ":cur_gold", "trp_player"),
-                       (ge, ":cur_gold", reg5)],
-       "Go on.", [(troop_remove_gold, "trp_player", reg5),
-                  (party_set_slot, "$g_encountered_party", slot_center_current_improvement, "$g_improvement_type"),
-                  (store_current_hours, ":cur_hours"),
-                  (store_mul, ":hours_takes", reg6, 24),
-                  (val_add, ":hours_takes", ":cur_hours"),
-                  (party_set_slot, "$g_encountered_party", slot_center_improvement_end_hour, ":hours_takes"),
-                  (jump_to_menu,"mnu_center_manage"),
-                  ]),
-      ("forget_it",[(store_troop_gold, ":cur_gold", "trp_player"),
-                    (ge, ":cur_gold", reg5)],
-       "Forget it.", [(jump_to_menu,"mnu_center_manage")]),
-      ("improve_not_enough_gold",[(store_troop_gold, ":cur_gold", "trp_player"),
-                                  (lt, ":cur_gold", reg5)],
-       "I don't have enough money for that.", [(jump_to_menu, "mnu_center_manage"),]),
-    ],
-  ),
+        ("center_build_manor", [
+            (call_script, "script_can_upgrade_building", "$g_encountered_party", slot_center_building_manor, 0),
+            (eq, reg10, 1),
+        ], "Build a manor.", [
+            (assign, "$g_improvement_type", slot_center_building_manor),
+            (jump_to_menu, "mnu_center_improve"),
+        ]),
+
+        ("center_build_prisoner_tower", [
+            (call_script, "script_can_upgrade_building", "$g_encountered_party", slot_center_building_prisoner_tower, 0),
+            (eq, reg10, 1),
+        ], "Build a prisoner tower.", [
+            (assign, "$g_improvement_type", slot_center_building_prisoner_tower),
+            (jump_to_menu, "mnu_center_improve"),
+        ]),
+
+        ("center_build_bank", [
+            (call_script, "script_can_upgrade_building", "$g_encountered_party", slot_center_building_bank, 0),
+            (eq, reg10, 1),
+        ], "Build a bank.", [
+            (assign, "$g_improvement_type", slot_center_building_bank),
+            (jump_to_menu, "mnu_center_improve"),
+        ]),
+
+        ("center_build_statue", [
+            (call_script, "script_can_upgrade_building", "$g_encountered_party", slot_center_building_statue, 0),
+            (eq, reg10, 1),
+        ], "Build a statue.", [
+            (assign, "$g_improvement_type", slot_center_building_statue),
+            (jump_to_menu, "mnu_center_improve"),
+        ]),
+
+        ("center_build_barracks", [
+            (call_script, "script_can_upgrade_building", "$g_encountered_party", slot_center_building_barracks, 0),
+            (eq, reg10, 1),
+        ], "Build a barracks.", [
+            (assign, "$g_improvement_type", slot_center_building_barracks),
+            (jump_to_menu, "mnu_center_improve"),
+        ]),
+
+        ("center_build_workshop", [
+            (call_script, "script_can_upgrade_building", "$g_encountered_party", slot_center_building_workshop, 0),
+            (eq, reg10, 1),
+        ], "Build a workshop.", [
+            (assign, "$g_improvement_type", slot_center_building_workshop),
+            (jump_to_menu, "mnu_center_improve"),
+        ]),
+
+        ("center_build_religion", [
+            (call_script, "script_can_upgrade_building", "$g_encountered_party", slot_center_building_religion, 0),
+            (eq, reg10, 1),
+            (call_script, "script_get_improvement_detail_new", slot_center_building_religion),
+            (str_store_string, s4, s3),
+        ], "Build {s4}.", [
+            (assign, "$g_improvement_type", slot_center_building_religion),
+            (jump_to_menu, "mnu_center_improve"),
+        ]),
+        
+        ("center_build_watch_tower", [
+            (call_script, "script_can_upgrade_building", "$g_encountered_party", slot_center_building_watch_tower, 0),
+            (eq, reg10, 1),
+        ], "Build a watch tower.", [
+            (assign, "$g_improvement_type", slot_center_building_watch_tower),
+            (jump_to_menu, "mnu_center_improve"),
+        ]),
+
+        ("center_build_messenger_post", [
+            (call_script, "script_can_upgrade_building", "$g_encountered_party", slot_center_building_messenger_post, 0),
+            (eq, reg10, 1),
+        ], "Build a messenger post.", [
+            (assign, "$g_improvement_type", slot_center_building_messenger_post),
+            (jump_to_menu, "mnu_center_improve"),
+        ]),
+
+        ("center_build_fish_pond", [
+            (call_script, "script_can_upgrade_building", "$g_encountered_party", slot_center_building_fish_pond, 0),
+            (eq, reg10, 1),
+        ], "Build a fish pond.", [
+            (assign, "$g_improvement_type", slot_center_building_fish_pond),
+            (jump_to_menu, "mnu_center_improve"),
+        ]),
+
+        ("center_build_mill", [
+            (call_script, "script_can_upgrade_building", "$g_encountered_party", slot_center_building_mill, 0),
+            (eq, reg10, 1),
+        ], "Build a mill.", [
+            (assign, "$g_improvement_type", slot_center_building_mill),
+            (jump_to_menu, "mnu_center_improve"),
+        ]),
+
+        ("center_build_farm", [
+            (call_script, "script_can_upgrade_building", "$g_encountered_party", slot_center_building_farm, 0),
+            (eq, reg10, 1),
+        ], "Build a farm.", [
+            (assign, "$g_improvement_type", slot_center_building_farm),
+            (jump_to_menu, "mnu_center_improve"),
+        ]),
+
+        ("center_build_school", [
+            (call_script, "script_can_upgrade_building", "$g_encountered_party", slot_center_building_school, 0),
+            (eq, reg10, 1),
+        ], "Build a school.", [
+            (assign, "$g_improvement_type", slot_center_building_school),
+            (jump_to_menu, "mnu_center_improve"),
+        ]),
+
+        ("center_build_college", [
+            (call_script, "script_can_upgrade_building", "$g_encountered_party", slot_center_building_college, 0),
+            (eq, reg10, 1),
+        ], "Build a college.", [
+            (assign, "$g_improvement_type", slot_center_building_college),
+            (jump_to_menu, "mnu_center_improve"),
+        ]),
+
+        ("center_build_university", [
+            (call_script, "script_can_upgrade_building", "$g_encountered_party", slot_center_building_university, 0),
+            (eq, reg10, 1),
+        ], "Build a university.", [
+            (assign, "$g_improvement_type", slot_center_building_university),
+            (jump_to_menu, "mnu_center_improve"),
+        ]),
+
+        ("center_build_timber_camp", [
+            (call_script, "script_can_upgrade_building", "$g_encountered_party", slot_center_building_timber_camp, 0),
+            (eq, reg10, 1),
+        ], "Build a timber camp.", [
+            (assign, "$g_improvement_type", slot_center_building_timber_camp),
+            (jump_to_menu, "mnu_center_improve"),
+        ]),
+
+        ("center_build_iron_mine", [
+            (call_script, "script_can_upgrade_building", "$g_encountered_party", slot_center_building_iron_mine, 0),
+            (eq, reg10, 1),
+        ], "Build an iron mine.", [
+            (assign, "$g_improvement_type", slot_center_building_iron_mine),
+            (jump_to_menu, "mnu_center_improve"),
+        ]),
+
+        ("center_build_clay_pit", [
+            (call_script, "script_can_upgrade_building", "$g_encountered_party", slot_center_building_clay_pit, 0),
+            (eq, reg10, 1),
+        ], "Build a clay pit.", [
+            (assign, "$g_improvement_type", slot_center_building_clay_pit),
+            (jump_to_menu, "mnu_center_improve"),
+        ]),
+
+        ("go_back_dot", [], "Go back.", [(jump_to_menu, "$g_next_menu")]),
+    ]),
+
+  ("center_improve", 0, "{s19} As the party member with the highest engineer skill ({reg2}), {reg3,you reckon:{s3} reckons} that building the {s4} will cost you {reg5} denars and will take {reg6} days.", "none", [
+      (call_script, "script_get_max_skill_of_player_party", "skl_engineer"),
+      (assign, ":owner", reg1),
+
+      (call_script, "script_get_improvement_detail_new", "$g_improvement_type"),
+      (assign, reg5, reg0),
+      (assign, reg6, reg2),
+      (val_div, reg6, 24),
+      (str_store_string, s4, s0),
+      (str_store_string, s19, s1),
+      (str_clear, s3),
+      (assign, reg3, 0),
+      (try_begin),
+        (eq, ":owner", "trp_player"),
+        (assign, reg3, 1),
+      (else_try),
+        (str_store_troop_name, s3, ":owner"),
+      (try_end),      
+    ], [
+        ("improve_cont", [
+            (call_script, "script_can_upgrade_building", "$g_encountered_party", "$g_improvement_type", 1),
+            (eq, reg10, 1),
+        ], "Go on.", [
+            (call_script, "script_upgrade_building", "$g_encountered_party", "$g_improvement_type", 1),
+            (jump_to_menu, "mnu_center_manage"),
+        ]),
+
+        ("forget_it", [
+            (call_script, "script_can_upgrade_building", "$g_encountered_party", "$g_improvement_type", 1),
+            (eq, reg10, 1),
+        ], "Forget it.", [(jump_to_menu, "mnu_center_manage")]),
+
+        ("improve_not_enough_gold", [
+            (call_script, "script_can_upgrade_building", "$g_encountered_party", "$g_improvement_type", 1),
+            (eq, reg10, 1),
+        ], "I don't have enough money for that.", [(jump_to_menu, "mnu_center_manage")]),
+    ]),
+  #
+  ## UID: 9 - End
+
+##  (
+##    "center_manage",0,
+##    "{s19}^{reg6?^^You are\
+## currently building {s7}. The building will be completed after {reg8} day{reg9?s:}.:}",
+##    "none",
+##    [(assign, ":num_improvements", 0),
+##     (str_clear, s18),
+##     (try_begin),
+##       (party_slot_eq, "$g_encountered_party", slot_party_type, spt_village),
+##       (assign, ":begin", village_improvements_begin),
+##       (assign, ":end", village_improvements_end),
+##       (str_store_string, s17, "@village"),
+##     (else_try),
+##       (assign, ":begin", walled_center_improvements_begin),
+##       (assign, ":end", walled_center_improvements_end),
+##       (party_slot_eq, "$g_encountered_party", slot_party_type, spt_town),
+##       (str_store_string, s17, "@town"),
+##     (else_try),
+##       (str_store_string, s17, "@castle"),
+##     (try_end),
+##     
+##     (try_for_range, ":improvement_no", ":begin", ":end"),
+##       (party_slot_ge, "$g_encountered_party", ":improvement_no", 1),
+##       (val_add,  ":num_improvements", 1),
+##       (call_script, "script_get_improvement_details", ":improvement_no"),
+##       (try_begin),
+##         (eq,  ":num_improvements", 1),
+##         (str_store_string, s18, "@{!}{s0}"),
+##       (else_try),
+##         (str_store_string, s18, "@{!}{s18}, {s0}"),
+##       (try_end),
+##     (try_end),
+##     
+##     (try_begin),
+##       (eq,  ":num_improvements", 0),
+##       (str_store_string, s19, "@The {s17} has no improvements."),
+##     (else_try),
+##       (str_store_string, s19, "@The {s17} has the following improvements:{s18}."),
+##     (try_end),
+##     
+##     (assign, reg6, 0),
+##     (try_begin),
+##       (party_get_slot, ":cur_improvement", "$g_encountered_party", slot_center_current_improvement),
+##       (gt, ":cur_improvement", 0),
+##       (call_script, "script_get_improvement_details", ":cur_improvement"),
+##       (str_store_string, s7, s0),
+##       (assign, reg6, 1),
+##       (store_current_hours, ":cur_hours"),
+##       (party_get_slot, ":finish_time", "$g_encountered_party", slot_center_improvement_end_hour),
+##       (val_sub, ":finish_time", ":cur_hours"),
+##       (store_div, reg8, ":finish_time", 24),
+##       (val_max, reg8, 1),
+##       (store_sub, reg9, reg8, 1),
+##     (try_end),
+##    ], [
+##      ("center_build_manor",[(eq, reg6, 0),
+##                             (party_slot_eq, "$g_encountered_party", slot_party_type, spt_village),
+##                             (party_slot_eq, "$g_encountered_party", slot_center_has_manor, 0),
+##                                  ],
+##       "Build a manor.",[(assign, "$g_improvement_type", slot_center_has_manor),
+##                         (jump_to_menu, "mnu_center_improve"),]),
+##      ("center_build_fish_pond",[(eq, reg6, 0),
+##                                 (party_slot_eq, "$g_encountered_party", slot_party_type, spt_village),
+##                                 (party_slot_eq, "$g_encountered_party", slot_center_has_fish_pond, 0),
+##                                  ],
+##       "Build a mill.",[(assign, "$g_improvement_type", slot_center_has_fish_pond),
+##                             (jump_to_menu, "mnu_center_improve"),]),
+##      ("center_build_watch_tower",[(eq, reg6, 0),
+##                                   (party_slot_eq, "$g_encountered_party", slot_party_type, spt_village),
+##                                   (party_slot_eq, "$g_encountered_party", slot_center_has_watch_tower, 0),
+##                                  ],
+##       "Build a watch tower.",[(assign, "$g_improvement_type", slot_center_has_watch_tower),
+##                               (jump_to_menu, "mnu_center_improve"),]),
+##      ("center_build_school",[(eq, reg6, 0),
+##                              (party_slot_eq, "$g_encountered_party", slot_party_type, spt_village),
+##                              (party_slot_eq, "$g_encountered_party", slot_center_has_school, 0),
+##                                  ],
+##       "Build a school.",[(assign, "$g_improvement_type", slot_center_has_school),
+##                          (jump_to_menu, "mnu_center_improve"),]),
+##      ("center_build_messenger_post",[(eq, reg6, 0),
+##                                      (party_slot_eq, "$g_encountered_party", slot_center_has_messenger_post, 0),
+##                                       ],
+##       "Build a messenger post.",[(assign, "$g_improvement_type", slot_center_has_messenger_post),
+##                                  (jump_to_menu, "mnu_center_improve"),]),
+##      ("center_build_prisoner_tower",[(eq, reg6, 0),
+##                                      (this_or_next|party_slot_eq, "$g_encountered_party", slot_party_type, spt_town),
+##                                      (party_slot_eq, "$g_encountered_party", slot_party_type, spt_castle),
+##                                      (party_slot_eq, "$g_encountered_party", slot_center_has_prisoner_tower, 0),
+##                                       ],
+##       "Build a prisoner tower.",[(assign, "$g_improvement_type", slot_center_has_prisoner_tower),
+##                                  (jump_to_menu, "mnu_center_improve"),]),
+##                           
+##      ("go_back_dot",[],"Go back.",[(jump_to_menu, "$g_next_menu")]),
+##    ]),
+##
+##  (
+##    "center_improve",0,
+##    "{s19} As the party member with the highest engineer skill ({reg2}), {reg3?you reckon:{s3} reckons} that building the {s4} will cost you\
+## {reg5} denars and will take {reg6} days.",
+##    "none",
+##    [(call_script, "script_get_improvement_details", "$g_improvement_type"),
+##     (assign, ":improvement_cost", reg0),
+##     (str_store_string, s4, s0),
+##     (str_store_string, s19, s1),
+##     (call_script, "script_get_max_skill_of_player_party", "skl_engineer"),
+##     (assign, ":max_skill", reg0),
+##     (assign, ":max_skill_owner", reg1),
+##     (assign, reg2, ":max_skill"),
+##
+##     (store_sub, ":multiplier", 20, ":max_skill"),
+##     (val_mul, ":improvement_cost", ":multiplier"),
+##     (val_div, ":improvement_cost", 20),
+##     
+##     (store_div, ":improvement_time", ":improvement_cost", 100),
+##     (val_add, ":improvement_time", 3),
+##
+##     (assign, reg5, ":improvement_cost"),
+##     (assign, reg6, ":improvement_time"),
+##
+##     (try_begin),
+##       (eq, ":max_skill_owner", "trp_player"),
+##       (assign, reg3, 1),
+##     (else_try),
+##       (assign, reg3, 0),
+##       (str_store_troop_name, s3, ":max_skill_owner"),
+##     (try_end),
+##    ],
+##    [
+##      ("improve_cont",[(store_troop_gold, ":cur_gold", "trp_player"),
+##                       (ge, ":cur_gold", reg5)],
+##       "Go on.", [(troop_remove_gold, "trp_player", reg5),
+##                  (party_set_slot, "$g_encountered_party", slot_center_current_improvement, "$g_improvement_type"),
+##                  (store_current_hours, ":cur_hours"),
+##                  (store_mul, ":hours_takes", reg6, 24),
+##                  (val_add, ":hours_takes", ":cur_hours"),
+##                  (party_set_slot, "$g_encountered_party", slot_center_improvement_end_hour, ":hours_takes"),
+##                  (jump_to_menu,"mnu_center_manage"),
+##                  ]),
+##      ("forget_it",[(store_troop_gold, ":cur_gold", "trp_player"),
+##                    (ge, ":cur_gold", reg5)],
+##       "Forget it.", [(jump_to_menu,"mnu_center_manage")]),
+##      ("improve_not_enough_gold",[(store_troop_gold, ":cur_gold", "trp_player"),
+##                                  (lt, ":cur_gold", reg5)],
+##       "I don't have enough money for that.", [(jump_to_menu, "mnu_center_manage"),]),
+##    ],
+##  ),
 
   (
     "town_bandits_failed",mnf_disable_all_keys,
@@ -9626,7 +9908,8 @@ game_menus = [
       ("walled_center_manage",
       [
         (neg|party_slot_eq, "$current_town", slot_village_state, svs_under_siege),
-        (party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
+        (this_or_next|party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
+        (             ge, "$cheat_mode", 1),
         (assign, reg0, 1),
         (try_begin),
           (party_slot_eq, "$current_town", slot_party_type, spt_castle),
@@ -14046,6 +14329,102 @@ game_menus = [
     []
   ),
 
+  ## UID: 11 - Begin
+  #
+  ("bandit_camp", 0, "{s3}", "none", [
+      (party_set_slot, "$g_encountered_party", slot_party_type, spt_bandit_lair),
+      (try_begin),
+        (party_slot_ge, "$g_encountered_party", slot_village_recover_progress, 1),
+        (change_screen_return),
+      (else_try),      
+        (try_begin),
+          (party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 0),
+          (str_store_string, s3, "str_bandit_hideout_preattack"),
+        (else_try),
+          (party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 1),
+          (str_store_string, s3, "str_bandit_hideout_failure"),
+        (else_try),
+          (party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 2),
+          (str_store_string, s3, "str_bandit_hideout_success"),
+        (try_end),
+      (try_end),
+      (assign, "$loot_screen_shown", 0),
+    ], [
+        ("continue_1", [(party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 0)], "Attack the hideout...", [
+            (party_set_slot, "$g_encountered_party", slot_party_ai_substate, 1),
+	    (assign, "$g_enemy_party", "$g_encountered_party"),
+
+            (try_begin),
+              (eq, "$g_encountered_party", "p_bandit_camp_1"),
+              (assign, ":scene_to_use", "scn_bandit_1_camp"),
+            (else_try),
+              (eq, "$g_encountered_party", "p_bandit_camp_2"),
+              (assign, ":scene_to_use", "scn_bandit_2_camp"),
+	    (try_end),
+            (modify_visitors_at_site,":scene_to_use"),
+	    (reset_visitors),
+
+            (store_character_level, ":player_level", "trp_player"),
+            (val_mul, ":player_level", 2),
+            (store_add, ":number_of_bandits_will_be_spawned_at_each_period", 6, ":player_level"),
+            (val_div, ":number_of_bandits_will_be_spawned_at_each_period", 6),
+	    
+	    (try_for_range, ":unused", 0, ":number_of_bandits_will_be_spawned_at_each_period"),
+	      (store_random_in_range, ":random_entry_point", 8, 16),	      
+	      (set_visitor, ":random_entry_point", "trp_bandit", 1),
+	    (try_end),
+
+	    (party_clear, "p_temp_casualties"),
+            (set_party_battle_mode),
+            (set_battle_advantage, 0),
+            (assign, "$g_battle_result", 0),
+            (set_jump_mission,"mt_bandit_camp"),
+            (jump_to_scene, ":scene_to_use"),
+            (change_screen_mission),
+        ]),
+        
+        ("leave_no_attack", [(party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 0)], "Leave...", [(change_screen_return)]),
+
+        ("leave_victory", [(party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 2)], "Continue...", [
+            (assign, "$g_leave_encounter", 0),
+            (party_set_slot, "$g_encountered_party", slot_village_recover_progress, 2),
+            (party_get_icon, ":icon", "$g_encountered_party"),
+            (val_add, ":icon", 1),
+            (party_set_icon, "$g_encountered_party", ":icon"),
+            (change_screen_return),
+
+            (try_begin),
+              (eq, "$loot_screen_shown", 0),
+              (assign, "$loot_screen_shown", 1),
+              (troop_clear_inventory, "trp_temp_troop"),
+
+              (party_get_num_companion_stacks, ":num_stacks", "p_temp_casualties"),
+              (try_for_range, ":stack_no", 0, ":num_stacks"),
+                (party_stack_get_troop_id, ":stack_troop", "p_temp_casualties", ":stack_no"),
+                (try_begin),
+                  (party_stack_get_size, ":stack_size", "p_temp_casualties", ":stack_no"),
+                  (party_stack_get_troop_id, ":stack_troop", "p_temp_casualties", ":stack_no"),
+                  (gt, ":stack_size", 0),
+                  (party_add_members, "p_total_enemy_casualties", ":stack_troop", ":stack_size"),
+                  (party_stack_get_num_wounded, ":stack_wounded_size", "p_temp_casualties", ":stack_no"),
+                  (gt, ":stack_wounded_size", 0),
+                  (party_wound_members, "p_total_enemy_casualties", ":stack_troop", ":stack_wounded_size"),
+                (try_end),
+              (try_end),
+            
+              (call_script, "script_party_calculate_loot", "p_total_enemy_casualties"),
+              (gt, reg0, 0),
+              (troop_sort_inventory, "trp_temp_troop"),
+              (change_screen_loot, "trp_temp_troop"),
+            (try_end),
+            
+        ]),
+
+        ("leave_defeat", [(party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 1)], "Continue...", [(change_screen_return)]),
+    ]),
+  #
+  ## UID: 11 - End
+
     (
     "bandit_lair",0,
     "{s3}",
@@ -14172,7 +14551,17 @@ game_menus = [
 	      (else_try),
 	        (eq, ":starting_town_faction", "fac_kingdom_6"), #player selected Sarranid city as starting town.
 	        (assign, ":scene_to_use", "scn_lair_desert_bandits"),	    
-	      (try_end),  
+	      (try_end),
+            ## UID: 11 - Begin
+            #
+##            (else_try),
+##              (eq, "$g_encountered_party", "p_bandit_camp_1"),
+##              (assign, ":scene_to_use", "scn_bandit_1_camp"),
+##            (else_try),
+##              (eq, "$g_encountered_party", "p_bandit_camp_2"),
+##              (assign, ":scene_to_use", "scn_bandit_2_camp"),
+            #
+            ## UID: 11 - End
 	    (try_end),
 	    
 	    (modify_visitors_at_site,":scene_to_use"),
@@ -14195,7 +14584,7 @@ game_menus = [
         (set_jump_mission,"mt_bandit_lair"),
         
         (jump_to_scene, ":scene_to_use"),        
-        (change_screen_mission),        
+        (change_screen_mission),
 	  ]),
 		
       ("leave_no_attack",

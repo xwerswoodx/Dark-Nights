@@ -2553,28 +2553,45 @@ simple_triggers = [
     ]),
 
   # Checking center upgrades
-  (12,
-   [(try_for_range, ":center_no", centers_begin, centers_end),
-      (party_get_slot, ":cur_improvement", ":center_no", slot_center_current_improvement),
-      (gt, ":cur_improvement", 0),
-      (party_get_slot, ":cur_improvement_end_time", ":center_no", slot_center_improvement_end_hour),
-      (store_current_hours, ":cur_hours"),
-      (ge, ":cur_hours", ":cur_improvement_end_time"),
-      (party_set_slot, ":center_no", ":cur_improvement", 1),
-      (party_set_slot, ":center_no", slot_center_current_improvement, 0),
-      (call_script, "script_get_improvement_details", ":cur_improvement"),
-      (try_begin),
-        (party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
-        (str_store_party_name, s4, ":center_no"),
-        (display_log_message, "@Building of {s0} in {s4} has been completed."),
+##  (12,
+##   [(try_for_range, ":center_no", centers_begin, centers_end),
+##      (party_get_slot, ":cur_improvement", ":center_no", slot_center_current_improvement),
+##      (gt, ":cur_improvement", 0),
+##      (party_get_slot, ":cur_improvement_end_time", ":center_no", slot_center_improvement_end_hour),
+##      (store_current_hours, ":cur_hours"),
+##      (ge, ":cur_hours", ":cur_improvement_end_time"),
+##      (party_set_slot, ":center_no", ":cur_improvement", 1),
+##      (party_set_slot, ":center_no", slot_center_current_improvement, 0),
+##      (call_script, "script_get_improvement_details", ":cur_improvement"),
+##      (try_begin),
+##        (party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
+##        (str_store_party_name, s4, ":center_no"),
+##        (display_log_message, "@Building of {s0} in {s4} has been completed."),
+##      (try_end),
+##      (try_begin),
+##        (is_between, ":center_no", villages_begin, villages_end),
+##        (eq, ":cur_improvement", slot_center_has_fish_pond),
+##        (call_script, "script_change_center_prosperity", ":center_no", 5),
+##      (try_end),
+##    (try_end),
+##    ]),
+
+  ## UID: 9 - Begin
+  #
+  (12, [(call_script, "script_check_building_upgrade")]),
+  (48, [
+      (try_for_range, ":center", centers_begin, centers_end),
+        (party_slot_eq, ":center", slot_center_current_improvement, 0),
+        (neg|party_slot_eq, ":center", slot_town_lord, "trp_player"),
+        (call_script, "script_get_random_improvement", ":center", 0),
+        (gt, reg9, 0),
+        (store_random_in_range, ":random", 0, 100),
+        (lt, ":random", 2), #2% chance to upgrade
+        (call_script, "script_upgrade_building", ":center", reg9, 0),
       (try_end),
-      (try_begin),
-        (is_between, ":center_no", villages_begin, villages_end),
-        (eq, ":cur_improvement", slot_center_has_fish_pond),
-        (call_script, "script_change_center_prosperity", ":center_no", 5),
-      (try_end),
-    (try_end),
     ]),
+  #
+  ## UID: 9 - End
 
   # Adding tournaments to towns
   # Adding bandits to towns and villages
@@ -3519,7 +3536,45 @@ simple_triggers = [
         (try_end),
         (assign, "$g_force_peace_faction_1", 0),
         (assign, "$g_force_peace_faction_2", 0),
-       ]),  
+       ]),
+
+  ## UID: 11 - Begin
+  #
+  (24, [
+      (try_for_range, ":camp_no", "p_bandit_camp_1", "p_bandit_camps_end"),
+          (store_character_level, ":level", "trp_player"),
+          (troop_get_slot, ":renown", "trp_player", slot_troop_renown),
+          (store_div, ":camp", ":renown", 50),
+          (val_add, ":camp", ":level"),
+          (val_max, ":camp", 25),
+          (store_div, ":max", ":renown", 80),
+          (store_div, ":max_2", ":level", 2),
+          (val_add, ":max", ":max_2"),
+          (val_max, ":max", 5),
+      
+          (party_get_slot, ":recover", ":camp_no", slot_village_recover_progress),
+          (try_begin),
+              (gt, ":recover", 1),
+              (val_sub, ":recover", 1),
+              (party_set_slot, ":camp_no", slot_village_recover_progress, ":recover"),
+          (else_try),
+              (eq, ":recover", 1),
+              (party_set_slot, ":camp_no", slot_village_recover_progress, 0),
+              (party_set_slot, ":camp_no", slot_village_state, svs_normal),
+              (party_set_slot, ":camp_no", slot_party_ai_substate, 0),
+              (party_get_icon, ":icon_no", ":camp_no"),
+              (val_sub, ":icon_no", 1),
+              (party_set_icon, ":camp_no", ":icon_no"),
+              (party_set_extra_text, ":camp_no", "str_empty_string"),
+              (party_add_members, ":camp_no", "trp_bandit", ":camp"),
+          (try_end),
+          (party_slot_eq, ":camp_no", slot_village_state, svs_normal),
+          (store_random_in_range, ":range", 0, ":max"),
+          (party_add_members, ":camp_no", "trp_bandit", ":range"),
+      (try_end),
+    ]),
+  #
+  ## UID: 11 - End
 
 #NPC changes begin
 #Resolve one issue each hour

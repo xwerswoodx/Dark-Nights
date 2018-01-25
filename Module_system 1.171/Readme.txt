@@ -1,6 +1,405 @@
-Mount&Blade Module System
+﻿[v0.1]
+1. Recruiting amount of volunteer troops from villages increases with renown and relationship.
+  * module_scripts.py
+  ** Replaced:
+  *** script_update_volunteer_troops_in_village
+  
+2. Recruiting amount of troops from town tavern increases with renown.
+  * module_scripts.py
+  ** Replaced:
+  *** script_update_mercenary_units_of_towns
+  
+3. Bet count increases with renown for tournaments.
+  * module_game_menus.py
+  ** Replaced:
+  *** menu_tournament_bet
+  * game_menus.csv
+  ** Removed:
+  *** mno_bet_100_denars
+  *** mno_bet_50_denars
+  *** mno_bet_20_denars
+  *** mno_bet_10_denars
+  *** mno_bet_5_denars
+  ** Added:
+  *** mno_bet_1
+  *** mno_bet_2
+  *** mno_bet_3
+  *** mno_bet_4
+  *** mno_bet_5
+  
+4. New weapons added.
+  * module_items.py
+  ** Added:
+  *** pa_axe_01 (k0nr@d)
+  *** pa_axe_02 (k0nr@d)
+  *** pa_axe_03 (k0nr@d)
+  *** pa_axe_04 (k0nr@d)
+  *** fp_axe_01 (frozenpainter)
+  *** fp_axe_02 (frozenpainter)
+  *** fp_axe_03 (frozenpainter)
+  *** pa_sword_01 (k0nr@d)
+  *** pa_sword_02 (k0nr@d)
+  *** pa_sword_03 (k0nr@d)
+  *** fp_sword_01 (frozenpainter)
+  *** fp_sword_02 (frozenpainter)
+  *** fp_sword_03 (frozenpainter)
+  *** fp_sword_04 (frozenpainter)
+  *** fp_sword_05 (frozenpainter)
+  *** fp_sword_06 (frozenpainter)
+  *** persius_sword_01 (Persius)
+  *** fp_mace_01 (frozenpainter)
+  *** fp_mace_02 (frozenpainter)
+  *** fp_mace_03 (frozenpainter)
+  *** pa_maul_01 (k0nr@d)
+  *** fp_hammer_01 (frozenpainter)
+  *** fp_bow_01 (frozenpainter)
+  *** fp_bow_02 (frozenpainter)
+  *** fp_bow_03 (frozenpainter)
+  *** fp_bow_04 (frozenpainter)
+  * item_kinds.csv
+  ** Added:
+  *** itm_pa_axe_01
+  *** itm_pa_axe_01_pl
+  *** itm_pa_axe_02
+  *** itm_pa_axe_02_pl
+  *** itm_pa_axe_03
+  *** itm_pa_axe_03_pl
+  *** itm_pa_axe_04
+  *** itm_pa_axe_04_pl
+  *** itm_fp_axe_01
+  *** itm_fp_axe_01_pl
+  *** itm_fp_axe_02
+  *** itm_fp_axe_02_pl
+  *** itm_fp_axe_03
+  *** itm_fp_axe_03_pl
+  *** itm_pa_sword_01
+  *** itm_pa_sword_01_pl
+  *** itm_pa_sword_02
+  *** itm_pa_sword_02_pl
+  *** itm_pa_sword_03
+  *** itm_pa_sword_03_pl
+  *** itm_fp_sword_01
+  *** itm_fp_sword_01_pl
+  *** itm_fp_sword_02
+  *** itm_fp_sword_02_pl
+  *** itm_fp_sword_03
+  *** itm_fp_sword_03_pl
+  *** itm_fp_sword_04
+  *** itm_fp_sword_04_pl
+  *** itm_fp_sword_05
+  *** itm_fp_sword_05_pl
+  *** itm_fp_sword_06
+  *** itm_fp_sword_06_pl
+  *** itm_persius_sword_01
+  *** itm_persius_sword_01_pl
+  *** itm_fp_mace_01
+  *** itm_fp_mace_01_pl
+  *** itm_fp_mace_02
+  *** itm_fp_mace_02_pl
+  *** itm_fp_mace_03
+  *** itm_fp_mace_03_pl
+  *** itm_pa_maul_01
+  *** itm_pa_maul_01_pl
+  *** itm_fp_hammer_01
+  *** itm_fp_hammer_01_pl
+  *** itm_fp_bow_01
+  *** itm_fp_bow_01_pl
+  *** itm_fp_bow_02
+  *** itm_fp_bow_02_pl
+  *** itm_fp_bow_03
+  *** itm_fp_bow_03_pl
+  *** itm_fp_bow_04
+  *** itm_fp_bow_04_pl
+  
+5. New npcs added.
+  * module_items.py
+  ** Added:
+  *** camel (xenoargh)
+  *** elephant (Rihadoon)
+  *** nordland (buz)
+  *** sanjarinati (buz)
+  * item_kinds.csv
+  ** Added:
+  *** camel
+  *** camel_pl
+  *** elephant
+  *** elephant_pl
+  *** nordland
+  *** nordland_pl
+  *** sanjarinati
+  *** sanjarinati_pl
+ 
+6. After that, compiling python creates original (English) language files.
+  * module_info.py
+  ** Added: language_dir
+  * process_dialogs.py
+  ** Edited: save_sentences definition.
+  * process_factions.py
+  ** Edited: save_factions definition.
+  * process_game_menus.py
+  ** Edited: save_game_menus definition.
+  ** Edited: save_game_menu_item definition.
+  
+7. Some of Turkish translate mistakes fixed.
+  * dialog.csv
+  ** Removed:
+  *** dlga_start:window_close.1
+  *** dlga_start:window_close.5
+  *** dlga_start:window_close.6
+  *** dlga_start:window_close.7
+  *** dlga_start:window_close.8
+  *** dlga_start:window_close.9
+  *** dlga_start:window_close.10
+  *** dlga_start:window_close.11
+  *** dlga_start:window_close.12
+  *** dlga_start:window_close.13
+  *** dlga_start:window_close.14
+  *** dlga_start:window_close.15
+  *** dlga_start:window_close.16
+  *** dlga_start:window_close.17
+  *** dlga_start:window_close.18
+  *** dlga_start:window_close.19
+  *** dlga_start:window_close.20
+  *** dlga_start:window_close.21
+  *** dlga_start:window_close.22
+  *** dlga_start:window_close.23
+  *** dlga_start:window_close.24
+  *** dlga_start:window_close.25
+  *** dlga_start:window_close.26
+  *** dlga_start:window_close.27
+  *** dlga_start:window_close.28
+  *** dlga_start:window_close.29
+  *** dlga_start:window_close.30
+  *** dlga_start:window_close.31
+  *** dlga_start:window_close.32
+  *** dlga_start:window_close.33
+  *** dlga_start:window_close.34
+  *** dlga_start:window_close.35
+  *** dlga_start:window_close.36
+  *** dlga_start:window_close.37
+  *** dlga_start:window_close.38
+  *** dlga_start:window_close.39
+  *** dlga_start:window_close.40
+  ** Added:
+  *** dlga_start:window_close.2
+  *** dlga_start:window_close.7
+  *** dlga_start:window_close.8
+  *** dlga_start:window_close.9
+  *** dlga_start:window_close.10
+  *** dlga_start:window_close.11
+  *** dlga_start:window_close.12
+  *** dlga_start:window_close.13
+  *** dlga_start:window_close.14
+  *** dlga_start:window_close.15
+  *** dlga_start:window_close.16
+  *** dlga_start:window_close.17
+  *** dlga_start:window_close.18
+  *** dlga_start:window_close.19
+  *** dlga_start:window_close.20
+  *** dlga_start:window_close.21
+  *** dlga_start:window_close.22
+  *** dlga_start:window_close.23
+  *** dlga_start:window_close.24
+  *** dlga_start:window_close.25
+  *** dlga_start:window_close.26
+  *** dlga_start:window_close.27
+  *** dlga_start:window_close.28
+  *** dlga_start:window_close.29
+  *** dlga_start:window_close.30
+  *** dlga_start:window_close.31
+  *** dlga_start:window_close.32
+  *** dlga_start:window_close.33
+  *** dlga_start:window_close.34
+  *** dlga_start:window_close.35
+  *** dlga_start:window_close.36
+  *** dlga_start:window_close.37
+  *** dlga_start:window_close.38
+  *** dlga_start:window_close.39
+  *** dlga_start:window_close.40
+  *** dlga_start:window_close.41
+  *** dlga_start:window_close.42
+  *** dlga_start:window_close.43
+  ** Replaced:
+  *** dlga_start:window_close.4
+  **** efendim => beyim
+  
+8. Arena rewards increases with renown.
+  * module_constants.py
+  ** Replaced:
+  *** arena_tier1_opponents_to_beat
+  *** arena_tier2_opponents_to_beat
+  *** arena_tier3_opponents_to_beat
+  *** arena_tier4_opponents_to_beat
+  *** arena_tier1_prize
+  *** arena_tier2_prize
+  *** arena_tier3_prize
+  *** arena_tier4_prize
+  *** arena_grand_prize
+  * module_scripts.py
+  ** Added:
+  *** script_get_arena_reward
+  **** Outputs: reg11, reg12, reg13, reg14, reg15 (reg11: tier1 prize -> reg15: grand prize)
+  * module_dialogs.py
+  ** Replaced:
+  *** arena_training_melee_intro_reward:arena_training_melee_intro_2
+  *** arena_training_melee_explain_reward:arena_master_melee_pretalk
+  ** Deprecated:
+  *** arena_master_fight_result:arena_master_pre_talk.2
+  *** arena_master_fight_result:arena_master_pre_talk.3
+  *** arena_master_fight_result:arena_master_pre_talk.4
+  *** arena_master_fight_result:arena_master_pre_talk.5
+  *** arena_master_fight_result:arena_master_pre_talk.6
+  ** Added:
+  *** arena_master_fight_result:arena_master_pre_talk.2
+  *** arena_master_fight_result:arena_master_pre_talk.3
+  *** arena_master_fight_result:arena_master_pre_talk.4
+  *** arena_master_fight_result:arena_master_pre_talk.5
+  *** arena_master_fight_result:arena_master_pre_talk.6  
 
-For getting documentation and the latest version of the module system check out:
-
-www.taleworlds.com/mb_module_system.html
-
+9. Upgrading buildings, villages, castles and towns added.
+  * module_constants.py
+  ** Added:
+  *** slot_center_building_manor
+  *** slot_center_building_watch_tower
+  *** slot_center_building_fish_pond
+  *** slot_center_building_school
+  *** slot_center_building_college
+  *** slot_center_building_university
+  *** slot_center_building_messenger_post
+  *** slot_center_building_headquarters
+  *** slot_center_building_timber_camp
+  *** slot_center_building_iron_mine
+  *** slot_center_building_clay_pit
+  *** slot_center_building_mill
+  *** slot_center_building_farm
+  *** slot_center_building_religion
+  *** slot_center_building_statue
+  *** slot_center_building_workshop
+  *** slot_center_building_prisoner_tower
+  *** slot_center_building_barracks
+  *** slot_center_building_bank
+  *** village_buildings_begin
+  *** village_buildings_end
+  *** castle_buildings_begin
+  *** castle_buildings_end
+  *** town_buildings_begin
+  *** town_buildings_end
+  * module_scripts.py
+  ** Added:
+  *** script_get_upgrade_icon
+  *** script_check_building_upgrade
+  *** script_set_improvement_bonus
+  *** script_get_improvement_detail_new
+  *** script_can_upgrade_building
+  *** script_get_random_improvement
+  *** script_upgrade_building
+  ** Deprecated:
+  *** script_get_improvement_details
+  * module_game_menus.py
+  ** Replaced:
+  *** menu_center_manage
+  *** menu_center_improve
+  * module_simple_triggers.py
+  ** Removed:
+  *** 12h trigger for checking time left for constructions.
+  ** Added:
+  *** 12h trigger which call script_check_building_upgrade to check time left.
+  *** 48h trigger which call script_get_random_improvement for AI construct building by 2% chance.
+  
+10. Sea Wars added.
+  * module_constants.py
+  ** Added:
+  *** slot_town_near_shore
+  * module_game_menus.py
+  ** Replaced:
+  *** menu_castle_castle:mno_sail_from_port
+  *** menu_simple_encounter:mno_encounter_attack
+  *** menu_join_battle:mno_join_attack
+  *** menu_disembark:mno_disembark_yes
+  *** menu_captivity_wilderness_check:mno_continue
+  * module_party_templates.py
+  ** Added:
+  *** sea_raiders_ships
+  * module_parties.py
+  ** Added:
+  *** ship_raider_spawn_point_1
+  *** ship_raider_spawn_point_2
+  * module_mission_templates.py
+  ** Added:
+  *** mt_ship_battle
+  * module_scripts.py
+  ** Edited:
+  *** script_spawn_bandits
+  * game_menus.csv
+  ** Added:
+  *** mno_sail_from_port
+  
+11. Bandit Camps added.
+  * module_parties.py
+  ** Added:
+  *** p_bandit_camp_1
+  *** p_bandit_camp_2
+  *** p_bandit_camps_end
+  * module_game_menus.py
+  ** Added:
+  *** menu_bandit_camp
+  * module_simple_triggers.py
+  ** Added:
+  *** Trigger for p_bandit_camp_1 and p_bandit_camp_2 which recovers camps.
+  * module_map_icons.py
+  ** Added:
+  *** icon_persius_map_bandit_camp
+  *** icon_persius_map_bandit_camp_raid
+  *** icon_persius_map_bandit_camp_snow
+  *** icon_persius_map_bandit_camp_snow_raid
+  * module_mission_templates.py
+  ** Added:
+  *** mt_bandit_camp
+  * module_scripts.py
+  ** Replaced:
+  *** script_game_event_party_encounter
+  + BUGS:
+  ++ Can't loot and get prisoners from camps.
+  
+12. Difficulty settings added.
+  * variables.txt
+  ** Added:
+  *** g_difficulty
+  + BUGS:
+  ++ Players can't choose difficulty yet.
+  
+13. Dark Hunters (Knights) and Desert Cavalries added.
+  * module_factions.py
+  ** Edited:
+  *** fac_dark_knights
+  ** Added:
+  *** fac_desert_cavalry
+  * module_troops.py
+  ** Added:
+  *** trp_dark_knight
+  *** trp_dark_hunter
+  *** trp_desert_cavalry
+  * module_party_templates.py
+  ** Added:
+  *** pt_dark_hunters
+  *** pt_desert_cavalry
+  * module_triggers.py
+  ** Added:
+  *** Trigger for pt_dark_hunters which spawn 1 party in a day. (Max: difficulty * 6)
+  *** Trigger for pt_desert_cavalry which spawn 1 party in a day. (Max: difficulty * 3)
+  * module_items.py
+  ** Added:
+  *** itm_broadsword
+  *** itm_war_shield
+  *** itm_heater_shield
+  * module_map_icons.py
+  ** Added:
+  *** icon_dedal_map_swadia_king_b
+  *** icon_dedal_map_swadia_lord_a
+  
+14. Modder login added to first page.
+  * module_game_menus.py
+  ** Edited:
+  *** menu_start_game_0
+  + BUGS:
+  ++ When player use C button, player can't continue without giving skills.

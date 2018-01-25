@@ -240,3 +240,6 @@ p_reserved_2 = 238
 p_reserved_3 = 239
 p_reserved_4 = 240
 p_reserved_5 = 241
+p_bandit_camp_1 = 242
+p_bandit_camp_2 = 243
+p_bandit_camps_end = 244

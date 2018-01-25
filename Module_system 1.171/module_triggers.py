@@ -173,6 +173,34 @@ triggers = [
                (party_set_flags, reg(2), pf_default_behavior, 0),
             ]),
 
+  ## UID: 12 - Begin
+  #
+  (10.1, 0, 0.0, [
+      (store_num_parties_of_template, ":total_dark_knight", "pt_dark_hunters"),
+      (store_mul, ":max_dark_knight", 6, "$g_difficulty"),
+      (lt, ":total_dark_knight", ":max_dark_knight"),
+##      (neq, "$dnm_dark_knights", 1),
+    ], [
+        (store_random_in_range, ":town_no", towns_begin, towns_end),
+        (set_spawn_radius, 1),
+        (spawn_around_party, ":town_no", "pt_dark_hunters"),
+    ]),
+  
+  (10.1, 0, 0.0, [
+      (store_num_parties_of_template, ":total_desert_cavalry", "pt_desert_cavalry"),
+      (store_mul, ":max_desert_cavalry", 3, "$g_difficulty"),
+      (lt, ":total_desert_cavalry", ":max_desert_cavalry"),
+##      (neq, "$dnm_desert_cavalry", 1),
+    ], [
+        (store_random_in_range, ":town_no", "p_town_18", "p_town_22"),
+        (val_add, ":town_no", 1),
+        (set_spawn_radius, 1),
+        (spawn_around_party, ":town_no", "pt_desert_cavalry"),
+    ]),
+
+  #
+  ## UID: 12 - End
+
 ##Caravans
 #  (4.2, 0, 0.0, [],
 #                     [

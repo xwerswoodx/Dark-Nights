@@ -1305,4 +1305,12 @@ scenes = [
   ("sea_5", sf_generate, "none", "none", (0,0), (240,240), -0.5, "0x0000000030000000c00d2348000000008000000000000000", [], []), #Land
   #
   ## UID: 10 - End
+
+  ## UID: 11 - Begin
+  #
+  ("bandit_1_camp", sf_generate, "none", "none", (0, 0), (100, 100), -100, "0x000000003a07b2320002589600002b710000594a0000114e", [], [], "outer_terrain_plain"),
+  ("bandit_2_camp", sf_generate, "none", "none", (0, 0), (100, 100), -100, "0x000000004a07b2320002589600002b710000594a0000114e", [], [], "outer_terrain_snow"),
+  ("bandit_end", sf_generate, "none", "none", (0, 0), (100, 100), -100, "0", [], []),
+  #
+  ## UID: 11 - End
 ]

@@ -1772,7 +1772,6 @@ peak_prisoner_trains = 4
 peak_kingdom_caravans = 12
 peak_kingdom_messengers = 3
 
-
 # Note positions
 note_troop_location = 3
 

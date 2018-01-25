@@ -49,3 +49,4 @@ mst_meeting_merchant = 47
 mst_town_fight = 48
 mst_multiplayer_duel = 49
 mst_ship_battle = 50
+mst_bandit_camp = 51

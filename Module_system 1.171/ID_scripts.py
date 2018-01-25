@@ -609,5 +609,12 @@ script_cf_coop_give_item_to_assigned_group_member = 607
 script_add_player_to_cur_tableau_for_coop = 608
 script_add_troop_to_cur_tableau_for_coop = 609
 script_get_arena_reward = 610
+script_get_upgrade_icon = 611
+script_check_building_upgrade = 612
+script_set_improvement_bonus = 613
+script_get_improvement_detail_new = 614
+script_can_upgrade_building = 615
+script_get_random_improvement = 616
+script_upgrade_building = 617
 
 
