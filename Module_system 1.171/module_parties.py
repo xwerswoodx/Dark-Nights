@@ -321,8 +321,8 @@ parties = [
   ("sea_raider_spawn_point_2"   ,"the coast",pf_disabled|pf_is_static, no_menu, pt_none, fac_outlaws,0,ai_bhvr_hold,0,(-42, 76.7),[(trp_looter,15,0)]),
   ## UID: 10 - Begin
   #
-  ("ship_raider_spawn_point_1"  ,"the_ocean",pf_disabled|pf_is_static, no_menu, pt_none, fac_outlaws,0,ai_bhvr_hold,0,(-5.23, 90.26),[(trp_looter,15,0)]),
-  ("ship_raider_spawn_point_2"  ,"the_ocean",pf_disabled|pf_is_static, no_menu, pt_none, fac_outlaws,0,ai_bhvr_hold,0,(-15.3, -100),[(trp_looter,15,0)]),
+  ("ship_raider_spawn_point_1"  , "the_ocean", pf_disabled|pf_is_static, no_menu, pt_none, fac_outlaws, 0,ai_bhvr_hold, 0, (-3.46, 97.41), [(trp_looter,15,0)]),
+  ("ship_raider_spawn_point_2"  , "the_ocean", pf_disabled|pf_is_static, no_menu, pt_none, fac_outlaws, 0, ai_bhvr_hold, 0, (-18.82, -109.88), [(trp_looter,15,0)]),
   #
   ## UID: 10 - End
   ("desert_bandit_spawn_point"  ,"the deserts",pf_disabled|pf_is_static, no_menu, pt_none, fac_outlaws,0,ai_bhvr_hold,0,(110, -100),[(trp_looter,15,0)]),

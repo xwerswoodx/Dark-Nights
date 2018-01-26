@@ -1208,3 +1208,5 @@ g_there_is_no_avaliable_centers
 g_advantegous_faction
 g_give_advantage_to_original_faction
 g_difficulty
+g_gift_no
+g_time_to_gift

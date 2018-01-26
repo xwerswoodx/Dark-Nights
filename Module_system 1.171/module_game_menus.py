@@ -41,7 +41,6 @@ game_menus = [
    "none", [], [
        ("continue",[],"Continue...", [(jump_to_menu, "mnu_start_game_1")]),
        ("go_back", [], "Go back", [(change_screen_quit)]),
-
        ## UID: 14 - Begin
        #
        ("modder", [], "Module Editor Start", [
@@ -54,45 +53,69 @@ game_menus = [
 ##           (try_for_range, ":attr", 0, 5),
 ##             (troop_raise_attribute, "trp_player", ":attr", 30),
 ##           (try_end),
-           (troop_set_name, "trp_player", "@Mod Editor"),
-           (troop_add_gold, "trp_player", 9999999),
-           (troop_add_item, "trp_player", "itm_persius_sword_01", 17),
-           (troop_add_item, "trp_player", "itm_heater_shield", 17),
-           (troop_add_item, "trp_player", "itm_heater_shield", 17),
-           (troop_add_item, "trp_player", "itm_sanjarinati", 20),
-           (troop_add_item, "trp_player", "itm_bascinet", 17),
-           (troop_add_item, "trp_player", "itm_guard_helmet", 17),
-           (troop_add_item, "trp_player", "itm_black_armor", 17),
-           (troop_add_item, "trp_player", "itm_black_greaves", 17),
-           (troop_add_item, "trp_player", "itm_smoked_fish", 0),
-           (assign, "$town_entered", 1),
-           (assign, "$current_town", "p_town_1"),
-           (assign, "$g_encountered_party", "p_town_1"),
-           (jump_to_menu, "mnu_town"),
-           (set_jump_mission, "mt_town_default"),
-           (jump_to_scene, "scn_town_1_room"),
-           (modify_visitors_at_site, "scn_town_1_room"),
-           (reset_visitors),
-           (set_visitor, 0, "trp_player"),
-           (change_screen_mission),
-##           (party_relocate_near_party, "p_main_party", "p_town_6", 2),
-##           (change_screen_return),
+##           (troop_set_name, "trp_player", "@Mod Editor"),
+##           (troop_add_gold, "trp_player", 9999999),
+##           (troop_add_item, "trp_player", "itm_persius_sword_01", 17),
+##           (troop_add_item, "trp_player", "itm_heater_shield", 17),
+##           (troop_add_item, "trp_player", "itm_heater_shield", 17),
+##           (troop_add_item, "trp_player", "itm_sanjarinati", 20),
+##           (troop_add_item, "trp_player", "itm_bascinet", 17),
+##           (troop_add_item, "trp_player", "itm_guard_helmet", 17),
+##           (troop_add_item, "trp_player", "itm_black_armor", 17),
+##           (troop_add_item, "trp_player", "itm_black_greaves", 17),
+##           (troop_add_item, "trp_player", "itm_smoked_fish", 0),
+##           (assign, "$town_entered", 1),
+##           (assign, "$current_town", "p_town_1"),
+##           (assign, "$g_encountered_party", "p_town_1"),
+##           (jump_to_menu, "mnu_town"),
+##           (set_jump_mission, "mt_town_default"),
+##           (jump_to_scene, "scn_town_1_room"),
+##           (modify_visitors_at_site, "scn_town_1_room"),
+##           (reset_visitors),
+##           (set_visitor, 0, "trp_player"),
+##           (change_screen_mission),
+           (party_relocate_near_party, "p_main_party", "p_town_6", 2),
+           (change_screen_return),
         ]),
        #
        ## UID: 14 - End
     ]),
 
-  ("start_phase_2",mnf_disable_all_keys,
-    "You hear about Calradia, a land torn between rival kingdoms battling each other for supremacy,\
- a haven for knights and mercenaries,  cutthroats and adventurers, all willing to risk their lives in pursuit of fortune, power, or glory...\
- In this land which holds great dangers and even greater opportunities, you believe you may leave your past behind and start a new life.\
- You feel that finally, you hold the key of your destiny in your hands, free to choose as you will,\
- and that whatever course you take, great adventures will await you. Drawn by the stories you hear about Calradia and its kingdoms, you...",
-    "none",
-    [],
-    [
-      ("town_1",[(eq, "$current_startup_quest_phase", 0),],"join a caravan to Praven, in the Kingdom of Swadia.",
-       [
+  ("start_phase_2", mnf_disable_all_keys, "You hear about Calradia, a land torn between rival kingdoms battling each other for supremacy,\
+a haven for knights and mercenaries,  cutthroats and adventurers, all willing to risk their lives in pursuit of fortune, power, or glory...\
+In this land which holds great dangers and even greater opportunities, you believe you may leave your past behind and start a new life.\
+You feel that finally, you hold the key of your destiny in your hands, free to choose as you will,\
+and that whatever course you take, great adventures will await you. Drawn by the stories you hear about Calradia and its kingdoms, you...", "none", [], [
+
+    ## UID: 14 - Begin
+    #
+    ("modder", [], "Module Editor Start", [
+        (try_for_range, ":skill", 0, 42),
+          (troop_raise_skill, "trp_player", ":skill", 10),
+        (try_end),
+        (try_for_range, ":wpt", 0, 7),
+          (troop_raise_proficiency, "trp_player", ":wpt", 400),
+        (try_end),
+        (try_for_range, ":attr", 0, 5),
+          (troop_raise_attribute, "trp_player", ":attr", 30),
+        (try_end),
+        (troop_set_name, "trp_player", "@Mod Editor"),
+        (troop_add_gold, "trp_player", 9999999),
+        (troop_add_item, "trp_player", "itm_persius_sword_01", 17),
+        (troop_add_item, "trp_player", "itm_heater_shield", 17),
+        (troop_add_item, "trp_player", "itm_sanjarinati", 20),
+        (troop_add_item, "trp_player", "itm_bascinet", 17),
+        (troop_add_item, "trp_player", "itm_guard_helmet", 17),
+        (troop_add_item, "trp_player", "itm_black_armor", 17),
+        (troop_add_item, "trp_player", "itm_black_greaves", 17),
+        (troop_add_item, "trp_player", "itm_smoked_fish", 0),
+        (party_relocate_near_party, "p_main_party", "p_town_6", 2),
+        (change_screen_return),
+    ]),
+    #
+    ## UID: 14 - End
+
+    ("town_1", [(eq, "$current_startup_quest_phase", 0)], "join a caravan to Praven, in the Kingdom of Swadia.", [
          (assign, "$current_town", "p_town_6"),
          (assign, "$g_starting_town", "$current_town"),
          (assign, "$g_journey_string", "str_journey_to_praven"),

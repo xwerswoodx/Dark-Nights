@@ -33653,12 +33653,100 @@ scripts = [
      (try_begin),
        (store_num_parties_of_template, ":num_parties", "pt_sea_raiders_ships"),
        (lt,":num_parties", 40),
-       (store_random,":spawn_point", 0, 2),
-       (val_add,":spawn_point", "p_ship_raider_spawn_point_1"),
-       (spawn_around_party,":spawn_point","pt_sea_raiders_ships"),
+       (store_random_in_range, ":spawn_point", 0, 2),
+       (val_add, ":spawn_point", "p_ship_raider_spawn_point_1"),
+       (spawn_around_party, ":spawn_point", "pt_sea_raiders_ships"),
      (try_end),
      #
      ## UID: 10 - End
+     ## UID: 21 - Begin
+     #
+     (try_begin),
+       (call_script, "script_get_walled_count", fac_kingdom_1),
+       (assign, ":max", reg0),
+       (val_mul, ":max", 2),
+
+       (store_num_parties_of_template, ":num_parties", "pt_kingdom_1_patrol"),
+       (lt,":num_parties", ":max"),
+       (call_script, "script_get_random_center", fac_kingdom_1),
+       (gt, reg0, 0),
+       (spawn_around_party, reg0, "pt_kingdom_1_patrol"),
+       (assign, ":party", reg(0)),
+       (party_set_ai_behavior, ":party", ai_bhvr_patrol_location),
+       (party_set_ai_patrol_radius, ":party", 3),      
+     (try_end),
+     (try_begin),
+       (call_script, "script_get_walled_count", fac_kingdom_2),
+       (assign, ":max", reg0),
+       (val_mul, ":max", 2),
+
+       (store_num_parties_of_template, ":num_parties", "pt_kingdom_2_patrol"),
+       (lt,":num_parties", ":max"),
+       (call_script, "script_get_random_center", fac_kingdom_2),
+       (gt, reg0, 0),
+       (spawn_around_party, reg0, "pt_kingdom_2_patrol"),
+       (assign, ":party", reg(0)),
+       (party_set_ai_behavior, ":party", ai_bhvr_patrol_location),
+       (party_set_ai_patrol_radius, ":party", 3),      
+     (try_end),
+     (try_begin),
+       (call_script, "script_get_walled_count", fac_kingdom_3),
+       (assign, ":max", reg0),
+       (val_mul, ":max", 2),
+
+       (store_num_parties_of_template, ":num_parties", "pt_kingdom_3_patrol"),
+       (lt,":num_parties", ":max"),
+       (call_script, "script_get_random_center", fac_kingdom_3),
+       (gt, reg0, 0),
+       (spawn_around_party, reg0, "pt_kingdom_3_patrol"),
+       (assign, ":party", reg(0)),
+       (party_set_ai_behavior, ":party", ai_bhvr_patrol_location),
+       (party_set_ai_patrol_radius, ":party", 3),      
+     (try_end),
+     (try_begin),
+       (call_script, "script_get_walled_count", fac_kingdom_4),
+       (assign, ":max", reg0),
+       (val_mul, ":max", 2),
+
+       (store_num_parties_of_template, ":num_parties", "pt_kingdom_4_patrol"),
+       (lt,":num_parties", ":max"),
+       (call_script, "script_get_random_center", fac_kingdom_4),
+       (gt, reg0, 0),
+       (spawn_around_party, reg0, "pt_kingdom_4_patrol"),
+       (assign, ":party", reg(0)),
+       (party_set_ai_behavior, ":party", ai_bhvr_patrol_location),
+       (party_set_ai_patrol_radius, ":party", 3),      
+     (try_end),
+     (try_begin),
+       (call_script, "script_get_walled_count", fac_kingdom_5),
+       (assign, ":max", reg0),
+       (val_mul, ":max", 2),
+
+       (store_num_parties_of_template, ":num_parties", "pt_kingdom_5_patrol"),
+       (lt,":num_parties", ":max"),
+       (call_script, "script_get_random_center", fac_kingdom_5),
+       (gt, reg0, 0),
+       (spawn_around_party, reg0, "pt_kingdom_5_patrol"),
+       (assign, ":party", reg(0)),
+       (party_set_ai_behavior, ":party", ai_bhvr_patrol_location),
+       (party_set_ai_patrol_radius, ":party", 3),      
+     (try_end),
+     (try_begin),
+       (call_script, "script_get_walled_count", fac_kingdom_6),
+       (assign, ":max", reg0),
+       (val_mul, ":max", 2),
+
+       (store_num_parties_of_template, ":num_parties", "pt_kingdom_6_patrol"),
+       (lt,":num_parties", ":max"),
+       (call_script, "script_get_random_center", fac_kingdom_6),
+       (gt, reg0, 0),
+       (spawn_around_party, reg0, "pt_kingdom_6_patrol"),
+       (assign, ":party", reg(0)),
+       (party_set_ai_behavior, ":party", ai_bhvr_patrol_location),
+       (party_set_ai_patrol_radius, ":party", 3),      
+     (try_end),
+     #
+     ## UID: 21 - End
      (try_begin),
        (store_num_parties_of_template, ":num_parties", "pt_forest_bandits"),
        (lt,":num_parties",16), #was 14 at mount&blade, 18 in warband, 16 last decision
@@ -51372,13 +51460,14 @@ scripts = [
         (store_current_hours, ":curTime"),
         (val_add, ":time", ":curTime"),
         (party_set_slot, ":center", slot_center_improvement_end_hour, ":time"),
+        (party_get_slot, ":lord", ":center", slot_town_lord),
         (try_begin),
           (ge, ":isPlayer", 1),
+          (eq, ":lord", "trp_player"),
           (troop_remove_gold, "trp_player", ":price"),
         (try_end),
 
         (str_store_party_name, s5, ":center"),
-        (party_get_slot, ":lord", ":center", slot_town_lord),
         (str_store_troop_name, s6, ":lord"),
 
         (display_log_message, "@Building of {s4} in {s5} has been started by {s6}."),
@@ -51386,4 +51475,38 @@ scripts = [
     ]),
   #
   ## UID: 9 - End
+
+  ## UID: 21 - Begin
+  #
+  # get_random_center, faction
+  # OUTPUT:
+  # reg0: center number (0 if not possible)
+  ("get_random_center", [
+      (store_script_param, ":faction", 1),
+      (assign, reg0, 0),
+      (try_for_range, ":center", centers_begin, centers_end),
+        (store_faction_of_party, ":partyFaction", ":center"),
+        (eq, ":partyFaction", ":faction"),
+        (try_begin),
+          (eq, reg0, 0),
+          (assign, reg0, ":center"),
+        (else_try),
+          (store_random_in_range, ":random", 0, 100),
+          (lt, ":random", 10),
+          (assign, reg0, ":center"),
+        (try_end),
+      (try_end),
+    ]),
+
+  ("get_walled_count", [
+      (store_script_param, ":faction", 1),
+      (assign, reg0, 0),
+      (try_for_range, ":center", walled_centers_begin, walled_centers_end),
+        (store_faction_of_party, ":partyFaction", ":center"),
+        (eq, ":partyFaction", ":faction"),
+        (val_add, reg0, 1),
+      (try_end),
+    ]),
+  #
+  ## UID: 21 - End
 ]

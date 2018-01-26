@@ -2593,6 +2593,24 @@ simple_triggers = [
   #
   ## UID: 9 - End
 
+  ## UID: 20 - Begin
+  #
+  (72, [
+      (try_for_range, ":center", walled_centers_begin, walled_centers_end),
+        (party_get_slot, ":barracks", ":center", slot_center_building_barracks),
+        (try_begin),
+          (gt, ":barracks", 0),
+          (party_get_slot, ":faction", ":center", slot_center_original_faction),
+          (store_random_in_range, ":random", 0, ":barracks"),
+          (assign, ":tier", slot_faction_tier_1_troop),
+          (val_add, ":tier", ":random"),
+          (faction_get_slot, ":troop", ":faction", ":random"),          
+          (party_add_members, ":center", ":troop", ":barracks"),
+        (try_end),
+    ]),
+  #
+  ## UID: 20 - End
+
   # Adding tournaments to towns
   # Adding bandits to towns and villages
   (24,

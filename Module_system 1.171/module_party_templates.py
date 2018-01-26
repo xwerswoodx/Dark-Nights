@@ -164,4 +164,15 @@ party_templates = [
   ("bandit_lair_templates_end","{!}bandit_lair_templates_end",icon_axeman|carries_goods(2)|pf_is_static,0,fac_outlaws,bandit_personality,[(trp_sea_raider,15,50)]),
 
   ("leaded_looters","Band of robbers",icon_axeman|carries_goods(8)|pf_quest_party,0,fac_neutral,bandit_personality,[(trp_looter_leader,1,1),(trp_looter,3,3)]),
+
+  ## UID: 21 - Begin
+  #
+  ("kingdom_1_patrol", "Swadian Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_kingdom_1, soldier_personality, [(trp_swadian_recruit, 10, 15),(trp_swadian_militia,2, 7)]),
+  ("kingdom_2_patrol", "Vaegir Patrol Party", icon_vaegir_knight|pf_show_faction, 0, fac_kingdom_2, soldier_personality, [(trp_vaegir_recruit, 10, 15),(trp_vaegir_footman, 2, 7)]),
+  ("kingdom_3_patrol", "Khergit Patrol Party", icon_khergit|pf_show_faction, 0, fac_kingdom_3, soldier_personality, [(trp_khergit_tribesman, 8, 13),(trp_khergit_skirmisher, 4, 9)]),
+  ("kingdom_4_patrol", "Nord Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_kingdom_4, soldier_personality, [(trp_nord_footman, 10, 15),(trp_nord_recruit, 2, 7)]),
+  ("kingdom_5_patrol", "Rhodol Patrol Party", icon_vaegir_knight|pf_show_faction, 0, fac_kingdom_5, soldier_personality, [(trp_rhodok_tribesman, 8, 13),(trp_rhodok_spearman, 4, 9)]),
+  ("kingdom_6_patrol", "Sarranid Patrol Party", icon_khergit|pf_show_faction, 0, fac_kingdom_6, soldier_personality, [(trp_sarranid_recruit, 8, 13),(trp_sarranid_footman, 4, 9)]),
+  #
+  ## UID: 21 - End
 ]

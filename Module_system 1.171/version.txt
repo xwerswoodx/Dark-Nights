@@ -299,6 +299,8 @@
   ** Replaced:
   *** menu_center_manage
   *** menu_center_improve
+  ** Fixed:
+  *** Unknown troop id -1 error fixed.
   * module_simple_triggers.py
   ** Removed:
   *** 12h trigger for checking time left for constructions.
@@ -362,6 +364,8 @@
   * module_scripts.py
   ** Edited:
   *** script_spawn_bandits
+  ** Fixed:
+  ** No party spawned on second spawn point.
   * game_menus.csv
   ** Added:
   *** mno_sail_from_port
@@ -431,15 +435,12 @@
   
 14. Modder login added to first page.
   * module_game_menus.py
-  ** Edited:
-  *** menu_start_game_0
+  ** Added:
+  *** menu_start_game_0:mno_modder
+  *** menu_start_game_2:mno_modder
   * game_menus.csv
   ** Fixed:
   *** menu_start_game_0 translation issue.
-  ** Added:
-  *** mno_modder
-  ***  + BUGS:
-  ++ When player use C button, player can't continue without giving skills.
 
 15. Added talking with village elders and guild masters directly from menu if already met with him.
   * module_game_menus.py
@@ -495,4 +496,25 @@
   ** Replaced:
   *** script_game_get_party_prisoner_limit
   *** script_game_get_party_companion_limit
+
+20. Barracks recruits unit once in 3 days.
+  * module_simple_triggers.py
+  ** Added:
+  *** 72h trigger to recruit troops.
+  
+21. Patrol parties added.
+  * module_party_templates.py
+  ** Added:
+  *** pt_kingdom_1_patrol
+  *** pt_kingdom_2_patrol
+  *** pt_kingdom_3_patrol
+  *** pt_kingdom_4_patrol
+  *** pt_kingdom_5_patrol
+  *** pt_kingdom_6_patrol
+  * module_scripts.py
+  ** Added:
+  *** script_get_random_center
+  *** script_get_walled_count
+  ** Edited:
+  *** script_spawn_bandits
   
