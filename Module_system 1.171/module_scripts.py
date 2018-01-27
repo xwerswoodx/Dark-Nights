@@ -51358,7 +51358,6 @@ scripts = [
         (str_store_string, s1, "@A watch tower lets the villagers raise alarm earlier. The time it takes for enemies to loot the village increases by 50%."),
         (assign, reg0, 5000),
         (assign, reg1, 1),
---
       (else_try),
         (eq, ":improvement_no", slot_center_building_messenger_post),
         (str_store_string, s0, "@Messenger Post"),
@@ -51462,14 +51461,25 @@ scripts = [
       (try_end),
       
       (val_mul, reg0, 3),
-      (store_sub, reg1, 5, "$g_difficulty"),
-      (val_div, reg0, reg1),
+      (store_sub, reg10, 5, "$g_difficulty"),
+      (val_div, reg0, reg10),
       (store_sub, ":diff", 20, ":max"),
       (val_mul, reg0, ":diff"),
       (val_div, reg0, 20),
+      (party_get_slot, reg11, "$g_encountered_party", ":improvement_no"),
+      (val_add, reg11, 1),
+      (val_mul, reg0, reg11),
 
+      (party_get_slot, reg12, "$g_encountered_party", slot_center_building_headquarters),
       (store_div, reg2, reg0, 100),
       (val_add, reg2, 3),
+      (val_mul, reg2, reg11),
+      (try_begin), ## Headquarters 25% countdown bonus.
+        (gt, reg12, 0),
+        (store_mul, ":head", reg2, 25),
+        (val_div, ":head", 100),
+        (val_sub, reg2, ":head"),
+      (try_end),      
       (val_mul, reg2, 24),
     ]),
 

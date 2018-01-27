@@ -339,6 +339,21 @@
   *** qstr_Mosque
   *** qstr_A_mosque
   *** qstr_{s3}_increases_cente
+  * game_menus.csv
+  ** Added:
+  *** mno_center_build_headquarters
+  *** mno_center_build_bank
+  *** mno_center_build_statue
+  *** mno_center_build_barracks
+  *** mno_center_build_workshop
+  *** mno_center_build_religion
+  *** mno_center_build_mill
+  *** mno_center_build_farm
+  *** mno_center_build_college
+  *** mno_center_build_university
+  *** mno_center_build_timber_camp
+  *** mno_center_build_iron_mine
+  *** mno_center_build_clay_pit
 
 10. Sea Wars added.
   * module_constants.py
@@ -399,7 +414,7 @@
   *** p_bandit_camp_1
   *** p_bandit_camp_2
   + BUGS:
-  ++ Can't loot and get prisoners from camps.
+  ++ 
   
 12. Difficulty settings added.
   * variables.txt
@@ -455,6 +470,10 @@
   ** Added:
   *** menu_village:mno_meet_the_village_elder
   *** menu_town:mno_meet_the_guild_master
+  * game_menus.csv
+  ** Added:
+  *** mno_meet_the_guild_master
+  *** mno_meet_the_village_elder
   
 16. Giving a gift to lady added.
   * module_constants.py
@@ -473,6 +492,19 @@
   ** Added:
   *** g_gift_no
   *** g_time_to_gift
+  * dialog.csv
+  ** Added:
+  *** dlga_lady_talk:lady_talk_gift
+  *** dlga_lady_talk_gift:lady_talk_gifting
+  *** dlga_lady_talk_gifting:lady_talk_give_gift
+  *** dlga_lady_talk_gifting:lady_pretalk
+  *** dlga_lady_talk_give_gift:lady_private_conversation_end
+  *** dlga_lady_talk_give_gift:lady_private_conversation_end.1
+  * quick_strings.csv
+  ** Added:
+  *** qstr_a_very_nice
+  *** qstr_a_very_good
+  *** qstr_a_very_special
   
 17. Cattles track party after this time.
   * module_game_menus.py
@@ -1213,8 +1245,6 @@
   ** Added:
   *** pt_kingdom_7_patrol
   *** pt_kingdom_8_patrol
-  + BUGS:
-  ++ tf_female ladies seems like man so dialogs should change with sex. (For example, lord first talk dialog says "I am lord of blabla")
   
 25. Listing all items presentation added on camp cheat menu list.
   * module_game_menus.py
@@ -1242,3 +1272,8 @@
   ** Edited:
   *** menu_requested_castle_granted_to_another:mno_accept_decision
   *** menu_requested_castle_granted_to_another_female:mno_accept_decision
+
+Known Bugs:
+tf_female; Ladies seems like man so dialogs should change with sex. (For example, lord first talk dialog says "I am lord of blabla")
+You can't loot or get prisoners from bandit camps that time.
+Turkish translate has stupid errors. Like "Kendimin yerine mareşal olarak kendim geçmek istiyorum.", "Köyün yeni sahibi kendim olsun istiyorum" etc...
