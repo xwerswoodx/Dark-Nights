@@ -517,4 +517,235 @@
   *** script_get_walled_count
   ** Edited:
   *** script_spawn_bandits
+
+22. Kings and Lords recruit troops from Towns.
+  * module_scripts.py
+  ** Edited:
+  *** script_troop_does_business_in_center
+  + Thanks:
+  ++ frozenpainter for Idea.
   
+23. Banking system is building. (Still in process)
+  * module_scenes.py
+  ** Added:
+  *** scn_town_bank (Still designing)
+  
+24. New kingdoms are adding. (Still in process - Need to add castles and villages [elder, castle troops and scenes] to new kingdoms)
+  * module_factions.py
+  ** Added:
+  *** fac_kingdom_7
+  *** fac_kingdom_8
+  *** fac_culture_7
+  *** fac_culture_8
+  * module_troops.py
+  ** Added:
+  *** trp_umalelithian_recruit
+  *** trp_umalelithian_infantry
+  *** trp_umalelithian_veteran
+  *** trp_umalelithian_warrior
+  *** trp_umalelithian_guard
+  *** trp_umalelithian_leader
+  *** trp_umalelithian_archer
+  *** trp_umalelithian_trained_archer
+  *** trp_umalelithian_veteran_archer
+  *** trp_umalelithian_messenger
+  *** trp_umalelithian_deserter
+  *** trp_umalelithian_prison_guard
+  *** trp_umalelithian_castle_guard
+  *** trp_kielian_tribeswoman
+  *** trp_kielian_spearwoman
+  *** trp_kielian_trained_spearwoman
+  *** trp_kielian_veteran_spearwoman
+  *** trp_kielian_sergeant
+  *** trp_kielian_sergeant
+  *** trp_kielian_master_archer
+  *** trp_kielian_horsewoman
+  *** trp_kielian_swordswoman
+  *** trp_kielian_messenger
+  *** trp_kielian_deserter
+  *** trp_kielian_prison_guard
+  *** trp_kielian_castle_guard
+  *** trp_kingdom_7_lord
+  *** trp_kingdom_8_lord
+  *** trp_knight_7_1
+  *** trp_knight_7_2
+  *** trp_knight_7_3
+  *** trp_knight_7_4
+  *** trp_knight_7_5
+  *** trp_knight_7_6
+  *** trp_knight_7_7
+  *** trp_knight_7_8
+  *** trp_knight_7_9
+  *** trp_knight_7_10
+  *** trp_knight_7_11
+  *** trp_knight_7_12
+  *** trp_knight_7_13
+  *** trp_knight_7_14
+  *** trp_knight_7_15
+  *** trp_knight_7_16
+  *** trp_knight_7_17
+  *** trp_knight_7_18
+  *** trp_knight_7_19
+  *** trp_knight_7_20
+  *** trp_knight_8_1
+  *** trp_knight_8_2
+  *** trp_knight_8_3
+  *** trp_knight_8_4
+  *** trp_knight_8_5
+  *** trp_knight_8_6
+  *** trp_knight_8_7
+  *** trp_knight_8_8
+  *** trp_town_23_seneschal
+  *** trp_town_24_seneschal
+  *** trp_town_25_seneschal
+  *** trp_town_26_seneschal
+  *** trp_town_27_seneschal
+  *** trp_town_23_arena_master
+  *** trp_town_24_arena_master
+  *** trp_town_25_arena_master
+  *** trp_town_26_arena_master
+  *** trp_town_27_arena_master
+  *** trp_town_23_armorer
+  *** trp_town_24_armorer
+  *** trp_town_25_armorer
+  *** trp_town_26_armorer
+  *** trp_town_27_armorer
+  *** trp_town_23_weaponsmith
+  *** trp_town_24_weaponsmith
+  *** trp_town_25_weaponsmith
+  *** trp_town_26_weaponsmith
+  *** trp_town_27_weaponsmith
+  *** trp_town_23_tavernkeeper
+  *** trp_town_24_tavernkeeper
+  *** trp_town_25_tavernkeeper
+  *** trp_town_26_tavernkeeper
+  *** trp_town_27_tavernkeeper
+  *** trp_town_23_merchant
+  *** trp_town_24_merchant
+  *** trp_town_25_merchant
+  *** trp_town_26_merchant
+  *** trp_town_27_merchant
+  *** trp_town_23_horse_merchant
+  *** trp_town_24_horse_merchant
+  *** trp_town_25_horse_merchant
+  *** trp_town_26_horse_merchant
+  *** trp_town_27_horse_merchant
+  *** trp_town_23_mayor
+  *** trp_town_24_mayor
+  *** trp_town_25_mayor
+  *** trp_town_26_mayor
+  *** trp_town_27_mayor
+  ** Upgrade:
+  *** trp_umalelithian_recruit -> trp_umalelithian_infantry
+  *** trp_umalelithian_infantry -> trp_umalelithian_veteran
+  *** trp_umalelithian_infantry -> trp_umalelithian_archer
+  *** trp_umalelithian_veteran -> trp_umalelithian_warrior
+  *** trp_umalelithian_warrior -> trp_umalelithian_guard
+  *** trp_umalelithian_guard -> trp_umalelithian_leader
+  *** trp_umalelithian_archer -> trp_umalelithian_trained_archer
+  *** trp_umalelithian_trained_archer -> trp_umalelithian_veteran_archer
+  *** trp_kielian_tribeswoman -> trp_kielian_spearwoman
+  *** trp_kielian_tribeswoman -> trp_kielian_archer
+  *** trp_kielian_spearwoman -> trp_kielian_trained_spearwoman
+  *** trp_kielian_trained_spearwoman -> trp_kielian_veteran_spearwoman
+  *** trp_kielian_veteran_spearwoman -> trp_kielian_sergeant
+  *** trp_kielian_veteran_spearwoman -> trp_kielian_horsewoman
+  *** trp_kielian_horsewoman -> trp_kielian_swordswoman
+  *** trp_kielian_archer -> trp_kielian_master_archer
+  * module_parties.py
+  ** Added:
+  *** p_town_23
+  *** p_town_24
+  *** p_town_25
+  *** p_town_26
+  *** p_town_27
+  * module_scenes.py
+  ** Added:
+  *** scn_town_23_center
+  *** scn_town_24_center
+  *** scn_town_25_center
+  *** scn_town_26_center
+  *** scn_town_27_center
+  *** scn_town_23_castle
+  *** scn_town_24_castle
+  *** scn_town_25_castle
+  *** scn_town_26_castle
+  *** scn_town_27_castle
+  *** scn_town_23_tavern
+  *** scn_town_24_tavern
+  *** scn_town_25_tavern
+  *** scn_town_26_tavern
+  *** scn_town_27_tavern
+  *** scn_town_23_store
+  *** scn_town_24_store
+  *** scn_town_25_store
+  *** scn_town_26_store
+  *** scn_town_27_store
+  *** scn_town_23_arena
+  *** scn_town_24_arena
+  *** scn_town_25_arena
+  *** scn_town_26_arena
+  *** scn_town_27_arena
+  *** scn_town_23_prison
+  *** scn_town_24_prison
+  *** scn_town_25_prison
+  *** scn_town_26_prison
+  *** scn_town_27_prison
+  *** scn_town_23_walls
+  *** scn_town_24_walls
+  *** scn_town_25_walls
+  *** scn_town_26_walls
+  *** scn_town_27_walls
+  *** scn_town_23_alley
+  *** scn_town_24_alley
+  *** scn_town_25_alley
+  *** scn_town_26_alley
+  *** scn_town_27_alley
+  * module_meshes.py
+  ** Added:
+  *** mesh_banner_f21
+  *** mesh_banner_g11
+  *** mesh_banner_g12
+  *** mesh_banner_g13
+  *** mesh_banner_g14
+  *** mesh_banner_g15
+  *** mesh_banner_g16
+  *** mesh_banner_g17
+  *** mesh_banner_g18
+  *** mesh_banner_g19
+  *** mesh_banner_g20
+  *** mesh_banner_g21
+  *** mesh_banner_h01
+  *** mesh_banner_h02
+  *** mesh_banner_h03
+  *** mesh_banner_h04
+  *** mesh_banner_h05
+  *** mesh_banner_h06
+  *** mesh_banner_h07
+  *** mesh_banner_h08
+  *** mesh_banner_h09
+  *** mesh_banner_kingdom_g
+  *** mesh_banner_kingdom_h
+  * module_party_templates.py
+  ** Added:
+  *** pt_kingdom_7_reinforcements_a
+  *** pt_kingdom_7_reinforcements_b
+  *** pt_kingdom_7_reinforcements_c
+  *** pt_kingdom_8_reinforcements_a
+  *** pt_kingdom_8_reinforcements_b
+  *** pt_kingdom_8_reinforcements_c
+  * module_scripts.py
+  ** Edited:
+  *** script_game_start
+  *** script_initialize_faction_troop_types
+
+25. Listing all items presentation added on camp cheat menu list.
+  * module_game_menus.py
+  ** Added:
+  *** menu_camp_cheat:mno_cheat_view_all_items
+  * module_presentations.py
+  ** Added:
+  *** prsnt_all_items
+  ** Reference:
+  *** module_items.py
+  *** header_items.py

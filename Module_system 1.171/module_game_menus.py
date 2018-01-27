@@ -3105,6 +3105,15 @@ and that whatever course you take, great adventures will await you. Drawn by the
    [
      ],
     [
+      ## UID: 25 - Begin
+      #
+      ("cheat_view_all_items", [], "View all items.", [
+          (assign, "$temp", 0),
+          (start_presentation, "prsnt_all_items"),
+        ]),
+      #
+      ## UID: 25 - End
+      
       ("camp_cheat_find_item",[], "Find an item...",
        [
          (jump_to_menu, "mnu_cheat_find_item"),
@@ -3258,7 +3267,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
      (get_global_cloud_amount, reg5),
      (get_global_haze_amount, reg6),
      ],
-    [
+    [      
       ("cheat_increase_cloud",[], "{!}Increase Cloud Amount.",
        [
 	    (get_global_cloud_amount, ":cur_cloud_amount"),
@@ -3299,36 +3308,23 @@ and that whatever course you take, great adventures will await you. Drawn by the
       ]
   ),
 
-  ("camp_action",0,
-   "Choose an action:",
-   "none",
-   [
-     ],
-    [
-	
+  ("camp_action", 0, "Choose an action:", "none", [], [
+      ("camp_recruit_prisoners", [
+          (troops_can_join, 1),
+          (store_current_hours, ":cur_time"),
+          (val_sub, ":cur_time", 24),
+          (gt, ":cur_time", "$g_prisoner_recruit_last_time"),
+          (try_begin),
+            (gt, "$g_prisoner_recruit_last_time", 0),
+            (assign, "$g_prisoner_recruit_troop_id", 0),
+            (assign, "$g_prisoner_recruit_size", 0),
+            (assign, "$g_prisoner_recruit_last_time", 0),
+          (try_end),
+        ], "Recruit some of your prisoners to your party.", [(jump_to_menu, "mnu_camp_recruit_prisoners")]),
 
-      ("camp_recruit_prisoners",
-       [(troops_can_join, 1),
-        (store_current_hours, ":cur_time"),
-        (val_sub, ":cur_time", 24),
-        (gt, ":cur_time", "$g_prisoner_recruit_last_time"),
-        (try_begin),
-          (gt, "$g_prisoner_recruit_last_time", 0),
-          (assign, "$g_prisoner_recruit_troop_id", 0),
-          (assign, "$g_prisoner_recruit_size", 0),
-          (assign, "$g_prisoner_recruit_last_time", 0),
-        (try_end),
-        ], "Recruit some of your prisoners to your party.",
-       [(jump_to_menu, "mnu_camp_recruit_prisoners"),
-        ],
-       ),
-       
-      ("action_read_book",[],"Select a book to read.",
-       [(jump_to_menu, "mnu_camp_action_read_book"),
-        ]
-       ),
-      ("action_rename_kingdom",
-       [
+      ("action_read_book", [], "Select a book to read.", [(jump_to_menu, "mnu_camp_action_read_book")]),
+
+      ("action_rename_kingdom", [
          (eq, "$players_kingdom_name_set", 1),
          (faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_active),
          (faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
@@ -3592,7 +3588,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
         ## UID: 17 - Begin
         #
 ##        (party_set_ai_behavior, "$g_encountered_party", ai_bhvr_driven_by_party),
-        (party_set_ai_behavior, "$g_encountered_party", ai_bhvr_track_party),
+        (party_set_ai_behavior, "$g_encountered_party", ai_bhvr_escort_party),
         #
         ## UID: 17 - End
         (party_set_ai_object,"$g_encountered_party", "p_main_party"),
@@ -10142,6 +10138,36 @@ and that whatever course you take, great adventures will await you. Drawn by the
         ]),
       #
       ## UID: 15 - End
+
+      ## UID: 23 - Begin
+      #
+      ("town_bank",[
+          (party_slot_eq,"$current_town",slot_party_type, spt_town),
+          (this_or_next|eq,"$entry_to_town_forbidden",0),
+          (             eq, "$sneaked_into_town",1),
+        ] , "Visit the tavern.", [
+            (try_begin),
+              (eq,"$all_doors_locked",1),
+              (display_message,"str_door_locked",0xFFFFAAAA),
+            (else_try),
+              (assign, "$town_entered", 1),
+              (set_jump_mission, "mt_town_default"),
+              (mission_tpl_entry_set_override_flags, "mt_town_default", 0, af_override_horse),
+              (try_begin),
+                (eq, "$sneaked_into_town",1),
+                (mission_tpl_entry_set_override_flags, "mt_town_default", 0, af_override_all),
+              (try_end),
+              (jump_to_scene, "scn_town_bank"),
+              (scene_set_slot, "scn_town_bank", slot_scene_visited, 1),
+              (assign, "$talk_context", tc_tavern_talk),
+              (modify_visitors_at_site, "scn_town_bank"),
+              (reset_visitors),
+##              (set_visitor, ":cur_entry", ":mercenary_troop"),
+              (change_screen_mission),
+            (try_end),
+        ]),
+      #
+      ## UID: 23 - End
       
       ("trade_with_merchants",
        [
@@ -10885,7 +10911,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
       (store_troop_gold, ":gold", "trp_player"),
       (assign, reg7, 100),
       (val_add, reg7, ":renown"),
-      (val_max, reg7, ":gold"),
+      (val_min, reg7, ":gold"),
     ], [
         ("bet_1", [
             (assign, reg8, reg7),

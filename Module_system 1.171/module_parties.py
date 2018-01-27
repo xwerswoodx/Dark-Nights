@@ -100,6 +100,17 @@ parties = [
   ("town_21","Ahmerrad", icon_town_desert|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(130.5, -78.5),[], 330),
   ("town_22","Bariyye", icon_town_desert|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(165, -106.7),[], 225),
 
+  ## UID: 24 - Begin
+  #
+  ("town_23", "Hillford", icon_town_desert|pf_town, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (78.94, -116.96), [], 225),
+  ("town_24", "Rochdale", icon_town_desert|pf_town, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (140.54, -133.14), [], 225),
+
+  ("town_25", "Ashborne", icon_town_snow|pf_town, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (93.54, 90.51), [], 90),
+  ("town_26", "Lanchaster", icon_town_snow|pf_town, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (127.83, 92.67), [], 90),
+  ("town_27", "Highsnow", icon_town_snow|pf_town, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (124.21, 125.45), [], 90),
+  #
+  ## UID: 24 - End
+
 #   Aztaq_Castle       
 #  Malabadi_Castle
   ("castle_1","Culmarr_Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-101.3, -21),[],50),

@@ -28,8 +28,7 @@ scripts = [
   #script_game_start:
   # This script is called when a new game is started
   # INPUT: none
-  ("game_start",
-   [
+  ("game_start", [
       (faction_set_slot, "fac_player_supporters_faction", slot_faction_state, sfs_inactive),
       (assign, "$g_player_luck", 200),
       (assign, "$g_player_luck", 200),
@@ -40,30 +39,29 @@ scripts = [
       (party_set_name, "p_main_party", s5),
       (call_script, "script_update_party_creation_random_limits"),
       (assign, "$g_player_party_icon", -1),
-	  
-	  #Warband changes begin -- set this early 
-	  (try_for_range, ":npc", 0, kingdom_ladies_end),
-	    (this_or_next|eq, ":npc", "trp_player"),
-		(is_between, ":npc", active_npcs_begin, kingdom_ladies_end),
-		(troop_set_slot, ":npc", slot_troop_father, -1),
-		(troop_set_slot, ":npc", slot_troop_mother, -1),
-		(troop_set_slot, ":npc", slot_troop_guardian, -1),
-		(troop_set_slot, ":npc", slot_troop_spouse, -1),
-		(troop_set_slot, ":npc", slot_troop_betrothed, -1),
+
+      #Warband changes begin -- set this early
+      (try_for_range, ":npc", 0, kingdom_ladies_end),
+        (this_or_next|eq, ":npc", "trp_player"),
+        (is_between, ":npc", active_npcs_begin, kingdom_ladies_end),
+        (troop_set_slot, ":npc", slot_troop_father, -1),
+        (troop_set_slot, ":npc", slot_troop_mother, -1),
+        (troop_set_slot, ":npc", slot_troop_guardian, -1),
+        (troop_set_slot, ":npc", slot_troop_spouse, -1),
+        (troop_set_slot, ":npc", slot_troop_betrothed, -1),
         (troop_set_slot, ":npc", slot_troop_prisoner_of_party, -1),		
         (troop_set_slot, ":npc", slot_lady_last_suitor, -1),		
-        (troop_set_slot, ":npc", slot_troop_stance_on_faction_issue, -1),		
-		
-		(store_random_in_range, ":decision_seed", 0, 10000),
+        (troop_set_slot, ":npc", slot_troop_stance_on_faction_issue, -1),
+
+        (store_random_in_range, ":decision_seed", 0, 10000),
         (troop_set_slot, ":npc", slot_troop_set_decision_seed, ":decision_seed"),	#currently not used
-        (troop_set_slot, ":npc", slot_troop_temp_decision_seed, ":decision_seed"),	#currently not used, holds for at least 24 hours			
-	  (try_end),
+        (troop_set_slot, ":npc", slot_troop_temp_decision_seed, ":decision_seed"),	#currently not used, holds for at least 24 hours
+      (try_end),
 
-	  (assign, "$g_lord_long_term_count", 0),
-
-	  (call_script, "script_initialize_banner_info"),
-	  (call_script, "script_initialize_item_info"),
-	  (call_script, "script_initialize_aristocracy"),
+      (assign, "$g_lord_long_term_count", 0),
+      (call_script, "script_initialize_banner_info"),
+      (call_script, "script_initialize_item_info"),
+      (call_script, "script_initialize_aristocracy"),
       (call_script, "script_initialize_npcs"),
       (assign, "$disable_npc_complaints", 0),
       #NPC companion changes end
@@ -97,8 +95,8 @@ scripts = [
           (val_add, ":num_iterations", 1),
         (try_end),
       (try_end),
-	  
-	  # Cultures:
+
+      # Cultures:
       (faction_set_slot, "fac_culture_1",  slot_faction_tier_1_troop, "trp_swadian_recruit"),
       (faction_set_slot, "fac_culture_1",  slot_faction_tier_2_troop, "trp_swadian_militia"),
       (faction_set_slot, "fac_culture_1",  slot_faction_tier_3_troop, "trp_swadian_footman"),
@@ -134,6 +132,22 @@ scripts = [
       (faction_set_slot, "fac_culture_6", slot_faction_tier_3_troop, "trp_sarranid_archer"),
       (faction_set_slot, "fac_culture_6", slot_faction_tier_4_troop, "trp_sarranid_horseman"),
       (faction_set_slot, "fac_culture_6", slot_faction_tier_5_troop, "trp_sarranid_mamluke"),
+
+      ## UID: 24 - Begin
+      #
+      (faction_set_slot, "fac_culture_7", slot_faction_tier_1_troop, "trp_umalelithian_recruit"),
+      (faction_set_slot, "fac_culture_7", slot_faction_tier_2_troop, "trp_umalelithian_veteran"),
+      (faction_set_slot, "fac_culture_7", slot_faction_tier_3_troop, "trp_umalelithian_warrior"),
+      (faction_set_slot, "fac_culture_7", slot_faction_tier_4_troop, "trp_umalelithian_trained_archer"),
+      (faction_set_slot, "fac_culture_7", slot_faction_tier_5_troop, "trp_umalelithian_leader"),
+
+      (faction_set_slot, "fac_culture_8", slot_faction_tier_1_troop, "trp_kielian_tribeswoman"),
+      (faction_set_slot, "fac_culture_8", slot_faction_tier_2_troop, "trp_kielian_spearwoman"),
+      (faction_set_slot, "fac_culture_8", slot_faction_tier_3_troop, "trp_kielian_master_archer"),
+      (faction_set_slot, "fac_culture_8", slot_faction_tier_4_troop, "trp_kielian_horsewoman"),
+      (faction_set_slot, "fac_culture_8", slot_faction_tier_5_troop, "trp_kielian_sergeant"),
+      #
+      ## UID: 24 - End
 
       (faction_set_slot, "fac_culture_1", slot_faction_town_walker_male_troop, "trp_town_walker_1"),
       (faction_set_slot, "fac_culture_1", slot_faction_town_walker_female_troop, "trp_town_walker_2"),
@@ -177,36 +191,66 @@ scripts = [
       (faction_set_slot, "fac_culture_6", slot_faction_town_spy_male_troop, "trp_spy_walker_1"),
       (faction_set_slot, "fac_culture_6", slot_faction_town_spy_female_troop, "trp_spy_walker_2"),
 
+      ## UID: 24 - Begin
+      #
+      (faction_set_slot, "fac_culture_7", slot_faction_town_walker_male_troop, "trp_town_walker_1"),
+      (faction_set_slot, "fac_culture_7", slot_faction_town_walker_female_troop, "trp_town_walker_2"),
+      (faction_set_slot, "fac_culture_7", slot_faction_village_walker_male_troop, "trp_town_walker_1"),
+      (faction_set_slot, "fac_culture_7", slot_faction_village_walker_female_troop, "trp_town_walker_2"),
+      (faction_set_slot, "fac_culture_7", slot_faction_town_spy_male_troop, "trp_spy_walker_1"),
+      (faction_set_slot, "fac_culture_7", slot_faction_town_spy_female_troop, "trp_spy_walker_2"),
+
+      (faction_set_slot, "fac_culture_8", slot_faction_town_walker_male_troop, "trp_town_walker_2"),
+      (faction_set_slot, "fac_culture_8", slot_faction_town_walker_female_troop, "trp_town_walker_2"),
+      (faction_set_slot, "fac_culture_8", slot_faction_village_walker_male_troop, "trp_town_walker_2"),
+      (faction_set_slot, "fac_culture_8", slot_faction_village_walker_female_troop, "trp_town_walker_2"),
+      (faction_set_slot, "fac_culture_8", slot_faction_town_spy_male_troop, "trp_spy_walker_1"),
+      (faction_set_slot, "fac_culture_8", slot_faction_town_spy_female_troop, "trp_spy_walker_2"),
+      #
+      ## UID: 24 - End
+
       (try_begin),
         (eq, "$cheat_mode", 1),
         (assign, reg3, "$cheat_mode"),
         (display_message, "@{!}DEBUG : Completed faction troop assignments, cheat mode: {reg3}"),
       (try_end),
-      
-# Factions:
+
+      # Factions:
       (faction_set_slot, "fac_kingdom_1",  slot_faction_culture, "fac_culture_1"),
       (faction_set_slot, "fac_kingdom_1",  slot_faction_leader, "trp_kingdom_1_lord"),
-	  (troop_set_slot, "trp_kingdom_1_lord", slot_troop_renown, 1200),
+      (troop_set_slot, "trp_kingdom_1_lord", slot_troop_renown, 1200),
 	  
       (faction_set_slot, "fac_kingdom_2",  slot_faction_culture, "fac_culture_2"),
       (faction_set_slot, "fac_kingdom_2",  slot_faction_leader, "trp_kingdom_2_lord"),
-	  (troop_set_slot, "trp_kingdom_2_lord", slot_troop_renown, 1200),
+      (troop_set_slot, "trp_kingdom_2_lord", slot_troop_renown, 1200),
 
       (faction_set_slot, "fac_kingdom_3",  slot_faction_culture, "fac_culture_3"),
       (faction_set_slot, "fac_kingdom_3",  slot_faction_leader, "trp_kingdom_3_lord"),
-	  (troop_set_slot, "trp_kingdom_3_lord", slot_troop_renown, 1200),
+      (troop_set_slot, "trp_kingdom_3_lord", slot_troop_renown, 1200),
 
       (faction_set_slot, "fac_kingdom_4",  slot_faction_culture, "fac_culture_4"),
       (faction_set_slot, "fac_kingdom_4",  slot_faction_leader, "trp_kingdom_4_lord"),
-	  (troop_set_slot, "trp_kingdom_4_lord", slot_troop_renown, 1200),
+      (troop_set_slot, "trp_kingdom_4_lord", slot_troop_renown, 1200),
 
       (faction_set_slot, "fac_kingdom_5",  slot_faction_culture, "fac_culture_5"),
       (faction_set_slot, "fac_kingdom_5",  slot_faction_leader, "trp_kingdom_5_lord"),
-	  (troop_set_slot, "trp_kingdom_5_lord", slot_troop_renown, 1200),
+      (troop_set_slot, "trp_kingdom_5_lord", slot_troop_renown, 1200),
 
       (faction_set_slot, "fac_kingdom_6",  slot_faction_culture, "fac_culture_6"),
       (faction_set_slot, "fac_kingdom_6",  slot_faction_leader, "trp_kingdom_6_lord"),
-	  (troop_set_slot, "trp_kingdom_6_lord", slot_troop_renown, 1200),
+      (troop_set_slot, "trp_kingdom_6_lord", slot_troop_renown, 1200),
+
+      ## UID: 24 - Begin
+      #
+      (faction_set_slot, "fac_kingdom_7",  slot_faction_culture, "fac_culture_7"),
+      (faction_set_slot, "fac_kingdom_7",  slot_faction_leader, "trp_kingdom_7_lord"),
+      (troop_set_slot, "trp_kingdom_7_lord", slot_troop_renown, 1200),
+
+      (faction_set_slot, "fac_kingdom_8",  slot_faction_culture, "fac_culture_8"),
+      (faction_set_slot, "fac_kingdom_8",  slot_faction_leader, "trp_kingdom_8_lord"),
+      (troop_set_slot, "trp_kingdom_8_lord", slot_troop_renown, 1200),
+      #
+      ## UID: 24 - End
 	  
       (assign, ":player_faction_culture", "fac_culture_1"),
       (faction_set_slot, "fac_player_supporters_faction",  slot_faction_culture, ":player_faction_culture"),
@@ -218,8 +262,7 @@ scripts = [
       (faction_set_slot, "fac_player_supporters_faction", slot_faction_marshall, "trp_player"),
       (call_script, "script_initialize_faction_troop_types"),
 
-
-# Towns:
+      # Towns:
       (try_for_range, ":item_no", trade_goods_begin, trade_goods_end),
         (store_sub, ":offset", ":item_no", trade_goods_begin),
         (val_add, ":offset", slot_town_trade_good_prices_begin),
@@ -228,8 +271,8 @@ scripts = [
         (try_end),
       (try_end),
 
-	  (call_script, "script_initialize_trade_routes"),
-	  (call_script, "script_initialize_town_arena_info"),
+      (call_script, "script_initialize_trade_routes"),
+      (call_script, "script_initialize_town_arena_info"),
       #start some tournaments
       (try_for_range, ":town_no", towns_begin, towns_end),
         (store_random_in_range, ":rand", 0, 100),
@@ -239,12 +282,34 @@ scripts = [
       (try_end),
 
       #village products -- at some point we might make it so that the villages supply raw materials to towns, and the towns produce manufactured goods
-	  #village products designate the raw materials produced in the vicinity
-	  #right now, just doing a test for grain produced in the swadian heartland
-	  
+      #village products designate the raw materials produced in the vicinity
+      #right now, just doing a test for grain produced in the swadian heartland
 
-	  # fill_village_bound_centers
-    #pass 1: Give one village to each castle
+      ## UID: 24 - Begin
+      #
+      (party_set_slot, "p_village_16", slot_village_bound_center, "p_town_9"),
+      (store_faction_of_party, ":faction", "p_town_9"),
+      (call_script, "script_give_center_to_faction_aux", "p_village_16", ":faction"),
+      (party_set_slot, "p_village_20", slot_village_bound_center, "p_town_9"),
+      (store_faction_of_party, ":faction", "p_town_9"),
+      (call_script, "script_give_center_to_faction_aux", "p_village_20", ":faction"),
+      (party_set_slot, "p_village_22", slot_village_bound_center, "p_castle_29"),
+      (store_faction_of_party, ":faction", "p_castle_29"),
+      (call_script, "script_give_center_to_faction_aux", "p_village_22", ":faction"),
+      (party_set_slot, "p_village_66", slot_village_bound_center, "p_town_13"),
+      (store_faction_of_party, ":faction", "p_town_13"),
+      (call_script, "script_give_center_to_faction_aux", "p_village_66", ":faction"),
+      (party_set_slot, "p_village_93", slot_village_bound_center, "p_castle_42"),
+      (store_faction_of_party, ":faction", "p_castle_42"),
+      (call_script, "script_give_center_to_faction_aux", "p_village_93", ":faction"),
+      (party_set_slot, "p_village_109", slot_village_bound_center, "p_castle_45"),
+      (store_faction_of_party, ":faction", "p_castle_45"),
+      (call_script, "script_give_center_to_faction_aux", "p_village_109", ":faction"),
+      #
+      ## UID: 24 - End
+
+      # fill_village_bound_centers
+      #pass 1: Give one village to each castle
       (try_for_range, ":cur_center", castles_begin, castles_end),
         (assign, ":min_dist", 999999),
         (assign, ":min_dist_village", -1),
@@ -260,8 +325,7 @@ scripts = [
         (call_script, "script_give_center_to_faction_aux", ":min_dist_village", ":town_faction"),
       (try_end),
 
-      
-    #pass 2: Give other villages to closest town.
+      #pass 2: Give other villages to closest town.
       (try_for_range, ":cur_village", villages_begin, villages_end),
         (neg|party_slot_ge, ":cur_village", slot_village_bound_center, 1), #skip villages which are already bound.
         (assign, ":min_dist", 999999),
@@ -277,8 +341,7 @@ scripts = [
         (call_script, "script_give_center_to_faction_aux", ":cur_village", ":town_faction"),
       (try_end),
 
-      		  	  
-	# Towns (loop)
+      # Towns (loop)
       (try_for_range, ":town_no", towns_begin, towns_end),
         (store_sub, ":offset", ":town_no", towns_begin),
         (party_set_slot,":town_no", slot_party_type, spt_town),
@@ -316,8 +379,8 @@ scripts = [
         (party_set_slot,":town_no", slot_town_center, ":cur_object_no"),
         (party_set_slot,":town_no", slot_town_reinforcement_party_template, "pt_center_reinforcements"),
       (try_end),
-	  	  
-# Castles
+
+      # Castles
       (try_for_range, ":castle_no", castles_begin, castles_end),
         (store_sub, ":offset", ":castle_no", castles_begin),
         (val_mul, ":offset", 3),
@@ -336,7 +399,7 @@ scripts = [
         (party_set_slot,":castle_no", slot_center_is_besieged_by, -1),
       (try_end),
 
-# Set which castles need to be attacked with siege towers.
+      # Set which castles need to be attacked with siege towers.
       (party_set_slot,"p_town_13", slot_center_siege_with_belfry, 1),
       (party_set_slot,"p_town_16", slot_center_siege_with_belfry, 1),
 
@@ -358,7 +421,7 @@ scripts = [
       (party_set_slot,"p_castle_42", slot_center_siege_with_belfry, 1),
       (party_set_slot,"p_castle_43", slot_center_siege_with_belfry, 1),
 
-	  # Villages characters
+      # Villages characters
       (try_for_range, ":village_no", villages_begin, villages_end),
         (store_sub, ":offset", ":village_no", villages_begin),
 
@@ -383,11 +446,9 @@ scripts = [
         (party_set_slot, ":center_no", slot_center_last_taken_by_troop, -1),
       (try_end),
 
-# Troops:
-
-# Assign banners and renown.
-# We assume there are enough banners for all kingdom heroes.
-
+      # Troops:
+      # Assign banners and renown.
+      # We assume there are enough banners for all kingdom heroes.
       #faction banners
       (faction_set_slot, "fac_kingdom_1", slot_faction_banner, "mesh_banner_kingdom_f"),
       (faction_set_slot, "fac_kingdom_2", slot_faction_banner, "mesh_banner_kingdom_b"),
@@ -395,6 +456,12 @@ scripts = [
       (faction_set_slot, "fac_kingdom_4", slot_faction_banner, "mesh_banner_kingdom_a"),
       (faction_set_slot, "fac_kingdom_5", slot_faction_banner, "mesh_banner_kingdom_d"),
       (faction_set_slot, "fac_kingdom_6", slot_faction_banner, "mesh_banner_kingdom_e"),
+      ## UID: 24 - Begin
+      #
+      (faction_set_slot, "fac_kingdom_7", slot_faction_banner, "mesh_banner_kingdom_a"),
+      (faction_set_slot, "fac_kingdom_8", slot_faction_banner, "mesh_banner_kingdom_e"),
+      #
+      ## UID: 24 - End
 
       (try_for_range, ":cur_faction", npc_kingdoms_begin, npc_kingdoms_end),
         (faction_get_slot, ":cur_faction_king", ":cur_faction", slot_faction_leader),
@@ -450,11 +517,10 @@ scripts = [
         (store_character_level, ":level", ":kingdom_hero"),
         (store_mul, ":renown", ":level", ":level"),
         (val_div, ":renown", 4), #for top lord, is about 400
-
-		(troop_get_slot, ":age", ":kingdom_hero", slot_troop_age),
+        (troop_get_slot, ":age", ":kingdom_hero", slot_troop_age),
         (store_mul, ":age_addition", ":age", ":age"),
         (val_div, ":age_addition", 8), #for top lord, is about 400
-		(val_add, ":renown", ":age_addition"),
+        (val_add, ":renown", ":age_addition"),
 			
         (try_begin),
           (faction_slot_eq, ":kingdom_hero_faction", slot_faction_leader, ":kingdom_hero"),
@@ -482,30 +548,39 @@ scripts = [
         (add_faction_note_tableau_mesh, ":faction_no", "tableau_faction_note_mesh_banner"),
       (try_end),
 
-	  #Give centers to factions first, to ensure more equal distributions
-	  (call_script, "script_give_center_to_faction_aux", "p_town_1", "fac_kingdom_4"),
-	  (call_script, "script_give_center_to_faction_aux", "p_town_2", "fac_kingdom_4"),
-	  (call_script, "script_give_center_to_faction_aux", "p_town_3", "fac_kingdom_5"),
-	  (call_script, "script_give_center_to_faction_aux", "p_town_4", "fac_kingdom_1"),
-	  (call_script, "script_give_center_to_faction_aux", "p_town_5", "fac_kingdom_5"),
-	  (call_script, "script_give_center_to_faction_aux", "p_town_6", "fac_kingdom_1"),
-	  (call_script, "script_give_center_to_faction_aux", "p_town_7", "fac_kingdom_1"),
-	  (call_script, "script_give_center_to_faction_aux", "p_town_8", "fac_kingdom_2"),
-	  (call_script, "script_give_center_to_faction_aux", "p_town_9", "fac_kingdom_2"),
-	  (call_script, "script_give_center_to_faction_aux", "p_town_10", "fac_kingdom_3"),
-	  (call_script, "script_give_center_to_faction_aux", "p_town_11", "fac_kingdom_2"),
-	  (call_script, "script_give_center_to_faction_aux", "p_town_12", "fac_kingdom_4"),
-	  (call_script, "script_give_center_to_faction_aux", "p_town_13", "fac_kingdom_2"),
-	  (call_script, "script_give_center_to_faction_aux", "p_town_14", "fac_kingdom_3"),
-	  (call_script, "script_give_center_to_faction_aux", "p_town_15", "fac_kingdom_5"),
-	  (call_script, "script_give_center_to_faction_aux", "p_town_16", "fac_kingdom_1"),
-	  (call_script, "script_give_center_to_faction_aux", "p_town_17", "fac_kingdom_3"),
-	  (call_script, "script_give_center_to_faction_aux", "p_town_18", "fac_kingdom_3"),
-	  (call_script, "script_give_center_to_faction_aux", "p_town_19", "fac_kingdom_6"),
-	  (call_script, "script_give_center_to_faction_aux", "p_town_20", "fac_kingdom_6"),
-	  (call_script, "script_give_center_to_faction_aux", "p_town_21", "fac_kingdom_6"),
-	  (call_script, "script_give_center_to_faction_aux", "p_town_22", "fac_kingdom_6"),
-	  
+      #Give centers to factions first, to ensure more equal distributions
+      (call_script, "script_give_center_to_faction_aux", "p_town_1", "fac_kingdom_4"),
+      (call_script, "script_give_center_to_faction_aux", "p_town_2", "fac_kingdom_4"),
+      (call_script, "script_give_center_to_faction_aux", "p_town_3", "fac_kingdom_5"),
+      (call_script, "script_give_center_to_faction_aux", "p_town_4", "fac_kingdom_1"),
+      (call_script, "script_give_center_to_faction_aux", "p_town_5", "fac_kingdom_5"),
+      (call_script, "script_give_center_to_faction_aux", "p_town_6", "fac_kingdom_1"),
+      (call_script, "script_give_center_to_faction_aux", "p_town_7", "fac_kingdom_1"),
+      (call_script, "script_give_center_to_faction_aux", "p_town_8", "fac_kingdom_2"),
+      (call_script, "script_give_center_to_faction_aux", "p_town_9", "fac_kingdom_2"),
+      (call_script, "script_give_center_to_faction_aux", "p_town_10", "fac_kingdom_3"),
+      (call_script, "script_give_center_to_faction_aux", "p_town_11", "fac_kingdom_2"),
+      (call_script, "script_give_center_to_faction_aux", "p_town_12", "fac_kingdom_4"),
+      (call_script, "script_give_center_to_faction_aux", "p_town_13", "fac_kingdom_2"),
+      (call_script, "script_give_center_to_faction_aux", "p_town_14", "fac_kingdom_3"),
+      (call_script, "script_give_center_to_faction_aux", "p_town_15", "fac_kingdom_5"),
+      (call_script, "script_give_center_to_faction_aux", "p_town_16", "fac_kingdom_1"),
+      (call_script, "script_give_center_to_faction_aux", "p_town_17", "fac_kingdom_3"),
+      (call_script, "script_give_center_to_faction_aux", "p_town_18", "fac_kingdom_3"),
+      (call_script, "script_give_center_to_faction_aux", "p_town_19", "fac_kingdom_6"),
+      (call_script, "script_give_center_to_faction_aux", "p_town_20", "fac_kingdom_6"),
+      (call_script, "script_give_center_to_faction_aux", "p_town_21", "fac_kingdom_6"),
+      (call_script, "script_give_center_to_faction_aux", "p_town_22", "fac_kingdom_6"),
+      ## UID: 24 - Begin
+      #
+      (call_script, "script_give_center_to_faction_aux", "p_town_23", "fac_kingdom_8"),
+      (call_script, "script_give_center_to_faction_aux", "p_town_24", "fac_kingdom_8"),
+      (call_script, "script_give_center_to_faction_aux", "p_town_25", "fac_kingdom_7"),
+      (call_script, "script_give_center_to_faction_aux", "p_town_26", "fac_kingdom_7"),
+      (call_script, "script_give_center_to_faction_aux", "p_town_27", "fac_kingdom_7"),
+      #
+      ## UID: 24 - End
+      
       (call_script, "script_give_center_to_faction_aux", "p_castle_1", "fac_kingdom_5"),
       (call_script, "script_give_center_to_faction_aux", "p_castle_2", "fac_kingdom_3"),
       (call_script, "script_give_center_to_faction_aux", "p_castle_3", "fac_kingdom_2"),
@@ -561,9 +636,8 @@ scripts = [
       (call_script, "script_give_center_to_faction_aux", "p_castle_46", "fac_kingdom_6"),
       (call_script, "script_give_center_to_faction_aux", "p_castle_47", "fac_kingdom_6"),
       (call_script, "script_give_center_to_faction_aux", "p_castle_48", "fac_kingdom_6"),
-      
 
-	  #Now give towns to great lords
+      #Now give towns to great lords
       (call_script, "script_give_center_to_lord", "p_town_1",  "trp_kingdom_4_lord", 0),
       (call_script, "script_give_center_to_lord", "p_town_2",  "trp_knight_4_1", 0),
       (call_script, "script_give_center_to_lord", "p_town_3",  "trp_knight_5_1", 0),
@@ -588,7 +662,17 @@ scripts = [
       (call_script, "script_give_center_to_lord", "p_town_19", "trp_kingdom_6_lord", 0),
       (call_script, "script_give_center_to_lord", "p_town_20", "trp_knight_6_1", 0), 
       (call_script, "script_give_center_to_lord", "p_town_21", "trp_knight_6_2", 0),
-      (call_script, "script_give_center_to_lord", "p_town_22", "trp_knight_6_3", 0),	  
+      (call_script, "script_give_center_to_lord", "p_town_22", "trp_knight_6_3", 0),
+
+      ## UID: 24 - Begin
+      #
+      (call_script, "script_give_center_to_lord", "p_town_23", "trp_kingdom_8_lord", 0),
+      (call_script, "script_give_center_to_lord", "p_town_24", "trp_knight_8_1", 0),
+      (call_script, "script_give_center_to_lord", "p_town_25", "trp_kingdom_7_lord", 0),
+      (call_script, "script_give_center_to_lord", "p_town_26", "trp_knight_7_1", 0),
+      (call_script, "script_give_center_to_lord", "p_town_27", "trp_knight_7_2", 0),
+      #
+      ## UID: 24 - End
 
       # Give family castles to certain nobles.
       (call_script, "script_give_center_to_lord", "p_castle_29", "trp_knight_2_10", 0), #Nelag_Castle
@@ -6209,6 +6293,32 @@ scripts = [
           (faction_set_slot, ":faction_no",  slot_faction_reinforcements_a, "pt_kingdom_6_reinforcements_a"),
           (faction_set_slot, ":faction_no",  slot_faction_reinforcements_b, "pt_kingdom_6_reinforcements_b"),
           (faction_set_slot, ":faction_no",  slot_faction_reinforcements_c, "pt_kingdom_6_reinforcements_c"),
+      ## UID: 24 - Begin
+      #
+        (else_try),
+          (faction_slot_eq, ":faction_no", slot_faction_culture, "fac_culture_7"),
+      
+          (faction_set_slot, ":faction_no", slot_faction_deserter_troop, "trp_umalelithian_deserter"),
+          (faction_set_slot, ":faction_no", slot_faction_guard_troop, "trp_umalelithian_castle_guard"),
+          (faction_set_slot, ":faction_no", slot_faction_messenger_troop, "trp_umalelithian_messenger"),
+          (faction_set_slot, ":faction_no", slot_faction_prison_guard_troop, "trp_umalelithian_prison_guard"),
+          (faction_set_slot, ":faction_no", slot_faction_castle_guard_troop, "trp_umalelithian_castle_guard"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_a, "pt_kingdom_7_reinforcements_a"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_b, "pt_kingdom_7_reinforcements_b"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_c, "pt_kingdom_7_reinforcements_c"),
+        (else_try),
+          (faction_slot_eq, ":faction_no", slot_faction_culture, "fac_culture_8"),
+      
+          (faction_set_slot, ":faction_no", slot_faction_deserter_troop, "trp_kielian_deserter"),
+          (faction_set_slot, ":faction_no", slot_faction_guard_troop, "trp_kielian_castle_guard"),
+          (faction_set_slot, ":faction_no", slot_faction_messenger_troop, "trp_kielian_messenger"),
+          (faction_set_slot, ":faction_no", slot_faction_prison_guard_troop, "trp_kielian_prison_guard"),
+          (faction_set_slot, ":faction_no", slot_faction_castle_guard_troop, "trp_kielian_castle_guard"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_a, "pt_kingdom_8_reinforcements_a"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_b, "pt_kingdom_8_reinforcements_b"),
+          (faction_set_slot, ":faction_no",  slot_faction_reinforcements_c, "pt_kingdom_8_reinforcements_c"),
+      #
+      ## UID: 24 - End
         (try_end),
       (try_end),
 	]),
@@ -13871,11 +13981,11 @@ scripts = [
   # This script is called from the game engine when an item's properties are displayed.
   # INPUT: arg1 = item_no, arg2 = extra_text_id (this can be between 0-7 (7 included)), arg3 = item_modifier
   # OUTPUT: result_string = item extra text, trigger_result = text color (0 for default)
-  ("game_get_item_extra_text",
-    [
+  ("game_get_item_extra_text", [
       (store_script_param, ":item_no", 1),
       (store_script_param, ":extra_text_id", 2),
       (store_script_param, ":item_modifier", 3),
+
       (try_begin),
         (is_between, ":item_no", food_begin, food_end),
         (try_begin),
@@ -13884,11 +13994,11 @@ scripts = [
           (try_begin),
             (this_or_next|eq, ":item_no", "itm_cattle_meat"),
             (this_or_next|eq, ":item_no", "itm_pork"),
-				(eq, ":item_no", "itm_chicken"),
-				
+            (eq, ":item_no", "itm_chicken"),
             (eq, ":item_modifier", imod_rotten),
             (assign, ":continue", 0),
           (try_end),
+  
           (eq, ":continue", 1),
           (item_get_slot, ":food_bonus", ":item_no", slot_item_food_bonus),
           (assign, reg1, ":food_bonus"),
@@ -13899,6 +14009,7 @@ scripts = [
         (is_between, ":item_no", readable_books_begin, readable_books_end),
         (try_begin),
           (eq, ":extra_text_id", 0),
+          (assign, "$temp", 0),
           (item_get_slot, reg1, ":item_no", slot_item_intelligence_requirement),
           (set_result_string, "@Requires {reg1} intelligence to read"),
           (set_trigger_result, 0xFFEEDD),
@@ -20790,30 +20901,28 @@ scripts = [
 
   # script_give_center_to_lord
   # Input: arg1 = center_no, arg2 = lord_troop, arg3 = add_garrison_to_center
-  ("give_center_to_lord",
-    [
+  ("give_center_to_lord", [
       (store_script_param, ":center_no", 1),
       (store_script_param, ":lord_troop_id", 2), #-1 only in the case of a player deferring ownership of a center
       (store_script_param, ":add_garrison", 3),
 
-	  (try_begin),
-	    (eq, "$cheat_mode", 1),
-		(ge, ":lord_troop_id", 0),
-		(str_store_party_name, s4, ":center_no"),
-		(str_store_troop_name, s5, ":lord_troop_id"),
-		(display_message, "@{!}DEBUG -- {s4} awarded to {s5}"),
-	  (try_end),
-	  
-	  (try_begin),
-	    (eq, ":lord_troop_id", "trp_player"),
-	    (unlock_achievement, ACHIEVEMENT_ROYALITY_PAYMENT),
-	    
-	    (assign, ":number_of_fiefs_player_have", 1),
-	    (try_for_range, ":cur_center", centers_begin, centers_end),
-	      (neq, ":cur_center", ":center_no"),
-	      (party_slot_eq, ":cur_center", slot_town_lord, "trp_player"),
-	      (val_add, ":number_of_fiefs_player_have", 1),
-	    (try_end),
+      (try_begin),
+        (eq, "$cheat_mode", 1),
+        (ge, ":lord_troop_id", 0),
+        (str_store_party_name, s4, ":center_no"),
+        (str_store_troop_name, s5, ":lord_troop_id"),
+        (display_message, "@{!}DEBUG -- {s4} awarded to {s5}"),
+      (try_end),
+
+      (try_begin),
+        (eq, ":lord_troop_id", "trp_player"),
+        (unlock_achievement, ACHIEVEMENT_ROYALITY_PAYMENT),
+        (assign, ":number_of_fiefs_player_have", 1),
+        (try_for_range, ":cur_center", centers_begin, centers_end),
+        (neq, ":cur_center", ":center_no"),
+        (party_slot_eq, ":cur_center", slot_town_lord, "trp_player"),
+        (val_add, ":number_of_fiefs_player_have", 1),
+      (try_end),
 	    
 	    (ge, ":number_of_fiefs_player_have", 5),
 	    (unlock_achievement, ACHIEVEMENT_MEDIEVAL_EMLAK),	    
@@ -23154,15 +23263,26 @@ scripts = [
         (add_troop_note_from_sreg, ":troop_no", 1, "str_current_wealth_reg1_taxes_last_collected_from_s4", 0),
       (try_end),
     (try_end),
-	
-	#Recruit volunteers
+
+    #Recruit volunteers
     (try_begin),
-		(is_between, ":center_no", villages_begin, villages_end),
-	
-        (party_get_slot, ":troop_type", ":center_no", slot_center_npc_volunteer_troop_type),
-        (party_get_slot, ":troop_amount", ":center_no", slot_center_npc_volunteer_troop_amount),
-        (party_set_slot, ":center_no", slot_center_npc_volunteer_troop_amount, -1),
-        (party_add_members, ":led_party", ":troop_type", ":troop_amount"),
+      (is_between, ":center_no", villages_begin, villages_end),
+    
+      (party_get_slot, ":troop_type", ":center_no", slot_center_npc_volunteer_troop_type),
+      (party_get_slot, ":troop_amount", ":center_no", slot_center_npc_volunteer_troop_amount),
+      (party_set_slot, ":center_no", slot_center_npc_volunteer_troop_amount, -1),
+      (party_add_members, ":led_party", ":troop_type", ":troop_amount"),
+    ## UID: 22 - Begin
+    #
+    (else_try),
+      (is_between, ":center_no", towns_begin, towns_end),
+      
+      (party_get_slot, ":troop_type", ":center_no", slot_center_mercenary_troop_type),
+      (party_get_slot, ":troop_amount", ":center_no", slot_center_mercenary_troop_amount),
+      (party_set_slot, ":center_no", slot_center_mercenary_troop_amount, -1),
+      (party_add_members, ":led_party", ":troop_type", ":troop_amount"),
+    #
+    ## UID: 22 - End
     (try_end),
    
     #Courtship

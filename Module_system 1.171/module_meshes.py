@@ -368,6 +368,11 @@ meshes = [
   ("banner_f18", 0, "banner_f18", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("banner_f19", 0, "banner_f19", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("banner_f20", 0, "banner_f20", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ## UID: 24 - Begin
+  #
+  ("banner_f21", 0, "banner_d20", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  #
+  ## UID: 24 - End
 
   ("banner_g01", 0, "banner_f01", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("banner_g02", 0, "banner_f02", 0, 0, 0, -90, 0, 0, 1, 1, 1),
@@ -379,13 +384,44 @@ meshes = [
   ("banner_g08", 0, "banner_f08", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("banner_g09", 0, "banner_f09", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("banner_g10", 0, "banner_f10", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ## UID: 24 - Begin
+  #
+  ("banner_g11", 0, "banner_f11", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_g12", 0, "banner_f12", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_g13", 0, "banner_f13", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_g14", 0, "banner_f14", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_g15", 0, "banner_f15", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_g16", 0, "banner_f16", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_g17", 0, "banner_f17", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_g18", 0, "banner_f18", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_g19", 0, "banner_f19", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_g20", 0, "banner_f20", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_g21", 0, "banner_e21", 0, 0, 0, -90, 0, 0, 1, 1, 1),
 
+  ("banner_h01", 0, "banner_d01", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_h02", 0, "banner_d02", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_h03", 0, "banner_d03", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_h04", 0, "banner_d04", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_h05", 0, "banner_d05", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_h06", 0, "banner_d06", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_h07", 0, "banner_d07", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_h08", 0, "banner_d08", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_h09", 0, "banner_d09", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  #
+  ## UID: 24 - End
+  
   ("banner_kingdom_a", 0, "banner_kingdom_a", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("banner_kingdom_b", 0, "banner_kingdom_b", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("banner_kingdom_c", 0, "banner_kingdom_c", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("banner_kingdom_d", 0, "banner_kingdom_d", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("banner_kingdom_e", 0, "banner_kingdom_e", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("banner_kingdom_f", 0, "banner_kingdom_f", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ## UID: 24 - Begin
+  #
+  ("banner_kingdom_g", 0, "arms_d15", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_kingdom_h", 0, "arms_c12", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  #
+  ## UID: 24 - End
   ("banner_f21", 0, "banner_a15", 0, 0, 0, -90, 0, 0, 1, 1, 1),
 
 
