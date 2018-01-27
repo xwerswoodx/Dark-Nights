@@ -57,7 +57,7 @@ factions = [
   ## UID: 24 - Begin
   #
   ("kingdom_7",  "Kingdom of Umalelith", 0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05)], [], 0x996600),
-  ("kingdom_8",  "Kielian Sultanate", 0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05)], [], 0x000099),
+  ("kingdom_8",  "Kielian Sultanate", 0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05)], [], 0x0066cc),
   #
   ## UID: 24 - End
 

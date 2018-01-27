@@ -260,7 +260,11 @@ items = [
  ["charger","Charger", [("charger_new",0)], itp_merchandise|itp_type_horse, 0, 1811,abundance(40)|hit_points(165)|body_armor(58)|difficulty(4)|horse_speed(40)|horse_maneuver(44)|horse_charge(32)|horse_scale(112),imodbits_horse_basic|imodbit_champion, [], [fac_kingdom_1, fac_kingdom_5]],
  ## UID: 5 - Begin
  #
- ["camel", "Camel", [("camel", 0)], itp_merchandise|itp_type_horse, 0, 2020, abundance(40)|hit_points(190)|body_armor(20)|difficulty(4)|horse_speed(42)|horse_maneuver(60)|horse_charge(25)|horse_scale(100), imodbits_horse_basic, [], [fac_kingdom_6]],
+ ## UID: 24 - Begin (Added fac_kingdom_8 for camel)
+ #
+ ["camel", "Camel", [("camel", 0)], itp_merchandise|itp_type_horse, 0, 2020, abundance(40)|hit_points(190)|body_armor(20)|difficulty(4)|horse_speed(42)|horse_maneuver(60)|horse_charge(25)|horse_scale(100), imodbits_horse_basic, [], [fac_kingdom_6, fac_kingdom_8]],
+ #
+ ## UID: 24 - End
  ["elephant", "Elephant", [("elephant", 0)], itp_merchandise|itp_type_horse, 0, 7000, abundance(25)|hit_points(420)|body_armor(40)|difficulty(6)|horse_speed(28)|horse_maneuver(28)|horse_charge(62)|horse_scale(160), imodbits_horse_basic|imodbit_champion, [], [fac_kingdom_3]],
  ["nordland", "Nordland Horse", [("nordland_ati", 0)], itp_merchandise|itp_type_horse, 0, 1255, abundance(70)|body_armor(23)|hit_points(147)|difficulty(3)|horse_speed(49)|horse_maneuver(35)|horse_charge(14)|horse_scale(100), imodbits_horse_basic|imodbit_champion, [], [fac_kingdom_4]],
  ["sanjarinati","Sanjar Horse", [("sanjarinati",0)], itp_type_horse, 0, 2000, abundance(70)|body_armor(25)|hit_points(125)|difficulty(6)|horse_speed(55)|horse_maneuver(50)|horse_charge(25)|horse_scale(106),imodbits_none],

@@ -10145,7 +10145,8 @@ and that whatever course you take, great adventures will await you. Drawn by the
           (party_slot_eq,"$current_town",slot_party_type, spt_town),
           (this_or_next|eq,"$entry_to_town_forbidden",0),
           (             eq, "$sneaked_into_town",1),
-        ] , "Visit the tavern.", [
+          (ge, "$cheat_mode", 1),
+        ] , "Visit the bank.", [
             (try_begin),
               (eq,"$all_doors_locked",1),
               (display_message,"str_door_locked",0xFFFFAAAA),
@@ -10918,6 +10919,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
             (ge, reg8, 1),
             (store_sub, reg9, reg8, 1),
         ], "{reg8} {reg9?denars:denar}.", [
+            (assign, reg8, reg7),
             (assign, "$temp", reg8),
             (jump_to_menu, "mnu_tournament_bet_confirm"),
         ]),
@@ -10927,6 +10929,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
             (ge, reg8, 1),
             (store_sub, reg9, reg8, 1),
         ], "{reg8} {reg9?denars:denar}.", [
+            (store_div, reg8, reg7, 2),
             (assign, "$temp", reg8),
             (jump_to_menu, "mnu_tournament_bet_confirm"),
         ]),
@@ -10936,6 +10939,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
             (ge, reg8, 1),
             (store_sub, reg9, reg8, 1),
         ], "{reg8} {reg9?denars:denar}.", [
+            (store_div, reg8, reg7, 4),
             (assign, "$temp", reg8),
             (jump_to_menu, "mnu_tournament_bet_confirm"),
         ]),
@@ -10945,6 +10949,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
             (ge, reg8, 1),
             (store_sub, reg9, reg8, 1),
         ], "{reg8} {reg9?denars:denar}.", [
+            (store_div, reg8, reg7, 8),
             (assign, "$temp", reg8),
             (jump_to_menu, "mnu_tournament_bet_confirm"),
         ]),
@@ -10954,6 +10959,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
             (ge, reg8, 1),
             (store_sub, reg9, reg8, 1),
         ], "{reg8} {reg9?denars:denar}.", [
+            (store_div, reg8, reg7, 16),
             (assign, "$temp", reg8),
             (jump_to_menu, "mnu_tournament_bet_confirm"),
         ]),

@@ -305,6 +305,9 @@ scripts = [
       (party_set_slot, "p_village_109", slot_village_bound_center, "p_castle_45"),
       (store_faction_of_party, ":faction", "p_castle_45"),
       (call_script, "script_give_center_to_faction_aux", "p_village_109", ":faction"),
+      (party_set_slot, "p_village_137", slot_village_bound_center, "p_castle_54"),
+      (store_faction_of_party, ":faction", "p_castle_54"),
+      (call_script, "script_give_center_to_faction_aux", "p_village_137", ":faction"),
       #
       ## UID: 24 - End
 
@@ -636,6 +639,19 @@ scripts = [
       (call_script, "script_give_center_to_faction_aux", "p_castle_46", "fac_kingdom_6"),
       (call_script, "script_give_center_to_faction_aux", "p_castle_47", "fac_kingdom_6"),
       (call_script, "script_give_center_to_faction_aux", "p_castle_48", "fac_kingdom_6"),
+      ## UID: 24 - Begin
+      #
+      (call_script, "script_give_center_to_faction_aux", "p_castle_49", "fac_kingdom_7"),
+      (call_script, "script_give_center_to_faction_aux", "p_castle_50", "fac_kingdom_7"),
+      (call_script, "script_give_center_to_faction_aux", "p_castle_51", "fac_kingdom_7"),
+      (call_script, "script_give_center_to_faction_aux", "p_castle_52", "fac_kingdom_7"),
+      (call_script, "script_give_center_to_faction_aux", "p_castle_53", "fac_kingdom_7"),
+      (call_script, "script_give_center_to_faction_aux", "p_castle_54", "fac_kingdom_8"),
+      (call_script, "script_give_center_to_faction_aux", "p_castle_55", "fac_kingdom_8"),
+      (call_script, "script_give_center_to_faction_aux", "p_castle_56", "fac_kingdom_8"),
+      (call_script, "script_give_center_to_faction_aux", "p_castle_57", "fac_kingdom_8"),
+      #
+      ## UID: 24 - End
 
       #Now give towns to great lords
       (call_script, "script_give_center_to_lord", "p_town_1",  "trp_kingdom_4_lord", 0),
@@ -671,6 +687,15 @@ scripts = [
       (call_script, "script_give_center_to_lord", "p_town_25", "trp_kingdom_7_lord", 0),
       (call_script, "script_give_center_to_lord", "p_town_26", "trp_knight_7_1", 0),
       (call_script, "script_give_center_to_lord", "p_town_27", "trp_knight_7_2", 0),
+      (call_script, "script_give_center_to_lord", "p_castle_49", "trp_knight_7_3", 0),
+      (call_script, "script_give_center_to_lord", "p_castle_50", "trp_knight_7_4", 0),
+      (call_script, "script_give_center_to_lord", "p_castle_51", "trp_knight_7_5", 0),
+      (call_script, "script_give_center_to_lord", "p_castle_52", "trp_knight_7_6", 0),
+      (call_script, "script_give_center_to_lord", "p_castle_53", "trp_knight_7_7", 0),
+      (call_script, "script_give_center_to_lord", "p_castle_54", "trp_knight_8_2", 0),
+      (call_script, "script_give_center_to_lord", "p_castle_55", "trp_knight_8_3", 0),
+      (call_script, "script_give_center_to_lord", "p_castle_56", "trp_knight_8_4", 0),
+      (call_script, "script_give_center_to_lord", "p_castle_57", "trp_knight_8_5", 0),
       #
       ## UID: 24 - End
 
@@ -51148,16 +51173,21 @@ scripts = [
       (assign, reg15, arena_grand_prize),
 
       (store_character_level, ":level", "trp_player"),
-      (val_mul, reg11, ":level"),
-      (val_div, reg11, 100),
-      (val_mul, reg12, ":level"),
-      (val_div, reg12, 100),
-      (val_mul, reg13, ":level"),
-      (val_div, reg13, 100),
-      (val_mul, reg14, ":level"),
-      (val_div, reg14, 100),
-      (val_mul, reg15, ":level"),
-      (val_div, reg15, 100),
+      (store_mul, ":bonus", reg11, ":level"),
+      (val_div, ":bonus", 100),
+      (val_add, reg11, ":bonus"),
+      (store_mul, ":bonus", reg12, ":level"),
+      (val_div, ":bonus", 100),
+      (val_add, reg12, ":bonus"),
+      (store_mul, ":bonus", reg13, ":level"),
+      (val_div, ":bonus", 100),
+      (val_add, reg13, ":bonus"),
+      (store_mul, ":bonus", reg14, ":level"),
+      (val_div, ":bonus", 100),
+      (val_add, reg14, ":bonus"),
+      (store_mul, ":bonus", reg15, ":level"),
+      (val_div, ":bonus", 100),
+      (val_add, reg15, ":bonus"),
 
       (val_add, reg15, ":renown"),
       (store_div, ":add", ":renown", 2),
@@ -51629,4 +51659,37 @@ scripts = [
     ]),
   #
   ## UID: 21 - End
+
+  ## UID: 26 - Begin
+  #
+  # is_male, troop
+  # OUTPUT:
+  # reg0: 1 if male, 0 if not 2 if not known
+  ("is_male", [
+      (store_script_param, ":troop", 1),
+      (assign, reg0, 2),
+
+      (troop_get_type, ":gender", ":troop"),
+      (try_begin),
+##        (this_or_next|eq, ":gender", tf_male_vlong),
+##        (this_or_next|eq, ":gender", tf_male_long),
+##        (this_or_next|eq, ":gender", tf_male_short),
+##        (this_or_next|eq, ":gender", tf_male_vshort),
+##        (this_or_next|eq, ":gender", tf_male_child),
+##        (this_or_next|eq, ":gender", tf_male_teen),
+        (             eq, ":gender", tf_male),
+        (assign, reg0, 1),
+      (else_try),
+##        (this_or_next|eq, ":gender", tf_female_vlong),
+##        (this_or_next|eq, ":gender", tf_female_long),
+##        (this_or_next|eq, ":gender", tf_female_short),
+##        (this_or_next|eq, ":gender", tf_female_vshort),
+##        (this_or_next|eq, ":gender", tf_female_child),
+##        (this_or_next|eq, ":gender", tf_female_teen),
+        (             eq, ":gender", tf_female),
+        (assign, reg0, 0),
+      (try_end),
+    ]),
+  #
+  ## UID: 26 - End
 ]

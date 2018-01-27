@@ -394,6 +394,10 @@
   * module_scripts.py
   ** Replaced:
   *** script_game_event_party_encounter
+  * parties.csv
+  ** Added:
+  *** p_bandit_camp_1
+  *** p_bandit_camp_2
   + BUGS:
   ++ Can't loot and get prisoners from camps.
   
@@ -432,6 +436,10 @@
   ** Added:
   *** icon_dedal_map_swadia_king_b
   *** icon_dedal_map_swadia_lord_a
+  * factions.csv
+  ** Added:
+  *** fac_dark_knights
+  *** fac_desert_cavalry
   
 14. Modder login added to first page.
   * module_game_menus.py
@@ -530,7 +538,7 @@
   ** Added:
   *** scn_town_bank (Still designing)
   
-24. New kingdoms are adding. (Still in process - Need to add castles and villages [elder, castle troops and scenes] to new kingdoms)
+24. New kingdoms are adding. (Still in process - Need to add castles and villages [elder, castle troops and scenes] to new kingdoms also fix desert castle bug)
   * module_factions.py
   ** Added:
   *** fac_kingdom_7
@@ -635,6 +643,53 @@
   *** trp_town_25_mayor
   *** trp_town_26_mayor
   *** trp_town_27_mayor
+  *** trp_castle_49_seneschal
+  *** trp_castle_50_seneschal
+  *** trp_castle_51_seneschal
+  *** trp_castle_52_seneschal
+  *** trp_castle_53_seneschal
+  *** trp_castle_54_seneschal
+  *** trp_castle_55_seneschal
+  *** trp_castle_56_seneschal
+  *** trp_castle_57_seneschal
+  *** trp_village_111_elder
+  *** trp_village_112_elder
+  *** trp_village_113_elder
+  *** trp_village_114_elder
+  *** trp_village_115_elder
+  *** trp_village_116_elder
+  *** trp_village_117_elder
+  *** trp_village_118_elder
+  *** trp_village_119_elder
+  *** trp_village_120_elder
+  *** trp_village_121_elder
+  *** trp_village_122_elder
+  *** trp_village_123_elder
+  *** trp_village_124_elder
+  *** trp_village_125_elder
+  *** trp_village_126_elder
+  *** trp_village_127_elder
+  *** trp_village_128_elder
+  *** trp_village_129_elder
+  *** trp_village_130_elder
+  *** trp_village_131_elder
+  *** trp_village_132_elder
+  *** trp_village_133_elder
+  *** trp_village_134_elder
+  *** trp_village_135_elder
+  *** trp_village_136_elder
+  *** trp_village_137_elder
+  *** trp_village_138_elder
+  *** trp_village_139_elder
+  *** trp_village_140_elder
+  *** trp_village_141_elder
+  *** trp_village_142_elder
+  *** trp_village_143_elder
+  *** trp_town_23_master_craftsman
+  *** trp_town_24_master_craftsman
+  *** trp_town_25_master_craftsman
+  *** trp_town_26_master_craftsman
+  *** trp_town_27_master_craftsman  
   ** Upgrade:
   *** trp_umalelithian_recruit -> trp_umalelithian_infantry
   *** trp_umalelithian_infantry -> trp_umalelithian_veteran
@@ -659,6 +714,48 @@
   *** p_town_25
   *** p_town_26
   *** p_town_27
+  *** p_castle_49
+  *** p_castle_50
+  *** p_castle_51
+  *** p_castle_52
+  *** p_castle_53
+  *** p_castle_54
+  *** p_castle_55
+  *** p_castle_56
+  *** p_castle_57
+  *** p_village_111
+  *** p_village_112
+  *** p_village_113
+  *** p_village_114
+  *** p_village_115
+  *** p_village_116
+  *** p_village_117
+  *** p_village_118
+  *** p_village_119
+  *** p_village_120
+  *** p_village_121
+  *** p_village_122
+  *** p_village_123
+  *** p_village_124
+  *** p_village_125
+  *** p_village_126
+  *** p_village_127
+  *** p_village_128
+  *** p_village_129
+  *** p_village_130
+  *** p_village_131
+  *** p_village_132
+  *** p_village_133
+  *** p_village_134
+  *** p_village_135
+  *** p_village_136
+  *** p_village_137
+  *** p_village_138
+  *** p_village_139
+  *** p_village_140
+  *** p_village_141
+  *** p_village_142
+  *** p_village_143
   * module_scenes.py
   ** Added:
   *** scn_town_23_center
@@ -701,6 +798,66 @@
   *** scn_town_25_alley
   *** scn_town_26_alley
   *** scn_town_27_alley
+  *** scn_castle_49_exterior
+  *** scn_castle_50_exterior
+  *** scn_castle_51_exterior
+  *** scn_castle_52_exterior
+  *** scn_castle_53_exterior
+  *** scn_castle_54_exterior
+  *** scn_castle_55_exterior
+  *** scn_castle_56_exterior
+  *** scn_castle_57_exterior
+  *** scn_castle_49_interior
+  *** scn_castle_50_interior
+  *** scn_castle_51_interior
+  *** scn_castle_52_interior
+  *** scn_castle_53_interior
+  *** scn_castle_54_interior
+  *** scn_castle_55_interior
+  *** scn_castle_56_interior
+  *** scn_castle_57_interior
+  *** scn_castle_49_prison
+  *** scn_castle_50_prison
+  *** scn_castle_51_prison
+  *** scn_castle_52_prison
+  *** scn_castle_53_prison
+  *** scn_castle_54_prison
+  *** scn_castle_55_prison
+  *** scn_castle_56_prison
+  *** scn_castle_57_prison
+  *** scn_village_111
+  *** scn_village_112
+  *** scn_village_113
+  *** scn_village_114
+  *** scn_village_115
+  *** scn_village_116
+  *** scn_village_117
+  *** scn_village_118
+  *** scn_village_119
+  *** scn_village_120
+  *** scn_village_121
+  *** scn_village_122
+  *** scn_village_123
+  *** scn_village_124
+  *** scn_village_125
+  *** scn_village_126
+  *** scn_village_127
+  *** scn_village_128
+  *** scn_village_129
+  *** scn_village_130
+  *** scn_village_131
+  *** scn_village_132
+  *** scn_village_133
+  *** scn_village_134
+  *** scn_village_135
+  *** scn_village_136
+  *** scn_village_137
+  *** scn_village_138
+  *** scn_village_139
+  *** scn_village_140
+  *** scn_village_141
+  *** scn_village_142
+  *** scn_village_143
   * module_meshes.py
   ** Added:
   *** mesh_banner_f21
@@ -738,7 +895,301 @@
   ** Edited:
   *** script_game_start
   *** script_initialize_faction_troop_types
+  * module_map_icons.py
+  ** Added:
+  *** icon_banner_136
+  *** icon_banner_137
+  *** icon_banner_138
+  *** icon_banner_139
+  *** icon_banner_140
+  *** icon_banner_141
+  *** icon_banner_142
+  *** icon_banner_143
+  *** icon_banner_144
+  *** icon_banner_145
+  *** icon_banner_146
+  *** icon_banner_147
+  *** icon_banner_148
+  *** icon_banner_149
+  *** icon_banner_150
+  *** icon_banner_151
+  *** icon_banner_152
+  *** icon_banner_153
+  *** icon_banner_154
+  *** icon_banner_155
+  *** icon_banner_156
+  *** icon_banner_157
+  *** icon_banner_158
+  *** icon_banner_159
+  *** icon_banner_160
+  *** icon_map_flag_kingdom_g
+  *** icon_map_flag_kingdom_h
+  * module_scene_props.py
+  ** Added:
+  *** spr_banner_g11
+  *** spr_banner_g12
+  *** spr_banner_g13
+  *** spr_banner_g14
+  *** spr_banner_g15
+  *** spr_banner_g16
+  *** spr_banner_g17
+  *** spr_banner_g18
+  *** spr_banner_g19
+  *** spr_banner_g20
+  *** spr_banner_g21
+  *** spr_banner_h01
+  *** spr_banner_h02
+  *** spr_banner_h03
+  *** spr_banner_h04
+  *** spr_banner_h05
+  *** spr_banner_h06
+  *** spr_banner_h07
+  *** spr_banner_h08
+  *** spr_banner_h09
+  *** spr_banner_kingdom_g
+  *** spr_banner_kingdom_h
+  * module_items.py
+  ** Edited:
+  *** itm_camel
+  * parties.csv
+  ** Added:
+  *** p_town_23
+  *** p_town_24
+  *** p_town_25
+  *** p_town_26
+  *** p_town_27
+  *** p_castle_49
+  *** p_castle_50
+  *** p_castle_51
+  *** p_castle_52
+  *** p_castle_53
+  *** p_castle_54
+  *** p_castle_55
+  *** p_castle_56
+  *** p_castle_57
+  *** p_village_111
+  *** p_village_112
+  *** p_village_113
+  *** p_village_114
+  *** p_village_115
+  *** p_village_116
+  *** p_village_117
+  *** p_village_118
+  *** p_village_119
+  *** p_village_120
+  *** p_village_121
+  *** p_village_122
+  *** p_village_123
+  *** p_village_124
+  *** p_village_125
+  *** p_village_126
+  *** p_village_127
+  *** p_village_128
+  *** p_village_129
+  *** p_village_130
+  *** p_village_131
+  *** p_village_132
+  *** p_village_133
+  *** p_village_134
+  *** p_village_135
+  *** p_village_136
+  *** p_village_137
+  *** p_village_138
+  *** p_village_139
+  *** p_village_140
+  *** p_village_141
+  *** p_village_142
+  *** p_village_143
+  * troops.csv
+  ** Added:
+  *** trp_umalelithian_recruit
+  *** trp_umalelithian_recruit_pl
+  *** trp_umalelithian_infantry
+  *** trp_umalelithian_infantry_pl
+  *** trp_umalelithian_veteran
+  *** trp_umalelithian_veteran_pl
+  *** trp_umalelithian_warrior
+  *** trp_umalelithian_warrior_pl
+  *** trp_umalelithian_guard
+  *** trp_umalelithian_guard_pl
+  *** trp_umalelithian_leader
+  *** trp_umalelithian_leader_pl
+  *** trp_umalelithian_archer
+  *** trp_umalelithian_archer_pl
+  *** trp_umalelithian_trained_archer
+  *** trp_umalelithian_trained_archer_pl
+  *** trp_umalelithian_veteran_archer
+  *** trp_umalelithian_veteran_archer_pl
+  *** trp_umalelithian_messenger
+  *** trp_umalelithian_messenger_pl
+  *** trp_umalelithian_deserter
+  *** trp_umalelithian_deserter_pl
+  *** trp_umalelithian_prison_guard
+  *** trp_umalelithian_prison_guard_pl
+  *** trp_umalelithian_castle_guard
+  *** trp_umalelithian_castle_guard_pl
+  *** trp_kielian_tribeswoman
+  *** trp_kielian_tribeswoman_pl
+  *** trp_kielian_spearwoman
+  *** trp_kielian_spearwoman_pl
+  *** trp_kielian_trained_spearwoman
+  *** trp_kielian_trained_spearwoman_pl
+  *** trp_kielian_veteran_spearwoman
+  *** trp_kielian_veteran_spearwoman_pl
+  *** trp_kielian_sergeant
+  *** trp_kielian_sergeant_pl
+  *** trp_kielian_archer
+  *** trp_kielian_archer_pl
+  *** trp_kielian_master_archer
+  *** trp_kielian_master_archer_pl
+  *** trp_kielian_horsewoman
+  *** trp_kielian_horsewoman_pl
+  *** trp_kielian_swordswoman
+  *** trp_kielian_swordswoman_pl
+  *** trp_kielian_messenger
+  *** trp_kielian_messenger_pl
+  *** trp_kielian_deserter
+  *** trp_kielian_deserter_pl
+  *** trp_kielian_prison_guard
+  *** trp_kielian_prison_guard_pl
+  *** trp_kielian_castle_guard
+  *** trp_kielian_castle_guard_pl
+  *** trp_kingdom_7_lord
+  *** trp_kingdom_7_lord_pl
+  *** trp_kingdom_8_lord
+  *** trp_kingdom_8_lord_pl
+  *** trp_knight_7_1
+  *** trp_knight_7_1_pl
+  *** trp_knight_7_2
+  *** trp_knight_7_2_pl
+  *** trp_knight_7_3
+  *** trp_knight_7_3_pl
+  *** trp_knight_7_4
+  *** trp_knight_7_4_pl
+  *** trp_knight_7_5
+  *** trp_knight_7_5_pl
+  *** trp_knight_7_6
+  *** trp_knight_7_6_pl
+  *** trp_knight_7_7
+  *** trp_knight_7_7_pl
+  *** trp_knight_7_8
+  *** trp_knight_7_8_pl
+  *** trp_knight_7_9
+  *** trp_knight_7_9_pl
+  *** trp_knight_7_10
+  *** trp_knight_7_10_pl
+  *** trp_knight_7_11
+  *** trp_knight_7_11_pl
+  *** trp_knight_7_12
+  *** trp_knight_7_12_pl
+  *** trp_knight_7_13
+  *** trp_knight_7_13_pl
+  *** trp_knight_7_14
+  *** trp_knight_7_14_pl
+  *** trp_knight_7_15
+  *** trp_knight_7_15_pl
+  *** trp_knight_7_16
+  *** trp_knight_7_16_pl
+  *** trp_knight_7_17
+  *** trp_knight_7_17_pl
+  *** trp_knight_7_18
+  *** trp_knight_7_18_pl
+  *** trp_knight_7_19
+  *** trp_knight_7_19_pl
+  *** trp_knight_7_20
+  *** trp_knight_7_20_pl
+  *** trp_knight_8_1
+  *** trp_knight_8_1_pl
+  *** trp_knight_8_2
+  *** trp_knight_8_2_pl
+  *** trp_knight_8_3
+  *** trp_knight_8_3_pl
+  *** trp_knight_8_4
+  *** trp_knight_8_4_pl
+  *** trp_knight_8_5
+  *** trp_knight_8_5_pl
+  *** trp_knight_8_6
+  *** trp_knight_8_6_pl
+  *** trp_knight_8_7
+  *** trp_knight_8_7_pl
+  *** trp_knight_8_8
+  *** trp_knight_8_8_pl
+  *** trp_town_23_arena_master
+  *** trp_town_24_arena_master
+  *** trp_town_25_arena_master
+  *** trp_town_26_arena_master
+  *** trp_town_27_arena_master
+  *** trp_town_23_armorer
+  *** trp_town_24_armorer
+  *** trp_town_25_armorer
+  *** trp_town_26_armorer
+  *** trp_town_27_armorer
+  *** trp_town_23_weaponsmith
+  *** trp_town_24_weaponsmith
+  *** trp_town_25_weaponsmith
+  *** trp_town_26_weaponsmith
+  *** trp_town_27_weaponsmith
+  *** trp_town_23_tavernkeeper
+  *** trp_town_24_tavernkeeper
+  *** trp_town_25_tavernkeeper
+  *** trp_town_26_tavernkeeper
+  *** trp_town_27_tavernkeeper
+  *** trp_town_23_merchant
+  *** trp_town_24_merchant
+  *** trp_town_25_merchant
+  *** trp_town_26_merchant
+  *** trp_town_27_merchant
+  *** trp_town_23_horse_merchant
+  *** trp_town_24_horse_merchant
+  *** trp_town_25_horse_merchant
+  *** trp_town_26_horse_merchant
+  *** trp_town_27_horse_merchant
+  *** trp_town_23_mayor
+  *** trp_town_24_mayor
+  *** trp_town_25_mayor
+  *** trp_town_26_mayor
+  *** trp_town_27_mayor
+  *** trp_village_111_elder
+  *** trp_village_112_elder
+  *** trp_village_113_elder
+  *** trp_village_114_elder
+  *** trp_village_115_elder
+  *** trp_village_116_elder
+  *** trp_village_117_elder
+  *** trp_village_118_elder
+  *** trp_village_119_elder
+  *** trp_village_120_elder
+  *** trp_village_121_elder
+  *** trp_village_122_elder
+  *** trp_village_123_elder
+  *** trp_village_124_elder
+  *** trp_village_125_elder
+  *** trp_village_126_elder
+  *** trp_village_127_elder
+  *** trp_village_128_elder
+  *** trp_village_129_elder
+  *** trp_village_130_elder
+  *** trp_village_131_elder
+  *** trp_village_132_elder
+  *** trp_village_133_elder
+  *** trp_village_134_elder
+  *** trp_village_135_elder
+  *** trp_village_136_elder
+  *** trp_village_137_elder
+  *** trp_village_138_elder
+  *** trp_village_139_elder
+  *** trp_village_140_elder
+  *** trp_village_141_elder
+  *** trp_village_142_elder
+  *** trp_village_143_elder
+  * factions.csv
+  ** Added:
+  *** fac_kingdom_7
+  *** fac_kingdom_8
+  + BUGS:
+  ++ tf_female ladies seems like man so dialogs should change with sex. (For example, lord first talk dialog says "I am lord of blabla")
 
+  
 25. Listing all items presentation added on camp cheat menu list.
   * module_game_menus.py
   ** Added:
@@ -749,3 +1200,8 @@
   ** Reference:
   *** module_items.py
   *** header_items.py
+  
+26. Added check gender script for later actions.
+  * module_scripts.py
+  ** Added:
+  *** script_is_male

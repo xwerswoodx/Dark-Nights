@@ -163,6 +163,21 @@ parties = [
   ("castle_46","Weyyah_Castle",icon_castle_d|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(13.3, -84.4),[],260),
   ("castle_47","Samarra_Castle",icon_castle_d|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(116, -74),[],260),
   ("castle_48","Bardaq_Castle",icon_castle_d|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(157, -80),[],260),
+
+  ## UID: 24 - Begin
+  #
+  ("castle_49", "Penarth Castle", icon_castle_snow_a|pf_castle, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (133.79, 76.13), [], 280),
+  ("castle_50", "Kimana Castle", icon_castle_snow_a|pf_castle, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (149.99, 86.95), [], 280),
+  ("castle_51", "Sachik Castle", icon_castle_snow_a|pf_castle, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (165.22, 101.75), [], 280),
+  ("castle_52", "Bolca Castle", icon_castle_snow_a|pf_castle, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (128.23, 110.46), [], 280),
+  ("castle_53", "Camas Castle", icon_castle_snow_a|pf_castle, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (87.09, 104.70), [], 280),
+
+  ("castle_54", "Leonia Castle", icon_castle_d|pf_castle, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (108.24, -111.66), [], 260),
+  ("castle_55", "Sudley Castle", icon_castle_d|pf_castle, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (106.84, -125), [], 260),
+  ("castle_56", "Eek Castle", icon_castle_d|pf_castle, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (132.50, -115.24), [], 260),
+  ("castle_57", "Calipatria Castle", icon_castle_d|pf_castle, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (99.34, -129.29), [], 260),
+  #
+  ## UID: 24 - End
  
 
 #     Rinimad      
@@ -289,6 +304,45 @@ parties = [
   ("village_108","Mit Nun",  icon_village_c|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(28.8, -107.3),[], 180),
   ("village_109","Tilimsal",  icon_village_c|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(53, -114.5),[], 0),
   ("village_110","Rushdigh",  icon_village_c|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(38, -104),[], 40),
+
+  ## UID: 24 - Begin
+  #
+  ("village_111", "Newoak", icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (95.91, 81.66), [], 0),
+  ("village_112", "Ocilia", icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (80.04, 96.36), [], 0),
+  ("village_113", "Holmer", icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (84.02, 81.85), [], 0),
+  ("village_114", "Haworth", icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (132.19, 84.64), [], 0),
+  ("village_115", "Tennille", icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (138.10, 96.48), [], 0),
+  ("village_116", "Amaya", icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (124.19, 102.02), [], 0),
+  ("village_117", "Lerna", icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (113.45, 122.89), [], 0),
+  ("village_118", "Monterio", icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (130.71, 122.28), [], 0),
+  ("village_119", "Alden", icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (118.20, 113.03), [], 0),
+  ("village_120", "Seaton", icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (87.76, 111.87), [], 0),
+  ("village_121", "Devon", icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (68.27, 97.85), [], 0),
+  ("village_122", "Larwill", icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (164.15, 87.66), [], 0),
+  ("village_123", "Guerra", icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (175.91, 118.62), [], 0),
+  ("village_124", "Norwalk", icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (156.44, 108.32), [], 0),
+  ("village_125", "Atiba", icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (147.69, 97.75), [], 0),
+  ("village_126", "Bangan", icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (146.93, 77.32), [], 0),
+  ("village_127", "Ruthin", icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (164.37, 70.45), [], 0),
+  ("village_128", "Bardsey", icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (140.83, 67.60), [], 0),
+  ("village_129", "Chelan", icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (108.40, 93.52), [], 0),
+  ("village_130", "Melville", icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (101.81, 107.35), [], 0),
+  ("village_131", "Ambridge", icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (124.75, 73.03), [], 0),
+
+  ("village_132", "Lodi", icon_village_c|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (66.48, -128.95), [], 0),
+  ("village_133", "Kittitas", icon_village_b|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (64.37, -108.54), [], 0),
+  ("village_134", "Kerman", icon_village_c|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (77.26, -104.87), [], 0),
+  ("village_135", "Marfa", icon_village_c|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (92.49, -128.10), [], 0),
+  ("village_136", "Michiana", icon_village_b|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (101.47, -105.90), [], 0),
+  ("village_137", "Hazel", icon_village_c|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (117.29, -109.52), [], 0),
+  ("village_138", "Colbert", icon_village_b|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (132.26, -106.90), [], 0),
+  ("village_139", "Detmold", icon_village_b|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (131.41, -127.08), [], 0),
+  ("village_140", "Caspar", icon_village_c|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (155.01, -122.82), [], 0),
+  ("village_141", "Minkler", icon_village_c|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (145.54, -126.80), [], 0),
+  ("village_142", "Ceiba", icon_village_c|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (105.58, -122.22), [], 0),
+  ("village_143", "Dilley", icon_village_b|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (120.68, -130.57), [], 0),
+  #
+  ## UID: 24 - End
   
   ("salt_mine","Salt_Mine",icon_village_a|pf_disabled|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(14.2, -31),[]),
   ("four_ways_inn","Four_Ways_Inn",icon_village_a|pf_disabled|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(4.8, -39.6),[]),
