@@ -33890,6 +33890,38 @@ scripts = [
        (party_set_ai_behavior, ":party", ai_bhvr_patrol_location),
        (party_set_ai_patrol_radius, ":party", 3),      
      (try_end),
+     ## UID: 24 - Begin
+     #
+     (try_begin),
+       (call_script, "script_get_walled_count", fac_kingdom_7),
+       (assign, ":max", reg0),
+       (val_mul, ":max", 2),
+
+       (store_num_parties_of_template, ":num_parties", "pt_kingdom_7_patrol"),
+       (lt,":num_parties", ":max"),
+       (call_script, "script_get_random_center", fac_kingdom_7),
+       (gt, reg0, 0),
+       (spawn_around_party, reg0, "pt_kingdom_7_patrol"),
+       (assign, ":party", reg(0)),
+       (party_set_ai_behavior, ":party", ai_bhvr_patrol_location),
+       (party_set_ai_patrol_radius, ":party", 3),      
+     (try_end),
+     (try_begin),
+       (call_script, "script_get_walled_count", fac_kingdom_8),
+       (assign, ":max", reg0),
+       (val_mul, ":max", 2),
+
+       (store_num_parties_of_template, ":num_parties", "pt_kingdom_8_patrol"),
+       (lt,":num_parties", ":max"),
+       (call_script, "script_get_random_center", fac_kingdom_8),
+       (gt, reg0, 0),
+       (spawn_around_party, reg0, "pt_kingdom_8_patrol"),
+       (assign, ":party", reg(0)),
+       (party_set_ai_behavior, ":party", ai_bhvr_patrol_location),
+       (party_set_ai_patrol_radius, ":party", 3),      
+     (try_end),
+     #
+     ## UID: 24 - End
      #
      ## UID: 21 - End
      (try_begin),
@@ -51263,7 +51295,7 @@ scripts = [
           (str_store_party_name, s4, ":center"),
           (display_log_message, "@Building of {s0} in {s4} has been completed."),
         (try_end),
-        (call_script, "script_set_improvement_bonus", ":improvement"),
+        (call_script, "script_set_improvement_bonus", ":center", ":improvement"),
       (try_end),
     ]),
 

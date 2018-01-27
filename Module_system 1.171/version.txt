@@ -525,6 +525,14 @@
   *** script_get_walled_count
   ** Edited:
   *** script_spawn_bandits
+  * party_templates.csv
+  ** Added:
+  *** pt_kingdom_1_patrol
+  *** pt_kingdom_2_patrol
+  *** pt_kingdom_3_patrol
+  *** pt_kingdom_4_patrol
+  *** pt_kingdom_5_patrol
+  *** pt_kingdom_6_patrol
 
 22. Kings and Lords recruit troops from Towns.
   * module_scripts.py
@@ -891,10 +899,13 @@
   *** pt_kingdom_8_reinforcements_a
   *** pt_kingdom_8_reinforcements_b
   *** pt_kingdom_8_reinforcements_c
+  *** pt_kingdom_7_patrol
+  *** pt_kingdom_8_patrol
   * module_scripts.py
   ** Edited:
   *** script_game_start
   *** script_initialize_faction_troop_types
+  *** script_spawn_bandits
   * module_map_icons.py
   ** Added:
   *** icon_banner_136
@@ -951,6 +962,12 @@
   * module_items.py
   ** Edited:
   *** itm_camel
+  * module_strings.py
+  ** Added:
+  *** str_faction_title_male_7
+  *** str_faction_title_male_8
+  *** str_faction_title_female_7
+  *** str_faction_title_female_8
   * parties.csv
   ** Added:
   *** p_town_23
@@ -1186,9 +1203,18 @@
   ** Added:
   *** fac_kingdom_7
   *** fac_kingdom_8
+  * game_strings.csv
+  ** Added:
+  *** str_faction_title_male_7
+  *** str_faction_title_male_8
+  *** str_faction_title_female_7
+  *** str_faction_title_female_8
+  * party_templates.csv
+  ** Added:
+  *** pt_kingdom_7_patrol
+  *** pt_kingdom_8_patrol
   + BUGS:
   ++ tf_female ladies seems like man so dialogs should change with sex. (For example, lord first talk dialog says "I am lord of blabla")
-
   
 25. Listing all items presentation added on camp cheat menu list.
   * module_game_menus.py
@@ -1205,3 +1231,14 @@
   * module_scripts.py
   ** Added:
   *** script_is_male
+  
+27. Lords can't escape after wars anymore.
+  * module_constants.py
+  ** Replaced:
+  *** hero_escape_after_defeat_chance
+  
+28. Castle conquer gold reward increased.
+  * module_game_menus.py
+  ** Edited:
+  *** menu_requested_castle_granted_to_another:mno_accept_decision
+  *** menu_requested_castle_granted_to_another_female:mno_accept_decision

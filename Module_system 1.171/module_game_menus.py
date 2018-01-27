@@ -6770,149 +6770,128 @@ and that whatever course you take, great adventures will await you. Drawn by the
     ],
   ),
 
-(
-    "requested_castle_granted_to_player",mnf_scale_picture,
-    "You receive a message from your liege, {s3}.^^\
- {reg4?She:He} has decided to grant {s2}{reg3? and the nearby village of {s4}:} to you, with all due incomes and titles, to hold in {reg4?her:his} name for as long as you maintain your oath of homage..",
-    "none",
-    [
-		(set_background_mesh, "mesh_pic_messenger"),
-		(faction_get_slot, ":faction_leader", "$players_kingdom", slot_faction_leader),
-		(str_store_troop_name, s3, ":faction_leader"),
-		(str_store_party_name, s2, "$g_center_to_give_to_player"),
-		(try_begin),
-			(party_slot_eq, "$g_center_to_give_to_player", slot_party_type, spt_castle),
-			(assign, reg3, 1),
-			(try_for_range, ":cur_village", villages_begin, villages_end),
-				(party_slot_eq, ":cur_village", slot_village_bound_center, "$g_center_to_give_to_player"),
-				(str_store_party_name, s4, ":cur_village"),
-			(try_end),
-		(else_try),
-			(assign, reg3, 0),
-		(try_end),
-		(troop_get_type, reg4, ":faction_leader"),
-	 
-   ],
-    [
-		("continue",[],"Continue.",
-			[
-			(call_script, "script_give_center_to_lord", "$g_center_to_give_to_player", "trp_player", 0),
-			(jump_to_menu, "mnu_give_center_to_player_2"),
-			],
-		),
-	]
-),
-  
+  ("requested_castle_granted_to_player", mnf_scale_picture, "You receive a message from your liege, {s3}.^^\
+ {reg4?She:He} has decided to grant {s2}{reg3? and the nearby village of {s4}:} to you, with all due incomes and titles, to hold in {reg4?her:his} name for as long as you maintain your oath of homage..", "none", [
+     (set_background_mesh, "mesh_pic_messenger"),
+     (faction_get_slot, ":faction_leader", "$players_kingdom", slot_faction_leader),
+     (str_store_troop_name, s3, ":faction_leader"),
+     (str_store_party_name, s2, "$g_center_to_give_to_player"),
+     (try_begin),
+       (party_slot_eq, "$g_center_to_give_to_player", slot_party_type, spt_castle),
+       (assign, reg3, 1),
+       (try_for_range, ":cur_village", villages_begin, villages_end),
+         (party_slot_eq, ":cur_village", slot_village_bound_center, "$g_center_to_give_to_player"),
+         (str_store_party_name, s4, ":cur_village"),
+       (try_end),
+     (else_try),
+       (assign, reg3, 0),
+     (try_end),
+     (troop_get_type, reg4, ":faction_leader"),
+    ], [
+        ("continue", [], "Continue.", [
+            (call_script, "script_give_center_to_lord", "$g_center_to_give_to_player", "trp_player", 0),
+            (jump_to_menu, "mnu_give_center_to_player_2"),
+        ]),
+    ]),
 
+  ("requested_castle_granted_to_player_husband", mnf_scale_picture, "You receive a message from your liege, {s3}.^^\
+ {reg4?She:He} has decided to grant {s2}{reg3? and the nearby village of {s4}:} to your husband, {s7}.", "none", [
+     (set_background_mesh, "mesh_pic_messenger"),
+     (faction_get_slot, ":faction_leader", "$players_kingdom", slot_faction_leader),
+     (str_store_troop_name, s3, ":faction_leader"),
+     (str_store_party_name, s2, "$g_center_to_give_to_player"),
+     (try_begin),
+       (party_slot_eq, "$g_center_to_give_to_player", slot_party_type, spt_castle),
+       (assign, reg3, 1),
+       (try_for_range, ":cur_village", villages_begin, villages_end),
+         (party_slot_eq, ":cur_village", slot_village_bound_center, "$g_center_to_give_to_player"),
+         (str_store_party_name, s4, ":cur_village"),
+       (try_end),
+     (else_try),
+       (assign, reg3, 0),
+     (try_end),
+     (troop_get_type, reg4, ":faction_leader"),
 
-(
-    "requested_castle_granted_to_player_husband", mnf_scale_picture,
-    "You receive a message from your liege, {s3}.^^\
- {reg4?She:He} has decided to grant {s2}{reg3? and the nearby village of {s4}:} to your husband, {s7}.",	 
-    "none",
-    [
-		(set_background_mesh, "mesh_pic_messenger"),
-		(faction_get_slot, ":faction_leader", "$players_kingdom", slot_faction_leader),
-		(str_store_troop_name, s3, ":faction_leader"),
-		(str_store_party_name, s2, "$g_center_to_give_to_player"),
-		(try_begin),
-			(party_slot_eq, "$g_center_to_give_to_player", slot_party_type, spt_castle),
-			(assign, reg3, 1),
-			(try_for_range, ":cur_village", villages_begin, villages_end),
-				(party_slot_eq, ":cur_village", slot_village_bound_center, "$g_center_to_give_to_player"),
-				(str_store_party_name, s4, ":cur_village"),
-			(try_end),
-		(else_try),
-			(assign, reg3, 0),
-		(try_end),
-		(troop_get_type, reg4, ":faction_leader"),
-	 
-		(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
-		(str_store_troop_name, s11, ":spouse"), 
-		(str_store_string, s7, "str_to_your_husband_s11"),	 
-    ],
-    [
-		("continue",[],"Continue.",
-			[
-			(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
-			(call_script, "script_give_center_to_lord", "$g_center_to_give_to_player", ":spouse", 0),
-			],
-		),
-	]
-),
+     (troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
+     (str_store_troop_name, s11, ":spouse"),
+     (str_store_string, s7, "str_to_your_husband_s11"),
+    ], [
+        ("continue", [], "Continue.", [
+            (troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
+            (call_script, "script_give_center_to_lord", "$g_center_to_give_to_player", ":spouse", 0),
+        ]),
+    ]),
 
-
-
-  
-  
-  
-  
-(
-    "requested_castle_granted_to_another",mnf_scale_picture,
-    "You receive a message from your monarch, {s3}.^^\
+  ("requested_castle_granted_to_another", mnf_scale_picture, "You receive a message from your monarch, {s3}.^^\
  'I was most pleased to hear of your valiant efforts in the capture of {s2}. Your victory has gladdened all our hearts.\
  You also requested me to give you ownership of the castle, but that is a favour which I fear I cannot grant,\
  as you already hold significant estates in my realm.\
- Instead I have sent you {reg6} denars to cover the expenses of your campaign, but {s2} I give to {s5}.'\
- ",
-    "none",
-    [(set_background_mesh, "mesh_pic_messenger"),
+ Instead I have sent you {reg6} denars to cover the expenses of your campaign, but {s2} I give to {s5}.'", "none", [
+     (set_background_mesh, "mesh_pic_messenger"),
      (faction_get_slot, ":faction_leader", "$players_kingdom", slot_faction_leader),
      (str_store_troop_name, s3, ":faction_leader"),
      (str_store_party_name, s2, "$g_center_to_give_to_player"),
      (party_get_slot, ":new_owner", "$g_center_to_give_to_player", slot_town_lord),
      (str_store_troop_name, s5, ":new_owner"),
-     (assign, reg6, 900),
-	 
-	 (assign, "$g_castle_requested_by_player", -1),
-	 (assign, "$g_castle_requested_for_troop", -1),
-	 
-    ],
-    [
-      ("accept_decision",[],"Accept the decision.",
-       [
-       (call_script, "script_troop_add_gold", "trp_player", reg6),
-       (change_screen_return),
-       ]),
-	   
-       ("leave_faction",[],"You have been wronged! Renounce your oath to your liege! ",
-       [
-         (jump_to_menu, "mnu_leave_faction"),
-         (call_script, "script_troop_add_gold", "trp_player", reg6),
-        ]),
-     ],
-  ),
+     ## UID: 28 - Begin
+     #
+##     (assign, reg6, 900),
+     (troop_get_slot, ":renown", "trp_player", slot_troop_renown),
+     (store_character_level, ":level", "trp_player"),
+     (val_mul, ":level", 50),
+     (val_div, ":renown", 2),
+     (val_add, ":renown", ":level"),
+     (val_add, ":renown", 1000),
+     (assign, reg6, ":renown"),
+     #
+     ## UID: 28 - End
 
-  
-(
-    "requested_castle_granted_to_another_female",mnf_scale_picture,
-    "You receive a message from your monarch, {s3}.^^\
+     (assign, "$g_castle_requested_by_player", -1),
+     (assign, "$g_castle_requested_for_troop", -1),
+    ], [
+        ("accept_decision", [], "Accept the decision.", [
+            (call_script, "script_troop_add_gold", "trp_player", reg6),
+            (change_screen_return),
+        ]),
+
+        ("leave_faction", [], "You have been wronged! Renounce your oath to your liege! ", [
+            (jump_to_menu, "mnu_leave_faction"),
+            (call_script, "script_troop_add_gold", "trp_player", reg6),
+        ]),
+    ]),
+
+  ("requested_castle_granted_to_another_female", mnf_scale_picture, "You receive a message from your monarch, {s3}.^^\
  'I was most pleased to hear of your valiant efforts in the capture of {s2}. Your victory has gladdened all our hearts.\
  You also requested me to give ownership of the castle to your husband, but that is a favour which I fear I cannot grant,\
  as he already holds significant estates in my realm.\
- Instead I have sent you {reg6} denars to cover the expenses of your campaign, but {s2} I give to {s5}.'\
- ",
-    "none",
-    [(set_background_mesh, "mesh_pic_messenger"),
+ Instead I have sent you {reg6} denars to cover the expenses of your campaign, but {s2} I give to {s5}.'", "none", [
+     (set_background_mesh, "mesh_pic_messenger"),
      (faction_get_slot, ":faction_leader", "$players_kingdom", slot_faction_leader),
      (str_store_troop_name, s3, ":faction_leader"),
      (str_store_party_name, s2, "$g_center_to_give_to_player"),
      (party_get_slot, ":new_owner", "$g_center_to_give_to_player", slot_town_lord),
      (str_store_troop_name, s5, ":new_owner"),
-     (assign, reg6, 900),
+     ## UID: 28 - Begin
+     #
+##     (assign, reg6, 900),
+     (troop_get_slot, ":renown", "trp_player", slot_troop_renown),
+     (store_character_level, ":level", "trp_player"),
+     (val_mul, ":level", 50),
+     (val_div, ":renown", 2),
+     (val_add, ":renown", ":level"),
+     (val_add, ":renown", 1000),
+     (assign, reg6, ":renown"),
+     #
+     ## UID: 28 - End
 
-	 (assign, "$g_castle_requested_by_player", -1),
-	 (assign, "$g_castle_requested_for_troop", -1),
-    ],
-	
-    [
-		("accept_decision",[],"Accept the decision.",
-        [
-        (call_script, "script_troop_add_gold", "trp_player", reg6),
-        (change_screen_return),
+     (assign, "$g_castle_requested_by_player", -1),
+     (assign, "$g_castle_requested_for_troop", -1),
+    ], [
+        ("accept_decision", [], "Accept the decision.", [
+            (call_script, "script_troop_add_gold", "trp_player", reg6),
+            (change_screen_return),
         ]),
-    ],
-),
+    ]),
   
   
   

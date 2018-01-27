@@ -618,5 +618,6 @@ script_get_random_improvement = 616
 script_upgrade_building = 617
 script_get_random_center = 618
 script_get_walled_count = 619
+script_is_male = 620
 
 

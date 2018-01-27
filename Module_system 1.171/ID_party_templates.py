@@ -76,3 +76,5 @@ pt_kingdom_3_patrol = 74
 pt_kingdom_4_patrol = 75
 pt_kingdom_5_patrol = 76
 pt_kingdom_6_patrol = 77
+pt_kingdom_7_patrol = 78
+pt_kingdom_8_patrol = 79

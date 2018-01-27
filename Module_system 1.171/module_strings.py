@@ -3751,6 +3751,12 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("faction_title_male_4", "Jarl {s0}"),
   ("faction_title_male_5", "Count {s0}"),
   ("faction_title_male_6", "Emir {s0}"),
+  ## UID: 24 - Begin
+  #
+  ("faction_title_male_7", "Duke {s0}"),
+  ("faction_title_male_8", "Earl {s0}"),
+  #
+  ## UID: 24 - End
 
   ("faction_title_female_player", "Lady {s0}"),
   ("faction_title_female_1", "Countess {s0}"),
@@ -3759,6 +3765,12 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("faction_title_female_4", "Grevinne {s0}"),
   ("faction_title_female_5", "Countess {s0}"),
   ("faction_title_female_6", "Sayeda {s0}"),
+  ## UID: 24 - Begin
+  #
+  ("faction_title_male_7", "Duchess {s0}"),
+  ("faction_title_male_8", "Countess {s0}"),
+  #
+  ## UID: 24 - End
 
   ("name_kingdom_text", "What will be the name of your kingdom?"),
   ("default_kingdom_name", "{s0}'s Kingdom"),
