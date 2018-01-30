@@ -2891,7 +2891,14 @@ troops = [
    def_attrib|level(30), wp(130), knows_common|knows_riding_4|knows_ironflesh_5|knows_power_strike_4, swadian_face_young_1, swadian_face_middle_2],
   #
   ## UID: 12 - End
-  
+
+  ## UID: 31 - Begin
+  #
+  ["musician_male", "Musican", "Musican", tf_guarantee_boots|tf_guarantee_armor, 0, 0, fac_commoners, [itm_short_tunic, itm_linen_tunic, itm_tabard, itm_woolen_hose, itm_blue_hose], def_attrib|level(4), wp(60), knows_common, man_face_young_1, man_face_old_2],
+  ["musician_female", "Musican", "Musican", tf_female|tf_guarantee_boots|tf_guarantee_armor, 0, 0, fac_commoners, [itm_blue_dress, itm_dress, itm_woolen_dress, itm_peasant_dress, itm_woolen_hose, itm_blue_hose, itm_wimple_a, itm_wimple_with_veil, itm_female_hood], def_attrib|level(2), wp(40), knows_common, woman_face_1, woman_face_2],
+  ["musicians_end", "{!}Musician End", "{!}Musician End", tf_inactive, 0, 0, 0, [], 0, 0, 0, 0],
+  #
+  ## UID: 31 - End
 ]
 
 

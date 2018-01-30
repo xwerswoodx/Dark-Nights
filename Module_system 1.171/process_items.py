@@ -17,12 +17,23 @@ def save_python_header():
 def write_items(variable_list,variable_uses,tag_uses,quick_strings):
   itemkinds_file_name = export_dir + "item_kinds1.txt"
   ofile = open(itemkinds_file_name,"w")
+  ## UID: 6 - Begin
+  #
+  langFile = open(language_dir + "item_kinds.csv", "w")
+  #
+  ## UID: 6 - End
   ofile.write("itemsfile version 3\n")
   ofile.write("%d\n"%len(items))
   for item in items:
     if (item[3] & itp_merchandise) > 0:
       id_no = find_object(items,convert_to_identifier(item[0]))
       add_tag_use(tag_uses,tag_item,id_no)
+    ## UID: 6 - Begin
+    #
+    langFile.write("itm_%s|%s\n"%(convert_to_identifier(item[0]),item[1]))
+    langFile.write("itm_%s_pl|%s\n"%(convert_to_identifier(item[0]),item[1]))
+    #
+    ## UID: 6 - End
     ofile.write(" itm_%s %s %s %d "%(convert_to_identifier(item[0]),replace_spaces(item[1]),replace_spaces(item[1]),len(item[2])))
     item_variations = item[2]
     for item_variation in item_variations:
@@ -53,9 +64,12 @@ def write_items(variable_list,variable_uses,tag_uses,quick_strings):
     if (len(item) > 8):
       trigger_list = item[8]
     save_simple_triggers(ofile,trigger_list, variable_list,variable_uses,tag_uses,quick_strings)
-
-
   ofile.close()
+  ## UID: 6 - Begin
+  #
+  langFile.close()
+  #
+  ## UID: 6 - End
 
 print "Exporting item data..."
 save_python_header()

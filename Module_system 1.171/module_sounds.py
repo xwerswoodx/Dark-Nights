@@ -233,4 +233,11 @@ sounds = [
  ("ccoop_sea_raider_taunt_3",sf_2d|sf_vol_8, ["encounter_sea_raider_10.ogg"]),
  ("sounds_end", sf_2d|sf_priority_10|sf_vol_10, ["enemy_scored_a_point.ogg"]),
  #INVASION MODE END
+
+ ## UID: 31 - Begin
+ #
+ ("dedal_tavern_lute", sf_priority_6|sf_vol_5|sf_looping, ["dedal_tavern_lute_1.ogg", "dedal_tavern_lute_2.ogg", "dedal_tavern_lute_3.ogg"]),
+ ("dedal_tavern_lyre", sf_priority_6|sf_vol_6|sf_looping, ["dedal_tavern_lyre_1.ogg", "dedal_tavern_lyre_2.ogg", "dedal_tavern_lyre_3.ogg"]),
+ #
+ ## UID: 31 - End
 ]

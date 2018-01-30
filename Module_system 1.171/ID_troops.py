@@ -1216,3 +1216,6 @@ trp_coop_companion_equipment_sets_end = 1214
 trp_dark_knight = 1215
 trp_dark_hunter = 1216
 trp_desert_cavalry = 1217
+trp_musician_male = 1218
+trp_musician_female = 1219
+trp_musicians_end = 1220

@@ -131,14 +131,27 @@
  
 6. After that, compiling python creates original (English) language files.
   * module_info.py
-  ** Added: language_dir
+  ** Added:
+  *** language_dir
   * process_dialogs.py
-  ** Edited: save_sentences definition.
+  ** Edited:
+  *** def_save_sentences
   * process_factions.py
-  ** Edited: save_factions definition.
+  ** Edited:
+  *** def_save_factions
   * process_game_menus.py
-  ** Edited: save_game_menus definition.
-  ** Edited: save_game_menu_item definition.
+  ** Edited:
+  *** def_save_game_menus
+  *** def_save_game_menu_item
+  * process_items.py
+  ** Edited:
+  *** def_write_items
+  * process_strings.py
+  ** Edited:
+  *** def_save_strings
+  * process_info_pages.py
+  ** Edited:
+  *** def_save_info_pages
   
 7. Some of Turkish translate mistakes fixed.
   * dialog.csv
@@ -923,6 +936,8 @@
   *** mesh_banner_h09
   *** mesh_banner_kingdom_g
   *** mesh_banner_kingdom_h
+  *** mesh_pic_arms_umalelith
+  *** mesh_pic_arms_kielian
   * module_party_templates.py
   ** Added:
   *** pt_kingdom_7_reinforcements_a
@@ -938,6 +953,7 @@
   *** script_game_start
   *** script_initialize_faction_troop_types
   *** script_spawn_bandits
+  *** script_initialize_aristocracy
   * module_map_icons.py
   ** Added:
   *** icon_banner_136
@@ -1000,6 +1016,9 @@
   *** str_faction_title_male_8
   *** str_faction_title_female_7
   *** str_faction_title_female_8
+  * module_game_menus.py
+  ** Edited:
+  *** menu_town:mno_town_tavern
   * parties.csv
   ** Added:
   *** p_town_23
@@ -1272,6 +1291,84 @@
   ** Edited:
   *** menu_requested_castle_granted_to_another:mno_accept_decision
   *** menu_requested_castle_granted_to_another_female:mno_accept_decision
+  
+29. Parties don't spawn on rt_mountains anymore when disembark.
+  * module_game_menus.py
+  ** Edited:
+  *** menu_disembark:mno_disembark_yes
+  
+30. Lords can give more patience with intelligence and persuasion (DISABLED this time)
+  * module_dialogs.py
+  ** Removed:
+  *** dlga_lord_recruit_1_relation:lord_pretalk
+  ** Added:
+  *** dlga_lord_recruit_1_relation:lord_impatient_persuasion
+  *** dlga_lord_impatient_persuasion:lord_pretalk
+  *** dlga_lord_impatient_persuasion:lord_pretalk.1
+  
+31. Dedal tavern animations added.
+  * module_sounds.py
+  ** Added:
+  *** snd_dedal_tavern_lute
+  *** snd_dedal_tavern_lyre
+  * module_troops.py
+  ** Added:
+  *** trp_musician_male
+  *** trp_musician_female
+  *** trp_musician_end
+  * module_mission_templates.py
+  ** Added:
+  *** dedal_tavern_animations
+  ** Edited:
+  *** mt_town_default
+  * module_animations.py
+  ** Added:
+  *** anim_sitting_drinking_low
+  *** anim_sitting_low
+  *** anim_lute_sitting
+  *** anim_lute_standing
+  *** anim_lyre_sitting
+  *** anim_lyre_standing
+  * module_items.py
+  ** Added:
+  *** itm_dedal_kufel
+  *** itm_dedal_lutnia
+  *** itm_dedal_lira
+  * module_game_menus.py
+  ** Edited:
+  *** menu_town:mno_town_tavern
+  * module_dialogs.py
+  ** Added:
+  *** dlga_start:tavern_walkers_talk
+  *** dlga_tavern_walkers_talk:tavern_walkers_ask_money
+  *** dlga_tavern_walkers_ask_money:tavern_walkers_talk
+  *** dlga_tavern_walkers_ask_money:tavern_walkers_talk.1
+  *** dlga_tavern_walkers_ask_money:tavern_walkers_talk.2
+  *** dlga_tavern_walkers_talk:close_window
+  *** dlga_tavern_walkers_ask_money:tavern_walkers_give_money
+  *** dlga_tavern_walkers_ask_money:tavern_walkers_give_money.1
+  *** dlga_tavern_walkers_give_money:tavern_walkers_paid
+  *** dlga_tavern_walkers_give_money:tavern_walkers_not_paid
+  *** dlga_tavern_walkers_not_paid:close_window
+  *** dlga_tavern_walkers_paid:close_window
+  *** dlga_start:tavern_musicians_talk
+  *** dlga_tavern_musicians_talk:close_window
+  * dialogs.csv
+  ** Added:
+  *** dlga_start:tavern_walkers_talk
+  *** dlga_tavern_walkers_talk:tavern_walkers_ask_money
+  *** dlga_tavern_walkers_ask_money:tavern_walkers_talk
+  *** dlga_tavern_walkers_ask_money:tavern_walkers_talk.1
+  *** dlga_tavern_walkers_ask_money:tavern_walkers_talk.2
+  *** dlga_tavern_walkers_talk:close_window
+  *** dlga_tavern_walkers_ask_money:tavern_walkers_give_money
+  *** dlga_tavern_walkers_ask_money:tavern_walkers_give_money.1
+  *** dlga_tavern_walkers_give_money:tavern_walkers_paid
+  *** dlga_tavern_walkers_give_money:tavern_walkers_not_paid
+  *** dlga_tavern_walkers_not_paid:close_window
+  *** dlga_tavern_walkers_paid:close_window
+  *** dlga_start:tavern_musicians_talk
+  *** dlga_tavern_musicians_talk:close_window
 
 Known Bugs:
 tf_female; Ladies seems like man so dialogs should change with sex. (For example, lord first talk dialog says "I am lord of blabla")

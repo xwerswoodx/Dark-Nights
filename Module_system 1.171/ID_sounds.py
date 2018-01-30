@@ -198,5 +198,7 @@ snd_ccoop_sea_raider_taunt_1 = 196
 snd_ccoop_sea_raider_taunt_2 = 197
 snd_ccoop_sea_raider_taunt_3 = 198
 snd_sounds_end = 199
+snd_dedal_tavern_lute = 200
+snd_dedal_tavern_lyre = 201
 
 

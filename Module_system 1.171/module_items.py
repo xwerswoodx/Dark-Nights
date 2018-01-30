@@ -1361,4 +1361,11 @@ items = [
 ["ccoop_new_items_end", "Items End", [("shield_round_a",0)], 0, 0, 1, 0, 0],
 #INVASION MODE END
 
+ ## UID: 31 - Begin
+ #
+ ["dedal_kufel", "Kufel", [("dedal_kufelL",0)], itp_type_hand_armor, 0, 0, weight(1), 0],
+ ["dedal_lutnia", "Lutnia", [("dedal_lutniaL",0)], itp_type_hand_armor, 0, 0, weight(1), 0],
+ ["dedal_lira", "Lira", [("dedal_liraL",0)], itp_type_hand_armor, 0, 0, weight(1), 0],
+ #
+ ## UID: 31 - End
 ]

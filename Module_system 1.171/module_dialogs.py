@@ -8380,23 +8380,41 @@ dialogs = [
    ],
    "{!}[Placeholder - sorry, not yet]", "lord_pretalk",
    [
-   ]], 
- 
- 
- 
- 
-   
-  [anyone,"lord_recruit_1_relation", [
-	(troop_slot_ge, "$g_talk_troop", slot_troop_intrigue_impatience, 100),
-   ],
-   "I am a bit weary of talking politics. Perhaps at a later date", "lord_pretalk",
-   [
-	(troop_get_slot, reg3, "$g_talk_troop", slot_troop_intrigue_impatience),
-	(try_begin),
-	  (eq, "$cheat_mode", 1),
-	  (display_message, "str_intrigue_impatience=_reg3_must_be_less_than_100"),
-	(try_end),
-   ]], 
+   ]],
+
+  [anyone, "lord_recruit_1_relation", [(troop_slot_ge, "$g_talk_troop", slot_troop_intrigue_impatience, 100)], "I am a bit weary of talking politics. Perhaps at a later date", "lord_pretalk", [
+      (troop_get_slot, reg3, "$g_talk_troop", slot_troop_intrigue_impatience),
+      (try_begin),
+        (eq, "$cheat_mode", 1),
+        (display_message, "str_intrigue_impatience=_reg3_must_be_less_than_100"),
+      (try_end),
+    ]],
+
+  ## UID: 30 - Begin
+  #
+##  [anyone, "lord_recruit_1_relation", [(troop_slot_ge, "$g_talk_troop", slot_troop_intrigue_impatience, 100)], "I am a bit weary of talking politics. Perhaps at a later date", "lord_impatient_persuasion", [
+##      (troop_get_slot, reg3, "$g_talk_troop", slot_troop_intrigue_impatience),
+##      (try_begin),
+##        (eq, "$cheat_mode", 1),
+##        (display_message, "str_intrigue_impatience=_reg3_must_be_less_than_100"),
+##      (try_end),
+##    ]],
+##
+##  [anyone, "lord_impatient_persuasion", [
+##      (troop_get_slot, ":patience", "$g_talk_troop", slot_troop_intrigue_impatience),
+##      (val_div, ":patience", 5),
+##      (store_mul, reg0, ":patience", 20),
+##      (store_div, reg1, reg0, 1),
+##      (store_troop_gold, ":gold", "trp_player"),
+##      (ge, ":gold", reg0),
+##    ], "Maybe this {reg0} denar{reg1?s:} could change your mind.", [
+##        (troop_remove_gold, "trp_player", reg0),
+##        (troop_set_slot, "$g_talk_troop", slot_troop_intrigue_impatience, 0),
+##    ]],
+##
+##  [anyone, "lord_impatient_persuasion", [], "Maybe we can talk about this later.", []],
+  #
+  ## UID: 30 - End
    
    #lord proximity
   [anyone,"lord_recruit_1_relation", [ #can't use the nearby scripts, because it would include the player party
@@ -26408,4 +26426,96 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
   [anyone|plyr,"free", [[in_meta_mission]], " Good-bye.", "close_window",[]],
   [anyone|plyr,"free", [[neg|in_meta_mission]], " [Leave]", "close_window",[]],
 #  [anyone,"free", [], "NO MATCHING SENTENCE!", "close_window",[]],
+
+  ## UID: 31 - Begin
+  #
+  [anyone, "start", [
+      (eq, "$talk_context", tc_tavern_talk),
+      (is_between, "$g_talk_troop", walkers_begin, walkers_end),
+      (call_script, "script_is_male", "trp_player"),
+      (assign, reg1, reg0),
+    ], "Hello {playername}, How can I help you?", "tavern_walkers_talk", [(troop_set_slot, "$g_talk_troop", slot_troop_met, 1)]],
+
+  [anyone|plyr, "tavern_walkers_talk", [
+      (store_current_hours,":cur_hours"),
+      (val_sub, ":cur_hours", 24),
+      (this_or_next|gt, ":cur_hours", "$g_paid_time"),
+      (             eq, "$cheat_mode", 1),
+    ], "How is life here?", "tavern_walkers_ask_money", [
+        (store_current_hours, ":cur_hours"),
+        (assign, "$g_paid_time", ":cur_hours"),
+    ]],
+
+  [anyone,"tavern_walkers_ask_money", [
+      (neg|party_slot_ge, "$g_encountered_party", slot_town_prosperity, 30),
+      (call_script, "script_is_male", "trp_player"),
+      (assign, reg1, reg0),
+    ], "Times are hard, {reg1?sir:madam}. We work hard all day and yet we go to sleep hungry most nights.", "tavern_walkers_talk", []],
+  
+  [anyone,"tavern_walkers_ask_money", [
+      (neg|party_slot_ge, "$current_town", slot_town_prosperity, 70),
+      (call_script, "script_is_male", "trp_player"),
+      (assign, reg1, reg0),
+    ], "Times are hard, {reg1?sir:madam}. But we must count our blessings.", "tavern_walkers_talk", []],
+  
+  [anyone,"tavern_walkers_ask_money", [
+      (call_script, "script_is_male", "trp_player"),
+      (assign, reg1, reg0),
+    ], "We are not doing too badly {reg1?sir:madam}. We must count our blessings.", "tavern_walkers_talk", []],
+
+  [anyone, "tavern_walkers_ask_money", [
+      (store_troop_gold, ":wgold", "$g_talk_troop"),
+      (lt, ":wgold", 10),
+      (call_script, "script_is_male", "trp_player"),
+      (assign, reg1, reg0),
+    ], "Disaster has struck my family, {reg1?sir:madam}. We have no land of our own, and the others have no money to pay for our labor, or even to help us. My poor children lie at home hungry and sick. I don't know what we'll do.", "tavern_walkers_give_money", []],
+
+  [anyone, "tavern_walkers_ask_money", [
+      (store_troop_gold, ":wgold", "$g_talk_troop"),
+      (ge, ":wgold", 10),
+      (lt, ":wgold", 25),
+      (call_script, "script_is_male", "trp_player"),
+      (assign, reg1, reg0),
+    ], "My life is miserable, {reg1?sir:madam}. I haven't been able to find a job for months, and my poor children go to bed hungry each night. My neighbours are too poor themselves to help me.", "tavern_walkers_give_money", []],
+
+  [anyone|plyr, "tavern_walkers_give_money", [
+      (store_troop_gold, reg20, "trp_player"),
+      (val_min, reg20, 300),
+    ], "Then take these {reg20} denars. I hope this will help you and your family.", "tavern_walkers_paid", [(troop_remove_gold, "trp_player", reg20),]],
+
+  [anyone|plyr,"tavern_walkers_give_money", [], "Then clearly you must travel somewhere else, or learn another trade.", "tavern_walkers_not_paid", []], 
+  [anyone,"tavern_walkers_not_paid", [], "Yes {sir/madam}. I will do as you say.", "close_window",[]],
+  [anyone,"tavern_walkers_paid", [
+      (call_script, "script_is_male", "trp_player"),
+      (assign, reg1, reg0),
+    ], "{reg1?My lord/My good lady}. You are so good and generous. I will tell everyone how you helped us.", "close_window", [(call_script, "script_change_player_relation_with_center", "$g_encountered_party", 1),]],
+  [anyone|plyr, "tavern_walkers_talk", [], "You look quite busy. I think I shouldn't interrupt you.", "close_window", []],
+
+  [anyone, "start", [
+      (eq, "$talk_context", tc_tavern_talk),
+      (is_between, "$g_talk_troop", "trp_musician_male", "trp_musicians_end"),
+    ], "Hello {playername}, How can I help you?", "tavern_musicians_talk", [(troop_set_slot, "$g_talk_troop", slot_troop_met, 1)]],
+
+##  [anyone, "tavern_musicians_pretalk", [], "Anything else?", "tavern_musicians_talk", []],
+##
+##  [anyone|plyr,"tavern_musicians_talk", [(eq, 1, 2)],"Can you play any calradian tunes?","tavern_musicians_play", []],
+##  [anyone,"tavern_musicians_play", [],"Of course {my lord/my lady}. Which tunes do you want to play?", "tavern_musicians_play_tunes", []],
+##
+##  [anyone|plyr, "tavern_musicians_play_tunes", [], "Can you play 'The Wedding'.", "tavern_musicians_play_pay", [(assign, "$dnm_temp", "snd_jukebox_wedding")]],
+##  [anyone|plyr, "tavern_musicians_play_tunes", [], "Can you play 'The Coronation'.", "tavern_musicians_play_pay", [(assign, "$dnm_temp", "snd_jukebox_coronation")]],
+##  [anyone|plyr, "tavern_musicians_play_tunes", [], "Can you play 'The Travel'.", "tavern_musicians_play_pay", [(assign, "$dnm_temp", "snd_jukebox_travel_neutral")]],
+##  [anyone|plyr, "tavern_musicians_play_tunes", [], "Can you play 'The Tavern'.", "tavern_musicians_play_pay", [(assign, "$dnm_temp", "snd_jukebox_tavern_1")]],
+##  [anyone|plyr, "tavern_musicians_play_tunes", [], "Can you play 'Crazy battle music'.", "tavern_musicians_play_pay", [(assign, "$dnm_temp", "snd_jukebox_crazy_battle_music")]],
+##  [anyone|plyr, "tavern_musicians_play_tunes", [], "Can you play 'Beautifull Land'.", "tavern_musicians_play_pay", [(assign, "$dnm_temp", "snd_jukebox_outdoor_beautiful_land")]],
+##  [anyone|plyr, "tavern_musicians_play_tunes", [], "Can you play 'The Retreat'.", "tavern_musicians_play_pay", [(assign, "$dnm_temp", "snd_jukebox_retreat")]],
+##  [anyone|plyr, "tavern_musicians_play_tunes", [], "Can you play 'The Escape'.", "tavern_musicians_play_pay", [(assign, "$dnm_temp", "snd_jukebox_escape")]],                 
+##  [anyone|plyr, "tavern_musicians_play_tunes", [], "Forget it.", "tavern_musicians_pretalk", []],
+##
+##  [anyone, "tavern_musicians_play_pay", [], "I can play it for 10 denars.", "tavern_musicians_play_pay_answer", []],
+##  [anyone|plyr,"tavern_musicians_play_pay_answer", [(store_troop_gold,":gold","trp_player"),(ge, ":gold", 10)], "Ok, here is your 10 denars.", "close_window", [(troop_remove_gold, "trp_player", 10),(agent_play_sound, "$g_talk_agent", "$dnm_temp")]],
+##  [anyone|plyr,"tavern_musicians_play_pay_answer", [(store_troop_gold,":gold","trp_player"),(ge, ":gold", 10)], "Forget it.", "tavern_musicians_pretalk", []],
+##  [anyone|plyr,"tavern_musicians_play_pay_answer", [(store_troop_gold,":gold","trp_player"),(lt, ":gold", 10)], "I don't have enough money anyways.", "tavern_musicians_pretalk", []],
+  [anyone|plyr, "tavern_musicians_talk", [], "You look quite busy. I think I shouldn't interrupt you.", "close_window", []],
+  #
+  ## UID: 31 - End
 ]

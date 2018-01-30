@@ -5870,209 +5870,236 @@ scripts = [
      #INVASION MODE END
      ]),
 
-	("initialize_aristocracy",
-	[
-	  #LORD OCCUPATIONS, BLOOD RELATIONSHIPS, RENOWN AND REPUTATIONS
-	  
-	  #King ages
-	  (try_for_range, ":cur_troop", kings_begin, kings_end),
-		(troop_set_slot, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
-		(store_random_in_range, ":age", 50, 60),
-		(troop_set_slot, ":cur_troop", slot_troop_age, ":age"),
-		(eq, ":cur_troop", "trp_kingdom_5_lord"),
-		(troop_set_slot, ":cur_troop", slot_troop_age, 47),	
-	  (try_end),
-	  	  
-	  #The first thing - family structure
-	  #lords 1 to 8 are patriarchs with one live-at-home son and one daughter. They come from one of six possible ancestors, thus making it likely that there will be two sets of siblings
-	  #lords 9 to 12 are unmarried landowners with sisters
-	  #lords 13 to 20 are sons who still live in their fathers' houses
-	  #For the sake of simplicity, we can assume that all male aristocrats in prior generations either married commoners or procured their brides from the Old Country, thus discounting intermarriage 
+  ("initialize_aristocracy", [
+      #LORD OCCUPATIONS, BLOOD RELATIONSHIPS, RENOWN AND REPUTATIONS
+      #King ages
+      (try_for_range, ":cur_troop", kings_begin, kings_end),
+        (troop_set_slot, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
+        (store_random_in_range, ":age", 50, 60),
+        (troop_set_slot, ":cur_troop", slot_troop_age, ":age"),
+        (eq, ":cur_troop", "trp_kingdom_5_lord"),
+        (troop_set_slot, ":cur_troop", slot_troop_age, 47),
+      (try_end),
 
-	  (try_for_range, ":cur_troop", kingdom_ladies_begin, kingdom_ladies_end),
-		(troop_set_slot, ":cur_troop", slot_troop_occupation, slto_kingdom_lady),
-	  (try_end),
-	  
-	  (assign, ":cur_lady", "trp_kingdom_1_lady_1"),
+      #The first thing - family structure
+      #lords 1 to 8 are patriarchs with one live-at-home son and one daughter. They come from one of six possible ancestors, thus making it likely that there will be two sets of siblings
+      #lords 9 to 12 are unmarried landowners with sisters
+      #lords 13 to 20 are sons who still live in their fathers' houses
+      #For the sake of simplicity, we can assume that all male aristocrats in prior generations either married commoners or procured their brides from the Old Country, thus discounting intermarriage
+      (try_for_range, ":cur_troop", kingdom_ladies_begin, kingdom_ladies_end),
+        (troop_set_slot, ":cur_troop", slot_troop_occupation, slto_kingdom_lady),
+      (try_end),
 
-	  (try_for_range, ":cur_troop", lords_begin, lords_end),  
-		(troop_set_slot, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
-		
-		(store_random_in_range, ":father_age_at_birth", 23, 26),
-#		(store_random_in_range, ":mother_age_at_birth", 19, 22),
-		
-		(try_begin),
-			(is_between, ":cur_troop", "trp_knight_1_1", "trp_knight_2_1"),
-			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_1_1"),
-			(assign, ":ancestor_seed", 1),
+      (assign, ":cur_lady", "trp_kingdom_1_lady_1"),
+      (try_for_range, ":cur_troop", lords_begin, lords_end),
+        (troop_set_slot, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
 
-		(else_try),
-			(is_between, ":cur_troop", "trp_knight_2_1", "trp_knight_3_1"),
-			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_2_1"),
-			(assign, ":ancestor_seed", 7),
-			
-		(else_try),
-			(is_between, ":cur_troop", "trp_knight_3_1", "trp_knight_4_1"),
-			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_3_1"),
-			(assign, ":ancestor_seed", 13),
-			
-		(else_try),
-			(is_between, ":cur_troop", "trp_knight_4_1", "trp_knight_5_1"),
-			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_4_1"),
-			(assign, ":ancestor_seed", 19),
+        (store_random_in_range, ":father_age_at_birth", 23, 26),
+        (try_begin),
+          (is_between, ":cur_troop", "trp_knight_1_1", "trp_knight_2_1"),
+          (store_sub, ":npc_seed", ":cur_troop", "trp_knight_1_1"),
+          (assign, ":ancestor_seed", 1),
+        (else_try),
+          (is_between, ":cur_troop", "trp_knight_2_1", "trp_knight_3_1"),
+          (store_sub, ":npc_seed", ":cur_troop", "trp_knight_2_1"),
+          (assign, ":ancestor_seed", 7),
+        (else_try),
+          (is_between, ":cur_troop", "trp_knight_3_1", "trp_knight_4_1"),
+          (store_sub, ":npc_seed", ":cur_troop", "trp_knight_3_1"),
+          (assign, ":ancestor_seed", 13),
+        (else_try),
+          (is_between, ":cur_troop", "trp_knight_4_1", "trp_knight_5_1"),
+          (store_sub, ":npc_seed", ":cur_troop", "trp_knight_4_1"),
+          (assign, ":ancestor_seed", 19),
+        (else_try),
+          (is_between, ":cur_troop", "trp_knight_5_1", "trp_knight_6_1"),
+          (store_sub, ":npc_seed", ":cur_troop", "trp_knight_5_1"),
+          (assign, ":ancestor_seed", 25),
+        ## UID: 24 - Begin
+        #
+##        (else_try),
+##          (is_between, ":cur_troop", "trp_knight_6_1", "trp_kingdom_1_pretender"),
+##          (store_sub, ":npc_seed", ":cur_troop", "trp_knight_6_1"),
+##          (assign, ":ancestor_seed", 31),
+        (else_try),
+          (is_between, ":cur_troop", "trp_knight_6_1", "trp_knight_7_1"),
+          (store_sub, ":npc_seed", ":cur_troop", "trp_knight_6_1"),
+          (assign, ":ancestor_seed", 31),
+        (else_try),
+          (is_between, ":cur_troop", "trp_knight_7_1", "trp_knight_8_1"),
+          (store_sub, ":npc_seed", ":cur_troop", "trp_knight_7_1"),
+          (assign, ":ancestor_seed", 37),
+        (else_try),
+          (is_between, ":cur_troop", "trp_knight_8_1", "trp_kingdom_1_pretender"),
+          (store_sub, ":npc_seed", ":cur_troop", "trp_knight_8_1"),
+          (assign, ":ancestor_seed", 43),
+        #
+        ## UID: 24 - End
+        (try_end),
 
-		(else_try),
-			(is_between, ":cur_troop", "trp_knight_5_1", "trp_knight_6_1"),
-			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_5_1"),
-			(assign, ":ancestor_seed", 25),
-			
-		(else_try),
-			(is_between, ":cur_troop", "trp_knight_6_1", "trp_kingdom_1_pretender"),
-			(store_sub, ":npc_seed", ":cur_troop", "trp_knight_6_1"),
-			(assign, ":ancestor_seed", 31),
-			
-		(try_end),
-		
-		
-		(try_begin),
-			(lt, ":npc_seed", 8), #NPC seed is the order in the faction
-			(assign, ":reputation", ":npc_seed"),
-			(store_random_in_range, ":age", 45, 64),
-			
-			(store_random_in_range, ":father", 0, 6), #six possible fathers
-			(val_add, ":father", ":ancestor_seed"),
-			(troop_set_slot, ":cur_troop", slot_troop_father, ":father"),
-			
-			#wife
-			(troop_set_slot, ":cur_troop", slot_troop_spouse, ":cur_lady"),
-			(troop_set_slot, ":cur_lady", slot_troop_spouse, ":cur_troop"),
-			(store_random_in_range, ":wife_reputation", 20, 26),
-			(try_begin),
-				(eq, ":wife_reputation", 20),
-				(assign, ":wife_reputation", lrep_conventional),
-			(try_end),
-			(troop_set_slot, ":cur_lady", slot_lord_reputation_type, ":wife_reputation"),
-			
-			
-			(call_script, "script_init_troop_age", ":cur_lady", 49),
-			(call_script, "script_add_lady_items", ":cur_lady"),
-			
-			(val_add, ":cur_lady", 1),
+        (try_begin),
+          (lt, ":npc_seed", 8), #NPC seed is the order in the faction
+          (assign, ":reputation", ":npc_seed"),
+          (store_random_in_range, ":age", 45, 64),
+          (store_random_in_range, ":father", 0, 6), #six possible fathers
+          (val_add, ":father", ":ancestor_seed"),
+          (troop_set_slot, ":cur_troop", slot_troop_father, ":father"),
 
-			#daughter
-			(troop_set_slot, ":cur_lady", slot_troop_father, ":cur_troop"),
-			(store_sub, ":mother", ":cur_lady", 1),
-			(call_script, "script_init_troop_age", ":cur_lady", 19),
-			(troop_set_slot, ":cur_lady", slot_troop_mother, ":mother"),
-			(store_random_in_range, ":lady_reputation", lrep_conventional, 34), #33% chance of father-derived
-			(try_begin),
-				(le, ":lady_reputation", 25),
-				(troop_set_slot, ":cur_lady", slot_lord_reputation_type, ":lady_reputation"),
-			(else_try),	
-				(eq, ":lady_reputation", 26),
-				(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_conventional),
-			(else_try),	
-				(eq, ":lady_reputation", 27),
-				(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_moralist),
-			(else_try),
-				(assign, ":guardian_reputation", ":reputation"),
-				(try_begin),
-					(this_or_next|eq, ":guardian_reputation", lrep_martial),
-						(eq, ":guardian_reputation", 0),
-					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_conventional),
-				(else_try),		
-					(eq, ":guardian_reputation", lrep_quarrelsome),
-					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_otherworldly),
-				(else_try),		
-					(eq, ":guardian_reputation", lrep_selfrighteous),
-					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_ambitious),
-				(else_try),		
-					(eq, ":guardian_reputation", lrep_cunning),
-					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_adventurous),
-				(else_try),		
-					(eq, ":guardian_reputation", lrep_goodnatured),
-					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_adventurous),
-				(else_try),		
-					(eq, ":guardian_reputation", lrep_debauched),
-					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_ambitious),
-				(else_try),		
-					(eq, ":guardian_reputation", lrep_upstanding),
-					(troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_moralist),
-				(try_end),
-			(try_end),
-			
-			(call_script, "script_add_lady_items", ":cur_lady"),
-			(val_add, ":cur_lady", 1),
-			#high renown
+          #wife
+          ## UID: 24 - Begin
+          #
+          (try_begin),
+            (is_between, ":cur_lady", kingdom_ladies_begin, kingdom_ladies_end),
+          #
+          ## UID: 24 - End
+            (troop_set_slot, ":cur_troop", slot_troop_spouse, ":cur_lady"),
+            (troop_set_slot, ":cur_lady", slot_troop_spouse, ":cur_troop"),
+            (store_random_in_range, ":wife_reputation", 20, 26),
+            (try_begin),
+              (eq, ":wife_reputation", 20),
+              (assign, ":wife_reputation", lrep_conventional),
+            (try_end),
+            (troop_set_slot, ":cur_lady", slot_lord_reputation_type, ":wife_reputation"),
+            (call_script, "script_init_troop_age", ":cur_lady", 49),
+            (call_script, "script_add_lady_items", ":cur_lady"),
+          ## UID: 24 - Begin
+          #
+          (try_end),
+          #
+          ## UID: 24 - End
+          (val_add, ":cur_lady", 1),
 
-		(else_try),	#Older unmarried lords
-			(is_between, ":npc_seed", 8, 12),
-			
-			(store_random_in_range, ":age", 25, 36),			
-			(store_random_in_range, ":reputation", 0, 8),			
-			
-			(store_random_in_range, ":sister_reputation", 20, 26),
-			(try_begin),
-				(eq, ":sister_reputation", 20),
-				(assign, ":sister_reputation", lrep_conventional),
-			(try_end),
-			(troop_set_slot, ":cur_lady", slot_lord_reputation_type, ":sister_reputation"),
-			
-			(troop_set_slot, ":cur_lady", slot_troop_guardian, ":cur_troop"),
+          #daughter
+          ## UID: 24 - Begin
+          #
+          (try_begin),
+            (is_between, ":cur_lady", kingdom_ladies_begin, kingdom_ladies_end),
+          #
+          ## UID: 24 - End
+            (troop_set_slot, ":cur_lady", slot_troop_father, ":cur_troop"),
+            (store_sub, ":mother", ":cur_lady", 1),
+            (call_script, "script_init_troop_age", ":cur_lady", 19),
+            (troop_set_slot, ":cur_lady", slot_troop_mother, ":mother"),
+            (store_random_in_range, ":lady_reputation", lrep_conventional, 34), #33% chance of father-derived
+            (try_begin),
+              (le, ":lady_reputation", 25),
+              (troop_set_slot, ":cur_lady", slot_lord_reputation_type, ":lady_reputation"),
+            (else_try),
+              (eq, ":lady_reputation", 26),
+              (troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_conventional),
+            (else_try),
+              (eq, ":lady_reputation", 27),
+              (troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_moralist),
+            (else_try),
+              (assign, ":guardian_reputation", ":reputation"),
+              (try_begin),
+                (this_or_next|eq, ":guardian_reputation", lrep_martial),
+                (eq, ":guardian_reputation", 0),
+                (troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_conventional),
+              (else_try),
+                (eq, ":guardian_reputation", lrep_quarrelsome),
+                (troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_otherworldly),
+              (else_try),
+                (eq, ":guardian_reputation", lrep_selfrighteous),
+                (troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_ambitious),
+              (else_try),
+                (eq, ":guardian_reputation", lrep_cunning),
+                (troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_adventurous),
+              (else_try),
+                (eq, ":guardian_reputation", lrep_goodnatured),
+                (troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_adventurous),
+              (else_try),
+                (eq, ":guardian_reputation", lrep_debauched),
+                (troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_ambitious),
+              (else_try),
+                (eq, ":guardian_reputation", lrep_upstanding),
+                (troop_set_slot, ":cur_lady", slot_lord_reputation_type, lrep_moralist),
+              (try_end),
+            (try_end),
+            (call_script, "script_add_lady_items", ":cur_lady"),
+          ## UID: 24 - Begin
+          #
+          (try_end),
+          #
+          ## UID: 24 - End
+          (val_add, ":cur_lady", 1),
 
-			(call_script, "script_init_troop_age", ":cur_lady", 21),
-			(call_script, "script_add_lady_items", ":cur_lady"),
-			
-			(val_add, ":cur_lady", 1),
-			
-		(else_try),	#Younger unmarried lords 
-			#age is father's minus 20 to 25
-			(store_sub, ":father", ":cur_troop", 12),
-			(troop_set_slot, ":cur_troop", slot_troop_father, ":father"),
-			(troop_get_slot, ":mother", ":father", slot_troop_spouse),
-			(troop_set_slot, ":cur_troop", slot_troop_mother, ":mother"),
-			
-			(troop_get_slot, ":father_age", ":father", slot_troop_age),
-			(store_sub, ":age", ":father_age", ":father_age_at_birth"),
+        #high renown
+        (else_try), #Older unmarried lords
+          (is_between, ":npc_seed", 8, 12),
+          (store_random_in_range, ":age", 25, 36),
+          (store_random_in_range, ":reputation", 0, 8),
+          (store_random_in_range, ":sister_reputation", 20, 26),
+          (try_begin),
+            (eq, ":sister_reputation", 20),
+            (assign, ":sister_reputation", lrep_conventional),
+          (try_end),
 
-			(try_begin), #50% chance of having father's rep
-				(store_random_in_range, ":reputation", 0, 16),
+          ## UID: 24 - Begin
+          #
+          (try_begin),
+            (is_between, ":cur_lady", kingdom_ladies_begin, kingdom_ladies_end),
+          #
+          ## UID: 24 - End
+            (troop_set_slot, ":cur_lady", slot_lord_reputation_type, ":sister_reputation"),
+            (troop_set_slot, ":cur_lady", slot_troop_guardian, ":cur_troop"),
+            (call_script, "script_init_troop_age", ":cur_lady", 21),
+            (call_script, "script_add_lady_items", ":cur_lady"),
+          ## UID: 24 - Begin
+          #
+          (try_end),
+          #
+          ## UID: 24 - End
+          (val_add, ":cur_lady", 1),
+        (else_try), #Younger unmarried lords
+          (store_sub, ":father", ":cur_troop", 12),
+          (troop_set_slot, ":cur_troop", slot_troop_father, ":father"),
+          (troop_get_slot, ":mother", ":father", slot_troop_spouse),
+          ## UID: 24 - Begin
+          #
+          (try_begin),
+            (is_between, ":mother", kingdom_ladies_begin, kingdom_ladies_end),
+          #
+          ## UID: 24 - End
+            (troop_set_slot, ":cur_troop", slot_troop_mother, ":mother"),
+          ## UID: 24 - Begin
+          #
+          (try_end),
+          #
+          ## UID: 24 - End
+          (troop_get_slot, ":father_age", ":father", slot_troop_age),
+          (store_sub, ":age", ":father_age", ":father_age_at_birth"),
 
-				(gt, ":reputation", 7),
-				(troop_get_slot, ":reputation", ":father", slot_lord_reputation_type),
-			(try_end),
-		(try_end),
-		
-		(try_begin),
-			(eq, ":reputation", 0),
-			(assign, ":reputation", 1),
-		(try_end),
-		
+          (try_begin), #50% chance of having father's rep
+            (store_random_in_range, ":reputation", 0, 16),
+            (gt, ":reputation", 7),
+            (troop_get_slot, ":reputation", ":father", slot_lord_reputation_type),
+          (try_end),
+        (try_end),
+
+        (try_begin),
+          (eq, ":reputation", 0),
+          (assign, ":reputation", 1),
+        (try_end),
         (troop_set_slot, ":cur_troop", slot_lord_reputation_type, ":reputation"),
 
-		(call_script, "script_init_troop_age", ":cur_troop", ":age"),
-	  (try_end),
-	  
-	  (try_begin),
-	    (eq, "$cheat_mode", 1),
-	    (assign, reg3, "$cheat_mode"),
-	    (display_message, "@{!}DEBUG -- Assigned lord reputation and relations"),
-		
-#	    (display_message, "str_assigned_lord_reputation_and_relations_cheat_mode_reg3"), #This string can be removed
-	  (try_end),
-	  
-	  (try_for_range, ":cur_troop", pretenders_begin, pretenders_end),
-		(troop_set_slot, ":cur_troop", slot_troop_occupation, slto_inactive_pretender),
-		(store_random_in_range, ":age", 25, 30),
-		(troop_set_slot, ":cur_troop", slot_troop_age, ":age"),
-		(eq, ":cur_troop", "trp_kingdom_5_pretender"),
-		(troop_set_slot, ":cur_troop", slot_troop_age, 45),		
-	  (try_end),
-	]),
+        (call_script, "script_init_troop_age", ":cur_troop", ":age"),
+      (try_end),
 
-	  
-	
-	
+      (try_begin),
+        (eq, "$cheat_mode", 1),
+        (assign, reg3, "$cheat_mode"),
+        (display_message, "@{!}DEBUG -- Assigned lord reputation and relations"),
+      (try_end),
+
+      (try_for_range, ":cur_troop", pretenders_begin, pretenders_end),
+        (troop_set_slot, ":cur_troop", slot_troop_occupation, slto_inactive_pretender),
+        (store_random_in_range, ":age", 25, 30),
+        (troop_set_slot, ":cur_troop", slot_troop_age, ":age"),
+        (eq, ":cur_troop", "trp_kingdom_5_pretender"),
+        (troop_set_slot, ":cur_troop", slot_troop_age, 45),
+      (try_end),
+    ]),
 
 	("initialize_trade_routes",
 	[
@@ -51434,7 +51461,7 @@ scripts = [
       (else_try),
         (eq, ":improvement_no", slot_center_building_university),
         (str_store_string, s0, "@University"),
-        (str_store_string, s1, "@A university increases the loyality of the people to you by 6 every month."),
+        (str_store_string, s1, "@A university increases the loyality of the people to you by 6## UID: 8 - End every month."),
         (assign, reg0, 9000),
         (assign, reg1, 1),
         (assign, reg3, slot_center_building_college),

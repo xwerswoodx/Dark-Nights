@@ -651,3 +651,6 @@ itm_kicking_boots = 649
 itm_restore_health_armour = 650
 itm_javelin_bow_ammo = 651
 itm_ccoop_new_items_end = 652
+itm_dedal_kufel = 653
+itm_dedal_lutnia = 654
+itm_dedal_lira = 655
