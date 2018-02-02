@@ -52,6 +52,28 @@ slot_item_ccoop_has_ammo                = 59 #should be set to 1 for Invasion it
 slot_item_multiplayer_item_class   = 60 #temporary, can be moved to higher values
 slot_item_multiplayer_availability_linked_list_begin = 61 #temporary, can be moved to higher values
 
+## UID: 34 - Begin
+#
+slot_item_book_raise_skill              = 100
+slot_item_book_raise_skill_level        = 101
+slot_item_book_raise_skill_limit        = 102
+slot_item_book_raise_attribute          = 103
+slot_item_book_raise_attribute_level    = 104
+slot_item_book_raise_attribute_limit    = 105
+slot_item_book_raise_proficiency        = 106
+slot_item_book_raise_proficiency_level  = 107
+slot_item_book_raise_proficiency_limit  = 108
+slot_item_book_author                   = 109
+slot_item_book_type                     = 110
+slot_item_book_pages                    = 111
+
+bt_readable = 0
+bt_bonus    = 1
+
+books_begin = "itm_book_tactics"
+books_end   = "itm_book_wound_treatment_reference" #"itm_spice"
+#
+## UID: 34 - End
 
 ########################################################
 ##  AGENT SLOTS            #############################
@@ -543,6 +565,11 @@ slot_center_last_reconnoitered_by_faction_time 				= 350
 #slot_center_last_reconnoitered_by_faction_cached_strength 	= 360
 #slot_center_last_reconnoitered_by_faction_friend_strength 	= 370
 
+## UID: 40 - Begin
+#
+slot_center_population = 540
+#
+## UID: 40 - End
 ## UID: 9 - Begin
 #
 slot_center_building_manor          = 550 #v
@@ -1681,12 +1708,16 @@ trade_goods_begin = "itm_spice"
 trade_goods_end = "itm_siege_supply"
 food_begin = "itm_smoked_fish"
 food_end = "itm_siege_supply"
-reference_books_begin = "itm_book_wound_treatment_reference"
-reference_books_end   = trade_goods_begin
-readable_books_begin = "itm_book_tactics"
-readable_books_end   = reference_books_begin
-books_begin = readable_books_begin
-books_end = reference_books_end
+## UID: 34 - Begin
+#
+##reference_books_begin = "itm_book_wound_treatment_reference"
+##reference_books_end   = trade_goods_begin
+##readable_books_begin = "itm_book_tactics"
+##readable_books_end   = reference_books_begin
+##books_begin = readable_books_begin
+##books_end = reference_books_end
+#
+## UID: 34 - End
 horses_begin = "itm_sumpter_horse"
 horses_end = "itm_arrows"
 weapons_begin = "itm_wooden_stick"

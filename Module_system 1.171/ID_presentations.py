@@ -48,3 +48,5 @@ prsnt_coop_assign_drop_to_group_member = 46
 prsnt_multiplayer_ccoop_next_wave_time_counter = 47
 prsnt_multiplayer_ccoop_victory_message = 48
 prsnt_all_items = 49
+prsnt_troop_ratio_bar = 50
+prsnt_world_map = 51

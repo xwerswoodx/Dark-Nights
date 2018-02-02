@@ -578,5 +578,7 @@ mesh_ccoop_default_class = 576
 mesh_ccoop_melee_class = 577
 mesh_ccoop_ranged_class = 578
 mesh_ccoop_mounted_class = 579
+mesh_status_troop_ratio_bar = 580
+mesh_status_troop_ratio_bar_button = 581
 
 

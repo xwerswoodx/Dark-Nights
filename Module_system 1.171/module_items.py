@@ -148,7 +148,7 @@ items = [
 ["arena_turban_yellow", "Arena Turban", [("tuareg_open",0)], itp_type_head_armor|itp_fit_to_head ,0, 187 , weight(1.25)|abundance(100)|head_armor(26)|body_armor(0)|leg_armor(0), imodbits_plate ],
 
 # A treatise on The Method of Mechanical Theorems Archimedes
- 
+
 #This book must be at the beginning of readable books
  ["book_tactics","De Re Militari", [("book_a",0)], itp_type_book, 0, 4000,weight(2)|abundance(100),imodbits_none],
  ["book_persuasion","Rhetorica ad Herennium", [("book_b",0)], itp_type_book, 0, 5000,weight(2)|abundance(100),imodbits_none],
@@ -158,6 +158,48 @@ items = [
  ["book_weapon_mastery", "On the Art of Fighting with Swords", [("book_d",0)], itp_type_book, 0, 4200,weight(2)|abundance(100),imodbits_none],
  ["book_engineering","Method of Mechanical Theorems", [("book_open",0)], itp_type_book, 0, 4000,weight(2)|abundance(100),imodbits_none],
 
+ ## UID: 34 - Begin
+ #
+## ["book_empty_a", "Empty Book", [("book_a", 0)], itp_type_book, 0, 4000, weight(2)|abundance(100), imodbits_none],
+## ["book_empty_b", "Empty Book", [("book_b", 0)], itp_type_book, 0, 4000, weight(2)|abundance(100), imodbits_none],
+## ["book_empty_c", "Empty Book", [("book_c", 0)], itp_type_book, 0, 4000, weight(2)|abundance(100), imodbits_none],
+## ["book_empty_d", "Empty Book", [("book_d", 0)], itp_type_book, 0, 4000, weight(2)|abundance(100), imodbits_none],
+## ["book_empty_e", "Empty Book", [("book_e", 0)], itp_type_book, 0, 4000, weight(2)|abundance(100), imodbits_none],
+## ["book_empty_f", "Empty Book", [("book_f", 0)], itp_type_book, 0, 4000, weight(2)|abundance(100), imodbits_none],
+## ["book_empty_g", "Empty Book", [("book_open", 0)], itp_type_book, 0, 4000, weight(2)|abundance(100), imodbits_none],
+## ["book_empty_h", "Empty Book", [("book_1", 0)], itp_type_book, 0, 4000, weight(2)|abundance(100), imodbits_none],
+## ["book_empty_i", "Empty Book", [("book_2", 0)], itp_type_book, 0, 4000, weight(2)|abundance(100), imodbits_none],
+## ["book_empty_j", "Empty Book", [("book_3", 0)], itp_type_book, 0, 4000, weight(2)|abundance(100), imodbits_none],
+## ["book_empty_k", "Empty Book", [("book_4", 0)], itp_type_book, 0, 4000, weight(2)|abundance(100), imodbits_none],
+## ["book_empty_l", "Empty Book", [("book_5", 0)], itp_type_book, 0, 4000, weight(2)|abundance(100), imodbits_none],
+## ["book_empty_m", "Empty Book", [("book_6", 0)], itp_type_book, 0, 4000, weight(2)|abundance(100), imodbits_none],
+## ["book_empty_n", "Empty Book", [("book_7", 0)], itp_type_book, 0, 4000, weight(2)|abundance(100), imodbits_none],
+## ["book_empty_o", "Empty Book", [("book_unlocked", 0)], itp_type_book, 0, 4000, weight(2)|abundance(100), imodbits_none],
+
+ ["book_spotting", "Improve Your Range", [("book_1",0)], itp_type_book, 0, 2450, weight(2)|abundance(100), imodbits_none],
+ ["book_pathfinding", "Fast Travel on Calradia", [("book_1",0)], itp_type_book, 0, 2450, weight(2)|abundance(100), imodbits_none],
+ ["book_inventory_management", "How to Carry More Items", [("book_4",0)], itp_type_book, 0, 3050, weight(2)|abundance(100), imodbits_none],
+ ["book_prisoner_management", "Catching Fire", [("book_5",0)], itp_type_book, 0, 2090, weight(2)|abundance(100), imodbits_none],
+ ["book_athletics", "Become a Athlete", [("book_unlocked",0)], itp_type_book, 0, 1890, weight(2)|abundance(100), imodbits_none],
+ ["book_looting", "Spoils of War", [("book_6",0)], itp_type_book, 0, 2590, weight(2)|abundance(100), imodbits_none],
+ ["book_ironflesh", "Ironman", [("book_2",0)], itp_type_book, 0, 2590, weight(2)|abundance(100), imodbits_none],
+
+ ["book_first_aid", "Emergency Treatment: First Aid", [("book_4",0)], itp_type_book, 0, 2250, weight(2)|abundance(100), imodbits_none],
+ ["book_surgery", "Emergency Treatment: Surgery", [("book_4",0)], itp_type_book, 0, 2750, weight(2)|abundance(100), imodbits_none],
+ ["book_wound_treatment", "Emergency Treatment: Wound Treatment", [("book_4",0)], itp_type_book, 0, 1940, weight(2)|abundance(100), imodbits_none],
+
+ ["book_horse_archery", "Horse Riding: Archery on Horse", [("book_3",0)], itp_type_book, 0, 3250, weight(2)|abundance(100), imodbits_none],
+ ["book_riding", "Horse Riding: Ride a Better Horse", [("book_3",0)], itp_type_book, 0, 2550, weight(2)|abundance(100), imodbits_none],
+
+ ["book_power_strike", "Weapon Training: Strong Damage", [("book_2",0)], itp_type_book, 0, 2250, weight(2)|abundance(100), imodbits_none],
+ ["book_power_strike_2", "Weapon Training: Using a Two Handed Weapon", [("book_2",0)], itp_type_book, 0, 2550, weight(2)|abundance(100), imodbits_none],
+ ["book_power_throw", "Weapon Training: Throwing Weapons", [("book_2",0)], itp_type_book, 0, 2750, weight(2)|abundance(100), imodbits_none],
+ ["book_power_draw", "Weapon Training: Being a Good Archer", [("book_2",0)], itp_type_book, 0, 2150, weight(2)|abundance(100), imodbits_none],
+ ["book_power_draw_2", "Weapon Training: Using a Crossbow", [("book_2",0)], itp_type_book, 0, 2550, weight(2)|abundance(100), imodbits_none],
+ ["book_shield", "Weapon Training: Block the Attack", [("book_2",0)], itp_type_book, 0, 2130, weight(2)|abundance(100), imodbits_none],
+ #
+ ## UID: 34 - End
+ 
 #Reference books
 #This book must be at the beginning of reference books
  ["book_wound_treatment_reference","The Book of Healing", [("book_c",0)], itp_type_book, 0, 3500,weight(2)|abundance(100),imodbits_none],
@@ -273,19 +315,19 @@ items = [
 
 #whalebone crossbow, yew bow, war bow, arming sword 
  ["arrows","Arrows", [("arrow",0),("flying_missile",ixmesh_flying_ammo),("quiver", ixmesh_carry)], itp_type_arrows|itp_merchandise|itp_default_ammo, itcf_carry_quiver_back, 
- 72,weight(3)|abundance(160)|weapon_length(95)|thrust_damage(1,pierce)|max_ammo(30),imodbits_missile],
+ 72,weight(3)|abundance(160)|weapon_length(95)|thrust_damage(1,pierce)|max_ammo(58),imodbits_missile],
  ["khergit_arrows","Khergit Arrows", [("arrow_b",0),("flying_missile",ixmesh_flying_ammo),("quiver_b", ixmesh_carry)], itp_type_arrows|itp_merchandise, itcf_carry_quiver_back_right, 
- 410,weight(3.5)|abundance(30)|weapon_length(95)|thrust_damage(3,pierce)|max_ammo(30),imodbits_missile],
+ 410,weight(3.5)|abundance(30)|weapon_length(95)|thrust_damage(3,pierce)|max_ammo(58),imodbits_missile],
  ["barbed_arrows","Barbed Arrows", [("barbed_arrow",0),("flying_missile",ixmesh_flying_ammo),("quiver_d", ixmesh_carry)], itp_type_arrows|itp_merchandise, itcf_carry_quiver_back_right, 
- 124,weight(3)|abundance(70)|weapon_length(95)|thrust_damage(2,pierce)|max_ammo(30),imodbits_missile],
+ 124,weight(3)|abundance(70)|weapon_length(95)|thrust_damage(2,pierce)|max_ammo(58),imodbits_missile],
  ["bodkin_arrows","Bodkin Arrows", [("piercing_arrow",0),("flying_missile",ixmesh_flying_ammo),("quiver_c", ixmesh_carry)], itp_type_arrows|itp_merchandise, itcf_carry_quiver_back_right, 
- 350,weight(3)|abundance(50)|weapon_length(91)|thrust_damage(3,pierce)|max_ammo(28),imodbits_missile],
+ 350,weight(3)|abundance(50)|weapon_length(91)|thrust_damage(3,pierce)|max_ammo(54),imodbits_missile],
  ["bolts","Bolts", [("bolt",0),("flying_missile",ixmesh_flying_ammo),("bolt_bag", ixmesh_carry),("bolt_bag_b", ixmesh_carry|imodbit_large_bag)], itp_type_bolts|itp_merchandise|itp_default_ammo|itp_can_penetrate_shield, itcf_carry_quiver_right_vertical, 
- 64,weight(2.25)|abundance(90)|weapon_length(63)|thrust_damage(1,pierce)|max_ammo(29),imodbits_missile],
+ 64,weight(2.25)|abundance(90)|weapon_length(63)|thrust_damage(1,pierce)|max_ammo(44),imodbits_missile],
  ["steel_bolts","Steel Bolts", [("bolt",0),("flying_missile",ixmesh_flying_ammo),("bolt_bag_c", ixmesh_carry)], itp_type_bolts|itp_merchandise|itp_can_penetrate_shield, itcf_carry_quiver_right_vertical, 
- 210,weight(2.5)|abundance(20)|weapon_length(63)|thrust_damage(2,pierce)|max_ammo(29),imodbits_missile],
+ 210,weight(2.5)|abundance(20)|weapon_length(63)|thrust_damage(2,pierce)|max_ammo(44),imodbits_missile],
  ["cartridges","Cartridges", [("cartridge_a",0)], itp_type_bullets|itp_merchandise|itp_can_penetrate_shield|itp_default_ammo, 0, 
- 41,weight(2.25)|abundance(90)|weapon_length(3)|thrust_damage(1,pierce)|max_ammo(50),imodbits_missile],
+ 41,weight(2.25)|abundance(90)|weapon_length(3)|thrust_damage(2,pierce)|max_ammo(72),imodbits_missile],
 
 ["pilgrim_disguise", "Pilgrim Disguise", [("pilgrim_outfit",0)], 0| itp_type_body_armor |itp_covers_legs |itp_civilian ,0, 25 , weight(2)|abundance(100)|head_armor(0)|body_armor(19)|leg_armor(8)|difficulty(0) ,imodbits_cloth ],
 ["pilgrim_hood", "Pilgrim Hood", [("pilgrim_hood",0)], 0| itp_type_head_armor |itp_civilian  ,0, 35 , weight(1.25)|abundance(100)|head_armor(14)|body_armor(0)|leg_armor(0)|difficulty(0) ,imodbits_cloth ],
@@ -779,7 +821,7 @@ items = [
   1910, weight(1.5)|difficulty(16)|spd_rtng(104)|weapon_length(95)|swing_damage(45, cut)|thrust_damage(0, pierce), imodbits_sword_high],
  ["fp_sword_06", "Sarranid Cutlass", [("os8", 0)], itp_type_two_handed_wpn|itp_merchandise|itp_two_handed|itp_primary, itc_nodachi|itcf_carry_sword_back,
   1323, weight(2.75)|difficulty(10)|spd_rtng(99)|weapon_length(120)|swing_damage(49, cut)|thrust_damage(0, pierce), imodbits_sword_high],
- ["persius_sword_01", "Excalibur", [("excalibur", 0), ("scab_arabian_sword_c", ixmesh_carry)], itp_type_two_handed_wpn|itp_two_handed|itp_primary, itc_longsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn,
+ ["persius_sword_01", "Excalibur", [("excalibur", 0), ("scab_arabian_sword_c", ixmesh_carry)], itp_type_two_handed_wpn|itp_primary, itc_longsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn,
   15083, weight(1.13)|difficulty(20)|spd_rtng(120)|weapon_length(100)|swing_damage(69, cut)|thrust_damage(60, pierce), imodbits_sword_high],
 
  ["fp_mace_01", "Black Mace", [("gurz1", 0)], itp_type_one_handed_wpn|itp_can_knock_down|itp_merchandise|itp_primary|itp_wooden_parry, itc_scimitar|itcf_carry_mace_left_hip,

@@ -39,7 +39,12 @@ game_menus = [
   ("start_game_0", menu_text_color(0xFF000000)|mnf_disable_all_keys,
    "Welcome, adventurer, to Mount and Blade: Warband. Before beginning the game you must create your character. Remember that in the traditional medieval society depicted in the game, war and politics are usually dominated by male members of the nobility. That does not however mean that you should not choose to play a female character, or one who is not of noble birth. Male nobles may have a somewhat easier start, but women and commoners can attain all of the same goals -- and in fact may have a much more interesting if more challenging early game.",
    "none", [], [
-       ("continue",[],"Continue...", [(jump_to_menu, "mnu_start_game_1")]),
+       ## UID: 12 - Begin
+       #
+       #("continue",[],"Continue...", [(jump_to_menu, "mnu_start_game_1")]),
+       ("continue", [], "Continue...", [(jump_to_menu, "mnu_start_game_difficulty")]),
+       #
+       ## UID: 12 - End
        ("go_back", [], "Go back", [(change_screen_quit)]),
        ## UID: 14 - Begin
        #
@@ -74,6 +79,7 @@ game_menus = [
 ##           (reset_visitors),
 ##           (set_visitor, 0, "trp_player"),
 ##           (change_screen_mission),
+           (assign, "$g_difficulty", 2),
            (party_relocate_near_party, "p_main_party", "p_town_6", 2),
            (change_screen_return),
         ]),
@@ -101,14 +107,17 @@ and that whatever course you take, great adventures will await you. Drawn by the
         (try_end),
         (troop_set_name, "trp_player", "@Mod Editor"),
         (troop_add_gold, "trp_player", 9999999),
-        (troop_add_item, "trp_player", "itm_persius_sword_01", 17),
-        (troop_add_item, "trp_player", "itm_heater_shield", 17),
-        (troop_add_item, "trp_player", "itm_sanjarinati", 20),
-        (troop_add_item, "trp_player", "itm_bascinet", 17),
-        (troop_add_item, "trp_player", "itm_guard_helmet", 17),
-        (troop_add_item, "trp_player", "itm_black_armor", 17),
-        (troop_add_item, "trp_player", "itm_black_greaves", 17),
-        (troop_add_item, "trp_player", "itm_smoked_fish", 0),
+        (troop_add_item, "trp_player", "itm_persius_sword_01", imod_masterwork),
+        (troop_add_item, "trp_player", "itm_steel_shield", imod_masterwork),
+        (troop_add_item, "trp_player", "itm_sanjarinati", imod_champion),
+        (troop_add_item, "trp_player", "itm_gauntlets", imod_masterwork),
+        (troop_add_item, "trp_player", "itm_guard_helmet", imod_masterwork),
+        (troop_add_item, "trp_player", "itm_black_armor", imod_masterwork),
+        (troop_add_item, "trp_player", "itm_black_greaves", imod_masterwork),
+        (troop_add_items, "trp_player", "itm_smoked_fish", 9),
+        (troop_add_item, "trp_player", "itm_fp_bow_01", imod_masterwork),
+        (troop_add_item, "trp_player", "itm_bodkin_arrows", imod_large_bag),
+        (troop_equip_items, "trp_player"),
         (party_relocate_near_party, "p_main_party", "p_town_6", 2),
         (change_screen_return),
     ]),
@@ -243,9 +252,6 @@ and that whatever course you take, great adventures will await you. Drawn by the
 	   ),
     ]
   ),
- 
-
-
  
   (
     "start_game_3",mnf_disable_all_keys,
@@ -997,10 +1003,13 @@ and that whatever course you take, great adventures will await you. Drawn by the
          (jump_to_menu, "mnu_start_character_1"),
        ]
        ),
-	  ("go_back",[],"Go back",
-       [
-	     (jump_to_menu,"mnu_start_game_0"),
-       ]),
+
+      ## UID: 36 - Begin
+      #
+      #("go_back",[],"Go back", [(jump_to_menu,"mnu_start_game_0")]),
+      ("go_back",[],"Go back", [(jump_to_menu,"mnu_start_game_religion")]),
+      #
+      ## UID: 36 - End
     ]
   ),
 
@@ -3047,62 +3056,51 @@ and that whatever course you take, great adventures will await you. Drawn by the
       ]
   ),
 
-
-  ("camp",mnf_scale_picture,
-   "You set up camp. What do you want to do?",
-   "none",
-   [
-     (assign, "$g_player_icon_state", pis_normal),
-     (set_background_mesh, "mesh_pic_camp"),
-    ],
-    [
-        ("test", [], "Show Terrain", [
+  ("camp", mnf_scale_picture, "You set up camp. What do you want to do?", "none", [
+      (assign, "$g_player_icon_state", pis_normal),
+      (set_background_mesh, "mesh_pic_camp"),
+    ], [
+        ("test", [(eq, 1, 0)], "Show terrain.", [
             (party_get_current_terrain, reg0, "p_main_party"),
             (display_message, "@Terrain: {reg0}"),
         ]),
-      ("camp_action_1",[(eq,"$cheat_mode",1)],"{!}Cheat: Walk around.",
-       [(set_jump_mission,"mt_ai_training"),
-        (call_script, "script_setup_random_scene"),
-        (change_screen_mission),
-        ]
-       ),
-      ("camp_action",[],"Take an action.",
-       [(jump_to_menu, "mnu_camp_action"),
-        ]
-       ),
-      ("camp_wait_here",[],"Wait here for some time.",
-       [
-           (assign,"$g_camp_mode", 1),
-           (assign, "$g_infinite_camping", 0),
-           (assign, "$g_player_icon_state", pis_camping),
-           
-           (try_begin),
-             (party_is_active, "p_main_party"),
-             (party_get_current_terrain, ":cur_terrain", "p_main_party"),
-             (try_begin),
-               (eq, ":cur_terrain", rt_desert),
-               (unlock_achievement, ACHIEVEMENT_SARRANIDIAN_NIGHTS),
-             (try_end),  
-           (try_end),  
 
-           (rest_for_hours_interactive, 24 * 365, 5, 1), #rest while attackable
-                      
-           (change_screen_return),
-        ]
-       ),
-      ("camp_cheat",
-       [(ge, "$cheat_mode", 1)
-        ], "CHEAT MENU!",
-       [(jump_to_menu, "mnu_camp_cheat"),
-        ],
-       ),
-      ("resume_travelling",[],"Resume travelling.",
-       [
-           (change_screen_return),
-        ]
-       ),
-      ]
-  ),
+        ## UID: 39 - Begin
+        #
+        ("camp_world_map", [], "Check world map.", [(start_presentation, "prsnt_world_map")]),
+        #
+        ## UID: 39 - End
+
+        ("camp_action_1", [(ge, "$cheat_mode", 1)], "Walk around.", [
+            (set_jump_mission,"mt_ai_training"),
+            (call_script, "script_setup_random_scene"),
+            (change_screen_mission),
+        ]),
+
+        ("camp_action", [], "Take an action.", [(jump_to_menu, "mnu_camp_action")]),
+        ("camp_wait_here", [], "Wait here for some time.", [
+            (assign,"$g_camp_mode", 1),
+            (assign, "$g_infinite_camping", 0),
+            (assign, "$g_player_icon_state", pis_camping),
+
+            (try_begin),
+              (party_is_active, "p_main_party"),
+              (party_get_current_terrain, ":cur_terrain", "p_main_party"),
+              (try_begin),
+                (eq, ":cur_terrain", rt_desert),
+                (unlock_achievement, ACHIEVEMENT_SARRANIDIAN_NIGHTS),
+              (try_end),
+            (try_end),
+
+            (rest_for_hours_interactive, 24 * 365, 5, 1), #rest while attackable
+            (change_screen_return),
+        ]),
+
+        ("camp_cheat", [(ge, "$cheat_mode", 1)], "Open the cheat menu.", [(jump_to_menu, "mnu_camp_cheat")]),
+
+        ("resume_travelling", [], "Resume travelling.", [(change_screen_return)]),
+    ]),
+  
   ("camp_cheat",0,
    "Select a cheat:",
    "none",
@@ -8029,7 +8027,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
         (party_slot_ge, "$g_encountered_party", ":id", 1),
         (val_add, ":count", 1),
         (party_get_slot, reg5, "$g_encountered_party", ":id"),
-        (call_script, "script_get_improvement_detail_new", ":id"),
+        (call_script, "script_get_improvement_detail_new", "$g_encountered_party", ":id"),
         (try_begin),
           (eq, ":count", 1),
           (str_store_string, s18, "@{!}{s0} ({reg5}/{reg1})"),
@@ -8049,7 +8047,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
       (try_begin),
         (party_get_slot, ":curImprovement", "$g_encountered_party", slot_center_current_improvement),
         (gt, ":curImprovement", 0),
-        (call_script, "script_get_improvement_detail_new", ":curImprovement"),
+        (call_script, "script_get_improvement_detail_new", "$g_encountered_party", ":curImprovement"),
         (str_store_string, s7, s0),
         (assign, reg6, 1),
         (store_current_hours, ":time"),
@@ -8062,6 +8060,46 @@ and that whatever course you take, great adventures will await you. Drawn by the
     ], [
         ## UID: 18 - Begin
         #
+        ("center_build_drop_immediately", [
+            (party_get_slot, ":curImprovement", "$g_encountered_party", slot_center_current_improvement),
+            (gt, ":curImprovement", 0), #Has improvement?
+
+            (party_get_slot, ":finish", "$g_encountered_party", slot_center_improvement_end_hour),
+            (store_current_hours, ":time"),
+            (val_sub, ":finish", ":time"),
+            (val_div, ":finish", 24), #How many hours left?
+            (ge, ":finish", 1), #More than 1 day?
+            
+            (call_script, "script_get_improvement_detail_new", "$g_encountered_party", ":curImprovement"),
+            (assign, ":price", reg1),
+            (assign, ":max", reg2),
+
+            (assign, ":cost", ":price"),
+            (val_mul, ":cost", ":finish"),
+            (val_div, ":cost", ":max"),
+            
+            (store_troop_gold, ":gold", "trp_player"),
+            (ge, ":gold", ":cost"),            
+        ], "Finish construction immediately.", [
+            (party_get_slot, ":curImprovement", "$g_encountered_party", slot_center_current_improvement),
+            (call_script, "script_get_improvement_detail_new", "$g_encountered_party", ":curImprovement"),
+            (assign, ":price", reg1),
+            (assign, ":max", reg2),
+
+            (party_get_slot, ":finish", "$g_encountered_party", slot_center_improvement_end_hour),
+            (store_current_hours, ":time"),
+            (val_sub, ":finish", ":time"),
+            (val_div, ":finish", 24),
+
+            (assign, ":cost", ":price"),
+            (val_mul, ":cost", ":finish"),
+            (val_div, ":cost", ":max"),
+            
+            (troop_remove_gold, "trp_player", ":cost"),
+            (party_set_slot, "$g_encountered_party", slot_center_improvement_end_hour, 0),
+            (call_script, "script_check_building_upgrade"), #Check upgrades!
+        ]),
+        
         ("center_build_drop_12", [
             (party_get_slot, ":curImprovement", "$g_encountered_party", slot_center_current_improvement),
             (gt, ":curImprovement", 0), #Has improvement?
@@ -8072,7 +8110,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
             (val_div, ":finish", 24), #How many hours left?
             (ge, ":finish", 12), #More than 12 day?
             
-            (call_script, "script_get_improvement_detail_new", ":curImprovement"),
+            (call_script, "script_get_improvement_detail_new", "$g_encountered_party", ":curImprovement"),
             (assign, ":price", reg1),
             (assign, ":max", reg2),
 
@@ -8084,7 +8122,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
             (ge, ":gold", ":cost"),            
         ], "Decrease construction time 12 days.", [
             (party_get_slot, ":curImprovement", "$g_encountered_party", slot_center_current_improvement),
-            (call_script, "script_get_improvement_detail_new", ":curImprovement"),
+            (call_script, "script_get_improvement_detail_new", "$g_encountered_party", ":curImprovement"),
             (assign, ":price", reg1),
             (assign, ":max", reg2),
 
@@ -8110,7 +8148,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
             (val_div, ":finish", 24),
             (ge, ":finish", 6),
             
-            (call_script, "script_get_improvement_detail_new", ":curImprovement"),
+            (call_script, "script_get_improvement_detail_new", "$g_encountered_party", ":curImprovement"),
             (assign, ":price", reg1),
             (assign, ":max", reg2),
 
@@ -8122,7 +8160,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
             (ge, ":gold", ":cost"),            
         ], "Decrease construction time 6 days.", [
             (party_get_slot, ":curImprovement", "$g_encountered_party", slot_center_current_improvement),
-            (call_script, "script_get_improvement_detail_new", ":curImprovement"),
+            (call_script, "script_get_improvement_detail_new", "$g_encountered_party", ":curImprovement"),
             (assign, ":price", reg1),
             (assign, ":max", reg2),
 
@@ -8148,7 +8186,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
             (val_div, ":finish", 24),
             (ge, ":finish", 3),
             
-            (call_script, "script_get_improvement_detail_new", ":curImprovement"),
+            (call_script, "script_get_improvement_detail_new", "$g_encountered_party", ":curImprovement"),
             (assign, ":price", reg1),
             (assign, ":max", reg2),
 
@@ -8160,7 +8198,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
             (ge, ":gold", ":cost"),            
         ], "Decrease construction time 3 days.", [
             (party_get_slot, ":curImprovement", "$g_encountered_party", slot_center_current_improvement),
-            (call_script, "script_get_improvement_detail_new", ":curImprovement"),
+            (call_script, "script_get_improvement_detail_new", "$g_encountered_party", ":curImprovement"),
             (assign, ":price", reg1),
             (assign, ":max", reg2),
 
@@ -8186,7 +8224,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
             (val_div, ":finish", 24),
             (ge, ":finish", 1),
             
-            (call_script, "script_get_improvement_detail_new", ":curImprovement"),
+            (call_script, "script_get_improvement_detail_new", "$g_encountered_party", ":curImprovement"),
             (assign, ":price", reg1),
             (assign, ":max", reg2),
 
@@ -8198,7 +8236,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
             (ge, ":gold", ":cost"),            
         ], "Decrease construction time 1 days.", [
             (party_get_slot, ":curImprovement", "$g_encountered_party", slot_center_current_improvement),
-            (call_script, "script_get_improvement_detail_new", ":curImprovement"),
+            (call_script, "script_get_improvement_detail_new", "$g_encountered_party", ":curImprovement"),
             (assign, ":price", reg1),
             (assign, ":max", reg2),
 
@@ -8275,7 +8313,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
         ("center_build_religion", [
             (call_script, "script_can_upgrade_building", "$g_encountered_party", slot_center_building_religion, 0),
             (eq, reg10, 1),
-            (call_script, "script_get_improvement_detail_new", slot_center_building_religion),
+            (call_script, "script_get_improvement_detail_new", "$g_encountered_party", slot_center_building_religion),
             (str_store_string, s4, s3),
         ], "Build {s4}.", [
             (assign, "$g_improvement_type", slot_center_building_religion),
@@ -8377,7 +8415,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
       (call_script, "script_get_max_skill_of_player_party", "skl_engineer"),
       (assign, ":owner", reg1),
 
-      (call_script, "script_get_improvement_detail_new", "$g_improvement_type"),
+      (call_script, "script_get_improvement_detail_new", "$g_encountered_party", "$g_improvement_type"),
       (assign, reg5, reg0),
       (assign, reg6, reg2),
       (val_div, reg6, 24),
@@ -10529,6 +10567,12 @@ and that whatever course you take, great adventures will await you. Drawn by the
         (jump_to_menu, "mnu_castle_besiege"),
       ]),
 
+      ## UID: 38 - Begin
+      #
+      ("start_tournament", [(ge, "$cheat_mode", 1)], "Start Tournament", [(party_set_slot, "$g_encountered_party", slot_town_has_tournament, 15)]),
+      #
+      ## UID: 38 - End
+
       ("center_reports",
       [
         (eq, "$cheat_mode", 1),
@@ -10536,7 +10580,8 @@ and that whatever course you take, great adventures will await you. Drawn by the
       "{!}CHEAT! Show reports.",
       [
         (jump_to_menu,"mnu_center_reports"),
-      ]),      
+      ]),
+
     ]),
   (
     "cannot_enter_court",0,
@@ -10815,7 +10860,12 @@ and that whatever course you take, great adventures will await you. Drawn by the
            
            (assign, "$g_mt_mode", abm_tournament),
 
-           (party_get_slot, ":town_original_faction", "$current_town", slot_center_original_faction),
+           ## UID: 37 - Begin
+           #
+           #(party_get_slot, ":town_original_faction", "$current_town", slot_center_original_faction),
+           (store_faction_of_party, ":town_original_faction", "$current_town"),
+           #
+           ## UID: 37 - End
            (assign, ":town_index_within_faction", 0),
            (assign, ":end_cond", towns_end),
            (try_for_range, ":cur_town", towns_begin, ":end_cond"),
@@ -10823,7 +10873,13 @@ and that whatever course you take, great adventures will await you. Drawn by the
                (eq, ":cur_town", "$current_town"),
                (assign, ":end_cond", 0), #break
              (else_try),
-               (party_slot_eq, ":cur_town", slot_center_original_faction, ":town_original_faction"),
+               ## UID: 37 - Begin
+               #
+               #(party_slot_eq, ":cur_town", slot_center_original_faction, ":town_original_faction"),
+               (store_faction_of_party, ":faction", ":cur_town"),
+               (eq, ":faction", ":town_original_faction"),
+               #
+               ## UID: 37 - End
                (val_add, ":town_index_within_faction", 1),
              (try_end),
            (try_end),
@@ -10895,6 +10951,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
              (call_script, "script_set_items_for_tournament", 25, 100, 60, 0, 30, 0, 30, 50, "itm_arena_tunic_red", "itm_arena_helmet_red"),
            (else_try),
              #Sarranids
+             (eq, ":town_original_faction", "fac_kingdom_6"),
              (store_mod, ":mod", ":town_index_within_faction", 2),
              (try_begin),
                (eq, ":mod", 0),
@@ -10902,6 +10959,13 @@ and that whatever course you take, great adventures will await you. Drawn by the
              (else_try),
                (call_script, "script_set_items_for_tournament", 50, 0, 60, 0, 30, 30, 0, 0, "itm_arena_tunic_red", "itm_arena_turban_red"),
              (try_end),
+           ## UID: 37 - Begin
+           #
+           (else_try),
+##             (eq, ":town_original_faction", "fac_kingdom_8"),
+             (set_jump_mission, "mt_arena_melee_fight_2"),
+           #
+           ## UID: 37 - End
            (try_end),
            (jump_to_scene, ":arena_scene"),
            (change_screen_mission),
@@ -14709,6 +14773,8 @@ and that whatever course you take, great adventures will await you. Drawn by the
             (assign, "$g_battle_result", 0),
             (set_jump_mission,"mt_bandit_camp"),
             (jump_to_scene, ":scene_to_use"),
+            (assign, "$g_next_menu", "mnu_bandit_camp"),
+            (jump_to_menu, "mnu_total_victory"),
             (change_screen_mission),
         ]),
         
@@ -15351,8 +15417,72 @@ and that whatever course you take, great adventures will await you. Drawn by the
     ]
   ),
 
-  
-  
+  ## UID: 12 - Begin
+  #
+  ("start_game_difficulty", mnf_disable_all_keys, "Please select game difficulty level.", "none", [], [
+      ("difficulty_realistic", [], "Realistic", [
+          (assign, "$g_difficulty", 4),
+          ## UID: 36 - Begin
+          #
+          #(jump_to_menu, "mnu_start_game_1"),
+          (jump_to_menu, "mnu_start_game_religion"),
+          #
+          ## UID: 36 - End
+        ]),
 
-  
+      ("difficulty_hard", [], "Hard", [
+          (assign, "$g_difficulty", 3),
+          ## UID: 36 - Begin
+          #
+          #(jump_to_menu, "mnu_start_game_1"),
+          (jump_to_menu, "mnu_start_game_religion"),
+          #
+          ## UID: 36 - End
+        ]),
+
+      ("difficulty_moderate", [], "Moderate", [
+          (assign, "$g_difficulty", 2),
+          ## UID: 36 - Begin
+          #
+          #(jump_to_menu, "mnu_start_game_1"),
+          (jump_to_menu, "mnu_start_game_religion"),
+          #
+          ## UID: 36 - End
+        ]),
+
+      ("difficulty_easy", [], "Easy", [
+          (assign, "$g_difficulty", 1),
+          ## UID: 36 - Begin
+          #
+          #(jump_to_menu, "mnu_start_game_1"),
+          (jump_to_menu, "mnu_start_game_religion"),
+          #
+          ## UID: 36 - End
+        ]),
+
+      ("difficulty_casual", [], "Casual", [
+          (assign, "$g_difficulty", 0),
+          ## UID: 36 - Begin
+          #
+          #(jump_to_menu, "mnu_start_game_1"),
+          (jump_to_menu, "mnu_start_game_religion"),
+          #
+          ## UID: 36 - End
+        ]),
+
+      ("go_back", [], "Go Back", [(jump_to_menu, "mnu_start_game_0")]),
+    ]),
+
+  ## UID: 36 - Begin
+  #
+  ("start_game_religion", mnf_disable_all_keys, "Please select your religion.", "none", [], [
+      ("religion_atheist", [], "Random", [
+          (assign, "$g_religion", 0),
+          (jump_to_menu, "mnu_start_game_1"),
+        ]),
+                                           
+      ("go_back", [], "Go Back", [(jump_to_menu, "mnu_start_game_difficulty")]),
+    ]),
+  #
+  ## UID: 36 - End 
  ]

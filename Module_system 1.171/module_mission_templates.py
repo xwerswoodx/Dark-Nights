@@ -697,6 +697,27 @@ common_battle_mission_start = (
     (call_script, "script_change_banners_and_chest"),
     ])
 
+## UID: 35 - Begin
+#
+common_battle_initialize = (
+    1, 4, ti_once, [(main_hero_fallen)], [
+        (assign, "$pin_player_fallen", 1),
+        (str_store_string, s5, "str_retreat"),
+        (call_script, "script_simulate_retreat", 5, 20, 0),
+        (assign, "$g_battle_result", -1),
+        (set_mission_result,-1),
+        (call_script, "script_count_mission_casualties_from_agents"),
+        (finish_mission,0),
+    ])
+
+feature_troop_ratio = (
+    0, 0, ti_once, [], [
+        (start_presentation, "prsnt_troop_ratio_bar"),
+    ])
+#
+## UID: 35 - End
+
+
 common_battle_tab_press = (
   ti_tab_pressed, 0, 0, [],
   [
@@ -2447,6 +2468,11 @@ mission_templates = [
               (call_script, "script_count_mission_casualties_from_agents"),
               (finish_mission,0)]),
 
+      ## UID: 35 - Begin
+      #
+      feature_troop_ratio,
+      #
+      ## UID: 35 - End
       common_battle_inventory,
 
 
@@ -2536,6 +2562,11 @@ mission_templates = [
               (call_script, "script_count_mission_casualties_from_agents"),
               (finish_mission, 0)]),
 
+      ## UID: 35 - Begin
+      #
+      feature_troop_ratio,
+      #
+      ## UID: 35 - End
       common_battle_inventory,      
       common_battle_order_panel,
       common_battle_order_panel_tick,
@@ -2623,6 +2654,11 @@ mission_templates = [
               (call_script, "script_count_mission_casualties_from_agents"),
               (finish_mission,0)]),
 
+      ## UID: 35 - Begin
+      #
+      feature_troop_ratio,
+      #
+      ## UID: 35 - End
       common_battle_inventory,
       common_battle_order_panel,
       common_battle_order_panel_tick,
@@ -2856,6 +2892,11 @@ mission_templates = [
               (finish_mission,0)
               ]),
       
+      ## UID: 35 - Begin
+      #
+      feature_troop_ratio,
+      #
+      ## UID: 35 - End
       common_battle_order_panel,
       common_battle_order_panel_tick,
       common_battle_inventory,
@@ -2920,6 +2961,11 @@ mission_templates = [
               (finish_mission,0)
               ]),
 
+      ## UID: 35 - Begin
+      #
+      feature_troop_ratio,
+      #
+      ## UID: 35 - End
       common_battle_order_panel,
       common_battle_order_panel_tick,
       common_battle_inventory,
@@ -3019,6 +3065,11 @@ mission_templates = [
               (call_script, "script_count_mission_casualties_from_agents"),
               (finish_mission,0)]),
 
+      ## UID: 35 - Begin
+      #
+      feature_troop_ratio,
+      #
+      ## UID: 35 - End
       common_battle_order_panel,
       common_battle_order_panel_tick,
       common_battle_inventory,
@@ -4056,6 +4107,291 @@ mission_templates = [
     ],
     tournament_triggers
   ),
+
+  ## UID: 37 - Begin
+  #
+  ("arena_melee_fight_2", mtf_arena_fight,-1, "You enter a melee fight in the arena.", [
+      (0,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,1,[]),
+      (1,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,1,[]),
+      (2,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,1,[]),
+      (3,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,1,[]),
+      (4,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,1,[]),
+      (5,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,1,[]),
+      (6,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,1,[]),
+      (7,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,1,[]),
+
+      (8,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (9,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (10,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (11,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (12,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (13,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (14,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (15,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+
+      (16,mtef_visitor_source|mtef_team_2,0,aif_start_alarmed,1,[]),
+      (17,mtef_visitor_source|mtef_team_2,0,aif_start_alarmed,1,[]),
+      (18,mtef_visitor_source|mtef_team_2,0,aif_start_alarmed,1,[]),
+      (19,mtef_visitor_source|mtef_team_2,0,aif_start_alarmed,1,[]),
+      (20,mtef_visitor_source|mtef_team_2,0,aif_start_alarmed,1,[]),
+      (21,mtef_visitor_source|mtef_team_2,0,aif_start_alarmed,1,[]),
+      (22,mtef_visitor_source|mtef_team_2,0,aif_start_alarmed,1,[]),
+      (23,mtef_visitor_source|mtef_team_2,0,aif_start_alarmed,1,[]),
+ 
+      (24,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (25,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (26,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (27,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (28,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (29,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (30,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (31,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+
+      (32,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (33,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (34,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (35,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (36,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (37,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (38,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (39,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+#40-49 not used yet
+      (40,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (41,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (42,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (43,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (44,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (45,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (46,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (47,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (48,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (49,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+
+      (50, mtef_scene_source,af_override_horse|af_override_weapons|af_override_head,0,1,[]),
+      (51, mtef_visitor_source,af_override_horse|af_override_weapons|af_override_head,0,1,[]),
+      (52, mtef_scene_source,af_override_horse,0,1,[]),
+#not used yet:
+      (53, mtef_scene_source,af_override_horse,0,1,[]),(54, mtef_scene_source,af_override_horse,0,1,[]),(55, mtef_scene_source,af_override_horse,0,1,[]),
+#used for torunament master scene
+
+      (56, mtef_visitor_source|mtef_team_0, af_override_all, aif_start_alarmed, 1, [itm_practice_sword, itm_practice_shield, itm_padded_cloth, itm_segmented_helmet]),
+      (57, mtef_visitor_source|mtef_team_0, af_override_all, aif_start_alarmed, 1, [itm_practice_sword, itm_practice_shield, itm_padded_cloth, itm_segmented_helmet]),
+    ], [
+        (ti_before_mission_start, 0, 0, [], [
+            (call_script, "script_change_banners_and_chest"),
+            (assign, "$g_arena_training_num_agents_spawned", 0)
+        ]),
+
+        (ti_on_agent_spawn, 0, 0, [], [
+            (store_trigger_param_1, ":agent_no"),
+            (agent_get_troop_id, ":troop_no", ":agent_no"),
+            (call_script, "script_troop_agent_set_banner", "tableau_game_troop_label_banner", ":agent_no", ":troop_no"),
+        ]),
+
+        (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_arena")], []),
+
+        (ti_tab_pressed, 0, 0, [], [
+            (try_begin),
+              (eq, "$g_mt_mode", abm_visit),
+              (set_trigger_result, 1),
+            (else_try),
+              (question_box,"str_give_up_fight"),
+            (try_end),
+        ]),
+
+        (ti_question_answered, 0, 0, [], [
+            (store_trigger_param_1,":answer"),
+            (eq,":answer",0),
+            (try_begin),
+              (eq, "$g_mt_mode", abm_tournament),
+              (call_script, "script_end_tournament_fight", 0),
+            (else_try),
+              (eq, "$g_mt_mode", abm_training),
+              (get_player_agent_no, ":player_agent"),
+              (agent_get_kill_count, "$g_arena_training_kills", ":player_agent", 1),#use this for conversation
+            (try_end),
+            (finish_mission,0),
+        ]),
+
+        (1, 0, ti_once, [], [
+            (eq, "$g_mt_mode", abm_visit),
+            (call_script, "script_music_set_situation_with_culture", mtf_sit_travel),
+            (store_current_scene, reg(1)),
+            (scene_set_slot, reg(1), slot_scene_visited, 1),
+            (mission_enable_talk),
+            (get_player_agent_no, ":player_agent"),
+            (assign, ":team_set", 0),
+            (try_for_agents, ":agent_no"),
+              (neq, ":agent_no", ":player_agent"),
+              (agent_get_troop_id, ":troop_id", ":agent_no"),
+              (is_between, ":troop_id", regular_troops_begin, regular_troops_end),
+              (eq, ":team_set", 0),
+              (agent_set_team, ":agent_no", 1),
+              (assign, ":team_set", 1),
+            (try_end),
+        ]),
+
+        (0, 0, ti_once, [], [
+            (eq, "$g_mt_mode", abm_tournament),
+            (play_sound, "snd_arena_ambiance", sf_looping),
+            (call_script, "script_music_set_situation_with_culture", mtf_sit_arena),
+        ]),
+
+        (1, 4, ti_once, [
+            (eq, "$g_mt_mode", abm_tournament),
+            (this_or_next|main_hero_fallen),
+            (num_active_teams_le, 1)
+        ], [
+            (try_begin),
+              (neg|main_hero_fallen),
+              (call_script, "script_end_tournament_fight", 1),
+              (call_script, "script_play_victorious_sound"),
+              (finish_mission),
+            (else_try),
+              (call_script, "script_end_tournament_fight", 0),
+              (finish_mission),
+            (try_end),
+        ]),
+
+        (ti_battle_window_opened, 0, 0, [], [(eq, "$g_mt_mode", abm_training),(start_presentation, "prsnt_arena_training")]),
+
+        (0, 0, ti_once, [], [
+            (eq, "$g_mt_mode", abm_training),
+            (assign, "$g_arena_training_max_opponents", 40),
+            (assign, "$g_arena_training_num_agents_spawned", 0),
+            (assign, "$g_arena_training_kills", 0),
+            (assign, "$g_arena_training_won", 0),
+            (call_script, "script_music_set_situation_with_culture", mtf_sit_arena),
+        ]),
+
+        (1, 4, ti_once, [
+            (eq, "$g_mt_mode", abm_training),
+            (store_mission_timer_a, ":cur_time"),
+            (gt, ":cur_time", 3),
+            (assign, ":win_cond", 0),
+            (try_begin),
+              (ge, "$g_arena_training_num_agents_spawned", "$g_arena_training_max_opponents"),#spawn at most 40 agents
+              (num_active_teams_le, 1),
+              (assign, ":win_cond", 1),
+            (try_end),
+            (this_or_next|eq, ":win_cond", 1),
+            (main_hero_fallen)
+        ],[
+            (get_player_agent_no, ":player_agent"),
+            (agent_get_kill_count, "$g_arena_training_kills", ":player_agent", 1),#use this for conversation
+            (assign, "$g_arena_training_won", 0),
+            (try_begin),
+              (neg|main_hero_fallen),
+              (assign, "$g_arena_training_won", 1),#use this for conversation
+            (try_end),
+            (assign, "$g_mt_mode", abm_visit),
+            (set_jump_mission, "mt_arena_melee_fight_2"),
+            (party_get_slot, ":arena_scene", "$current_town", slot_town_arena),
+            (modify_visitors_at_site, ":arena_scene"),
+            (reset_visitors),
+            (set_visitor, 35, "trp_veteran_fighter"),
+            (set_visitor, 36, "trp_hired_blade"),
+            (set_jump_entry, 50),
+            (jump_to_scene, ":arena_scene"),
+        ]),
+
+        (0.2, 0, 0, [
+            (eq, "$g_mt_mode", abm_training),
+            (assign, ":num_active_fighters", 0),
+            (try_for_agents, ":agent_no"),
+              (agent_is_human, ":agent_no"),
+              (agent_is_alive, ":agent_no"),
+              (agent_get_team, ":team_no", ":agent_no"),
+              (is_between, ":team_no", 0 ,7),
+              (val_add, ":num_active_fighters", 1),
+            (try_end),
+            (lt, ":num_active_fighters", 7),
+            (neg|main_hero_fallen),
+            (store_mission_timer_a, ":cur_time"),
+            (this_or_next|ge, ":cur_time", "$g_arena_training_next_spawn_time"),
+            (this_or_next|lt, "$g_arena_training_num_agents_spawned", 6),
+            (num_active_teams_le, 1),
+            (lt, "$g_arena_training_num_agents_spawned", "$g_arena_training_max_opponents"),
+        ], [
+            (assign, ":added_troop", "$g_arena_training_num_agents_spawned"),
+            (store_div,  ":added_troop", "$g_arena_training_num_agents_spawned", 6),
+            (assign, ":added_troop_sequence", "$g_arena_training_num_agents_spawned"),
+            (val_mod, ":added_troop_sequence", 6),
+            (val_add, ":added_troop", ":added_troop_sequence"),
+            (val_min, ":added_troop", 9),
+            (val_add, ":added_troop", "trp_arena_training_fighter_1"),
+            (assign, ":end_cond", 10000),
+            (get_player_agent_no, ":player_agent"),
+            (agent_get_position, pos5, ":player_agent"),
+            (try_for_range, ":unused", 0, ":end_cond"),
+              (store_random_in_range, ":random_entry_point", 32, 40),
+              (neq, ":random_entry_point", "$g_player_entry_point"), # make sure we don't overwrite player
+              (entry_point_get_position, pos1, ":random_entry_point"),
+              (get_distance_between_positions, ":dist", pos5, pos1),
+              (gt, ":dist", 1200), #must be at least 12 meters away from the player
+              (assign, ":end_cond", 0),
+            (try_end),
+            (add_visitors_to_current_scene, ":random_entry_point", ":added_troop", 1),
+            (store_add, ":new_spawned_count", "$g_arena_training_num_agents_spawned", 1),
+            (store_mission_timer_a, ":cur_time"),
+            (store_add, "$g_arena_training_next_spawn_time", ":cur_time", 14),
+            (store_div, ":time_reduction", ":new_spawned_count", 3),
+            (val_sub, "$g_arena_training_next_spawn_time", ":time_reduction"),
+        ]),
+
+        (0, 0, 0, [(eq, "$g_mt_mode", abm_training)], [
+            (assign, ":max_teams", 6),
+            (val_max, ":max_teams", 1),
+            (get_player_agent_no, ":player_agent"),
+            (try_for_agents, ":agent_no"),
+              (agent_is_human, ":agent_no"),
+              (agent_is_alive, ":agent_no"),
+              (agent_slot_eq, ":agent_no", slot_agent_arena_team_set, 0),
+              (agent_get_team, ":team_no", ":agent_no"),
+              (is_between, ":team_no", 0 ,7),
+              (try_begin),
+                (eq, ":agent_no", ":player_agent"),
+                (agent_set_team, ":agent_no", 6), #player is always team 6.
+              (else_try),
+                (store_random_in_range, ":selected_team", 0, ":max_teams"),
+                (try_for_range, ":t", 0, 6),
+                  (troop_set_slot, "trp_temp_array_a", ":t", 0),
+                (try_end),
+
+                (try_for_agents, ":other_agent_no"),
+                  (agent_is_human, ":other_agent_no"),
+                  (agent_is_alive, ":other_agent_no"),
+                  (neq, ":agent_no", ":player_agent"),
+                  (agent_slot_eq, ":other_agent_no", slot_agent_arena_team_set, 1),
+                  (agent_get_team, ":other_agent_team", ":other_agent_no"),
+                  (troop_get_slot, ":count", "trp_temp_array_a", ":other_agent_team"),
+                  (val_add, ":count", 1),
+                  (troop_set_slot, "trp_temp_array_a", ":other_agent_team", ":count"),
+                (try_end),
+                (assign, ":strongest_team", 0),
+                (troop_get_slot, ":strongest_team_count", "trp_temp_array_a", 0),
+                (try_for_range, ":t", 1, 6),
+                  (troop_slot_ge, "trp_temp_array_a", ":t", ":strongest_team_count"),
+                  (troop_get_slot, ":strongest_team_count", "trp_temp_array_a", ":t"),
+                  (assign, ":strongest_team", ":t"),
+                (try_end),
+                (store_random_in_range, ":rand", 5, 100),
+                (try_begin),
+                  (lt, ":rand", "$g_arena_training_num_agents_spawned"),
+                  (assign, ":selected_team", ":strongest_team"),
+                (try_end),
+                (agent_set_team, ":agent_no", ":selected_team"),
+              (try_end),
+              (agent_set_slot, ":agent_no", slot_agent_arena_team_set, 1),
+              (try_begin),
+                (neq, ":agent_no", ":player_agent"),
+                (val_add, "$g_arena_training_num_agents_spawned", 1),
+              (try_end),
+            (try_end),
+        ]),
+    ]),
+  #
+  ## UID: 37 - End
 
   (
     "arena_challenge_fight",mtf_arena_fight|mtf_commit_casualties,-1,
@@ -16153,6 +16489,11 @@ mission_templates = [
             (finish_mission,0)
         ]),
 
+        ## UID: 35 - Begin
+        #
+        feature_troop_ratio,
+        #
+        ## UID: 35 - End
         (ti_inventory_key_pressed, 0, 0, [(set_trigger_result, 1)], []),
     ]),
   #

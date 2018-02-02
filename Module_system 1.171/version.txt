@@ -152,6 +152,9 @@
   * process_info_pages.py
   ** Edited:
   *** def_save_info_pages
+  * process_operations.py
+  ** Edited:
+  *** def_save_quick_strings
   
 7. Some of Turkish translate mistakes fixed.
   * dialog.csv
@@ -426,15 +429,16 @@
   ** Added:
   *** p_bandit_camp_1
   *** p_bandit_camp_2
-  + BUGS:
-  ++ 
   
 12. Difficulty settings added.
   * variables.txt
   ** Added:
   *** g_difficulty
-  + BUGS:
-  ++ Players can't choose difficulty yet.
+  * module_game_menus.py
+  ** Edited:
+  *** menu_start_game_0:mno_continue
+  ** Added:
+  *** menu_start_game_difficulty
   
 13. Dark Hunters (Knights) and Desert Cavalries added.
   * module_factions.py
@@ -531,6 +535,9 @@
   *** menu_center_manage:mno_center_drop_6
   *** menu_center_manage:mno_center_drop_3
   *** menu_center_manage:mno_center_drop_1
+  * module_scripts.py
+  ** Added:
+  *** script_upgrade_decrease_time (Inactive)
   
 19. Increasing prisoner and party size with charisma, level and renown added.
   * module_constants.py
@@ -1369,6 +1376,216 @@
   *** dlga_tavern_walkers_paid:close_window
   *** dlga_start:tavern_musicians_talk
   *** dlga_tavern_musicians_talk:close_window
+  
+32. Lord leave option is changed.
+  * module_dialogs.py
+  ** Removed:
+  *** dlga_lord_talk:lord_leave
+  *** dlga_lord_talk:lord_leave.1
+  ** Added:
+  *** dlga_lord_talk:lord_leave
+  * dialogs.csv
+  ** Removed:
+  *** dlga_lord_talk:lord_leave
+  *** dlga_lord_talk:lord_leave.1
+  ** Added:
+  *** dlga_lord_talk:lord_leave
+  * quick_strings.csv
+  ** Added:
+  *** qstr_This_audience_is_ove
+  *** qstr_I_must_beg_my_leave.
+  *** qstr_You_can_leave_now.
+  *** qstr_This_audience_is_over
+  *** qstr_I_must_leave_now.
+  
+33. Village quest text changed.
+  * module_dialogs.py
+  ** Replaced:
+  *** dlga_farmer_from_bandit_village_3:farmer_from_bandit_village_4
+  *** dlga_farmer_from_bandit_village_4:farmer_from_bandit_village_5
+  
+34. Literacy skill and new books added. (Need to add books to game menus.)
+  * module_skills.py
+  ** Removed:
+  *** skl_reserved_5
+  ** Added:
+  *** skl_literacy
+  * header_skills.py
+  ** Removed:
+  *** skl_reserved_5
+  *** knows_reserved_5_1
+  *** knows_reserved_5_2
+  *** knows_reserved_5_3
+  *** knows_reserved_5_4
+  *** knows_reserved_5_5
+  *** knows_reserved_5_6
+  *** knows_reserved_5_7
+  *** knows_reserved_5_8
+  *** knows_reserved_5_9
+  *** knows_reserved_5_10
+  ** Added:
+  *** skl_literacy
+  *** knows_literacy_1
+  *** knows_literacy_2
+  *** knows_literacy_3
+  *** knows_literacy_4
+  *** knows_literacy_5
+  *** knows_literacy_6
+  *** knows_literacy_7
+  *** knows_literacy_8
+  *** knows_literacy_9
+  *** knows_literacy_10
+  * module_constants.py
+  ** Added:
+  *** slot_item_book_raise_skill
+  *** slot_item_book_raise_skill_level
+  *** slot_item_book_raise_skill_limit
+  *** slot_item_book_raise_attribute
+  *** slot_item_book_raise_attribute_level
+  *** slot_item_book_raise_attribute_limit
+  *** slot_item_book_raise_proficiency
+  *** slot_item_book_raise_proficiency_level
+  *** slot_item_book_raise_proficiency_limit
+  *** slot_item_book_author
+  *** slot_item_book_type
+  *** slot_item_book_pages
+  *** bt_readable
+  *** bt_bonus
+  ** Replaced:
+  *** books_begin
+  *** books_end
+  ** Removed:
+  *** reference_books_begin
+  *** reference_books_end
+  *** readable_books_begin
+  *** readable_books_end
+  * module_dialogs.py
+  ** Added:
+  *** dlga_tavern_traveler_talk:tavern_traveler_bookseller_location
+  *** dlga_tavern_traveler_bookseller_location:tavern_traveler_bookseller_location_ask_money
+  *** dlga_tavern_traveler_bookseller_location:tavern_traveler_pretalk
+  *** dlga_tavern_traveler_bookseller_location_ask_money:tavern_traveler_bookseller_location_tell
+  *** dlga_tavern_traveler_bookseller_location_ask_money:tavern_traveler_pretalk
+  *** dlga_tavern_traveler_bookseller_location_tell:tavern_traveler_pretalk
+  * module_items.py
+  ** Added:
+  *** itm_book_spotting
+  *** itm_book_pathfinding
+  *** itm_book_inventory_management
+  *** itm_book_prisoner_management
+  *** itm_book_athletics
+  *** itm_book_looting
+  *** itm_book_ironflesh
+  *** itm_book_first_aid
+  *** itm_book_surgery
+  *** itm_book_wound_treatment
+  *** itm_book_horse_archery
+  *** itm_book_riding
+  *** itm_book_power_strike
+  *** itm_book_power_strike_2
+  *** itm_book_power_throw
+  *** itm_book_power_draw
+  *** itm_book_power_draw_2
+  *** itm_book_shield
+  * module_scripts.py
+  ** Edited:
+  *** script_initialize_item_info
+  *** script_game_get_item_extra_text
+  ** Added:
+  *** script_refresh_booksellers
+  *** script_initialize_books
+  *** script_get_proficiency_name
+  *** script_get_attribute_name
+  *** script_get_skill_name
+  *** script_can_read_book
+  *** script_read_book_process
+  * module_simple_triggers.py
+  ** Removed:
+  *** 1h Trigger for reading book.
+  ** Added:
+  *** 1h Trigger for new reading book system.
+  * module_triggers.py
+  ** Added:
+  *** Trigger to trigger bookseller refresh script.
+
+35. Troop ratio bar added. (Rubik)
+  * module_presentations.py
+  ** Added:
+  *** prsnt_troop_ratio_bar
+  ** Edited:
+  *** prsnt_battle
+  * module_meshes.py
+  ** Added:
+  *** mesh_status_troop_ratio_bar
+  *** mesh_status_troop_ratio_bar_button
+  * module_mission_templates.py
+  ** Added:
+  *** common_battle_initialize
+  *** feature_troop_ratio
+  ** Edited:
+  *** mt_lead_charge
+  *** mt_village_attack_bandits
+  *** mt_village_raid
+  *** mt_besiege_inner_battle_castle
+  *** mt_besiege_inner_battle_town_center
+  *** mt_castle_attack_walls_defenders_sally
+  *** mt_ship_battle
+  
+36. Religion added to game. (Haven't set for factions and players can't choose yet.)
+  * module_game_menus.py
+  ** Added:
+  *** menu_start_game_religion
+  ** Edited:
+  *** menu_start_game_difficulty:mno_difficulty_realistic
+  *** menu_start_game_difficulty:mno_difficulty_hard
+  *** menu_start_game_difficulty:mno_difficulty_moderate
+  *** menu_start_game_difficulty:mno_difficulty_easy
+  *** menu_start_game_difficulty:mno_difficulty_casual
+  *** menu_start_game_1:mno_go_back
+  * variables.txt
+  ** Added:
+  *** g_religion
+  
+37. Tournament System changed.
+  * module_game_menus.py
+  ** Edited:
+  *** menu_town_tournament:mno_tournament_join_next_fight
+  * module_mission_templates.py
+  ** Added:
+  *** mt_arena_melee_fight_2
+
+38. Start tournament option added to town menu while in cheat mode.
+  * module_game_menus.py
+  ** Added:
+  *** menu_town:mno_start_tournament
+  
+39. World map added.
+  * module_presentations.py
+  ** Added:
+  *** prsnt_world_map
+  * module_game_menus.py
+  ** Added:
+  *** menu_camp:mno_camp_world_map
+  
+40. Population added. (Inactive)
+  * module_constants.py
+  ** Added:
+  *** slot_center_population
+  
+41. Gold earning after wars tripled.
+  * module_scripts.py
+  ** Edited:
+  *** script_party_give_xp_and_gold
+  
+42. Some gender talks fixed.
+  * module_dialogs.py
+  ** Edited:
+  *** dlga_lord_intro:lord_start
+  * quick_strings.csv
+  ** Removed
+  *** qstr_{s9}{reg5?_and_the_l
+  ** Added:
+  *** qstr_{s9}{reg5?_and_the_{
 
 Known Bugs:
 tf_female; Ladies seems like man so dialogs should change with sex. (For example, lord first talk dialog says "I am lord of blabla")

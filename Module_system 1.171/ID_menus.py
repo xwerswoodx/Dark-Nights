@@ -216,3 +216,5 @@ menu_start_phase_4 = 214
 menu_lost_tavern_duel = 215
 menu_establish_court = 216
 menu_notification_relieved_as_marshal = 217
+menu_start_game_difficulty = 218
+menu_start_game_religion = 219

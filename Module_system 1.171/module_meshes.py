@@ -641,7 +641,7 @@ meshes = [
   ("mp_ui_host_maps_20", 0, "mp_ui_host_maps_e1", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("mp_ui_host_maps_21", 0, "mp_ui_host_maps_cold_cost", 0, 0, 0, 0, 0, 0, 1, 1, 1),
 
-#INVASION MODE START  
+  #INVASION MODE START  
   ("incoming_enemy", 0, "cb_ui_icon_infantry", 0, 0, 0, 0, 0, 0, 2, 2, 2),
   ("prison_cart_pos", 0, "ccoop_prison_cart", 0, 0, 0, 0, 0, 0, 2, 2, 2),
 
@@ -652,5 +652,12 @@ meshes = [
   ("ccoop_melee_class", 0, "ccoop_melee_class", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("ccoop_ranged_class", 0, "ccoop_ranged_class", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("ccoop_mounted_class", 0, "ccoop_mounted_class", 0, 0, 0, 0, 0, 0, 1, 1, 1),
-#INVASION MODE END
+  #INVASION MODE END
+
+  ## UID: 35 - Begin
+  #
+  ("status_troop_ratio_bar", 0, "slider_hor", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("status_troop_ratio_bar_button", 0, "handle_hor", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  #
+  ## UID: 35 - End
 ]

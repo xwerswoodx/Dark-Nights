@@ -55,6 +55,12 @@ triggers = [
   [
     (call_script, "script_refresh_center_stables"),
   ]),
+
+  ## UID: 34 - Begin
+  #
+  (0.0, 0, 168.0, [], [(call_script, "script_refresh_booksellers")]),
+  #
+  ## UID: 34 - End
   
 
 #############
@@ -184,6 +190,8 @@ triggers = [
         (store_random_in_range, ":town_no", towns_begin, towns_end),
         (set_spawn_radius, 1),
         (spawn_around_party, ":town_no", "pt_dark_hunters"),
+        (str_store_party_name, s1, reg0),
+##        (display_message, "@Party Spawned: {s1}."),
     ]),
   
   (10.1, 0, 0.0, [
@@ -192,7 +200,7 @@ triggers = [
       (lt, ":total_desert_cavalry", ":max_desert_cavalry"),
 ##      (neq, "$dnm_desert_cavalry", 1),
     ], [
-        (store_random_in_range, ":town_no", "p_town_18", "p_town_22"),
+        (store_random_in_range, ":town_no", "p_town_18", "p_town_24"),
         (val_add, ":town_no", 1),
         (set_spawn_radius, 1),
         (spawn_around_party, ":town_no", "pt_desert_cavalry"),

@@ -27,6 +27,7 @@ from module_presentations import *
 from module_map_icons import *
 from module_tableau_materials import *
 from module_animations import *
+from module_info import language_dir
 
 
 def get_id_value(tag, identifier, tag_uses):
@@ -136,10 +137,25 @@ def load_quick_strings(export_dir):
 
 def save_quick_strings(export_dir, quick_strings):
   file = open(export_dir + "quick_strings.txt", "w")
+  ## UID: 6 - Begin
+  #
+  langFile = open(language_dir + "quick_strings.csv", "w")
+  #
+  ## UID: 6 - End
   file.write("%d\n"%len(quick_strings))
   for i in xrange(len(quick_strings)):
+    ## UID: 6 - Begin
+    #
+    langFile.write("%s|%s\n"%(quick_strings[i][0], quick_strings[i][1]))
+    #
+    ## UID: 6 - End
     file.write("%s %s\n"%(quick_strings[i][0],replace_spaces(quick_strings[i][1])))
   file.close()
+  ## UID: 6 - Begin
+  #
+  langFile.close()
+  #
+  ## UID: 6 - End
 
 def load_variables(export_dir,variable_uses):
   variables = []

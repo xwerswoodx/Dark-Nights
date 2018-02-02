@@ -649,13 +649,13 @@ troops = [
   ## UID: 24 - Begin
   #
   ["umalelithian_recruit", "Umalelithian Recruits", "Umalelithian Recruits",tf_guarantee_armor,0,0,fac_kingdom_7,
-   [itm_scythe,itm_hatchet,itm_pickaxe,itm_club,itm_stones,itm_tab_shield_heater_a,itm_leather_cap,itm_felt_hat,itm_felt_hat,
-    itm_shirt,itm_coarse_tunic,itm_leather_apron,itm_nomad_boots,itm_wrapping_boots],
+   [itm_pa_maul_01,itm_fp_axe_01,itm_club,itm_stones,itm_steppe_helmet_white,itm_pilgrim_disguise,itm_leather_apron,itm_woolen_hose],
    def_attrib|level(4),wp(60),knows_common,swadian_face_younger_1, swadian_face_middle_2],
   ["umalelithian_infantry", "Umalelithian Infantry", "Umelelithian Infantries",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield,0,0,fac_kingdom_7,
-   [itm_bolts,itm_spiked_club,itm_fighting_pick,itm_boar_spear,itm_hunting_crossbow,itm_tab_shield_heater_a,
-    itm_padded_cloth,itm_red_gambeson,itm_arming_cap,itm_arming_cap,itm_ankle_boots,itm_wrapping_boots],
+   [itm_pa_sword_01,itm_spiked_club,itm_arrows,itm_fp_bow_04,itm_tab_shield_heater_a,
+    itm_banded_armor,itm_leather_gloves,itm_nordic_archer_helmet,itm_sarranid_boots_c],
    def_attrib|level(9),wp(75),knows_common,swadian_face_young_1, swadian_face_old_2],
+  
  ["umalelithian_veteran","Umalelithian Veteran","Umalelithian Veterans",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield|tf_guarantee_helmet,0,0,fac_kingdom_7,
    [itm_bamboo_spear,itm_arabian_sword_a,itm_arabian_sword_b,itm_tab_shield_kite_b,
     itm_sarranid_boots_b,itm_sarranid_warrior_cap,itm_sarranid_leather_armor,itm_jarid,itm_arabian_sword_a,itm_mace_3],
@@ -698,9 +698,10 @@ troops = [
    def_attrib|level(24),wp(130),knows_athletics_3|knows_shield_2|knows_ironflesh_3,nord_face_middle_1, nord_face_older_2],
 
   ["kielian_tribeswoman","Kielian Tribeswoman","Kielian Tribeswomen",tf_guarantee_boots|tf_guarantee_armor|tf_female,0,0,fac_kingdom_8,
-   [itm_pitch_fork,itm_tab_shield_pavise_a,
-    itm_shirt,itm_coarse_tunic,itm_wrapping_boots,itm_nomad_boots,itm_head_wrappings,itm_straw_hat],
+   [itm_military_pick,itm_tab_shield_pavise_a,
+    itm_turban,itm_khergit_lady_dress_b,itm_woolen_hose],
    def_attrib|level(4),wp(55),knows_common|knows_power_draw_2|knows_ironflesh_1,woman_face_1, woman_face_2],
+  
   ["kielian_spearwoman","Kielian Spearwoman","Kielian Spearwomen",tf_guarantee_boots|tf_guarantee_armor|tf_female,0,0,fac_kingdom_8,
    [itm_spear,itm_pike,itm_spear,itm_tab_shield_pavise_a,itm_falchion,
     itm_felt_hat_b,itm_common_hood,itm_leather_armor,itm_arena_tunic_green,itm_wrapping_boots,itm_nomad_boots],
@@ -728,9 +729,10 @@ troops = [
    [itm_lance,itm_arabian_sword_b,itm_scimitar_b,itm_mace_4,itm_tab_shield_small_round_b,
     itm_sarranid_mail_shirt,itm_sarranid_boots_c,itm_sarranid_boots_b, itm_sarranid_horseman_helmet,itm_leather_gloves,itm_arabian_horse_a,itm_courser,itm_hunter],
    def_attrib|level(20),wp_melee(100),knows_common|knows_riding_4|knows_ironflesh_2|knows_shield_2|knows_power_strike_3,woman_face_1, woman_face_2],
+
  ["kielian_swordswoman","Kielian Swordswoman","Kielian Swordswomen",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_shield|tf_female,0,0,fac_kingdom_8,
-   [itm_heavy_lance,itm_scimitar_b,itm_sarranid_two_handed_mace_1,itm_sarranid_cavalry_sword,itm_tab_shield_small_round_c,
-    itm_mamluke_mail,itm_sarranid_boots_d,itm_sarranid_boots_c,itm_sarranid_veiled_helmet,itm_arabian_horse_b,itm_warhorse_sarranid,itm_scale_gauntlets,itm_mail_mittens],
+   [itm_fp_sword_06,itm_fp_sword_03,itm_fp_sword_04,itm_tab_shield_small_round_c,
+    itm_coat_of_plates_red,itm_mail_boots,itm_segmented_helmet,itm_nordland,itm_warhorse_sarranid,itm_gauntlets,itm_mail_mittens],
    def_attrib|level(27),wp_one_handed (150) | wp_two_handed (130) | wp_polearm (130) | wp_archery (75) | wp_crossbow (75) | wp_throwing (110),knows_common|knows_riding_6|knows_shield_5|knows_ironflesh_5|knows_power_strike_5,woman_face_1, woman_face_2],
 
   ["kielian_messenger","Kielian Messenger","Kielian Messengers",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_horse|tf_guarantee_ranged|tf_female,0,0,fac_kingdom_8,
@@ -2884,9 +2886,11 @@ troops = [
   ## UID: 12 - Begin
   #
   ["dark_knight", "Dark Knight", "Dark Knights", tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse, 0, 0, fac_dark_knights, [itm_spear,itm_pa_sword_02,itm_pa_sword_03,itm_pa_axe_02,itm_morningstar,itm_pa_axe_03,itm_steel_shield,itm_war_shield,itm_steel_shield,itm_heater_shield,itm_black_armor,itm_black_greaves,itm_bascinet,itm_guard_helmet,itm_saddle_horse,itm_warhorse,itm_leather_gloves],
-   def_attrib|level(33),wp(160),knows_common|knows_riding_5|knows_shield_3|knows_ironflesh_4|knows_power_strike_3,swadian_face_middle_1, swadian_face_middle_2],
+   def_attrib|level(33),wp(160),knows_common|knows_riding_5|knows_shield_5|knows_ironflesh_4|knows_power_strike_4,swadian_face_middle_1, swadian_face_middle_2],
   ["dark_hunter", "Dark Hunter", "Dark Hunters", tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse, 0, 0, fac_dark_knights, [itm_spear,itm_broadsword,itm_battle_axe,itm_morningstar,itm_war_shield,itm_heater_shield,itm_leather_jerkin,itm_iron_greaves,itm_guard_helmet,itm_saddle_horse,itm_warhorse,itm_fp_bow_02,itm_fp_bow_01],
-   def_attrib|level(25),wp(120),knows_common|knows_riding_4|knows_shield_3|knows_ironflesh_2|knows_power_strike_2,swadian_face_middle_1, swadian_face_middle_2],
+   def_attrib|level(25),wp(120),knows_common|knows_riding_4|knows_shield_3|knows_ironflesh_2|knows_power_strike_3,swadian_face_middle_1, swadian_face_middle_2],
+  ["dark_pikeman", "Dark Pikeman", "Dark Pikeman", tf_mounted|tf_guarantee_polearm|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse, 0, 0, fac_dark_knights, [itm_great_lance,itm_war_shield,itm_leather_jerkin,itm_iron_greaves,itm_guard_helmet,itm_saddle_horse,itm_warhorse],
+   def_attrib|level(30),wp(120),knows_common|knows_riding_7|knows_shield_3|knows_ironflesh_4|knows_power_strike_5,swadian_face_middle_1, swadian_face_middle_2],
   ["desert_cavalry", "Desert Cavalry", "Desert Cavalry", tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse, 0, 0, fac_desert_cavalry, [itm_camel, itm_fp_sword_05, itm_fp_sword_06, itm_lamellar_vest, itm_sarranid_elite_armor, itm_sarranid_warrior_cap, itm_sarranid_helmet1, itm_light_leather_boots],
    def_attrib|level(30), wp(130), knows_common|knows_riding_4|knows_ironflesh_5|knows_power_strike_4, swadian_face_young_1, swadian_face_middle_2],
   #
