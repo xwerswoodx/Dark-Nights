@@ -407,4 +407,11 @@ parties = [
   #
   ## UID: 11 - End
 
+  ## UID: 43 - Begin
+  #
+  ("freelancer_party_backup", "{!}",  pf_disabled, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(1,1),[]),
+  #
+  ## UID: 43 - End
+
+  ## EOF
   ]

@@ -157,7 +157,7 @@
   *** def_save_quick_strings
   
 7. Some of Turkish translate mistakes fixed.
-  * dialog.csv
+  * dialogs.csv
   ** Removed:
   *** dlga_start:window_close.1
   *** dlga_start:window_close.5
@@ -439,6 +439,14 @@
   *** menu_start_game_0:mno_continue
   ** Added:
   *** menu_start_game_difficulty
+  * dialogs.csv
+  ** Added:
+  *** menu_start_game_difficulty
+  *** mno_difficulty_realistic
+  *** mno_difficulty_hard
+  *** mno_difficulty_moderate
+  *** mno_difficulty_easy
+  *** mno_difficulty_casual
   
 13. Dark Hunters (Knights) and Desert Cavalries added.
   * module_factions.py
@@ -451,6 +459,10 @@
   *** trp_dark_knight
   *** trp_dark_hunter
   *** trp_desert_cavalry
+  ** Upgrade:
+  *** trp_dark_hunter -> trp_dark_pikeman
+  *** trp_hired_blade -> trp_dark_knight
+  *** trp_desert_bandit -> trp_desert_cavalry
   * module_party_templates.py
   ** Added:
   *** pt_dark_hunters
@@ -472,6 +484,20 @@
   ** Added:
   *** fac_dark_knights
   *** fac_desert_cavalry
+  * party_templates.csv
+  ** Added:
+  *** pt_dark_hunters
+  *** pt_desert_cavalry
+  * troops.csv
+  ** Added:
+  *** trp_dark_knight
+  *** trp_dark_knight_pl
+  *** trp_dark_hunter
+  *** trp_dark_hunter_pl
+  *** trp_dark_pikeman
+  *** trp_dark_pikeman_pl
+  *** trp_desert_cavalry
+  *** trp_desert_cavalry_pl
   
 14. Modder login added to first page.
   * module_game_menus.py
@@ -509,7 +535,7 @@
   ** Added:
   *** g_gift_no
   *** g_time_to_gift
-  * dialog.csv
+  * dialogs.csv
   ** Added:
   *** dlga_lady_talk:lady_talk_gift
   *** dlga_lady_talk_gift:lady_talk_gifting
@@ -552,10 +578,16 @@
   *** party_prisoner_per_skill
   *** party_prisoner_renown
   *** party_prisoner_without_level
+  * module_game_menus.py
+  ** Edited:
+  *** menu_party_size_report
   * module_scripts.py
   ** Replaced:
   *** script_game_get_party_prisoner_limit
   *** script_game_get_party_companion_limit
+  * quick_strings.csv
+  ** Replaced:
+  *** qstr_Current_party_size_l
 
 20. Barracks recruits unit once in 3 days.
   * module_simple_triggers.py
@@ -943,10 +975,35 @@
   *** mesh_banner_h09
   *** mesh_banner_kingdom_g
   *** mesh_banner_kingdom_h
+  *** mesh_banner_end
+  *** mesh_arms_f21
+  *** mesh_arms_g11
+  *** mesh_arms_g12
+  *** mesh_arms_g13
+  *** mesh_arms_g14
+  *** mesh_arms_g15
+  *** mesh_arms_g16
+  *** mesh_arms_g17
+  *** mesh_arms_g18
+  *** mesh_arms_g19
+  *** mesh_arms_g20
+  *** mesh_arms_g21
+  *** mesh_arms_h01
+  *** mesh_arms_h02
+  *** mesh_arms_h03
+  *** mesh_arms_h04
+  *** mesh_arms_h05
+  *** mesh_arms_h06
+  *** mesh_arms_h07
+  *** mesh_arms_h08
+  *** mesh_arms_h09
+  *** mesh_arms_kingdom_g
+  *** mesh_arms_kingdom_h
   *** mesh_pic_arms_umalelith
   *** mesh_pic_arms_kielian
+  *** mesh_arms_end
   * module_party_templates.py
-  ** Added:
+  **Added:
   *** pt_kingdom_7_reinforcements_a
   *** pt_kingdom_7_reinforcements_b
   *** pt_kingdom_7_reinforcements_c
@@ -1014,6 +1071,12 @@
   *** spr_banner_h09
   *** spr_banner_kingdom_g
   *** spr_banner_kingdom_h
+  *** spr_banner_end
+  * module_constants.py
+  ** Replaced:
+  *** banner_meshes_end_minus_one
+  *** arms_meshes_end_minus_one
+  *** banner_scene_props_end_minus_one
   * module_items.py
   ** Edited:
   *** itm_camel
@@ -1459,6 +1522,9 @@
   *** reference_books_end
   *** readable_books_begin
   *** readable_books_end
+  * module_game_menus.py
+  ** Replaced:
+  *** menu_camp_action_read_book
   * module_dialogs.py
   ** Added:
   *** dlga_tavern_traveler_talk:tavern_traveler_bookseller_location
@@ -1507,6 +1573,127 @@
   * module_triggers.py
   ** Added:
   *** Trigger to trigger bookseller refresh script.
+  * dialogs.csv
+  ** Added:
+  *** dlga_tavern_traveler_talk:tavern_traveler_bookseller_location
+  *** dlga_tavern_traveler_bookseller_location:tavern_traveler_bookseller_location_ask_money
+  *** dlga_tavern_traveler_bookseller_location:tavern_traveler_pretalk
+  *** dlga_tavern_traveler_bookseller_location_ask_money:tavern_traveler_bookseller_location_tell
+  *** dlga_tavern_traveler_bookseller_location_ask_money:tavern_traveler_pretalk
+  *** dlga_tavern_traveler_bookseller_location_tell:tavern_traveler_pretalk
+  * skills.csv
+  ** Removed:
+  *** skl_reserved_5
+  *** skl_reserved_5_desc
+  ** Added:
+  *** skl_literacy
+  *** skl_literacy_desc
+  * quick_strings.csv
+  ** Added:
+  *** qstr_One_Handed_Weapon
+  *** qstr_Two_Handed_Weapon
+  *** qstr_Polearm
+  *** qstr_Archery
+  *** qstr_Crossbow
+  *** qstr_Throwing
+  *** qstr_Firearm
+  *** qstr_DEBUG:_Unknown_Profi
+  *** qstr_Strength
+  *** qstr_Agility
+  *** qstr_Intelligence
+  *** qstr_Charisma
+  *** qstr_DEBUG:_Unknown_Attri
+  *** qstr_Trade
+  *** qstr_Leadership
+  *** qstr_Prisoner_Management
+  *** qstr_Reserved_Skill_1
+  *** qstr_Reserved_Skill_2
+  *** qstr_Reserved_Skill_3
+  *** qstr_Reserved_Skill_4
+  *** qstr_Persuasion
+  *** qstr_Engineer
+  *** qstr_First_Aid
+  *** qstr_Surgery
+  *** qstr_Wound_Treatment
+  *** qstr_Inventory_Management
+  *** qstr_Spotting
+  *** qstr_Path_finding
+  *** qstr_Tactics
+  *** qstr_Tracking
+  *** qstr_Trainer
+  *** qstr_Literacy
+  *** qstr_Reserved_Skill_6
+  *** qstr_Reserved_Skill_7
+  *** qstr_Reserved_Skill_8
+  *** qstr_Looting
+  *** qstr_Horse_Archery
+  *** qstr_Riding
+  *** qstr_Athletics
+  *** qstr_Shield
+  *** qstr_Weapon_Master
+  *** qstr_Reserved_Skill_9
+  *** qstr_Reserved_Skill_10
+  *** qstr_Reserved_Skill_11
+  *** qstr_Reserved_Skill_12
+  *** qstr_Reserved_Skill_13
+  *** qstr_Power_Draw
+  *** qstr_Power_Throw
+  *** qstr_Power_Strike
+  *** qstr_Ironflesh
+  *** qstr_Reserved_Skill_14
+  *** qstr_Reserved_Skill_15
+  *** qstr_Reserved_Skill_16
+  *** qstr_Reserved_Skill_17
+  *** qstr_Reserved_Skill_18
+  *** qstr_DEBUG:_Unknown_Skill
+  *** qstr_Your_{s2}_skill_has_
+  *** qstr_Skill:_You_have_fini
+  *** qstr_Skill:_You_have_finis
+  *** qstr_Attribute:_You_have_
+  *** qstr_Attribute:_You_have_f
+  *** qstr_Proficiency:_You_hav
+  *** qstr_Proficiency:_You_have
+  *** qstr_+{reg11}_to_{s2}_ski
+  *** qstr_+{reg11}_to_{s2}_att
+  *** qstr_+{reg11}_to_{s2}_pro
+  * item_kinds.csv
+  ** Added:
+  *** itm_book_spotting
+  *** itm_book_spotting_pl
+  *** itm_book_pathfinding
+  *** itm_book_pathfinding_pl
+  *** itm_book_inventory_management
+  *** itm_book_inventory_management_pl
+  *** itm_book_prisoner_management
+  *** itm_book_prisoner_management_pl
+  *** itm_book_athletics
+  *** itm_book_athletics_pl
+  *** itm_book_looting
+  *** itm_book_looting_pl
+  *** itm_book_ironflesh
+  *** itm_book_ironflesh_pl
+  *** itm_book_first_aid
+  *** itm_book_first_aid_pl
+  *** itm_book_surgery
+  *** itm_book_surgery_pl
+  *** itm_book_wound_treatment
+  *** itm_book_wound_treatment_pl
+  *** itm_book_horse_archery
+  *** itm_book_horse_archery_pl
+  *** itm_book_riding
+  *** itm_book_riding_pl
+  *** itm_book_power_strike
+  *** itm_book_power_strike_pl
+  *** itm_book_power_strike_2
+  *** itm_book_power_strike_2_pl
+  *** itm_book_power_throw
+  *** itm_book_power_throw_pl
+  *** itm_book_power_draw
+  *** itm_book_power_draw_pl
+  *** itm_book_power_draw_2
+  *** itm_book_power_draw_2_pl
+  *** itm_book_shield
+  *** itm_book_shield_pl
 
 35. Troop ratio bar added. (Rubik)
   * module_presentations.py
@@ -1545,6 +1732,10 @@
   * variables.txt
   ** Added:
   *** g_religion
+  * dialogs.csv
+  ** Added:
+  *** menu_start_game_religion
+  *** mno_religion_atheist
   
 37. Tournament System changed.
   * module_game_menus.py
@@ -1566,6 +1757,9 @@
   * module_game_menus.py
   ** Added:
   *** menu_camp:mno_camp_world_map
+  * game_menus.csv
+  ** Added:
+  *** mno_camp_world_map
   
 40. Population added. (Inactive)
   * module_constants.py
@@ -1581,13 +1775,388 @@
   * module_dialogs.py
   ** Edited:
   *** dlga_lord_intro:lord_start
+  *** dlga_start:close_window
+  *** dlga_tavernkeeper_talk:tavernkeeper_job_ask
   * quick_strings.csv
   ** Removed
   *** qstr_{s9}{reg5?_and_the_l
+  *** qstr_{reg65?my_Lady:my_Lo
+  *** qstr_{reg65?My_Lady:My_Lo
+  *** qstr_{reg65?madame:sir}
+  *** qstr_{reg65?Madame:Sir}
   ** Added:
   *** qstr_{s9}{reg5?_and_the_{
+  *** qstr_{reg0?my_Lord:my_Lad
+  *** qstr_{reg0?My_Lord:My_Lad
+  *** qstr_{reg0?sir:madame}
+  *** qstr_{reg0?Sir:Madame}
+  * dialogs.csv
+  ** Replaced:
+  *** dlga_tavernkeeper_talk:tavernkeeper_job_ask
+  
+43. Freelancer module adding.
+  * module_constants.py
+  ** Added:
+  *** freelancer_version
+  *** freelancer_can_use_item
+  *** slot_party_orig_morale
+  *** slot_freelancer_equip_start
+  *** slot_freelancer_version
+  *** slot_faction_freelancer_troop
+  *** slot_troop_freelancer_start_xp
+  *** slot_troop_freelancer_start_date
+  *** plyr_mission_vacation
+  * module_game_menus.py
+  ** Added:
+  *** menu_world_map_soldier
+  *** menu_commander_aud
+  *** menu_ask_revolt
+  *** menu_revolt
+  *** menu_ask_desert
+  *** menu_desert
+  *** menu_upgrade_path
+  * module_meshes.py
+  ** Added:
+  *** mesh_pic_soldier_world_map
+  *** mesh_pic_soldier_rebel
+  *** mesh_pic_soldier_desert
+  * module_parties.py
+  ** Added:
+  *** p_freelancer_party_backup
+  * module_presentations.py
+  ** Added:
+  *** prsnt_taragoth_lords_report
+  * module_quests.py
+  ** Added:
+  *** qst_freelancer_enlisted
+  *** qst_freelancer_vacation
+  *** qst_freelancer_captured
+  * module_simple_triggers.py
+  ** Added:
+  *** 168h trigger to pay weekly
+  *** 1h trigger to check food
+  * module_triggers.py
+  ** Added:
+  *** 4 new triggers to check lord party status.
+  * module_scripts.py
+  ** Added:
+  *** script_freelancer_attach_party
+  *** script_freelancer_detach_party
+  *** script_event_player_enlists
+  *** script_event_player_discharge
+  *** script_event_player_vacation
+  *** script_event_player_returns_vacation
+  *** script_event_player_deserts
+  *** script_party_restore
+  *** script_get_desert_troops
+  *** script_freelancer_keep_field_loot
+  *** script_cf_freelancer_player_can_upgrade
+  *** script_freelancer_equip_troop
+  *** script_freelancer_unequip_troop
+  * module_dialogs.py
+  ** Added:
+  *** dlga_lord_talk:lord_request_enlistment
+  *** dlga_lord_talk:lord_request_retire
+  *** dlga_lord_talk:lord_request_vacation
+  *** dlga_lord_talk:ask_return_from_leave
+  *** dlga_lord_request_enlistment:lord_request_enlistment_confirm
+  *** dlga_lord_request_enlistment_confirm:close_window
+  *** dlga_lord_request_enlistment_confirm:lord_pretalk
+  *** dlga_lord_request_enlistment:lord_pretalk
+  *** dlga_lord_request_retire:lord_pretalk
+  *** dlga_lord_request_vacation:lord_pretalk
+  *** dlga_ask_return_from_leave:lord_pretalk
+  * dialogs.csv
+  ** Added:
+  *** dlga_lord_talk:lord_request_enlistment
+  *** dlga_lord_talk:lord_request_retire
+  *** dlga_lord_talk:lord_request_vacation
+  *** dlga_lord_talk:ask_return_from_leave
+  *** dlga_lord_request_enlistment:lord_request_enlistment_confirm
+  *** dlga_lord_request_enlistment_confirm:close_window
+  *** dlga_lord_request_enlistment_confirm:lord_pretalk
+  *** dlga_lord_request_enlistment:lord_pretalk
+  *** dlga_lord_request_retire:lord_pretalk
+  *** dlga_lord_request_vacation:lord_pretalk
+  *** dlga_ask_return_from_leave:lord_pretalk
+  * game_menus.csv
+  ** Added:
+  *** menu_world_map_soldier
+  *** mno_join_commander_battle
+  *** mno_enter_town
+  *** mno_commander
+  *** mno_revolt
+  *** mno_desert
+  *** mno_report
+  *** mno_return_to_duty
+  *** menu_commander_aud
+  *** mno_reject_talk_lord
+  *** menu_ask_revolt
+  *** mno_confirm_revolt
+  *** mno_reject_revolt
+  *** menu_revolt
+  *** mno_revolt_prisoners
+  *** mno_revolt_no_prisoners
+  *** menu_ask_desert
+  *** mno_confirm_desert
+  *** mno_reject_desert
+  *** menu_desert
+  *** mno_desert_party
+  *** mno_desert_alone
+  *** menu_upgrade_path
+  *** mno_upgrade_path_1
+  *** mno_upgrade_path_2
+  * quick_strings.csv
+  ** Added:
+  *** qstr_CURRENT_COMMANDER_S_
+  *** qstr_Your_Commander:_{s19
+  *** qstr_Commander_Relation:_
+  *** qstr_Enlisted_Faction:_{s
+  *** qstr_Current_Rank:_{s21}
+  *** qstr_Experience_to_next_p
+  *** qstr_Days_in_service:_{re
+  *** qstr_Current_Wage:_{reg23
+  *** qstr_Next_Pay/Promotion_d
+  *** qstr_Army_size:_{reg26}
+  *** qstr_Commander_s_Army
+  *** qstr_N/A
+  *** qstr_You_have_been_enlist
 
+44. Foods morale system changed.
+  * module_scripts.py
+  ** Edited:
+  *** script_get_player_party_morale_values
+  ** Added:
+  *** troop_has_item_amount
+  
+45. Lords party size is increased.
+  * module_scripts.py
+  ** Edited:
+  *** script_party_get_ideal_size
+  
+46. Troop tree was added. (rubik)
+  * module_presentations.py
+  ** Added:
+  *** 
+  * quick_strings.csv
+  ** Added:
+  *** qstr_Outlaws
+  *** qstr_Mercenary
+  *** qstr_Close
+  *** qstr_Click_the_center_but
+  *** qstr_Level:_{reg3}^Health
+  *** qstr_Attributes
+  *** qstr_STR^AGI^INT^CHA
+  *** qstr_{reg2}
+  *** qstr_{s1}^{reg2}
+  *** qstr_Skills
+  *** qstr_Ironflesh^Power_Stri
+  *** qstr_Proficiencies
+  *** qstr_1H_Weapons^2H_Weapon
+  *** qstr_Equipments
+  * game_menus.csv
+  ** Added:
+  *** mno_action_view_troop_trees
+  
+47. Some translation issues fixed.
+  * dialogs.csv
+  ** Replaced:
+  *** dlga_lord_tell_mission_incriminate_commander:lord_tell_mission_incriminate_commander_2
+  
+48. Tavernkeeper buy drink section changed.
+  * module_dialogs.py
+  ** Edited:
+  *** dlga_tavernkeeper_talk:tavernkeeper_buy_drinks
+  ** Replaced:
+  *** dlga_tavernkeeper_buy_drinks:tavernkeeper_buy_drinks_2
+  *** dlga_tavernkeeper_buy_drinks_end:tavernkeeper_pretalk
+  * dialogs.csv
+  ** Replaced:
+  *** dlga_tavernkeeper_buy_drinks:tavernkeeper_buy_drinks_2
+  *** dlga_tavernkeeper_buy_drinks_end:tavernkeeper_pretalk
+
+49. Buying food section added to tavernkeeper.
+  * module_dialogs.py
+  ** Added:
+  *** dlga_tavernkeeper_talk:tavernkeeper_buy_food_2
+  *** dlga_tavernkeeper_buy_food_2:tavernkeeper_buy_food_end
+  *** dlga_tavernkeeper_buy_food_end:close_window
+  *** dlga_tavernkeeper_buy_food_2:tavernkeeper_pretalk
+  * dialogs.csv
+  ** Added:
+  *** dlga_tavernkeeper_talk:tavernkeeper_buy_food_2
+  *** dlga_tavernkeeper_buy_food_2:tavernkeeper_buy_food_end
+  *** dlga_tavernkeeper_buy_food_end:close_window
+  *** dlga_tavernkeeper_buy_food_2:tavernkeeper_pretalk
+  
+50. Hiring women from taverns added.
+  * module_dialogs.py
+  ** Added:
+  *** dlga_tavernkeeper_talk:tavernkeeper_bitch_amount
+  *** dlga_tavernkeeper_bitch_amount:tavernkeeper_ans_bitch_amount
+  *** dlga_tavernkeeper_bitch_amount:tavernkeeper_pretalk
+  *** dlga_tavernkeeper_ans_bitch_amount:tavernkeeper_result_bitch_amount
+  *** dlga_tavernkeeper_ans_bitch_amount:tavernkeeper_pretalk
+  *** dlga_tavernkeeper_result_bitch_amount:close_window
+  * module_scripts.py
+  ** Added:
+  *** script_get_number_name
+  * variables.txt
+  ** Added:
+  *** g_bitch
+  *** g_hire_bitch_last_time
+  *** g_bitch_first
+  * dialogs.csv
+  ** Added:
+  *** dlga_tavernkeeper_talk:tavernkeeper_bitch_amount
+  *** dlga_tavernkeeper_bitch_amount:tavernkeeper_ans_bitch_amount
+  *** dlga_tavernkeeper_bitch_amount:tavernkeeper_pretalk
+  *** dlga_tavernkeeper_ans_bitch_amount:tavernkeeper_result_bitch_amount
+  *** dlga_tavernkeeper_ans_bitch_amount:tavernkeeper_pretalk
+  *** dlga_tavernkeeper_result_bitch_amount:close_window
+  * quick_strings.csv
+  ** Added:
+  *** qstr_me_and_my_soldiers
+  *** qstr_my_soldiers
+  *** qstr_Just_one_for_me.__10
+  *** qstr_Just_one_for_my_sold
+  *** qstr_One_for_me_and_one_f
+  *** qstr_Two_for_two_of_my_so
+  *** qstr_One_for_me_and_{s2}_
+  *** qstr_{s4}_for_{s2}_of_my_
+  *** qstr_waiting_you
+  *** qstr_waiting_your_soldier
+  *** qstr_{reg15?One:one}
+  *** qstr_{reg15?Two:two}
+  *** qstr_{reg15?Three:three}
+  *** qstr_{reg15?Four:four}
+  *** qstr_{reg15?Five:five}
+  *** qstr_{reg15?Six:six}
+  *** qstr_{reg15?Seven:seven}
+  *** qstr_{reg15?Eight:eight}
+  *** qstr_{reg15?Nine:nine}
+  *** qstr_{reg15?Ten:ten}
+
+51. Lottery added.
+  * module_dialogs.py
+  ** Added:
+  *** dlga_tavernkeeper_talk:tavernkeeper_check_ticket
+  *** dlga_tavernkeeper_check_ticket:tavernkeeper_pretalk
+  *** dlga_tavernkeeper_talk:tavernkeeper_ask_lottery
+  *** dlga_tavernkeeper_ask_lottery:tavernkeeper_ask_bet
+  *** dlga_tavernkeeper_ask_bet:tavernkeeper_ans_bet
+  *** dlga_tavernkeeper_ask_bet:tavernkeeper_ans_bet.1
+  *** dlga_tavernkeeper_ask_bet:tavernkeeper_ans_bet.2
+  *** dlga_tavernkeeper_ans_bet:tavernkeeper_pretalk
+  * module_simple_triggers.py
+  ** Replaced:
+  *** 168h pay day trigger to trigger lottery.
+  * variables.txt
+  ** Added:
+  *** g_lottery
+  *** g_lottery_number_1
+  *** g_lottery_number_2
+  *** g_lottery_number_3
+  *** g_lottery_type
+  *** g_lottery_prize
+  * dialogs.csv
+  ** Added:
+  *** dlga_tavernkeeper_talk:tavernkeeper_check_ticket
+  *** dlga_tavernkeeper_check_ticket:tavernkeeper_pretalk
+  *** dlga_tavernkeeper_talk:tavernkeeper_ask_lottery
+  *** dlga_tavernkeeper_ask_lottery:tavernkeeper_ask_bet
+  *** dlga_tavernkeeper_ask_bet:tavernkeeper_ans_bet
+  *** dlga_tavernkeeper_ask_bet:tavernkeeper_ans_bet.1
+  *** dlga_tavernkeeper_ask_bet:tavernkeeper_ans_bet.2
+  *** dlga_tavernkeeper_ans_bet:tavernkeeper_pretalk
+  * quick_strings.csv
+  ** Added:
+  *** qstr_Your_last_lottery_pr
+  *** qstr_Lottery_was_drawn_th
+  *** qstr_Lottery_was_drawn_the
+  
+52. Tavernkeepers can play gamble.
+  * module_dialogs.py
+  ** Added:
+  *** dlga_tavernkeeper_talk:tavernkeeper_ask_game
+  *** dlga_tavernkeeper_ask_game:tavernkeeper_answer_game
+  *** dlga_tavernkeeper_answer_game:tavernkeeper_flip_coin
+  *** dlga_tavernkeeper_flip_coin:tavernkeeper_coin_bet
+  *** dlga_tavernkeeper_coin_bet:tavernkeeper_flip_coin_choose
+  *** dlga_tavernkeeper_coin_bet:tavernkeeper_flip_coin_choose.1
+  *** dlga_tavernkeeper_coin_bet:tavernkeeper_flip_coin_choose.2
+  *** dlga_tavernkeeper_coin_bet:tavernkeeper_flip_coin_choose.3
+  *** dlga_tavernkeeper_coin_bet:tavernkeeper_flip_coin_choose.4
+  *** dlga_tavernkeeper_coin_bet:tavernkeeper_pretalk
+  *** dlga_tavernkeeper_flip_coin_choose:tavernkeeper_flip_coin_ans
+  *** dlga_tavernkeeper_flip_coin_ans:tavernkeeper_flip_coin_result
+  *** dlga_tavernkeeper_flip_coin_ans:tavernkeeper_flip_coin_result.1
+  *** dlga_tavernkeeper_flip_coin_ans:tavernkeeper_pretalk
+  *** dlga_tavernkeeper_flip_coin_result:tavernkeeper_pretalk
+  *** dlga_tavernkeeper_answer_game:tavernkeeper_throw_dice
+  *** dlga_tavernkeeper_throw_dice:tavernkeeper_throw_dice_bet
+  *** dlga_tavernkeeper_throw_dice_bet:tavernkeeper_throw_dice_choose
+  *** dlga_tavernkeeper_throw_dice_bet:tavernkeeper_throw_dice_choose.1
+  *** dlga_tavernkeeper_throw_dice_bet:tavernkeeper_throw_dice_choose.2
+  *** dlga_tavernkeeper_throw_dice_bet:tavernkeeper_throw_dice_choose.3
+  *** dlga_tavernkeeper_throw_dice_bet:tavernkeeper_throw_dice_choose.4
+  *** dlga_tavernkeeper_throw_dice_bet:tavernkeeper_pretalk
+  *** dlga_tavernkeeper_throw_dice_choose:tavernkeeper_throw_dice_ans
+  *** dlga_tavernkeeper_throw_dice_ans:tavernkeeper_throw_dice_result
+  *** dlga_tavernkeeper_throw_dice_ans:tavernkeeper_throw_dice_result.1
+  *** dlga_tavernkeeper_throw_dice_ans:tavernkeeper_throw_dice_result.2
+  *** dlga_tavernkeeper_throw_dice_ans:tavernkeeper_throw_dice_result.3
+  *** dlga_tavernkeeper_throw_dice_ans:tavernkeeper_throw_dice_result.4
+  *** dlga_tavernkeeper_throw_dice_ans:tavernkeeper_throw_dice_result.5
+  *** dlga_tavernkeeper_throw_dice_ans:tavernkeeper_pretalk
+  *** dlga_tavernkeeper_throw_dice_result:tavernkeeper_pretalk
+  *** dlga_tavernkeeper_throw_dice_result:tavernkeeper_pretalk.1
+  *** dlga_tavernkeeper_answer_game:tavernkeeper_pretalk
+  * variables.txt
+  ** Added:
+  *** hamit_gold
+  *** gamble_last_time
+  *** gamble_rand
+  *** gamble_chosen
+  * dialogs.csv
+  ** Added:
+  *** dlga_tavernkeeper_talk:tavernkeeper_ask_game
+  *** dlga_tavernkeeper_ask_game:tavernkeeper_answer_game
+  *** dlga_tavernkeeper_answer_game:tavernkeeper_flip_coin
+  *** dlga_tavernkeeper_flip_coin:tavernkeeper_coin_bet
+  *** dlga_tavernkeeper_coin_bet:tavernkeeper_flip_coin_choose
+  *** dlga_tavernkeeper_coin_bet:tavernkeeper_flip_coin_choose.1
+  *** dlga_tavernkeeper_coin_bet:tavernkeeper_flip_coin_choose.2
+  *** dlga_tavernkeeper_coin_bet:tavernkeeper_flip_coin_choose.3
+  *** dlga_tavernkeeper_coin_bet:tavernkeeper_flip_coin_choose.4
+  *** dlga_tavernkeeper_coin_bet:tavernkeeper_pretalk
+  *** dlga_tavernkeeper_flip_coin_choose:tavernkeeper_flip_coin_ans
+  *** dlga_tavernkeeper_flip_coin_ans:tavernkeeper_flip_coin_result
+  *** dlga_tavernkeeper_flip_coin_ans:tavernkeeper_flip_coin_result.1
+  *** dlga_tavernkeeper_flip_coin_ans:tavernkeeper_pretalk
+  *** dlga_tavernkeeper_flip_coin_result:tavernkeeper_pretalk
+  *** dlga_tavernkeeper_answer_game:tavernkeeper_throw_dice
+  *** dlga_tavernkeeper_throw_dice:tavernkeeper_throw_dice_bet
+  *** dlga_tavernkeeper_throw_dice_bet:tavernkeeper_throw_dice_choose
+  *** dlga_tavernkeeper_throw_dice_bet:tavernkeeper_throw_dice_choose.1
+  *** dlga_tavernkeeper_throw_dice_bet:tavernkeeper_throw_dice_choose.2
+  *** dlga_tavernkeeper_throw_dice_bet:tavernkeeper_throw_dice_choose.3
+  *** dlga_tavernkeeper_throw_dice_bet:tavernkeeper_throw_dice_choose.4
+  *** dlga_tavernkeeper_throw_dice_bet:tavernkeeper_pretalk
+  *** dlga_tavernkeeper_throw_dice_choose:tavernkeeper_throw_dice_ans
+  *** dlga_tavernkeeper_throw_dice_ans:tavernkeeper_throw_dice_result
+  *** dlga_tavernkeeper_throw_dice_ans:tavernkeeper_throw_dice_result.1
+  *** dlga_tavernkeeper_throw_dice_ans:tavernkeeper_throw_dice_result.2
+  *** dlga_tavernkeeper_throw_dice_ans:tavernkeeper_throw_dice_result.3
+  *** dlga_tavernkeeper_throw_dice_ans:tavernkeeper_throw_dice_result.4
+  *** dlga_tavernkeeper_throw_dice_ans:tavernkeeper_throw_dice_result.5
+  *** dlga_tavernkeeper_throw_dice_ans:tavernkeeper_pretalk
+  *** dlga_tavernkeeper_throw_dice_result:tavernkeeper_pretalk
+  *** dlga_tavernkeeper_throw_dice_result:tavernkeeper_pretalk.1
+  *** dlga_tavernkeeper_answer_game:tavernkeeper_pretalk
+  
 Known Bugs:
-tf_female; Ladies seems like man so dialogs should change with sex. (For example, lord first talk dialog says "I am lord of blabla")
+tf_female; Ladies seems like man so dialogs should change with sex. (For example, lord first talk dlg says "I am lord of blabla")
 You can't loot or get prisoners from bandit camps that time.
 Turkish translate has stupid errors. Like "Kendimin yerine mareşal olarak kendim geçmek istiyorum.", "Köyün yeni sahibi kendim olsun istiyorum" etc...
+Page calculation is wrong for books.

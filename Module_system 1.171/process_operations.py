@@ -146,7 +146,7 @@ def save_quick_strings(export_dir, quick_strings):
   for i in xrange(len(quick_strings)):
     ## UID: 6 - Begin
     #
-    langFile.write("%s|%s\n"%(quick_strings[i][0], quick_strings[i][1]))
+    langFile.write("%s|%s\n"%(quick_strings[i][0], quick_strings[i][1].replace("_"," ")))
     #
     ## UID: 6 - End
     file.write("%s %s\n"%(quick_strings[i][0],replace_spaces(quick_strings[i][1])))

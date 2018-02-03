@@ -149,20 +149,37 @@ dialogs = [
                        (assign, "$g_comment_found", reg0),
                      (try_end),
 
+                     ## UID: 42 - Begin
+                     #
+                     (call_script, "script_is_male", "$g_talk_troop"),
                      (troop_get_type, reg65, "$g_talk_troop"),
                      (try_begin),
-                       (faction_slot_eq,"$g_talk_troop_faction",slot_faction_leader,"$g_talk_troop"),
-                       (str_store_string,s64,"@{reg65?my Lady:my Lord}"), #bug fix
-                       (str_store_string,s65,"@{reg65?my Lady:my Lord}"),
-                       (str_store_string,s66,"@{reg65?My Lady:My Lord}"),
-                       (str_store_string,s67,"@{reg65?My Lady:My Lord}"), #bug fix
+                       (faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+                       (str_store_string,s64, "@{reg0?my Lord:my Lady}"), #bug fix
+                       (str_store_string,s65, "@{reg0?my Lord:my Lady}"),
+                       (str_store_string,s66, "@{reg0?My Lord:My Lady}"),
+                       (str_store_string,s67, "@{reg0?My Lord:My Lady}"), #bug fix
                      (else_try),
-                       (str_store_string,s64,"@{reg65?madame:sir}"), #bug fix
-                       (str_store_string,s65,"@{reg65?madame:sir}"),
-                       (str_store_string,s66,"@{reg65?Madame:Sir}"),
-                       (str_store_string,s67,"@{reg65?Madame:Sir}"), #bug fix
+                       (str_store_string,s64, "@{reg0?sir:madame}"), #bug fix
+                       (str_store_string,s65, "@{reg0?sir:madame}"),
+                       (str_store_string,s66, "@{reg0?Sir:Madame}"),
+                       (str_store_string,s67, "@{reg0?Sir:Madame}"), #bug fix
                      (try_end),
-
+##                     (troop_get_type, reg65, "$g_talk_troop"),
+##                     (try_begin),
+##                       (faction_slot_eq,"$g_talk_troop_faction",slot_faction_leader,"$g_talk_troop"),
+##                       (str_store_string,s64,"@{reg65?my Lady:my Lord}"), #bug fix
+##                       (str_store_string,s65,"@{reg65?my Lady:my Lord}"),
+##                       (str_store_string,s66,"@{reg65?My Lady:My Lord}"),
+##                       (str_store_string,s67,"@{reg65?My Lady:My Lord}"), #bug fix
+##                     (else_try),
+##                       (str_store_string,s64,"@{reg65?madame:sir}"), #bug fix
+##                       (str_store_string,s65,"@{reg65?madame:sir}"),
+##                       (str_store_string,s66,"@{reg65?Madame:Sir}"),
+##                       (str_store_string,s67,"@{reg65?Madame:Sir}"), #bug fix
+##                     (try_end),
+                     #
+                     ## UID: 42 - End
 					 (try_begin),
 						(gt, "$cheat_mode", 0),
 						(assign, reg4, "$talk_context"),
@@ -1391,10 +1408,93 @@ dialogs = [
   [trp_ramun_the_slave_trader|plyr,"ramun_talk", [], "I'd better be going.", "ramun_leave",[]],
   [trp_ramun_the_slave_trader,"ramun_leave", [], "Remember, any prisoners you've got, bring them to me. I'll pay you good silver for every one.", "close_window",[]],
 
-  
+  ## UID: 43 - Begin
+  #
+  [anyone|plyr, "lord_talk", [
+      (eq, "$freelancer_state", 0),
+      (ge, "$g_talk_troop_faction_relation", 0),
+      #(neq, "$players_kingdom", "$g_talk_troop_faction"),
+      (eq, "$players_kingdom", 0),
+      (call_script, "script_is_male", "$g_talk_troop"),
+    ], "{reg0?My Lord:My Lady}, I would like to like to enlist in your army.", "lord_request_enlistment", []],
 
-  
-  
+  [anyone|plyr, "lord_talk", [
+      (eq, "$g_talk_troop", "$enlisted_lord"),
+      (neq, "$freelancer_state", 0),
+      (ge, "$g_talk_troop_faction_relation", 0),
+      (neq, "$players_kingdom", "$g_talk_troop_faction"),
+      (eq, "$players_kingdom", 0),
+      (call_script, "script_is_male", "$g_talk_troop"),
+    ], "{reg0?My Lord:My Lady}, I would like to like to retire from service.", "lord_request_retire", []],
+
+  [anyone|plyr, "lord_talk", [
+      (eq, "$g_talk_troop", "$enlisted_lord"),
+      (eq, "$freelancer_state", 1),
+      (ge, "$g_talk_troop_faction_relation", 0),
+      (neq, "$players_kingdom", "$g_talk_troop_faction"),
+      (eq, "$players_kingdom", 0),
+      (call_script, "script_is_male", "$g_talk_troop"),
+    ], "{reg0?My Lord:My Lady}, I would like to request some personal leave", "lord_request_vacation", []],
+
+  [anyone|plyr, "lord_talk", [
+      (eq, "$g_talk_troop", "$enlisted_lord"),
+      (eq, "$freelancer_state", 2),
+      (ge, "$g_talk_troop_faction_relation", 0),
+      (neq, "$players_kingdom", "$g_talk_troop_faction"),
+      (eq, "$players_kingdom", 0),
+      (call_script, "script_is_male", "$g_talk_troop"),
+    ], "{reg0?My Lord:My Lady}, I am ready to return to your command.", "ask_return_from_leave", []],
+
+  [anyone, "lord_request_enlistment", [
+      (ge, "$g_talk_troop_relation", 0),
+      (try_begin),
+        (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_freelancer_troop, 0),
+        (faction_get_slot, reg1, "$g_talk_troop_faction", slot_faction_freelancer_troop),
+      (else_try),
+        (faction_get_slot, reg1, "$g_talk_troop_faction", slot_faction_tier_1_troop),
+      (try_end),
+      (str_store_troop_name, s1, reg1),
+      (store_character_level, reg1, reg1),
+      (val_mul, reg1, 10),
+      (str_store_string, s2, "str_reg1_denars"),
+      (call_script, "script_is_male", "trp_player"),
+    ], "I've got room in my ranks for a {reg0?man:woman} of your disposition, {playername}.  I can take you on as a {s1}, with a weekly pay of {s2}. And food, of course.  Plenty of room for promotion and you'll be equipped as befits your rank. You'll have your take of what you can scavange in battle, too.  What do you say?", "lord_request_enlistment_confirm", []],
+
+  [anyone|plyr, "lord_request_enlistment_confirm", [(call_script, "script_is_male", "$g_talk_troop")], "Seems a fair lot and steady work in these lands. I'm with you, {reg0?my lord:my lady}.", "close_window", [
+      (party_clear, "p_freelancer_party_backup"),
+      (call_script, "script_party_copy", "p_freelancer_party_backup", "p_main_party"),
+      (remove_member_from_party, "trp_player","p_freelancer_party_backup"),
+      (call_script, "script_event_player_enlists"),
+      (assign, "$g_infinite_camping", 1),
+      (rest_for_hours_interactive, 24 * 365, 5, 1),
+      (eq,"$talk_context",tc_party_encounter),
+      (assign, "$g_leave_encounter", 1),
+    ]],
+
+  [anyone|plyr, "lord_request_enlistment_confirm", [(call_script, "script_is_male", "$g_talk_troop"),], "Well, on second thought {reg0?my lord:my lady}, I might try my luck alone a bit longer. My thanks.", "lord_pretalk", []],
+
+  [anyone, "lord_request_enlistment", [(lt, "$g_talk_troop_relation", 0)], "I do not trust you enough to allow you to serve for me.", "lord_pretalk", []],
+
+  [anyone, "lord_request_retire", [], "Very well {playername}. You are relieved of duty.", "lord_pretalk", [
+      (call_script, "script_event_player_discharge"),
+      (call_script, "script_party_restore"),
+      (change_screen_map),
+    ]],
+
+  [anyone, "lord_request_vacation", [(ge, "$g_talk_troop_relation", 0)], "Very well {playername}. You shall take some time off from millitary duty. Return in two weeks.", "lord_pretalk", [
+      (call_script, "script_event_player_vacation"),
+      (call_script, "script_party_restore"),
+      (change_screen_map),
+    ]],
+
+  [anyone, "ask_return_from_leave", [(ge, "$g_talk_troop_relation", 0)], "Welcome back {playername}. Your regiment has missed you I daresay, Now return to your post.", "lord_pretalk",[
+      (call_script, "script_party_copy", "p_freelancer_party_backup", "p_main_party"),
+      (remove_member_from_party, "trp_player","p_freelancer_party_backup"),
+      (call_script, "script_event_player_returns_vacation"),
+      (change_screen_map),
+    ]],
+  #
+  ## UID: 43 - End 
   
   [trp_nurse_for_lady, "start", [
 #  (eq, "$talk_context", tc_garden),
@@ -20094,42 +20194,405 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
   [anyone|plyr,"tavernkeeper_talk", [
       (store_current_hours,":cur_hours"),
       (val_sub, ":cur_hours", 24),
-      (gt, ":cur_hours", "$buy_drinks_last_time"),
-      ], "I'd like to buy every man who comes in here tonight a jar of your best wine.", "tavernkeeper_buy_drinks",[]],
+      ## UID: 48 - Begin
+      #
+      #(gt, ":cur_hours", "$buy_drinks_last_time"),
+      (this_or_next|gt, ":cur_hours", "$buy_drinks_last_time"),
+      (             ge, "$cheat_mode", 1),
+      #
+      ## UID: 48 - End
+    ], "I'd like to buy every man who comes in here tonight a jar of your best wine.", "tavernkeeper_buy_drinks", []],
 
-  [anyone,"tavernkeeper_buy_drinks",
-   [
-    ], "Of course, {my lord/my lady}. I reckon {reg5} denars should be enough for that. What should I tell the lads?", "tavernkeeper_buy_drinks_2",[
-        (assign, "$temp", 1000),
-        (assign, reg5, "$temp"),
-        ]],
+  ## UID: 48 - Begin
+  #
+##  [anyone,"tavernkeeper_buy_drinks", [    ], "Of course, {my lord/my lady}. I reckon {reg5} denars should be enough for that. What should I tell the lads?", "tavernkeeper_buy_drinks_2", [
+##        (assign, "$temp", 1000),
+##        (assign, reg5, "$temp"),
+##      ]],
 
-  [anyone|plyr,"tavernkeeper_buy_drinks_2",
-   [
-        (store_troop_gold, ":gold", "trp_player"),
-        (ge, ":gold", "$temp"),
-        (str_store_party_name, s10, "$current_town"),
-    ], "Let everyone know of the generosity of {playername} to the people of {s10}.", "tavernkeeper_buy_drinks_end",[
-        
-        ]],
+    [anyone,"tavernkeeper_buy_drinks", [(call_script, "script_is_male", "trp_player")], "Of course, {reg0?my lord:my lady}. I reckon {reg5} denars should be enough for that. What should I tell the lads?", "tavernkeeper_buy_drinks_2",[
+      (assign, "$temp", 10),
+      (party_get_num_companion_stacks, ":stack_total", "p_main_party"),
+      (try_for_range, ":stack_no", 0, ":stack_total"),
+          (party_stack_get_size, ":troop_amount", "p_main_party", ":stack_no"),
+          (val_mul, ":troop_amount", 5),
+          (val_add, "$temp", ":troop_amount"),
+      (try_end),
+      (assign, reg5, "$temp"),
+    ]],
+  #
+  ## UID: 48 - End
 
-  [anyone,"tavernkeeper_buy_drinks_end",
-   [], "Don't worry {sir/madam}. Your name will be cheered and toasted here all night.", "tavernkeeper_pretalk",
-   [
-       (troop_remove_gold, "trp_player", "$temp"),
-       (call_script, "script_change_player_relation_with_center", "$current_town", 1),
-       (store_current_hours,":cur_hours"),
-       (assign, "$buy_drinks_last_time", ":cur_hours"),
-       ]],
-  
+  [anyone|plyr,"tavernkeeper_buy_drinks_2", [
+      (store_troop_gold, ":gold", "trp_player"),
+      (ge, ":gold", "$temp"),
+      (str_store_party_name, s10, "$current_town"),
+    ], "Let everyone know of the generosity of {playername} to the people of {s10}.", "tavernkeeper_buy_drinks_end", []],
+
+  ## UID: 48 - Begin
+  #
+##  [anyone,"tavernkeeper_buy_drinks_end", [], "Don't worry {sir/madam}. Your name will be cheered and toasted here all night.", "tavernkeeper_pretalk",
+##   [
+##       (troop_remove_gold, "trp_player", "$temp"),
+##       (call_script, "script_change_player_relation_with_center", "$current_town", 1),
+##       (store_current_hours,":cur_hours"),
+##       (assign, "$buy_drinks_last_time", ":cur_hours"),
+##       ]],
+
+  [anyone,"tavernkeeper_buy_drinks_end", [(call_script, "script_is_male", "trp_player")], "Don't worry {reg0?sir:madam}. Your name will be cheered and toasted here all night.", "tavernkeeper_pretalk", [
+      (troop_remove_gold, "trp_player", "$temp"),
+      (call_script, "script_change_player_relation_with_center", "$current_town", 1),
+      (store_current_hours,":cur_hours"),
+      (assign, "$buy_drinks_last_time", ":cur_hours"),
+      (call_script, "script_change_player_party_morale", 3),
+    ]],
+  #
+  ## UID: 48 - End
 
   [anyone|plyr,"tavernkeeper_buy_drinks_2", [], "Actually, cancel that order.", "tavernkeeper_pretalk",[]],
 
+  #UID: 49 - Begin
+  #
   [anyone|plyr,"tavernkeeper_talk", [
-  (neq, "$g_encountered_party_faction", "fac_player_supporters_faction"),
-  ],
-   "Have you heard of anyone in this realm who might have a job for a {man/woman} like myself?", "tavernkeeper_job_ask",[
-   ]],
+      (store_current_hours,":cur_hours"),
+      (val_sub, ":cur_hours", 12),
+      (this_or_next|gt, ":cur_hours", "$g_eating_last_time"),
+      (             ge, "$cheat_mode", 1),
+    ], "I'd like to buy all my soldiers your best food.", "tavernkeeper_buy_food", []],
+
+  [anyone,"tavernkeeper_buy_food", [(call_script, "script_is_male", "trp_player")], "Of course, {reg0?my lord:my lady}. I reckon {reg5} denars should be enough for that.", "tavernkeeper_buy_food_2",[
+      (assign, "$temp", 0),
+      (party_get_num_companion_stacks, ":stack_total", "p_main_party"),
+      (try_for_range, ":stack_no", 0, ":stack_total"),
+          (party_stack_get_size, ":troop_amount", "p_main_party", ":stack_no"),
+          (val_mul, ":troop_amount", 25),
+          (val_add, "$temp", ":troop_amount"),
+      (try_end),
+      (assign, reg5, "$temp"),
+    ]],
+
+  [anyone|plyr,"tavernkeeper_buy_food_2", [
+      (store_troop_gold, ":gold", "trp_player"),
+      (ge, ":gold", "$temp"),
+      (str_store_party_name, s10, "$current_town"),
+    ], "I absolutely want to know all my soldiers are complately full up.", "tavernkeeper_buy_food_end", []],
+
+  [anyone,"tavernkeeper_buy_food_end", [(call_script, "script_is_male", "trp_player")], "Don't worry {reg0?sir:madam}. Your soldiers will be saturated today.", "close_window", [
+      (troop_remove_gold, "trp_player", "$temp"),
+      (store_current_hours,":cur_hours"),
+      (assign, "$g_eating_last_time", ":cur_hours"),
+      (call_script, "script_change_player_party_morale", 6),
+
+      (assign, ":time", 0),
+      (party_get_num_companion_stacks, ":stack_total", "p_main_party"),
+      (try_for_range, ":stack_no", 0, ":stack_total"),
+          (party_stack_get_size, ":troop_amount", "p_main_party", ":stack_no"),
+          (val_add, ":time", ":troop_amount"),
+      (try_end),
+      (val_div, ":time", 20),
+      (val_add, ":time", 1),
+
+      (assign, "$auto_enter_town", "$g_encountered_party"),
+      (assign, "$g_town_visit_after_rest", 1),
+      (assign, "$g_leave_town",1),
+      (val_min, ":time", 3),
+      (rest_for_hours, ":time", 2, 0),
+      (finish_mission),
+    ]],
+
+  [anyone|plyr,"tavernkeeper_buy_food_2", [], "Actually, cancel that order.", "tavernkeeper_pretalk",[]],
+  #
+  ## UID: 49 - End
+
+  ## UID: 50 - Begin
+  #
+  [anyone|plyr, "tavernkeeper_talk", [
+      (store_current_hours,":cur_hours"),
+      (val_sub, ":cur_hours", 24),
+      (this_or_next|gt, ":cur_hours", "$g_hire_bitch_last_time"),
+      (             ge, "$cheat_mode", 1),
+
+      (try_begin),
+          (le, "$g_bitch_first", 0),
+          (assign, "$g_bitch", -1),
+      (try_end),
+
+      (call_script, "script_is_male", "trp_player"),
+      (try_begin),
+          (ge, reg0, 1),
+          (str_store_string, s20, "@me and my soldiers"),
+      (else_try),
+          (str_store_string, s20, "@my soldiers"),
+      (try_end),
+    ], "I would like to hire a woman for {s20}.", "tavernkeeper_bitch_amount", [
+        (try_begin),
+            (lt, "$g_bitch", 0),
+            (store_random_in_range, "$g_bitch", 0, 11),
+            (assign, "$g_bitch_first", 1),
+        (try_end),
+    ]],
+
+  [anyone, "tavernkeeper_bitch_amount", [
+      (ge, "$g_bitch", 1),
+      (assign, reg10, "$g_bitch"),
+    ], "We have {reg10} women here. How many of them do you want to hire?", "tavernkeeper_ans_bitch_amount", []],
+
+  [anyone, "tavernkeeper_bitch_amount", [(le, "$g_bitch", 0)], "We don't have any woman today.", "tavernkeeper_pretalk", [
+      (store_current_hours,":cur_hours"),
+      (assign, "$g_hire_bitch_last_time", ":cur_hours"),
+    ]],
+
+  [anyone|plyr|repeat_for_100, "tavernkeeper_ans_bitch_amount", [
+      (assign, reg11, 0),
+      (party_get_num_companion_stacks, ":stack_total", "p_main_party"),
+      (try_for_range, ":stack_no", 0, ":stack_total"),
+        (party_stack_get_size, ":troop_amount", "p_main_party", ":stack_no"),
+        (party_stack_get_troop_id, ":troop", "p_main_party", ":stack_no"),
+        (call_script, "script_is_male", ":troop"),
+        (ge, reg0, 1),
+        (val_add, reg11, ":troop_amount"),
+      (try_end),
+
+      (store_add, ":bitch", "$g_bitch", 1),
+
+      (store_repeat_object, ":amount"),
+      (is_between, ":amount", 1, ":bitch"),
+      (le, ":amount", reg11),
+
+      (call_script, "script_is_male", "trp_player"),
+      (assign, ":gender", reg0),
+      (try_begin),
+          (eq, ":amount", 1),
+          (ge, ":gender", 1),
+          (str_store_string, s40, "@Just one for me. (100 Denars)"),
+      (else_try),
+          (eq, ":amount", 1),
+          (str_store_string, s40, "@Just one for my soldier. (100 Denars)"),
+      (else_try),
+          (eq, ":amount", 2),
+          (ge, ":gender", 1),
+          (str_store_string, s40, "@One for me, and one for my soldier. (200 Denars)"),
+      (else_try),
+          (eq, ":amount", 2),
+          (str_store_string, s40, "@Two for two of my soldiers. (200 Denars)"),
+      (else_try),
+          (ge, ":amount", 3),
+          (ge, ":gender", 1),
+          (assign, reg12, ":amount"),
+          (val_sub, reg12, 1),
+          (call_script, "script_get_number_name", reg12, 0),
+          (store_mul, reg14, ":amount", 100),
+          (str_store_string, s40, "@One for me and {s2} for {s2} of my soldiers. ({reg14} Denars)"),
+      (else_try),
+          (ge, ":amount", 3),
+          (call_script, "script_get_number_name", ":amount", 1),
+          (str_store_string, s4, s2),
+          (call_script, "script_get_number_name", ":amount", 0),
+          (store_mul, reg14, ":amount", 100),
+          (str_store_string, s40, "@{s4} for {s2} of my soldiers. ({reg14} Denars)"),
+      (try_end),
+
+      (store_troop_gold, ":gold", "trp_player"),
+      (store_mul, ":need", ":amount", 100),
+      (ge, ":gold", ":need"),
+    ], "{s40}", "tavernkeeper_result_bitch_amount", [(store_repeat_object, "$temp")]],
+
+  [anyone|plyr, "tavernkeeper_ans_bitch_amount", [], "Forget it.", "tavernkeeper_pretalk", []],
+  
+  [anyone, "tavernkeeper_result_bitch_amount", [
+      (call_script, "script_is_male", "trp_player"),
+      (try_begin),
+          (ge, reg0, 1),
+          (str_store_string, s20, "@waiting you"),
+      (else_try),
+          (str_store_string, s20, "@waiting your soldiers"),
+      (try_end),
+    ], "Okey, your {reg13} {reg15?women are:woman is} {s20}.", "close_window", [
+        (assign, reg13, "$temp"),
+        (store_sub, reg15, reg13, 1),
+        (store_mul, ":morale", reg13, 2),
+        (call_script, "script_change_player_party_morale", ":morale"),
+        (val_mul, "$temp", 100),
+        (troop_remove_gold, "trp_player", "$temp"),
+        (call_script, "script_change_player_relation_with_center", "$current_town", -1),
+        (store_current_hours,":cur_hours"),
+        (assign, "$g_hire_bitch_last_time", ":cur_hours"),
+  
+        (assign, "$auto_enter_town", "$g_encountered_party"),
+        (assign, "$g_town_visit_after_rest", 1),
+        (assign, "$g_leave_town",1),
+        (rest_for_hours, 2, 2, 0),
+        (finish_mission),
+    ]],
+  #
+  ## UID: 50 - End
+
+  ## UID: 51 - Begin
+  #
+  [anyone|plyr, "tavernkeeper_talk", [(gt, "$g_lottery", 0)], "I want to take my winning prize.", "tavernkeeper_check_ticket", []],
+  [anyone, "tavernkeeper_check_ticket", [], "Lets check your ticket. Yes, you won {reg1} denars. Here is your price.", "tavernkeeper_pretalk", [
+          (assign, reg1, "$g_lottery"),
+          (troop_add_gold, "trp_player", reg1),
+          (assign, "$g_lottery", 0),
+    ]],
+  
+  [anyone|plyr, "tavernkeeper_talk", [(le, "$g_lottery_number_1", 0)], "I want to play lottery.", "tavernkeeper_ask_lottery", []],
+  [anyone, "tavernkeeper_ask_lottery", [
+      (try_begin),
+          (le, "$g_lottery_prize", 0),
+          (store_random_in_range, "$g_lottery_prize", 25000, 200000),
+      (try_end),
+      (assign, reg10, "$g_lottery_prize"),
+    ], "This week's grand prize is {reg10} denars. What type of ticket do you want to buy?", "tavernkeeper_ask_bet", []],
+  
+  [anyone|plyr, "tavernkeeper_ask_bet", [
+      (store_troop_gold, ":gold", "trp_player"),
+      (gt, ":gold", 5000),
+    ], "Full-fare Ticket. (5000 Denars)", "tavernkeeper_ans_bet", [(assign, "$g_lottery_type", 1)]],
+
+  [anyone|plyr, "tavernkeeper_ask_bet", [
+      (store_troop_gold, ":gold", "trp_player"),
+      (gt, ":gold", 2500),
+    ], "Full-fare Ticket. (2500 Denars)", "tavernkeeper_ans_bet", [(assign, "$g_lottery_type", 2)]],
+
+  [anyone|plyr, "tavernkeeper_ask_bet", [
+      (store_troop_gold, ":gold", "trp_player"),
+      (gt, ":gold", 1250),
+    ], "Full-fare Ticket. (1250 Denars)", "tavernkeeper_ans_bet", [(assign, "$g_lottery_type", 4)]],
+
+  [anyone|plyr, "tavernkeeper_ask_bet", [], "Forget it.", "tavernkeeper_pretalk", []],
+  
+  [anyone, "tavernkeeper_ans_bet", [
+      (store_random_in_range, reg11, 1, 10),
+      (store_random_in_range, reg12, 0, 10),
+      (store_random_in_range, reg13, 0,10),
+      (assign, "$g_lottery_number_1", reg11),
+      (assign, "$g_lottery_number_2", reg12),
+      (assign, "$g_lottery_number_3", reg13),
+
+      (store_div, reg4, "$g_lottery_prize", 1000),
+      (val_div, reg4, "$g_lottery_type"),
+      (store_div, reg5, "$g_lottery_prize", 10),
+      (val_div, reg5, "$g_lottery_type"),
+      (store_div, reg6, "$g_lottery_prize", "$g_lottery_type"),
+
+##      (store_mul, ":fn", reg1, 100),
+##      (store_mul, ":sn", reg2, 10),
+##      (store_add, "$g_lottery", ":fn", ":sn"),
+##      (val_add, "$g_lottery", reg3),
+    ], "Okey, your numbers are, {reg11}-{reg12}-{reg13}. If you hit first number, you will earn {reg4} denars. For two numbers, you will earn {reg5} denars, and also if you won the lottery, you will earn {reg6} denars.", "tavernkeeper_pretalk", [
+        (store_mul, ":gold", 5000, "$g_lottery_type"),
+        (troop_remove_gold, "trp_player", ":gold"),
+    ]],
+  #
+  ## UID: 51 - End
+
+  ## UID: 52 - Begin
+  #
+  [anyone|plyr, "tavernkeeper_talk", [
+      (store_current_hours,":cur_hours"),
+      (val_sub, ":cur_hours", 24),
+      (store_troop_gold, "$hamit_gold", "trp_player"),
+      (this_or_next|gt, ":cur_hours", "$gamble_last_time"),
+      (             eq, "$cheat_mode", 1),
+      (gt, "$hamit_gold", 0),
+  ], "I want to play gamble with you.", "tavernkeeper_ask_game", []],
+
+  [anyone, "tavernkeeper_ask_game", [], "Which game do you want to play?", "tavernkeeper_answer_game", []],
+
+  #Flipping Coin
+  [anyone|plyr, "tavernkeeper_answer_game", [(ge, "$hamit_gold", 100),], "I want to flip a coin", "tavernkeeper_flip_coin", []],
+  [anyone, "tavernkeeper_flip_coin", [], "Okey, how much do you want to bet?", "tavernkeeper_coin_bet", []],
+  [anyone|plyr, "tavernkeeper_coin_bet", [(ge, "$hamit_gold", 100),], "100 Denars", "tavernkeeper_flip_coin_choose", [(assign, reg6, 100),]],
+  [anyone|plyr, "tavernkeeper_coin_bet", [(ge, "$hamit_gold", 250),], "250 Denars", "tavernkeeper_flip_coin_choose", [(assign, reg6, 250),]],
+  [anyone|plyr, "tavernkeeper_coin_bet", [(ge, "$hamit_gold", 500),], "500 Denars", "tavernkeeper_flip_coin_choose", [(assign, reg6, 500),]],
+  [anyone|plyr, "tavernkeeper_coin_bet", [(ge, "$hamit_gold", 1000),], "1000 Denars", "tavernkeeper_flip_coin_choose", [(assign, reg6, 1000),]],
+  [anyone|plyr, "tavernkeeper_coin_bet", [(ge, "$hamit_gold", 2500),], "2500 Denars", "tavernkeeper_flip_coin_choose", [(assign, reg6, 2500),]],
+  [anyone|plyr, "tavernkeeper_coin_bet", [], "Forget it.", "tavernkeeper_pretalk", []],
+  [anyone, "tavernkeeper_flip_coin_choose", [], "Lets say, heads or tails?", "tavernkeeper_flip_coin_ans", [
+      (store_random_in_range, "$gamble_rand", 0, 2),
+      (val_add, "$gamble_rand", 1),
+    ]],
+  [anyone|plyr, "tavernkeeper_flip_coin_ans", [], "Tails", "tavernkeeper_flip_coin_result", [
+      (assign, "$gamble_chosen", 1),
+      (troop_remove_gold, "trp_player", reg6),
+    ]],
+  [anyone|plyr, "tavernkeeper_flip_coin_ans", [], "Heads", "tavernkeeper_flip_coin_result", [
+      (assign, "$gamble_chosen", 2),
+      (troop_remove_gold, "trp_player", reg6),
+    ]],
+  [anyone|plyr, "tavernkeeper_flip_coin_ans", [], "Forget it.", "tavernkeeper_pretalk", []],
+  [anyone, "tavernkeeper_flip_coin_result", [(eq, "$gamble_rand", "$gamble_chosen"),], "Congratulation {playername}! You win {reg6} denars.", "tavernkeeper_pretalk", [
+      (store_current_hours, ":cur_hours"),
+      (assign, "$gamble_last_time", ":cur_hours"),
+      (val_mul, reg6, 3),
+      (troop_add_gold, "trp_player", reg6),
+    ]],
+  [anyone, "tavernkeeper_flip_coin_result", [(neq, "$gamble_rand", "$gamble_chosen"),], "You lost {playername}! Try your luck tomorrow.", "tavernkeeper_pretalk", [
+      (store_current_hours, ":cur_hours"),
+      (assign, "$gamble_last_time", ":cur_hours"),
+    ]],
+
+  #Throwing Dice
+  [anyone|plyr, "tavernkeeper_answer_game", [(ge, "$hamit_gold", 100),], "I want to throw dice", "tavernkeeper_throw_dice", []],
+  [anyone, "tavernkeeper_throw_dice", [], "Okey, how much do you want to bet?", "tavernkeeper_throw_dice_bet", []],
+  [anyone|plyr, "tavernkeeper_throw_dice_bet", [(ge, "$hamit_gold", 100),], "100 Denars", "tavernkeeper_throw_dice_choose", [(assign, reg6, 100),]],
+  [anyone|plyr, "tavernkeeper_throw_dice_bet", [(ge, "$hamit_gold", 250),], "250 Denars", "tavernkeeper_throw_dice_choose", [(assign, reg6, 250),]],
+  [anyone|plyr, "tavernkeeper_throw_dice_bet", [(ge, "$hamit_gold", 500),], "500 Denars", "tavernkeeper_throw_dice_choose", [(assign, reg6, 500),]],
+  [anyone|plyr, "tavernkeeper_throw_dice_bet", [(ge, "$hamit_gold", 1000),], "1000 Denars", "tavernkeeper_throw_dice_choose", [(assign, reg6, 1000),]],
+  [anyone|plyr, "tavernkeeper_throw_dice_bet", [(ge, "$hamit_gold", 2500),], "2500 Denars", "tavernkeeper_throw_dice_choose", [(assign, reg6, 2500),]],
+  [anyone|plyr, "tavernkeeper_throw_dice_bet", [], "Forget it.", "tavernkeeper_pretalk", []],
+  [anyone, "tavernkeeper_throw_dice_choose", [], "Lets say, which number do you choose?", "tavernkeeper_throw_dice_ans", [
+      (store_random_in_range, "$gamble_rand", 0, 6),
+      (val_add, "$gamble_rand", 1),
+    ]],
+  [anyone|plyr, "tavernkeeper_throw_dice_ans", [], "1", "tavernkeeper_throw_dice_result", [
+      (assign, "$gamble_chosen", 1),
+      (troop_remove_gold, "trp_player", reg6),
+    ]],
+  [anyone|plyr, "tavernkeeper_throw_dice_ans", [], "2", "tavernkeeper_throw_dice_result", [
+      (assign, "$gamble_chosen", 2),
+      (troop_remove_gold, "trp_player", reg6),
+    ]],
+  [anyone|plyr, "tavernkeeper_throw_dice_ans", [], "3", "tavernkeeper_throw_dice_result", [
+      (assign, "$gamble_chosen", 3),
+      (troop_remove_gold, "trp_player", reg6),
+    ]],
+  [anyone|plyr, "tavernkeeper_throw_dice_ans", [], "4", "tavernkeeper_throw_dice_result", [
+      (assign, "$gamble_chosen", 4),
+      (troop_remove_gold, "trp_player", reg6),
+    ]],
+  [anyone|plyr, "tavernkeeper_throw_dice_ans", [], "5", "tavernkeeper_throw_dice_result", [
+      (assign, "$gamble_chosen", 5),
+      (troop_remove_gold, "trp_player", reg6),
+    ]],
+  [anyone|plyr, "tavernkeeper_throw_dice_ans", [], "6", "tavernkeeper_throw_dice_result", [
+      (assign, "$gamble_chosen", 6),
+      (troop_remove_gold, "trp_player", reg6),
+    ]],
+  [anyone|plyr, "tavernkeeper_throw_dice_ans", [], "Forget it.", "tavernkeeper_pretalk", []],
+  [anyone, "tavernkeeper_throw_dice_result", [(eq, "$gamble_rand", "$gamble_chosen"),], "Congratulation {playername}! You win {reg6} denars.", "tavernkeeper_pretalk", [
+      (val_mul, reg6, 8),
+      (troop_add_gold, "trp_player", reg6),
+      (store_current_hours, ":cur_hours"),
+      (assign, "$gamble_last_time", ":cur_hours"),
+    ]],
+  [anyone, "tavernkeeper_throw_dice_result", [(neq, "$gamble_rand", "$gamble_chosen"),], "You lost {playername}! Try your luck tomorrow.", "tavernkeeper_pretalk", [
+      (store_current_hours, ":cur_hours"),
+      (assign, "$gamble_last_time", ":cur_hours"),
+    ]],
+
+  #Cancel it!
+  [anyone|plyr, "tavernkeeper_answer_game", [], "Forget it.", "tavernkeeper_pretalk", []],
+  #
+  ## UID: 52 - End
+
+  
+
+  [anyone|plyr, "tavernkeeper_talk", [
+      (neq, "$g_encountered_party_faction", "fac_player_supporters_faction"),
+      (call_script, "script_is_male", "trp_player"),
+    ], "Have you heard of anyone in this realm who might have a job for a {reg0?man:woman} like myself?", "tavernkeeper_job_ask", []],
 
   [anyone,"tavernkeeper_job_ask",
    [

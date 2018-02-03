@@ -50,3 +50,5 @@ prsnt_multiplayer_ccoop_victory_message = 48
 prsnt_all_items = 49
 prsnt_troop_ratio_bar = 50
 prsnt_world_map = 51
+prsnt_taragoth_lords_report = 52
+prsnt_faction_troop_trees = 53

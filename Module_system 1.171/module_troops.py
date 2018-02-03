@@ -2883,7 +2883,7 @@ troops = [
    ["coop_companion_equipment_ui_1_f","{!}multiplayer_end","{!}multiplayer_end", tf_female, 0, 0, fac_kingdom_5, [], 0, 0, 0, 0, 0],
    ["coop_companion_equipment_sets_end","{!}multiplayer_end","{!}multiplayer_end", 0, 0, 0, fac_kingdom_5, [], 0, 0, 0, 0, 0],
 
-  ## UID: 12 - Begin
+  ## UID: 13 - Begin
   #
   ["dark_knight", "Dark Knight", "Dark Knights", tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse, 0, 0, fac_dark_knights, [itm_spear,itm_pa_sword_02,itm_pa_sword_03,itm_pa_axe_02,itm_morningstar,itm_pa_axe_03,itm_steel_shield,itm_war_shield,itm_steel_shield,itm_heater_shield,itm_black_armor,itm_black_greaves,itm_bascinet,itm_guard_helmet,itm_saddle_horse,itm_warhorse,itm_leather_gloves],
    def_attrib|level(33),wp(160),knows_common|knows_riding_5|knows_shield_5|knows_ironflesh_4|knows_power_strike_4,swadian_face_middle_1, swadian_face_middle_2],
@@ -2894,7 +2894,7 @@ troops = [
   ["desert_cavalry", "Desert Cavalry", "Desert Cavalry", tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse, 0, 0, fac_desert_cavalry, [itm_camel, itm_fp_sword_05, itm_fp_sword_06, itm_lamellar_vest, itm_sarranid_elite_armor, itm_sarranid_warrior_cap, itm_sarranid_helmet1, itm_light_leather_boots],
    def_attrib|level(30), wp(130), knows_common|knows_riding_4|knows_ironflesh_5|knows_power_strike_4, swadian_face_young_1, swadian_face_middle_2],
   #
-  ## UID: 12 - End
+  ## UID: 13 - End
 
   ## UID: 31 - Begin
   #
@@ -2986,6 +2986,14 @@ upgrade(troops,"desert_bandit","sarranid_recruit")
 
 upgrade2(troops,"bandit","brigand","mercenary_swordsman")
 upgrade(troops,"manhunter","slave_driver")
+
+## UID: 13 - Begin
+#
+upgrade2(troops, "brigand", "dark_hunter", "dark_pikeman")
+upgrade(troops, "hired_blade", "dark_knight")
+upgrade(troops, "desert_bandit", "desert_cavalry")
+#
+## UID: 13 - End
 
 #upgrade(troops,"forest_bandit","mercenary_crossbowman")
 

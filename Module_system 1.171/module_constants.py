@@ -8,6 +8,29 @@ from ID_factions import *
 # that it will be easy to change it if you need to.
 ##############################################################
 
+## UID: 43 - Begin
+#
+freelancer_version = 13
+freelancer_can_use_item  = "script_troop_can_use_item" 
+#with Diplomacy: 
+#freelancer_can_use_item = "script_dplmc_troop_can_use_item"
+
+#Party Slots
+slot_party_orig_morale = 999
+slot_freelancer_equip_start = 100 #only used for freelancer_party_backup
+slot_freelancer_version     = slot_freelancer_equip_start - 2 #only used for freelancer_party_backup
+
+#Faction Slot
+slot_faction_freelancer_troop = 101 #should be unused
+
+#Troop Slots
+slot_troop_freelancer_start_xp   =  998   #110 -only used for player
+slot_troop_freelancer_start_date =  997 #111 -only used for player
+
+plyr_mission_vacation = 1
+#
+## UID: 43 - End
+
 ########################################################
 ##  ITEM SLOTS             #############################
 ########################################################
@@ -1744,10 +1767,20 @@ coop_drops_descriptions_end = "str_npc1_1"
 # Banner constants
 
 banner_meshes_begin = "mesh_banner_a01"
-banner_meshes_end_minus_one = "mesh_banner_f21"
+## UID: 24 - Begin
+#
+##banner_meshes_end_minus_one = "mesh_banner_f21"
+banner_meshes_end_minus_one = "mesh_banner_end"
+#
+## UID: 24 - End
 
 arms_meshes_begin = "mesh_arms_a01"
-arms_meshes_end_minus_one = "mesh_arms_f21"
+## UID: 24 - Begin
+#
+##arms_meshes_end_minus_one = "mesh_arms_f21"
+arms_meshes_end_minus_one = "mesh_arms_end"
+#
+## UID: 24 - End
 
 custom_banner_charges_begin = "mesh_custom_banner_charge_01"
 custom_banner_charges_end = "mesh_tableau_mesh_custom_banner"
@@ -1771,7 +1804,12 @@ banner_map_icons_begin = "icon_banner_01"
 banner_map_icons_end_minus_one = "icon_banner_136"
 
 banner_scene_props_begin = "spr_banner_a"
-banner_scene_props_end_minus_one = "spr_banner_f21"
+## UID: 24 - Begin
+#
+##banner_scene_props_end_minus_one = "spr_banner_f21"
+banner_scene_props_end_minus_one = "spr_banner_end"
+#
+## UID: 24 - End
 
 khergit_banners_begin_offset = 63
 khergit_banners_end_offset = 84
@@ -1879,10 +1917,10 @@ arena_grand_prize = 500
 ## UID: 19 - Begin
 #
 #Party size
-party_size_base = 50
+party_size_base = 30
 party_size_per_level = 2
-party_size_per_skill = 50
-party_size_renown = 20
+party_size_per_skill = 25
+party_size_renown = 25
 party_size_without_level = 1
 
 party_prisoner_base = 25

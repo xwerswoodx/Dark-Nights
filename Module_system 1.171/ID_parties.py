@@ -290,3 +290,4 @@ p_reserved_5 = 288
 p_bandit_camp_1 = 289
 p_bandit_camp_2 = 290
 p_bandit_camps_end = 291
+p_freelancer_party_backup = 292

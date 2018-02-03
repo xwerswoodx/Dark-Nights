@@ -179,16 +179,16 @@ party_templates = [
 
   ## UID: 21 - Begin
   #
-  ("kingdom_1_patrol", "Swadian Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_kingdom_1, soldier_personality, [(trp_swadian_footman, 8, 24),(trp_swadian_knight, 5, 15),(trp_swadian_infantry, 6, 18)]),
-  ("kingdom_2_patrol", "Vaegir Patrol Party", icon_vaegir_knight|pf_show_faction, 0, fac_kingdom_2, soldier_personality, [(trp_vaegir_veteran, 8, 24),(trp_vaegir_knight, 5, 15),(trp_vaegir_infantry, 6, 18)]),
-  ("kingdom_3_patrol", "Khergit Patrol Party", icon_khergit|pf_show_faction, 0, fac_kingdom_3, soldier_personality, [(trp_khergit_horseman, 8, 24),(trp_khergit_veteran_horse_archer, 5, 15),(trp_khergit_horse_archer, 6, 18)]),
-  ("kingdom_4_patrol", "Nord Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_kingdom_4, soldier_personality, [(trp_nord_trained_footman, 8, 24),(trp_nord_veteran, 5, 15),(trp_nord_warrior, 6, 18)]),
-  ("kingdom_5_patrol", "Rhodok Patrol Party", icon_vaegir_knight|pf_show_faction, 0, fac_kingdom_5, soldier_personality, [(trp_rhodok_trained_spearman, 8, 24),(trp_rhodok_sergeant, 5, 15),(trp_rhodok_veteran_spearman, 6, 18)]),
-  ("kingdom_6_patrol", "Sarranid Patrol Party", icon_khergit|pf_show_faction, 0, fac_kingdom_6, soldier_personality, [(trp_sarranid_archer, 8, 24),(trp_sarranid_mamluke, 5, 15),(trp_sarranid_horseman, 6, 18)]),
+  ("kingdom_1_patrol", "Swadian Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_kingdom_1, soldier_personality, [(trp_swadian_footman, 12, 36),(trp_swadian_knight, 10, 30),(trp_swadian_infantry, 12, 36)]),
+  ("kingdom_2_patrol", "Vaegir Patrol Party", icon_vaegir_knight|pf_show_faction, 0, fac_kingdom_2, soldier_personality, [(trp_vaegir_veteran, 12, 36),(trp_vaegir_knight, 10, 30),(trp_vaegir_infantry, 12, 36)]),
+  ("kingdom_3_patrol", "Khergit Patrol Party", icon_khergit|pf_show_faction, 0, fac_kingdom_3, soldier_personality, [(trp_khergit_horseman, 12, 34),(trp_khergit_veteran_horse_archer, 10, 30),(trp_khergit_horse_archer, 12, 36)]),
+  ("kingdom_4_patrol", "Nord Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_kingdom_4, soldier_personality, [(trp_nord_trained_footman, 12, 36),(trp_nord_veteran, 10, 30),(trp_nord_warrior, 12, 36)]),
+  ("kingdom_5_patrol", "Rhodok Patrol Party", icon_vaegir_knight|pf_show_faction, 0, fac_kingdom_5, soldier_personality, [(trp_rhodok_trained_spearman, 12, 36),(trp_rhodok_sergeant, 10, 30),(trp_rhodok_veteran_spearman, 12, 36)]),
+  ("kingdom_6_patrol", "Sarranid Patrol Party", icon_khergit|pf_show_faction, 0, fac_kingdom_6, soldier_personality, [(trp_sarranid_archer, 12, 36),(trp_sarranid_mamluke, 10, 30),(trp_sarranid_horseman, 12, 36)]),
   ## UID: 24 - Begin
   #
-  ("kingdom_7_patrol", "Umalelithian Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_kingdom_7, soldier_personality, [(trp_umalelithian_warrior, 8, 24),(trp_umalelithian_leader, 5, 15),(trp_umalelithian_trained_archer, 6, 18)]),
-  ("kingdom_8_patrol", "Kielian Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_kingdom_8, soldier_personality, [(trp_kielian_master_archer, 8, 24),(trp_kielian_sergeant, 5, 15),(trp_kielian_horsewoman, 6, 18)]),
+  ("kingdom_7_patrol", "Umalelithian Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_kingdom_7, soldier_personality, [(trp_umalelithian_warrior, 12, 36),(trp_umalelithian_leader, 10, 30),(trp_umalelithian_trained_archer, 12, 36)]),
+  ("kingdom_8_patrol", "Kielian Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_kingdom_8, soldier_personality, [(trp_kielian_master_archer, 12, 36),(trp_kielian_sergeant, 10, 30),(trp_kielian_horsewoman, 12, 36)]),
   #
   ## UID: 24 - End
   #

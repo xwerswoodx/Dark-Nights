@@ -1246,6 +1246,11 @@ scene_props = [
   ("banner_f18", 0, "banner_f18", "0", []),
   ("banner_f19", 0, "banner_f19", "0", []),
   ("banner_f20", 0, "banner_f20", "0", []),
+  ## UID: 24 - Begin
+  #
+  ("banner_f21", 0, "banner_f20", "0", []),
+  #
+  ## UID: 24 - End
  
   ("banner_g01", 0, "banner_f01", "0", []),
   ("banner_g02", 0, "banner_f02", "0", []),
@@ -1293,9 +1298,10 @@ scene_props = [
   #
   ("banner_kingdom_g", 0, "banner_d15", "0", []),
   ("banner_kingdom_h", 0, "banner_c12", "0", []),
+##  ("banner_f21", 0, "banner_a15", "0", []),
+  ("banner_end", 0, "banner_a15", "0", []),
   #
   ## UID: 24 - End
-  ("banner_f21", 0, "banner_a15", "0", []),
 
   ("tavern_chair_a",0,"tavern_chair_a","bo_tavern_chair_a", []),
   ("tavern_chair_b",0,"tavern_chair_b","bo_tavern_chair_b", []),

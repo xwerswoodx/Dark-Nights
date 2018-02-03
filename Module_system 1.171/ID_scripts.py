@@ -627,5 +627,25 @@ script_get_skill_name = 625
 script_can_read_book = 626
 script_read_book_process = 627
 script_upgrade_decrease_time = 628
+script_freelancer_attach_party = 629
+script_freelancer_detach_party = 630
+script_event_player_enlists = 631
+script_event_player_discharge = 632
+script_event_player_vacation = 633
+script_event_player_returns_vacation = 634
+script_event_player_deserts = 635
+script_party_restore = 636
+script_get_desert_troops = 637
+script_freelancer_keep_field_loot = 638
+script_cf_freelancer_player_can_upgrade = 639
+script_freelancer_equip_troop = 640
+script_freelancer_unequip_troop = 641
+script_troop_can_use_item = 642
+script_troop_has_item_amount = 643
+script_troop_tree_recursive_backtracking = 644
+script_troop_tree_recursive_detect_max_tier = 645
+script_prsnt_line = 646
+script_get_page_no_of_troop_tree_for_troop_on = 647
+script_get_number_name = 648
 
 

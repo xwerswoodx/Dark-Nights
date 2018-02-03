@@ -631,6 +631,8 @@ and that whatever course you take, great adventures will await you. Drawn by the
         ]
        ),
 
+      ("action_view_troop_trees",[],"Show Troop Tree", [(start_presentation, "prsnt_faction_troop_trees")]),
+
 #NPC companion changes begin
       ("lord_relations",[],"View list of known lords by relation.",
        [
@@ -2878,7 +2880,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
 
 	#lord recruitment changes begin
 
-	("continue",[(eq,"$cheat_mode",1)],"{!}CHEAT! - increase Right to Rule",
+	("cheat_rule",[(eq,"$cheat_mode",1)],"Increase Right to Rule",
        [
 	   (val_add, "$player_right_to_rule", 10),
 	   (jump_to_menu, "mnu_character_report"),
@@ -2886,9 +2888,9 @@ and that whatever course you take, great adventures will await you. Drawn by the
        ),
 
 
-	("continue",[(eq,"$cheat_mode",1),
+	("cheat_relation",[(eq,"$cheat_mode",1),
 		(str_store_troop_name, s14, "$g_talk_troop"),
-	],"{!}CHEAT! - increase your relation with {s14}",
+	],"Increase your relation with {s14}",
        [
 	   (call_script, "script_change_player_relation_with_troop", "$g_talk_troop", 10),
 	   (jump_to_menu, "mnu_character_report"),
@@ -2896,14 +2898,14 @@ and that whatever course you take, great adventures will await you. Drawn by the
        ),
 
 	   
-	("continue",[(eq,"$cheat_mode",1)],"{!}CHEAT! - increase honor",
+	("cheat_honor",[(eq,"$cheat_mode",1)],"Increase honor",
        [
 	   (val_add, "$player_honor", 10),
 	   (jump_to_menu, "mnu_character_report"),
        ]
        ),
 
-	("continue",[(eq,"$cheat_mode",1)],"{!}CHEAT! - increase renown",
+	("cheat_renown",[(eq,"$cheat_mode",1)],"Increase renown",
        [
 	   (troop_get_slot, ":renown", "trp_player", slot_troop_renown),
 	   (val_add, ":renown", 50),
@@ -2913,7 +2915,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
        ]
        ),
 
-	("continue",[(eq,"$cheat_mode",1)],"{!}CHEAT! - increase persuasion",
+	("cheat_persuasion",[(eq,"$cheat_mode",1)],"Increase persuasion",
        [
 	   (troop_raise_skill, "trp_player", "skl_persuasion", 1),
 	   
@@ -2923,7 +2925,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
 	   
 
 
-	("continue",[],"Continue...",
+	("go_back",[],"Go Back",
        [(jump_to_menu, "mnu_reports"),
         ]
        ),
@@ -2933,41 +2935,59 @@ and that whatever course you take, great adventures will await you. Drawn by the
 	   ]
   ),
 
-  ("party_size_report",0,
-   "{s1}",
-   "none",
-   [(call_script, "script_game_get_party_companion_limit"),
-    (assign, ":party_size_limit", reg0),
+  ("party_size_report", 0, "{s1}", "none", [
+      (call_script, "script_game_get_party_companion_limit"),
+      ## UID: 19 - Begin
+      #
+      (assign, reg5, reg0),
+##      (assign, ":party_size_limit", reg0),
+##
+##    (store_skill_level, ":leadership", "skl_leadership", "trp_player"),
+##    (val_mul, ":leadership", 5),
+##    (store_attribute_level, ":charisma", "trp_player", ca_charisma),
+##
+##    (troop_get_slot, ":renown", "trp_player", slot_troop_renown),
+##    (val_div, ":renown", 25),
+##    (try_begin),
+##      (gt, ":leadership", 0),
+##      (str_store_string, s2, "@{!} +"),
+##    (else_try),
+##      (str_store_string, s2, "str_space"),
+##    (try_end),
+##    (try_begin),
+##      (gt, ":charisma", 0),
+##      (str_store_string, s3, "@{!} +"),
+##    (else_try),
+##      (str_store_string, s3, "str_space"),
+##    (try_end),
+##    (try_begin),
+##      (gt, ":renown", 0),
+##      (str_store_string, s4, "@{!} +"),
+##    (else_try),
+##      (str_store_string, s4, "str_space"),
+##    (try_end),
+##    (assign, reg5, ":party_size_limit"),
+##    (assign, reg1, ":leadership"),
+##    (assign, reg2, ":charisma"),
+##    (assign, reg3, ":renown"),
 
-    (store_skill_level, ":leadership", "skl_leadership", "trp_player"),
-    (val_mul, ":leadership", 5),
-    (store_attribute_level, ":charisma", "trp_player", ca_charisma),
+      (assign, reg0, party_size_base), # reg0 = base
+      
+      (store_character_level, reg1, "trp_player"),
+      (val_mul, reg1, party_size_per_level), # reg1 = level bonus
 
-    (troop_get_slot, ":renown", "trp_player", slot_troop_renown),
-    (val_div, ":renown", 25),
-    (try_begin),
-      (gt, ":leadership", 0),
-      (str_store_string, s2, "@{!} +"),
-    (else_try),
-      (str_store_string, s2, "str_space"),
-    (try_end),
-    (try_begin),
-      (gt, ":charisma", 0),
-      (str_store_string, s3, "@{!} +"),
-    (else_try),
-      (str_store_string, s3, "str_space"),
-    (try_end),
-    (try_begin),
-      (gt, ":renown", 0),
-      (str_store_string, s4, "@{!} +"),
-    (else_try),
-      (str_store_string, s4, "str_space"),
-    (try_end),
-    (assign, reg5, ":party_size_limit"),
-    (assign, reg1, ":leadership"),
-    (assign, reg2, ":charisma"),
-    (assign, reg3, ":renown"),
-    (str_store_string, s1, "@Current party size limit is {reg5}.^Current party size modifiers are:^^Base size:  +30^Leadership: {s2}{reg1}^Charisma: {s3}{reg2}^Renown: {s4}{reg3}^TOTAL:  {reg5}"),
+      (store_attribute_level, reg2, "trp_player", ca_charisma), # reg2 = charisma bonus
+      
+      (store_skill_level, reg3, "skl_leadership", "trp_player"),
+      (val_mul, reg3, party_size_per_skill), # reg3 = leadership bonus
+
+      (troop_get_slot, reg4, "trp_player", slot_troop_renown),
+      (val_div, reg4, party_size_renown), # reg4 = renown bonus
+
+    (str_store_string, s1, "@Current party size limit is {reg5}.^Current party size modifiers are:^^Base size: +{reg0}^Level: +{reg1}^Charisma: +{reg2}^Leadership: +{reg3}^Renown: +{reg4}^Total: {reg5}"),
+    #(str_store_string, s1, "@Current party size limit is {reg5}.^Current party size modifiers are:^^Base size:  +30^Leadership: {s2}{reg1}^Charisma: {s3}{reg2}^Renown: {s4}{reg3}^TOTAL:  {reg5}"),
+    #
+    ## UID: 19 - End
     ],
     [
       ("continue",[],"Continue...",
@@ -3060,9 +3080,10 @@ and that whatever course you take, great adventures will await you. Drawn by the
       (assign, "$g_player_icon_state", pis_normal),
       (set_background_mesh, "mesh_pic_camp"),
     ], [
-        ("test", [(eq, 1, 0)], "Show terrain.", [
-            (party_get_current_terrain, reg0, "p_main_party"),
-            (display_message, "@Terrain: {reg0}"),
+        ("test", [(ge, "$cheat_mode", 1)], "Fix issue.", [
+##            (party_get_current_terrain, reg0, "p_main_party"),
+##            (display_message, "@Terrain: {reg0}"),
+            (party_detach, "p_main_party"),
         ]),
 
         ## UID: 39 - Begin
@@ -3448,73 +3469,280 @@ and that whatever course you take, great adventures will await you. Drawn by the
       ]
   ),
 
-  ("camp_action_read_book",0,
-   "Choose a book to read:",
-   "none",
-   [],
-    [
-      ("action_read_book_1",[(player_has_item, "itm_book_tactics"),
-                             (item_slot_eq, "itm_book_tactics", slot_item_book_read, 0),
-                             (str_store_item_name, s1, "itm_book_tactics"),
-                             ],"{s1}.",
-       [(assign, "$temp", "itm_book_tactics"),
-        (jump_to_menu, "mnu_camp_action_read_book_start"),
-        ]
-       ),
-      ("action_read_book_2",[(player_has_item, "itm_book_persuasion"),
-                             (item_slot_eq, "itm_book_persuasion", slot_item_book_read, 0),
-                             (str_store_item_name, s1, "itm_book_persuasion"),
-                             ],"{s1}.",
-       [(assign, "$temp", "itm_book_persuasion"),
-        (jump_to_menu, "mnu_camp_action_read_book_start"),
-        ]
-       ),
-      ("action_read_book_3",[(player_has_item, "itm_book_leadership"),
-                             (item_slot_eq, "itm_book_leadership", slot_item_book_read, 0),
-                             (str_store_item_name, s1, "itm_book_leadership"),
-                             ],"{s1}.",
-       [(assign, "$temp", "itm_book_leadership"),
-        (jump_to_menu, "mnu_camp_action_read_book_start"),
-        ]
-       ),
-      ("action_read_book_4",[(player_has_item, "itm_book_intelligence"),
-                             (item_slot_eq, "itm_book_intelligence", slot_item_book_read, 0),
-                             (str_store_item_name, s1, "itm_book_intelligence"),
-                             ],"{s1}.",
-       [(assign, "$temp", "itm_book_intelligence"),
-        (jump_to_menu, "mnu_camp_action_read_book_start"),
-        ]
-       ),
-      ("action_read_book_5",[(player_has_item, "itm_book_trade"),
-                             (item_slot_eq, "itm_book_trade", slot_item_book_read, 0),
-                             (str_store_item_name, s1, "itm_book_trade"),
-                             ],"{s1}.",
-       [(assign, "$temp", "itm_book_trade"),
-        (jump_to_menu, "mnu_camp_action_read_book_start"),
-        ]
-       ),
-      ("action_read_book_6",[(player_has_item, "itm_book_weapon_mastery"),
-                             (item_slot_eq, "itm_book_weapon_mastery", slot_item_book_read, 0),
-                             (str_store_item_name, s1, "itm_book_weapon_mastery"),
-                             ],"{s1}.",
-       [(assign, "$temp", "itm_book_weapon_mastery"),
-        (jump_to_menu, "mnu_camp_action_read_book_start"),
-        ]
-       ),
-      ("action_read_book_7",[(player_has_item, "itm_book_engineering"),
-                             (item_slot_eq, "itm_book_engineering", slot_item_book_read, 0),
-                             (str_store_item_name, s1, "itm_book_engineering"),
-                             ],"{s1}.",
-       [(assign, "$temp", "itm_book_engineering"),
-        (jump_to_menu, "mnu_camp_action_read_book_start"),
-        ]
-       ),
-      ("camp_action_4",[],"Back to camp menu.",
-       [(jump_to_menu, "mnu_camp"),
-        ]
-       ),
-      ]
-  ),
+  ## UID: 34 - Begin
+  #
+  ("camp_action_read_book", 0, "Choose a book to read:", "none", [], [
+      ("go_back", [], "Go Back", [(jump_to_menu, "mnu_camp_action")]),
+      
+      ("action_read_book_1", [
+          (call_script, "script_can_read_book", "itm_book_tactics"),
+          (eq, reg0, 1),
+        ], "{s1}.", [
+            (assign, "$temp", "itm_book_tactics"),
+            (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]),
+
+      ("action_read_book_1", [
+          (call_script, "script_can_read_book", "itm_book_persuasion"),
+          (eq, reg0, 1),
+        ], "{s1}.", [
+            (assign, "$temp", "itm_book_persuasion"),
+            (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]),
+
+      ("action_read_book_1", [
+          (call_script, "script_can_read_book", "itm_book_leadership"),
+          (eq, reg0, 1),
+        ], "{s1}.", [
+            (assign, "$temp", "itm_book_leadership"),
+            (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]),
+
+      ("action_read_book_1", [
+          (call_script, "script_can_read_book", "itm_book_intelligence"),
+          (eq, reg0, 1),
+        ], "{s1}.", [
+            (assign, "$temp", "itm_book_intelligence"),
+            (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]),
+
+      ("action_read_book_1", [
+          (call_script, "script_can_read_book", "itm_book_trade"),
+          (eq, reg0, 1),
+        ], "{s1}.", [
+            (assign, "$temp", "itm_book_trade"),
+            (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]),
+
+      ("action_read_book_1", [
+          (call_script, "script_can_read_book", "itm_book_weapon_mastery"),
+          (eq, reg0, 1),
+        ], "{s1}.", [
+            (assign, "$temp", "itm_book_weapon_mastery"),
+            (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]),
+
+      ("action_read_book_1", [
+          (call_script, "script_can_read_book", "itm_book_engineering"),
+          (eq, reg0, 1),
+        ], "{s1}.", [
+            (assign, "$temp", "itm_book_engineering"),
+            (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]),
+
+      ("action_read_book_1", [
+          (call_script, "script_can_read_book", "itm_book_spotting"),
+          (eq, reg0, 1),
+        ], "{s1}.", [
+            (assign, "$temp", "itm_book_spotting"),
+            (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]),
+
+      ("action_read_book_1", [
+          (call_script, "script_can_read_book", "itm_book_pathfinding"),
+          (eq, reg0, 1),
+        ], "{s1}.", [
+            (assign, "$temp", "itm_book_pathfinding"),
+            (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]),
+
+      ("action_read_book_1", [
+          (call_script, "script_can_read_book", "itm_book_inventory_management"),
+          (eq, reg0, 1),
+        ], "{s1}.", [
+            (assign, "$temp", "itm_book_inventory_management"),
+            (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]),
+
+      ("action_read_book_1", [
+          (call_script, "script_can_read_book", "itm_book_prisoner_management"),
+          (eq, reg0, 1),
+        ], "{s1}.", [
+            (assign, "$temp", "itm_book_prisoner_management"),
+            (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]),
+
+      ("action_read_book_1", [
+          (call_script, "script_can_read_book", "itm_book_athletics"),
+          (eq, reg0, 1),
+        ], "{s1}.", [
+            (assign, "$temp", "itm_book_athletics"),
+            (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]),
+
+      ("action_read_book_1", [
+          (call_script, "script_can_read_book", "itm_book_looting"),
+          (eq, reg0, 1),
+        ], "{s1}.", [
+            (assign, "$temp", "itm_book_looting"),
+            (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]),
+
+      ("action_read_book_1", [
+          (call_script, "script_can_read_book", "itm_book_ironflesh"),
+          (eq, reg0, 1),
+        ], "{s1}.", [
+            (assign, "$temp", "itm_book_ironflesh"),
+            (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]),
+
+      ("action_read_book_1", [
+          (call_script, "script_can_read_book", "itm_book_first_aid"),
+          (eq, reg0, 1),
+        ], "{s1}.", [
+            (assign, "$temp", "itm_book_first_aid"),
+            (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]),
+
+      ("action_read_book_1", [
+          (call_script, "script_can_read_book", "itm_book_surgery"),
+          (eq, reg0, 1),
+        ], "{s1}.", [
+            (assign, "$temp", "itm_book_surgery"),
+            (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]),
+
+      ("action_read_book_1", [
+          (call_script, "script_can_read_book", "itm_book_wound_treatment"),
+          (eq, reg0, 1),
+        ], "{s1}.", [
+            (assign, "$temp", "itm_book_wound_treatment"),
+            (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]),
+
+      ("action_read_book_1", [
+          (call_script, "script_can_read_book", "itm_book_horse_archery"),
+          (eq, reg0, 1),
+        ], "{s1}.", [
+            (assign, "$temp", "itm_book_horse_archery"),
+            (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]),
+
+      ("action_read_book_1", [
+          (call_script, "script_can_read_book", "itm_book_riding"),
+          (eq, reg0, 1),
+        ], "{s1}.", [
+            (assign, "$temp", "itm_book_riding"),
+            (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]),
+
+      ("action_read_book_1", [
+          (call_script, "script_can_read_book", "itm_book_power_strike"),
+          (eq, reg0, 1),
+        ], "{s1}.", [
+            (assign, "$temp", "itm_book_power_strike"),
+            (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]),
+
+      ("action_read_book_1", [
+          (call_script, "script_can_read_book", "itm_book_power_strike_2"),
+          (eq, reg0, 1),
+        ], "{s1}.", [
+            (assign, "$temp", "itm_book_power_strike_2"),
+            (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]),
+
+      ("action_read_book_1", [
+          (call_script, "script_can_read_book", "itm_book_power_throw"),
+          (eq, reg0, 1),
+        ], "{s1}.", [
+            (assign, "$temp", "itm_book_power_throw"),
+            (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]),
+
+      ("action_read_book_1", [
+          (call_script, "script_can_read_book", "itm_book_power_draw"),
+          (eq, reg0, 1),
+        ], "{s1}.", [
+            (assign, "$temp", "itm_book_power_draw"),
+            (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]),
+
+      ("action_read_book_1", [
+          (call_script, "script_can_read_book", "itm_book_power_draw_2"),
+          (eq, reg0, 1),
+        ], "{s1}.", [
+            (assign, "$temp", "itm_book_power_draw_2"),
+            (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]),
+      
+      ("action_read_book_1", [
+          (call_script, "script_can_read_book", "itm_book_shield"),
+          (eq, reg0, 1),
+        ], "{s1}.", [
+            (assign, "$temp", "itm_book_shield"),
+            (jump_to_menu, "mnu_camp_action_read_book_start"),
+        ]),
+    ]),
+##  ("camp_action_read_book",0,
+##   "Choose a book to read:",
+##   "none",
+##   [],
+##    [
+##      ("action_read_book_1",[(player_has_item, "itm_book_tactics"),
+##                             (item_slot_eq, "itm_book_tactics", slot_item_book_read, 0),
+##                             (str_store_item_name, s1, "itm_book_tactics"),
+##                             ],"{s1}.",
+##       [(assign, "$temp", "itm_book_tactics"),
+##        (jump_to_menu, "mnu_camp_action_read_book_start"),
+##        ]
+##       ),
+##      ("action_read_book_2",[(player_has_item, "itm_book_persuasion"),
+##                             (item_slot_eq, "itm_book_persuasion", slot_item_book_read, 0),
+##                             (str_store_item_name, s1, "itm_book_persuasion"),
+##                             ],"{s1}.",
+##       [(assign, "$temp", "itm_book_persuasion"),
+##        (jump_to_menu, "mnu_camp_action_read_book_start"),
+##        ]
+##       ),
+##      ("action_read_book_3",[(player_has_item, "itm_book_leadership"),
+##                             (item_slot_eq, "itm_book_leadership", slot_item_book_read, 0),
+##                             (str_store_item_name, s1, "itm_book_leadership"),
+##                             ],"{s1}.",
+##       [(assign, "$temp", "itm_book_leadership"),
+##        (jump_to_menu, "mnu_camp_action_read_book_start"),
+##        ]
+##       ),
+##      ("action_read_book_4",[(player_has_item, "itm_book_intelligence"),
+##                             (item_slot_eq, "itm_book_intelligence", slot_item_book_read, 0),
+##                             (str_store_item_name, s1, "itm_book_intelligence"),
+##                             ],"{s1}.",
+##       [(assign, "$temp", "itm_book_intelligence"),
+##        (jump_to_menu, "mnu_camp_action_read_book_start"),
+##        ]
+##       ),
+##      ("action_read_book_5",[(player_has_item, "itm_book_trade"),
+##                             (item_slot_eq, "itm_book_trade", slot_item_book_read, 0),
+##                             (str_store_item_name, s1, "itm_book_trade"),
+##                             ],"{s1}.",
+##       [(assign, "$temp", "itm_book_trade"),
+##        (jump_to_menu, "mnu_camp_action_read_book_start"),
+##        ]
+##       ),
+##      ("action_read_book_6",[(player_has_item, "itm_book_weapon_mastery"),
+##                             (item_slot_eq, "itm_book_weapon_mastery", slot_item_book_read, 0),
+##                             (str_store_item_name, s1, "itm_book_weapon_mastery"),
+##                             ],"{s1}.",
+##       [(assign, "$temp", "itm_book_weapon_mastery"),
+##        (jump_to_menu, "mnu_camp_action_read_book_start"),
+##        ]
+##       ),
+##      ("action_read_book_7",[(player_has_item, "itm_book_engineering"),
+##                             (item_slot_eq, "itm_book_engineering", slot_item_book_read, 0),
+##                             (str_store_item_name, s1, "itm_book_engineering"),
+##                             ],"{s1}.",
+##       [(assign, "$temp", "itm_book_engineering"),
+##        (jump_to_menu, "mnu_camp_action_read_book_start"),
+##        ]
+##       ),
+##      ("camp_action_4",[],"Back to camp menu.",
+##       [(jump_to_menu, "mnu_camp"),
+##        ]
+##       ),
+##      ]
+##  ),
+  #
+  ## UID: 34 - End
 
   ("camp_action_read_book_start",0,
    "{s1}",
@@ -5044,7 +5272,8 @@ and that whatever course you take, great adventures will await you. Drawn by the
           (store_relation, ":attacker_relation", ":attacker_faction", "fac_player_supporters_faction"),
           (store_faction_of_party, ":defender_faction", "$g_encountered_party"),
           (store_relation, ":defender_relation", ":defender_faction", "fac_player_supporters_faction"),
-          (ge, ":attacker_relation", 0),
+          (this_or_next|ge, ":attacker_relation", 0),
+          (             ge, "$enlisted_lord", 1),
           (lt, ":defender_relation", 0),
           ],
           "Move in to help the {s2}.",[
@@ -5057,7 +5286,8 @@ and that whatever course you take, great adventures will await you. Drawn by the
           (store_relation, ":attacker_relation", ":attacker_faction", "fac_player_supporters_faction"),
           (store_faction_of_party, ":defender_faction", "$g_encountered_party"),
           (store_relation, ":defender_relation", ":defender_faction", "fac_player_supporters_faction"),
-          (ge, ":defender_relation", 0),
+          (this_or_next|ge, ":defender_relation", 0),
+          (             ge, "$enlisted_lord", 1),
           (lt, ":attacker_relation", 0),
           ],
           "Rush to the aid of the {s1}.",[
@@ -8413,6 +8643,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
 
   ("center_improve", 0, "{s19} As the party member with the highest engineer skill ({reg2}), {reg3,you reckon:{s3} reckons} that building the {s4} will cost you {reg5} denars and will take {reg6} days.", "none", [
       (call_script, "script_get_max_skill_of_player_party", "skl_engineer"),
+      (assign, ":hold", reg0),
       (assign, ":owner", reg1),
 
       (call_script, "script_get_improvement_detail_new", "$g_encountered_party", "$g_improvement_type"),
@@ -8428,7 +8659,8 @@ and that whatever course you take, great adventures will await you. Drawn by the
         (assign, reg3, 1),
       (else_try),
         (str_store_troop_name, s3, ":owner"),
-      (try_end),      
+      (try_end),
+      (assign, reg2, ":hold"),
     ], [
         ("improve_cont", [
             (call_script, "script_can_upgrade_building", "$g_encountered_party", "$g_improvement_type", 1),
@@ -10373,7 +10605,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
         (try_end),
         (eq, ":can_rest", 1),
       ],
-      "Wait here for some time{s1}.",
+      "Wait here for some time.",
       [
         (assign, "$auto_enter_town", "$current_town"),
         (assign, "$g_town_visit_after_rest", 1),
@@ -15417,6 +15649,219 @@ and that whatever course you take, great adventures will await you. Drawn by the
     ]
   ),
 
+  ## UID: 43 - Begin
+  #
+  ("world_map_soldier", 0, "What do you need to do soldier?", "none", [
+      (set_background_mesh, "mesh_pic_soldier_world_map"),
+      (troop_get_slot, "$enlisted_party", "$enlisted_lord", slot_troop_leaded_party),
+    ], [
+        ("join_commander_battle", [
+            (party_get_battle_opponent, ":commander_opponent", "$enlisted_party"),
+            (gt, ":commander_opponent", 0),
+        ], "Follow the commander into battle.", [
+            (party_set_slot, "p_freelancer_party_backup", slot_party_last_in_combat, 1), #needed to catch post-battle and detach any attached parties
+
+            (try_begin),
+              (neg|troop_is_guarantee_horse, "$player_cur_troop"),
+              (troop_get_inventory_slot, ":horse", "trp_player", ek_horse),
+              (gt, ":horse", 0),
+              (troop_get_inventory_slot_modifier, ":horse_imod", "trp_player", ek_horse),
+              (set_show_messages, 0),
+              (troop_add_item, "trp_player", ":horse", ":horse_imod"),
+              (troop_set_inventory_slot, "trp_player", ek_horse, -1),
+              (set_show_messages, 1),
+            (try_end),
+            (start_encounter, "$enlisted_party"),
+            (change_screen_map),
+        ]),
+
+        ("enter_town", [(party_is_in_any_town,"$enlisted_party"),], "Enter stationed town.", [
+            (party_get_cur_town, ":town_no", "$enlisted_party"),
+            (start_encounter, ":town_no"),
+            (change_screen_map),
+        ]),
+
+        ("commander", [
+            (party_get_battle_opponent, ":commander_opponent", "$enlisted_party"),
+            (lt, ":commander_opponent", 0),
+        ], "Request audience with your commander.", [(jump_to_menu, "mnu_commander_aud")]),
+
+##        ("revolt", [], "Revolt against the commander!", [(jump_to_menu, "mnu_ask_revolt")]),
+        ("desert", [], "Desert the army.(keep equipment but lose relations)", [(jump_to_menu, "mnu_ask_desert")]),
+        ("report", [], "Commander's Report", [(start_presentation, "prsnt_taragoth_lords_report")]),
+        ("return_to_duty", [
+            (party_get_battle_opponent, ":commander_opponent", "$enlisted_party"),
+            (this_or_next|lt, ":commander_opponent", 0),
+            (troop_is_wounded, "trp_player"),
+        ], "Return to duty.", [
+            (change_screen_map),
+            (assign, "$g_infinite_camping", 1),
+            (rest_for_hours_interactive, 24 * 365, 5, 1),
+        ]),
+    ]),
+
+  #menu_aud_with_commander
+  ("commander_aud", 0, "Your request for a meeting is relayed to your commander's camp, and finally {s6} appears from his tent to speak with you.", "none", [
+      (set_background_mesh, "mesh_pic_soldier_world_map"),
+      (str_store_troop_name, s6, "$enlisted_lord"),
+    ], [
+        ("continue", [], "Continue...", [
+            (try_begin),
+              (neg|party_is_in_any_town, "$enlisted_party"),
+              (start_encounter, "$enlisted_party"),
+              (change_screen_map),
+            (else_try),
+              #Fake that it is a party encounter when enlisted party in a town (lines taken from script_game_event_party_encounter)
+              (assign, "$g_encountered_party", "$enlisted_party"),
+              (store_faction_of_party, "$g_encountered_party_faction","$g_encountered_party"),
+              (store_relation, "$g_encountered_party_relation", "$g_encountered_party_faction", "fac_player_faction"),
+              (party_get_slot, "$g_encountered_party_type", "$g_encountered_party", slot_party_type),
+              (party_get_template_id,"$g_encountered_party_template","$g_encountered_party"),
+              (assign, "$talk_context", tc_party_encounter),
+              (call_script, "script_setup_party_meeting", "$g_encountered_party"),
+            (try_end),
+        ]),
+
+        ("reject_talk_lord", [], "No, nevermind.", [(change_screen_map)]),
+    ]),
+
+  #menu_ask_revolt
+  ("ask_revolt", 0, "Are you sure you want to revolt?", "none", [
+      (set_background_mesh, "mesh_pic_soldier_rebel"),
+      (str_store_troop_name, s6, "$enlisted_lord"),
+    ],[
+        ("confirm_revolt", [], "Yes, {s6} will be the death of us all, it is time to act!", [(jump_to_menu, "mnu_revolt")]),
+        ("reject_revolt", [], "No, I am loyal to {s6}.", [(change_screen_return)]),
+    ]),
+
+  #menu_revolt
+  ("revolt", 0, "Do you want to release the prisoners to help your men?", "none", [
+      (set_background_mesh, "mesh_pic_soldier_rebel"),
+      (assign, "$cant_leave_encounter", 1),
+
+      #revert parties to former settings
+      (call_script, "script_freelancer_detach_party"),
+      (call_script, "script_event_player_deserts"),
+      #adds other troops to join player revolt
+      (call_script, "script_get_desert_troops"),
+
+      #decreases player relation to his commander and faction
+      (call_script, "script_change_player_relation_with_troop", "$enlisted_lord", -10),
+
+      (store_troop_faction, ":commander_faction", "$enlisted_lord"),
+      (try_begin),
+        (party_get_battle_opponent, ":commander_enemy", "$enlisted_party"),
+        (gt, ":commander_enemy", 0),
+        (store_faction_of_party, ":other_faction", ":commander_enemy"),
+        (store_relation, ":relation", ":other_faction", ":commander_faction"),
+        (store_sub, ":mod_relation", 100, ":relation"),
+        (val_add, ":mod_relation", 5),
+        (call_script, "script_change_player_relation_with_faction_ex", ":commander_faction", ":mod_relation"),
+      (try_end),
+    ], [
+        ("revolt_prisoners", [], "Yes, I will take the risk for a greater advantage.", [
+            (party_clear, "p_temp_party_2"),
+            #loop adding commander's prisoners to player party as troops
+            (party_get_num_prisoner_stacks, ":num_stacks", "$enlisted_party"),
+            (try_for_range, ":cur_stack", 0, ":num_stacks"),
+              (party_prisoner_stack_get_troop_id , ":prisoner_troop", "$enlisted_party", ":cur_stack"),
+              (ge, ":prisoner_troop", 1),
+              (party_prisoner_stack_get_size, ":stack_size", "$enlisted_party", ":cur_stack"),
+              (party_remove_prisoners, "$enlisted_party", ":prisoner_troop", ":stack_size"),
+              (party_add_members, "p_temp_party_2", ":prisoner_troop", ":stack_size"),
+            (try_end),
+            (party_attach_to_party, "p_temp_party_2", "p_main_party"),
+            (start_encounter, "$enlisted_party"),
+            (change_screen_map),
+        ]),
+
+        ("revolt_no_prisoners", [], "No, I don't trust prisoners.", [
+            (start_encounter, "$enlisted_party"),
+            (change_screen_map),
+        ]),
+    ]),
+
+  #menu_ask_desert
+  ("ask_desert", 0, "Do you want to desert?", "none", [(set_background_mesh, "mesh_pic_soldier_desert")], [
+      ("confirm_desert", [], "Yes, this is pointless.", [(jump_to_menu, "mnu_desert")]),
+      ("reject_desert", [], "No, I am loyal to my commander.", [(change_screen_return)]),
+    ]),
+
+  #menu_desert
+  ("desert", 0, "While in the army you've made some good friends. Some could possibly follow you.", "none", [
+      (set_background_mesh, "mesh_pic_soldier_desert"),
+      (call_script, "script_freelancer_detach_party"),
+      (call_script, "script_event_player_deserts"),
+    ], [
+        ("desert_party", [], "Try to convince them to follow you.",[
+            #1 in 4 chance of being caught with others
+            (store_random_in_range, ":chance_caught", 0, 4),
+            (try_begin),
+              (eq, ":chance_caught", 0),
+            (assign, "$g_encountered_party", "$enlisted_party"),
+              (jump_to_menu, "mnu_captivity_start_wilderness"),
+            (else_try),
+              (call_script, "script_get_desert_troops"),
+            (call_script, "script_party_restore"),   
+              (call_script, "script_set_parties_around_player_ignore_player", 2, 4),
+            (try_end),
+            (change_screen_map),(display_message, "@You have deserted, and are now wanted!"),
+        ]),
+
+        ("desert_alone",[],"No, I have a better chance alone.",[
+            #1 in 10 chance of being caught alone
+            (store_random_in_range, ":chance_caught", 0, 10),
+            (try_begin),
+              (eq, ":chance_caught", 0),
+              (assign, "$g_encountered_party", "$enlisted_party"),
+              (jump_to_menu, "mnu_captivity_start_wilderness"),
+            (else_try),
+              (call_script, "script_party_restore"),
+              (call_script, "script_set_parties_around_player_ignore_player", 2, 4),
+            (try_end),
+            (change_screen_map),
+            (display_message, "@You have deserted, and are now wanted!"),
+        ]),
+    ]),
+
+  #menu_upgrade_path
+  ("upgrade_path", 0, "In recognition of your excellent service, you have been promoted.", "none", [
+      (set_background_mesh, "mesh_pic_soldier_world_map"),
+      (call_script, "script_freelancer_unequip_troop", "$player_cur_troop"),
+    ], [
+        ("upgrade_path_1",[
+            (troop_get_upgrade_troop, ":path_1_troop", "$player_cur_troop", 0),
+            (ge, ":path_1_troop", 0),
+            (str_store_troop_name, s66, ":path_1_troop"),
+        ], "{s66}", [
+            (troop_get_upgrade_troop, "$player_cur_troop", "$player_cur_troop", 0),
+            (store_troop_faction, ":commander_faction", "$enlisted_lord"),
+            (faction_set_slot, ":commander_faction", slot_faction_freelancer_troop, "$player_cur_troop"),
+            (call_script, "script_freelancer_equip_troop", "$player_cur_troop"),
+            (str_store_troop_name, s5, "$player_cur_troop"),
+            (str_store_string, s5, "@Current rank: {s5}"),
+            (add_quest_note_from_sreg, "qst_freelancer_enlisted", 3, s5, 1),
+            (change_screen_map),
+        ]),
+
+        ("upgrade_path_2",[
+            (troop_get_upgrade_troop, ":path_2_troop", "$player_cur_troop", 1),
+            (ge, ":path_2_troop", 1),
+            (str_store_troop_name, s67, ":path_2_troop"),
+        ], "{s67}", [
+            (troop_get_upgrade_troop, "$player_cur_troop", "$player_cur_troop", 1),
+            (store_troop_faction, ":commander_faction", "$enlisted_lord"),
+            (faction_set_slot, ":commander_faction", slot_faction_freelancer_troop, "$player_cur_troop"),
+            (call_script, "script_freelancer_equip_troop", "$player_cur_troop"),
+            (str_store_troop_name, s5, "$player_cur_troop"),
+            (str_store_string, s5, "@Current rank: {s5}"),
+            (add_quest_note_from_sreg, "qst_freelancer_enlisted", 3, s5, 1),
+            (change_screen_map),
+        ]),
+    ]),
+  #
+  ## UID: 43 - End
+
   ## UID: 12 - Begin
   #
   ("start_game_difficulty", mnf_disable_all_keys, "Please select game difficulty level.", "none", [], [
@@ -15484,5 +15929,7 @@ and that whatever course you take, great adventures will await you. Drawn by the
       ("go_back", [], "Go Back", [(jump_to_menu, "mnu_start_game_difficulty")]),
     ]),
   #
-  ## UID: 36 - End 
+  ## UID: 36 - End
+
+  ## EOF
  ]
