@@ -49,10 +49,6 @@
 - Labirent eşyaları eklendi. (OSP: Albertus Magnus)
 --- Gelecek ile ilgili planlamalar var.
 --- Hammer eklendi.
-- Hanlarda yemek ısmarlama eklendi. (Grup moraline +6)
---- Ücret: (asker sayısı * 25)
---- Süre: (asker sayısı / 20)+1 (En fazla 10 saati bulur.)
---- Bekleme Süresi: 12 saat
 - Yeni kitap şekilleri eklendi, ve var olan kitaplara uygulandı. (OSP: Lav)
 - Bu aralar çoğu modda olduğu için fili bende ekleyim dedim. İlgi var anlaşılan :p (OSP: Rigadoon)
 - Kadınlar için takılar eklendi. (OSP: Broken_one)
@@ -89,7 +85,6 @@
 - Ulak karakolu ve gözcü kulesi simge hatası giderildi.
 - Çöl süvarilerinin, kara şövalye olması kaldırıldı.
 - Esir satınca onur düşmesi bir süreliğine (yeni bir sistem düşünülene kadar) kaldırıldı.
-- Mod dosyasının ismi değiştirildi.
 - Hile menüsüne deniz sahnelerine gitme ayarlandı.
 - Sahne dosyaları düzenlendi.
 --- scn_sea_1 - Denize atlanabilen noktalar kapatıldı ve bazı yerlerdeki taşan barrierler inceltildi.
@@ -142,8 +137,6 @@
 --- Saldırı altındaki veya yağmalanmış köylerde inşaat yapılması engellendi.
 - Zorla asker almadaki ufak bir kodlama hatası giderildi. (Sürekli 440 asker al gibi uyarı gösterme)
 - İnşaatlara mühendis etkisi eklendi.
-- İnşaatlara merkez bina etkisi eklendi.
-- İnşaatlara zorluk etkisi eklendi.
 - İnşaatlarda seviye arttıkca inşaat ücretinin artması ayarlandı.
 --- Artık otomatik inşaatlarda bu etkilerden tamamen etkilenecek.
 - Kitap yazma sistemi eklendi.
@@ -172,6 +165,3 @@
 - Hancının odadan kaybolmama sorunu çözüldü.
 - Çantası doluyken kitabı alma hatası giderildi.
 - Okunan bir kitap olmayınca isminin görünmeme hatası giderildi.
-- Ekmek, domuz eti, geyik eti gibi eşyaların sadece 1 kere parti morali vermesi yerine adeti kadar parti morali vermesi ayarlandı.
-- Paralı asker olma sistemi eklendi.
---- Kodlamalardaki buglar nedeni ile sistem v0.7 ye aktarıldı.

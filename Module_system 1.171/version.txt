@@ -1525,6 +1525,8 @@
   * module_game_menus.py
   ** Replaced:
   *** menu_camp_action_read_book
+  ** Edited:
+  *** menu_choose_skill
   * module_dialogs.py
   ** Added:
   *** dlga_tavern_traveler_talk:tavern_traveler_bookseller_location
@@ -1749,6 +1751,8 @@
   * module_game_menus.py
   ** Added:
   *** menu_town:mno_start_tournament
+  **** Moved To:
+  ***** menu_town_cheat:mno_start_tournament
   
 39. World map added.
   * module_presentations.py
@@ -2155,8 +2159,78 @@
   *** dlga_tavernkeeper_throw_dice_result:tavernkeeper_pretalk.1
   *** dlga_tavernkeeper_answer_game:tavernkeeper_pretalk
   
+53. Force recruiting added as village hostile action.
+  * module_game_menus.py
+  ** Added:
+  *** menu_village_hostile_action:mno_village_force_recruit
+  * module_scripts.py
+  ** Edited:
+  *** script_update_volunteer_troops_in_village
+  * quick_strings.csv
+  ** Added:
+  *** qstr_You_fail_to_force_vi
+  *** qstr_You_force_{reg17}_{r
+  * game_menus.csv
+  ** Added:
+  *** mno_village_force_recruit
+  *** menu_village_force_confirm
+  *** menu_village_force_recruit
+  
+54. Choose skill system changed.
+  * module_game_menus.py
+  ** Replaced:
+  *** menu_choose_skill
+  ** Edited:
+  *** menu_start_character_3:mno_lady
+  
+55. Merchant quest removed.
+  * module_game_menus.py
+  ** Edited:
+  *** menu_start_phase_2:mno_town_1
+  *** menu_start_phase_2:mno_town_2
+  *** menu_start_phase_2:mno_town_3
+  *** menu_start_phase_2:mno_town_4
+  *** menu_start_phase_2:mno_town_5
+  *** menu_start_phase_2:mno_town_6
+  ** Added:
+  *** menu_start_phase_2:mno_town_7
+  *** menu_start_phase_2:mno_town_8
+  ** Removed:
+  *** menu_start_phase_2:mno_training_cheat
+
+56. Some dialog mistakes fixed.
+  * module_dialogs.py
+  ** Edited:
+  *** dlga_minister_talk:minister_grant_fief
+  ** Removed:
+  *** dlga_minister_talk:minister_grant_fief_self
+  ** Added:
+  *** dlga_minister_talk:minister_give_fief_self
+  *** dlga_minister_give_fief_self:minister_give_fief_self_choose
+  *** dlga_minister_give_fief_self_choose:minister_give_fief_self_end
+  *** dlga_minister_give_fief_self_choose:minister_pretalk
+  *** dlga_minister_give_fief_self_end:minister_pretalk
+  
+57. Town cheat menu added and cheats move in it.
+  * module_game_menus.py
+  ** Removed:
+  *** menu_town:mno_town_alley
+  *** menu_town:mno_castle_cheat_interior
+  *** menu_town:mno_castle_cheat_town_exterior
+  *** menu_town:mno_castle_cheat_dungeon
+  *** menu_town:mno_castle_cheat_town_walls
+  *** menu_town:mno_cheat_town_start_siege
+  *** menu_town:mno_start_tournament
+  *** menu_town:mno_center_reports
+  ** Added:
+  *** menu_town_cheat
+  *** menu_town:mno_town_cheat
+  ** Edited:
+  *** mnu_center_reports:mno_go_back_dot
+  
 Known Bugs:
-tf_female; Ladies seems like man so dialogs should change with sex. (For example, lord first talk dlg says "I am lord of blabla")
+tf_female; Ladies seems like man so dialogs should change with gender.
 You can't loot or get prisoners from bandit camps that time.
 Turkish translate has stupid errors. Like "Kendimin yerine mareşal olarak kendim geçmek istiyorum.", "Köyün yeni sahibi kendim olsun istiyorum" etc...
 Page calculation is wrong for books.
+Troop ratio sometimes goes invisible.

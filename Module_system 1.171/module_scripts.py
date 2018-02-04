@@ -32358,6 +32358,16 @@ scripts = [
       (store_random_in_range, ":amount", ":min", ":max"),
       (party_set_slot, ":village", slot_center_volunteer_troop_type, ":troop"),
       (party_set_slot, ":village", slot_center_volunteer_troop_amount, ":amount"),
+
+      ## UID: 53 - Begin
+      #
+      (store_mul, ":max", ":amount", 3),
+      (assign, ":min", ":amount"),
+      (store_random_in_range, ":amount", ":min", ":max"),
+      (party_set_slot, ":village", slot_center_mercenary_troop_type, ":troop"),
+      (party_set_slot, ":village", slot_center_mercenary_troop_amount, ":amount"),
+      #
+      ## UID: 53 - End
     ]),
   #
   ## UID: 1 - End

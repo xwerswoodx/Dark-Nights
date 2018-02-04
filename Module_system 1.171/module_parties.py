@@ -103,7 +103,7 @@ parties = [
   ## UID: 24 - Begin
   #
   ("town_23", "Hillford", icon_town_desert|pf_town, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (78.94, -116.96), [], 225),
-  ("town_24", "Rochdale", icon_town_desert|pf_town, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (140.54, -133.14), [], 225),
+  ("town_24", "Rochdale", icon_town_desert|pf_town, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (138.98, -126.09), [], 225),
 
   ("town_25", "Ashborne", icon_town_snow|pf_town, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (93.54, 90.51), [], 90),
   ("town_26", "Lanchaster", icon_town_snow|pf_town, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (127.83, 92.67), [], 90),
@@ -111,7 +111,7 @@ parties = [
   #
   ## UID: 24 - End
 
-#   Aztaq_Castle       
+#  Aztaq_Castle       
 #  Malabadi_Castle
   ("castle_1","Culmarr_Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-101.3, -21),[],50),
   ("castle_2","Malayurg_Castle",icon_castle_b|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(97.5, -2.2),[],75),
@@ -180,10 +180,9 @@ parties = [
   ## UID: 24 - End
  
 
-#     Rinimad      
-#              Rietal Derchios Gerdus
-# Tuavus   Pamir   vezona 
-  
+# Rinimad      
+# Rietal Derchios Gerdus
+# Tuavus Pamir    Vezona
   ("village_1", "Yaragar",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-60, -9.5),[], 100),
   ("village_2", "Burglen",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-13.5, 3.5),[], 110),
   ("village_3", "Azgad",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-97.4, 36),[], 120),

@@ -2738,6 +2738,9 @@ simple_triggers = [
         (troop_add_gold, "trp_player", ":weekly_pay"),
         (add_xp_to_troop, 70, "trp_player"),
         (play_sound, "snd_money_received", 0),
+        (store_current_hours, ":hour"),
+        (val_add, ":hour", 168),
+        (assign, "$g_next_pay_time", ":hour"),
     ]),
 
 #  HOURLY CHECKS

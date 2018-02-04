@@ -3482,115 +3482,149 @@ dialogs = [
    "I wish to indict a disloyal vassal for treason.", "minister_indict",
    []],   
 
-   [anyone|plyr, "minister_talk",
-   [
-   (faction_get_slot, ":current_marshal", "$players_kingdom", slot_faction_marshall),
-   (ge, ":current_marshal", 0),
-   (try_begin),
-    (gt, ":current_marshal", 0),
-	(str_store_troop_name, s4, ":current_marshal"),
-   (else_try),	
-	(str_store_string, s4, "str_myself"),
-   (try_end),
+   [anyone|plyr, "minister_talk", [
+       (faction_get_slot, ":current_marshal", "$players_kingdom", slot_faction_marshall),
+       (ge, ":current_marshal", 0),
+       ## UID: 56 - Begin
+       #
+       #(try_begin),
+       (gt, ":current_marshal", 0),
+       (str_store_troop_name, s4, ":current_marshal"),
+       #(else_try),
+       #  (str_store_string, s4, "str_myself"),
+       #(try_end),
+       #
+       ## UID: 56 - End
    ],
-   "I wish to replace {s4} as marshal.", "minister_change_marshal",
-   []],
-   
-   [anyone|plyr, "minister_talk",
-   [
-   (faction_slot_eq,  "$players_kingdom", slot_faction_marshall, -1),
-   ],
-   "I wish to appoint a new marshal.", "minister_change_marshal",
-   []],
-   
-   [anyone, "minister_change_marshal",
-   [
-   (store_current_hours, ":hours"),
-   (val_sub, ":hours", "$g_player_faction_last_marshal_appointment"),
-   (lt, ":hours", 48),
-   ],
-   "You have just made such an appointment, {sire/my lady}. If you countermand your decree so soon, there will be great confusion. We will need to wait a few days.", "minister_pretalk",
-   []],
+   "I wish to replace {s4} as marshal.", "minister_change_marshal", []],
 
-   
-   [anyone|plyr, "minister_talk",
-   [
-   (neg|is_between, "$g_player_minister", active_npcs_begin, active_npcs_end),
-   ],
-   "I wish for you to retire as minister.", "minister_replace",
-   []],
+  [anyone|plyr, "minister_talk", [(faction_slot_eq,  "$players_kingdom", slot_faction_marshall, -1)], "I wish to appoint a new marshal.", "minister_change_marshal", []],
 
-   [anyone|plyr, "minister_talk",
-   [
-   (is_between, "$g_player_minister", active_npcs_begin, active_npcs_end),
-	(neg|troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_kingdom_hero),
-   
-   ],
-   "I wish you to rejoin my party.", "minister_replace",
-   []],
+  [anyone, "minister_change_marshal", [
+      (store_current_hours, ":hours"),
+      (val_sub, ":hours", "$g_player_faction_last_marshal_appointment"),
+      (lt, ":hours", 48),
+    ], "You have just made such an appointment, {sire/my lady}. If you countermand your decree so soon, there will be great confusion. We will need to wait a few days.", "minister_pretalk", []],
 
-   [anyone|plyr, "minister_talk",
-   [
-   (is_between, "$g_player_minister", active_npcs_begin, kingdom_ladies_end),
-   ],
-   "I wish you to grant one of my vassals a fief.", "minister_grant_fief",
-   []],
+  [anyone|plyr, "minister_talk", [(neg|is_between, "$g_player_minister", active_npcs_begin, active_npcs_end)], "I wish for you to retire as minister.", "minister_replace", []],
 
-   [anyone|plyr, "minister_talk",
-   [
-   (is_between, "$g_player_minister", active_npcs_begin, kingdom_ladies_end),
-   (assign, ":fief_found", -1),
-   (try_for_range, ":center", centers_begin, centers_end),
-    (eq, ":fief_found", -1),
-	(store_faction_of_party, ":center_faction", ":center"),
-    (eq, ":center_faction", "fac_player_supporters_faction"),
-	(party_get_slot, ":town_lord", ":center", slot_town_lord),
-	(try_begin),
-		(ge, ":town_lord", active_npcs_begin),
-		(store_faction_of_troop, ":town_lord_faction", ":town_lord"),
-		(neq, ":town_lord_faction", "fac_player_supporters_faction"),
-		(assign, ":town_lord", -1),
-	(try_end),
-	(lt, ":town_lord", 0),
-	(assign, ":fief_found", ":center"),
-   (try_end),
-   (gt, ":fief_found", -1),
-   (str_store_party_name, s4, ":fief_found"),
-   ],
-   "I wish to make myself lord of {s4}.", "minister_grant_self_fief",
-   []],
+  [anyone|plyr, "minister_talk", [
+      (is_between, "$g_player_minister", active_npcs_begin, active_npcs_end),
+      (neg|troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_kingdom_hero),
+    ], "I wish you to rejoin my party.", "minister_replace", []],
 
-   [anyone, "minister_grant_self_fief",
-   [
-   ],
-   "As you wish. You shall be lord of {s4}.", "minister_pretalk",
-   [
-   (assign, ":fief_found", -1),
-   (try_for_range, ":center", centers_begin, centers_end),
-    (eq, ":fief_found", -1),
-	(store_faction_of_party, ":center_faction", ":center"),
-    (eq, ":center_faction", "fac_player_supporters_faction"),
-	(party_get_slot, ":town_lord", ":center", slot_town_lord),
-	(try_begin),
-		(ge, ":town_lord", active_npcs_begin),
-		(store_faction_of_troop, ":town_lord_faction", ":town_lord"),
-		(neq, ":town_lord_faction", "fac_player_supporters_faction"),
-		(assign, ":town_lord", -1),
-	(try_end),
-	(lt, ":town_lord", 0),
-	(assign, ":fief_found", ":center"),	
-   (try_end),
-   
-   
-   (call_script, "script_give_center_to_lord", ":fief_found", "trp_player", 0),
-   (try_begin),
-	(faction_slot_eq, "$players_kingdom", slot_faction_political_issue, ":fief_found"),
-	(faction_set_slot, "$players_kingdom", slot_faction_political_issue, -1),
-   (try_end),   
-   (str_store_party_name, s4, ":fief_found"),
-   
-   ]],
-   
+  ## UID: 56 - Begin
+  #
+##  [anyone|plyr, "minister_talk", [(is_between, "$g_player_minister", active_npcs_begin, kingdom_ladies_end)], "I wish you to grant one of my vassals a fief.", "minister_grant_fief", []],
+  [anyone|plyr, "minister_talk", [], "I wish you to grant one of my vassals a fief.", "minister_grant_fief", []],
+
+  [anyone|plyr, "minister_talk", [
+      (call_script, "script_is_male", "trp_player"),
+      (assign, ":count", 0),
+      (try_for_range, ":center", centers_begin, centers_end),
+        (neq, "$g_player_court", ":center"), #Block capital to give another lord!
+        (store_faction_of_party, ":faction", ":center"),
+        #(store_faction_of_party, ":pfaction", "p_main_party"),
+        (assign, ":pfaction", "fac_player_supporters_faction"),
+        (eq, ":faction", ":pfaction"),
+        (party_get_slot, ":lord", ":center", slot_town_lord),
+        (try_begin),
+          (ge, ":lord", active_npcs_begin),
+          (store_faction_of_troop, ":lfaction", ":lord"),
+          (neq, ":lfaction", ":pfaction"),
+          (assign, ":lord", -1),
+        (try_end),
+        (this_or_next|lt, ":lord", 0), #Has no lord?
+        (             gt, ":lord", 0), #Town lord isn't player (0 = trp_player)
+        (val_add, ":count", 1),
+      (try_end),
+      (gt, ":count", 0), #Has any fief to give?
+    ], "I wish to make myself {reg0?lord:lady} of one of my fief", "minister_give_fief_self", []],
+
+  [anyone, "minister_give_fief_self", [], "Which fief do you want to take?", "minister_give_fief_self_choose", []],
+
+  [anyone|plyr|repeat_for_parties, "minister_give_fief_self_choose", [
+      (store_repeat_object, ":center"),
+      (is_between, ":center", centers_begin, centers_end),
+      (neq, ":center", "$g_player_court"),
+
+      #(store_faction_of_party, ":pfaction", "p_main_party"),
+      (assign, ":pfaction", "fac_player_supporters_faction"),
+      (store_faction_of_party, ":faction", ":center"),
+      (eq, ":faction", ":pfaction"),
+      (party_get_slot, ":lord", ":center", slot_town_lord),
+      (try_begin),
+        (ge, ":lord", active_npcs_begin),
+        (store_faction_of_troop, ":lfaction", ":lord"),
+        (neq, ":lfaction", ":pfaction"),
+        (assign, ":lord", -1),
+      (try_end),
+      (this_or_next|lt, ":lord", 0),
+      (             gt, ":lord", 0),
+      (call_script, "script_is_male", "trp_player"),
+      (str_store_party_name, s4, ":center"),
+    ], "I wish to make myself {reg0?lord:lady} of {s4}", "minister_give_fief_self_end", [(store_repeat_object, "$fief_selected")]],
+
+  [anyone|plyr, "minister_give_fief_self_choose", [], "Forget it.", "minister_pretalk", []],
+
+  [anyone, "minister_give_fief_self_end", [
+      (call_script, "script_is_male", "trp_player"),
+      (str_store_party_name, s4, "$fief_selected"),
+    ], "As you wish, you shall be {reg0?lord:lady} of {s4}.", "minister_pretalk", [
+        (call_script, "script_give_center_to_lord", "$fief_selected", "trp_player", 0),
+        (try_begin),
+          (faction_slot_eq, "$players_kingdom", slot_faction_political_issue, "$fief_selected"),
+          (faction_set_slot, "$players_kingdom", slot_faction_political_issue, -1),
+        (try_end),
+    ]],
+
+##  [anyone|plyr, "minister_talk", [
+##      (is_between, "$g_player_minister", active_npcs_begin, kingdom_ladies_end),
+##      (assign, ":fief_found", -1),
+##      (try_for_range, ":center", centers_begin, centers_end),
+##        (eq, ":fief_found", -1),
+##        (store_faction_of_party, ":center_faction", ":center"),
+##        (eq, ":center_faction", "fac_player_supporters_faction"),
+##        (party_get_slot, ":town_lord", ":center", slot_town_lord),
+##        (try_begin),
+##          (ge, ":town_lord", active_npcs_begin),
+##          (store_faction_of_troop, ":town_lord_faction", ":town_lord"),
+##          (neq, ":town_lord_faction", "fac_player_supporters_faction"),
+##          (assign, ":town_lord", -1),
+##        (try_end),
+##        (lt, ":town_lord", 0),
+##        (assign, ":fief_found", ":center"),
+##      (try_end),
+##      (gt, ":fief_found", -1),
+##      (str_store_party_name, s4, ":fief_found"),
+##    ], "I wish to make myself lord of {s4}.", "minister_grant_self_fief", []],
+##  
+##   [anyone, "minister_grant_self_fief", [], "As you wish. You shall be lord of {s4}.", "minister_pretalk", [
+##       (assign, ":fief_found", -1),
+##       (try_for_range, ":center", centers_begin, centers_end),
+##         (eq, ":fief_found", -1),
+##         (store_faction_of_party, ":center_faction", ":center"),
+##         (eq, ":center_faction", "fac_player_supporters_faction"),
+##         (party_get_slot, ":town_lord", ":center", slot_town_lord),
+##         (try_begin),
+##           (ge, ":town_lord", active_npcs_begin),
+##           (store_faction_of_troop, ":town_lord_faction", ":town_lord"),
+##           (neq, ":town_lord_faction", "fac_player_supporters_faction"),
+##           (assign, ":town_lord", -1),
+##         (try_end),
+##         (lt, ":town_lord", 0),
+##         (assign, ":fief_found", ":center"),
+##       (try_end),
+##
+##       (call_script, "script_give_center_to_lord", ":fief_found", "trp_player", 0),
+##       (try_begin),
+##         (faction_slot_eq, "$players_kingdom", slot_faction_political_issue, ":fief_found"),
+##         (faction_set_slot, "$players_kingdom", slot_faction_political_issue, -1),
+##       (try_end),
+##       (str_store_party_name, s4, ":fief_found"),
+##    ]],
+  #
+  ## UID: 56 - End
    
    
    [anyone|plyr, "minister_talk",
@@ -15739,7 +15773,8 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
       (troop_get_slot, ":player_renown", "trp_player", slot_troop_renown),
       (troop_get_slot, ":lord_renown", "$g_talk_troop", slot_troop_renown),
 
-      (store_troop_faction, ":player_faction", "trp_player"),
+      #(store_troop_faction, ":player_faction", "trp_player"),
+      (assign, ":player_faction", "fac_player_supporters_faction"),
       (store_troop_faction, ":lord_faction", "$g_talk_troop"),
 
       (faction_get_slot, ":player_leader", ":player_faction", slot_faction_leader),

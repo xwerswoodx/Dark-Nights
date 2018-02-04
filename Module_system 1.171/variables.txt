@@ -1213,6 +1213,7 @@ g_time_to_gift
 g_religion
 enlisted_lord
 g_next_pay_time
+player_cur_troop
 g_lottery
 g_lottery_number_1
 g_lottery_number_2
