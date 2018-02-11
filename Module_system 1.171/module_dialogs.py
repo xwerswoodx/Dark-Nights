@@ -9289,29 +9289,25 @@ dialogs = [
    [   
     ]],
 
-
-
-   
-   [anyone, "lord_recruit_3_why", 
-   [
-     (troop_get_slot, ":recruitment_candidate", "$g_talk_troop", slot_lord_recruitment_candidate),
-     (try_begin),
-       (eq, ":recruitment_candidate", "trp_player"),
-       (str_store_string, s44, "@you"),
-     (else_try),	
-       (str_store_troop_name, s44, ":recruitment_candidate"),
-     (try_end),   
-   ],
-   "Why should I support {s44}?", "lord_recruit_3_d",
-   [   
-     (troop_get_slot, ":recruitment_candidate", "$g_talk_troop", slot_lord_recruitment_candidate),
-	 (try_begin),
-       (troop_get_type, ":is_female", ":recruitment_candidate"),
-       (str_store_string, s45, "str_he"),
-       (str_store_string, s47, "str_king"),
-		
+  ## UID: 47 - Begin
+  #
+  [anyone, "lord_recruit_3_why", [
+      (troop_get_slot, ":recruitment_candidate", "$g_talk_troop", slot_lord_recruitment_candidate),
+      (try_begin),
+        (eq, ":recruitment_candidate", "trp_player"),
+        (str_store_string, s44, "@Why should I support you?"),
+      (else_try),
+        (str_store_troop_name, s43, ":recruitment_candidate"),
+        (str_store_string, s44, "@Why should I support {s44}?"),
+      (try_end),
+   ], "{s44}", "lord_recruit_3_d", [
+       (troop_get_slot, ":recruitment_candidate", "$g_talk_troop", slot_lord_recruitment_candidate),
+       (call_script, "script_is_male", ":recruitment_candidate"),
        (try_begin),
-         (eq, ":is_female", 1),
+         (ge, reg0, 1),
+         (str_store_string, s45, "str_he"),
+         (str_store_string, s47, "str_king"),
+       (else_try),
          (str_store_string, s45, "str_she"),
          (str_store_string, s47, "str_queen"),
        (try_end),
@@ -9328,6 +9324,8 @@ dialogs = [
        (try_end),
 	 (try_end),      
     ]],
+  #
+  ## UID: 47 - End
    
   [anyone|plyr,"lord_recruit_3_d", 
   [
@@ -13421,73 +13419,63 @@ dialogs = [
   [anyone,"lord_ask_enter_service", [(lt, "$g_talk_troop_effective_relation", -5)], "I accept oaths only from those I can trust to keep them, {playername}.", "lord_pretalk",[]],
 
   [anyone,"lord_ask_enter_service", [
-  (troop_get_type, ":type", "trp_player"),
-  (eq, ":type", 1),
-  
-  
-  (try_for_range, ":center", centers_begin, centers_end),
-	(party_slot_eq, ":center", slot_town_lord, "trp_player"),
-    (assign, "$bypass_female_vassal_explanation", 1),
-  (try_end),
-  (eq, "$bypass_female_vassal_explanation", 0),
-  
-#  (troop_get_slot, ":husband", "trp_player", slot_troop_spouse),
-  ], "My lady, you seem to have the makings of a good war leader. For a woman to show such skill is an uncommon thing in Calradia, but not completely without precedent. Noblewomen have often taken command of armies after their husbands or fathers were slain or captured, for example.", "lord_ask_enter_service_female_2",[
-  (assign, "$bypass_female_vassal_explanation", 1),
+      ## UID: 26 - Begin
+      #
+      (call_script, "script_is_male", "trp_player"),
+##      (troop_get_type, ":type", "trp_player"),
+##      (eq, ":type", 1),
+      (eq, reg0, 0), #is Female
+      #
+      ## UID: 26 - End
+      (try_for_range, ":center", centers_begin, centers_end),
+        (party_slot_eq, ":center", slot_town_lord, "trp_player"),
+        (assign, "$bypass_female_vassal_explanation", 1),
+      (try_end),
+      (eq, "$bypass_female_vassal_explanation", 0),
+      #  (troop_get_slot, ":husband", "trp_player", slot_troop_spouse),
+    ], "My lady, you seem to have the makings of a good war leader. For a woman to show such skill is an uncommon thing in Calradia, but not completely without precedent. Noblewomen have often taken command of armies after their husbands or fathers were slain or captured, for example.", "lord_ask_enter_service_female_2",[(assign, "$bypass_female_vassal_explanation", 1)]],
 
-  ]],
-  
-  [anyone,"lord_ask_enter_service_female_2", [
-  ], "However, I have never heard of a king who granted a fief to a woman, no matter how valorous, simply because he needed an extra vassal. Were I to do such a thing, I would raise eyebrows across Calradia. Men would say that I was besotted or bewitched, or that I aimed to overturn the natural order of things. As much as I regret it, I cannot afford to grant you a fief.", "lord_ask_enter_service_female_response",[]],
+  [anyone,"lord_ask_enter_service_female_2", [], "However, I have never heard of a king who granted a fief to a woman, no matter how valorous, simply because he needed an extra vassal. Were I to do such a thing, I would raise eyebrows across Calradia. Men would say that I was besotted or bewitched, or that I aimed to overturn the natural order of things. As much as I regret it, I cannot afford to grant you a fief.", "lord_ask_enter_service_female_response",[]],
 
-  [anyone|plyr, "lord_ask_enter_service_female_response", [],
-  "What if I were to take one of your enemy's castles by force?", "lord_ask_enter_service_female_solution_capture", []],
+  [anyone|plyr, "lord_ask_enter_service_female_response", [], "What if I were to take one of your enemy's castles by force?", "lord_ask_enter_service_female_solution_capture", []],
   
-  [anyone|plyr, "lord_ask_enter_service_female_response", [
-  (neg|troop_slot_ge, "trp_player", slot_troop_spouse, active_npcs_begin),
-  ],
-  "What if I were to marry one of your lords?", "lord_ask_enter_service_female_solution_marriage", []],
+  [anyone|plyr, "lord_ask_enter_service_female_response", [(neg|troop_slot_ge, "trp_player", slot_troop_spouse, active_npcs_begin)], "What if I were to marry one of your lords?", "lord_ask_enter_service_female_solution_marriage", []],
   
-  [anyone|plyr, "lord_ask_enter_service_female_response", [],
-  "Perhaps one of your competitors will prove to be more open-minded.", "lord_ask_enter_service_female_solution_competitor", []],
+  [anyone|plyr, "lord_ask_enter_service_female_response", [], "Perhaps one of your competitors will prove to be more open-minded.", "lord_ask_enter_service_female_solution_competitor", []],
 
-  [anyone|plyr, "lord_ask_enter_service_female_response", [],
-  "I would be willing to fight for you, even without the fief.", "lord_ask_enter_service", []],
+  [anyone|plyr, "lord_ask_enter_service_female_response", [], "I would be willing to fight for you, even without the fief.", "lord_ask_enter_service", []],
    
-  [anyone|plyr, "lord_ask_enter_service_female_response", [],
-  "Never mind.", "lord_pretalk", []],
+  [anyone|plyr, "lord_ask_enter_service_female_response", [], "Never mind.", "lord_pretalk", []],
 
-  [anyone,"lord_ask_enter_service_female_solution_marriage", [
-  ], "Well, I still would not be willing to grant you any fiefs. However, you would no doubt have the use of your husband's properties, which would allow you to act as one of my vassals in all but name. Did you have an other questions?", "lord_ask_enter_service_female_response",[]],
+  [anyone,"lord_ask_enter_service_female_solution_marriage", [], "Well, I still would not be willing to grant you any fiefs. However, you would no doubt have the use of your husband's properties, which would allow you to act as one of my vassals in all but name. Did you have an other questions?", "lord_ask_enter_service_female_response",[]],
   
-  [anyone,"lord_ask_enter_service_female_solution_competitor", [
-  ], "Oh, perhaps you might find someone who was truly desperate -- but then, I would think, they would not have many fiefs to bestow. Did you have an other questions?", "lord_ask_enter_service_female_response",[]],
+  [anyone,"lord_ask_enter_service_female_solution_competitor", [], "Oh, perhaps you might find someone who was truly desperate -- but then, I would think, they would not have many fiefs to bestow. Did you have an other questions?", "lord_ask_enter_service_female_response",[]],
 
-    [anyone,"lord_ask_enter_service_female_solution_capture", [
-  ], "Well, in that case, depending on the circumstances, I might be inclined to let you keep it. Did you have an other questions?", "lord_ask_enter_service_female_response",[]],
-  
+  [anyone,"lord_ask_enter_service_female_solution_capture", [], "Well, in that case, depending on the circumstances, I might be inclined to let you keep it. Did you have an other questions?", "lord_ask_enter_service_female_response",[]],
 
-    [anyone,"lord_ask_enter_service",
-   [
-     (assign, "$g_invite_offered_center", -1),
-     (troop_get_slot, ":renown", "trp_player", slot_troop_renown),
-     (store_mul, ":vassal_potential", "$g_talk_troop_effective_relation", 5),
-     (val_add, ":vassal_potential", ":renown"),
-     (call_script, "script_get_number_of_hero_centers", "trp_player"),
-     (assign, ":num_centers_owned", reg0),
-     (store_mul, ":center_affect", ":num_centers_owned", 50),
-     (val_add, ":vassal_potential", ":center_affect"),
-     (ge, ":vassal_potential", 150),
-     (try_begin),
-	   (troop_get_type, ":is_female", "trp_player"),
-	   (eq, ":is_female", 0),
-       (eq, ":num_centers_owned", 0),
-       (call_script, "script_get_poorest_village_of_faction", "$g_talk_troop_faction"),
-       (gt, reg0, 0),
-       (assign, "$g_invite_offered_center", reg0),
-     (try_end),
-     ],
-   "You are known as a brave {man-at-arms/warrior} and a fine leader of men, {playername}.\
+  [anyone,"lord_ask_enter_service", [
+      (assign, "$g_invite_offered_center", -1),
+      (troop_get_slot, ":renown", "trp_player", slot_troop_renown),
+      (store_mul, ":vassal_potential", "$g_talk_troop_effective_relation", 5),
+      (val_add, ":vassal_potential", ":renown"),
+      (call_script, "script_get_number_of_hero_centers", "trp_player"),
+      (assign, ":num_centers_owned", reg0),
+      (store_mul, ":center_affect", ":num_centers_owned", 50),
+      (val_add, ":vassal_potential", ":center_affect"),
+      (ge, ":vassal_potential", 150),
+      (try_begin),
+        ## UID: 26 - Begin
+        #
+        (call_script, "script_is_male", "trp_player"),
+##        (troop_get_type, ":is_female", "trp_player"),
+##        (eq, ":is_female", 0),
+        (ge, reg0, 1), #is Male?
+        (eq, ":num_centers_owned", 0),
+        (call_script, "script_get_poorest_village_of_faction", "$g_talk_troop_faction"),
+        (gt, reg0, 0),
+        (assign, "$g_invite_offered_center", reg0),
+      (try_end),
+    ], "You are known as a brave {man-at-arms/warrior} and a fine leader of men, {playername}.\
  I shall be pleased to accept your sword into my service and bestow vassalage upon you,\
  if you are ready to swear homage to me.", "lord_give_oath_1",[]],
 
@@ -13499,8 +13487,14 @@ dialogs = [
   [anyone|plyr,"lord_give_oath_1", [],  "Forgive me, {s65}, I must give the matter more thought first...", "lord_give_oath_give_up", []],
 
   [anyone,"lord_give_oath_give_up", [
-  (troop_get_type, ":type", "trp_player"),
-  (eq, ":type", 1),
+      ## UID: 26 - Begin
+      #
+##      (troop_get_type, ":type", "trp_player"),
+##      (eq, ":type", 1),
+      (call_script, "script_is_male", "trp_player"),
+      (eq, reg0, 0), #is Female?
+      #
+      ## UID: 26 - End
   ],  "Take whatever time you need, my lady.", "lord_pretalk", []],
 
   [anyone,"lord_give_oath_give_up", [],  "What are you playing at, {playername}? Go and make up your mind, and stop wasting my time.", "close_window", [(assign, "$g_leave_encounter",1)]],

@@ -177,6 +177,11 @@ party_templates = [
 
   ("leaded_looters","Band of robbers",icon_axeman|carries_goods(8)|pf_quest_party,0,fac_neutral,bandit_personality,[(trp_looter_leader,1,1),(trp_looter,3,3)]),
 
+  ## UID: 62 - Begin
+  #
+  ("kingdom_0_patrol", "Player Kingdom Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_player_supporters_faction, soldier_personality, [(trp_swadian_footman, 12, 36),(trp_swadian_knight, 10, 30),(trp_swadian_infantry, 12, 36)]),
+  #
+  ## UID: 62 - End
   ## UID: 21 - Begin
   #
   ("kingdom_1_patrol", "Swadian Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_kingdom_1, soldier_personality, [(trp_swadian_footman, 12, 36),(trp_swadian_knight, 10, 30),(trp_swadian_infantry, 12, 36)]),
@@ -193,4 +198,12 @@ party_templates = [
   ## UID: 24 - End
   #
   ## UID: 21 - End
+
+  ## UID: 60 - Begin
+  #
+  ("watch_tower", "Watch Tower", icon_dedal_map_watchtower|pf_is_static|pf_hide_defenders|pf_label_small, 0, fac_neutral, merchant_personality, []),
+  ("messenger_post", "Messenger Post", icon_dedal_map_messenger_post|pf_is_static|pf_hide_defenders|pf_label_small, 0, fac_neutral, merchant_personality, []),
+  ("windmill", "Wind Mill", icon_dedal_map_windmill|pf_is_static|pf_hide_defenders|pf_label_small, 0, fac_neutral, merchant_personality, []),
+  #
+  ## UID: 60 - End
 ]

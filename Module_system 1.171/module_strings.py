@@ -3742,8 +3742,31 @@ We apologize sincerely if you contributed your suggestions and feedback but were
 
   
   ("tavernkeeper_invalid_quest", " had some sort of business going on, but I'm having trouble remembering the details."),
-  
-  
+
+  ## UID: 63 - Begin
+  #
+  ("faction_title_king_male_player", "King {s0}"),
+  ("faction_title_king_male_1", "King {s0}"),
+  ("faction_title_king_male_2", "King {s0}"),
+  ("faction_title_king_male_3", "Sanjar {s0}"),
+  ("faction_title_king_male_4", "King {s0}"),
+  ("faction_title_king_male_5", "King {s0}"),
+  ("faction_title_king_male_6", "Sultan {s0}"),
+  ("faction_title_king_male_7", "King {s0}"),
+  ("faction_title_king_male_8", "King {s0}"),
+
+  ("faction_title_king_female_player", "Queen {s0}"),
+  ("faction_title_king_female_1", "Queen {s0}"),
+  ("faction_title_king_female_2", "Queen {s0}"),
+  ("faction_title_king_female_3", "Sanjar {s0}"),
+  ("faction_title_king_female_4", "Queen {s0}"),
+  ("faction_title_king_female_5", "Queen {s0}"),
+  ("faction_title_king_female_6", "Sultan {s0}"),
+  ("faction_title_king_female_7", "Queen {s0}"),
+  ("faction_title_king_female_8", "Queen {s0}"),
+  #
+  ## UID: 63 - End
+
   ("faction_title_male_player", "Lord {s0}"),
   ("faction_title_male_1", "Count {s0}"),
   ("faction_title_male_2", "Boyar {s0}"),
@@ -4350,5 +4373,11 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("npc15_1","-Good with 2h and bows^-Poor with crossbows and throwing"),
   ("npc16_1","-Good with throwing and 1h^-Poor with 2h and crossbows"),
   #INVASION MODE END
+
+  ## UID: 62 - Begin
+  #
+  ("s9s_patrol_party", "{s9}'s Patrol Party"),
+  #
+  ## UID: 62 - End
   
 ]

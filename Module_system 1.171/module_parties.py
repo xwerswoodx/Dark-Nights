@@ -329,7 +329,7 @@ parties = [
   ("village_131", "Ambridge", icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (124.75, 73.03), [], 0),
 
   ("village_132", "Lodi", icon_village_c|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (66.48, -128.95), [], 0),
-  ("village_133", "Kittitas", icon_village_b|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (64.37, -108.54), [], 0),
+  ("village_133", "Kittitas", icon_village_c|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (64.37, -108.54), [], 0),
   ("village_134", "Kerman", icon_village_c|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (77.26, -104.87), [], 0),
   ("village_135", "Marfa", icon_village_c|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (92.49, -128.10), [], 0),
   ("village_136", "Michiana", icon_village_b|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (101.47, -105.90), [], 0),
@@ -400,8 +400,8 @@ parties = [
 
   ## UID: 11 - Begin
   #
-  ("bandit_camp_1", "Bandit Camp",  icon_persius_map_bandit_camp|pf_is_static|pf_disabled|pf_always_visible|pf_hide_defenders, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (25.7, 20.1), [], 40),
-  ("bandit_camp_2", "Bandit Camp",  icon_persius_map_bandit_camp_snow|pf_is_static|pf_disabled|pf_always_visible|pf_label_small|pf_hide_defenders, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (88.3, 74.3), [], 40),
+  ("bandit_camp_1", "Bandit Camp",  icon_persius_map_bandit_camp|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (25.7, 20.1), [], 40),
+  ("bandit_camp_2", "Bandit Camp",  icon_persius_map_bandit_camp_snow|pf_is_static|pf_always_visible|pf_label_small|pf_hide_defenders, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (88.3, 74.3), [], 40),
   ("bandit_camps_end", "{!}last_bandit_camp_point", pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners, 0, ai_bhvr_hold, 0, (0.1, 0), []),
   #
   ## UID: 11 - End

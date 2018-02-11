@@ -6,15 +6,30 @@ from module_quests import *
 from process_common import *
 
 def save_quests():
+  ## UID: 6 - Begin
+  #
+  langFile = open(language_dir + "quests.csv", "w")
+  #
+  ## UID: 6 - End
   ofile = open(export_dir + "quests.txt","w")
   ofile.write("questsfile version 1\n")
   ofile.write("%d\n"%(len(quests)))
   for i_quest in xrange(len(quests)):
     quest = quests[i_quest]
+    ## UID: 6 - Begin
+    #
+    langFile.write("qst_%s|%s\n"%(quest[0], quest[1]))
+    #
+    ## UID: 6 - End
     ofile.write("qst_%s %s %d "%(quest[0],(string.replace(quest[1]," ","_")),quest[2]))
     ofile.write("%s "%(string.replace(quest[3]," ","_")))
     ofile.write("\n")
   ofile.close()
+  ## UID: 6 - Begin
+  #
+  langFile.close()
+  #
+  ## UID: 6 - End
 
 def save_python_header():
   ofile = open("./ID_quests.py","w")

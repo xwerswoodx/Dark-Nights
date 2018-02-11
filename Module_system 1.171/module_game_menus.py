@@ -114,6 +114,11 @@ game_menus = [
           (troop_add_item, "trp_player", "itm_bodkin_arrows", imod_large_bag),
           (troop_equip_items, "trp_player"),
           (party_relocate_near_party, "p_main_party", "p_town_6", 2),
+          ## UID: 63 - Begin
+          #
+          (call_script, "script_set_plural_name", "trp_player"),
+          #
+          ## UID: 63 - End
           (change_screen_return),
         ]),
       #
@@ -126,6 +131,11 @@ game_menus = [
           #
 ##          (assign, "$g_journey_string", "str_journey_to_praven"),
 ##          (jump_to_menu, "mnu_start_phase_2_5"),
+          ## UID: 63 - Begin
+          #
+          (call_script, "script_set_plural_name", "trp_player"),
+          #
+          ## UID: 63 - End
           (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
           (change_screen_return),
           #
@@ -139,6 +149,11 @@ game_menus = [
           #
 ##          (assign, "$g_journey_string", "str_journey_to_reyvadin"),
 ##          (jump_to_menu, "mnu_start_phase_2_5"),
+          ## UID: 63 - Begin
+          #
+          (call_script, "script_set_plural_name", "trp_player"),
+          #
+          ## UID: 63 - End
           (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
           (change_screen_return),
           #
@@ -152,6 +167,11 @@ game_menus = [
           #
 ##          (assign, "$g_journey_string", "str_journey_to_tulga"),
 ##          (jump_to_menu, "mnu_start_phase_2_5"),
+          ## UID: 63 - Begin
+          #
+          (call_script, "script_set_plural_name", "trp_player"),
+          #
+          ## UID: 63 - End
           (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
           (change_screen_return),
           #
@@ -165,6 +185,11 @@ game_menus = [
           #
 ##          (assign, "$g_journey_string", "str_journey_to_sargoth"),
 ##          (jump_to_menu, "mnu_start_phase_2_5"),
+          ## UID: 63 - Begin
+          #
+          (call_script, "script_set_plural_name", "trp_player"),
+          #
+          ## UID: 63 - End
           (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
           (change_screen_return),
           #
@@ -178,6 +203,11 @@ game_menus = [
           #
 ##          (assign, "$g_journey_string", "str_journey_to_jelkala"),
 ##          (jump_to_menu, "mnu_start_phase_2_5"),
+          ## UID: 63 - Begin
+          #
+          (call_script, "script_set_plural_name", "trp_player"),
+          #
+          ## UID: 63 - End
           (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
           (change_screen_return),
           #
@@ -191,6 +221,11 @@ game_menus = [
           #
 ##          (assign, "$g_journey_string", "str_journey_to_shariz"),
 ##          (jump_to_menu, "mnu_start_phase_2_5"),
+          ## UID: 63 - Begin
+          #
+          (call_script, "script_set_plural_name", "trp_player"),
+          #
+          ## UID: 63 - End
           (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
           (change_screen_return),
           #
@@ -202,6 +237,11 @@ game_menus = [
       ("town_7", [(eq, "$current_startup_quest_phase", 0)], "Join a caravan to Ashborne, in the Kingdom of the Umalelith", [
           (assign, "$current_town", "p_town_25"),
           (assign, "$g_starting_town", "$current_town"),
+          ## UID: 63 - Begin
+          #
+          (call_script, "script_set_plural_name", "trp_player"),
+          #
+          ## UID: 63 - End
           (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
           (change_screen_return),
         ]),
@@ -209,6 +249,11 @@ game_menus = [
       ("town_8", [(eq, "$current_startup_quest_phase", 0)], "Join a caravan to Hillford, in the Kielian Sultanate", [
           (assign, "$current_town", "p_town_23"),
           (assign, "$g_starting_town", "$current_town"),
+          ## UID: 63 - Begin
+          #
+          (call_script, "script_set_plural_name", "trp_player"),
+          #
+          ## UID: 63 - End
           (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
           (change_screen_return),
         ]),
@@ -2817,13 +2862,20 @@ game_menus = [
 ##            (party_get_current_terrain, reg0, "p_main_party"),
 ##            (display_message, "@Terrain: {reg0}"),
 ##            (party_detach, "p_main_party"),
-            (try_for_parties, ":party"),
-              (str_store_party_name, s0, ":party"),
-              (party_get_num_companions, reg0, ":party"),
-              (party_get_num_prisoners, reg1, ":party"),
-              (party_get_num_companion_stacks, reg2, ":party"),
-              (display_message, "@Party: {s0} - Members: {reg0} - Prisoners: {reg1} - Stacks: {reg2}"),
-            (try_end),
+##            (try_for_parties, ":party"),
+##              (str_store_party_name, s0, ":party"),
+##              (party_get_num_companions, reg0, ":party"),
+##              (party_get_num_prisoners, reg1, ":party"),
+##              (party_get_num_companion_stacks, reg2, ":party"),
+##              (display_message, "@Party: {s0} - Members: {reg0} - Prisoners: {reg1} - Stacks: {reg2}"),
+##            (try_end),
+##            (str_store_troop_name, s0, "trp_player"),
+##            (str_store_troop_name_plural, s1, "trp_player"),
+##            (display_message, "@Name: {s0} Plural: {s1}"),
+            (str_store_faction_name, s0, "$players_kingdom"),
+            (assign, reg0, "$players_kingdom"),
+            (display_message, "@Kingdom: {s0} ({reg0})"),
+            (call_script, "script_set_prefix", "trp_player"),
         ]),
 
         ## UID: 39 - Begin
@@ -14625,98 +14677,185 @@ game_menus = [
   ## UID: 11 - Begin
   #
   ("bandit_camp", 0, "{s3}", "none", [
-      (party_set_slot, "$g_encountered_party", slot_party_type, spt_bandit_lair),
+      (party_get_slot, ":state", "$g_encountered_party", slot_party_ai_substate),
       (try_begin),
-        (party_slot_ge, "$g_encountered_party", slot_village_recover_progress, 1),
-        (change_screen_return),
-      (else_try),      
-        (try_begin),
-          (party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 0),
-          (str_store_string, s3, "str_bandit_hideout_preattack"),
-        (else_try),
-          (party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 1),
-          (str_store_string, s3, "str_bandit_hideout_failure"),
-        (else_try),
-          (party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 2),
-          (str_store_string, s3, "str_bandit_hideout_success"),
-        (try_end),
+        (eq, ":state", 0), #Pre Attack
+        (str_store_string, s3, "str_bandit_hideout_preattack"),
+      (else_try),
+        (eq, ":state", 1), #Failure?
+        (str_store_string, s3, "str_bandit_hideout_failure"),
+      (else_try),
+        (eq, ":state", 2), #Success
+        (str_store_string, s3, "str_bandit_hideout_success"),
+      (else_try),
+        (str_store_string, s3, "@Debug: Unknown camp state."),
       (try_end),
-      (assign, "$loot_screen_shown", 0),
     ], [
         ("continue_1", [(party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 0)], "Attack the hideout...", [
-            (party_set_slot, "$g_encountered_party", slot_party_ai_substate, 1),
+            (assign, "$loot_screen_shown", 0), #Just clear loot screen variable.
 	    (assign, "$g_enemy_party", "$g_encountered_party"),
+            (party_clear, "p_temp_casualties"),
+            (party_set_slot, "$g_encountered_party", slot_party_ai_substate, 1), #Set party as failure.
 
             (try_begin),
-              (eq, "$g_encountered_party", "p_bandit_camp_1"),
-              (assign, ":scene_to_use", "scn_bandit_1_camp"),
+              (eq, "$g_encountered_party", "p_bandit_camp_1"), #Party is First Bandit Camp?
+              (assign, ":scene", "scn_bandit_1_camp"),
             (else_try),
-              (eq, "$g_encountered_party", "p_bandit_camp_2"),
-              (assign, ":scene_to_use", "scn_bandit_2_camp"),
-	    (try_end),
-            (modify_visitors_at_site,":scene_to_use"),
-	    (reset_visitors),
-
-            (store_character_level, ":player_level", "trp_player"),
-            (val_mul, ":player_level", 2),
-            (store_add, ":number_of_bandits_will_be_spawned_at_each_period", 6, ":player_level"),
-            (val_div, ":number_of_bandits_will_be_spawned_at_each_period", 6),
-	    
-	    (try_for_range, ":unused", 0, ":number_of_bandits_will_be_spawned_at_each_period"),
-	      (store_random_in_range, ":random_entry_point", 8, 16),	      
-	      (set_visitor, ":random_entry_point", "trp_bandit", 1),
-	    (try_end),
-
-	    (party_clear, "p_temp_casualties"),
+              (assign, ":scene", "scn_bandit_2_camp"),
+            (try_end),
             (set_party_battle_mode),
             (set_battle_advantage, 0),
-            (assign, "$g_battle_result", 0),
             (set_jump_mission,"mt_bandit_camp"),
-            (jump_to_scene, ":scene_to_use"),
-            (assign, "$g_next_menu", "mnu_bandit_camp"),
-            (jump_to_menu, "mnu_total_victory"),
+            (jump_to_scene, ":scene"),
             (change_screen_mission),
         ]),
-        
-        ("leave_no_attack", [(party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 0)], "Leave...", [(change_screen_return)]),
+
+        ("leave_no_attack", [
+            (party_get_slot, ":state", "$g_encountered_party", slot_party_ai_substate),
+            (this_or_next|le, ":state", 0),
+            (             gt, ":state", 2),
+        ], "Leave...", [(change_screen_return)]),
 
         ("leave_victory", [(party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 2)], "Continue...", [
-            (assign, "$g_leave_encounter", 0),
-            (party_set_slot, "$g_encountered_party", slot_village_recover_progress, 2),
-            (party_get_icon, ":icon", "$g_encountered_party"),
-            (val_add, ":icon", 1),
-            (party_set_icon, "$g_encountered_party", ":icon"),
-            (change_screen_return),
-
+            (party_get_slot, ":recover", "$g_encountered_party", slot_village_recover_progress),
+            (party_set_slot, "$g_encountered_party", slot_party_type, spt_kingdom_caravan),
             (try_begin),
-              (eq, "$loot_screen_shown", 0),
-              (assign, "$loot_screen_shown", 1),
-              (troop_clear_inventory, "trp_temp_troop"),
+              (le, ":recover", 0),
+              (party_set_slot, "$g_encountered_party", slot_village_recover_progress, 2),
+              (party_get_icon, ":icon", "$g_encountered_party"),
+              (val_add, ":icon", 1),
+              (party_set_icon, "$g_encountered_party", ":icon"),
+              (change_screen_return),
 
-              (party_get_num_companion_stacks, ":num_stacks", "p_temp_casualties"),
-              (try_for_range, ":stack_no", 0, ":num_stacks"),
-                (party_stack_get_troop_id, ":stack_troop", "p_temp_casualties", ":stack_no"),
-                (try_begin),
-                  (party_stack_get_size, ":stack_size", "p_temp_casualties", ":stack_no"),
+              (try_begin),
+                (eq, "$loot_screen_shown", 0),
+                (assign, "$loot_screen_shown", 1),
+                (troop_clear_inventory, "trp_temp_troop"),
+
+                (party_get_num_companion_stacks, ":num_stacks", "p_temp_casualties"),
+##                (assign, reg0, ":num_stacks"),
+##                (display_message, "@Stacks: {reg0}"),
+                (try_for_range, ":stack_no", 0, ":num_stacks"),
                   (party_stack_get_troop_id, ":stack_troop", "p_temp_casualties", ":stack_no"),
-                  (gt, ":stack_size", 0),
-                  (party_add_members, "p_total_enemy_casualties", ":stack_troop", ":stack_size"),
-                  (party_stack_get_num_wounded, ":stack_wounded_size", "p_temp_casualties", ":stack_no"),
-                  (gt, ":stack_wounded_size", 0),
-                  (party_wound_members, "p_total_enemy_casualties", ":stack_troop", ":stack_wounded_size"),
+                  (try_begin),
+                    (party_stack_get_size, ":stack_size", "p_temp_casualties", ":stack_no"),
+                    (party_stack_get_troop_id, ":stack_troop", "p_temp_casualties", ":stack_no"),
+                    (gt, ":stack_size", 0),
+                    (party_add_members, "p_total_enemy_casualties", ":stack_troop", ":stack_size"),
+                    (party_stack_get_num_wounded, ":stack_wounded_size", "p_temp_casualties", ":stack_no"),
+                    (gt, ":stack_wounded_size", 0),
+                    (party_wound_members, "p_total_enemy_casualties", ":stack_troop", ":stack_wounded_size"),
+                  (try_end),
                 (try_end),
+            
+                (party_get_num_companions, reg0, "p_total_enemy_casualties"),
+                (display_message, "@Total: {reg0}"),
+                (call_script, "script_party_calculate_loot", "p_total_enemy_casualties"),
+                (gt, reg0, 0),
+                (troop_sort_inventory, "trp_temp_troop"),
+                (change_screen_loot, "trp_temp_troop"),
               (try_end),
-            
-              (call_script, "script_party_calculate_loot", "p_total_enemy_casualties"),
-              (gt, reg0, 0),
-              (troop_sort_inventory, "trp_temp_troop"),
-              (change_screen_loot, "trp_temp_troop"),
+            (else_try),
+              (change_screen_return),
             (try_end),
-            
         ]),
 
         ("leave_defeat", [(party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 1)], "Continue...", [(change_screen_return)]),
     ]),
+
+##  ("bandit_camp", 0, "{s3}", "none", [
+##      (party_set_slot, "$g_encountered_party", slot_party_type, spt_bandit_lair),
+##      (try_begin),
+##        (party_slot_ge, "$g_encountered_party", slot_village_recover_progress, 1),
+##        (change_screen_return),
+##      (else_try),      
+##        (try_begin),
+##          (party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 0),
+##          (str_store_string, s3, "str_bandit_hideout_preattack"),
+##        (else_try),
+##          (party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 1),
+##          (str_store_string, s3, "str_bandit_hideout_failure"),
+##        (else_try),
+##          (party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 2),
+##          (str_store_string, s3, "str_bandit_hideout_success"),
+##        (try_end),
+##      (try_end),
+##      (assign, "$loot_screen_shown", 0),
+##    ], [
+##        ("continue_1", [(party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 0)], "Attack the hideout...", [
+##            (party_set_slot, "$g_encountered_party", slot_party_ai_substate, 1),
+##	    (assign, "$g_enemy_party", "$g_encountered_party"),
+##
+##            (try_begin),
+##              (eq, "$g_encountered_party", "p_bandit_camp_1"),
+##              (assign, ":scene_to_use", "scn_bandit_1_camp"),
+##            (else_try),
+##              (eq, "$g_encountered_party", "p_bandit_camp_2"),
+##              (assign, ":scene_to_use", "scn_bandit_2_camp"),
+##	    (try_end),
+##            (modify_visitors_at_site,":scene_to_use"),
+##	    (reset_visitors),
+##
+##            (store_character_level, ":player_level", "trp_player"),
+##            (val_mul, ":player_level", 2),
+##            (store_add, ":number_of_bandits_will_be_spawned_at_each_period", 6, ":player_level"),
+##            (val_div, ":number_of_bandits_will_be_spawned_at_each_period", 6),
+##	    
+##	    (try_for_range, ":unused", 0, ":number_of_bandits_will_be_spawned_at_each_period"),
+##	      (store_random_in_range, ":random_entry_point", 8, 16),	      
+##	      (set_visitor, ":random_entry_point", "trp_bandit", 1),
+##	    (try_end),
+##
+##	    (party_clear, "p_temp_casualties"),
+##            (set_party_battle_mode),
+##            (set_battle_advantage, 0),
+##            (assign, "$g_battle_result", 0),
+##            (set_jump_mission,"mt_bandit_camp"),
+##            (jump_to_scene, ":scene_to_use"),
+##            (assign, "$g_next_menu", "mnu_bandit_camp"),
+##            (jump_to_menu, "mnu_total_victory"),
+##            (change_screen_mission),
+##        ]),
+##        
+##        ("leave_no_attack", [(party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 0)], "Leave...", [(change_screen_return)]),
+##
+##        ("leave_victory", [(party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 2)], "Continue...", [
+##            (assign, "$g_leave_encounter", 0),
+##            (party_set_slot, "$g_encountered_party", slot_village_recover_progress, 2),
+##            (party_get_icon, ":icon", "$g_encountered_party"),
+##            (val_add, ":icon", 1),
+##            (party_set_icon, "$g_encountered_party", ":icon"),
+##            (change_screen_return),
+##
+##            (try_begin),
+##              (eq, "$loot_screen_shown", 0),
+##              (assign, "$loot_screen_shown", 1),
+##              (troop_clear_inventory, "trp_temp_troop"),
+##
+##              (party_get_num_companion_stacks, ":num_stacks", "p_temp_casualties"),
+##              (try_for_range, ":stack_no", 0, ":num_stacks"),
+##                (party_stack_get_troop_id, ":stack_troop", "p_temp_casualties", ":stack_no"),
+##                (try_begin),
+##                  (party_stack_get_size, ":stack_size", "p_temp_casualties", ":stack_no"),
+##                  (party_stack_get_troop_id, ":stack_troop", "p_temp_casualties", ":stack_no"),
+##                  (gt, ":stack_size", 0),
+##                  (party_add_members, "p_total_enemy_casualties", ":stack_troop", ":stack_size"),
+##                  (party_stack_get_num_wounded, ":stack_wounded_size", "p_temp_casualties", ":stack_no"),
+##                  (gt, ":stack_wounded_size", 0),
+##                  (party_wound_members, "p_total_enemy_casualties", ":stack_troop", ":stack_wounded_size"),
+##                (try_end),
+##              (try_end),
+##            
+##              (call_script, "script_party_calculate_loot", "p_total_enemy_casualties"),
+##              (gt, reg0, 0),
+##              (troop_sort_inventory, "trp_temp_troop"),
+##              (change_screen_loot, "trp_temp_troop"),
+##            (try_end),
+##            
+##        ]),
+##
+##        ("leave_defeat", [(party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 1)], "Continue...", [(change_screen_return)]),
+##    ]),
   #
   ## UID: 11 - End
 
@@ -15589,8 +15728,48 @@ game_menus = [
   ## UID: 36 - Begin
   #
   ("start_game_religion", mnf_disable_all_keys, "Please select your religion.", "none", [], [
-      ("religion_atheist", [], "Random", [
-          (assign, "$g_religion", 0),
+      ("choose_religion", [(call_script, "script_get_religion_name", religion_atheism, 1, 0)], "{s2}", [
+          (assign, "$g_religion", religion_atheism),
+          (jump_to_menu, "mnu_start_game_1"),
+        ]),
+
+      ("choose_religion", [(call_script, "script_get_religion_name", religion_christianity, 1, 0)], "{s2}", [
+          (assign, "$g_religion", religion_christianity),
+          (jump_to_menu, "mnu_start_game_1"),
+        ]),
+
+      ("choose_religion", [(call_script, "script_get_religion_name", religion_islam, 1, 0)], "{s2}", [
+          (assign, "$g_religion", religion_islam),
+          (jump_to_menu, "mnu_start_game_1"),
+        ]),
+
+      ("choose_religion", [(call_script, "script_get_religion_name", religion_hinduism, 1, 0)], "{s2}", [
+          (assign, "$g_religion", religion_hinduism),
+          (jump_to_menu, "mnu_start_game_1"),
+        ]),
+
+      ("choose_religion", [(call_script, "script_get_religion_name", religion_buddhism, 1, 0)], "{s2}", [
+          (assign, "$g_religion", religion_buddhism),
+          (jump_to_menu, "mnu_start_game_1"),
+        ]),
+
+      ("choose_religion", [(call_script, "script_get_religion_name", religion_tengrism, 1, 0)], "{s2}", [
+          (assign, "$g_religion", religion_tengrism),
+          (jump_to_menu, "mnu_start_game_1"),
+        ]),
+
+      ("choose_religion", [(call_script, "script_get_religion_name", religion_norse, 1, 0)], "{s2}", [
+          (assign, "$g_religion", religion_norse),
+          (jump_to_menu, "mnu_start_game_1"),
+        ]),
+
+      ("choose_religion", [(call_script, "script_get_religion_name", religion_sikhism, 1, 0)], "{s2}", [
+          (assign, "$g_religion", religion_sikhism),
+          (jump_to_menu, "mnu_start_game_1"),
+        ]),
+
+      ("choose_religion", [(call_script, "script_get_religion_name", religion_judaism, 1, 0)], "{s2}", [
+          (assign, "$g_religion", religion_judaism),
           (jump_to_menu, "mnu_start_game_1"),
         ]),
                                            

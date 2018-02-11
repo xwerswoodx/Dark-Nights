@@ -31,6 +31,20 @@ plyr_mission_vacation = 1
 #
 ## UID: 43 - End
 
+## UID: 36 - Begin
+#
+religion_christianity = 0
+religion_islam = 1
+religion_hinduism = 2
+religion_buddhism = 3
+religion_atheism = 4
+religion_tengrism = 5
+religion_norse = 6
+religion_sikhism = 7
+religion_judaism = 8
+#
+## UID: 36 - End
+
 ########################################################
 ##  ITEM SLOTS             #############################
 ########################################################
@@ -623,6 +637,14 @@ town_buildings_begin    = castle_buildings_begin
 town_buildings_end      = slot_center_building_bank + 1
 #
 ## UID: 9 - End
+
+## UID: 60 - Begin
+#
+slot_center_messenger_post = 600
+slot_center_mill = 601
+slot_center_watch_tower = 602
+#
+## UID: 60 - End
 
 ## UID: 10 - Begin
 #
@@ -1895,10 +1917,10 @@ arena_tier2_opponents_to_beat = 10
 arena_tier3_opponents_to_beat = 20
 arena_tier4_opponents_to_beat = 30
 arena_tier1_prize = 25
-arena_tier2_prize = 50
-arena_tier3_prize = 100
-arena_tier4_prize = 250
-arena_grand_prize = 500
+arena_tier2_prize = 75
+arena_tier3_prize = 200
+arena_tier4_prize = 400
+arena_grand_prize = 1000
 #
 ## UID: 8 - End
 

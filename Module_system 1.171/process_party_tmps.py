@@ -17,11 +17,21 @@ def save_party_template_troop(file,troop):
     file.write("-1 ")
     
 def save_party_templates():
+  ## UID: 6 - Begin
+  #
+  langFile = open(language_dir + "party_templates.csv", "w")
+  #
+  ## UID: 6 - End
   file = open(export_dir + "party_templates.txt","w")
   file.write("partytemplatesfile version 1\n")
   file.write("%d\n"%(len(party_templates)))
   for party_template in party_templates:
 #    add_tag_use(tag_uses,tag_faction,party_template[4])
+    ## UID: 6 - Begin
+    #
+    langFile.write("pt_%s|%s\n"%(convert_to_identifier(party_template[0]),party_template[1]))
+    #
+    ## UID: 6 - End
     file.write("pt_%s %s %d %d %d %d "%(convert_to_identifier(party_template[0]),replace_spaces(party_template[1]),party_template[2],party_template[3], party_template[4], party_template[5]))
     members = party_template[6]
     if (len(members) > 6):
@@ -33,6 +43,11 @@ def save_party_templates():
       save_party_template_troop(file,0)
     file.write("\n")
   file.close()
+  ## UID: 6 - Begin
+  #
+  langFile.close()
+  #
+  ## UID: 6 - End
 
 def save_python_header():
   file = open("./ID_party_templates.py","w")

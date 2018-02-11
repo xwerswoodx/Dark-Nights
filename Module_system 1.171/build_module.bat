@@ -1,6 +1,7 @@
 @echo off
 python process_init.py
 python process_global_variables.py
+python process_item_modifiers.py
 python process_strings.py
 python process_skills.py
 python process_music.py

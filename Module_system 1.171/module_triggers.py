@@ -206,8 +206,35 @@ triggers = [
         (spawn_around_party, ":town_no", "pt_desert_cavalry"),
     ]),
 
+  (24.0, 0, 0.0, [
+      (store_num_parties_of_template, ":total_dark_knight", "pt_dark_hunters"),
+      (store_num_parties_of_template, ":total_desert_cavalry", "pt_desert_cavalry"),
+      (this_or_next|gt, ":total_dark_knight", 0),
+      (             gt, ":total_desert_cavalry", 0),
+    ], [
+        (try_for_parties, ":party"),
+          (store_random_in_range, ":dk", "trp_dark_knight", "trp_desert_cavalry"),
+          (assign, ":dc", "trp_desert_cavalry"),
+
+          (party_get_template_id, ":template", ":party"),
+          (try_begin),
+            (eq, ":template", "pt_dark_hunters"),
+            (party_add_members, ":party", ":dk", 1),
+          (else_try),
+            (eq, ":template", "pt_desert_cavalry"),
+            (party_add_members, ":party", ":dc", 1),
+          (try_end),
+        (try_end),
+    ]),      
   #
   ## UID: 12 - End
+
+  ## UID: 63 - Begin
+  #
+  # Just set name to default one daily, if he changed his name.
+  (24.0, 0, 0.0, [], [(call_script, "script_set_prefix")]),
+  #
+  ## UID: 63 - End
 
   ## UID: 43 - Begin
   #

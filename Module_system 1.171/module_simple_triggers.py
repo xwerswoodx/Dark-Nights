@@ -1856,20 +1856,40 @@ simple_triggers = [
 	   (try_end),
     ]),
 
-  # Check escape chances of hero prisoners.
-  (48,
-   [
-       (call_script, "script_randomly_make_prisoner_heroes_escape_from_party", "p_main_party", 50),
-       (try_for_range, ":center_no", walled_centers_begin, walled_centers_end),
-##         (party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
-         (assign, ":chance", 30),
-         (try_begin),
-           (party_slot_eq, ":center_no", slot_center_has_prisoner_tower, 1),
-           (assign, ":chance", 5),
-         (try_end),
-         (call_script, "script_randomly_make_prisoner_heroes_escape_from_party", ":center_no", ":chance"),
-       (try_end),
+  ## UID: 59 - Begin,
+  #
+##  (48, [
+##       (call_script, "script_randomly_make_prisoner_heroes_escape_from_party", "p_main_party", 50),
+##       (try_for_range, ":center_no", walled_centers_begin, walled_centers_end),
+####         (party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
+##         (assign, ":chance", 30),
+##         (try_begin),
+##           (party_slot_eq, ":center_no", slot_center_has_prisoner_tower, 1),
+##           (assign, ":chance", 5),
+##         (try_end),
+##         (call_script, "script_randomly_make_prisoner_heroes_escape_from_party", ":center_no", ":chance"),
+##       (try_end),
+##    ]),
+
+  (48, [
+      (call_script, "script_randomly_make_prisoner_heroes_escape_from_party", "p_main_party", 50),
+      (try_for_range, ":center", walled_centers_begin, walled_centers_end),
+        (assign, ":chance", 25),
+        (try_begin),
+          (party_get_slot, ":level", ":center", slot_center_building_prisoner_tower),
+          (gt, ":level", 0),
+          (val_mul, ":level", 5),
+          (val_sub, ":chance", ":level"),
+        (try_end),
+
+        (try_begin),
+          (gt, ":chance", 0),
+          (call_script, "script_randomly_make_prisoner_heroes_escape_from_party", ":center", ":chance"),
+        (try_end),
+      (try_end),
     ]),
+  #
+  ## UID: 59 - End
 
   # Asking the ownership of captured centers to the player
 #  (3,
@@ -2642,7 +2662,7 @@ simple_triggers = [
         (call_script, "script_get_random_improvement", ":center", 0),
         (gt, reg9, 0),
         (store_random_in_range, ":random", 0, 100),
-        (lt, ":random", 2), #2% chance to upgrade
+        (lt, ":random", 1), #1% chance to upgrade
         (call_script, "script_upgrade_building", ":center", reg9, 0),
       (try_end),
     ]),

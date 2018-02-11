@@ -306,4 +306,25 @@ map_icons = [
   ("dedal_map_swadia_lord_a",0,"dedal_map_swadia_lord_a", avatar_scale,snd_gallop, 0.15, 0.173, 0),
   #
   ## UID: 12 - End
+
+  ## UID: 60 - Begin
+  #
+  ("dedal_map_windmill", mcn_no_shadow, "dedal_map_windmill", 0.45, 0),
+  ("dedal_map_windmill_ruined", mcn_no_shadow, "dedal_map_windmill_ruined", 0.45, 0),
+  ("dedal_map_windmill_snow", mcn_no_shadow, "dedal_map_windmill_snow", 0.45, 0),
+  ("dedal_map_windmill_snow_ruined", mcn_no_shadow, "dedal_map_windmill_snow_ruined", 0.45, 0),
+  ("dedal_map_messenger_post", mcn_no_shadow, "dedal_map_messenger_post", 0.45, 0),
+  ("dedal_map_messenger_post_ruined", mcn_no_shadow, "dedal_map_messenger_post_ruin", 0.45, 0),
+  ("dedal_map_messenger_post_snowy", mcn_no_shadow, "dedal_map_messenger_post_snowy", 0.45, 0),
+  ("dedal_map_messenger_post_snowy_ruined", mcn_no_shadow, "dedal_map_messenger_post_snowy_ruin", 0.45, 0),
+  ("dedal_map_tavern_village", mcn_no_shadow, "dedal_map_tavern_village", 0.45, 0),
+  ("dedal_map_tavern_village_ruined", mcn_no_shadow, "dedal_map_tavern_village_ruin", 0.45, 0),
+  ("dedal_map_tavern_village_snow", mcn_no_shadow, "dedal_map_tavern_village_snow", 0.45, 0),
+  ("dedal_map_tavern_village_snow_ruined", mcn_no_shadow, "dedal_map_tavern_village_snow_ruin", 0.45, 0),
+  ("dedal_map_watchtower", mcn_no_shadow, "dedal_map_watchtower", 0.45, 0),
+  ("dedal_map_watchtower_ruined", mcn_no_shadow, "dedal_map_watchtower_ruined", 0.45, 0),
+  ("dedal_map_watchtower_snow", mcn_no_shadow, "dedal_map_watchtower_snow", 0.45, 0),
+  ("dedal_map_watchtower_ruined_snow", mcn_no_shadow, "dedal_map_watchtower_ruined_snow", 0.45, 0),
+  #
+  ## UID: 60 - End
 ]

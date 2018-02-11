@@ -9,6 +9,11 @@ from process_common import *
 
 
 def save_parties(parties):
+  ## UID: 6 - Begin
+  #
+  langFile = open(language_dir + "parties.csv", "w")
+  #
+  ## UID: 6 - End
   file = open(export_dir + "parties.txt","w")
   file.write("partiesfile version 1\n")
   file.write("%d %d\n"%(len(parties), len(parties)))
@@ -19,6 +24,11 @@ def save_parties(parties):
 
     file.write(" 1 %d %d "%(i_party, i_party))
 #    file.write(" 1 %d "%(i_party))
+    ## UID: 6 - Begin
+    #
+    langFile.write("p_%s|%s\n"%(convert_to_identifier(party[0]),party[1]))
+    #
+    ## UID: 6 - End
     file.write("p_%s %s %d "%(convert_to_identifier(party[0]),replace_spaces(party[1]),party[2]))
     menu_no = 0
     menu_param = party[3]
@@ -55,6 +65,11 @@ def save_parties(parties):
       bearing = (3.1415926 / 180.0) * party[11]
     file.write("\n%f\n"%(bearing))
   file.close()
+  ## UID: 6 - Begin
+  #
+  langFile.close()
+  #
+  ## UID: 6 - End
 
 def save_python_header(parties):
   file = open("./ID_parties.py","w")

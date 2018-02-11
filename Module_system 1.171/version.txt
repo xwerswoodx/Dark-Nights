@@ -155,6 +155,24 @@
   * process_operations.py
   ** Edited:
   *** def_save_quick_strings
+  * process_item_modifiers.py
+  ** Added:
+  *** def_write_imods
+  * process_parties.py
+  ** Edited:
+  *** def_save_parties
+  * process_party_tmps.py
+  ** Edited:
+  *** def_save_party_templates
+  * process_quests.py
+  ** Edited:
+  *** def_save_quests
+  * process_skills.py
+  ** Edited:
+  *** def_save_skills
+  * process_troops.py
+  ** Edited:
+  *** def_save_troops
   
 7. Some of Turkish translate mistakes fixed.
   * dialogs.csv
@@ -425,6 +443,8 @@
   * module_scripts.py
   ** Replaced:
   *** script_game_event_party_encounter
+  ** Edited:
+  *** script_game_start
   * parties.csv
   ** Added:
   *** p_bandit_camp_1
@@ -1018,6 +1038,7 @@
   *** script_initialize_faction_troop_types
   *** script_spawn_bandits
   *** script_initialize_aristocracy
+  *** script_process_village_raids
   * module_map_icons.py
   ** Added:
   *** icon_banner_136
@@ -1350,6 +1371,11 @@
   * module_scripts.py
   ** Added:
   *** script_is_male
+  * module_dialogs.py
+  ** Edited:
+  *** dlga_lord_ask_enter_service:lord_ask_enter_service_female_2
+  *** dlga_lord_ask_enter_service:lord_give_oath_1
+  *** dlga_lord_give_oath_give_up:lord_pretalk
   
 27. Lords can't escape after wars anymore.
   * module_constants.py
@@ -1963,9 +1989,18 @@
   *** mno_action_view_troop_trees
   
 47. Some translation issues fixed.
+  * module_dialogs.py
+  ** Edited:
+  *** dlga_lord_recruit_3_why:lord_recruit_3_d
   * dialogs.csv
   ** Replaced:
   *** dlga_lord_tell_mission_incriminate_commander:lord_tell_mission_incriminate_commander_2
+  ** Removed:
+  *** dlga_lord_recruit_3_why:lord_recruit_3_d
+  * quick_strings.csv
+  ** Added:
+  *** qstr_Why_should_I_support
+  *** qstr_Why_should_I_support_
   
 48. Tavernkeeper buy drink section changed.
   * module_dialogs.py
@@ -2228,9 +2263,119 @@
   ** Edited:
   *** mnu_center_reports:mno_go_back_dot
   
+58. Item modifier files created.
+  * module_item_modifiers.py
+  * process_item_modifiers.py
+  
+59. Prisoner tower upgrades setted.
+  * module_simple_triggers.py
+  ** Removed:
+  *** 48h trigger to check prisoners.
+  ** Added:
+  *** 48h trigger to check prisoner tower and prisoners.
+  
+60. Some new map icons added. (Osp: dedal)
+  * module_map_icons.py
+  ** Added:
+  *** icon_dedal_map_windmill
+  *** icon_dedal_map_windmill_ruined
+  *** icon_dedal_map_windmill_snow
+  *** icon_dedal_map_windmill_snow_ruined
+  *** icon_dedal_map_messenger_post
+  *** icon_dedal_map_messenger_post_ruined
+  *** icon_dedal_map_messenger_post_snowy
+  *** icon_dedal_map_messenger_post_snowy_ruined
+  *** icon_dedal_map_tavern_village
+  *** icon_dedal_map_tavern_village_ruined
+  *** icon_dedal_map_tavern_village_snow
+  *** icon_dedal_map_tavern_village_snow_ruined
+  *** icon_dedal_map_watchtower
+  *** icon_dedal_map_watchtower_ruined
+  *** icon_dedal_map_watchtower_snow
+  *** icon_dedal_map_watchtower_snow_ruined
+  * module_scripts.py
+  ** Added:
+  *** script_set_bonus_icon
+  ** Edited:
+  *** script_set_improvement_bonus
+  *** script_give_center_to_faction_aux
+  *** script_process_village_raids
+  * module_party_templates.py
+  ** Added:
+  *** pt_windmill
+  *** pt_messenger_post
+  *** pt_watch_tower
+  
+61. Giving order to lords fixed for leaders.
+  * module_scripts.py
+  ** Added:
+  *** script_is_leader
+  *** script_is_marshall
+  *** script_can_order
+  * NOT: lord_give_order
+  
+62. Patrol party added for player's kingdom. (Need to add player's kingdom troops)
+  * module_party_templates.py
+  ** Added:
+  *** pt_kingdom_0_patrol
+  * module_scripts.py
+  ** Edited:
+  *** script_spawn_bandits
+  * module_strings.py
+  ** Added:
+  *** str_s9s_patrol_party
+  
+63. Prefix for lords added.
+  * module_game_menus.py
+  ** Edited:
+  *** menu_start_phase_2:mno_modder
+  *** menu_start_phase_2:mno_town_1
+  *** menu_start_phase_2:mno_town_2
+  *** menu_start_phase_2:mno_town_3
+  *** menu_start_phase_2:mno_town_4
+  *** menu_start_phase_2:mno_town_5
+  *** menu_start_phase_2:mno_town_6
+  *** menu_start_phase_2:mno_town_7
+  *** menu_start_phase_2:mno_town_8
+  * module_strings.py
+  ** Added:
+  *** str_faction_title_king_male_player
+  *** str_faction_title_king_male_1
+  *** str_faction_title_king_male_2
+  *** str_faction_title_king_male_3
+  *** str_faction_title_king_male_4
+  *** str_faction_title_king_male_5
+  *** str_faction_title_king_male_6
+  *** str_faction_title_king_male_7
+  *** str_faction_title_king_male_8
+  *** str_faction_title_king_female_player
+  *** str_faction_title_king_female_1
+  *** str_faction_title_king_female_2
+  *** str_faction_title_king_female_3
+  *** str_faction_title_king_female_4
+  *** str_faction_title_king_female_5
+  *** str_faction_title_king_female_6
+  *** str_faction_title_king_female_7
+  *** str_faction_title_king_female_8
+  * module_scripts.py
+  ** Added:
+  *** script_set_plural_name
+  *** script_set_prefix
+  *** script_unset_prefix
+  ** Edited:
+  *** script_player_join_faction
+  *** script_player_leave_faction
+  *** script_deactivate_player_faction
+  *** script_activate_player_faction
+  * module_triggers.py
+  ** Added:
+  *** 24h trigger to set player name to default.
+  
 Known Bugs:
 tf_female; Ladies seems like man so dialogs should change with gender.
 You can't loot or get prisoners from bandit camps that time.
 Turkish translate has stupid errors. Like "Kendimin yerine mareşal olarak kendim geçmek istiyorum.", "Köyün yeni sahibi kendim olsun istiyorum" etc...
 Page calculation is wrong for books.
 Troop ratio sometimes goes invisible.
+Flag bug when nations declares war on new kingdoms.
+Player faction has no patrol party.

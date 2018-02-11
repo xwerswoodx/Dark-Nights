@@ -13,6 +13,11 @@ from header_music import *
 from header_map_icons import *
 from header_presentations import *
 from ID_animations import *
+## UID: 63 - Begin
+#
+from ID_strings import *
+#
+## UID: 63 - End
 ## UID: 46 - Begin
 #
 from header_presentations import *
@@ -289,6 +294,15 @@ scripts = [
       #village products -- at some point we might make it so that the villages supply raw materials to towns, and the towns produce manufactured goods
       #village products designate the raw materials produced in the vicinity
       #right now, just doing a test for grain produced in the swadian heartland
+
+      ## UID: 11 - Begin
+      #
+      (store_random_in_range, ":bandit", "trp_looter", "trp_black_khergit_horseman"),
+      (store_random_in_range, ":amount", 20, 30),
+      (party_add_members, "p_bandit_camp_1", ":bandit", ":amount"),
+      (party_add_members, "p_bandit_camp_2", ":bandit", ":amount"),
+      #
+      ## UID: 11 - End
 
       ## UID: 24 - Begin
       #
@@ -20868,6 +20882,26 @@ scripts = [
         (call_script, "script_update_troop_notes", ":old_town_lord"),
       (try_end),
 
+      ## UID: 60 - Begin
+      #
+      (try_begin),
+        (party_get_slot, ":party", ":center_no", slot_center_messenger_post),
+        (gt, ":party", 0),
+        (call_script, "script_give_building_to_faction", ":party", ":faction_no"),
+      (try_end),
+      (try_begin),
+        (party_get_slot, ":party", ":center_no", slot_center_mill),
+        (gt, ":party", 0),
+        (call_script, "script_give_building_to_faction", ":party", ":faction_no"),
+      (try_end),
+      (try_begin),
+        (party_get_slot, ":party", ":center_no", slot_center_watch_tower),
+        (gt, ":party", 0),
+        (call_script, "script_give_building_to_faction", ":party", ":faction_no"),
+      (try_end),
+      #
+      ## UID: 60 - End
+
       (try_for_range, ":other_center", centers_begin, centers_end),
         (party_slot_eq, ":other_center", slot_village_bound_center, ":center_no"),
         (call_script, "script_give_center_to_faction_aux", ":other_center", ":faction_no"),
@@ -22531,169 +22565,238 @@ scripts = [
   # Input: none
   # Output: none
   # called from triggers every two hours
-  ("process_village_raids",
-    [
-       (try_for_range, ":village_no", villages_begin, villages_end),
-        ##CABA Fix 
-        (try_begin), 
-          (this_or_next|is_between, ":village_no", "p_village_16", "p_village_23"), #Shapeshte through Shulus (up to Ilvia) 
-          (this_or_next|is_between, ":village_no", "p_village_49", "p_village_51"), #Tismirr and Karindi 
-          (this_or_next|eq, ":village_no", "p_village_75"), #Bhulaban 
-          (is_between, ":village_no", "p_village_85", "p_village_87"), #Ismirala and Slezkh 
-          (assign, ":normal_village_icon", "icon_village_snow_a"),  
-          (assign, ":burnt_village_icon", "icon_village_snow_burnt_a"), 
-          (assign, ":deserted_village_icon", "icon_village_snow_deserted_a"), 
-        (else_try), 
-          (is_between, ":village_no", "p_village_91", "p_salt_mine"), #Ayn Assuadi through Rushdigh 
-          (assign, ":normal_village_icon", "icon_village_c"),  
-          (assign, ":burnt_village_icon", "icon_village_burnt_c"), 
-          (assign, ":deserted_village_icon", "icon_village_deserted_c"), 
-        (else_try), 
-          (assign, ":normal_village_icon", "icon_village_a"), 
-          (assign, ":burnt_village_icon", "icon_village_burnt_a"), 
-          (assign, ":deserted_village_icon", "icon_village_deserted_a"), 
-        (try_end), 
-        ##CABA Fix        
-         (party_get_slot, ":village_raid_progress", ":village_no", slot_village_raid_progress),
-         (try_begin),                
-           (party_slot_eq, ":village_no", slot_village_state, 0), #village is normal
-           (val_sub, ":village_raid_progress", 5),
-           (val_max, ":village_raid_progress", 0),
-           (party_set_slot, ":village_no", slot_village_raid_progress, ":village_raid_progress"),
-           (try_begin),
-             (lt, ":village_raid_progress", 50),
-             
-             (try_begin),
-               (party_get_icon, ":village_icon", ":village_no"),
-              (neq, ":village_icon", ":normal_village_icon"), ##CABA FIX 
-              (party_set_icon, ":village_no", ":normal_village_icon"), ##CABA FIX 
-             (try_end),
-             
-             (party_slot_ge, ":village_no", slot_village_smoke_added, 1),
-             (party_set_slot, ":village_no", slot_village_smoke_added, 0),             
-             (party_clear_particle_systems, ":village_no"),
-           (try_end),
-         (else_try),
-           (party_slot_eq, ":village_no", slot_village_state, svs_being_raided), #village is being raided
-           #End raid unless there is an enemy party nearby
-           (assign, ":raid_ended", 1),
-           (party_get_slot, ":raider_party", ":village_no", slot_village_raided_by),
+  ("process_village_raids", [
+      (try_for_range, ":village_no", villages_begin, villages_end),
+      ## UID: 24 - Begin
+      #
+      # Why village icons setted manually? We can make it with checking terrain...
+##        ##CABA Fix 
+##        (try_begin), 
+##          (this_or_next|is_between, ":village_no", "p_village_16", "p_village_23"), #Shapeshte through Shulus (up to Ilvia) 
+##          (this_or_next|is_between, ":village_no", "p_village_49", "p_village_51"), #Tismirr and Karindi 
+##          (this_or_next|eq, ":village_no", "p_village_75"), #Bhulaban 
+##          (is_between, ":village_no", "p_village_85", "p_village_87"), #Ismirala and Slezkh 
+##          (assign, ":normal_village_icon", "icon_village_snow_a"),  
+##          (assign, ":burnt_village_icon", "icon_village_snow_burnt_a"), 
+##          (assign, ":deserted_village_icon", "icon_village_snow_deserted_a"), 
+##        (else_try), 
+##          (is_between, ":village_no", "p_village_91", "p_salt_mine"), #Ayn Assuadi through Rushdigh 
+##          (assign, ":normal_village_icon", "icon_village_c"),  
+##          (assign, ":burnt_village_icon", "icon_village_burnt_c"), 
+##          (assign, ":deserted_village_icon", "icon_village_deserted_c"), 
+##        (else_try), 
+##          (assign, ":normal_village_icon", "icon_village_a"), 
+##          (assign, ":burnt_village_icon", "icon_village_burnt_a"), 
+##          (assign, ":deserted_village_icon", "icon_village_deserted_a"), 
+##        (try_end), 
+##        ##CABA Fix
+        (party_get_current_terrain, ":terrain", ":village_no"),
+        (assign, ":normal_village_icon", "icon_village_a"),
+        (assign, ":burnt_village_icon", "icon_village_burnt_a"),
+        (assign, ":deserted_village_icon", "icon_village_deserted_a"),
+        (try_begin),
+          (this_or_next|eq, ":terrain", 4), #rt_snow
+          (             eq, ":terrain", 12), #rt_snow_forest
+          (assign, ":normal_village_icon", "icon_village_snow_a"),
+          (assign, ":burnt_village_icon", "icon_village_snow_burnt_a"),
+          (assign, ":deserted_village_icon", "icon_village_snow_deserted_a"),
+        (else_try),
+          (this_or_next|eq, ":village_no", "p_village_106"), #Hawaha, this village out of desert terrain, so we need to set it manually.
+          (this_or_next|eq, ":terrain", 5), #rt_desert
+          (             eq, ":terrain", 13), #rt_desert_forest
+          (assign, ":normal_village_icon", "icon_village_c"),
+          (assign, ":burnt_village_icon", "icon_village_burnt_c"),
+          (assign, ":deserted_village_icon", "icon_village_deserted_c"),
+        (try_end),
+        #
+        ## UID: 24 - End
+  
+        (party_get_slot, ":village_raid_progress", ":village_no", slot_village_raid_progress),
+        (try_begin),
+          (party_slot_eq, ":village_no", slot_village_state, 0), #village is normal
+          (val_sub, ":village_raid_progress", 5),
+          (val_max, ":village_raid_progress", 0),
+          (party_set_slot, ":village_no", slot_village_raid_progress, ":village_raid_progress"),
+          (try_begin),
+            (lt, ":village_raid_progress", 50),
+            (try_begin),
+              (party_get_icon, ":village_icon", ":village_no"),
+              (neq, ":village_icon", ":normal_village_icon"), ##CABA FIX
+              (party_set_icon, ":village_no", ":normal_village_icon"), ##CABA FIX
+            (try_end),
+
+            (party_slot_ge, ":village_no", slot_village_smoke_added, 1),
+            (party_set_slot, ":village_no", slot_village_smoke_added, 0),
+            (party_clear_particle_systems, ":village_no"),
+          (try_end),
+        (else_try),
+          (party_slot_eq, ":village_no", slot_village_state, svs_being_raided), #village is being raided
+          #End raid unless there is an enemy party nearby
+          (assign, ":raid_ended", 1),
+          (party_get_slot, ":raider_party", ":village_no", slot_village_raided_by),
+          (try_begin),
+            (ge, ":raider_party", 0),
+            (party_is_active, ":raider_party"),
+            (this_or_next|neq, ":raider_party", "p_main_party"),
+            (eq, "$g_player_is_captive", 0),
+            (store_distance_to_party_from_party, ":distance", ":village_no", ":raider_party"),
+            (lt, ":distance", raid_distance),
+            (assign, ":raid_ended", 0),
+          (try_end),
            
-           (try_begin),
-             (ge, ":raider_party", 0),
-             (party_is_active, ":raider_party"),
-             (this_or_next|neq, ":raider_party", "p_main_party"),
-             (eq, "$g_player_is_captive", 0),
-             (store_distance_to_party_from_party, ":distance", ":village_no", ":raider_party"),
-             (lt, ":distance", raid_distance),
-             (assign, ":raid_ended", 0),
-           (try_end),
-           
-           (try_begin),           
-             (eq, ":raid_ended", 1),
-             (call_script, "script_village_set_state", ":village_no", svs_normal), #clear raid flag
-             (party_set_slot, ":village_no", slot_village_smoke_added, 0),
-             (party_clear_particle_systems, ":village_no"),                          
-           (else_try),
-             (assign, ":raid_progress_increase", 11),
-             (party_get_slot, ":looter_party", ":village_no", slot_village_raided_by),
-             (try_begin),
-               (party_get_skill_level, ":looting_skill", ":looter_party", "skl_looting"),
-               (val_add, ":raid_progress_increase", ":looting_skill"),
-             (try_end),
-             (try_begin),
-               (party_slot_eq, ":village_no", slot_center_has_watch_tower, 1),
-               (val_mul, ":raid_progress_increase", 2),
-               (val_div, ":raid_progress_increase", 3),
-             (try_end),
-             (val_add, ":village_raid_progress", ":raid_progress_increase"),
-             (party_set_slot, ":village_no", slot_village_raid_progress, ":village_raid_progress"),
-             (try_begin),
-               (ge, ":village_raid_progress", 50),
-               (party_slot_eq, ":village_no", slot_village_smoke_added, 0),
-               (party_add_particle_system, ":village_no", "psys_map_village_fire"),
-               (party_add_particle_system, ":village_no", "psys_map_village_fire_smoke"),
+          (try_begin),           
+            (eq, ":raid_ended", 1),
+            (call_script, "script_village_set_state", ":village_no", svs_normal), #clear raid flag
+            (party_set_slot, ":village_no", slot_village_smoke_added, 0),
+            (party_clear_particle_systems, ":village_no"),                          
+          (else_try),
+            (assign, ":raid_progress_increase", 11),
+            (party_get_slot, ":looter_party", ":village_no", slot_village_raided_by),
+            (try_begin),
+              (party_get_skill_level, ":looting_skill", ":looter_party", "skl_looting"),
+              (val_add, ":raid_progress_increase", ":looting_skill"),
+            (try_end),
+            (try_begin),
+              (party_slot_eq, ":village_no", slot_center_has_watch_tower, 1),
+              (val_mul, ":raid_progress_increase", 2),
+              (val_div, ":raid_progress_increase", 3),
+            (try_end),
+            (val_add, ":village_raid_progress", ":raid_progress_increase"),
+            (party_set_slot, ":village_no", slot_village_raid_progress, ":village_raid_progress"),
+            (try_begin),
+              (ge, ":village_raid_progress", 50),
+              (party_slot_eq, ":village_no", slot_village_smoke_added, 0),
+              (party_add_particle_system, ":village_no", "psys_map_village_fire"),
+              (party_add_particle_system, ":village_no", "psys_map_village_fire_smoke"),
               (party_set_icon, ":village_no", ":burnt_village_icon"), ##CABA FIX 
-               (party_set_slot, ":village_no", slot_village_smoke_added, 1),
-             (try_end),
-             (try_begin),
-               (gt, ":village_raid_progress", 100),
-               (str_store_party_name_link, s1, ":village_no"),
-               (party_stack_get_troop_id, ":raid_leader", ":looter_party", 0),
-               (ge, ":raid_leader", 0),
-               (str_store_party_name, s2, ":looter_party"),
-               (display_log_message, "@The village of {s1} has been looted by {s2}."),
+              (party_set_slot, ":village_no", slot_village_smoke_added, 1),
+              ## UID: 60 - Begin
+              #
+              (try_begin),
+                (party_get_slot, ":party", ":village_no", slot_center_messenger_post),
+                (gt, ":party", 0),
+                (party_get_icon, ":icon", ":party"),
+                (val_add, ":icon", 1),
+                (party_set_icon, ":party", ":icon"),
+              (try_end),
+              (try_begin),
+                (party_get_slot, ":party", ":village_no", slot_center_mill),
+                (gt, ":party", 0),
+                (party_get_icon, ":icon", ":party"),
+                (val_add, ":icon", 1),
+                (party_set_icon, ":party", ":icon"),
+              (try_end),
+              (try_begin),
+                (party_get_slot, ":party", ":village_no", slot_center_watch_tower),
+                (gt, ":party", 0),
+                (party_get_icon, ":icon", ":party"),
+                (val_add, ":icon", 1),
+                (party_set_icon, ":party", ":icon"),
+              (try_end),
+              #
+              ## UID: 60 - End
+            (try_end),
+            (try_begin),
+              (gt, ":village_raid_progress", 100),
+              (str_store_party_name_link, s1, ":village_no"),
+              (party_stack_get_troop_id, ":raid_leader", ":looter_party", 0),
+              (ge, ":raid_leader", 0),
+              (str_store_party_name, s2, ":looter_party"),
+              (display_log_message, "@The village of {s1} has been looted by {s2}."),
 
-               (try_begin),
-                 (party_get_slot, ":village_lord", ":village_no", slot_town_lord),
-                 (is_between, ":village_lord", active_npcs_begin, active_npcs_end),
-                 (call_script, "script_troop_change_relation_with_troop", ":raid_leader", ":village_lord", -1),
-                 (val_add, "$total_battle_enemy_changes", -1),
-               (try_end),
-
-               #give loot gold to raid leader
-               (troop_get_slot, ":raid_leader_gold", ":raid_leader", slot_troop_wealth),
-               (party_get_slot, ":village_prosperity", ":village_no"),
-               (store_mul, ":value_of_loot", ":village_prosperity", 60), #average is 3000
-               (val_add, ":raid_leader_gold", ":value_of_loot"),
-               (troop_set_slot, ":raid_leader", slot_troop_wealth, ":raid_leader_gold"),			   			   
-               
-               #take loot gold from village lord #new 1.126
-               (try_begin),
-                 (is_between, ":village_lord", active_npcs_begin, active_npcs_end),
-                 (troop_get_slot, ":village_lord_gold", ":village_lord", slot_troop_wealth),
-                 (val_sub, ":village_lord_gold", ":value_of_loot"),
-                 (val_max, ":village_lord_gold", 0),
-                 (troop_set_slot, ":village_lord", slot_troop_wealth, ":village_lord_gold"),
-               (try_end),
-			   
-               (call_script, "script_village_set_state",  ":village_no", svs_looted),
-               (party_set_slot, ":village_no", slot_center_accumulated_rents, 0), #new 1.126
-               (party_set_slot, ":village_no", slot_center_accumulated_tariffs, 0), #new 1.126
-
-               (party_set_slot, ":village_no", slot_village_raid_progress, 0),
-               (party_set_slot, ":village_no", slot_village_recover_progress, 0),
-               (try_begin),
-                 (store_faction_of_party, ":village_faction", ":village_no"),
-                 (this_or_next|party_slot_eq, ":village_no", slot_town_lord, "trp_player"),
-                 (eq, ":village_faction", "fac_player_supporters_faction"),
-                 (call_script, "script_add_notification_menu", "mnu_notification_village_raided", ":village_no", ":raid_leader"),
-               (try_end),
-               (call_script, "script_add_log_entry", logent_village_raided, ":raid_leader",  ":village_no", -1, -1),
-               (store_faction_of_party, ":looter_faction", ":looter_party"),
-               (call_script, "script_faction_inflict_war_damage_on_faction", ":looter_faction", ":village_faction", 5),			   
-             (try_end),
-           (try_end),
-         (else_try),
-           (party_slot_eq, ":village_no", slot_village_state, svs_looted), #village is looted
-           (party_get_slot, ":recover_progress", ":village_no", slot_village_recover_progress),
-           (val_add, ":recover_progress", 1),
-           (party_set_slot, ":village_no", slot_village_recover_progress, ":recover_progress"), #village looted
-           (try_begin),
-             (ge, ":recover_progress", 10),
-             (party_slot_eq, ":village_no", slot_village_smoke_added, 1),
-             (party_clear_particle_systems, ":village_no"),
-             (party_add_particle_system, ":village_no", "psys_map_village_looted_smoke"),
-             (party_set_slot, ":village_no", slot_village_smoke_added, 2),
-           (try_end),
-           (try_begin),
-             (gt, ":recover_progress", 50),
-             (party_slot_eq, ":village_no", slot_village_smoke_added, 2),
-             (party_clear_particle_systems, ":village_no"),
-             (party_set_slot, ":village_no", slot_village_smoke_added, 3),
+              (try_begin),
+                (party_get_slot, ":village_lord", ":village_no", slot_town_lord),
+                (is_between, ":village_lord", active_npcs_begin, active_npcs_end),
+                (call_script, "script_troop_change_relation_with_troop", ":raid_leader", ":village_lord", -1),
+                (val_add, "$total_battle_enemy_changes", -1),
+              (try_end),
+              #give loot gold to raid leader
+              (troop_get_slot, ":raid_leader_gold", ":raid_leader", slot_troop_wealth),
+              (party_get_slot, ":village_prosperity", ":village_no"),
+              (store_mul, ":value_of_loot", ":village_prosperity", 60), #average is 3000
+              (val_add, ":raid_leader_gold", ":value_of_loot"),
+              (troop_set_slot, ":raid_leader", slot_troop_wealth, ":raid_leader_gold"),			   			   
+            
+              #take loot gold from village lord #new 1.126
+              (try_begin),
+                (is_between, ":village_lord", active_npcs_begin, active_npcs_end),
+                (troop_get_slot, ":village_lord_gold", ":village_lord", slot_troop_wealth),
+                (val_sub, ":village_lord_gold", ":value_of_loot"),
+                (val_max, ":village_lord_gold", 0),
+                (troop_set_slot, ":village_lord", slot_troop_wealth, ":village_lord_gold"),
+              (try_end),
+     
+              (call_script, "script_village_set_state",  ":village_no", svs_looted),
+              (party_set_slot, ":village_no", slot_center_accumulated_rents, 0), #new 1.126
+              (party_set_slot, ":village_no", slot_center_accumulated_tariffs, 0), #new 1.126
+              (party_set_slot, ":village_no", slot_village_raid_progress, 0),
+              (party_set_slot, ":village_no", slot_village_recover_progress, 0),
+              (try_begin),
+                (store_faction_of_party, ":village_faction", ":village_no"),
+                (this_or_next|party_slot_eq, ":village_no", slot_town_lord, "trp_player"),
+                (eq, ":village_faction", "fac_player_supporters_faction"),
+                (call_script, "script_add_notification_menu", "mnu_notification_village_raided", ":village_no", ":raid_leader"),
+              (try_end),
+              (call_script, "script_add_log_entry", logent_village_raided, ":raid_leader",  ":village_no", -1, -1),
+              (store_faction_of_party, ":looter_faction", ":looter_party"),
+              (call_script, "script_faction_inflict_war_damage_on_faction", ":looter_faction", ":village_faction", 5),			   
+            (try_end),
+          (try_end),
+        (else_try),
+          (party_slot_eq, ":village_no", slot_village_state, svs_looted), #village is looted
+          (party_get_slot, ":recover_progress", ":village_no", slot_village_recover_progress),
+          (val_add, ":recover_progress", 1),
+          (party_set_slot, ":village_no", slot_village_recover_progress, ":recover_progress"), #village looted
+          (try_begin),
+            (ge, ":recover_progress", 10),
+            (party_slot_eq, ":village_no", slot_village_smoke_added, 1),
+            (party_clear_particle_systems, ":village_no"),
+            (party_add_particle_system, ":village_no", "psys_map_village_looted_smoke"),
+            (party_set_slot, ":village_no", slot_village_smoke_added, 2),
+          (try_end),
+          (try_begin),
+            (gt, ":recover_progress", 50),
+            (party_slot_eq, ":village_no", slot_village_smoke_added, 2),
+            (party_clear_particle_systems, ":village_no"),
+            (party_set_slot, ":village_no", slot_village_smoke_added, 3),
             (party_set_icon, ":village_no", ":deserted_village_icon"), ##CABA FIX 
-           (try_end),
-           (try_begin),
-             (gt, ":recover_progress", 100),
-             (call_script, "script_village_set_state",  ":village_no", 0),#village back to normal
-             (party_set_slot, ":village_no", slot_village_recover_progress, 0),
-             (party_clear_particle_systems, ":village_no"),
-             (party_set_slot, ":village_no", slot_village_smoke_added, 0),
-            (party_set_icon, ":village_no", ":normal_village_icon"), ##CABA FIX 
-           (try_end),
-         (try_end),
-       (try_end),
-  ]),
+          (try_end),
+          (try_begin),
+            (gt, ":recover_progress", 100),
+            (call_script, "script_village_set_state",  ":village_no", 0),#village back to normal
+            (party_set_slot, ":village_no", slot_village_recover_progress, 0),
+            (party_clear_particle_systems, ":village_no"),
+            (party_set_slot, ":village_no", slot_village_smoke_added, 0),
+            (party_set_icon, ":village_no", ":normal_village_icon"), ##CABA FIX
+            ## UID: 60 - Begin
+            #
+            (try_begin),
+              (party_get_slot, ":party", ":village_no", slot_center_messenger_post),
+              (gt, ":party", 0),
+              (party_get_icon, ":icon", ":party"),
+              (val_sub, ":icon", 1),
+              (party_set_icon, ":party", ":icon"),
+            (try_end),
+            (try_begin),
+              (party_get_slot, ":party", ":village_no", slot_center_mill),
+              (gt, ":party", 0),
+              (party_get_icon, ":icon", ":party"),
+              (val_sub, ":icon", 1),
+              (party_set_icon, ":party", ":icon"),
+            (try_end),
+            (try_begin),
+              (party_get_slot, ":party", ":village_no", slot_center_watch_tower),
+              (gt, ":party", 0),
+              (party_get_icon, ":icon", ":party"),
+              (val_sub, ":icon", 1),
+              (party_set_icon, ":party", ":icon"),
+            (try_end),
+            #
+            ## UID: 60 - End
+          (try_end),
+        (try_end),
+      (try_end),
+    ]),
 
  
   # script_process_sieges
@@ -31804,6 +31907,12 @@ scripts = [
       #(call_script, "script_store_average_center_value_per_faction"),
       (call_script, "script_update_all_notes"),
       (assign, "$g_recalculate_ais", 1),
+
+      ## UID: 63 - Begin
+      #
+      (call_script, "script_set_prefix"),
+      #
+      ## UID: 63 - End
       ]),
 
   #script_player_leave_faction
@@ -31894,6 +32003,12 @@ scripts = [
 	  
 	  (call_script, "script_update_all_notes"),
 	  (assign, "$g_recalculate_ais", 1),
+
+      ## UID: 63 - Begin
+      #
+      (call_script, "script_set_prefix"),
+      #
+      ## UID: 63 - End
     ]),
 
 	  
@@ -31913,8 +32028,13 @@ scripts = [
 		(assign, "$npc_to_rejoin_party", "$g_player_minister"),
 	(try_end),
 	(assign, "$g_player_minister", -1),
-	
-    (call_script, "script_add_notification_menu", "mnu_notification_player_faction_deactive", 0, 0),
+
+            (call_script, "script_add_notification_menu", "mnu_notification_player_faction_deactive", 0, 0),
+      ## UID: 63 - Begin
+      #
+      (call_script, "script_set_prefix"),
+      #
+      ## UID: 63 - End
     ]),
 
 	
@@ -32010,6 +32130,13 @@ scripts = [
     #(call_script, "script_store_average_center_value_per_faction"),
     (call_script, "script_update_all_notes"),
 	(assign, "$g_recalculate_ais", 1),
+
+      ## UID: 63 - Begin
+      #
+      (call_script, "script_set_prefix"),
+      #
+      ## UID: 63 - End
+
 	
     ]),
 
@@ -34035,6 +34162,27 @@ scripts = [
      (try_end),
      #
      ## UID: 10 - End
+     ## UID: 62 - Begin
+     #
+     (try_begin),
+       (call_script, "script_get_walled_count", fac_player_supporters_faction),
+       (assign, ":max", reg0),
+       (val_mul, ":max", 2),
+
+       (store_num_parties_of_template, ":num_parties", "pt_kingdom_0_patrol"),
+       (lt,":num_parties", ":max"),
+       (call_script, "script_get_random_center", fac_player_supporters_faction),
+       (gt, reg0, 0),
+       (spawn_around_party, reg0, "pt_kingdom_0_patrol"),
+       (assign, ":party", reg(0)),
+       (party_set_ai_behavior, ":party", ai_bhvr_patrol_location),
+       (party_set_ai_patrol_radius, ":party", 3),
+
+       (str_store_faction_name, s9, "fac_player_supporters_faction"),
+       (party_set_name, ":party", "str_s9s_patrol_party"),
+     (try_end),
+     #
+     ## UID: 62 - End
      ## UID: 21 - Begin
      #
      (try_begin),
@@ -37057,8 +37205,8 @@ scripts = [
   # A comment with relevance 50 has about 50% chance to be skipped.
   # If there is more than one comment that is not skipped, the system will randomize their relevance values, and then choose the highest one.
   # Also note that the relevance of events decreases as time passes. After three months, relevance reduces to 50%, after 6 months, 25%, etc...
-  ("get_relevant_comment_for_log_entry",
-    [(store_script_param, ":log_entry_no", 1),
+  ("get_relevant_comment_for_log_entry", [
+      (store_script_param, ":log_entry_no", 1),
      
      (troop_get_slot, ":entry_type",            "trp_log_array_entry_type",            ":log_entry_no"),
      (troop_get_slot, ":entry_time",            "trp_log_array_entry_time",            ":log_entry_no"),
@@ -51535,6 +51683,11 @@ scripts = [
       (try_for_range, ":center", centers_begin, centers_end),
         (party_get_slot, ":improvement", ":center", slot_center_current_improvement),
         (gt, ":improvement", 0),
+
+        (neg|party_slot_eq, ":center", slot_village_state, svs_looted),
+        (neg|party_slot_eq, ":center", slot_village_state, svs_being_raided),
+##        (neg|party_slot_ge, ":center", slot_village_infested_by_bandits, 1),
+
         (party_get_slot, ":end", ":center", slot_center_improvement_end_hour),
         (store_current_hours, ":hour"),
         (ge, ":hour", ":end"),
@@ -51563,6 +51716,11 @@ scripts = [
         (call_script, "script_change_center_prosperity", ":center", ":bonus"),
       (else_try),
         (eq, ":improvement", slot_center_building_mill),
+        ## UID: 60 - Begin
+        #
+##        (call_script, "script_set_bonus_icon", ":center", slot_center_mill, "pt_windmill"),
+        #
+        ## UID: 60 - End
         (party_get_slot, ":level", ":center", ":improvement"),
         (store_mul, ":bonus", 4, ":level"),
         (call_script, "script_change_center_prosperity", ":center", ":bonus"),
@@ -51571,7 +51729,55 @@ scripts = [
         (party_get_slot, ":level", ":center", ":improvement"),
         (store_mul, ":bonus", 5, ":level"),
         (call_script, "script_change_center_prosperity", ":center", ":bonus"),
+      ## UID: 60 - Begin
+      #
+      (else_try),
+        (eq, ":improvement", slot_center_building_watch_tower),
+        (call_script, "script_set_bonus_icon", ":center", slot_center_watch_tower, "pt_watch_tower"),
+      (else_try),
+        (eq, ":improvement", slot_center_building_messenger_post),
+        (call_script, "script_set_bonus_icon", ":center", slot_center_messenger_post, "pt_messenger_post"),
+      #
+      ## UID: 60 - End
       (try_end),
+    ]),
+
+  #script_set_bonus_icon, center, slot, template
+  ("set_bonus_icon", [
+      (store_script_param, ":center", 1),
+      (store_script_param, ":slot", 2),
+      (store_script_param, ":template", 3),
+
+      (try_begin),
+        (neg|party_slot_ge, ":center", ":slot", 1),
+        (spawn_around_party, ":center", ":template"),
+
+        #set slots
+        (assign, ":party", reg(0)),
+        (party_set_flags, ":party", pf_always_visible, 1),
+        (party_set_slot, ":center", ":slot", ":party"),
+        (party_set_slot, ":party", slot_village_bound_center, ":center"),
+
+        #check terrain
+        (party_get_current_terrain, ":terrain", ":party"),
+        (party_get_icon, ":icon", ":party"),
+
+        (try_begin),
+          (this_or_next|eq, ":terrain", 4), #rt_snow
+          (             eq, ":terrain", 12), #rt_snow_forest
+          (val_add, ":icon", 2),
+        (try_end),
+
+        #check village status
+        (try_begin),
+          (party_slot_eq, ":center", slot_village_state, svs_looted),
+          (val_add, ":icon", 1),
+        (try_end),
+        (party_set_icon, ":party", ":icon"),
+
+        #set to faction
+        (store_faction_of_party, ":faction", ":center"),
+        (call_script, "script_give_center_to_faction_aux", ":party", ":faction"),
     ]),
   
   #script_get_improvement_detail_new, center, improvement_id
@@ -53608,6 +53814,212 @@ scripts = [
     ]),
   #
   ## UID: 50 - End
+
+  ## UID: 60 - Begin
+  #
+  #script_give_building_to_faction, center, faction
+  ("give_building_to_faction", [
+      (store_script_param_1, ":center"),
+      (store_script_param_2, ":faction"),
+
+      (store_faction_of_party, ":old_faction", ":center"),
+      (party_set_faction, ":center", ":faction"),
+
+      (try_begin),
+        (party_slot_eq, ":center", slot_party_type, spt_village),
+        (party_get_slot, ":farmer_party", ":center", slot_village_farmer_party),
+        (gt, ":farmer_party", 0),
+        (party_is_active, ":farmer_party"),
+        (party_set_faction, ":farmer_party", ":faction"),
+      (try_end),
+
+      (try_begin),
+        (neq, ":faction", ":old_faction"),
+		
+        (party_set_slot, ":center", slot_center_ex_faction, ":old_faction"),
+        (call_script, "script_update_faction_notes", ":old_faction"),
+      (try_end),  
+      
+      (call_script, "script_update_faction_notes", ":faction"),
+      (call_script, "script_update_center_notes", ":center"),
+  ]),
+  #
+  ## UID: 60 - End
+
+  ## UID: 36 - Begin
+  #
+  #script_get_religion_name, religion, toUpperFirst?, Prefix(a/an)?
+  # OUTPUT:
+  # s2 = religion name
+  ("get_religion_name", [
+      (store_script_param, ":religion", 1),
+      (store_script_param, reg15, 2),
+      (store_script_param, reg16, 3),
+
+      (try_begin),
+        (eq, ":religion", religion_christianity),
+        (str_store_string, s2, "@{reg16?a {reg15?Christian:christian}:{reg15?Christian:christian}}"),
+      (else_try),
+        (eq, ":religion", religion_islam),
+        (str_store_string, s2, "@{reg16?a {reg15?Muslim:muslim}:{reg15?Muslim:muslim}}"),
+      (else_try),
+        (eq, ":religion", religion_hinduism),
+        (str_store_string, s2, "@{reg16?a {reg15?Hindu:hindu}:{reg15?Hindu:hindu}}"),
+      (else_try),
+        (eq, ":religion", religion_buddhism),
+        (str_store_string, s2, "@{reg16?a {reg15?Buddhist:buddhist}:{reg15?Buddhist:buddhist}}"),
+      (else_try),
+        (eq, ":religion", religion_atheism),
+        (str_store_string, s2, "@{reg16?an {reg15?Atheist:atheist}:{reg15?Atheist:atheist}}"),
+      (else_try),
+        (eq, ":religion", religion_tengrism),
+        (str_store_string, s2, "@{reg16?a {reg15?Tengrism:tengrism}:{reg15?Tengrism:tengrism}}"),
+      (else_try),
+        (eq, ":religion", religion_norse),
+        (str_store_string, s2, "@{reg16?a {reg15?Norse:norse}:{reg15?Norse:norse}}"),
+      (else_try),
+        (eq, ":religion", religion_sikhism),
+        (str_store_string, s2, "@{reg16?a {reg15?Sikhist:sikhist}:{reg15?Sikhist:sikhist}}"),
+      (else_try),
+        (eq, ":religion", religion_judaism),
+        (str_store_string, s2, "@{reg16?a {reg15?Judaist:judaist}:{reg15?Judaist:judaist}}"),
+      (else_try),
+        (str_store_string, s2, "@DEBUG: Unknown Religion"),
+      (try_end),
+    ]),
+  #
+  ## UID: 36 - End
+
+  ## UID: 61 - Begin
+  #
+  ("is_leader", [
+      (store_script_param, ":troop", 1),
+      
+      (assign, reg0, 0),
+      (try_begin),
+        (eq, ":troop", "trp_player"),
+        (faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_active),
+        (faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, ":troop"),
+        (assign, reg0, 1),
+      (else_try),
+        (store_faction_of_troop, ":faction", ":troop"),
+        (faction_slot_eq, ":faction", slot_faction_state, sfs_active),
+        (faction_slot_eq, ":faction", slot_faction_leader, ":troop"),
+        (assign, reg0, 1),
+      (try_end),
+    ]),
+
+  ("is_marshall", [
+      (store_script_param, ":troop", 1),
+      
+      (assign, reg0, 0),
+      (try_begin),
+        (eq, ":troop", "trp_player"),
+        (faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_active),
+        (faction_slot_eq, "fac_player_supporters_faction", slot_faction_marshall, ":troop"),
+        (assign, reg0, 1),
+      (else_try),
+        (store_faction_of_troop, ":faction", ":troop"),
+        (faction_slot_eq, ":faction", slot_faction_state, sfs_active),
+        (faction_slot_eq, ":faction", slot_faction_marshall, ":troop"),
+        (assign, reg0, 1),
+      (try_end),
+    ]),
+
+  ("can_order", [
+      (store_script_param, ":troop", 1),
+
+      (assign, reg1, 0),
+      (call_script, "script_is_marshall", ":troop"),
+      (assign, reg1, reg0),
+      (try_begin),
+        (le, reg1, 0),
+        (call_script, "script_is_leader", ":troop"),
+        (assign, reg1, reg0),
+      (try_end),
+    ]),
+  #
+  ## UID: 61 - End
+
+  ## UID: 63 - Begin
+  #
+  ("set_plural_name", [
+      (store_script_param, ":troop", 1),
+      (str_store_troop_name, s0, "trp_player"),
+      (troop_set_plural_name, ":troop", s0),
+    ]),
+
+  ("set_prefix", [
+##      (store_script_param, ":agent", 1),
+      (get_player_agent_no, ":agent"), #For this time, we just set it to player.
+      (agent_get_troop_id, ":troop", ":agent"),
+      (agent_get_party_id, ":party", ":agent"),
+
+      (store_faction_of_troop, ":faction", ":troop"),
+      (try_begin),
+        (eq, ":troop", "trp_player"),
+        (assign, ":faction", "$players_kingdom"),
+        (assign, ":party", "p_main_party"),
+      (try_end),
+
+      (str_clear, s0),
+      (str_store_troop_name_plural, s0, ":troop"),
+      (try_begin),
+        (gt, ":faction", 0), #Check if faction is exist.
+        (faction_slot_eq, ":faction", slot_faction_state, sfs_active), #Check if faction is active, to make sure.
+        (try_begin),
+          (faction_slot_eq, ":faction", slot_faction_leader, ":troop"), #Troop is leader of party?
+          (assign, ":title", str_faction_title_king_male_player),
+          (try_begin),
+            (is_between, ":faction", npc_kingdoms_begin, npc_kingdoms_end),
+            (store_sub, ":add", ":faction", npc_kingdoms_begin),
+            (val_add, ":add", 1),
+            (val_add, ":title", ":add"),
+          (try_end),
+
+          (try_begin),
+            (call_script, "script_is_male", ":troop"),
+            (eq, reg0, 0), #is Female?
+            (val_add, ":title", 9),
+          (try_end),
+
+          (str_store_string, s1, ":title"),
+        (else_try),
+          (assign, ":title", str_faction_title_male_player),
+          (try_begin),
+            (is_between, ":faction", npc_kingdoms_begin, npc_kingdoms_end),
+            (store_sub, ":add", ":faction", npc_kingdoms_begin),
+            (val_add, ":add", 1),
+            (val_add, ":title", ":add"),
+          (try_end),
+
+          (try_begin),
+            (call_script, "script_is_male", ":troop"),
+            (eq, reg0, 0), #is Female?
+            (val_add, ":title", 9),
+          (try_end),
+
+          (str_store_string, s1, ":title"),
+        (try_end),
+        (troop_set_name, ":troop", s1),
+        (party_set_name, ":party", s1), #Just make sure to set name to party...
+      (else_try),
+        (troop_set_name, ":troop", s0), #Set it to default name.
+        (party_set_name, ":party", s0), #Just make sure to clear name for party...
+      (try_end),
+    ]),
+
+  ("unset_prefix", [
+      (store_script_param, ":agent", 1),
+      (agent_get_troop_id, ":troop", ":agent"),
+      (agent_get_party_id, ":party", ":agent"),
+
+      (str_store_troop_name_plural, s0, ":troop"),
+      (troop_set_name, ":troop", s0),
+      (party_set_name, ":party", s0),
+    ]),
+  #
+  ## UID: 63 - End
 
   ## EOF
 ]

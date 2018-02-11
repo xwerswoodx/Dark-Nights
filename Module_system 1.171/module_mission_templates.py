@@ -16519,120 +16519,8 @@ mission_templates = [
       (14,mtef_defenders|mtef_team_0,0,aif_start_alarmed,20,[]),
       (15,mtef_defenders|mtef_team_0,0,aif_start_alarmed,20,[]),
     ], [
+        common_battle_mission_start,
         common_battle_init_banner,
-
-        (ti_inventory_key_pressed, 0, 0, [(set_trigger_result,1)], []),
-        (ti_on_agent_spawn, 0, 0, [], [
-            (store_trigger_param_1, ":agent_no"),
-            (assign, "$relative_of_merchant_is_found", 0),
-
-            (try_begin),
-              (agent_is_human, ":agent_no"),
-              (agent_is_alive, ":agent_no"),
-              (agent_get_team, ":agent_team", ":agent_no"),
-              (eq, ":agent_team", 1),
-
-              (agent_get_position, pos4, ":agent_no"),
-              (agent_set_scripted_destination, ":agent_no", pos4, 1),
-            (try_end),
-
-            (try_begin),
-              (agent_get_troop_id, ":troop_no", ":agent_no"),
-              (is_between, ":troop_no", "trp_relative_of_merchant", "trp_relative_of_merchants_end"),
-              (agent_set_team, ":agent_no", 7),
-              (team_set_relation, 0, 7, 0),
-            (try_end),
-        ]),
-
-##        (ti_tab_pressed, 0, 0, [
-##            (display_message, "str_cannot_leave_now"),], []),
-
-        (1, 0, ti_once, [], [
-            (assign, "$defender_reinforcement_stage", 0),
-        ]),
-
-        (1, 0, 0, [], [
-            (try_for_agents, ":bandit_id"),
-              (agent_is_alive, ":bandit_id"),
-              (agent_get_team, ":agent_team_1", ":bandit_id"),
-              (eq, ":agent_team_1", 1),
-              (agent_is_in_special_mode, ":bandit_id"),
-              (agent_is_human, ":bandit_id"),
-
-              (agent_get_position, pos0, ":bandit_id"),
-              (try_for_agents, ":player_team_agent_id"),
-                (agent_is_alive, ":player_team_agent_id"),
-                (agent_get_team, ":agent_team_2", ":player_team_agent_id"),
-                (eq, ":agent_team_2", 0),
-                (agent_is_human, ":player_team_agent_id"),
-
-                (store_agent_hit_points, ":bandit_hit_points", ":bandit_id"),
-                (assign, ":continue", 0),
-
-                (try_begin),
-                  (lt, ":bandit_hit_points", 100),
-
-                  (try_for_agents, ":bandit_2_id"),
-                    (agent_is_alive, ":bandit_2_id"),  
-                    (agent_get_team, ":bandit_2_team", ":bandit_2_id"),
-                    (eq, ":bandit_2_team", 1),
-                    (neq, ":bandit_id", ":bandit_2_id"),
-                    (agent_is_in_special_mode, ":bandit_2_id"),
-                    (agent_is_human, ":bandit_2_id"),
-                  
-                    (agent_get_position, pos1, ":bandit_id"),
-                    (agent_get_position, pos2, ":bandit_2_id"),                        
-                    (get_distance_between_positions, ":distance", pos1, pos2),
-                    (le, ":distance", 1000),
-
-                    (agent_clear_scripted_mode, ":bandit_2_id"),  
-                  (try_end),                             
-                
-                  (assign, ":continue", 1),
-                (else_try),  
-                  (agent_get_position, pos1, ":bandit_id"),
-                  (agent_get_position, pos2, ":player_team_agent_id"),                        
-                  (get_distance_between_positions, ":distance", pos1, pos2),                                                                        
-                  (le, ":distance", 4000),
-              
-                  (try_for_agents, ":bandit_2_id"),
-                    (agent_is_alive, ":bandit_2_id"),  
-                    (agent_get_team, ":bandit_2_team", ":bandit_2_id"),
-                    (eq, ":bandit_2_team", 1),
-                    (neq, ":bandit_id", ":bandit_2_id"),
-                    (agent_is_in_special_mode, ":bandit_2_id"),
-                    (agent_is_human, ":bandit_2_id"),
-                    
-                    (agent_get_position, pos1, ":bandit_id"),
-                    (agent_get_position, pos2, ":bandit_2_id"),                        
-                    (get_distance_between_positions, ":distance", pos1, pos2),
-                    (le, ":distance", 1000),
-                    
-                    (agent_clear_scripted_mode, ":bandit_2_id"),  
-                  (try_end),                
-  
-                  (assign, ":continue", 1),
-                (try_end),  
-              
-                (eq, ":continue", 1),
-                (agent_clear_scripted_mode, ":bandit_id"),
-              (try_end),
-            (try_end),
-        ]),
-
-        (30, 0, 0, [(le, "$defender_reinforcement_stage", 1)], [
-            (store_character_level, ":player_level", "trp_player"),
-            (store_add, ":number_of_bandits_will_be_spawned_at_each_period", 5, ":player_level"),
-            (val_div, ":number_of_bandits_will_be_spawned_at_each_period", 3),
-
-            (lt, "$bandits_spawned_extra", ":number_of_bandits_will_be_spawned_at_each_period"),
-            (val_add, "$bandits_spawned_extra", 1),                   
-
-            (store_current_scene, ":cur_scene"), 
-            (modify_visitors_at_site, ":cur_scene"),
-            (store_random_in_range, ":random_entry_point", 8, 16),
-            (add_visitors_to_current_scene, ":random_entry_point", "trp_bandit", 1),
-        ]),
 
         (ti_on_agent_killed_or_wounded, 0, 0, [], [
             (store_trigger_param_1, ":dead_agent_no"),
@@ -16641,59 +16529,55 @@ mission_templates = [
 
             (try_begin),
               (ge, ":dead_agent_no", 0),
+              (neg|agent_is_ally, ":dead_agent_no"),
               (agent_is_human, ":dead_agent_no"),
               (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
-              (str_store_troop_name, s6, ":dead_agent_troop_id"),
-
-              (try_begin),
-                (neg|agent_is_ally, ":dead_agent_no"),
-                (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),    
-                (try_begin),
-                (eq, ":is_wounded", 1),
-                  (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
-                (try_end),  
-              (try_end),
-              (party_add_members, "p_temp_casualties", ":dead_agent_troop_id", 1), 
+##              (display_message, "@Test: +1"),
+              (party_add_members, "p_temp_casualties", ":dead_agent_troop_id", 1),
+##              (party_get_num_companions, reg0, "p_temp_casualties"),
+##              (display_message, "@X: {reg0}"),
               (eq, ":is_wounded", 1),
-              (party_wound_members, "p_temp_casualties", ":dead_agent_troop_id", 1), 
+              (party_wound_members, "p_temp_casualties", ":dead_agent_troop_id", 1),
             (try_end),
-        
-            (assign, ":number_of_enemies", 0),
-            (try_for_agents, ":cur_agent"),
-              (agent_is_non_player, ":cur_agent"),
-              (agent_is_human, ":cur_agent"),
-              (agent_is_alive, ":cur_agent"),
-              (neg|agent_is_ally, ":cur_agent"),
-              (val_add, ":number_of_enemies", 1),
-            (try_end),
-            (assign, reg11, ":number_of_enemies"),
-        
-            (try_begin),
-              (le, ":number_of_enemies", 2),
-              (le, "$defender_reinforcement_stage", 1),
-              (val_add, "$defender_reinforcement_stage", 1),
+        ]),
 
-              (store_character_level, ":player_level", "trp_player"),
-              (val_mul, ":player_level", 2),
-              (store_add, ":number_of_bandits_will_be_spawned_at_each_period", 6, ":player_level"),
-              (val_div, ":number_of_bandits_will_be_spawned_at_each_period", 6),
-
-              (store_current_scene, ":cur_scene"), 
-              (modify_visitors_at_site, ":cur_scene"),
-              (try_for_range, ":unused", 0, ":number_of_bandits_will_be_spawned_at_each_period"),
-                (store_random_in_range, ":random_entry_point", 8, 16),
-                (add_visitors_to_current_scene, ":random_entry_point", "trp_bandit", 1),
-              (try_end),
-            (try_end),
+        (ti_on_agent_spawn, 0, 0, [], [
+            (store_trigger_param_1, ":agent_no"),
+            (call_script, "script_agent_reassign_team", ":agent_no"),
         ]),
 
         (0, 0, ti_once, [], [
-            (call_script, "script_music_set_situation_with_culture", mtf_sit_ambushed),
-            (set_party_battle_mode),
+            (assign,"$g_battle_won",0),
+            (assign,"$defender_reinforcement_stage",0),
+            (assign,"$attacker_reinforcement_stage",0),
+            (call_script, "script_place_player_banner_near_inventory"),
+            (call_script, "script_combat_music_set_situation_with_culture"),
         ]),
 
-        common_battle_order_panel,
-        common_battle_order_panel_tick,
+        common_music_situation_update,
+        common_battle_check_friendly_kills,
+
+        (1, 0, 5, [
+            (lt,"$defender_reinforcement_stage",2),
+            (store_mission_timer_a,":mission_time"),
+            (ge,":mission_time",10),
+            (store_normalized_team_count,":num_defenders", 0),
+            (lt,":num_defenders",6),
+        ], [
+            (add_reinforcements_to_entry, 0, 7),
+            (val_add, "$defender_reinforcement_stage", 1)
+        ]),
+        
+        (1, 0, 5, [
+            (lt,"$attacker_reinforcement_stage",2),
+            (store_mission_timer_a,":mission_time"),
+            (ge,":mission_time",10),
+            (store_normalized_team_count,":num_attackers", 1),
+            (lt,":num_attackers",6),
+        ], [
+            (add_reinforcements_to_entry, 3, 7),
+            (val_add, "$attacker_reinforcement_stage", 1)
+        ]),
 
         (1, 60, ti_once, [
             (store_mission_timer_a,reg(1)),
@@ -16702,16 +16586,38 @@ mission_templates = [
             (neg|main_hero_fallen, 0),
             (set_mission_result,1),
             (display_message,"str_msg_battle_won"),
+            (party_set_slot, "$g_encountered_party", slot_party_ai_substate, 2),
+            (display_message, "@{s10}"),
+            (jump_to_menu, "mnu_bandit_camp"),
             (assign,"$g_battle_won",1),
             (assign, "$g_battle_result", 1),
             (call_script, "script_play_victorious_sound"),
-            (party_set_slot, "$g_encountered_party", slot_party_ai_substate, 2),
         ], [
             (call_script, "script_count_mission_casualties_from_agents"),
             (finish_mission, 1),
         ]),
+        
         common_battle_victory_display,
         common_battle_tab_press,
+
+        (1, 4, ti_once, [(main_hero_fallen)], [
+            (assign, "$pin_player_fallen", 1),
+            (str_store_string, s5, "str_retreat"),
+            (call_script, "script_simulate_retreat", 10, 20),
+            (assign, "$g_battle_result", -1),
+            (set_mission_result,-1),
+            (call_script, "script_count_mission_casualties_from_agents"),
+            (party_set_slot, "$g_encountered_party", slot_party_ai_substate, 1),
+            (jump_to_menu, "mnu_bandit_camp"),
+            (finish_mission, 0)
+        ]),
+
+        ## UID: 35 - Begin
+        #
+        feature_troop_ratio,
+        #
+        ## UID: 35 - End
+        (ti_inventory_key_pressed, 0, 0, [(set_trigger_result, 1)], []),
     ]),
   #
   ## UID: 11 - End

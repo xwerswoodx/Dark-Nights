@@ -10,6 +10,11 @@ from process_common import *
 num_face_numeric_keys = 4
 
 def save_troops():
+  ## UID: 6 - Begin
+  #
+  langFile = open(language_dir + "troops.csv", "w")
+  #
+  ## UID: 6 - End
   file = open(export_dir + "troops.txt","w")
   file.write("troopsfile version 2\n")
   file.write("%d "%len(troops))
@@ -31,6 +36,12 @@ def save_troops():
 #      if (id_no >= 0):  add_tag_use(tag_uses,tag_troop,id_no)
 #    if (troop[6] > 0):  add_tag_use(tag_uses,tag_faction,troop[6])
 
+    ## UID: 6 - Begin
+    #
+    langFile.write("trp_%s|%s\n"%(convert_to_identifier(troop[0]), troop[1]))
+    langFile.write("trp_%s_pl|%s\n"%(convert_to_identifier(troop[0]), troop[2]))
+    #
+    ## UID: 6 - End
     file.write("\ntrp_%s %s %s %s %d %d %d %d %d %d\n  "%(convert_to_identifier(troop[0]),replace_spaces(troop[1]),replace_spaces(troop[2]), replace_spaces(str(troop[13])), troop[3],troop[4],troop[5], troop[6], troop[14], troop[15]))
     inventory_list = troop[7]
 #    inventory_list.append(itm_arrows)
@@ -88,6 +99,11 @@ def save_troops():
       
     
   file.close()
+  ## UID: 6 - Begin
+  #
+  langFile.close()
+  #
+  ## UID: 6 - End
 
 def two_to_pow(x):
   result = 1
