@@ -656,5 +656,7 @@ script_can_order = 654
 script_set_plural_name = 655
 script_set_prefix = 656
 script_unset_prefix = 657
+script_troop_has_center_from_faction = 658
+script_troop_change_faction = 659
 
 

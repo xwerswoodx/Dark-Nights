@@ -1376,6 +1376,10 @@
   *** dlga_lord_ask_enter_service:lord_ask_enter_service_female_2
   *** dlga_lord_ask_enter_service:lord_give_oath_1
   *** dlga_lord_give_oath_give_up:lord_pretalk
+  *** dlga_lord_give_conclude:lord_give_conclude_2
+  * game_strings.csv
+  ** Replaced:
+  *** str_i_thank_you_reg39my_ladylord
   
 27. Lords can't escape after wars anymore.
   * module_constants.py
@@ -1807,6 +1811,12 @@
   *** dlga_lord_intro:lord_start
   *** dlga_start:close_window
   *** dlga_tavernkeeper_talk:tavernkeeper_job_ask
+  ** Replaced:
+  *** dlga_minister_indict:minister_indict_select
+  *** dlga_minister_indict_confirm:minister_indict_confirm_answer
+  *** dlga_minister_indict_conclude:minister_pretalk
+  *** dlga_center_captured_lord_advice_2:minister_issues
+  *** dlga_center_captured_lord_advice_2:close_window
   * quick_strings.csv
   ** Removed
   *** qstr_{s9}{reg5?_and_the_l
@@ -1823,6 +1833,16 @@
   * dialogs.csv
   ** Replaced:
   *** dlga_tavernkeeper_talk:tavernkeeper_job_ask
+  *** dlga_minister_indict:minister_indict_select
+  *** dlga_minister_indict_confirm:minister_indict_confirm_answer
+  *** dlga_minister_indict_conclude:minister_pretalk
+  *** dlga_center_captured_lord_advice_2:minister_issues
+  *** dlga_center_captured_lord_advice_2:close_window
+  * variables.txt
+  ** Added:
+  *** g_talk_troop_gender
+  *** g_talk_troop_is_male
+  *** g_talk_troop_is_female
   
 43. Freelancer module adding.
   * module_constants.py
@@ -2370,6 +2390,61 @@
   * module_triggers.py
   ** Added:
   *** 24h trigger to set player name to default.
+
+64. Blocked to get lords as prisoners when player has already reached prisoner limit.
+  * module_dialogs.py
+  ** Edited:
+  *** dlga_defeat_lord_answer:defeat_lord_answer_1
+  
+65. Player not gain more than 3 relation when let the lords go if they are from enemy faction.
+  * module_dialogs.py
+  ** Edited:
+  *** dlga_defeat_lord_answer:defeat_lord_answer_2
+  
+66. Camping on water/river terrain blocked.
+  * module_game_menus.py
+  ** Edited:
+  *** menu_camp:mno_camp_wait_here
+  
+67. Continuing as an npc kingdoms added.
+  * module_game_menus.py
+  ** Added:
+  *** menu_notification_faction_defeated:mno_continue_as_npc_kingdom
+  *** menu_notification_faction_defeated:mno_continue_as_own_kingdom
+  ** Edited:
+  *** menu_notification_faction_defeated:mno_continue
+  *** menu_total_victory
+  *** menu_castle_taken
+  * module_scripts.py
+  ** Added:
+  *** script_troop_has_center_from_faction
+  *** script_troop_change_faction
+  * module_dialogs.py
+  ** Edited:
+  *** dlga_event_triggered:award_fief_to_vassal
+  *** dlga_award_fief_to_vassal:award_fief_to_vassal_defer
+  *** dlga_award_fief_to_vassal:award_fief_to_vassal_2
+  *** dlga_award_fief_to_vassal:award_fief_to_vassal_2.1
+  *** dlga_minister_talk:minister_give_fief_self
+  *** dlga_minister_give_fief_self_choose:minister_give_fief_self_end
+  *** dlga_minister_grant_fief_select:minister_grant_fief_select_recipient
+  *** dlga_minister_grant_fief_select_recipient:minister_grant_fief_select_recipient_choice
+  *** dlga_minister_grant_fief_select_recipient_choice:minister_grant_fief_complete
+  *** dlga_minister_indict_select:minister_indict_confirm
+  *** dlga_minister_indict_conclude:minister_pretalk
+  *** dlga_center_captured_lord_advice:center_captured_lord_advice_2
+  *** dlga_lord_requests_recruitment:close_window
+  
+68. When player faction conquer castle, player right to rule increase.
+  * module_game_menus.py
+  ** Edited:
+  *** menu_castle_taken
+  
+69. After this time, when player conquer any center, reinforce added automatically.
+  * module_dialogs.py
+  ** Edited:
+  *** dlga_center_captured_lord_advice_2:minister_issues
+  *** dlga_center_captured_lord_advice_2:close_window
   
 Known Bugs:
 tf_female; Ladies seems like man so dialogs should change with gender.
@@ -2378,4 +2453,3 @@ Turkish translate has stupid errors. Like "Kendimin yerine mareşal olarak kendi
 Page calculation is wrong for books.
 Troop ratio sometimes goes invisible.
 Flag bug when nations declares war on new kingdoms.
-Player faction has no patrol party.

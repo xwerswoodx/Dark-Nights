@@ -53898,8 +53898,8 @@ scripts = [
       (assign, reg0, 0),
       (try_begin),
         (eq, ":troop", "trp_player"),
-        (faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_active),
-        (faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, ":troop"),
+        (faction_slot_eq, "$players_kingdom", slot_faction_state, sfs_active),
+        (faction_slot_eq, "$players_kingdom", slot_faction_leader, ":troop"),
         (assign, reg0, 1),
       (else_try),
         (store_faction_of_troop, ":faction", ":troop"),
@@ -53915,8 +53915,8 @@ scripts = [
       (assign, reg0, 0),
       (try_begin),
         (eq, ":troop", "trp_player"),
-        (faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_active),
-        (faction_slot_eq, "fac_player_supporters_faction", slot_faction_marshall, ":troop"),
+        (faction_slot_eq, "$players_kingdom", slot_faction_state, sfs_active),
+        (faction_slot_eq, "$players_kingdom", slot_faction_marshall, ":troop"),
         (assign, reg0, 1),
       (else_try),
         (store_faction_of_troop, ":faction", ":troop"),
@@ -54020,6 +54020,102 @@ scripts = [
     ]),
   #
   ## UID: 63 - End
+
+  ## UID: 67 - Begin
+  #
+  # script_troop_has_center_from_faction, troop, faction
+  # OUTPUT:
+  # reg0 = amount of centers.
+  ("troop_has_center_from_faction", [
+      (store_script_param, ":troop", 1),
+      (store_script_param, ":faction", 2),
+
+      (store_troop_faction, ":tfaction", ":troop"),
+      (try_begin),
+        (eq, ":troop", "trp_player"),
+        (assign, ":tfaction", "$players_kingdom"), #We should change faction with variable if troop is player.
+      (try_end),
+
+      (assign, reg0, 0), #Has no center.
+      (try_for_range, ":center", centers_begin, centers_end),
+        (party_get_slot, ":ofaction", ":center", slot_center_original_faction),
+        (store_faction_of_party, ":cfaction", ":center"),
+        (eq, ":faction", ":ofaction"), #Center original faction is equals to faction?
+        (eq, ":cfaction", ":tfaction"), #Center current faction is equals to troop's faction?
+        (val_add, reg0, 1), #Add 1 center to reg0.
+      (try_end),
+    ]),
+
+  ("troop_change_faction", [
+      (store_script_param, ":troop", 1),
+      (store_script_param, ":faction", 2),
+
+      (store_troop_faction, ":tfaction", ":troop"),
+      (troop_get_slot, ":party", ":troop", slot_troop_leaded_party),
+
+      (assign, ":continue", 0),
+      (try_begin),
+        (le, ":party", 0),
+        (neg|troop_slot_ge, ":troop", slot_troop_prisoner_of_party, 0),
+        (assign, ":continue", 1),
+      (else_try),
+        (gt, ":party", 0),
+
+        #checking if the party is outside the centers
+        (party_get_attached_to, ":cur_center_no", ":party"),
+        (try_begin),
+          (lt, ":cur_center_no", 0),
+          (party_get_cur_town, ":cur_center_no", ":party"),
+        (try_end),
+        (this_or_next|neg|is_between, ":cur_center_no", centers_begin, centers_end),
+        (party_slot_eq, ":cur_center_no", slot_town_lord, ":troop"),
+    
+        #checking if the party is away from his original faction parties
+        (assign, ":end_cond", active_npcs_end),
+        (try_for_range, ":enemy_troop_no", active_npcs_begin, ":end_cond"),
+          (troop_slot_eq, ":enemy_troop_no", slot_troop_occupation, slto_kingdom_hero),
+          (troop_get_slot, ":enemy_party_no", ":enemy_troop_no", slot_troop_leaded_party),
+          (party_is_active, ":enemy_party_no"),
+          (store_faction_of_party, ":enemy_faction_no", ":enemy_party_no"),
+          (eq, ":enemy_faction_no", ":faction"),
+          (store_distance_to_party_from_party, ":dist", ":party", ":enemy_party_no"),
+          (lt, ":dist", 4),
+          (assign, ":end_cond", 0),
+        (try_end),
+        (neq, ":end_cond", 0),
+        (assign, ":continue", 1),
+      (try_end),
+
+      (try_begin),
+        (eq, ":continue", 1),
+        (try_begin),
+          (ge, "$cheat_mode", 1),
+          (str_store_troop_name, s4, ":troop"),
+          (display_message, "@{!}DEBUG - {s4} faction changed from slot_troop_change_to_faction"),
+        (try_end),
+
+        (troop_set_slot, ":troop", slot_troop_change_to_faction, ":faction"), #Just make sure that maybe used in script_change_troop_faction
+        (call_script, "script_change_troop_faction", ":troop", ":faction"),
+        (troop_set_slot, ":troop", slot_troop_change_to_faction, 0),
+
+        (try_begin),
+          (is_between, ":faction", kingdoms_begin, kingdoms_end),
+          (str_store_troop_name_link, s1, ":troop"),
+          (str_store_faction_name_link, s2, ":tfaction"),
+          (str_store_faction_name_link, s3, ":faction"),
+          (display_message, "@{s1} has switched from {s2} to {s3}."),
+          (try_begin),
+            (eq, ":tfaction", "$players_kingdom"),
+            (call_script, "script_add_notification_menu", "mnu_notification_troop_left_players_faction", ":troop", ":faction"),
+          (else_try),
+            (eq, ":faction", "$players_kingdom"),
+            (call_script, "script_add_notification_menu", "mnu_notification_troop_joined_players_faction", ":troop", ":tfaction"),
+          (try_end),
+        (try_end),
+      (try_end),
+    ]),
+  #
+  ## UID: 67 - End
 
   ## EOF
 ]

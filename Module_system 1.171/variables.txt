@@ -1227,3 +1227,6 @@ hamit_gold
 gamble_last_time
 gamble_rand
 gamble_chosen
+g_talk_troop_gender
+g_talk_troop_is_male
+g_talk_troop_is_female

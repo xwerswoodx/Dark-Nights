@@ -2891,10 +2891,18 @@ game_menus = [
         ]),
 
         ("camp_action", [], "Take an action.", [(jump_to_menu, "mnu_camp_action")]),
-        ("camp_wait_here", [], "Wait here for some time.", [
+        ("camp_wait_here", [
+            ## UID: 66 - Begin
+            #
+            (party_is_active, "p_main_party"),
+            (party_get_current_terrain, ":terrain", "p_main_party"),
+            (neq, ":terrain", 0), #rt_water
+            (neq, ":terrain", 8), #rt_river
+            #
+            ## UID: 66 - End
+        ], "Wait here for some time.", [
             (assign,"$g_camp_mode", 1),
             (assign, "$g_infinite_camping", 0),
-            (assign, "$g_player_icon_state", pis_camping),
 
             (try_begin),
               (party_is_active, "p_main_party"),
@@ -2905,6 +2913,7 @@ game_menus = [
               (try_end),
             (try_end),
 
+            (assign, "$g_player_icon_state", pis_camping),
             (rest_for_hours_interactive, 24 * 365, 5, 1), #rest while attackable
             (change_screen_return),
         ]),
@@ -4821,16 +4830,28 @@ game_menus = [
 			  
               (try_begin), #player took a walled center while he is a vassal of npc kingdom.
                 (is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
+                ## UID: 67 - Begin
+                #
+                # Just make sure, we are not a leader of kingdom to continue.
+                (neg|faction_slot_eq, "$players_kingdom", slot_faction_leader, "trp_player"),
+                #
+                ## UID: 67 - End
                 (jump_to_menu, "$g_next_menu"),
               (else_try), #player took a walled center while he is a vassal of rebels.
                 (eq, "$players_kingdom", "fac_player_supporters_faction"), 
-                (assign, "$g_center_taken_by_player_faction", "$g_encountered_party"),                
+                (assign, "$g_center_taken_by_player_faction", "$g_encountered_party"),
                 (neg|faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
                 (faction_get_slot, ":faction_leader", "fac_player_supporters_faction", slot_faction_leader),
                 (change_screen_return),              
                 (start_map_conversation, ":faction_leader", -1),
               (else_try), #player took a walled center for player's kingdom
-                (neg|is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),                
+                ## UID: 67 - Begin
+                #
+                #(neg|is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
+                (faction_slot_eq, "$players_kingdom", slot_faction_state, sfs_active), #Is player's kingdom active?
+                (faction_slot_eq, "$players_kingdom", slot_faction_leader, "trp_player"), #Player is leader of party?
+                #
+                ## UID: 67 - End
                 (assign, "$g_center_taken_by_player_faction", "$g_encountered_party"),
                 (assign, "$talk_context", tc_give_center_to_fief),
                 (change_screen_return),              
@@ -6666,67 +6687,108 @@ game_menus = [
   ),
 
 
-  (
-    "castle_taken",mnf_disable_all_keys,
-    "{s3} has fallen to your troops, and you now have full control of the {reg2?town:castle}.\
-{reg1? You may station troops here to defend it against enemies who may try to recapture it. Also, you should select now whether you will hold the {reg2?town:castle} yourself or give it to a faithful vassal...:}",# Only visible when castle is taken without being a vassal of a kingdom.
-    "none",
-    [
-        (party_clear, "$g_encountered_party"),
+  ("castle_taken", mnf_disable_all_keys, "{s3} has fallen to your troops, and you now have full control of the {reg2?town:castle}.\
+ {reg1? You may station troops here to defend it against enemies who may try to recapture it. Also, you should select now whether you will hold the {reg2?town:castle} yourself or give it to a faithful vassal...:}",# Only visible when castle is taken without being a vassal of a kingdom.
+   "none", [
+       (party_clear, "$g_encountered_party"),
+       ## UID: 67 - Begin
+       #
+       # We don't need to limit this with faction, so just removed.
+##       (try_begin),
+##         ## UID: 67 - Begin
+##         #
+##         # We need to check if player is leader of faction not just faction because of new system.
+##         #(eq, "$players_kingdom", "fac_player_supporters_faction"),
+##         (faction_slot_eq, "$players_kingdom", slot_faction_leader, "trp_player"),
+##         #
+##         ## UID: 67 - End
+##         (party_get_slot, ":new_owner", "$g_encountered_party", slot_town_lord),
+##         ## UID: 69 - Begin
+##         #
+##         #(neq, ":new_owner", "trp_player"), #Why players doesn't have any reinforce as computer?
+##         #
+##         ## UID: 69 - End
+##         (try_for_range, ":unused", 0, 4),
+##           (call_script, "script_cf_reinforce_party", "$g_encountered_party"),
+##         (try_end),
+##       (try_end),
+       (try_for_range, ":unused", 0, 4),
+         (call_script, "script_cf_reinforce_party", "$g_encountered_party"),
+       (try_end),
+       #
+       ## UID: 67 - End
 
-        (try_begin),        
-          (eq, "$players_kingdom", "fac_player_supporters_faction"),
-          (party_get_slot, ":new_owner", "$g_encountered_party", slot_town_lord),
-          (neq, ":new_owner", "trp_player"),
-          
-          (try_for_range, ":unused", 0, 4),
-            (call_script, "script_cf_reinforce_party", "$g_encountered_party"),
-          (try_end),  
-        (try_end),
-        
-        (call_script, "script_lift_siege", "$g_encountered_party", 0),
-        (assign, "$g_player_besiege_town", -1),
-                        
-        (party_set_slot, "$g_encountered_party", slot_center_last_taken_by_troop, "trp_player"),
-        #Reduce prosperity of the center by 5
-        (call_script, "script_change_center_prosperity", "$g_encountered_party", -5),
+       (call_script, "script_lift_siege", "$g_encountered_party", 0), #Clear the siege.
+       (assign, "$g_player_besiege_town", -1), #We are not besiege anymore.
 
-        (call_script, "script_change_troop_renown", "trp_player", 5),		
+       (party_set_slot, "$g_encountered_party", slot_center_last_taken_by_troop, "trp_player"), #We took the center last.
+       #Reduce prosperity of the center by 5
+       (call_script, "script_change_center_prosperity", "$g_encountered_party", -5), #Change prosperity with center.
+       (call_script, "script_change_troop_renown", "trp_player", 5), #Give more renown.
 
-		(assign, ":damage", 20),
-		(try_begin),
-			(is_between, "$g_encountered_party", towns_begin, towns_end),
-			(assign, ":damage", 40),
-		(try_end),
-		(call_script, "script_faction_inflict_war_damage_on_faction", "$players_kingdom", "$g_encountered_party_faction", ":damage"),
-		
-		#removed, is it duplicate (useless)? See 20 lines above.
-        #(call_script, "script_add_log_entry", logent_castle_captured_by_player, "trp_player", "$g_encountered_party", -1, "$g_encountered_party_faction"),
-        
-        (try_begin),
-          (is_between, "$players_kingdom", kingdoms_begin, kingdoms_end),
-          (neq, "$players_kingdom", "fac_player_supporters_faction"),
-          (call_script, "script_give_center_to_faction", "$g_encountered_party", "$players_kingdom"),
-          (call_script, "script_order_best_besieger_party_to_guard_center", "$g_encountered_party", "$players_kingdom"),
-          (jump_to_menu, "mnu_castle_taken_2"),
-        (else_try),
-          (call_script, "script_give_center_to_faction", "$g_encountered_party", "fac_player_supporters_faction"),          
-          (call_script, "script_order_best_besieger_party_to_guard_center", "$g_encountered_party", "fac_player_supporters_faction"),
-          (str_store_party_name, s3, "$g_encountered_party"),
-          (assign, reg1, 0),
-          (try_begin),
-            (faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
-            (assign, reg1, 1),
-          (try_end),          
-		  #(party_set_slot, "$g_encountered_party", slot_town_lord, stl_unassigned),		  
-        (try_end),
-        (assign, reg2, 0),
-        (try_begin),
-          (is_between, "$g_encountered_party", towns_begin, towns_end),
-          (assign, reg2, 1),
-        (try_end),
-    ],
-    [
+       ## UID: 68 - Begin
+       #
+       (try_begin),
+         (faction_slot_eq, "$players_kingdom", slot_faction_leader, "trp_player"),
+         (store_random_in_range, ":add", 1, 3),
+         (val_add, "$player_right_to_rule", ":add"), #Increase right to rule 1 or 2 for every center.
+       (try_end),
+       #
+       ## UID: 68 - End
+
+       (assign, ":damage", 20),
+       (try_begin),
+         (is_between, "$g_encountered_party", towns_begin, towns_end),
+         (assign, ":damage", 40),
+       (try_end),
+       (call_script, "script_faction_inflict_war_damage_on_faction", "$players_kingdom", "$g_encountered_party_faction", ":damage"),
+
+       #removed, is it duplicate (useless)? See 20 lines above.
+       #(call_script, "script_add_log_entry", logent_castle_captured_by_player, "trp_player", "$g_encountered_party", -1, "$g_encountered_party_faction"),
+
+       (try_begin),
+         (is_between, "$players_kingdom", kingdoms_begin, kingdoms_end),
+         ## UID: 67 - Begin
+         #
+         #(neq, "$players_kingdom", "fac_player_supporters_faction"),
+         (neg|faction_slot_eq, "$players_kingdom", slot_faction_leader, "trp_player"), #Leader isn't player.
+         #
+         ## UID: 67 - End
+         (call_script, "script_give_center_to_faction", "$g_encountered_party", "$players_kingdom"),
+         (call_script, "script_order_best_besieger_party_to_guard_center", "$g_encountered_party", "$players_kingdom"),
+         (jump_to_menu, "mnu_castle_taken_2"),
+       (else_try),
+         ## UID:: 67 - Begin
+         #
+         #(call_script, "script_give_center_to_faction", "$g_encountered_party", "fac_player_supporters_faction"),          
+         #(call_script, "script_order_best_besieger_party_to_guard_center", "$g_encountered_party", "fac_player_supporters_faction"),
+         (try_begin),
+           (neg|is_between, "$players_kingdom", kingdoms_begin, kingdoms_end),
+           (assign, "$players_kingdom", "fac_player_supporters_faction"),
+         (try_end),
+         (call_script, "script_give_center_to_faction", "$g_encountered_party", "$players_kingdom"),
+         (call_script, "script_order_best_besieger_party_to_guard_center", "$g_encountered_party", "$players_kingdom"),
+         #
+         ## UID: 67 - End
+         (str_store_party_name, s3, "$g_encountered_party"),
+         (assign, reg1, 0),
+         (try_begin),
+           ## UID: 67 - Begin
+           #
+           #(faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
+           (faction_slot_eq, "$players_kingdom", slot_faction_leader, "trp_player"),
+           #
+           ## UID: 67 - End
+           (assign, reg1, 1),
+         (try_end),
+         #(party_set_slot, "$g_encountered_party", slot_town_lord, stl_unassigned),		  
+       (try_end),
+       (assign, reg2, 0),
+       (try_begin),
+         (is_between, "$g_encountered_party", towns_begin, towns_end),
+         (assign, reg2, 1),
+       (try_end),
+    ], [
       ("continue",[],"Continue...",
        [         
          (assign, "$auto_enter_town", "$g_encountered_party"),                  
@@ -14245,11 +14307,7 @@ game_menus = [
   ),
 
   
-  (
-    "notification_faction_defeated",0,
-    "Faction Eliminated^^{s1} is no more!",
-    "none",
-    [
+  ("notification_faction_defeated", 0, "Faction Eliminated^^{s1} is no more!", "none", [
       (str_store_faction_name, s1, "$g_notification_menu_var1"),
       (set_fixed_point_multiplier, 100),
       (position_set_x, pos0, 65),
@@ -14261,89 +14319,177 @@ game_menus = [
       (else_try),
         (set_game_menu_tableau_mesh, "tableau_faction_note_mesh_banner", "$g_notification_menu_var1", pos0),
       (try_end),
-      ],
-    [
-      ("continue",[],"Continue...",
-       [
-         (try_begin),
-           (is_between, "$supported_pretender", pretenders_begin, pretenders_end),
-           (troop_slot_eq, "$supported_pretender", slot_troop_original_faction, "$g_notification_menu_var1"),
-		   
-		   #All rebels switch to kingdom
-           (try_for_range, ":cur_troop", active_npcs_begin, active_npcs_end),
-		     (troop_slot_eq, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
-             (store_troop_faction, ":cur_faction", ":cur_troop"),
-             (eq, ":cur_faction", "fac_player_supporters_faction"),
-             (troop_set_faction, ":cur_troop", "$g_notification_menu_var1"),
-             (call_script, "script_troop_set_title_according_to_faction", ":cur_troop", "$g_notification_menu_var1"),
-             (try_begin),
-               (this_or_next|eq, "$g_notification_menu_var1", "$players_kingdom"),
-               (eq, "$g_notification_menu_var1", "fac_player_supporters_faction"),
-               (call_script, "script_check_concilio_calradi_achievement"),
-             (try_end),
-		   (else_try), #all loyal lords gain a small bonus with the player	 
-		     (troop_slot_eq, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
-             (store_troop_faction, ":cur_faction", ":cur_troop"),
-             (eq, ":cur_faction", "$g_notification_menu_var1"),
-			 (call_script, "script_troop_change_relation_with_troop", ":cur_troop", "trp_player", 5),
-           (try_end),
-		   
-           (try_for_parties, ":cur_party"),
-             (store_faction_of_party, ":cur_faction", ":cur_party"),
-             (eq, ":cur_faction", "fac_player_supporters_faction"),
-             (party_set_faction, ":cur_party", "$g_notification_menu_var1"),
-           (try_end),
-		   
-           (assign, "$players_kingdom", "$g_notification_menu_var1"),
-		   (try_begin),
-			(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
-			(is_between, ":spouse", kingdom_ladies_begin, kingdom_ladies_end),
-			(troop_set_faction, ":spouse", "$g_notification_menu_var1"),
-		   (try_end),
-		   
-		   
-           (call_script, "script_add_notification_menu", "mnu_notification_rebels_switched_to_faction", "$g_notification_menu_var1", "$supported_pretender"),
-		   
-           (faction_set_slot, "$g_notification_menu_var1", slot_faction_state, sfs_active),
-           (faction_set_slot, "fac_player_supporters_faction", slot_faction_state, sfs_inactive),
-		   
-           (faction_get_slot, ":old_leader", "$g_notification_menu_var1", slot_faction_leader),
-           (troop_set_slot, ":old_leader", slot_troop_change_to_faction, "fac_commoners"),
-		   
-           (faction_set_slot, "$g_notification_menu_var1", slot_faction_leader, "$supported_pretender"),
-           (troop_set_faction, "$supported_pretender", "$g_notification_menu_var1"),
+    ], [
+        ## UID: 67 - Begin
+        #
+        ("continue_as_own_kingdom", [
+            (faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_active), #Just make sure if our kingdom is active or not?
+            (eq, "$players_kingdom", "fac_player_supporters_faction"), #Does player have own kingdom?
+            (faction_slot_eq, "$players_kingdom", slot_faction_leader, "trp_player"), #Are we leader of our kingdom?
+            (neg|is_between, "$supported_pretender", pretenders_begin, pretenders_end), #Has no pretender?
+            (str_store_faction_name, s2, "$players_kingdom"),
+        ], "Continue as {s2}", [(change_screen_return)]),
 
-           (faction_get_slot, ":old_marshall", "$g_notification_menu_var1", slot_faction_marshall),
-           (try_begin),
-             (ge, ":old_marshall", 0),
-			 (troop_get_slot, ":old_marshall_party", ":old_marshall", slot_troop_leaded_party),
-             (party_is_active, ":old_marshall_party"),
-             (party_set_marshall, ":old_marshall_party", 0),
-           (try_end),  
+        ("continue_as_npc_kingdom", [
+            (faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_active), #Just make sure if our kingdom is active or not?
+            (eq, "$players_kingdom", "fac_player_supporters_faction"), #Does player have own kingdom?
+            (faction_slot_eq, "$players_kingdom", slot_faction_leader, "trp_player"), #Are we leader of our kingdom?
+            (neg|is_between, "$supported_pretender", pretenders_begin, pretenders_end), #Has no pretender?
+            (call_script, "script_troop_has_center_from_faction", "trp_player", "$g_notification_menu_var1"),
+            (gt, reg0, 0), #Player has one of defeated kingdom's centers?
+            (str_store_faction_name, s2, "$g_notification_menu_var1"),
+            (store_relation, ":relation", "$g_notification_menu_var1", "$players_kingdom"),
+            (lt, ":relation", 0), #We are in war with them?
+        ], "Continue as {s2}", [
+            (faction_get_slot, ":pmarshall", "$players_kingdom", slot_faction_marshall), #We just save our marshall here to send new nation.
+            (try_for_range, ":lord", active_npcs_begin, active_npcs_end),
+              (troop_slot_eq, ":lord", slot_troop_occupation, slto_kingdom_hero),
+              (store_troop_faction, ":faction", ":lord"),
+              (eq, ":faction", "$players_kingdom"),
+              (troop_set_faction, ":lord", "$g_notification_menu_var1"), #Just send our lords to npc kingdom.
+              (call_script, "script_troop_set_title_according_to_faction", ":lord", "$g_notification_menu_var1"), #Change our lords' title with npc faction title.
+            (else_try),
+              (troop_slot_eq, ":lord", slot_troop_occupation, slto_kingdom_hero),
+              (store_troop_faction, ":faction", ":lord"),
+              (eq, ":faction", "$g_notification_menu_var1"), #Is lord from npc kingdom?
+              (call_script, "script_troop_change_relation_with_troop", ":lord", "trp_player", 5), #Increase relation with playe.
+            (try_end),
 
-           (faction_set_slot, "$g_notification_menu_var1", slot_faction_marshall, "trp_player"),
-           (faction_set_slot, "$g_notification_menu_var1", slot_faction_ai_state, sfai_default),
-           (faction_set_slot, "$g_notification_menu_var1", slot_faction_ai_object, -1),
-           (troop_set_slot, "$supported_pretender", slot_troop_occupation, slto_kingdom_hero),
-		   (troop_set_slot, "$supported_pretender", slot_troop_renown, 1000),
-		   
-           (party_remove_members, "p_main_party", "$supported_pretender", 1),
-           (call_script, "script_set_player_relation_with_faction", "$g_notification_menu_var1", 0),
-           (try_for_range, ":cur_kingdom", kingdoms_begin, kingdoms_end),
-             (faction_slot_eq, ":cur_kingdom", slot_faction_state, sfs_active),
-             (neq, ":cur_kingdom", "$g_notification_menu_var1"),
-             (store_relation, ":reln", ":cur_kingdom", "fac_player_supporters_faction"),
-             (set_relation, ":cur_kingdom", "$g_notification_menu_var1", ":reln"),
-           (try_end),
-           (assign, "$supported_pretender", 0),
-           (assign, "$supported_pretender_old_faction", 0),
-           (assign, "$g_recalculate_ais", 1),
-           (call_script, "script_update_all_notes"),
-         (try_end),
-         (change_screen_return),
+            (try_for_parties, ":party"),
+              (store_faction_of_party, ":faction", ":party"),
+              (eq, ":faction", "$players_kingdom"),
+              (party_set_faction, ":party", "$g_notification_menu_var1"), #Send our parties to new faction.
+            (try_end),
+
+            (assign, "$players_kingdom", "$g_notification_menu_var1"), #Change our faction to new faction.
+            (try_begin),
+              (troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
+              (is_between, ":spouse", kingdom_ladies_begin, kingdom_ladies_end),
+              (troop_set_faction, ":spouse", "$g_notification_menu_var1"), #Send our spouse to new faction.
+            (try_end),
+
+            (faction_set_slot, "$g_notification_menu_var1", slot_faction_state, sfs_active),
+            (faction_set_slot, "fac_player_supporters_faction", slot_faction_state, sfs_inactive),
+            (faction_get_slot, ":leader", "$g_notification_menu_var1", slot_faction_leader),
+            #(troop_set_slot, ":leader", slot_troop_change_to_faction, "fac_commoners"), #Make sure we just moved old leader out.
+            #(call_script, "script_troop_change_faction", ":leader", "fac_commoners"),
+            (troop_set_faction, ":leader", "fac_commoners"),
+            (faction_set_slot, "$g_notification_menu_var1", slot_faction_leader, "trp_player"), #Set the new leader as player.
+            (faction_get_slot, ":marshall", "$g_notification_menu_var1", slot_faction_marshall),
+            (try_begin),
+              (ge, ":marshall", 0),
+              (troop_get_slot, ":mparty", ":marshall", slot_troop_leaded_party),
+              (party_is_active, ":mparty"),
+              (party_set_marshall, ":mparty", 0),
+            (try_end),
+            (faction_set_slot, "$g_notification_menu_var1", slot_faction_marshall, ":pmarshall"), #Set our own marshall as marshall.
+            (faction_set_slot, "$g_notification_menu_var1", slot_faction_ai_state, sfai_default),
+            (faction_set_slot, "$g_notification_menu_var1", slot_faction_ai_object, -1),
+
+            (call_script, "script_set_player_relation_with_faction", "$g_notification_menu_var1", 0), #Just reset our relation with faction.
+            (try_for_range, ":kingdom", npc_kingdoms_begin, npc_kingdoms_end),
+              (faction_slot_eq, ":kingdom", slot_faction_state, sfs_active), #Is kingdom active?
+              (neq, ":kingdom", "$g_notification_menu_var1"), #Kingdom isn't our new kingdom?
+              (store_relation, ":relation", ":kingdom", "fac_player_supporters_faction"), #Get relation with our original faction.
+              (set_relation, ":kingdom", "$g_notification_menu_var1", ":relation"), #Move our relation to new kingdom.
+            (try_end),
+            (change_screen_return),
         ]),
-     ]
-  ),
+        #
+        ## UID: 67 - End
+        
+        ("continue", [
+            ## UID: 67 - Begin
+            #
+            (call_script, "script_troop_has_center_from_faction", "trp_player", "$g_notification_menu_var1"),
+            (assign, ":center", reg0),
+            (store_relation, ":relation", "$g_notification_menu_var1", "$players_kingdom"),
+
+            (this_or_next|faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_inactive), #Is player original kingdom inactive or?
+            (this_or_next|neq, "$players_kingdom", "fac_player_supporters_faction"), #Player kingdom isn't fac_player_supporters_faction or?
+            (this_or_next|neg|faction_slot_eq, "$players_kingdom", slot_faction_leader, "trp_player"), #Player isn't leader of current kingdom or?
+            (this_or_next|le, ":center", 0), #Has no centers from defeated faction or?
+            (this_or_next|ge, ":relation", 0), #Player isn't in war with defeated faction or?
+            (             is_between, "$supported_pretender", pretenders_begin, pretenders_end), #Has pretender?
+            #
+            ## UID: 67 - End
+        ], "Continue...", [
+            (try_begin),
+              (is_between, "$supported_pretender", pretenders_begin, pretenders_end),
+              (troop_slot_eq, "$supported_pretender", slot_troop_original_faction, "$g_notification_menu_var1"),
+
+              #All rebels switch to kingdom
+              (try_for_range, ":cur_troop", active_npcs_begin, active_npcs_end),
+                (troop_slot_eq, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
+                (store_troop_faction, ":cur_faction", ":cur_troop"),
+                (eq, ":cur_faction", "fac_player_supporters_faction"),
+                (troop_set_faction, ":cur_troop", "$g_notification_menu_var1"),
+                (call_script, "script_troop_set_title_according_to_faction", ":cur_troop", "$g_notification_menu_var1"),
+                (try_begin),
+                  (this_or_next|eq, "$g_notification_menu_var1", "$players_kingdom"),
+                  (             eq, "$g_notification_menu_var1", "fac_player_supporters_faction"),
+                  (call_script, "script_check_concilio_calradi_achievement"),
+                (try_end),
+              (else_try), #all loyal lords gain a small bonus with the player
+                (troop_slot_eq, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
+                (store_troop_faction, ":cur_faction", ":cur_troop"),
+                (eq, ":cur_faction", "$g_notification_menu_var1"),
+                (call_script, "script_troop_change_relation_with_troop", ":cur_troop", "trp_player", 5),
+              (try_end),
+
+              (try_for_parties, ":cur_party"),
+                (store_faction_of_party, ":cur_faction", ":cur_party"),
+                (eq, ":cur_faction", "fac_player_supporters_faction"),
+                (party_set_faction, ":cur_party", "$g_notification_menu_var1"),
+              (try_end),
+
+              (assign, "$players_kingdom", "$g_notification_menu_var1"),
+              (try_begin),
+                (troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
+                (is_between, ":spouse", kingdom_ladies_begin, kingdom_ladies_end),
+                (troop_set_faction, ":spouse", "$g_notification_menu_var1"),
+              (try_end),
+
+              (call_script, "script_add_notification_menu", "mnu_notification_rebels_switched_to_faction", "$g_notification_menu_var1", "$supported_pretender"),
+              (faction_set_slot, "$g_notification_menu_var1", slot_faction_state, sfs_active),
+              (faction_set_slot, "fac_player_supporters_faction", slot_faction_state, sfs_inactive),
+
+              (faction_get_slot, ":old_leader", "$g_notification_menu_var1", slot_faction_leader),
+              (troop_set_slot, ":old_leader", slot_troop_change_to_faction, "fac_commoners"),
+
+              (faction_set_slot, "$g_notification_menu_var1", slot_faction_leader, "$supported_pretender"),
+              (troop_set_faction, "$supported_pretender", "$g_notification_menu_var1"),
+
+              (faction_get_slot, ":old_marshall", "$g_notification_menu_var1", slot_faction_marshall),
+              (try_begin),
+                (ge, ":old_marshall", 0),
+                (troop_get_slot, ":old_marshall_party", ":old_marshall", slot_troop_leaded_party),
+                (party_is_active, ":old_marshall_party"),
+                (party_set_marshall, ":old_marshall_party", 0),
+              (try_end),
+
+              (faction_set_slot, "$g_notification_menu_var1", slot_faction_marshall, "trp_player"),
+              (faction_set_slot, "$g_notification_menu_var1", slot_faction_ai_state, sfai_default),
+              (faction_set_slot, "$g_notification_menu_var1", slot_faction_ai_object, -1),
+              (troop_set_slot, "$supported_pretender", slot_troop_occupation, slto_kingdom_hero),
+              (troop_set_slot, "$supported_pretender", slot_troop_renown, 1000),
+
+              (party_remove_members, "p_main_party", "$supported_pretender", 1),
+              (call_script, "script_set_player_relation_with_faction", "$g_notification_menu_var1", 0),
+              (try_for_range, ":cur_kingdom", kingdoms_begin, kingdoms_end),
+                (faction_slot_eq, ":cur_kingdom", slot_faction_state, sfs_active),
+                (neq, ":cur_kingdom", "$g_notification_menu_var1"),
+                (store_relation, ":reln", ":cur_kingdom", "fac_player_supporters_faction"),
+                (set_relation, ":cur_kingdom", "$g_notification_menu_var1", ":reln"),
+              (try_end),
+              (assign, "$supported_pretender", 0),
+              (assign, "$supported_pretender_old_faction", 0),
+              (assign, "$g_recalculate_ais", 1),
+              (call_script, "script_update_all_notes"),
+            (try_end),
+            (change_screen_return),
+        ]),
+    ]),
 
   
   (
