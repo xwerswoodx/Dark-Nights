@@ -173,6 +173,9 @@
   * process_troops.py
   ** Edited:
   *** def_save_troops
+  * process_skins.py
+  ** Edited:
+  *** def_export_skins
   
 7. Some of Turkish translate mistakes fixed.
   * dialogs.csv
@@ -255,7 +258,40 @@
   *** dlga_start:window_close.43
   ** Replaced:
   *** dlga_start:window_close.4
-  **** efendim => beyim
+  *** dlga_lord_start:lord_talk
+  *** dlga_lord_start:lord_talk.1
+  *** dlga_lord_start:lord_talk.2
+  *** dlga_lord_start:lord_talk.3
+  *** dlga_lord_start:lord_talk.4
+  *** dlga_investment_summary:mayor_investment_confirm
+  *** dlga_fighter_talk_train_attack_2:fighter_pretalk
+  * troops.csv
+  ** Replaced:
+  *** trp_town_1_weaponsmith
+  *** trp_town_2_weaponsmith
+  *** trp_town_3_weaponsmith
+  *** trp_town_4_weaponsmith
+  *** trp_town_5_weaponsmith
+  *** trp_town_6_weaponsmith
+  *** trp_town_7_weaponsmith
+  *** trp_town_8_weaponsmith
+  *** trp_town_9_weaponsmith
+  *** trp_town_10_weaponsmith
+  *** trp_town_1_armorer
+  *** trp_town_2_armorer
+  *** trp_town_3_armorer
+  *** trp_town_4_armorer
+  *** trp_town_5_armorer
+  *** trp_town_6_armorer
+  *** trp_town_7_armorer
+  *** trp_town_8_armorer
+  *** trp_town_9_armorer
+  *** trp_town_10_armorer
+  
+  * quick_strings.csv
+  ** Replaced:
+  *** qstr_{s1}_is_the_new_mars
+
   
 8. Arena rewards increases with renown and level.
   * module_constants.py
@@ -388,6 +424,11 @@
   *** mno_center_build_timber_camp
   *** mno_center_build_iron_mine
   *** mno_center_build_clay_pit
+  *** mno_center_build_drop_immediately
+  *** mno_center_build_drop_12
+  *** mno_center_build_drop_6
+  *** mno_center_build_drop_3
+  *** mno_center_build_drop_1
 
 10. Sea Wars added.
   * module_constants.py
@@ -1811,12 +1852,27 @@
   *** dlga_lord_intro:lord_start
   *** dlga_start:close_window
   *** dlga_tavernkeeper_talk:tavernkeeper_job_ask
+  *** dlga_lord_start:lord_talk.1
+  *** dlga_mayor_investment_possible:mayor_investment_advice.1
+  *** dlga_mayor_investment_possible:mayor_investment_advice.2  
+  *** dlga_lord_give_order_assault:lord_pretalk
+  *** dlga_start:town_merchant_talk
+  *** dlga_start:town_dweller_talk
+  *** dlga_start:town_dweller_talk.1
   ** Replaced:
   *** dlga_minister_indict:minister_indict_select
   *** dlga_minister_indict_confirm:minister_indict_confirm_answer
   *** dlga_minister_indict_conclude:minister_pretalk
   *** dlga_center_captured_lord_advice_2:minister_issues
   *** dlga_center_captured_lord_advice_2:close_window
+  *** dlga_minister_issues:minister_talk.2
+  *** dlga_start:minister_issues
+  *** dlga_start:close_window.4
+  *** dlga_lord_give_order_ask:lord_give_order
+  *** dlga_trade_requested_weapons:merchant_trade
+  *** dlga_trade_requested_armor:merchant_trade
+  *** dlga_trade_requested_horse:merchant_trade
+  *** dlga_town_dweller_ask_fugitive:close_window
   * quick_strings.csv
   ** Removed
   *** qstr_{s9}{reg5?_and_the_l
@@ -1830,6 +1886,14 @@
   *** qstr_{reg0?My_Lord:My_Lad
   *** qstr_{reg0?sir:madame}
   *** qstr_{reg0?Sir:Madame}
+  * module_scripts.py
+  ** Edited:
+  *** script_give_center_to_lord
+  *** script_troop_set_title_according_to_faction
+  * module_game_menus.py
+  ** Edited:
+  *** menu_castle_taken_2
+  *** menu_castle_taken_2:mno_castle_taken_claim_2
   * dialogs.csv
   ** Replaced:
   *** dlga_tavernkeeper_talk:tavernkeeper_job_ask
@@ -1838,6 +1902,26 @@
   *** dlga_minister_indict_conclude:minister_pretalk
   *** dlga_center_captured_lord_advice_2:minister_issues
   *** dlga_center_captured_lord_advice_2:close_window
+  *** dlga_minister_issues:minister_talk.2
+  *** dlga_start:minister_issues
+  *** dlga_start:close_window.4
+  *** dlga_lord_start:lord_talk.1
+  *** dlga_mayor_investment_possible:mayor_investment_advice.1
+  *** dlga_mayor_investment_possible:mayor_investment_advice.2
+  *** dlga_lord_give_order_ask:lord_give_order
+  *** dlga_start:town_merchant_talk
+  *** dlga_trade_requested_weapons:merchant_trade
+  *** dlga_trade_requested_armor:merchant_trade
+  *** dlga_trade_requested_horse:merchant_trade
+  *** dlga_start:town_dweller_talk
+  *** dlga_start:town_dweller_talk.1
+  *** dlga_town_dweller_ask_fugitive:close_window
+  * quick_strings.csv
+  ** Replaced:
+  *** qstr_However_since_you_ar
+  * game_menus.csv
+  ** Replaced:
+  *** mno_castle_taken_claim_2
   * variables.txt
   ** Added:
   *** g_talk_troop_gender
@@ -2434,6 +2518,7 @@
   *** dlga_minister_indict_conclude:minister_pretalk
   *** dlga_center_captured_lord_advice:center_captured_lord_advice_2
   *** dlga_lord_requests_recruitment:close_window
+  *** dlga_minister_issues:minister_talk
   
 68. When player faction conquer castle, player right to rule increase.
   * module_game_menus.py
@@ -2446,10 +2531,358 @@
   *** dlga_center_captured_lord_advice_2:minister_issues
   *** dlga_center_captured_lord_advice_2:close_window
   
+70. After this time, when player click to give center to any of this lord, conquerer will be setted as Conquerer at the beginning.
+  * module_dialogs.py
+  ** Edited:
+  *** dlga_minister_grant_fief_select_recipient_choice:minister_grant_fief_complete
+  
+71. Checking lord status of party script added for later actions.
+  * module_scripts.py
+  ** Added:
+  *** script_is_lord_of_party
+  
+72. Player's faction color change when player join or found a kingdom.
+  * module_scripts.py
+  ** Edited:
+  *** script_set_prefix
+  * module_constants.py
+  ** Added:
+  *** slot_faction_original_color
+  
+73. Minister name changed and Messenger added for player faction.
+  * module_troops.py
+  ** Added:
+  *** trp_player_messenger
+  ** Replaced:
+  *** trp_temporary_minister
+  * module_dialogs.py
+  ** Added:
+  *** dlga_start:close_window.44
+  * module_scripts.py
+  ** Edited:
+  *** script_enter_court
+  * troops.csv
+  ** Replaced:
+  *** trp_temporary_minister
+  *** trp_temporary_minister_pl
+  ** Added:
+  *** trp_player_messenger
+  *** trp_player_messenger_pl
+  
+74. Now items has id number when highlight while cheat mode is enabled.
+  * Created:
+  ** process_get_item.py
+  ** get_item_from_id.bat
+  * module_scripts.py
+  ** Edited:
+  *** script_game_get_item_extra_text
+  
+75. Book writing system adding to game.
+  * module_scripts.py
+  ** Added:
+  *** script_get_random_book_to_write
+  *** script_write_random_book
+  *** script_write_book_process
+  * module_simple_triggers.py
+  ** Edited:
+  *** 1h trigger for reading book process.
+  * module_game_menus.py
+  ** Added:
+  *** menu_camp_action:mno_action_stop_reading
+  *** menu_camp_action:mno_action_write_book
+  *** menu_camp_action:mno_action_stop_writing
+  ** Edited:
+  *** menu_camp_action:mno_action_read_book
+  * variables.txt
+  ** Added:
+  *** g_player_writing_book
+  * quick_strings.csv
+  ** Added:
+  *** qstr_After_a_little_thoug
+  *** qstr_You_are_not_skilled_
+  *** qstr_You_have_finished_to
+  * game_menus.csv
+  ** Added:
+  *** mno_action_stop_reading
+  *** mno_action_write_book
+  *** mno_action_stop_writing
+
+76. Giving order to lords added.
+  * module_dialogs.py
+  ** Edited:
+  *** dlga_lord_talk:lord_give_order_call_to_arms_verify
+  *** dlga_lord_talk:lord_give_order_disband_army_verify
+  *** dlga_lord_talk:lord_give_order_ask
+  *** dlga_lord_talk:lord_give_suggestion_ask
+  *** dlga_lord_give_order:lord_give_order_answer
+  *** dlga_lord_give_order:lord_give_order_answer.1
+  *** dlga_lord_give_order:lord_give_order_details_ask
+  *** dlga_lord_give_order:lord_give_order_details_ask.1
+  *** dlga_lord_give_order:lord_give_order_details_ask.2
+  *** dlga_lord_give_order:lord_give_order_details_ask.3
+  *** dlga_lord_give_order:lord_give_order_details_ask.4
+  *** dlga_lord_give_order:lord_give_order_details_ask.5
+  *** dlga_lord_give_order:lord_give_order_stop
+  *** dlga_lord_give_order_details_ask:lord_pretalk
+  *** dlga_lord_give_order_details_ask:lord_pretalk.1
+  *** dlga_lord_talk_ask_about_strategy:lord_pretalk
+  ** Removed:
+  *** dlga_lord_give_suggestion_ask:lord_give_order
+  
+77. Some marriage bug fixed.
+  * module_dialogs.py
+  ** Edited:
+  *** dlga_lord_talk_ask_something_2:lord_marriage_permission
+  
+78. Town/Castle merchant system changed.
+  * module_dialogs.py
+  ** Added:
+  *** dlga_town_merchant_talk:trade_order_selection_weapon
+  *** dlga_trade_order_selection_weapon:trade_order_select_weapon
+  *** dlga_trade_order_select_weapon:trade_order_select_modifier_ask
+  *** dlga_trade_order_select_weapon:town_merchant_pretalk
+  *** dlga_trade_order_select_modifier_ask:trade_order_select_modifier
+  *** dlga_trade_order_select_modifier:trade_order_set_order_price
+  *** dlga_trade_order_select_modifier:trade_order_set_order_price.1
+  *** dlga_trade_order_select_modifier:trade_order_set_order_price.2
+  *** dlga_trade_order_select_modifier:trade_order_set_order_price.3
+  *** dlga_trade_order_select_modifier:trade_order_set_order_price.4
+  *** dlga_trade_order_select_modifier:trade_order_set_order_price.5
+  *** dlga_trade_order_select_modifier:trade_order_set_order_price.6
+  *** dlga_trade_order_select_modifier:trade_order_set_order_price.7
+  *** dlga_trade_order_select_modifier:trade_order_set_order_price.8
+  *** dlga_trade_order_select_modifier:trade_order_set_order_price.9
+  *** dlga_trade_order_select_modifier:town_merchant_pretalk
+  *** dlga_town_merchant_talk:trade_order_selection_rweapon
+  *** dlga_trade_order_selection_rweapon:trade_order_select_rweapon
+  *** dlga_trade_order_select_rweapon:trade_order_select_modifier_ask
+  *** dlga_trade_order_select_rweapon:town_merchant_pretalk
+  *** dlga_town_merchant_talk:trade_order_selection_shield
+  *** dlga_trade_order_selection_shield:trade_order_select_shield
+  *** dlga_trade_order_select_shield:trade_order_select_modifier_ask_shield
+  *** dlga_trade_order_select_shield:town_merchant_pretalk
+  *** dlga_trade_order_select_modifier_ask_shield:trade_order_select_modifier_shield
+  *** dlga_trade_order_select_modifier_shield:trade_order_set_order_price
+  *** dlga_trade_order_select_modifier_shield:trade_order_set_order_price.1
+  *** dlga_trade_order_select_modifier_shield:trade_order_set_order_price.2
+  *** dlga_trade_order_select_modifier_shield:trade_order_set_order_price.3
+  *** dlga_trade_order_select_modifier_shield:trade_order_set_order_price.4
+  *** dlga_trade_order_select_modifier_shield:town_merchant_pretalk
+  *** dlga_town_merchant_talk:trade_order_selection_ammo
+  *** dlga_trade_order_selection_ammo:trade_order_select_ammo
+  *** dlga_trade_order_select_ammo:trade_order_select_modifier_ask_ammo
+  *** dlga_trade_order_select_ammo:town_merchant_pretalk
+  *** dlga_trade_order_select_modifier_ask_ammo:trade_order_select_modifier_ammo
+  *** dlga_trade_order_select_modifier_ammo:trade_order_set_order_price
+  *** dlga_trade_order_select_modifier_ammo:trade_order_set_order_price.1
+  *** dlga_trade_order_select_modifier_ammo:trade_order_set_order_price.2
+  *** dlga_trade_order_select_modifier_ammo:town_merchant_pretalk
+  *** dlga_town_merchant_talk:trade_order_selection_head
+  *** dlga_trade_order_selection_head:trade_order_select_head
+  *** dlga_trade_order_select_head:trade_order_select_modifier_ask_armor
+  *** dlga_trade_order_select_head:town_merchant_pretalk
+  *** dlga_town_merchant_talk:trade_order_selection_gloves
+  *** dlga_trade_order_selection_gloves:trade_order_select_gloves
+  *** dlga_trade_order_select_gloves:trade_order_select_modifier_ask_armor
+  *** dlga_trade_order_select_gloves:town_merchant_pretalk
+  *** dlga_town_merchant_talk:trade_order_selection_body
+  *** dlga_trade_order_selection_body:trade_order_select_body
+  *** dlga_trade_order_select_body:trade_order_select_modifier_ask_armor
+  *** dlga_trade_order_select_body:town_merchant_pretalk
+  *** dlga_town_merchant_talk:trade_order_selection_leg
+  *** dlga_trade_order_selection_leg:trade_order_select_leg
+  *** dlga_trade_order_select_leg:trade_order_select_modifier_ask_armor
+  *** dlga_trade_order_select_leg:town_merchant_pretalk
+  *** dlga_trade_order_select_modifier_ask_armor:trade_order_select_modifier_armor
+  *** dlga_trade_order_select_modifier_armor:trade_order_set_order_price
+  *** dlga_trade_order_select_modifier_armor:trade_order_set_order_price.1
+  *** dlga_trade_order_select_modifier_armor:trade_order_set_order_price.2
+  *** dlga_trade_order_select_modifier_armor:trade_order_set_order_price.3
+  *** dlga_trade_order_select_modifier_armor:trade_order_set_order_price.4
+  *** dlga_trade_order_select_modifier_armor:trade_order_set_order_price.5
+  *** dlga_trade_order_select_modifier_armor:trade_order_set_order_price.6
+  *** dlga_trade_order_select_modifier_armor:trade_order_set_order_price.7
+  *** dlga_trade_order_select_modifier_armor:trade_order_set_order_price.8
+  *** dlga_trade_order_select_modifier_armor:trade_order_set_order_price.9
+  *** dlga_trade_order_select_modifier_armor:trade_order_set_order_price.10
+  *** dlga_trade_order_select_modifier_armor:trade_order_set_order_price.11
+  *** dlga_trade_order_select_modifier_armor:town_merchant_pretalk
+  *** dlga_town_merchant_talk:trade_order_selection_horse
+  *** dlga_trade_order_selection_horse:trade_order_select_horse
+  *** dlga_trade_order_select_horse:trade_order_select_modifier_ask_horse
+  *** dlga_trade_order_select_horse:town_merchant_pretalk
+  *** dlga_trade_order_select_modifier_ask_horse:trade_order_select_modifier_horse
+  *** dlga_trade_order_select_modifier_horse:trade_order_set_order_price
+  *** dlga_trade_order_select_modifier_horse:trade_order_set_order_price.1
+  *** dlga_trade_order_select_modifier_horse:trade_order_set_order_price.2
+  *** dlga_trade_order_select_modifier_horse:trade_order_set_order_price.3
+  *** dlga_trade_order_select_modifier_horse:trade_order_set_order_price.4
+  *** dlga_trade_order_select_modifier_horse:trade_order_set_order_price.5
+  *** dlga_trade_order_select_modifier_horse:trade_order_set_order_price.6
+  *** dlga_trade_order_select_modifier_horse:town_merchant_pretalk
+  *** dlga_town_merchant_talk:merchant_collect_item
+  *** dlga_merchant_collect_item:town_merchant_talk
+  *** dlga_town_merchant_talk:merchant_collect_item_fail
+  *** dlga_merchant_collect_item_fail:town_merchant_talk
+  *** dlga_town_merchant_talk:merchant_collect_item_another
+  *** dlga_merchant_collect_item_another:town_merchant_talk
+  *** dlga_town_merchant_talk:merchant_collect_item_another_fail|I come to collect my {s3} which I ordered at {s2}.
+  *** dlga_merchant_collect_item_another_fail:town_merchant_talk
+  *** dlga_merchant_collect_item_another_fail:town_merchant_talk.1
+  *** dlga_town_merchant_talk:town_merchant_cancel_order
+  *** dlga_town_merchant_talk:town_merchant_cancel_order_ask
+  *** dlga_town_merchant_cancel_order_ask:town_merchant_cancel_order_answer
+  *** dlga_town_merchant_cancel_order_answer:town_merchant_cancel_order
+  *** dlga_town_merchant_cancel_order_answer:town_merchant_pretalk
+  *** dlga_town_merchant_cancel_order:town_merchant_talk
+  *** dlga_trade_order_set_order_price:trade_order_set_order_price_answer
+  *** dlga_trade_order_set_order_price_answer:trade_order_set_order
+  *** dlga_trade_order_set_order_price_answer:town_merchant_pretalk
+  *** dlga_trade_order_set_order:town_merchant_pretalk
+  *** dlga_town_merchant_pretalk:town_merchant_talk
+  * module_game_menus.py
+  ** Edited:
+  *** menu_town_trade:mno_trade_with_arms_merchant
+  *** menu_town_trade:mno_trade_with_armor_merchant
+  *** menu_town_trade:mno_trade_with_horse_merchant
+  * module_constants.py
+  ** Added:
+  *** handwears_begin
+  *** handwears_end
+  *** footwears_begin
+  *** footwears_end
+  *** bodywears_begin
+  *** bodywears_end
+  *** headwears_begin
+  *** headwears_end
+  *** ammos_begin
+  *** ammos_end
+  * module_triggers.py
+  ** Added:
+  *** 12h trigger to check town merchants if merchant has the item.
+  *** 12h trigger to warn player that his item is ready to collect.
+  * variables.txt
+  ** Added:
+  *** g_item_ordered
+  *** g_item_ordered_modifier
+  *** g_item_ordered_party
+  *** g_item_ordered_price
+  *** g_item_ordered_slot
+  *** g_item_ordered_bought
+  *** g_item_ordered_bought_hours
+  *** g_item_ordered_bought_reach
+  *** g_item_ordered_warned
+  *** temp_4
+  * dialogs.csv
+  *** dlga_town_merchant_talk:trade_order_selection_weapon
+  *** dlga_trade_order_selection_weapon:trade_order_select_weapon
+  *** dlga_trade_order_select_weapon:trade_order_select_modifier_ask
+  *** dlga_trade_order_select_weapon:town_merchant_pretalk
+  *** dlga_trade_order_select_modifier_ask:trade_order_select_modifier
+  *** dlga_trade_order_select_modifier:trade_order_set_order_price
+  *** dlga_trade_order_select_modifier:trade_order_set_order_price.1
+  *** dlga_trade_order_select_modifier:trade_order_set_order_price.2
+  *** dlga_trade_order_select_modifier:trade_order_set_order_price.3
+  *** dlga_trade_order_select_modifier:trade_order_set_order_price.4
+  *** dlga_trade_order_select_modifier:trade_order_set_order_price.5
+  *** dlga_trade_order_select_modifier:trade_order_set_order_price.6
+  *** dlga_trade_order_select_modifier:trade_order_set_order_price.7
+  *** dlga_trade_order_select_modifier:trade_order_set_order_price.8
+  *** dlga_trade_order_select_modifier:trade_order_set_order_price.9
+  *** dlga_trade_order_select_modifier:town_merchant_pretalk
+  *** dlga_town_merchant_talk:trade_order_selection_rweapon
+  *** dlga_trade_order_selection_rweapon:trade_order_select_rweapon
+  *** dlga_trade_order_select_rweapon:trade_order_select_modifier_ask
+  *** dlga_trade_order_select_rweapon:town_merchant_pretalk
+  *** dlga_town_merchant_talk:trade_order_selection_shield
+  *** dlga_trade_order_selection_shield:trade_order_select_shield
+  *** dlga_trade_order_select_shield:trade_order_select_modifier_ask_shield
+  *** dlga_trade_order_select_shield:town_merchant_pretalk
+  *** dlga_trade_order_select_modifier_ask_shield:trade_order_select_modifier_shield
+  *** dlga_trade_order_select_modifier_shield:trade_order_set_order_price
+  *** dlga_trade_order_select_modifier_shield:trade_order_set_order_price.1
+  *** dlga_trade_order_select_modifier_shield:trade_order_set_order_price.2
+  *** dlga_trade_order_select_modifier_shield:trade_order_set_order_price.3
+  *** dlga_trade_order_select_modifier_shield:trade_order_set_order_price.4
+  *** dlga_trade_order_select_modifier_shield:town_merchant_pretalk
+  *** dlga_town_merchant_talk:trade_order_selection_ammo
+  *** dlga_trade_order_selection_ammo:trade_order_select_ammo
+  *** dlga_trade_order_select_ammo:trade_order_select_modifier_ask_ammo
+  *** dlga_trade_order_select_ammo:town_merchant_pretalk
+  *** dlga_trade_order_select_modifier_ask_ammo:trade_order_select_modifier_ammo
+  *** dlga_trade_order_select_modifier_ammo:trade_order_set_order_price
+  *** dlga_trade_order_select_modifier_ammo:trade_order_set_order_price.1
+  *** dlga_trade_order_select_modifier_ammo:trade_order_set_order_price.2
+  *** dlga_trade_order_select_modifier_ammo:town_merchant_pretalk
+  *** dlga_town_merchant_talk:trade_order_selection_head
+  *** dlga_trade_order_selection_head:trade_order_select_head
+  *** dlga_trade_order_select_head:trade_order_select_modifier_ask_armor
+  *** dlga_trade_order_select_head:town_merchant_pretalk
+  *** dlga_town_merchant_talk:trade_order_selection_gloves
+  *** dlga_trade_order_selection_gloves:trade_order_select_gloves
+  *** dlga_trade_order_select_gloves:trade_order_select_modifier_ask_armor
+  *** dlga_trade_order_select_gloves:town_merchant_pretalk
+  *** dlga_town_merchant_talk:trade_order_selection_body
+  *** dlga_trade_order_selection_body:trade_order_select_body
+  *** dlga_trade_order_select_body:trade_order_select_modifier_ask_armor
+  *** dlga_trade_order_select_body:town_merchant_pretalk
+  *** dlga_town_merchant_talk:trade_order_selection_leg
+  *** dlga_trade_order_selection_leg:trade_order_select_leg
+  *** dlga_trade_order_select_leg:trade_order_select_modifier_ask_armor
+  *** dlga_trade_order_select_leg:town_merchant_pretalk
+  *** dlga_trade_order_select_modifier_ask_armor:trade_order_select_modifier_armor
+  *** dlga_trade_order_select_modifier_armor:trade_order_set_order_price
+  *** dlga_trade_order_select_modifier_armor:trade_order_set_order_price.1
+  *** dlga_trade_order_select_modifier_armor:trade_order_set_order_price.2
+  *** dlga_trade_order_select_modifier_armor:trade_order_set_order_price.3
+  *** dlga_trade_order_select_modifier_armor:trade_order_set_order_price.4
+  *** dlga_trade_order_select_modifier_armor:trade_order_set_order_price.5
+  *** dlga_trade_order_select_modifier_armor:trade_order_set_order_price.6
+  *** dlga_trade_order_select_modifier_armor:trade_order_set_order_price.7
+  *** dlga_trade_order_select_modifier_armor:trade_order_set_order_price.8
+  *** dlga_trade_order_select_modifier_armor:trade_order_set_order_price.9
+  *** dlga_trade_order_select_modifier_armor:trade_order_set_order_price.10
+  *** dlga_trade_order_select_modifier_armor:trade_order_set_order_price.11
+  *** dlga_trade_order_select_modifier_armor:town_merchant_pretalk
+  *** dlga_town_merchant_talk:trade_order_selection_horse
+  *** dlga_trade_order_selection_horse:trade_order_select_horse
+  *** dlga_trade_order_select_horse:trade_order_select_modifier_ask_horse
+  *** dlga_trade_order_select_horse:town_merchant_pretalk
+  *** dlga_trade_order_select_modifier_ask_horse:trade_order_select_modifier_horse
+  *** dlga_trade_order_select_modifier_horse:trade_order_set_order_price
+  *** dlga_trade_order_select_modifier_horse:trade_order_set_order_price.1
+  *** dlga_trade_order_select_modifier_horse:trade_order_set_order_price.2
+  *** dlga_trade_order_select_modifier_horse:trade_order_set_order_price.3
+  *** dlga_trade_order_select_modifier_horse:trade_order_set_order_price.4
+  *** dlga_trade_order_select_modifier_horse:trade_order_set_order_price.5
+  *** dlga_trade_order_select_modifier_horse:trade_order_set_order_price.6
+  *** dlga_trade_order_select_modifier_horse:town_merchant_pretalk
+  *** dlga_town_merchant_talk:merchant_collect_item
+  *** dlga_merchant_collect_item:town_merchant_talk
+  *** dlga_town_merchant_talk:merchant_collect_item_fail
+  *** dlga_merchant_collect_item_fail:town_merchant_talk
+  *** dlga_town_merchant_talk:merchant_collect_item_another
+  *** dlga_merchant_collect_item_another:town_merchant_talk
+  *** dlga_town_merchant_talk:merchant_collect_item_another_fail|I come to collect my {s3} which I ordered at {s2}.
+  *** dlga_merchant_collect_item_another_fail:town_merchant_talk
+  *** dlga_merchant_collect_item_another_fail:town_merchant_talk.1
+  *** dlga_town_merchant_talk:town_merchant_cancel_order
+  *** dlga_town_merchant_talk:town_merchant_cancel_order_ask
+  *** dlga_town_merchant_cancel_order_ask:town_merchant_cancel_order_answer
+  *** dlga_town_merchant_cancel_order_answer:town_merchant_cancel_order
+  *** dlga_town_merchant_cancel_order_answer:town_merchant_pretalk
+  *** dlga_town_merchant_cancel_order:town_merchant_talk
+  *** dlga_trade_order_set_order_price:trade_order_set_order_price_answer
+  *** dlga_trade_order_set_order_price_answer:trade_order_set_order
+  *** dlga_trade_order_set_order_price_answer:town_merchant_pretalk
+  *** dlga_trade_order_set_order:town_merchant_pretalk
+  *** dlga_town_merchant_pretalk:town_merchant_talk
+  * quick_strings.csv
+  ** Added:
+  *** qstr_You_saw_the_messenger
+  *** qstr_You_saw_the_messenge
+
 Known Bugs:
 tf_female; Ladies seems like man so dialogs should change with gender.
-You can't loot or get prisoners from bandit camps that time.
 Turkish translate has stupid errors. Like "Kendimin yerine mareşal olarak kendim geçmek istiyorum.", "Köyün yeni sahibi kendim olsun istiyorum" etc...
-Page calculation is wrong for books.
 Troop ratio sometimes goes invisible.
-Flag bug when nations declares war on new kingdoms.

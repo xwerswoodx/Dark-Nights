@@ -658,5 +658,9 @@ script_set_prefix = 656
 script_unset_prefix = 657
 script_troop_has_center_from_faction = 658
 script_troop_change_faction = 659
+script_is_lord_of_party = 660
+script_get_random_book_to_write = 661
+script_write_random_book = 662
+script_write_book_process = 663
 
 

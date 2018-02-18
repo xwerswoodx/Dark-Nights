@@ -103,6 +103,7 @@ slot_item_book_raise_proficiency_limit  = 108
 slot_item_book_author                   = 109
 slot_item_book_type                     = 110
 slot_item_book_pages                    = 111
+slot_item_book_writing_progress         = 112
 
 bt_readable = 0
 bt_bonus    = 1
@@ -272,14 +273,20 @@ slot_faction_sum_advice_about_factions_begin 			= 150
 #revolts -- notes for self
 #type 1 -- minor revolt, aimed at negotiating change without changing the ruler
 #type 2 -- alternate ruler revolt (ie, pretender, chinese dynastic revolt -- keep the same polity but switch the ruler)
-	#subtype -- pretender (keeps the same dynasty)
-	#"mandate of heaven" -- same basic rules, but a different dynasty
-	#alternate/religious
-	#alternate/political
+  #subtype -- pretender (keeps the same dynasty)
+  #"mandate of heaven" -- same basic rules, but a different dynasty
+  #alternate/religious
+  #alternate/political
 #type 3 -- separatist revolt
-	# reGonalist/dynastic (based around an alternate ruling house
-	# regionalist/republican
-	# messianic (ie, Canudos)
+  # reGonalist/dynastic based around an alternate ruling house
+  # regionalist/republican
+  # messianic (ie, Canudos)
+
+## UID: 72 - Begin
+#
+slot_faction_original_color = 250
+#
+## UID: 72 - End
 	
 ########################################################
 ##  PARTY SLOTS            #############################
@@ -1773,6 +1780,22 @@ armors_begin = "itm_leather_gloves"
 armors_end = "itm_wooden_stick"
 shields_begin = "itm_wooden_shield"
 shields_end = ranged_weapons_begin
+
+## UID: 78 - Begin
+#
+handwears_begin = armors_begin
+footwears_begin = "itm_wrapping_boots"
+bodywears_begin = "itm_lady_dress_ruby"
+headwears_begin = "itm_turret_hat_ruby"
+ammos_begin = horses_end
+
+handwears_end = footwears_begin
+footwears_end = bodywears_begin
+bodywears_end = headwears_begin
+headwears_end = weapons_begin
+ammos_end = "itm_cartridges"
+#
+## UID: 78 - End
 
 #INVASION MODE START
 coop_drops_begin = "itm_javelin_bow"

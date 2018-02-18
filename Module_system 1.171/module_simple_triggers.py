@@ -2658,11 +2658,13 @@ simple_triggers = [
   (48, [
       (try_for_range, ":center", centers_begin, centers_end),
         (party_slot_eq, ":center", slot_center_current_improvement, 0),
-        (neg|party_slot_eq, ":center", slot_town_lord, "trp_player"),
+        (party_get_slot, ":lord", ":center", slot_town_lord),
+        (neq, ":lord", "trp_player"),
         (call_script, "script_get_random_improvement", ":center", 0),
         (gt, reg9, 0),
         (store_random_in_range, ":random", 0, 100),
         (lt, ":random", 1), #1% chance to upgrade
+        (gt, ":lord", 0), #Check if center has a lord...
         (call_script, "script_upgrade_building", ":center", reg9, 0),
       (try_end),
     ]),
@@ -3165,8 +3167,21 @@ simple_triggers = [
   #
   (1, [
       (neg|map_free),
-      (gt, "$g_player_reading_book", 0),
-      (call_script, "script_read_book_process", "$g_player_reading_book"),
+      ## UID: 75 - Begin
+      #
+      (try_begin),
+        (gt, "$g_player_writing_book", 0),
+        (call_script, "script_write_book_process", "$g_player_writing_book"),
+      (else_try), #Cannot read book, if he has already writing a book.
+      #
+      ## UID: 75 - End
+        (gt, "$g_player_reading_book", 0),
+        (call_script, "script_read_book_process", "$g_player_reading_book"),
+      ## UID: 75 - Begin
+      #
+      (try_end),
+      #
+      ## UID: 75 - End
     ]),
   # Read books if player is resting.
 ##  (1, [(neg|map_free),

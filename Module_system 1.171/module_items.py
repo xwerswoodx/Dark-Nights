@@ -304,12 +304,12 @@ items = [
  #
  ## UID: 24 - Begin (Added fac_kingdom_8 for camel)
  #
- ["camel", "Camel", [("camel", 0)], itp_merchandise|itp_type_horse, 0, 2020, abundance(40)|hit_points(190)|body_armor(20)|difficulty(4)|horse_speed(42)|horse_maneuver(60)|horse_charge(25)|horse_scale(100), imodbits_horse_basic, [], [fac_kingdom_6, fac_kingdom_8]],
+ ["camel", "Camel", [("camel", 0)], itp_merchandise|itp_type_horse, 0, 2020, abundance(40)|hit_points(190)|body_armor(20)|difficulty(4)|horse_speed(42)|horse_maneuver(60)|horse_charge(25)|horse_scale(100), imodbits_horse_basic|imodbit_champion, [], [fac_kingdom_6, fac_kingdom_8]],
  #
  ## UID: 24 - End
  ["elephant", "Elephant", [("elephant", 0)], itp_merchandise|itp_type_horse, 0, 7000, abundance(25)|hit_points(420)|body_armor(40)|difficulty(6)|horse_speed(28)|horse_maneuver(28)|horse_charge(62)|horse_scale(160), imodbits_horse_basic|imodbit_champion, [], [fac_kingdom_3]],
- ["nordland", "Nordland Horse", [("nordland_ati", 0)], itp_merchandise|itp_type_horse, 0, 1255, abundance(70)|body_armor(23)|hit_points(147)|difficulty(3)|horse_speed(49)|horse_maneuver(35)|horse_charge(14)|horse_scale(100), imodbits_horse_basic|imodbit_champion, [], [fac_kingdom_4]],
- ["sanjarinati","Sanjar Horse", [("sanjarinati",0)], itp_type_horse, 0, 2000, abundance(70)|body_armor(25)|hit_points(125)|difficulty(6)|horse_speed(55)|horse_maneuver(50)|horse_charge(25)|horse_scale(106),imodbits_none],
+ ["nordland", "Nordland Horse", [("nordland_ati", 0)], itp_merchandise|itp_type_horse, 0, 1255, abundance(50)|body_armor(23)|hit_points(147)|difficulty(3)|horse_speed(49)|horse_maneuver(35)|horse_charge(14)|horse_scale(100), imodbits_horse_basic|imodbit_champion, [], [fac_kingdom_4]],
+ ["sanjarinati","Sanjar Horse", [("sanjarinati",0)], itp_type_horse, 0, 2000, abundance(30)|body_armor(25)|hit_points(125)|difficulty(6)|horse_speed(55)|horse_maneuver(50)|horse_charge(25)|horse_scale(106), imodbits_horse_basic|imodbit_champion],
  #
  ## UID: 5 - End
 
@@ -608,6 +608,8 @@ items = [
 ["heraldic_mail_with_tabard", "Heraldic Mail with Tabard", [("heraldic_armor_new_d",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs ,0,
  3654 , weight(21)|abundance(100)|head_armor(0)|body_armor(51)|leg_armor(15)|difficulty(7) ,imodbits_armor,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_heraldic_armor_d", ":agent_no", ":troop_no")])]],
+
+ # Headwear
 ["turret_hat_ruby", "Turret Hat", [("turret_hat_r",0)], itp_type_head_armor  |itp_civilian|itp_fit_to_head ,0, 70 , weight(0.5)|abundance(100)|head_armor(8)|body_armor(0)|leg_armor(0)|difficulty(0) ,imodbits_cloth ], 
 ["turret_hat_blue", "Turret Hat", [("turret_hat_b",0)], itp_type_head_armor  |itp_civilian|itp_fit_to_head ,0, 80 , weight(0.5)|abundance(100)|head_armor(8)|body_armor(0)|leg_armor(0)|difficulty(0) ,imodbits_cloth ], 
 ["turret_hat_green", "Barbette", [("barbette_new",0)],itp_merchandise|itp_type_head_armor|itp_civilian|itp_fit_to_head,0,70, weight(0.5)|abundance(100)|head_armor(6)|body_armor(0)|leg_armor(0)|difficulty(0),imodbits_cloth],
@@ -821,9 +823,7 @@ items = [
   1910, weight(1.5)|difficulty(16)|spd_rtng(104)|weapon_length(95)|swing_damage(45, cut)|thrust_damage(0, pierce), imodbits_sword_high],
  ["fp_sword_06", "Sarranid Cutlass", [("os8", 0)], itp_type_two_handed_wpn|itp_merchandise|itp_two_handed|itp_primary, itc_nodachi|itcf_carry_sword_back,
   1323, weight(2.75)|difficulty(10)|spd_rtng(99)|weapon_length(120)|swing_damage(49, cut)|thrust_damage(0, pierce), imodbits_sword_high],
- ["persius_sword_01", "Excalibur", [("excalibur", 0), ("scab_arabian_sword_c", ixmesh_carry)], itp_type_two_handed_wpn|itp_primary, itc_longsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn,
-  15083, weight(1.13)|difficulty(20)|spd_rtng(120)|weapon_length(100)|swing_damage(69, cut)|thrust_damage(60, pierce), imodbits_sword_high],
-
+ 
  ["fp_mace_01", "Black Mace", [("gurz1", 0)], itp_type_one_handed_wpn|itp_can_knock_down|itp_merchandise|itp_primary|itp_wooden_parry, itc_scimitar|itcf_carry_mace_left_hip,
   917, weight(2)|difficulty(7)|spd_rtng(98)|weapon_length(70)|swing_damage(36, blunt)|thrust_damage(0, pierce), imodbits_mace],
  ["fp_mace_02", "Spiny Mace", [("gurz2", 0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip,
@@ -1408,6 +1408,8 @@ items = [
  ["dedal_kufel", "Kufel", [("dedal_kufelL",0)], itp_type_hand_armor, 0, 0, weight(1), 0],
  ["dedal_lutnia", "Lutnia", [("dedal_lutniaL",0)], itp_type_hand_armor, 0, 0, weight(1), 0],
  ["dedal_lira", "Lira", [("dedal_liraL",0)], itp_type_hand_armor, 0, 0, weight(1), 0],
+ ["persius_sword_01", "Excalibur", [("excalibur", 0), ("scab_arabian_sword_c", ixmesh_carry)], itp_type_two_handed_wpn|itp_primary, itc_longsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn,
+  15083, weight(1.13)|difficulty(20)|spd_rtng(120)|weapon_length(100)|swing_damage(69, cut)|thrust_damage(60, pierce), imodbits_sword_high],
  #
  ## UID: 31 - End
 ]

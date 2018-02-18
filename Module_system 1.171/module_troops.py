@@ -649,40 +649,35 @@ troops = [
   ## UID: 24 - Begin
   #
   ["umalelithian_recruit", "Umalelithian Recruits", "Umalelithian Recruits",tf_guarantee_armor,0,0,fac_kingdom_7,
-   [itm_pa_maul_01,itm_fp_axe_01,itm_club,itm_stones,itm_steppe_helmet_white,itm_pilgrim_disguise,itm_leather_apron,itm_woolen_hose],
-   def_attrib|level(4),wp(60),knows_common,swadian_face_younger_1, swadian_face_middle_2],
+   [itm_military_sickle_a,itm_sarranid_mace_1,itm_stones,itm_felt_hat,itm_coarse_tunic,itm_leather_apron,itm_woolen_hose],
+   def_attrib|level(4),wp_one_handed(70)|wp_two_handed(80)|wp_polearm(35)|wp_archery(35)|wp_crossbow(30)|wp_throwing(30),knows_common,swadian_face_younger_1, swadian_face_middle_2],
   ["umalelithian_infantry", "Umalelithian Infantry", "Umelelithian Infantries",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield,0,0,fac_kingdom_7,
-   [itm_pa_sword_01,itm_spiked_club,itm_arrows,itm_fp_bow_04,itm_tab_shield_heater_a,
-    itm_banded_armor,itm_leather_gloves,itm_nordic_archer_helmet,itm_sarranid_boots_c],
-   def_attrib|level(9),wp(75),knows_common,swadian_face_young_1, swadian_face_old_2],
-  
- ["umalelithian_veteran","Umalelithian Veteran","Umalelithian Veterans",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield|tf_guarantee_helmet,0,0,fac_kingdom_7,
-   [itm_bamboo_spear,itm_arabian_sword_a,itm_arabian_sword_b,itm_tab_shield_kite_b,
-    itm_sarranid_boots_b,itm_sarranid_warrior_cap,itm_sarranid_leather_armor,itm_jarid,itm_arabian_sword_a,itm_mace_3],
-   def_attrib|level(14),wp_one_handed (85) | wp_two_handed (85) | wp_polearm (85) | wp_archery (75) | wp_crossbow (75) | wp_throwing (100),knows_common|knows_athletics_2|knows_power_throw_2|knows_ironflesh_1|knows_power_strike_2|knows_shield_2,swadian_face_young_1, swadian_face_old_2],
+   [itm_sword_medieval_c_small,itm_sword_medieval_b_small,itm_tab_shield_heater_b,itm_nomad_cap_b,itm_leather_gloves,itm_tabard,itm_hunter_boots],
+   def_attrib|level(9),wp_one_handed(95)|wp_two_handed(110)|wp_polearm(40)|wp_archery(40)|wp_crossbow(30)|wp_throwing(30),knows_common,swadian_face_young_1, swadian_face_old_2],
+  ["umalelithian_veteran","Umalelithian Veteran","Umalelithian Veterans",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield|tf_guarantee_helmet,0,0,fac_kingdom_7,
+   [itm_military_cleaver_b,itm_one_handed_war_axe_a,itm_tab_shield_round_c,itm_ankle_boots,itm_skullcap,itm_red_gambeson,itm_mail_mittens],
+   def_attrib|level(14),wp_one_handed(125)|wp_two_handed(130)|wp_polearm(50)|wp_archery(40)|wp_crossbow(40)|wp_throwing(30),knows_common|knows_athletics_2|knows_power_throw_2|knows_ironflesh_1|knows_power_strike_2|knows_shield_2,swadian_face_young_1, swadian_face_old_2],
   ["umalelithian_warrior","Umalelithian Warrior","Umalelithian Warriors",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield|tf_guarantee_helmet,0,0,fac_kingdom_7,
-   [itm_sword_viking_1,itm_one_handed_war_axe_b,itm_one_handed_battle_axe_a,itm_tab_shield_round_c,itm_javelin,
-    itm_nordic_footman_helmet,itm_nordic_fighter_helmet,itm_mail_shirt,itm_studded_leather_coat,itm_hunter_boots,itm_leather_boots],
-   def_attrib|level(19),wp(115),knows_ironflesh_4|knows_power_strike_4|knows_power_throw_3|knows_riding_2|knows_athletics_4|knows_shield_3,nord_face_young_1, nord_face_older_2],
+   [itm_fp_sword_03,itm_fp_mace_01,itm_fp_axe_01,itm_tab_shield_pavise_c,itm_splinted_leather_greaves,itm_mail_chausses,itm_footman_helmet,itm_norman_helmet,itm_mail_chausses,itm_splinted_greaves,itm_padded_leather,itm_tribal_warrior_outfit],
+   str_12|agi_8|int_3|cha_6|level(19),wp_one_handed(150)|wp_two_handed(160)|wp_polearm(75)|wp_archery(40)|wp_crossbow(40)|wp_throwing(35),knows_ironflesh_4|knows_power_strike_4|knows_power_throw_3|knows_riding_2|knows_athletics_4|knows_shield_3,nord_face_young_1, nord_face_older_2],
   ["umalelithian_guard","Umalelithian Guard","Umalelithian Guard",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield|tf_guarantee_helmet,0,0,fac_kingdom_7,
-   [itm_sword_viking_2,itm_sword_viking_2_small,itm_one_handed_battle_axe_b,itm_spiked_mace,itm_tab_shield_round_d,itm_javelin,itm_throwing_axes,
-    itm_nordic_helmet,itm_nordic_fighter_helmet,itm_mail_hauberk,itm_mail_shirt,itm_splinted_leather_greaves,itm_leather_boots,itm_leather_gloves],
-   def_attrib|level(24),wp(145),knows_ironflesh_5|knows_power_strike_5|knows_power_throw_4|knows_riding_3|knows_athletics_5|knows_shield_4,nord_face_young_1, nord_face_older_2],
+   [itm_two_handed_axe,itm_great_sword,itm_shortened_voulge,itm_tab_shield_pavise_d,itm_nordic_helmet,itm_nordic_fighter_helmet,itm_splinted_greaves,itm_mail_boots,itm_iron_greaves,itm_scale_gauntlets,itm_lamellar_gauntlets,itm_banded_armor,itm_cuir_bouilli],
+   str_16|agi_15|int_5|cha_8|level(24),wp_one_handed(185)|wp_two_handed(200)|wp_polearm(85)|wp_archery(50)|wp_crossbow(50)|wp_throwing(45),knows_ironflesh_5|knows_power_strike_5|knows_power_throw_4|knows_riding_3|knows_athletics_5|knows_shield_4,nord_face_young_1, nord_face_older_2],
   ["umalelithian_leader","Umalelithian Leader","Umalelithian Leaders",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield|tf_guarantee_helmet,0,0,fac_kingdom_7,
-   [itm_sword_viking_3,itm_sword_viking_3_small,itm_great_axe,itm_one_handed_battle_axe_c,itm_tab_shield_round_e,itm_throwing_spears,itm_heavy_throwing_axes,itm_heavy_throwing_axes,
-    itm_nordic_huscarl_helmet,itm_nordic_warlord_helmet,itm_banded_armor,itm_mail_boots,itm_mail_chausses,itm_mail_mittens],
-   def_attrib|level(28),wp(170),knows_ironflesh_7|knows_power_strike_7|knows_power_throw_5|knows_riding_2|knows_athletics_7|knows_shield_6,nord_face_middle_1, nord_face_older_2],
+   [itm_khergit_sword_two_handed_a,itm_khergit_sword_two_handed_b,itm_two_handed_cleaver,itm_pa_maul_01,itm_heraldic_mail_with_surcoat,itm_heraldic_mail_with_tunic,itm_heraldic_mail_with_tunic_b,itm_heraldic_mail_with_tabard,itm_lamellar_gauntlets,itm_gauntlets,itm_mail_boots,itm_iron_greaves,itm_nordic_warlord_helmet,itm_guard_helmet],
+   str_21|agi_18|int_8|cha_9|level(28),wp_one_handed(200)|wp_two_handed(220)|wp_polearm(95)|wp_archery(60)|wp_crossbow(60)|wp_throwing(45),knows_ironflesh_7|knows_power_strike_7|knows_power_throw_5|knows_riding_2|knows_athletics_7|knows_shield_6,nord_face_middle_1, nord_face_older_2],
+
   ["umalelithian_archer","Umalelithian Archer","Umalelithian Archers",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_ranged,0,0,fac_kingdom_7,
    [itm_sword_medieval_a,itm_falchion,itm_club_with_spike_head,itm_tab_shield_pavise_a,itm_crossbow,itm_bolts,
     itm_arena_tunic_green,itm_felt_hat_b,itm_common_hood,itm_nomad_boots,itm_wrapping_boots],
-   def_attrib|level(10),wp(85),knows_common|knows_ironflesh_2|knows_shield_1|knows_power_strike_1|knows_athletics_2,rhodok_face_young_1, rhodok_face_older_2],
+   def_attrib|level(12),wp_one_handed(105)|wp_two_handed(110)|wp_polearm(50)|wp_archery(125)|wp_crossbow(130)|wp_throwing(95),knows_common|knows_ironflesh_2|knows_shield_1|knows_power_strike_2|knows_athletics_2,rhodok_face_young_1, rhodok_face_older_2],
   ["umalelithian_trained_archer","Umalelithian Trained Archer","Umalelithian Trained Archers",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_ranged|tf_guarantee_shield,0,0,fac_kingdom_7,
    [itm_sword_medieval_a,itm_sword_medieval_b_small,itm_club_with_spike_head,itm_tab_shield_pavise_a,itm_crossbow,itm_bolts,
     itm_common_hood,itm_leather_armor,itm_arena_tunic_green,itm_nomad_boots],
-   def_attrib|level(15),wp_one_handed (90) | wp_two_handed (90) | wp_polearm (90) | wp_archery (90) | wp_crossbow (105) | wp_throwing (90),knows_common|knows_ironflesh_1|knows_shield_2|knows_power_strike_2|knows_athletics_3,rhodok_face_young_1, rhodok_face_older_2],
+   str_15|agi_18|int_6|cha_5|level(17),wp_one_handed(110)|wp_two_handed(115)|wp_polearm(75)|wp_archery(165)|wp_crossbow(155)|wp_throwing(125),knows_common|knows_ironflesh_1|knows_shield_2|knows_power_strike_2|knows_athletics_3,rhodok_face_young_1, rhodok_face_older_2],
   ["umalelithian_veteran_archer","Umalelithian Veteran Archer","Umalelithian Veteran Archers",tf_guarantee_ranged|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_kingdom_7,
    [itm_bodkin_arrows,itm_sword_viking_2,itm_fighting_axe,itm_two_handed_axe,itm_long_bow,itm_mail_shirt,itm_mail_shirt,itm_byrnie,itm_leather_boots,itm_nordic_archer_helmet,itm_nordic_veteran_archer_helmet],
-   str_12 | agi_5 | int_4 | cha_4|level(19),wp_one_handed (95) | wp_two_handed (95) | wp_polearm (95) | wp_archery (120) | wp_crossbow (95) | wp_throwing (95),knows_power_strike_3|knows_ironflesh_4|knows_power_draw_5|knows_athletics_7,nord_face_middle_1, nord_face_older_2],
+   str_18|agi_21|int_9|cha_6|level(23),wp_one_handed(95)|wp_two_handed(95)|wp_polearm(95)|wp_archery(220)|wp_crossbow(205)|wp_throwing(150),knows_power_strike_3|knows_ironflesh_4|knows_power_draw_7|knows_athletics_6,nord_face_middle_1, nord_face_older_2],
 
   ["umalelithian_messenger","Umalelithian Messenger","Umalelithian Messengers",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_horse|tf_guarantee_ranged,0,0,fac_kingdom_7,
    [itm_sword_viking_2,itm_leather_jerkin,itm_leather_boots,itm_courser,itm_leather_gloves,itm_short_bow,itm_arrows],
@@ -2104,10 +2099,18 @@ troops = [
 
    ["nurse_for_lady","Nurse","Nurse",tf_female|tf_guarantee_armor,0,reserved,fac_commoners,
    [itm_robe, itm_black_hood, itm_wrapping_boots],
-   def_attrib|level(4),wp(60),knows_common,woman_face_1, woman_face_2],   
-   ["temporary_minister","Minister","Minister",tf_guarantee_armor|tf_guarantee_boots,0,reserved,fac_commoners,
+   def_attrib|level(4),wp(60),knows_common,woman_face_1, woman_face_2],
+
+  ## UID: 73 - Begin
+  #
+##  ["temporary_minister","Minister","Minister",tf_guarantee_armor|tf_guarantee_boots,0,reserved,fac_commoners,
+##   [itm_rich_outfit, itm_wrapping_boots],
+##   def_attrib|level(4),wp(60),knows_common,man_face_middle_1, man_face_older_2],
+  ["temporary_minister", "Giraud the Minister", "Giraud the Minister", tf_guarantee_armor|tf_guarantee_boots, 0, reserved, fac_commoners,
    [itm_rich_outfit, itm_wrapping_boots],
-   def_attrib|level(4),wp(60),knows_common,man_face_middle_1, man_face_older_2],   
+   def_attrib|level(4), wp(60), knows_common, man_face_middle_1, man_face_older_2],
+  #
+  ## UID: 73 - End
    
    
 ##  ["conspirator","Conspirator","Conspirators", tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_horse,0,0,fac_neutral,
@@ -2903,6 +2906,15 @@ troops = [
   ["musicians_end", "{!}Musician End", "{!}Musician End", tf_inactive, 0, 0, 0, [], 0, 0, 0, 0],
   #
   ## UID: 31 - End
+
+  ## UID: 73 - Begin
+  #
+  ["player_messenger", "Ferand the Messenger", "Ferand the Messenger", tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_horse|tf_guarantee_ranged, 0, 0, fac_player_supporters_faction,
+   [itm_sword_medieval_a,itm_leather_jerkin,itm_leather_boots,itm_courser,itm_leather_gloves,itm_light_crossbow,itm_bolts],
+   str_7 | agi_21 | int_4 | cha_4|level(25),wp(130),knows_common|knows_riding_7|knows_horse_archery_5, man_face_middle_2, man_face_old_2],
+  #
+  ## UID: 73 - End
+
 ]
 
 

@@ -13,6 +13,14 @@ def save_python_header():
   for imodbit in xrange(len(imods)):
     file.write("imodbit_%s = %d\n"%(convert_to_identifier(imods[imodbit][0]),x))
     x = x * 2
+
+  file.write("\n")
+  for imodmul in xrange(len(imods)):
+    file.write("imodmul_%s = %d\n"%(convert_to_identifier(imods[imodmul][0]), imods[imodmul][2]))
+
+  file.write("\n")
+  for imoddiv in xrange(len(imods)):
+    file.write("imoddiv_%s = %d\n"%(convert_to_identifier(imods[imoddiv][0]), imods[imoddiv][3]))
   file.close()
 
 ## UID: 6 - Begin
@@ -20,8 +28,8 @@ def save_python_header():
 def write_imods(variable_list,variable_uses,tag_uses,quick_strings):
   langFile = open(language_dir + "item_modifiers.csv", "w")
   for imod in imods:
-    if (len(imod) > 2):
-      langFile.write("imod_%s|%s\n"%(convert_to_identifier(imod[0]),imod[2].replace("%n", imod[1])))
+    if (len(imod) > 4):
+      langFile.write("imod_%s|%s\n"%(convert_to_identifier(imod[0]),imod[4].replace("%n", imod[1])))
     else:
       langFile.write("imod_%s|%s\n"%(convert_to_identifier(imod[0]),imod[1] + " %s"))
   langFile.close()

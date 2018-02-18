@@ -19,7 +19,6 @@ profenix:
   Mimar:Mühendislik,yağma
   * Daha önce de belirttiğim gibi buda yapılacak.
 
-
 Arkenhes:
 &'Şu anda politika konuşmaktan yoruldum, belki başka zaman.' yazısını ya temelli kaldır ya da o yazının süresini 3 güne filan indir. Azmı çektim o yazı yüzünden.
   .profenix: Veya yorulan adama para vererek ikna edebiliriz.
@@ -40,9 +39,9 @@ Tüfekçi Başı:
   * Yoktu ancak yeni bir sistem yazıldı onun için, basitçe açıklamam gerekir ise, orjinal hali kalacak, yani bir esir satılmayınca onur kaybedilecek, ancak esir alma ekranında oyuncu düşman ile üç seviyeden daha fazla arkadaşlık kuramayacak. Ayrıca esir yakalama ekranını ise Esir Yönetimine göre yapmayı düşünüyorum, yani esir yönetimi ne kadar çok ise lordun yakalanma oranı o kadar artacak.
 +Yerleşim geliştirme şıkları çok fazla ve benzer.
   * Yerleşim yerleri önceden biraz sıkıntılıydı, aslında kolej ve üniversite gibi şeyler sırayla seviye seviye atlanacaktı, bu sürümde düzeltildi.
-Okuduğum kitap tekrar önüme çıktı.
+&Okuduğum kitap tekrar önüme çıktı.
   * Kitaplar satıcılara rastgele olarak dağıtılır, ancak yeni bir sistemin geleceğini söylemem gerek.
-Mühimmat sayılarının artması fena olmamış. Ama fazla olabilir mi emin değilim.
+&Mühimmat sayılarının artması fena olmamış. Ama fazla olabilir mi emin değilim.
   * Mühimmat sayıları yeni sistemde biraz azaltılacak ancak tam bir test yapmak gerekiyor bunun için, daha öncede açıkladığım gibi ilerleyen oyunda oyuncu 2-3bin askeri birliğine alabildiği için yemek sorunu var olan değerlerle çok büyüktü.
 &Haydut kampları hatalı zaten söylemeye gerek yok.
   * Yeni bir haydut kampı sistemi kuruldu, şuan üzerinde çalışılıyor, ancak yeni sürümde düzgün bir şekilde çalışacak.
@@ -70,11 +69,11 @@ siyahankakuşu:
   * Sanıyorum bunun nedeni krallığın yeni diriliş sistemiydi şuan o sistem tamamen deaktif.
 &Bir kaleyi aldığımızda kaleyi kime vereceğimizi lordlara sorsak ve anket gibi karşımıza çıksa iyi olur. Ayrıca birine köy verince diğerleriyle  olan ilişkinin düşmesi biraz saçma değil mi?? :idea:
   * Bu konuda bir söz vermeyeyim ama düşüneceğim.
-+Dinlerde rastgele dağıtılmasa daha mantıklı olur. Sarranidlerin Hristiyan ; Svadyanların Müslüman olması acayip oluyor.
-  * Şuan aktif olmasada yapılacak.
+&Dinlerde rastgele dağıtılmasa daha mantıklı olur. Sarranidlerin Hristiyan ; Svadyanların Müslüman olması acayip oluyor.
+  * Şuan aktif olmasa da, yapılacak.
 +Namın asker ve esir yeteneğini kontrol etmesinin biraz daha az etkisi olmalı. Çok hızlı artıyor.
   * Yeni sürümde düşürüldü.
-?Ayrıca grup morali hmen düşüyor. Buna da bir çare bulsanız iyi olur. Askerlerin yediklerini arttırmanız biraz daha mantıklı hale getirecektir.
+?Ayrıca grup morali hemen düşüyor. Buna da bir çare bulsanız iyi olur. Askerlerin yediklerini arttırmanız biraz daha mantıklı hale getirecektir.
   * Tam olarak anlayamadım, yemek çeşidi mi arttırılsın? Yemek miktarları mı? Yoksa askerler daha çok mu yemek yesin? 
 +Yapılan binaların etkisi çeşitli olsa ve dinlerle birlikte dini yapılar da kurulsa harika olur.
   Dini yapılar şuan aktif olmasa da dediğiniz sistem yeni sürümde mevcut.
@@ -131,8 +130,9 @@ Dylle:
   * Hoşuma gitmedi diyemem, düşüneceğim bu öneriyi.
   
 JustSmiled:
-&Hocam daha önceden yazmıştım ama görmedin sanırım  :wink: Mod için bir önerim olucak mesela bir krallığın lordu olduğumuz zaman , kralla arası bozuk olan lordları kendi etrafımızda toplayıp krallığı ele geçirme , normal oyunda krallıktan ayrılıp lordları kendi etrafımızda toplayıp yeni bir devlet kuruyoduk öyle değilde ateş ve kılıçta olduğu gibi direk kralın yerine geçme yapılabilir mi?
++Hocam daha önceden yazmıştım ama görmedin sanırım  :wink: Mod için bir önerim olucak mesela bir krallığın lordu olduğumuz zaman , kralla arası bozuk olan lordları kendi etrafımızda toplayıp krallığı ele geçirme , normal oyunda krallıktan ayrılıp lordları kendi etrafımızda toplayıp yeni bir devlet kuruyoduk öyle değilde ateş ve kılıçta olduğu gibi direk kralın yerine geçme yapılabilir mi?
   * Var olan krallığın başına geçmeyi bende düşünüyorum, ama kesin bir şey söyleyemem, yine de bu konu üzerinde çalışıyorum.
+  * Eklendi ve çoğu düzenleme yapıldı ama hala eksikleri olduğuna eminim.
 
 frozenpainter:
 &Köylerde gözcü kulesi gibi şeyler inşa edince haritada map iconlarının belirmesi ve oralarda dilenebilmemiz iyi olmuş, oralara başka şeylerde ekleyebilirsin.Örneğin gözcü kulesinde her hafta 5 asker yetişir ve biz onları alırız.Yani kısaca işlevlerine göre orda yapacağımız fonksiyonlar olmalı, tabi oyun ilerledikçe harita fazla kalabalık oluyor.
@@ -175,8 +175,8 @@ emintnr3:
   * Kendi devletinin askerleri olacak.
   
 lordyurdola:
-&Ayrıca belirtmek istediğim hatalar var. Loto oynarken 2500 lük bilet alıyorum yinede 5000 gidiyor. 1250 oynuyorum 20.000 gidiyor (20.000 hatasının burada olduğuna emin değilim ama gidiyor. Tam bilet sorunsuz. ) bu hataları düzeltirsen sevinirim.
-  * Buna bir bakacağım.
++Ayrıca belirtmek istediğim hatalar var. Loto oynarken 2500 lük bilet alıyorum yinede 5000 gidiyor. 1250 oynuyorum 20.000 gidiyor (20.000 hatasının burada olduğuna emin değilim ama gidiyor. Tam bilet sorunsuz. ) bu hataları düzeltirsen sevinirim.
+  * Bölmek yerine çarptığım için 5000/4 yapıp 1250 keseceğine, 5000*4 yapıp 20000 kesiyormuş :))
   
 mehmet11212:
 +Hanlarda uyurken geçen sürede donma meydana geliyor böyle kasıyor gibi , ancak şu  gözlem kulesi mi nedir adını unuttum onda dinlenirken sorun yok.
@@ -199,8 +199,9 @@ mehmet11212:
   * Böyle bir durumla karşılaşmadım hiç ancak tüm modül sistemi tekrardan kodlandı.
 +Yataklarda siyahlık var .
   * Oda kaldırıldı.
-&Bu mod ile alakalı değil ama konuşmalara el atarsan çok müthiş olur , mesela yolda giden adamıma tıklıyorum " Ev sahibimiz Zengin'le kadeh kaldıralım " tarzı cümleler kuruyor bu konuşmalara el atsan tadından yenmez hani
++Bu mod ile alakalı değil ama konuşmalara el atarsan çok müthiş olur , mesela yolda giden adamıma tıklıyorum " Ev sahibimiz Zengin'le kadeh kaldıralım " tarzı cümleler kuruyor bu konuşmalara el atsan tadından yenmez hani
   * Konuşmalara el atılıyor, bunada el atmak için bakarım.
+  * Belirttiğin konuşmaların sırası hatalı yazılmıştı, tahminimce devreye girmesi gereken Ne vardı? sorusu yerine bu belirtilen yazı geliyordu, sıra düzeltildi, hata hala devam ederse yine incelerim.
 &Böyle mesela kaleyi almaya gidiyoruz kalede diyelim Sultan hakim var , hakime teke tek düelloya davet edebilsek yenersek kale almaya falan , ama bazen böyle kabul etmemesi olsun , sonra yenilip de vermemesi olsun tarzı . yani olursa güzel olur gibi geliyor.
   * Çok kolay olabilir böyle kale almak ama farklı bir fikir, değerlendireceğim.
 +Aklıma bir şey takıldı, Deniz savaşı var demişsin , ancak ben denizde benden başka gemi göremedim.

@@ -43,6 +43,11 @@ def write_voices(ofile, voices):
     
 def export_skins(skins):
   ofile = open(export_dir + "skins.txt","w")
+  ## UID: 6 - Begin
+  #
+  langFile = open(language_dir + "skins.csv", "w")
+  #
+  ## UID: 6 - End
   ofile.write("skins_file version 1\n")
   if len(skins) > 16:
     skins = skins[0:15]
@@ -79,6 +84,11 @@ def export_skins(skins):
     ofile.write(" %s %d "%(head_mesh,len(face_keys)))
     for face_key in face_keys:
       ofile.write("skinkey_%s %d %d %f %f %s "%(convert_to_identifier(face_key[4]), face_key[0],face_key[1],face_key[2],face_key[3],replace_spaces(face_key[4])))
+      ## UID: 6 - Begin
+      #
+      langFile.write("skinkey_%s|%s\n"%(convert_to_identifier(face_key[4]), face_key[4]))
+      #
+      ## UID: 6 - End
     ofile.write("\n%d\n"%len(hair_meshes))
     for mesh_name in hair_meshes:
       ofile.write(" %s "%mesh_name)
@@ -100,6 +110,11 @@ def export_skins(skins):
           ofile.write(" %f %d"%(constraint[i_pair][0], constraint[i_pair][1]))
     ofile.write("\n")
   ofile.close()
+  ## UID: 6 - Begin
+  #
+  langFile.close()
+  #
+  ## UID: 6 - End
 
 print "Exporting skins..."
 export_skins(skins)

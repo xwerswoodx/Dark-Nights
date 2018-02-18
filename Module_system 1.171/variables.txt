@@ -1230,3 +1230,13 @@ gamble_chosen
 g_talk_troop_gender
 g_talk_troop_is_male
 g_talk_troop_is_female
+g_player_writing_book
+g_item_ordered
+g_item_ordered_modifier
+g_item_ordered_troop
+g_item_ordered_price
+g_item_ordered_slot
+g_item_ordered_bought
+g_item_ordered_bought_hours
+g_item_ordered_bought_reach
+temp_4

@@ -1220,3 +1220,4 @@ trp_desert_cavalry = 1218
 trp_musician_male = 1219
 trp_musician_female = 1220
 trp_musicians_end = 1221
+trp_player_messenger = 1222

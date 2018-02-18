@@ -229,10 +229,99 @@ triggers = [
   #
   ## UID: 12 - End
 
+  ## UID: 78 - Begin
+  #
+  (12.0, 0, 0.0, [
+      (gt, "$g_item_ordered", 0),
+      (le, "$g_item_ordered_bought", 0),
+      (map_free, 0),
+    ], [
+      (try_for_range, ":town", towns_begin, towns_end),
+        (party_get_slot, ":merchant", ":town", "$g_item_ordered_slot"),
+
+        (try_for_range, ":slot", num_equipment_kinds, max_inventory_items + num_equipment_kinds),
+          (le, "$g_item_ordered_bought", 0), #Make sure it only removes item one time.
+          (troop_get_inventory_slot, ":item", ":merchant", ":slot"),
+          (troop_get_inventory_slot_modifier, ":modifier", ":merchant", ":slot"),
+          (eq, ":item", "$g_item_ordered"),
+          (eq, ":modifier", "$g_item_ordered_modifier"),
+
+          (try_begin),
+            (le, "$g_item_ordered_bought", 0),
+            (assign, "$g_item_ordered_bought", ":town"),
+          (else_try),
+            (store_distance_to_party_from_party, ":distnew", "$g_item_ordered_party", ":town"),
+            (store_distance_to_party_from_party, ":distcur", "$g_item_ordered_party", "$g_item_ordered_bought"),
+            (lt, ":distnew", ":distcur"), #Current town is nearest than already setted?
+            (assign, "$g_item_ordered_bought", ":town"),
+          (try_end),
+        (try_end),
+      (try_end),
+
+      (gt, "$g_item_ordered_bought", 0), #Does any town have the ordered item?
+      (party_get_slot, ":merchant", "$g_item_ordered_bought", "$g_item_ordered_slot"), #Get the merchant from nearest party.
+      (assign, ":continue", 1),
+      (try_for_range, ":slot", num_equipment_kinds, max_inventory_items + num_equipment_kinds),
+        (eq, ":continue", 1), #Make sure it only removes item one time.
+        (troop_get_inventory_slot, ":item", ":merchant", ":slot"),
+        (troop_get_inventory_slot_modifier, ":modifier", ":merchant", ":slot"),
+        (eq, ":item", "$g_item_ordered"),
+        (eq, ":modifier", "$g_item_ordered_modifier"),
+      
+        (store_current_hours, ":hour"),
+        (assign, "$g_item_ordered_bought_hours", ":hour"), #Set the current time.
+
+        (store_distance_to_party_from_party, ":dist", "$g_item_ordered_party", "$g_item_ordered_bought"), 
+        (val_mul, ":dist", 2),
+        (val_add, ":dist", ":hour"),
+        (assign, "$g_item_ordered_bought_reach", ":dist"), #When will the item reached?
+        (try_begin),
+          (eq, "$g_item_ordered_party", "$g_item_ordered_bought"), #Item found at same party, where player ordered item?
+          (assign, "$g_item_ordered_bought_reach", ":hour"), #Item is ready
+        (try_end),
+
+        (troop_set_inventory_slot, ":merchant", ":slot", -1),
+        (troop_sort_inventory, ":merchant"),
+
+        (assign, ":continue", 0),
+        (assign, "$g_item_ordered_warned", 0),
+        (str_store_party_name, s1, "$g_item_ordered_party"),
+        (store_sub, reg0, "$g_item_ordered_bought_reach", "$g_item_ordered_bought_hours"),
+        (val_div, reg0, 24),
+        (store_sub, reg1, reg0, 1),
+        (str_store_party_name, s2, "$g_item_ordered_bought"),
+        (str_store_troop_name, s3, ":merchant"),
+        (str_store_item_name, s4, "$g_item_ordered"),
+        (dialog_box, "@You saw the messenger reached your party and gives you a paper which came from {s1} {s3}.\
+ '{reg0?Your {s4} will be reach within {reg0} {reg1?days:day} to {s1}. But if you close enought to {s2}, you can collect your {s4} from {s3} in a day.\
+ Tomorrow, your {s4} will be sent out with a notable merchant. You can come and collect your {s4} anytime you want after {reg0} {reg1?days:day}:Your {s4} is now ready at {s1} you can come and collect it anytime you want.}'"),
+      (try_end),
+    ]),
+
+  (12.0, 0, 0.0, [
+      (gt, "$g_item_ordered", 0),
+      (gt, "$g_item_ordered_bought", 0),
+      (le, "$g_item_ordered_warned", 0),
+      (map_free, 0),
+    ], [
+        (assign, ":reach", "$g_item_ordered_bought_reach"),
+        (store_current_hours, ":hour"),
+        (ge, ":hour", ":reach"),
+        (party_get_slot, ":merchant", "$g_item_ordered_party", "$g_item_ordered_slot"),
+        (str_store_party_name, s1, "$g_item_ordered_party"),
+        (str_store_troop_name, s2, ":merchant"),
+        (str_store_item_name, s3, "$g_item_ordered"),
+        (assign, "$g_item_ordered_warned", 1),
+        (dialog_box, "@You saw the messenger reached your party and gives you a paper which came from {s1} {s2}.\
+ 'Your {s3} is now ready at {s1}, you can come and collect it anytime you want.'"),
+    ]),
+  #
+  ## UID: 78 - End
+
   ## UID: 63 - Begin
   #
   # Just set name to default one daily, if he changed his name.
-  (24.0, 0, 0.0, [], [(call_script, "script_set_prefix")]),
+  (24.0, 0, 0.0, [(gt, "$players_kingdom", 0)], [(call_script, "script_set_prefix")]),
   #
   ## UID: 63 - End
 

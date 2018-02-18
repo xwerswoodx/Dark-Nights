@@ -3146,16 +3146,42 @@ game_menus = [
           (try_end),
         ], "Recruit some of your prisoners to your party.", [(jump_to_menu, "mnu_camp_recruit_prisoners")]),
 
-      ("action_read_book", [], "Select a book to read.", [(jump_to_menu, "mnu_camp_action_read_book")]),
+      ("action_read_book", [
+          ## UID: 75 - Begin
+          #
+          (le, "$g_player_writing_book", 0),
+          (le, "$g_player_reading_book", 0),
+          #
+          ## UID: 75 - End
+        ], "Select a book to read.", [(jump_to_menu, "mnu_camp_action_read_book")]),
 
+      ## UID: 75 - Begin
+      #
+      ("action_stop_reading", [
+          (gt, "$g_player_reading_book", 1),
+          (str_store_item_name, s1, "$g_player_reading_book"),
+        ], "Stop reading {s1}.", []),
+      
+      ("action_write_book", [
+          (le, "$g_player_writing_book", 0),
+          (le, "$g_player_reading_book", 0),
+        ], "Write a random book.", [(call_script, "script_write_random_book", "trp_player")]),
+
+      ("action_stop_writing", [
+          (gt, "$g_player_writing_book", 1),
+          (str_store_item_name, s1, "$g_player_writing_book"),
+        ], "Stop writing {s1}.", []),
+      #
+      ## UID: 75 - End
+      
       ("action_rename_kingdom", [
-         (eq, "$players_kingdom_name_set", 1),
-         (faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_active),
-         (faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
-         ],"Rename your kingdom.",
-       [(start_presentation, "prsnt_name_kingdom"),
-        ]
-       ),
+          (eq, "$players_kingdom_name_set", 1),
+          #Info: To block changing name of npc kingdoms, I used, fac_player_supporters_faction not $players_kingdom, because;
+          #if I use $players_kingdom, when player be a leader of npc kingdom, he could change it's name to what he want and the lords of
+          #the kingdom joined player.
+          (faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_active),
+          (faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
+        ], "Rename your kingdom.", [(start_presentation, "prsnt_name_kingdom")]),
 
       ("action_modify_banner",[(eq, "$cheat_mode", 1)],"{!}Cheat: Modify your banner.",
        [
@@ -6796,52 +6822,55 @@ game_menus = [
         ]),
     ],        
   ),
-  (
-    "castle_taken_2",mnf_disable_all_keys,
-    "{s3} has fallen to your troops, and you now have full control of the castle.\
- It is time to send word to {s9} about your victory. {s5}",
-    "none",
-    [
-        (str_store_party_name, s3, "$g_encountered_party"),
-        (str_clear, s5),
-        (faction_get_slot, ":faction_leader", "$players_kingdom", slot_faction_leader),
-        (str_store_troop_name, s9, ":faction_leader"),
+
+  ("castle_taken_2", mnf_disable_all_keys, "{s3} has fallen to your troops, and you now have full control of the castle. It is time to send word to {s9} about your victory. {s5}", "none", [
+      (str_store_party_name, s3, "$g_encountered_party"),
+      (str_clear, s5),
+      (faction_get_slot, ":faction_leader", "$players_kingdom", slot_faction_leader),
+      (str_store_troop_name, s9, ":faction_leader"),
+      (try_begin),
+        (eq, "$player_has_homage", 0),
+        (assign, reg8, 0),
         (try_begin),
-          (eq, "$player_has_homage", 0),
-          (assign, reg8, 0),
-          (try_begin),
-            (party_slot_eq, "$g_encountered_party", spt_town),
-            (assign, reg8, 1),
-          (try_end),
-          (str_store_string, s5, "@However, since you are not a sworn {man/follower} of {s9}, there is no chance he would recognize you as the {lord/lady} of this {reg8?town:castle}."),
+          (party_slot_eq, "$g_encountered_party", spt_town),
+          (assign, reg8, 1),
         (try_end),
-    ],
-    [
-        ("castle_taken_claim",[(eq, "$player_has_homage", 1)],
-		"Request that {s3} be awarded to you.",
-        [
-        (party_set_slot, "$g_encountered_party", slot_center_last_taken_by_troop, "trp_player"),
-        (assign, "$g_castle_requested_by_player", "$current_town"),
-		(assign, "$g_castle_requested_for_troop", "trp_player"),
-        (assign, "$auto_enter_town", "$g_encountered_party"),
-        (change_screen_return),
+        ## UID: 42 - Begin
+        #
+        #(str_store_string, s5, "@However, since you are not a sworn {man/follower} of {s9}, there is no chance he would recognize you as the {lord/lady} of this {reg8?town:castle}."),
+        (call_script, "script_is_male", "trp_player"),
+        (str_store_string, s5, "@However, since you are not a sworn {reg0?man:follower} of {s9}, there is no chance he would recognize you as the {reg0?lord:lady} of this {reg8?town:castle}."),
+        #
+        ## UID: 42 - End
+      (try_end),
+    ], [
+        ("castle_taken_claim",[(eq, "$player_has_homage", 1)], "Request that {s3} be awarded to you.", [
+            (party_set_slot, "$g_encountered_party", slot_center_last_taken_by_troop, "trp_player"),
+            (assign, "$g_castle_requested_by_player", "$current_town"),
+            (assign, "$g_castle_requested_for_troop", "trp_player"),
+            (assign, "$auto_enter_town", "$g_encountered_party"),
+            (change_screen_return),
         ]),
 
-		("castle_taken_claim_2",[
-		(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
-		(is_between, ":spouse", active_npcs_begin, active_npcs_end),
-		(troop_slot_eq, ":spouse", slot_troop_occupation, slto_kingdom_hero),
-		(store_faction_of_troop, ":spouse_faction", ":spouse"),
-		(eq, ":spouse_faction", "$players_kingdom"),
-		],
-		"Request that {s3} be awarded to your {wife/husband}.",
-        [
-        (party_set_slot, "$g_encountered_party", slot_center_last_taken_by_troop, "trp_player"),
-        (assign, "$g_castle_requested_by_player", "$current_town"),
-		(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
-		(assign, "$g_castle_requested_for_troop", ":spouse"),
-        (assign, "$auto_enter_town", "$g_encountered_party"),
-        (change_screen_return),
+        ("castle_taken_claim_2",[
+            (troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
+            (is_between, ":spouse", active_npcs_begin, active_npcs_end),
+            (troop_slot_eq, ":spouse", slot_troop_occupation, slto_kingdom_hero),
+            (store_faction_of_troop, ":spouse_faction", ":spouse"),
+            (eq, ":spouse_faction", "$players_kingdom"),
+            ## UID: 42 - Begin
+            #
+            (call_script, "script_is_male", "trp_player"),
+        #], "Request that {s3} be awarded to your {wife/husband}.", [
+        ], "Request that {s3} be awarded to your {reg0?wife:husband}.", [
+            #
+            ## UID: 42 - End
+            (party_set_slot, "$g_encountered_party", slot_center_last_taken_by_troop, "trp_player"),
+            (assign, "$g_castle_requested_by_player", "$current_town"),
+            (troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
+            (assign, "$g_castle_requested_for_troop", ":spouse"),
+            (assign, "$auto_enter_town", "$g_encountered_party"),
+            (change_screen_return),
         ]),
 		
 		
@@ -8155,20 +8184,21 @@ game_menus = [
             (ge, ":finish", 1), #More than 1 day?
             
             (call_script, "script_get_improvement_detail_new", "$g_encountered_party", ":curImprovement"),
-            (assign, ":price", reg1),
-            (assign, ":max", reg2),
+            (assign, ":price", reg0),
+            (assign, ":max", reg1),
 
             (assign, ":cost", ":price"),
             (val_mul, ":cost", ":finish"),
             (val_div, ":cost", ":max"),
             
             (store_troop_gold, ":gold", "trp_player"),
-            (ge, ":gold", ":cost"),            
-        ], "Finish construction immediately.", [
+            (ge, ":gold", ":cost"),
+            (assign, reg12, ":cost"),
+        ], "Finish construction immediately with {reg12} denars.", [
             (party_get_slot, ":curImprovement", "$g_encountered_party", slot_center_current_improvement),
             (call_script, "script_get_improvement_detail_new", "$g_encountered_party", ":curImprovement"),
-            (assign, ":price", reg1),
-            (assign, ":max", reg2),
+            (assign, ":price", reg0),
+            (assign, ":max", reg1),
 
             (party_get_slot, ":finish", "$g_encountered_party", slot_center_improvement_end_hour),
             (store_current_hours, ":time"),
@@ -8195,20 +8225,21 @@ game_menus = [
             (ge, ":finish", 12), #More than 12 day?
             
             (call_script, "script_get_improvement_detail_new", "$g_encountered_party", ":curImprovement"),
-            (assign, ":price", reg1),
-            (assign, ":max", reg2),
+            (assign, ":price", reg0),
+            (assign, ":max", reg1),
 
             (assign, ":cost", ":price"),
             (val_mul, ":cost", 12),
             (val_div, ":cost", ":max"),
             
             (store_troop_gold, ":gold", "trp_player"),
-            (ge, ":gold", ":cost"),            
-        ], "Decrease construction time 12 days.", [
+            (ge, ":gold", ":cost"),
+            (assign, reg12, ":cost"),
+        ], "Decrease construction time 12 days with {reg12} denars.", [
             (party_get_slot, ":curImprovement", "$g_encountered_party", slot_center_current_improvement),
             (call_script, "script_get_improvement_detail_new", "$g_encountered_party", ":curImprovement"),
-            (assign, ":price", reg1),
-            (assign, ":max", reg2),
+            (assign, ":price", reg0),
+            (assign, ":max", reg1),
 
             (assign, ":cost", ":price"),
             (val_mul, ":cost", 12),
@@ -8233,20 +8264,21 @@ game_menus = [
             (ge, ":finish", 6),
             
             (call_script, "script_get_improvement_detail_new", "$g_encountered_party", ":curImprovement"),
-            (assign, ":price", reg1),
-            (assign, ":max", reg2),
+            (assign, ":price", reg0),
+            (assign, ":max", reg1),
 
             (assign, ":cost", ":price"),
             (val_mul, ":cost", 6),
             (val_div, ":cost", ":max"),
             
             (store_troop_gold, ":gold", "trp_player"),
-            (ge, ":gold", ":cost"),            
-        ], "Decrease construction time 6 days.", [
+            (ge, ":gold", ":cost"),
+            (assign, reg12, ":cost"),
+        ], "Decrease construction time 6 days with {reg12} denars.", [
             (party_get_slot, ":curImprovement", "$g_encountered_party", slot_center_current_improvement),
             (call_script, "script_get_improvement_detail_new", "$g_encountered_party", ":curImprovement"),
-            (assign, ":price", reg1),
-            (assign, ":max", reg2),
+            (assign, ":price", reg0),
+            (assign, ":max", reg1),
 
             (assign, ":cost", ":price"),
             (val_mul, ":cost", 6),
@@ -8271,20 +8303,21 @@ game_menus = [
             (ge, ":finish", 3),
             
             (call_script, "script_get_improvement_detail_new", "$g_encountered_party", ":curImprovement"),
-            (assign, ":price", reg1),
-            (assign, ":max", reg2),
+            (assign, ":price", reg0),
+            (assign, ":max", reg1),
 
             (assign, ":cost", ":price"),
             (val_mul, ":cost", 3),
             (val_div, ":cost", ":max"),
             
             (store_troop_gold, ":gold", "trp_player"),
-            (ge, ":gold", ":cost"),            
-        ], "Decrease construction time 3 days.", [
+            (ge, ":gold", ":cost"),
+            (assign, reg12, ":cost"),
+        ], "Decrease construction time 3 days with {reg12} denars.", [
             (party_get_slot, ":curImprovement", "$g_encountered_party", slot_center_current_improvement),
             (call_script, "script_get_improvement_detail_new", "$g_encountered_party", ":curImprovement"),
-            (assign, ":price", reg1),
-            (assign, ":max", reg2),
+            (assign, ":price", reg0),
+            (assign, ":max", reg1),
 
             (assign, ":cost", ":price"),
             (val_mul, ":cost", 3),
@@ -8309,20 +8342,21 @@ game_menus = [
             (ge, ":finish", 1),
             
             (call_script, "script_get_improvement_detail_new", "$g_encountered_party", ":curImprovement"),
-            (assign, ":price", reg1),
-            (assign, ":max", reg2),
+            (assign, ":price", reg0),
+            (assign, ":max", reg1),
 
             (assign, ":cost", ":price"),
             (val_mul, ":cost", 1),
             (val_div, ":cost", ":max"),
             
             (store_troop_gold, ":gold", "trp_player"),
-            (ge, ":gold", ":cost"),            
-        ], "Decrease construction time 1 days.", [
+            (ge, ":gold", ":cost"),
+            (assign, reg12, ":cost"),
+        ], "Decrease construction time 1 days with {reg12} denars.", [
             (party_get_slot, ":curImprovement", "$g_encountered_party", slot_center_current_improvement),
             (call_script, "script_get_improvement_detail_new", "$g_encountered_party", ":curImprovement"),
-            (assign, ":price", reg1),
-            (assign, ":max", reg2),
+            (assign, ":price", reg0),
+            (assign, ":max", reg1),
 
             (assign, ":cost", ":price"),
             (val_mul, ":cost", 1),
@@ -8531,7 +8565,7 @@ game_menus = [
 
         ("improve_not_enough_gold", [
             (call_script, "script_can_upgrade_building", "$g_encountered_party", "$g_improvement_type", 1),
-            (eq, reg10, 1),
+            (neq, reg10, 1),
         ], "I don't have enough money for that.", [(jump_to_menu, "mnu_center_manage")]),
     ]),
   #
@@ -11850,53 +11884,72 @@ game_menus = [
         ]),
     ]
   ),
-  
-  (
-    "town_trade",0,
-    "You head towards the marketplace.",
-    "none",
-    [],
-    [
-      ("assess_prices",
-       [
-         (store_faction_of_party, ":current_town_faction", "$current_town"),
-         (store_relation, ":reln", ":current_town_faction", "fac_player_supporters_faction"),
-         (ge, ":reln", 0),
-         ],
-       "Assess the local prices.",
-       [
-           (jump_to_menu,"mnu_town_trade_assessment_begin"),
+
+  ("town_trade", 0, "You head towards the marketplace.", "none", [], [
+      ("assess_prices", [
+          (store_faction_of_party, ":current_town_faction", "$current_town"),
+          (store_relation, ":reln", ":current_town_faction", "fac_player_supporters_faction"),
+          (ge, ":reln", 0),
+        ], "Assess the local prices.", [(jump_to_menu,"mnu_town_trade_assessment_begin")]),
+
+      ("trade_with_arms_merchant",[(party_slot_ge, "$current_town", slot_town_weaponsmith, 1)], "Trade with the arms merchant.", [
+          (party_get_slot, ":merchant_troop", "$current_town", slot_town_weaponsmith),
+          ## UID: 78 - Begin
+          #
+          #(change_screen_trade, ":merchant_troop"),
+          (party_get_slot, ":town_scene", "$current_town", slot_town_center),
+          (modify_visitors_at_site, ":town_scene"),
+          (reset_visitors),
+          (set_visitor,11, ":merchant_troop"),
+
+          (set_jump_mission, "mt_town_center"),
+          (jump_to_scene, ":town_scene"),
+          (change_screen_map_conversation, ":merchant_troop"),
+          #
+          ## UID: 78 - End
         ]),
-      ("trade_with_arms_merchant",[(party_slot_ge, "$current_town", slot_town_weaponsmith, 1)],
-       "Trade with the arms merchant.",
-       [
-           (party_get_slot, ":merchant_troop", "$current_town", slot_town_weaponsmith),
-           (change_screen_trade, ":merchant_troop"),
+
+      ("trade_with_armor_merchant",[(party_slot_ge, "$current_town", slot_town_armorer, 1)], "Trade with the armor merchant.", [
+          (party_get_slot, ":merchant_troop", "$current_town", slot_town_armorer),
+          ## UID: 78 - Begin
+          #
+          #(change_screen_trade, ":merchant_troop"),
+          (party_get_slot, ":town_scene", "$current_town", slot_town_center),
+          (modify_visitors_at_site, ":town_scene"),
+          (reset_visitors),
+          (set_visitor,11, ":merchant_troop"),
+
+          (set_jump_mission, "mt_town_center"),
+          (jump_to_scene, ":town_scene"),
+          (change_screen_map_conversation, ":merchant_troop"),
+          #
+          ## UID: 78 - End
         ]),
-      ("trade_with_armor_merchant",[(party_slot_ge, "$current_town", slot_town_armorer, 1)],
-       "Trade with the armor merchant.",
-       [
-           (party_get_slot, ":merchant_troop", "$current_town", slot_town_armorer),
-           (change_screen_trade, ":merchant_troop"),
+
+      ("trade_with_horse_merchant",[(party_slot_ge, "$current_town", slot_town_horse_merchant, 1)], "Trade with the horse merchant.", [
+          (party_get_slot, ":merchant_troop", "$current_town", slot_town_horse_merchant),
+          ## UID: 78 - Begin
+          #
+          #(change_screen_trade, ":merchant_troop"),
+          (party_get_slot, ":town_scene", "$current_town", slot_town_center),
+          (modify_visitors_at_site, ":town_scene"),
+          (reset_visitors),
+          (set_visitor,11, ":merchant_troop"),
+
+          (set_jump_mission, "mt_town_center"),
+          (jump_to_scene, ":town_scene"),
+          (change_screen_map_conversation, ":merchant_troop"),
+          #
+          ## UID: 78 - End
         ]),
-      ("trade_with_horse_merchant",[(party_slot_ge, "$current_town", slot_town_horse_merchant, 1)],
-       "Trade with the horse merchant.",
-       [
-           (party_get_slot, ":merchant_troop", "$current_town", slot_town_horse_merchant),
-           (change_screen_trade, ":merchant_troop"),
+
+      ("trade_with_goods_merchant",[(party_slot_ge, "$current_town", slot_town_merchant, 1)], "Trade with the goods merchant.", [
+          (party_get_slot, ":merchant_troop", "$current_town", slot_town_merchant),
+          (change_screen_trade, ":merchant_troop"),
         ]),
-      ("trade_with_goods_merchant",[(party_slot_ge, "$current_town", slot_town_merchant, 1)],
-       "Trade with the goods merchant.",
-       [
-           (party_get_slot, ":merchant_troop", "$current_town", slot_town_merchant),
-           (change_screen_trade, ":merchant_troop"),
-        ]),
-      ("back_to_town_menu",[],"Head back.",
-       [
-           (jump_to_menu,"mnu_town"),
-        ]),
-    ]
-  ),
+
+      ("back_to_town_menu",[], "Head back.", [(jump_to_menu,"mnu_town")]),
+    ]),
 
   (
    "town_trade_assessment_begin",0, 
