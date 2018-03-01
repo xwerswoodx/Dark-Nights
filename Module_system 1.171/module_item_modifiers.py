@@ -94,7 +94,8 @@ imods = [
 # 4. imod_stubborn
 # 5. imod_plain
 # 6. imod_timid
-# 7. imod_lame
+# 7. imod_swaybacked
+# 8. imod_lame
 #
 # Food:
 # 1. imod_fresh

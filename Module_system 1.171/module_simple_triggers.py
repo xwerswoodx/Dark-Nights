@@ -679,8 +679,13 @@ simple_triggers = [
     (try_begin),
       (neg|map_free),
       (ge, "$g_last_rest_center", 0),
-      (this_or_next|party_slot_eq, "$g_last_rest_center", slot_center_has_manor, 1),
-      (is_between, "$g_last_rest_center", walled_centers_begin, walled_centers_end),
+      ## UID: 9 - Begin
+      #
+      #(this_or_next|party_slot_eq, "$g_last_rest_center", slot_center_has_manor, 1),
+      (this_or_next|party_slot_ge, "$g_last_rest_center", slot_center_building_manor, 1),
+      #
+      ## UID: 9 - End
+      (             is_between, "$g_last_rest_center", walled_centers_begin, walled_centers_end),
       (assign, ":resting_at_manor_or_walled_center", 1),
     (try_end),
     (eq, ":resting_at_manor_or_walled_center", 0),
@@ -2033,84 +2038,163 @@ simple_triggers = [
 
 
   #Troop AI: Merchants thinking
-  (8,
-   [
-       (try_for_parties, ":party_no"),
-         (party_slot_eq, ":party_no", slot_party_type, spt_kingdom_caravan),
-         (party_is_in_any_town, ":party_no"),
+  (8, [
+      (try_for_parties, ":party_no"),
+        ## UID: 79 - Begin
+        #
+        (try_begin),
+        #
+        ## UID: 79 - End
+          (party_slot_eq, ":party_no", slot_party_type, spt_kingdom_caravan),
+          (party_is_in_any_town, ":party_no"),
 
-         (store_faction_of_party, ":merchant_faction", ":party_no"),
-         (faction_get_slot, ":num_towns", ":merchant_faction", slot_faction_num_towns),
-         (try_begin),
-           (le, ":num_towns", 0),
-           (remove_party, ":party_no"),
-         (else_try),
-           (party_get_cur_town, ":cur_center", ":party_no"),
-           
-           (store_random_in_range, ":random_no", 0, 100),                               
-           
-           (try_begin),
-             (party_slot_eq, ":cur_center", slot_town_lord, "trp_player"),
-             
-             (game_get_reduce_campaign_ai, ":reduce_campaign_ai"),
-             (try_begin),
-               (eq, ":reduce_campaign_ai", 0), #hard (less money from tariffs)
-               (assign, ":tariff_succeed_limit", 35),
-             (else_try),
-               (eq, ":reduce_campaign_ai", 1), #medium (normal money from tariffs)
-               (assign, ":tariff_succeed_limit", 45),
-             (else_try),
-               (eq, ":reduce_campaign_ai", 2), #easy (more money from tariffs)
-               (assign, ":tariff_succeed_limit", 60),
-             (try_end),                
-           (else_try),  
-             (assign, ":tariff_succeed_limit", 45),
-           (try_end),
-                      
-           (lt, ":random_no", ":tariff_succeed_limit"),                  
+          (store_faction_of_party, ":merchant_faction", ":party_no"),
+          (faction_get_slot, ":num_towns", ":merchant_faction", slot_faction_num_towns),
+          (try_begin),
+            (le, ":num_towns", 0),
+            (remove_party, ":party_no"),
+          (else_try),
+            (party_get_cur_town, ":cur_center", ":party_no"),
+            (store_random_in_range, ":random_no", 0, 100),
+            (try_begin),
+              (party_slot_eq, ":cur_center", slot_town_lord, "trp_player"),
+              (game_get_reduce_campaign_ai, ":reduce_campaign_ai"),
+              (try_begin),
+                (eq, ":reduce_campaign_ai", 0), #hard (less money from tariffs)
+                (assign, ":tariff_succeed_limit", 35),
+              (else_try),
+                (eq, ":reduce_campaign_ai", 1), #medium (normal money from tariffs)
+                (assign, ":tariff_succeed_limit", 45),
+              (else_try),
+                (eq, ":reduce_campaign_ai", 2), #easy (more money from tariffs)
+                (assign, ":tariff_succeed_limit", 60),
+              (try_end),                
+            (else_try),  
+              (assign, ":tariff_succeed_limit", 45),
+            (try_end),
+            (lt, ":random_no", ":tariff_succeed_limit"),                  
+            (assign, ":can_leave", 1),
+            (try_begin),
+              (is_between, ":cur_center", walled_centers_begin, walled_centers_end),
+              (neg|party_slot_eq, ":cur_center", slot_center_is_besieged_by, -1),
+              (assign, ":can_leave", 0),
+            (try_end),
+            (eq, ":can_leave", 1),
 
-           (assign, ":can_leave", 1),
-           (try_begin),
-             (is_between, ":cur_center", walled_centers_begin, walled_centers_end),
-             (neg|party_slot_eq, ":cur_center", slot_center_is_besieged_by, -1),
-             (assign, ":can_leave", 0),
-           (try_end),
-           (eq, ":can_leave", 1),
-
-           (assign, ":do_trade", 0),
-           (try_begin),
-             (party_get_slot, ":cur_ai_state", ":party_no", slot_party_ai_state),
-             (eq, ":cur_ai_state", spai_trading_with_town),
-             (party_get_slot, ":cur_ai_object", ":party_no", slot_party_ai_object),
-             (eq, ":cur_center", ":cur_ai_object"),
-             (assign, ":do_trade", 1),
-           (try_end),
-
-           (assign, ":target_center", -1),
-           
-           (try_begin), #Make sure escorted caravan continues to its original destination.
-             (eq, "$caravan_escort_party_id", ":party_no"),
-             (neg|party_is_in_town, ":party_no", "$caravan_escort_destination_town"),
-             (assign, ":target_center", "$caravan_escort_destination_town"),
-           (else_try),         
-             (call_script, "script_cf_select_most_profitable_town_at_peace_with_faction_in_trade_route", ":cur_center", ":merchant_faction"),
-             (assign, ":target_center", reg0),
-           (try_end),
-           (is_between, ":target_center", towns_begin, towns_end),
-           (neg|party_is_in_town, ":party_no", ":target_center"),
-       
-           (try_begin),
-             (eq, ":do_trade", 1),
-             (str_store_party_name, s7, ":cur_center"),             
-             (call_script, "script_do_merchant_town_trade", ":party_no", ":cur_center"),
-           (try_end),
-           (party_set_ai_behavior, ":party_no", ai_bhvr_travel_to_party),
-           (party_set_ai_object, ":party_no", ":target_center"),
-           (party_set_flags, ":party_no", pf_default_behavior, 0),
-           (party_set_slot, ":party_no", slot_party_ai_state, spai_trading_with_town),
-           (party_set_slot, ":party_no", slot_party_ai_object, ":target_center"),
-         (try_end),
-       (try_end),
+            (assign, ":do_trade", 0),
+            (try_begin),
+              (party_get_slot, ":cur_ai_state", ":party_no", slot_party_ai_state),
+              (eq, ":cur_ai_state", spai_trading_with_town),
+              (party_get_slot, ":cur_ai_object", ":party_no", slot_party_ai_object),
+              (eq, ":cur_center", ":cur_ai_object"),
+              (assign, ":do_trade", 1),
+            (try_end),
+  
+            (assign, ":target_center", -1),
+            (try_begin), #Make sure escorted caravan continues to its original destination.
+              (eq, "$caravan_escort_party_id", ":party_no"),
+              (neg|party_is_in_town, ":party_no", "$caravan_escort_destination_town"),
+              (assign, ":target_center", "$caravan_escort_destination_town"),
+            (else_try),         
+              (call_script, "script_cf_select_most_profitable_town_at_peace_with_faction_in_trade_route", ":cur_center", ":merchant_faction"),
+              (assign, ":target_center", reg0),
+            (try_end),
+            (is_between, ":target_center", towns_begin, towns_end),
+            (neg|party_is_in_town, ":party_no", ":target_center"), 
+  
+            (try_begin),
+              (eq, ":do_trade", 1),
+              (str_store_party_name, s7, ":cur_center"),             
+              (call_script, "script_do_merchant_town_trade", ":party_no", ":cur_center"),
+            (try_end),
+            (party_set_ai_behavior, ":party_no", ai_bhvr_travel_to_party),
+            (party_set_ai_object, ":party_no", ":target_center"),
+            (party_set_flags, ":party_no", pf_default_behavior, 0),
+            (party_set_slot, ":party_no", slot_party_ai_state, spai_trading_with_town),
+            (party_set_slot, ":party_no", slot_party_ai_object, ":target_center"),
+          (try_end),
+        ## UID: 79 - Begin
+        #
+        (else_try),
+          (party_slot_eq, ":party_no", slot_party_type, spt_merchant_caravan),
+          (get_party_ai_object, ":object_town", ":party_no"),
+          (party_slot_ge, ":object_town", slot_town_is_coastal, 1),
+          (store_distance_to_party_from_party, ":dist", ":party_no", ":object_town"),
+          (party_get_position, pos0, ":object_town"),     
+          (party_get_slot, ":radius", ":object_town", slot_town_is_coastal),
+          (val_add, ":radius", 3),
+          (lt, ":dist", ":radius"),               
+          (assign, ":cur_center", ":object_town"),
+          (store_faction_of_party, ":merchant_faction", ":party_no"),
+          (faction_get_slot, ":num_towns", ":merchant_faction", slot_faction_num_towns),
+          (try_begin),
+            (le, ":num_towns", 0),
+            (remove_party, ":party_no"),
+          (else_try),         
+            (store_random_in_range, ":random_no", 0, 100),
+            (try_begin),
+              (party_slot_eq, ":cur_center", slot_town_lord, "trp_player"),
+              (game_get_reduce_campaign_ai, ":reduce_campaign_ai"),
+              (try_begin),
+                (eq, ":reduce_campaign_ai", 0), #hard (less money from tariffs)
+                (assign, ":tariff_succeed_limit", 35),
+              (else_try),
+                (eq, ":reduce_campaign_ai", 1), #medium (normal money from tariffs)
+                (assign, ":tariff_succeed_limit", 45),
+              (else_try),
+                (eq, ":reduce_campaign_ai", 2), #easy (more money from tariffs)
+                (assign, ":tariff_succeed_limit", 60),
+              (try_end),               
+            (else_try),
+              (assign, ":tariff_succeed_limit", 45),
+            (try_end),
+            (lt, ":random_no", ":tariff_succeed_limit"),                 
+   
+            (assign, ":can_leave", 1),
+            (try_begin),
+              (is_between, ":cur_center", walled_centers_begin, walled_centers_end),
+              (neg|party_slot_eq, ":cur_center", slot_center_is_besieged_by, -1),
+              (assign, ":can_leave", 0),
+            (try_end),
+            (eq, ":can_leave", 1),
+   
+            (assign, ":do_trade", 0),
+            (try_begin),
+              (party_get_slot, ":cur_ai_state", ":party_no", slot_party_ai_state),
+              (eq, ":cur_ai_state", spai_trading_with_town),
+              (party_get_slot, ":cur_ai_object", ":party_no", slot_party_ai_object),
+              (eq, ":cur_center", ":cur_ai_object"),
+              (assign, ":do_trade", 1),
+            (try_end),
+            (assign, ":target_center", -1),
+            (try_begin),
+              (call_script, "script_cf_select_most_profitable_coastal_town_at_peace_with_faction_in_trade_route", ":cur_center", ":merchant_faction"),
+              (assign, ":target_center", reg0),
+            (try_end),
+            (is_between, ":target_center", towns_begin, towns_end),
+            (store_distance_to_party_from_party, ":target_dist", ":party_no", ":target_center"),
+            (party_get_position, pos0, ":target_center"),
+            (party_get_slot, ":radius", ":target_center", slot_town_is_coastal),
+            (map_get_water_position_around_position, pos1, pos0, ":radius"),
+            (val_add, ":radius", 2),           
+            (gt, ":target_dist", ":radius"), #was 5 #Ensures that they aren't already at the target party...just a redundancy check, as there is with caravans
+            (try_begin),
+              (eq, ":do_trade", 1),
+              (str_store_party_name, s7, ":cur_center"),
+              (call_script, "script_do_merchant_town_trade", ":party_no", ":cur_center"),
+            (try_end),
+   
+            (party_set_ai_behavior, ":party_no", ai_bhvr_travel_to_point),
+            (party_set_ai_target_position, ":party_no", pos1),
+            (party_set_ai_object, ":party_no", ":target_center"),
+            (party_set_flags, ":party_no", pf_default_behavior, 0),
+            (party_set_slot, ":party_no", slot_party_ai_state, spai_trading_with_town),
+            (party_set_slot, ":party_no", slot_party_ai_object, ":target_center"),
+          (try_end),
+        (try_end),
+        #
+        ## UID: 79 - End
+      (try_end),
     ]),
 
   #Troop AI: Village farmers thinking
@@ -2698,8 +2782,11 @@ simple_triggers = [
   ## UID: 43 - Begin
   #
     (24 * 7, [
+        (store_current_hours, ":hour"),
+        (val_add, ":hour", 168),
+        (assign, "$g_next_pay_time", ":hour"),
         (eq, "$freelancer_state", 1),
-		(troop_get_slot, ":service_xp_start", "trp_player", slot_troop_freelancer_start_xp),
+        (troop_get_slot, ":service_xp_start", "trp_player", slot_troop_freelancer_start_xp),
         (troop_get_xp, ":player_xp_cur", "trp_player"),
         (store_sub, ":service_xp_cur", ":player_xp_cur", ":service_xp_start"),
 
@@ -2760,9 +2847,6 @@ simple_triggers = [
         (troop_add_gold, "trp_player", ":weekly_pay"),
         (add_xp_to_troop, 70, "trp_player"),
         (play_sound, "snd_money_received", 0),
-        (store_current_hours, ":hour"),
-        (val_add, ":hour", 168),
-        (assign, "$g_next_pay_time", ":hour"),
     ]),
 
 #  HOURLY CHECKS
@@ -3269,16 +3353,51 @@ simple_triggers = [
 # Village upgrade triggers
 
 # School
-  (30 * 24,
-   [(try_for_range, ":cur_village", villages_begin, villages_end),
-      (party_slot_eq, ":cur_village", slot_town_lord, "trp_player"),
-      (party_slot_eq, ":cur_village", slot_center_has_school, 1),
-      (party_get_slot, ":cur_relation", ":cur_village", slot_center_player_relation),
-      (val_add, ":cur_relation", 1),
-      (val_min, ":cur_relation", 100),
-      (party_set_slot, ":cur_village", slot_center_player_relation, ":cur_relation"),
-    (try_end),
+  ## UID: 9 - Begin
+  #
+  #(30 * 24, [
+  #    (try_for_range, ":cur_village", villages_begin, villages_end),
+  #      (party_slot_eq, ":cur_village", slot_town_lord, "trp_player"),
+  #      (party_slot_eq, ":cur_village", slot_center_has_school, 1),
+  #      (party_get_slot, ":cur_relation", ":cur_village", slot_center_player_relation),
+  #      (val_add, ":cur_relation", 1),
+  #      (val_min, ":cur_relation", 100),
+  #      (party_set_slot, ":cur_village", slot_center_player_relation, ":cur_relation"),
+  #    (try_end),
+  #  ]),
+  
+  (30 * 24, [
+      (try_for_range, ":center", centers_begin, centers_end),
+        (party_slot_eq, ":center", slot_town_lord, "trp_player"),
+
+        (assign, ":bonus", 0),
+        (try_begin),
+          (party_get_slot, ":statue", ":center", slot_center_building_statue),
+          (val_add, ":bonus", ":statue"),
+        (try_end),
+        (try_begin),
+          (party_get_slot, ":school", ":center", slot_center_building_school),
+          (val_mul, ":school", 2),
+          (val_add, ":bonus", ":statue"),
+        (try_end),
+        (try_begin),
+          (party_get_slot, ":college", ":center", slot_center_building_college),
+          (val_mul, ":college", 4),
+          (val_add, ":bonus", ":college"),
+        (try_end),
+        (try_begin),
+          (party_get_slot, ":university", ":center", slot_center_building_university),
+          (val_mul, ":university", 6),
+          (val_add, ":bonus", ":university"),
+        (try_end),
+        (party_get_slot, ":relation", ":center", slot_center_player_relation),
+        (val_add, ":relation", ":bonus"),
+        (val_min, ":relation", 100),
+        (party_set_slot, ":center", slot_center_player_relation, ":relation"),
+      (try_end),
     ]),
+  #
+  ## UID: 9 - End
 
 # Quest triggers:
 
@@ -4272,54 +4391,38 @@ simple_triggers = [
 	(party_set_slot, ":town", slot_center_player_enterprise_days_until_complete, ":days_to_completion"), 
    (try_end),
     ]),
-  (24,
-   [
-	  # Setting food bonuses in every 6 hours again and again because of a bug (we could not find its reason) which decreases especially slot_item_food_bonus slots of items to 0.
-	  #Staples
-      (item_set_slot, "itm_bread", slot_item_food_bonus, 8), #brought up from 4
-      (item_set_slot, "itm_grain", slot_item_food_bonus, 2), #new - can be boiled as porridge
-	  
-	  #Fat sources - preserved
-      (item_set_slot, "itm_smoked_fish", slot_item_food_bonus, 4),
-      (item_set_slot, "itm_dried_meat", slot_item_food_bonus, 5),
-      (item_set_slot, "itm_cheese", slot_item_food_bonus, 5),
-      (item_set_slot, "itm_sausages", slot_item_food_bonus, 5),
-      (item_set_slot, "itm_butter", slot_item_food_bonus, 4), #brought down from 8
+  
+##  (24,
+##   [
+##	  # Setting food bonuses in every 6 hours again and again because of a bug (we could not find its reason) which decreases especially slot_item_food_bonus slots of items to 0.
+##	  #Staples
+##      (item_set_slot, "itm_bread", slot_item_food_bonus, 8), #brought up from 4
+##      (item_set_slot, "itm_grain", slot_item_food_bonus, 2), #new - can be boiled as porridge
+##	  
+##	  #Fat sources - preserved
+##      (item_set_slot, "itm_smoked_fish", slot_item_food_bonus, 4),
+##      (item_set_slot, "itm_dried_meat", slot_item_food_bonus, 5),
+##      (item_set_slot, "itm_cheese", slot_item_food_bonus, 5),
+##      (item_set_slot, "itm_sausages", slot_item_food_bonus, 5),
+##      (item_set_slot, "itm_butter", slot_item_food_bonus, 4), #brought down from 8
+##
+##	  #Fat sources - perishable
+##      (item_set_slot, "itm_chicken", slot_item_food_bonus, 8), #brought up from 7
+##      (item_set_slot, "itm_cattle_meat", slot_item_food_bonus, 7), #brought down from 7
+##      (item_set_slot, "itm_pork", slot_item_food_bonus, 6), #brought down from 6
+##	  
+##	  #Produce
+##      (item_set_slot, "itm_raw_olives", slot_item_food_bonus, 1),
+##      (item_set_slot, "itm_cabbages", slot_item_food_bonus, 2),
+##      (item_set_slot, "itm_raw_grapes", slot_item_food_bonus, 3),
+##      (item_set_slot, "itm_apples", slot_item_food_bonus, 4), #brought down from 5
+##
+##	  #Sweet items
+##      (item_set_slot, "itm_raw_date_fruit", slot_item_food_bonus, 4), #brought down from 8
+##      (item_set_slot, "itm_honey", slot_item_food_bonus, 6), #brought down from 12
+##      
+##      (item_set_slot, "itm_wine", slot_item_food_bonus, 5),
+##      (item_set_slot, "itm_ale", slot_item_food_bonus, 4),
+##   ]),
 
-	  #Fat sources - perishable
-      (item_set_slot, "itm_chicken", slot_item_food_bonus, 8), #brought up from 7
-      (item_set_slot, "itm_cattle_meat", slot_item_food_bonus, 7), #brought down from 7
-      (item_set_slot, "itm_pork", slot_item_food_bonus, 6), #brought down from 6
-	  
-	  #Produce
-      (item_set_slot, "itm_raw_olives", slot_item_food_bonus, 1),
-      (item_set_slot, "itm_cabbages", slot_item_food_bonus, 2),
-      (item_set_slot, "itm_raw_grapes", slot_item_food_bonus, 3),
-      (item_set_slot, "itm_apples", slot_item_food_bonus, 4), #brought down from 5
-
-	  #Sweet items
-      (item_set_slot, "itm_raw_date_fruit", slot_item_food_bonus, 4), #brought down from 8
-      (item_set_slot, "itm_honey", slot_item_food_bonus, 6), #brought down from 12
-      
-      (item_set_slot, "itm_wine", slot_item_food_bonus, 5),
-      (item_set_slot, "itm_ale", slot_item_food_bonus, 4),
-   ]),
-  (24,
-   []),
-  (24,
-   []),
-  (24,
-   []),
-  (24,
-   []),
-  (24,
-   []),
-  (24,
-   []),
-  (24,
-   []),
-  (24,
-   []),
-  (24,
-   []),
 ]

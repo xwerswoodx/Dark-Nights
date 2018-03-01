@@ -67,6 +67,11 @@ party_templates = [
   ## UID: 12 - End
   
   ("merchant_caravan","Merchant Caravan",icon_gray_knight|carries_goods(20)|pf_auto_remove_in_town|pf_quest_party,0,fac_commoners,escorted_merchant_personality,[(trp_caravan_master,1,1),(trp_caravan_guard,5,25)]),
+  ## UID: 79 - Begin
+  #
+  ("sea_traders", "Royal Traders", icon_ship|pf_is_ship|carries_goods(20)|pf_auto_remove_in_town|pf_quest_party,0,fac_commoners,escorted_merchant_personality,[(trp_caravan_master,1,1),(trp_caravan_guard,5,25)]),
+  #
+  ## UID: 79 - End
   ("troublesome_bandits","Troublesome Bandits",icon_axeman|carries_goods(9)|pf_quest_party,0,fac_outlaws,bandit_personality,[(trp_bandit,14,55)]),
   ("bandits_awaiting_ransom","Bandits Awaiting Ransom",icon_axeman|carries_goods(9)|pf_auto_remove_in_town|pf_quest_party,0,fac_neutral,bandit_personality,[(trp_bandit,24,58),(trp_kidnapped_girl,1,1,pmf_is_prisoner)]),
   ("kidnapped_girl","Kidnapped Girl",icon_woman|pf_quest_party,0,fac_neutral,merchant_personality,[(trp_kidnapped_girl,1,1)]),
@@ -106,6 +111,14 @@ party_templates = [
   # less-modernised templates are generally includes 7-14 troops in total, 
   # med-modernised templates are generally includes 5-10 troops in total, 
   # high-modernised templates are generally includes 3-5 troops in total
+
+  ## UID: 62 - Begin
+  #
+  ("supporters_reinforcements_a", "{!}supporters_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_supporters_recruit,5,10),(trp_supporters_militia,2,4)]),
+  ("supporters_reinforcements_b", "{!}supporters_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_supporters_footman,3,6),(trp_supporters_skirmisher,2,4)]),
+  ("supporters_reinforcements_c", "{!}supporters_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_supporters_man_at_arms,2,4),(trp_supporters_crossbowman,1,2)]),
+  #
+  ## UID: 62 - End
 
   ("kingdom_1_reinforcements_a", "{!}kingdom_1_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_swadian_recruit,5,10),(trp_swadian_militia,2,4)]),
   ("kingdom_1_reinforcements_b", "{!}kingdom_1_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_swadian_footman,3,6),(trp_swadian_skirmisher,2,4)]),
@@ -179,7 +192,7 @@ party_templates = [
 
   ## UID: 62 - Begin
   #
-  ("kingdom_0_patrol", "Player Kingdom Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_player_supporters_faction, soldier_personality, [(trp_swadian_footman, 12, 36),(trp_swadian_knight, 10, 30),(trp_swadian_infantry, 12, 36)]),
+  ("kingdom_0_patrol", "Player Kingdom Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_player_supporters_faction, soldier_personality, [(trp_supporters_footman, 12, 36),(trp_supporters_knight, 10, 30),(trp_supporters_infantry, 12, 36)]),
   #
   ## UID: 62 - End
   ## UID: 21 - Begin

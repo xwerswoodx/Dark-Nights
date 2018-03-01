@@ -52,8 +52,8 @@ meshes = [
   ("pic_sarranid_arms", 0, "pic_sarranid_arms", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ## UID: 24 - Begin
   #
-  ("pic_arms_umalelith", 0, "pic_townsnow", 0, 0, 0, 0, 0, 0, 1, 1, 1),
-  ("pic_arms_khelian", 0, "pic_siege_sighted_fem", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_umalelith", 0, "pic_arms_umalelith", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_khelian", 0, "pic_arms_kielian", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   #
   ## UID: 24 - End
   ("pic_castle1", 0, "pic_castle1", 0, 0, 0, 0, 0, 0, 1, 1, 1),

@@ -176,7 +176,7 @@ emintnr3:
   
 lordyurdola:
 +Ayrıca belirtmek istediğim hatalar var. Loto oynarken 2500 lük bilet alıyorum yinede 5000 gidiyor. 1250 oynuyorum 20.000 gidiyor (20.000 hatasının burada olduğuna emin değilim ama gidiyor. Tam bilet sorunsuz. ) bu hataları düzeltirsen sevinirim.
-  * Bölmek yerine çarptığım için 5000/4 yapıp 1250 keseceğine, 5000*4 yapıp 20000 kesiyormuş :))
+  * Bölmek yerine çarptığım için 5000/4 yapıp 1250 keseceğine, 5000x4 yapıp 20000 kesiyormuş :))
   
 mehmet11212:
 +Hanlarda uyurken geçen sürede donma meydana geliyor böyle kasıyor gibi , ancak şu  gözlem kulesi mi nedir adını unuttum onda dinlenirken sorun yok.

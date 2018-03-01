@@ -103,12 +103,12 @@ game_menus = [
           (troop_set_name, "trp_player", "@Mod Editor"),
           (troop_add_gold, "trp_player", 9999999),
           (troop_add_item, "trp_player", "itm_persius_sword_01", imod_masterwork),
-          (troop_add_item, "trp_player", "itm_steel_shield", imod_masterwork),
+          (troop_add_item, "trp_player", "itm_steel_shield", imod_reinforced),
           (troop_add_item, "trp_player", "itm_sanjarinati", imod_champion),
-          (troop_add_item, "trp_player", "itm_gauntlets", imod_masterwork),
-          (troop_add_item, "trp_player", "itm_guard_helmet", imod_masterwork),
-          (troop_add_item, "trp_player", "itm_black_armor", imod_masterwork),
-          (troop_add_item, "trp_player", "itm_black_greaves", imod_masterwork),
+          (troop_add_item, "trp_player", "itm_gauntlets", imod_lordly),
+          (troop_add_item, "trp_player", "itm_guard_helmet", imod_lordly),
+          (troop_add_item, "trp_player", "itm_black_armor", imod_lordly),
+          (troop_add_item, "trp_player", "itm_black_greaves", imod_lordly),
           (troop_add_items, "trp_player", "itm_smoked_fish", 9),
           (troop_add_item, "trp_player", "itm_fp_bow_01", imod_masterwork),
           (troop_add_item, "trp_player", "itm_bodkin_arrows", imod_large_bag),
@@ -2532,24 +2532,39 @@ game_menus = [
       ]
   ),
 
-  
-  ("character_report",0,
-   "{s9}",
-   "none",
-   [(try_begin),
-      (gt, "$g_player_reading_book", 0),
-      (player_has_item, "$g_player_reading_book"),
-      (str_store_item_name, s8, "$g_player_reading_book"),
-      (str_store_string, s9, "@You are currently reading {s8}."),
-    (else_try),
-      (assign, "$g_player_reading_book", 0),
-      (str_store_string, s9, "@You are not reading any books."),
-    (try_end),
-    (assign, ":num_friends", 0),
-    (assign, ":num_enemies", 0),
-    (str_store_string, s6, "@none"),
-    (str_store_string, s8, "@none"),
-    (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
+  ("character_report", 0, "{s9}", "none", [
+      ## UID: 75 - Begin
+      #
+      #(try_begin),
+      #  (gt, "$g_player_reading_book", 0),
+      #  (player_has_item, "$g_player_reading_book"),
+      #  (str_store_item_name, s8, "$g_player_reading_book"),
+      #  (str_store_string, s9, "@You are currently reading {s8}."),
+      #(else_try),
+      #  (assign, "$g_player_reading_book", 0),
+      #  (str_store_string, s9, "@You are not reading any books."),
+      #(try_end),
+      (try_begin),
+        (gt, "$g_player_writing_book", 0),
+        (str_store_item_name, s8, "$g_player_writing_book"),
+        (str_store_string, s9, "@You are currently writing {s8}."),
+      (else_try),
+        (gt, "$g_player_reading_book", 0),
+        (player_has_item, "$g_player_reading_book"),
+        (str_store_item_name, s8, "$g_player_reading_book"),
+        (str_store_string, s9, "@You are currently reading {s8}."),
+      (else_try),
+        (assign, "$g_player_reading_book", 0),
+        (str_store_string, s9, "@You are not reading or writing any books."),
+      (try_end),
+      #
+      ## UID: 75 - End
+
+      (assign, ":num_friends", 0),
+      (assign, ":num_enemies", 0),
+      (str_store_string, s6, "@none"),
+      (str_store_string, s8, "@none"),
+      (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
 	  (this_or_next|troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
 		(troop_slot_eq, ":troop_no", slot_troop_occupation, slto_inactive_pretender),
 	  (call_script, "script_troop_get_player_relation", ":troop_no"),
@@ -2872,10 +2887,12 @@ game_menus = [
 ##            (str_store_troop_name, s0, "trp_player"),
 ##            (str_store_troop_name_plural, s1, "trp_player"),
 ##            (display_message, "@Name: {s0} Plural: {s1}"),
-            (str_store_faction_name, s0, "$players_kingdom"),
-            (assign, reg0, "$players_kingdom"),
-            (display_message, "@Kingdom: {s0} ({reg0})"),
-            (call_script, "script_set_prefix", "trp_player"),
+##            (str_store_faction_name, s0, "$players_kingdom"),
+##            (assign, reg0, "$players_kingdom"),
+##            (display_message, "@Kingdom: {s0} ({reg0})"),
+##            (call_script, "script_set_prefix", "trp_player"),
+            (item_get_slot, reg0, "itm_bread", slot_item_food_bonus),
+            (display_message, "@Bread: {reg0}"),
         ]),
 
         ## UID: 39 - Begin
@@ -7824,12 +7841,15 @@ game_menus = [
         (change_screen_mission),
         ]),
 
-      ("village_wait",
-       [(party_slot_eq, "$current_town", slot_center_has_manor, 1),
-        (party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
-        ],
-         "Wait here for some time.",
-         [
+      ("village_wait", [
+          ## UID: 9 - Begin
+          #
+          #(party_slot_eq, "$current_town", slot_center_has_manor, 1),
+          (party_slot_ge, "$current_town", slot_center_building_manor, 1),
+          #
+          ## UID: 9 - End
+          (party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
+        ], "Wait here for some time.", [
            (assign,"$auto_enter_town","$current_town"),
            (assign, "$g_last_rest_center", "$current_town"),
 
@@ -16036,5 +16056,17 @@ game_menus = [
   #
   ## UID: 53 - End
 
+  ## UID: 9 - Begin
+  #
+  ("watch_tower", 0, "You have encountered watch tower", "none", [], [
+      ("village_wait", [], "Wait here for some time.", [
+          (rest_for_hours_interactive, 24 * 7, 5, 0),
+          (change_screen_return),
+        ]),
+      ("leave", [], "Leave.", [(change_screen_return)]),
+    ]),
+  
+  ("windmill", 0, "You have encountered watch tower", "none", [], [("leave", [], "Leave.", [(change_screen_return)])]),
+  ("messenger_post", 0, "You have encountered watch tower", "none", [], [("leave", [], "Leave.", [(change_screen_return)])]),
   ## EOF
  ]

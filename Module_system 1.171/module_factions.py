@@ -30,12 +30,13 @@ factions = [
   ("dark_knights", "Dark Knights", 0, 0.5, [("innocents",-0.9), ("player_supporters_faction", -0.4), ("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05),("kingdom_1", -0.1),("kingdom_2", -0.1),("kingdom_3", -0.1),("kingdom_4", -0.1),("kingdom_5", -0.1),("kingdom_6", -0.1),("kingdom_7", -0.1),("kingdom_8", -0.1)], [], 0x000000),
   ("desert_cavalry", "Desert Cavalry", 0, 0.5, [("kingdom_6", -0.5), ("player_supporters_faction", -0.4), ("innocents", -0.9), ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02), ("mountain_bandits", -0.05), ("forest_bandits", -0.05),("kingdom_1", -0.1),("kingdom_2", -0.1),("kingdom_3", -0.1),("kingdom_4", -0.1),("kingdom_5", -0.1),("kingdom_6", -0.1),("kingdom_7", -0.1),("kingdom_8", -0.1)], [], 0xF0E68C),
 
-  ("culture_1",  "{!}culture_1", 0, 0.9, [], []),
-  ("culture_2",  "{!}culture_2", 0, 0.9, [], []),
-  ("culture_3",  "{!}culture_3", 0, 0.9, [], []),
-  ("culture_4",  "{!}culture_4", 0, 0.9, [], []),
-  ("culture_5",  "{!}culture_5", 0, 0.9, [], []),
-  ("culture_6",  "{!}culture_6", 0, 0.9, [], []),
+  ("culture_0", "{!}culture_0", 0, 0.0, [], []),
+  ("culture_1", "{!}culture_1", 0, 0.9, [], []),
+  ("culture_2", "{!}culture_2", 0, 0.9, [], []),
+  ("culture_3", "{!}culture_3", 0, 0.9, [], []),
+  ("culture_4", "{!}culture_4", 0, 0.9, [], []),
+  ("culture_5", "{!}culture_5", 0, 0.9, [], []),
+  ("culture_6", "{!}culture_6", 0, 0.9, [], []),
   ## UID: 24 - Begin
   #
   ("culture_7",  "{!}culture_6", 0, 0.9, [], []),

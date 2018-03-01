@@ -228,3 +228,6 @@ menu_start_game_difficulty = 226
 menu_start_game_religion = 227
 menu_village_force_confirm = 228
 menu_village_force_recruit = 229
+menu_watch_tower = 230
+menu_windmill = 231
+menu_messenger_post = 232

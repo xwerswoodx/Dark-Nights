@@ -8639,6 +8639,13 @@ presentations = [
           (faction_set_name, "fac_player_supporters_faction", s7),
           (faction_set_color, "fac_player_supporters_faction", 0xFF0000),
           (assign, "$players_kingdom_name_set", 1),
+          ## UID: 62 - Begin
+          #
+          #(call_script, "script_set_supporters_name", 0), #First reset all names.
+          #(call_script, "script_set_supporters_name", "fac_player_supporters_faction"),
+          #
+          ## UID: 62 - End
+
           (presentation_set_duration, 0),
         (try_end),
         ]),
@@ -14565,12 +14572,15 @@ presentations = [
         (overlay_set_position, "$g_presentation_obj_1", pos1),
         # factions
         (store_sub, ":num_factions", npc_kingdoms_end, npc_kingdoms_begin),
-        (store_add, ":num_pages", ":num_factions", 3),
+##        (store_add, ":num_pages", ":num_factions", 3),
+        (store_add, ":num_pages", ":num_factions", 4),
         
         ## page names, from bottom to top
         (overlay_add_item, "$g_presentation_obj_1", "@Others"),
         (overlay_add_item, "$g_presentation_obj_1", "@Outlaws"),
         (overlay_add_item, "$g_presentation_obj_1", "@Mercenary"),
+        (str_store_faction_name, s0, "fac_player_supporters_faction"),
+        (overlay_add_item, "$g_presentation_obj_1", s0),
         (try_for_range_backwards, ":page_no", 0, ":num_factions"),
           (store_add, ":faction_no", ":page_no", npc_kingdoms_begin),
           (str_store_faction_name, s0, ":faction_no"),
@@ -14927,7 +14937,8 @@ presentations = [
         (try_begin),
           (eq, ":object", "$g_presentation_obj_1"),
           (store_sub, ":num_pages", npc_kingdoms_end, npc_kingdoms_begin),
-          (val_add, ":num_pages", 3),
+##          (val_add, ":num_pages", 3),
+          (val_add, ":num_pages", 4),
           (store_sub, "$g_selected_page", ":num_pages", ":value"),
           (val_sub, "$g_selected_page", 1),
           (assign, "$g_selected_troop", 0), 

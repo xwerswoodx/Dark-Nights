@@ -292,7 +292,6 @@
   ** Replaced:
   *** qstr_{s1}_is_the_new_mars
 
-  
 8. Arena rewards increases with renown and level.
   * module_constants.py
   ** Replaced:
@@ -348,6 +347,8 @@
   *** slot_center_building_prisoner_tower
   *** slot_center_building_barracks
   *** slot_center_building_bank
+  *** slot_center_building_clinic (Need to add game menus)
+  *** slot_center_building_hospital (Need to add game menus)
   *** village_buildings_begin
   *** village_buildings_end
   *** castle_buildings_begin
@@ -363,6 +364,10 @@
   *** script_can_upgrade_building
   *** script_get_random_improvement
   *** script_upgrade_building
+  *** script_process_village_raids
+  *** script_process_alarms
+  *** script_process_hero_ai
+  *** script_get_center_ideal_prosperity
   ** Deprecated:
   *** script_get_improvement_details
   * module_game_menus.py
@@ -371,12 +376,18 @@
   *** menu_center_improve
   ** Fixed:
   *** Unknown troop id -1 error fixed.
+  ** Edited:
+  *** menu_village:mno_village_wait
   * module_simple_triggers.py
   ** Removed:
   *** 12h trigger for checking time left for constructions.
   ** Added:
   *** 12h trigger which call script_check_building_upgrade to check time left.
   *** 48h trigger which call script_get_random_improvement for AI construct building by 2% chance.
+  ** Edited:
+  *** 6h trigger to check rest payment.
+  ** Replaced:
+  *** 30d trigger to increase relation with buildings.
   * quick_strings.csv
   ** Added:
   *** qstr_Building_of_{s4}_in_
@@ -541,6 +552,12 @@
   ** Added:
   *** icon_dedal_map_swadia_king_b
   *** icon_dedal_map_swadia_lord_a
+  * module_scripts.py
+  ** Edited:
+  *** script_deactivate_player_faction
+  *** script_activate_player_faction
+  *** script_player_leave_faction
+  *** script_player_join_faction
   * factions.csv
   ** Added:
   *** fac_dark_knights
@@ -691,7 +708,7 @@
   ** Added:
   *** scn_town_bank (Still designing)
   
-24. New kingdoms are adding. (Still in process - Need to add castles and villages [elder, castle troops and scenes] to new kingdoms also fix desert castle bug)
+24. New kingdoms are adding.
   * module_factions.py
   ** Added:
   *** fac_kingdom_7
@@ -1538,7 +1555,7 @@
   *** dlga_farmer_from_bandit_village_3:farmer_from_bandit_village_4
   *** dlga_farmer_from_bandit_village_4:farmer_from_bandit_village_5
   
-34. Literacy skill and new books added. (Need to add books to game menus.)
+34. Literacy skill and new books added.
   * module_skills.py
   ** Removed:
   *** skl_reserved_5
@@ -1987,6 +2004,9 @@
   *** script_cf_freelancer_player_can_upgrade
   *** script_freelancer_equip_troop
   *** script_freelancer_unequip_troop
+  ** Edited:
+  *** script_game_get_party_prisoner_limit
+  *** script_game_get_party_companion_limit
   * module_dialogs.py
   ** Added:
   *** dlga_lord_talk:lord_request_enlistment
@@ -2418,16 +2438,57 @@
   *** script_can_order
   * NOT: lord_give_order
   
-62. Patrol party added for player's kingdom. (Need to add player's kingdom troops)
+62. Patrol party added for player's kingdom.
   * module_party_templates.py
   ** Added:
   *** pt_kingdom_0_patrol
+  *** pt_supporters_reinforcements_a
+  *** pt_supporters_reinforcements_b
+  *** pt_supporters_reinforcements_c
   * module_scripts.py
   ** Edited:
   *** script_spawn_bandits
+  *** script_deactivate_player_faction
+  *** script_game_start
+  *** script_initialize_faction_troop_types
+  *** script_deactivate_player_faction (Disabled)
+  *** script_update_volunteer_troops_in_village
+  *** script_player_leave_faction
+  *** script_activate_player_faction (Disabled)
+  ** Added:
+  *** script_set_supporters_name
   * module_strings.py
   ** Added:
   *** str_s9s_patrol_party
+  * module_presentations.py
+  ** Edited:
+  *** prsnt_name_kingdom (Disabled)
+  * module_troops.py
+  ** Added:
+  *** trp_supporters_recruit
+  *** trp_supporters_militia
+  *** trp_supporters_footman
+  *** trp_supporters_infantry
+  *** trp_supporters_sergeant
+  *** trp_supporters_skirmisher
+  *** trp_supporters_crossbowman
+  *** trp_supporters_sharpshooter
+  *** trp_supporters_man_at_arms
+  *** trp_supporters_knight
+  *** trp_supporters_messenger
+  *** trp_supporters_deserter
+  *** trp_supporters_prison_guard
+  *** trp_supporters_castle_guard
+  ** Upgrade:
+  *** trp_supporters_recruit -> trp_supporters_militia
+  *** trp_supporters_recruit -> trp_supporters_skirmisher
+  *** trp_supporters_militia -> trp_supporters_footman
+  *** trp_supporters_footman -> trp_supporters_infantry
+  *** trp_supporters_footman -> trp_supporters_man_at_arms
+  *** trp_supporters_skirmisher -> trp_supporters_crossbowman
+  *** trp_supporters_infantry -> trp_supporters_sergeant
+  *** trp_supporters_man_at_arms -> trp_supporters_knight
+  *** trp_supporters_crossbowman -> trp_supporters_sharpshooter
   
 63. Prefix for lords added.
   * module_game_menus.py
@@ -2593,6 +2654,7 @@
   *** menu_camp_action:mno_action_stop_writing
   ** Edited:
   *** menu_camp_action:mno_action_read_book
+  *** menu_character_report
   * variables.txt
   ** Added:
   *** g_player_writing_book
@@ -2601,6 +2663,10 @@
   *** qstr_After_a_little_thoug
   *** qstr_You_are_not_skilled_
   *** qstr_You_have_finished_to
+  *** qstr_You_are_currently_wr
+  ** Replaced:
+  *** qstr_You_are_currently_re
+  *** qstr_You_are_not_reading_
   * game_menus.csv
   ** Added:
   *** mno_action_stop_reading
@@ -2761,6 +2827,33 @@
   ** Added:
   *** 12h trigger to check town merchants if merchant has the item.
   *** 12h trigger to warn player that his item is ready to collect.
+  * module_items.py
+  ** Added:
+  *** imodbits_horse_all
+  *** imodbits_ammo_all
+  *** imodbits_weapon_all
+  *** imodbits_shield_all
+  *** imodbits_armor_all
+  ** Replaced:
+  *** imodbits_horse_good
+  *** imodbits_good
+  *** imodbits_bad
+  *** imodbits_horse_basic
+  *** imodbits_cloth
+  *** imodbits_armor
+  *** imodbits_plate
+  *** imodbits_polearm
+  *** imodbits_shield
+  *** imodbits_sword
+  *** imodbits_sword_high
+  *** imodbits_axe
+  *** imodbits_mace
+  *** imodbits_pick
+  *** imodbits_bow
+  *** imodbits_crossbow
+  *** imodbits_missile
+  *** imodbits_thrown
+  *** imodbits_thrown_minus_heavy
   * variables.txt
   ** Added:
   *** g_item_ordered
@@ -2881,7 +2974,31 @@
   ** Added:
   *** qstr_You_saw_the_messenger
   *** qstr_You_saw_the_messenge
-
+  
+79. Sea trading added to game.
+  * module_party_templates.py
+  ** Added:
+  *** pt_sea_traders
+  * module_constants.py
+  ** Activated:
+  *** spt_merchant_caravan
+  ** Added:
+  *** slot_town_is_coastal
+  * module_triggers.py
+  ** Edited:
+  *** 1h trigger for creating kingdom caravans.
+  * module_scripts.py
+  ** Edited:
+  *** script_create_kingdom_party_if_below_limit
+  *** script_cf_create_kingdom_party
+  *** script_game_start
+  ** Added:
+  *** script_initialize_sea_trade_routes
+  *** script_cf_select_most_profitable_coastal_town_at_peace_with_faction_in_trade_route
+  * module_simple_triggers.py
+  ** Edited:
+  *** 8h trigger to get most profitable town for trade routes.
+  
 Known Bugs:
 tf_female; Ladies seems like man so dialogs should change with gender.
 Turkish translate has stupid errors. Like "Kendimin yerine mareşal olarak kendim geçmek istiyorum.", "Köyün yeni sahibi kendim olsun istiyorum" etc...

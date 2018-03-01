@@ -61,7 +61,18 @@ triggers = [
   (0.0, 0, 168.0, [], [(call_script, "script_refresh_booksellers")]),
   #
   ## UID: 34 - End
-  
+
+  ## UID: 62 - Begin
+  #
+  (0.0, 0, 4.0, [
+      (eq, "$players_kingdom", "fac_player_supporters_faction"),
+      (faction_slot_eq, "$players_kingdom", slot_faction_state, sfs_active),
+    ], [
+        (call_script, "script_set_supporters_name", 0),
+        (call_script, "script_set_supporters_name", "fac_player_supporters_faction"),
+    ]),
+  #
+  ## UID: 62 - End
 
 #############
 
@@ -582,42 +593,50 @@ triggers = [
 #                         (call_script,"script_cf_spawn_party_at_faction_town_if_below_limit"),
 #                    ]),
 
-#Kingdom Parties
-  (1.0, 0, 0.0, [],
-   [(try_for_range, ":cur_kingdom", kingdoms_begin, kingdoms_end),
-      (faction_slot_eq, ":cur_kingdom", slot_faction_state, sfs_active),
-##      (neq, ":cur_kingdom", "fac_player_supporters_faction"),
-##      (try_begin),
-##        (store_random_in_range, ":random_no", 0, 100),
-##        (lt, ":random_no", 10),
-##        (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_forager),
-##      (try_end),
-##      (try_begin),
-##        (store_random_in_range, ":random_no", 0, 100),
-##        (lt, ":random_no", 10),
-##        (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_scout),
-##      (try_end),
-##      (try_begin),
-##        (store_random_in_range, ":random_no", 0, 100),
-##        (lt, ":random_no", 10),
-##        (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_patrol),
-##      (try_end),
-##      (try_begin),
-##        (store_random_in_range, ":random_no", 0, 100),
-##        (lt, ":random_no", 10),
-##        (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_messenger),
-##      (try_end),
-      (try_begin),
-        (store_random_in_range, ":random_no", 0, 100),
-        (lt, ":random_no", 10),
-        (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_kingdom_caravan),
+  #Kingdom Parties
+  (1.0, 0, 0.0, [], [
+      (try_for_range, ":cur_kingdom", kingdoms_begin, kingdoms_end),
+        (faction_slot_eq, ":cur_kingdom", slot_faction_state, sfs_active),
+
+##        (neq, ":cur_kingdom", "fac_player_supporters_faction"),
+##        (try_begin),
+##          (store_random_in_range, ":random_no", 0, 100),
+##          (lt, ":random_no", 10),
+##          (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_forager),
+##        (try_end),
+##        (try_begin),
+##          (store_random_in_range, ":random_no", 0, 100),
+##          (lt, ":random_no", 10),
+##          (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_scout),
+##        (try_end),
+##        (try_begin),
+##          (store_random_in_range, ":random_no", 0, 100),
+##          (lt, ":random_no", 10),
+##          (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_patrol),
+##        (try_end),
+##        (try_begin),
+##          (store_random_in_range, ":random_no", 0, 100),
+##          (lt, ":random_no", 10),
+##          (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_messenger),
+##        (try_end),
+        (try_begin),
+          (store_random_in_range, ":random_no", 0, 100),
+          (lt, ":random_no", 10),
+          (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_kingdom_caravan),
+        (try_end),
+        ## UID: 79 - Begin
+        #
+        (try_begin),
+          (store_random_in_range, ":random_no", 0, 100),
+          (lt, ":random_no", 10),
+          (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_merchant_caravan),
+        (try_end),
+##        (try_begin),
+##          (store_random_in_range, ":random_no", 0, 100),
+##          (lt, ":random_no", 10),
+##          (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_prisoner_train),
+##        (try_end),
       (try_end),
-##      (try_begin),
-##        (store_random_in_range, ":random_no", 0, 100),
-##        (lt, ":random_no", 10),
-##        (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_prisoner_train),
-##      (try_end),
-    (try_end),
     ]),
 
 

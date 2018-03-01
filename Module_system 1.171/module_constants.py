@@ -617,7 +617,7 @@ slot_center_population = 540
 ## UID: 9 - Begin
 #
 slot_center_building_manor          = 550 #v
-slot_center_building_watch_tower    = 551 #v
+slot_center_building_watch_tower    = 551
 slot_center_building_fish_pond      = 552 #t, c, v
 slot_center_building_school         = 553 
 slot_center_building_college        = 554 
@@ -632,9 +632,11 @@ slot_center_building_farm           = 562
 slot_center_building_religion       = 563
 slot_center_building_statue         = 564
 slot_center_building_workshop       = 565
-slot_center_building_prisoner_tower = 566 #t, c
-slot_center_building_barracks       = 567
-slot_center_building_bank           = 568 #t
+slot_center_building_clinic         = 566
+slot_center_building_prisoner_tower = 567 #t, c
+slot_center_building_barracks       = 568
+slot_center_building_hospital       = 569
+slot_center_building_bank           = 570 #t
 
 village_buildings_begin = slot_center_building_manor
 village_buildings_end   = slot_center_building_prisoner_tower
@@ -658,6 +660,12 @@ slot_center_watch_tower = 602
 slot_town_near_shore = 700
 #
 ## UID: 10 - End
+## UID: 79 - Begin
+#
+slot_town_is_coastal = 701
+#
+## UID: 79 - End
+
 
 ## UID: 16 - Begin
 #
@@ -680,7 +688,11 @@ spt_village            = 4
 spt_kingdom_caravan    = 11
 ##spt_prisoner_train     = 12
 spt_kingdom_hero_party = 13
-##spt_merchant_caravan   = 14
+## UID: 79 - Begin
+#
+spt_merchant_caravan   = 14
+#
+## UID: 79 - End
 spt_village_farmer     = 15
 spt_ship               = 16
 spt_cattle_herd        = 17

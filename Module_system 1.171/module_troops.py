@@ -316,7 +316,6 @@ troops = [
 
   ["cattle","Cattle","Cattle",0,no_scene,reserved,fac_neutral, [], def_attrib|level(1),wp(60),0,mercenary_face_1, mercenary_face_2],
 
-
 #soldiers:
 #This troop is the troop marked as soldiers_begin
   ["farmer","Farmer","Farmers",tf_guarantee_armor,no_scene,reserved,fac_commoners,
@@ -351,6 +350,64 @@ troops = [
    def_attrib|level(4),wp(60),knows_common,mercenary_face_1, mercenary_face_2],
 
 #peasant - retainer - footman - man-at-arms -  knight
+  ## UID: 62 - Begin
+  #
+##  ["supporters_recruit","Recruit", "Recruits",tf_guarantee_armor,0,0, fac_player_supporters_faction,
+##   [itm_scythe, itm_tab_shield_heater_a, itm_leather_cap, itm_shirt, itm_coarse_tunic, itm_nomad_boots],
+##   def_attrib|level(4),wp(60),knows_common,swadian_face_younger_1, swadian_face_middle_2],
+##  ["supporters_militia","Militia", "Militia",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield,0,0,fac_player_supporters_faction,
+##   [itm_bolts,itm_boar_spear,itm_hunting_crossbow,itm_red_gambeson,itm_arming_cap,itm_ankle_boots],
+##   def_attrib|level(9),wp(75),knows_common,swadian_face_young_1, swadian_face_old_2],
+##  ["supporters_footman","Footman","Footmen",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield,0,0,fac_player_supporters_faction,
+##   [itm_spear,itm_sword_medieval_b_small,itm_tab_shield_heater_b, itm_mail_with_tunic_red, itm_ankle_boots,itm_mail_coif,itm_norman_helmet],
+##   def_attrib|level(14),wp_melee(85),knows_common|knows_ironflesh_2|knows_shield_2|knows_athletics_2|knows_power_strike_2,swadian_face_young_1, swadian_face_old_2],
+##  ["supporters_infantry","Infantry","Infantry",tf_guarantee_shield|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet,0,0,fac_player_supporters_faction,
+##   [itm_pike,itm_bastard_sword_a,itm_tab_shield_heater_c,itm_haubergeon,itm_leather_boots,itm_helmet_with_neckguard],
+##   def_attrib|level(20),wp_melee(105),knows_common|knows_riding_3|knows_ironflesh_2|knows_power_strike_2|knows_shield_3|knows_athletics_3,swadian_face_middle_1, swadian_face_old_2],
+##  ["supporters_sergeant","Sergeant","Sergeants",tf_mounted|tf_guarantee_shield|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet,0,0,fac_player_supporters_faction,
+##   [itm_morningstar,itm_sword_medieval_c,itm_tab_shield_heater_d, itm_coat_of_plates,itm_mail_boots,itm_guard_helmet,itm_gauntlets],
+##   def_attrib|level(25),wp_melee(135),knows_common|knows_shield_4|knows_ironflesh_4|knows_power_strike_4|knows_athletics_4,swadian_face_middle_1, swadian_face_older_2],
+##  ["supporters_skirmisher","Skirmisher","Skirmishers",tf_guarantee_ranged|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_player_supporters_faction,
+##   [itm_bolts,itm_hunting_crossbow,itm_red_gambeson,itm_ankle_boots,itm_arming_cap],
+##   def_attrib|level(14),wp(80),knows_common|knows_riding_2|knows_ironflesh_1,swadian_face_young_1, swadian_face_middle_2],
+##  ["supporters_crossbowman","Crossbowman","Crossbowmen",tf_guarantee_ranged|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_player_supporters_faction,
+##   [itm_bolts,itm_crossbow,itm_sword_medieval_a,itm_tab_shield_heater_b, itm_leather_jerkin,itm_leather_boots,itm_segmented_helmet],
+##   def_attrib|level(19),wp_one_handed (90) | wp_two_handed (90) | wp_polearm (90) | wp_archery (90) | wp_crossbow (100) | wp_throwing (90),knows_common|knows_riding_2|knows_ironflesh_1|knows_athletics_1,swadian_face_young_1, swadian_face_old_2],
+##  ["supporters_sharpshooter","Sharpshooter","Sharpshooters",tf_guarantee_ranged|tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet,0,0,fac_player_supporters_faction,
+##   [itm_bolts,itm_crossbow,itm_heavy_crossbow,itm_sword_medieval_b_small, itm_tab_shield_heater_c, itm_leather_boots,itm_mail_chausses, itm_helmet_with_neckguard,itm_leather_gloves, itm_haubergeon],
+##   str_14 | agi_10 | int_4 | cha_4|level(24),wp_one_handed (100) | wp_two_handed (100) | wp_polearm (100) | wp_archery (100) | wp_crossbow (120) | wp_throwing (100),knows_common|knows_power_draw_3|knows_ironflesh_1|knows_power_strike_1|knows_athletics_2,swadian_face_middle_1, swadian_face_older_2],
+##  ["supporters_man_at_arms","Man at Arms","Men at Arms",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_shield,0,0,fac_player_supporters_faction,
+##   [itm_lance,itm_bastard_sword_b, itm_tab_shield_heater_cav_a, itm_mail_chausses,itm_helmet_with_neckguard,itm_warhorse,itm_haubergeon],
+##   def_attrib|level(21),wp_melee(100),knows_common|knows_riding_4|knows_ironflesh_2|knows_shield_2|knows_power_strike_3,swadian_face_young_1, swadian_face_old_2],
+##  ["supporters_knight","Knight","Knights",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_shield,0,0,fac_player_supporters_faction,
+##   [itm_heavy_lance,itm_sword_two_handed_b,itm_tab_shield_heater_cav_b, itm_cuir_bouilli,itm_plate_boots,itm_bascinet,itm_charger,itm_mail_mittens],
+##   def_attrib|level(28),wp_one_handed (150) | wp_two_handed (130) | wp_polearm (130) | wp_archery (75) | wp_crossbow (75) | wp_throwing (75),knows_common|knows_riding_5|knows_shield_5|knows_ironflesh_5|knows_power_strike_5,swadian_face_middle_1, swadian_face_older_2],
+  ["supporters_recruit", "Supporters Recruit", "Supporters Recruits", tf_guarantee_helmet|tf_guarantee_armor|tf_guarantee_boots|tf_guarantee_shield, 0, 0, fac_player_supporters_faction, [itm_nordic_archer_helmet, itm_tabard, itm_hide_boots, itm_one_handed_battle_axe_b, itm_shortened_military_scythe, itm_tab_shield_heater_a], def_attrib|level(3), wp_one_handed(75)|wp_two_handed(75), knows_common, swadian_face_young_1, swadian_face_old_2],
+  ["supporters_militia", "Supporters Militia", "Supporters Militia", tf_guarantee_helmet|tf_guarantee_armor|tf_guarantee_boots|tf_guarantee_shield, 0, 0, fac_player_supporters_faction, [itm_nomad_cap_b, itm_skirmisher_armor, itm_hide_boots, itm_sword_medieval_a, itm_shortened_voulge, itm_tab_shield_heater_cav_a], def_attrib|level(4), wp_one_handed(82)|wp_two_handed(82), knows_common, swadian_face_young_1, swadian_face_old_2],
+  ["supporters_skirmisher", "Supporters Skirmisher", "Supporters Skirmishers", tf_guarantee_helmet|tf_guarantee_armor|tf_guarantee_boots|tf_guarantee_ranged|tf_guarantee_shield, 0, 0, fac_player_supporters_faction, [itm_leather_steppe_cap_c, itm_padded_cloth, itm_hide_boots, itm_sword_medieval_c_small, itm_hunting_bow, itm_arrows, itm_tab_shield_small_round_b], def_attrib|level(4), wp_one_handed(82)|wp_archery(82), knows_common|knows_riding_2|knows_ironflesh_1, swadian_face_young_1, swadian_face_old_2],
+  ["supporters_footman", "Supporters Footman", "Supporters Footmen", tf_guarantee_helmet|tf_guarantee_gloves|tf_guarantee_armor|tf_guarantee_boots|tf_guarantee_shield, 0, 0, fac_player_supporters_faction, [itm_leather_cap, itm_mail_mittens, itm_red_gambeson, itm_nomad_boots, itm_sword_medieval_c_small, itm_morningstar, itm_tab_shield_heater_b], def_attrib|level(8), wp_one_handed(90)|wp_two_handed(90), knows_common|knows_ironflesh_2|knows_shield_2|knows_athletics_2|knows_power_strike_2, swadian_face_young_1, swadian_face_old_2],
+  ["supporters_infantry", "Supporters Infantry", "Supporters Infantry", tf_guarantee_helmet|tf_guarantee_gloves|tf_guarantee_armor|tf_guarantee_boots|tf_guarantee_shield, 0, 0, fac_player_supporters_faction, [itm_norman_helmet, itm_mail_mittens, itm_tribal_warrior_outfit, itm_mail_chausses, itm_fp_hammer_01, itm_morningstar, itm_tab_shield_heater_c], def_attrib|level(12), wp_one_handed(105)|wp_two_handed(105), knows_common|knows_riding_3|knows_ironflesh_2|knows_power_strike_2|knows_shield_3|knows_athletics_3, swadian_face_young_1, swadian_face_old_2],
+  ["supporters_sergeant", "Supporters Sergeant", "Supporters Sergeants", tf_guarantee_helmet|tf_guarantee_gloves|tf_guarantee_armor|tf_guarantee_boots|tf_mounted|tf_guarantee_horse|tf_guarantee_shield, 0, 0, fac_player_supporters_faction, [itm_mail_coif, itm_mail_mittens, itm_tribal_warrior_outfit, itm_splinted_leather_greaves, itm_arabian_horse_b, itm_pickaxe, itm_morningstar, itm_tab_shield_round_b], def_attrib|level(15), wp_one_handed(105)|wp_two_handed(105), knows_common|knows_shield_4|knows_ironflesh_4|knows_power_strike_4|knows_athletics_4, swadian_face_young_1, swadian_face_old_2],
+  ["supporters_man_at_arms", "Supporters Man At Arms", "Supporters Men At Arms", tf_guarantee_helmet|tf_guarantee_gloves|tf_guarantee_armor|tf_guarantee_boots|tf_mounted|tf_guarantee_horse|tf_guarantee_shield, 0, 0, fac_player_supporters_faction, [itm_khergit_war_helmet, itm_scale_gauntlets, itm_sarranid_mail_shirt, itm_splinted_greaves, itm_nordland, itm_sarranid_mace_1, itm_maul, itm_wooden_shield], def_attrib|level(24), wp_one_handed(120)|wp_two_handed(120), knows_common|knows_riding_4|knows_ironflesh_2|knows_shield_2|knows_power_strike_3, swadian_face_young_1, swadian_face_old_2],
+  ["supporters_knight", "Supporters Knight", "Supporters Knights", tf_guarantee_helmet|tf_guarantee_gloves|tf_guarantee_armor|tf_guarantee_boots|tf_mounted|tf_guarantee_horse|tf_guarantee_polearm|tf_guarantee_shield, 0, 0, fac_player_supporters_faction, [itm_spiked_helmet, itm_lamellar_gauntlets, itm_mamluke_mail, itm_iron_greaves, itm_warhorse, itm_spiked_mace, itm_maul, itm_pitch_fork, itm_nordic_shield], def_attrib|level(35), wp_one_handed(135)|wp_two_handed(135)|wp_polearm(135), knows_common|knows_riding_5|knows_shield_5|knows_ironflesh_5|knows_power_strike_5, swadian_face_young_1, swadian_face_old_2],
+  ["supporters_crossbowman", "Supporters Crossbowman", "Supporters Crossbowmen", tf_guarantee_helmet|tf_guarantee_gloves|tf_guarantee_armor|tf_guarantee_boots|tf_guarantee_ranged|tf_guarantee_shield, 0, 0, fac_player_supporters_faction, [itm_mail_coif, itm_mail_mittens, itm_nomad_robe, itm_splinted_leather_greaves, itm_pickaxe, itm_hunting_crossbow, itm_bolts, itm_tab_shield_pavise_a], def_attrib|level(15), wp_one_handed(105)|wp_crossbow(105), knows_common|knows_riding_2|knows_ironflesh_1|knows_athletics_1, swadian_face_young_1, swadian_face_old_2],
+  ["supporters_sharpshooter", "Supporters Sharpshooter", "Supporters Sharpshooters", tf_guarantee_helmet|tf_guarantee_gloves|tf_guarantee_armor|tf_guarantee_boots|tf_guarantee_ranged|tf_guarantee_shield, 0, 0, fac_player_supporters_faction, [itm_segmented_helmet, itm_scale_gauntlets, itm_mail_with_surcoat, itm_sarranid_boots_d, itm_fp_mace_01, itm_light_crossbow, itm_steel_bolts, itm_wooden_shield], def_attrib|level(24), wp_one_handed(120)|wp_crossbow(120), knows_common|knows_power_draw_3|knows_ironflesh_1|knows_power_strike_1|knows_athletics_2, swadian_face_young_1, swadian_face_old_2],
+  ["supporters_messenger","Messenger","Messengers",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_horse|tf_guarantee_ranged,0,0,fac_player_supporters_faction,
+   [itm_sword_medieval_a,itm_leather_jerkin,itm_leather_boots,itm_courser,itm_leather_gloves,itm_light_crossbow,itm_bolts],
+   str_7 | agi_21 | int_4 | cha_4|level(25),wp(130),knows_common|knows_riding_7|knows_horse_archery_5,swadian_face_young_1, swadian_face_old_2],
+  ["supporters_deserter","Deserter","Deserters",tf_guarantee_ranged|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_deserters,
+   [itm_bolts,itm_light_crossbow,itm_hunting_crossbow,itm_dagger,itm_club,itm_voulge,itm_wooden_shield,itm_leather_jerkin,itm_padded_cloth,itm_hide_boots,itm_padded_coif,itm_nasal_helmet,itm_footman_helmet],
+   def_attrib|level(14),wp(80),knows_common|knows_riding_2|knows_ironflesh_1,swadian_face_young_1, swadian_face_old_2],
+  ["supporters_prison_guard","Prison Guard","Prison Guards",tf_guarantee_shield|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet,0,0,fac_player_supporters_faction,
+   [itm_awlpike,itm_pike,itm_great_sword,itm_morningstar,itm_sword_medieval_b,itm_tab_shield_heater_c,itm_coat_of_plates,itm_plate_armor,itm_plate_boots,itm_guard_helmet,itm_helmet_with_neckguard,itm_bascinet,itm_guard_helmet,itm_leather_gloves],
+   def_attrib|level(25),wp(130),knows_common|knows_shield_3|knows_ironflesh_3|knows_power_strike_3,swadian_face_young_1, swadian_face_old_2],
+  ["supporters_castle_guard","Castle Guard","Castle Guards",tf_guarantee_shield|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet,0,0,fac_player_supporters_faction,
+   [itm_awlpike,itm_pike,itm_great_sword,itm_morningstar,itm_sword_medieval_b,itm_tab_shield_heater_c,itm_tab_shield_heater_d,itm_coat_of_plates,itm_plate_armor,itm_plate_boots,itm_guard_helmet,itm_helmet_with_neckguard,itm_bascinet,itm_guard_helmet,itm_leather_gloves],
+   def_attrib|level(25),wp(130),knows_common|knows_shield_3|knows_ironflesh_3|knows_power_strike_3,swadian_face_young_1, swadian_face_old_2],
+  #
+  ## UID: 62 - End
+
+  #Swadian
   ["swadian_recruit","Swadian Recruit","Swadian Recruits",tf_guarantee_armor,0,0,fac_kingdom_1,
    [itm_scythe,itm_hatchet,itm_pickaxe,itm_club,itm_stones,itm_tab_shield_heater_a,itm_leather_cap,itm_felt_hat,itm_felt_hat,
     itm_shirt,itm_coarse_tunic,itm_leather_apron,itm_nomad_boots,itm_wrapping_boots],
@@ -2914,7 +2971,6 @@ troops = [
    str_7 | agi_21 | int_4 | cha_4|level(25),wp(130),knows_common|knows_riding_7|knows_horse_archery_5, man_face_middle_2, man_face_old_2],
   #
   ## UID: 73 - End
-
 ]
 
 
@@ -3038,4 +3094,23 @@ upgrade(troops, "kielian_horsewoman", "kielian_swordswoman"),
 upgrade(troops, "kielian_archer", "kielian_master_archer"),
 #
 ## UID: 24 - End
+
+## UID: 62 - Begin
+#
+##upgrade(troops,"supporters_recruit","supporters_militia")
+##upgrade2(troops,"supporters_militia","supporters_footman","supporters_skirmisher")
+##upgrade2(troops,"supporters_footman","supporters_man_at_arms","supporters_infantry")
+##upgrade(troops,"supporters_infantry","supporters_sergeant")
+##upgrade(troops,"supporters_skirmisher","supporters_crossbowman")
+##upgrade(troops,"supporters_crossbowman","supporters_sharpshooter")
+##upgrade(troops,"supporters_man_at_arms","supporters_knight")
+upgrade2(troops, "supporters_recruit", "supporters_militia", "supporters_skirmisher")
+upgrade(troops, "supporters_militia", "supporters_footman")
+upgrade(troops, "supporters_skirmisher", "supporters_crossbowman")
+upgrade2(troops, "supporters_footman", "supporters_man_at_arms", "supporters_infantry")
+upgrade(troops, "supporters_infantry", "supporters_sergeant")
+upgrade(troops, "supporters_man_at_arms", "supporters_knight")
+upgrade(troops, "supporters_crossbowman", "supporters_sharpshooter")
+#
+## UID: 62 - End
 

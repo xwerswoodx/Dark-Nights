@@ -3659,11 +3659,51 @@ dialogs = [
       (neg|troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_kingdom_hero),
     ], "I wish you to rejoin my party.", "minister_replace", []],
 
-  ## UID: 56 - Begin
-  #
-##  [anyone|plyr, "minister_talk", [(is_between, "$g_player_minister", active_npcs_begin, kingdom_ladies_end)], "I wish you to grant one of my vassals a fief.", "minister_grant_fief", []],
-  [anyone|plyr, "minister_talk", [], "I wish you to grant one of my vassals a fief.", "minister_grant_fief", []],
+    [anyone|plyr, "minister_talk", [], "I want to change equipment of my soldiers.", "minister_choose_soldier", []],
+    [anyone, "minister_choose_soldier", [], "Which of your soldiers do you want to change equipment?", "minister_choose_soldier_selection", []],
 
+    ## UID: 62 - Begin
+    #
+    [anyone|plyr|repeat_for_100, "minister_choose_soldier_selection", [
+        (store_repeat_object, ":troop"),
+        (assign, ":begin", "trp_supporters_recruit"),
+
+        (try_begin),
+          (is_between, "$players_kingdom", kingdoms_begin, kingdoms_end),
+          (store_sub, ":add", "$players_kingdom", kingdoms_begin),
+          (val_mul, ":add", 14),
+          (val_add, ":begin", ":add"),
+        (try_end),
+        (store_add, ":end", ":begin", 10),
+
+        (val_add, ":troop", ":begin"),
+        (is_between, ":troop", ":begin", ":end"),
+        (str_store_troop_name, s1, ":troop"),
+    ], "{s1}", "minister_pretalk", [
+        (store_repeat_object, ":troop"),
+        (assign, ":begin", "trp_supporters_recruit"),
+
+        (try_begin),
+          (is_between, "$players_kingdom", kingdoms_begin, kingdoms_end),
+          (store_sub, ":add", "$players_kingdom", kingdoms_begin),
+          (val_mul, ":add", 14),
+          (val_add, ":begin", ":add"),
+        (try_end),
+
+        (val_add, ":troop", ":begin"),
+        (troop_clear_inventory, ":troop"),
+        (change_screen_equip_other, ":troop"),
+    ]],
+    
+    [anyone|plyr, "minister_choose_soldier_selection", [], "Forget it.", "minister_pretalk", []],
+    #
+    ## UID: 62 - End
+
+    ## UID: 56 - Begin
+    #
+    #[anyone|plyr, "minister_talk", [(is_between, "$g_player_minister", active_npcs_begin, kingdom_ladies_end)], "I wish you to grant one of my vassals a fief.", "minister_grant_fief", []],
+    [anyone|plyr, "minister_talk", [], "I wish you to grant one of my vassals a fief.", "minister_grant_fief", []],
+    
   [anyone|plyr, "minister_talk", [
       (call_script, "script_is_male", "trp_player"),
       (assign, ":count", 0),
@@ -26670,6 +26710,11 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
         (assign, "$temp_2", imod_timid),
         (assign, "$temp_3", imodmul_timid),
         (assign, "$temp_4", imoddiv_timid),
+    ]],
+    [anyone|plyr, "trade_order_select_modifier_horse", [(str_store_item_name, s1, "$temp")], "Swaybacked {s1}", "trade_order_set_order_price", [
+        (assign, "$temp_2", imod_swaybacked),
+        (assign, "$temp_3", imodmul_swaybacked),
+        (assign, "$temp_4", imoddiv_swaybacked),
     ]],
     [anyone|plyr, "trade_order_select_modifier_horse", [(str_store_item_name, s1, "$temp")], "Lame {s1}", "trade_order_set_order_price", [
         (assign, "$temp_2", imod_lame),
