@@ -371,6 +371,10 @@
   ** Deprecated:
   *** script_get_improvement_details
   * module_game_menus.py
+  ** Added:
+  *** menu_watch_tower
+  *** menu_windmill
+  *** menu_messenger_post
   ** Replaced:
   *** menu_center_manage
   *** menu_center_improve
@@ -440,6 +444,9 @@
   *** mno_center_build_drop_6
   *** mno_center_build_drop_3
   *** mno_center_build_drop_1
+  *** menu_watch_tower
+  *** menu_windmill
+  *** menu_messenger_post
 
 10. Sea Wars added.
   * module_constants.py
@@ -877,6 +884,10 @@
   *** trp_kielian_veteran_spearwoman -> trp_kielian_horsewoman
   *** trp_kielian_horsewoman -> trp_kielian_swordswoman
   *** trp_kielian_archer -> trp_kielian_master_archer
+  * module_strings.py
+  ** Added:
+  *** str_kingdom_7_adjective
+  *** str_kingdom_8_adjective
   * module_parties.py
   ** Added:
   *** p_town_23
@@ -2999,6 +3010,220 @@
   ** Edited:
   *** 8h trigger to get most profitable town for trade routes.
   
+80. Hunting system added.
+  * module_game_menus.py
+  ** Added:
+  *** menu_boar_herd
+  *** menu_deer_herd
+  * module_items.py
+  ** Added:
+  *** itm_deer
+  *** itm_boar
+  *** itm_boar_meat > Texture added for it (See, 82)
+  *** itm_deer_meat > Texture added for it (See, 82)
+  * module_scripts.py
+  ** Edited:
+  *** script_initialize_item_info
+  *** script_game_event_party_encounter
+  * module_troops.py
+  ** Added:
+  *** trp_boar
+  *** trp_deer
+  * module_mission_templates.py
+  ** Added:
+  *** mt_deer_hunting
+  *** mt_boar_hunting
+  * module_party_templates.py
+  ** Added:
+  *** pt_deer_herd
+  *** pt_boar_herd
+  * module_map_icons.py
+  ** Added:
+  *** icon_deer
+  *** icon_boar
+  * module_factions.py
+  ** Added:
+  *** fac_wild_animals
+  * variables.txt
+  ** Added:
+  *** num_deers_killed
+  *** leading_deer
+  *** num_boars_killed
+  *** leading_boar
+  * party_templates.csv
+  ** Added:
+  *** pt_deer_herd
+  *** pt_boar_herd  
+  * item_kinds.csv
+  ** Added:
+  *** itm_deer
+  *** itm_deer_pl
+  *** itm_boar
+  *** itm_boar_pl
+  *** itm_boar_meat
+  *** itm_boar_meat_pl
+  *** itm_deer_meat
+  *** itm_deer_meat_pl
+  * game_menus.csv
+  ** Added:
+  *** menu_deer_herd
+  *** mno_herd_attack
+  *** menu_boar_herd
+
+81. New foods added. (OSP: Fireman)
+  * module_items.py
+  ** Added:
+  *** itm_fish_b
+  *** itm_fish_c
+  *** itm_fish_d
+  *** itm_cabbages_red
+  *** itm_bread_b
+  *** itm_watermelon
+  *** itm_chickpea
+  *** itm_cattle_leather
+  *** itm_velvet_blue
+  *** itm_cloth_yellow
+  *** itm_mint
+  *** itm_red_pepper_flakes
+  *** itm_chipotle
+  *** itm_cider
+  *** itm_mead
+  *** itm_water
+  * module_scripts.py
+  ** Edited:
+  *** script_initialize_item_info
+  * item_kinds.csv
+  ** Added:
+  *** itm_fish_b
+  *** itm_fish_b_pl
+  *** itm_fish_c
+  *** itm_fish_c_pl
+  *** itm_fish_d
+  *** itm_fish_d_pl
+  *** itm_cabbages_red
+  *** itm_cabbages_red_pl
+  *** itm_bread_b
+  *** itm_bread_b_pl
+  *** itm_watermelon
+  *** itm_watermelon_pl
+  *** itm_chickpea
+  *** itm_chickpea_pl
+  *** itm_cattle_leather
+  *** itm_cattle_leather_pl
+  *** itm_velvet_blue
+  *** itm_velvet_blue_pl
+  *** itm_cloth_yellow
+  *** itm_cloth_yellow_pl
+  *** itm_mint
+  *** itm_mint_pl
+  *** itm_red_pepper_flakes
+  *** itm_red_pepper_flakes_pl
+  *** itm_chipotle
+  *** itm_chipotle_pl
+  *** itm_cider
+  *** itm_cider_pl
+  *** itm_mead
+  *** itm_mead_pl
+  *** itm_water
+  *** itm_water_pl
+  ** Replaced:
+  *** itm_apples
+  *** itm_apples_pl
+ 
+82. New foods added.
+  * module_items.py
+  ** Added:
+  *** itm_chicken_roasted
+  *** itm_fish_a
+  *** itm_fish_roasted
+  *** itm_bread_slice
+  *** itm_cheese_slice
+  *** itm_marrow_a
+  *** itm_marrow_b
+  *** itm_corn
+  *** itm_apple_a
+  *** itm_apple_b
+  *** itm_apple_c
+  *** itm_velvet_orange
+  *** itm_cloth_black
+  *** itm_parsley
+  *** itm_oregano
+  *** itm_gift_a
+  *** itm_gift_b
+  *** itm_melon
+  ** Edited:
+  *** itm_boar_meat
+  *** itm_deer_meat
+  * module_scripts.py
+  ** Edited:
+  *** script_initialize_item_info
+  *** script_internal_politics_rate_feast_to_s9
+  * module_constants.py
+  ** Added:
+  *** spices_begin
+  *** spices_end
+  * module_strings.py
+  ** Edited:
+  *** str_s9_of_spice_which_is_essential_to_demonstrate_that_we_spare_no_expense_as_hosts_the_amount_is_s8_
+  * item_kinds.csv
+  ** Added:
+  *** itm_chicken_roasted
+  *** itm_chicken_roasted_pl
+  *** itm_fish_a
+  *** itm_fish_a_pl
+  *** itm_fish_roasted
+  *** itm_fish_roasted_pl
+  *** itm_bread_slice
+  *** itm_bread_slice_pl
+  *** itm_cheese_slice
+  *** itm_cheese_slice_pl
+  *** itm_marrow_a
+  *** itm_marrow_a_pl
+  *** itm_marrow_b
+  *** itm_marrow_b_pl
+  *** itm_corn
+  *** itm_corn_pl
+  *** itm_apple_a
+  *** itm_apple_a_pl
+  *** itm_apple_b
+  *** itm_apple_b_pl
+  *** itm_apple_c
+  *** itm_apple_c_pl
+  *** itm_velvet_orange
+  *** itm_velvet_orange_pl
+  *** itm_cloth_black
+  *** itm_cloth_black_pl
+  *** itm_parsley
+  *** itm_parsley_pl
+  *** itm_oregano
+  *** itm_oregano_pl
+  *** itm_gift_a
+  *** itm_gift_a_pl
+  *** itm_gift_b
+  *** itm_gift_b_pl
+  *** itm_melon
+  *** itm_melon_pl
+  
+83. Added Dragon's item modifier system. (OSP: Dragon, and modified version of Age of Machinery module)
+  * process_troops.py
+  ** Edited:
+  *** def_save_troops
+
+84. New items added. (OSP: buz)
+  * module_items.py
+  ** Added:
+  *** itm_tea
+  *** itm_gold
+  * module_scripts.py
+  ** Edited:
+  *** script_initialize_item_info
+  * item_kinds.csv
+  ** Added:
+  *** itm_tea
+  *** itm_tea_pl
+  *** itm_gold
+  *** itm_gold_pl
+
 Known Bugs:
 tf_female; Ladies seems like man so dialogs should change with gender.
 Turkish translate has stupid errors. Like "Kendimin yerine mareşal olarak kendim geçmek istiyorum.", "Köyün yeni sahibi kendim olsun istiyorum" etc...

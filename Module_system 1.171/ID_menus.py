@@ -231,3 +231,5 @@ menu_village_force_recruit = 229
 menu_watch_tower = 230
 menu_windmill = 231
 menu_messenger_post = 232
+menu_deer_herd = 233
+menu_boar_herd = 234

@@ -86,3 +86,5 @@ pt_kingdom_8_patrol = 84
 pt_watch_tower = 85
 pt_messenger_post = 86
 pt_windmill = 87
+pt_deer_herd = 88
+pt_boar_herd = 89

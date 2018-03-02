@@ -74,6 +74,8 @@ imodbits_crossbow = imodbits_weapon_all
 imodbits_missile = imodbits_ammo_all
 imodbits_thrown = imodbits_ammo_all|imodbits_weapon_all
 imodbits_thrown_minus_heavy = imodbits_thrown
+
+imodbits_food = imodbit_fresh|imodbit_plain|imodbit_day_old #|imodbit_two_day_old|imodbit_smelling|imodbit_rotten
 #
 ## UID: 78 - End
 
@@ -240,6 +242,19 @@ items = [
 
  #other trade goods (first one is spice)
  ["spice","Spice", [("spice_sack",0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 880,weight(40)|abundance(25)|max_ammo(50),imodbits_none],
+ ## UID: 81 - Begin
+ #
+ ["mint", "Mint", [("nane", 0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 690, weight(40)|abundance(25)|max_ammo(50), imodbits_none], 
+ ["red_pepper_flakes", "Red Pepper Flakes", [("pul_biber", 0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 790, weight(40)|abundance(25)|max_ammo(50), imodbits_none],
+ ["chipotle", "Chipotle", [("isot", 0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 950, weight(40)|abundance(25)|max_ammo(50), imodbits_none],
+ #
+ ## UID: 81 - End
+ ## UID: 82 - Begin
+ #
+ ["parsley", "Parsley", [("parsley", 0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 880, weight(40)|abundance(25)|max_ammo(50), imodbits_none],
+ ["oregano", "Oregano", [("oregano", 0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 1020, weight(40)|abundance(25)|max_ammo(50), imodbits_none], 
+ #
+ ## UID: 82 - End
  ["salt","Salt", [("salt_sack",0)], itp_merchandise|itp_type_goods, 0, 255,weight(50)|abundance(120),imodbits_none],
 
 
@@ -260,19 +275,51 @@ items = [
  ["velvet","Velvet", [("velvet",0)], itp_merchandise|itp_type_goods, 0, 1025,weight(40)|abundance(30),imodbits_none],
 
  ["iron","Iron", [("iron",0)], itp_merchandise|itp_type_goods, 0,264,weight(60)|abundance(60),imodbits_none],
+ ## UID: 84 - Begin
+ #
+ ["gold", "Gold", [("altin", 0)], itp_merchandise|itp_type_goods, 0, 528, weight(80)|abundance(20), imodbits_none],
+ #
+ ## UID: 84 - End
  ["tools","Tools", [("iron_hammer",0)], itp_merchandise|itp_type_goods, 0, 410,weight(50)|abundance(90),imodbits_none],
 
  ["raw_leather","Hides", [("leatherwork_inventory",0)], itp_merchandise|itp_type_goods, 0, 120,weight(40)|abundance(90),imodbits_none],
+ ## UID: 81 - Begin
+ #
+ ["cattle_leather", "Cattle Hides", [("inek_derisi", 0)], itp_merchandise|itp_type_goods, 0, 180,weight(40)|abundance(60), imodbits_none], 
+ ["velvet_blue", "Blue Velvet", [("mavi_kadife",0)], itp_merchandise|itp_type_goods, 0, 1215,weight(40)|abundance(30),imodbits_none],
+ ["cloth_yellow", "Yellow Cloth", [("sari_kumas",0)], itp_merchandise|itp_type_goods, 0, 280,weight(40)|abundance(90),imodbits_none],
+ #
+ ## UID: 81 - End
+ ## UID: 82 - Begin
+ #
+ ["velvet_orange", "Orange Velvet", [("velvet_orange",0)], itp_merchandise|itp_type_goods, 0, 1245,weight(40)|abundance(30),imodbits_none],
+ ["cloth_black", "Black Cloth", [("cloth_black",0)], itp_merchandise|itp_type_goods, 0, 300,weight(40)|abundance(90),imodbits_none],
+ ["gift_a", "Jar", [("gift_jar",0)], itp_merchandise|itp_type_goods, 0, 1045,weight(40)|abundance(90),imodbits_none],
+ ["gift_b", "Jar", [("gift_oil",0)], itp_merchandise|itp_type_goods, 0, 940,weight(40)|abundance(90),imodbits_none], 
+ #
+ ## UID: 82 - End
  ["leatherwork","Leatherwork", [("leatherwork_frame",0)], itp_merchandise|itp_type_goods, 0, 220,weight(40)|abundance(90),imodbits_none],
  
  ["raw_date_fruit","Date Fruit", [("date_inventory",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 120,weight(40)|food_quality(10)|max_ammo(10),imodbits_none],
  ["furs","Furs", [("fur_pack",0)], itp_merchandise|itp_type_goods, 0, 391,weight(40)|abundance(90),imodbits_none],
 
- ["wine","Wine", [("amphora_slim",0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 220,weight(30)|abundance(60)|max_ammo(50),imodbits_none],
- ["ale","Ale", [("ale_barrel",0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 120,weight(30)|abundance(70)|max_ammo(50),imodbits_none],
+ ["wine", "Wine", [("amphora_slim",0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 220,weight(30)|abundance(60)|max_ammo(50),imodbits_none],
+ ["ale", "Ale", [("ale_barrel",0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 120,weight(30)|abundance(70)|max_ammo(50),imodbits_none],
+ ## UID: 81 - Begin
+ #
+ ["cider", "Cider", [("varil_a",0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 230, weight(30)|abundance(62)|max_ammo(45), imodbits_none], #Made from apple, note that I can use it later.
+ ["mead", "Mead", [("varil",0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 260, weight(30)|abundance(55)|max_ammo(60), imodbits_none], #Made from honey
+ ["water", "Water", [("comlek",0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 80, weight(30)|abundance(90)|max_ammo(40), imodbits_none],
+ #
+ ## UID: 81 - End
+ ## UID: 84 - Begin
+ #
+ ["tea", "Tea", [("cay",0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 140, weight(30)|abundance(40)|max_ammo(85), imodbits_none],
+ #
+ ## UID: 84 - End
 
-# ["dry_bread", "wheat_sack", itp_type_goods|itp_consumable, 0, slt_none,view_goods,95,weight(2),max_ammo(50),imodbits_none],
-#foods (first one is smoked_fish)
+ # ["dry_bread", "wheat_sack", itp_type_goods|itp_consumable, 0, slt_none,view_goods,95,weight(2),max_ammo(50),imodbits_none],
+ #foods (first one is smoked_fish)
  ["smoked_fish","Smoked Fish", [("smoked_fish",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 65,weight(15)|abundance(110)|food_quality(50)|max_ammo(50),imodbits_none],
  ["cheese","Cheese", [("cheese_b",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 75,weight(6)|abundance(110)|food_quality(40)|max_ammo(30),imodbits_none],
  ["honey","Honey", [("honey_pot",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 220,weight(5)|abundance(110)|food_quality(40)|max_ammo(30),imodbits_none],
@@ -285,11 +332,46 @@ items = [
  ["grain","Grain", [("wheat_sack",0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 30,weight(30)|abundance(110)|food_quality(40)|max_ammo(50),imodbits_none],
 
  ["cattle_meat","Beef", [("raw_meat",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 80,weight(20)|abundance(100)|food_quality(80)|max_ammo(50),imodbits_none],
- ["bread","Bread", [("bread_a",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 50,weight(30)|abundance(110)|food_quality(40)|max_ammo(50),imodbits_none],
+ ["bread","Bread", [("bread_a",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 50, weight(30)|abundance(110)|food_quality(40)|max_ammo(50),imodbits_none],
  ["chicken","Chicken", [("chicken",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 95,weight(10)|abundance(110)|food_quality(40)|max_ammo(50),imodbits_none],
  ["pork","Pork", [("pork",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 75,weight(15)|abundance(100)|food_quality(70)|max_ammo(50),imodbits_none],
  ["butter","Butter", [("butter_pot",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 150,weight(6)|abundance(110)|food_quality(40)|max_ammo(30),imodbits_none],
+
+ ## UID: 81 - Begin
+ #
+ ["fish_b", "Fish", [("fish_b", 0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 55, weight(20)|abundance(130)|food_quality(40)|max_ammo(55), imodbits_none],
+ ["fish_c", "Fish", [("balik_b", 0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 60, weight(20)|abundance(130)|food_quality(50)|max_ammo(50), imodbits_none], 
+ ["fish_d", "Fish", [("balik", 0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 58, weight(20)|abundance(130)|food_quality(45)|max_ammo(52), imodbits_none], 
+ ["cabbages_red", "Red Cabbages", [("mor_lahana", 0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 30, weight(15)|abundance(110)|food_quality(40)|max_ammo(50), imodbits_none],
+ ["bread_b", "Bread", [("trabzon_ekmek", 0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 50, weight(30)|abundance(110)|food_quality(40)|max_ammo(50), imodbits_none],
+ ["watermelon", "Watermelon", [("karpuz", 0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 90, weight(20)|abundance(80)|food_quality(90)|max_ammo(60), imodbits_none],
+ ["chickpea", "Chickpea", [("nohut", 0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 20, weight(30)|abundance(50)|food_quality(100)|max_ammo(85), imodbits_none],
+ #
+ ## UID: 81 - End
  
+ ## UID: 82 - Begin
+ #
+ ["chicken_roasted", "Roasted Chicken", [("chicken_roasted", 0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 70, weight(30)|abundance(80)|food_quality(60)|max_ammo(50), imodbits_none],
+ ["fish_a", "Fish", [("fish_a", 0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 45, weight(20)|abundance(130)|food_quality(40)|max_ammo(55), imodbits_none],
+ ["fish_roasted", "Roasted Fish", [("fish_roasted_a", 0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 75, weight(20)|abundance(80)|food_quality(50)|max_ammo(60), imodbits_none],
+ ["bread_slice", "Piece of Bread", [("bread_slice_a", 0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 7, weight(20)|abundance(170)|food_quality(10)|max_ammo(6), imodbits_none],
+ ["cheese_slice", "Piece of Cheese", [("cheese_slice_a", 0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 9, weight(20)|abundance(170)|food_quality(10)|max_ammo(4), imodbits_none],
+ ["marrow_a", "Marrow", [("marrow_a", 0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 90, weight(20)|abundance(120)|food_quality(60)|max_ammo(40), imodbits_none],
+ ["marrow_b", "Marrow", [("marrow_b", 0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 65, weight(20)|abundance(140)|food_quality(60)|max_ammo(55), imodbits_none],
+ ["corn", "Corn", [("maize_a", 0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 60, weight(20)|abundance(125)|food_quality(60)|max_ammo(50), imodbits_none],
+ ["apple_a", "Red Apple", [("apple_a", 0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 15, weight(20)|abundance(140)|food_quality(80)|max_ammo(15), imodbits_none],
+ ["apple_b", "Green Apple", [("apple_b", 0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 15, weight(20)|abundance(140)|food_quality(60)|max_ammo(15), imodbits_none],
+ ["apple_c", "Yellow Apple", [("apple_c", 0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 15, weight(20)|abundance(140)|food_quality(70)|max_ammo(15), imodbits_none],
+ ["melon", "Melon", [("melon_p", 0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 80, weight(20)|abundance(70)|food_quality(90)|max_ammo(65), imodbits_none],
+
+ ## UID: 80 - Begin
+ #
+ ["boar_meat", "Boar Meat", [("boar_meat", 0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 60, weight(20)|abundance(100)|food_quality(80)|max_ammo(55), imodbits_none],
+ ["deer_meat", "Deer Meat", [("deer_meat", 0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 60, weight(20)|abundance(100)|food_quality(80)|max_ammo(60), imodbits_none],
+ #
+ ## UID: 80 - End
+ #
+ ## UID: 82 - End
 
  #Would like to remove flour altogether and reduce chicken, pork and butter (perishables) to non-trade items. Apples could perhaps become a generic "fruit", also representing dried fruit and grapes
  # Armagan: changed order so that it'll be easier to remove them from trade goods if necessary.
@@ -1440,8 +1522,20 @@ items = [
  ["dedal_kufel", "Kufel", [("dedal_kufelL",0)], itp_type_hand_armor, 0, 0, weight(1), 0],
  ["dedal_lutnia", "Lutnia", [("dedal_lutniaL",0)], itp_type_hand_armor, 0, 0, weight(1), 0],
  ["dedal_lira", "Lira", [("dedal_liraL",0)], itp_type_hand_armor, 0, 0, weight(1), 0],
+ #
+ ## UID: 31 - End
+ ## UID: 80 - Begin
+ #
+ ["deer", "Deer", [("deer",0)], itp_unique|itp_type_horse, 0, 1411,abundance(40)|hit_points(40)|body_armor(0)|difficulty(11)|horse_speed(40)|horse_maneuver(32)|horse_charge(20),imodbits_horse_basic],
+ ["boar", "Boar", [("boar",0)], itp_unique|itp_type_horse, 0, 1411,abundance(40)|hit_points(100)|body_armor(0)|difficulty(11)|horse_speed(40)|horse_maneuver(20)|horse_charge(100),imodbits_horse_basic],
+ #
+ ## UID: 80 - End
+ ## UID: 4 - Begin
+ #
  ["persius_sword_01", "Excalibur", [("excalibur", 0), ("scab_arabian_sword_c", ixmesh_carry)], itp_type_two_handed_wpn|itp_primary, itc_longsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn,
   15083, weight(1.13)|difficulty(20)|spd_rtng(120)|weapon_length(100)|swing_damage(69, cut)|thrust_damage(60, pierce), imodbits_sword_high],
  #
- ## UID: 31 - End
+ ## UID: 4 - End
+
+ ## EOF
 ]

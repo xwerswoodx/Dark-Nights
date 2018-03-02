@@ -2971,6 +2971,13 @@ troops = [
    str_7 | agi_21 | int_4 | cha_4|level(25),wp(130),knows_common|knows_riding_7|knows_horse_archery_5, man_face_middle_2, man_face_old_2],
   #
   ## UID: 73 - End
+
+  ## UID: 80 - Begin
+  #
+  ["deer","Deer","Deer",0,no_scene,reserved,fac_neutral, [], def_attrib|level(0),wp(60),0,swadian_face_younger_1, swadian_face_younger_1],
+  ["boar","Boar","Boar",0,no_scene,reserved,fac_neutral, [], def_attrib|level(0),wp(60),0,swadian_face_younger_1, swadian_face_younger_1],
+  #
+  ## UID: 80 - End
 ]
 
 

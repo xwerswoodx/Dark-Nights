@@ -113,6 +113,13 @@ books_end   = "itm_book_wound_treatment_reference" #"itm_spice"
 #
 ## UID: 34 - End
 
+## UID: 82 - Begin
+#
+spices_begin = "itm_spice"
+spices_end = "itm_salt"
+#
+## UID: 82 - End
+
 ########################################################
 ##  AGENT SLOTS            #############################
 ########################################################

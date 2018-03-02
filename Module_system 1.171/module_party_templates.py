@@ -219,4 +219,11 @@ party_templates = [
   ("windmill", "Wind Mill", icon_dedal_map_windmill|pf_is_static|pf_hide_defenders|pf_label_small, 0, fac_neutral, merchant_personality, []),
   #
   ## UID: 60 - End
+
+  ## UID: 80 - Begin
+  #
+  ("deer_herd", "Deer Herd", icon_deer|carries_goods(10), 0, fac_wild_animals, merchant_personality, [(trp_deer,3,15)]),
+  ("boar_herd", "Boar Herd", icon_boar|carries_goods(10), 0, fac_wild_animals, merchant_personality, [(trp_boar,2,7)]),
+  #
+  ## UID: 80 - End
 ]

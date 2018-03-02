@@ -48,7 +48,15 @@ def save_troops():
 #    inventory_list.append(itm_bolts)
     for inventory_item in inventory_list:
 #      add_tag_use(tag_uses,tag_item,inventory_item)
-      file.write("%d 0 "%inventory_item)
+#      file.write("%d 0 "%inventory_item)
+      ## UID: 83 - Begin
+      #
+      if isinstance(inventory_item, list) or isinstance(inventory_item, tuple):
+        file.write("%d %d "%(inventory_item[0], inventory_item[1]<<24))
+      else:
+        file.write("%d 0 "%inventory_item)
+      #
+      ## UID: 83 - End
     for i in xrange(64 - len(inventory_list)):
       file.write("-1 0 ")
     file.write("\n ")

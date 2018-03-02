@@ -3169,6 +3169,18 @@ scripts = [
           (party_slot_eq, "$g_encountered_party", slot_party_type, spt_village),
           (jump_to_menu, "mnu_village"),
         (else_try),
+          ## UID: 80 - Begin
+          #
+          (party_get_template_id, ":party_template","$g_encountered_party"),
+          (eq,":party_template","pt_deer_herd"),
+          (jump_to_menu, "mnu_deer_herd"),
+        (else_try),
+          (party_get_template_id, ":party_template","$g_encountered_party"),
+          (eq,":party_template","pt_boar_herd"),
+          (jump_to_menu, "mnu_boar_herd"),
+        (else_try),
+          #
+          ## UID: 80 - End
           (party_slot_eq, "$g_encountered_party", slot_party_type, spt_cattle_herd),
           (jump_to_menu, "mnu_cattle_herd"),
         (else_try),
@@ -6472,7 +6484,41 @@ scripts = [
       (item_set_slot, "itm_chicken", slot_item_food_bonus, 8), #brought up from 7
       (item_set_slot, "itm_cattle_meat", slot_item_food_bonus, 7), #brought down from 7
       (item_set_slot, "itm_pork", slot_item_food_bonus, 6), #brought down from 6
-	  
+
+      ## UID: 80 - Begin
+      #
+      (item_set_slot, "itm_boar_meat", slot_item_food_bonus, 6),
+      (item_set_slot, "itm_deer_meat", slot_item_food_bonus, 5),
+      #
+      ## UID: 80 - End
+      ## UID: 81 - Begin
+      #
+      (item_set_slot, "itm_fish_b", slot_item_food_bonus, 4),
+      (item_set_slot, "itm_fish_c", slot_item_food_bonus, 5),
+      (item_set_slot, "itm_fish_d", slot_item_food_bonus, 3),
+      (item_set_slot, "itm_cabbages_red", slot_item_food_bonus, 2),
+      (item_set_slot, "itm_bread_b", slot_item_food_bonus, 7),
+      (item_set_slot, "itm_watermelon", slot_item_food_bonus, 9),
+      (item_set_slot, "itm_chickpea", slot_item_food_bonus, 2),
+      #
+      ## UID: 81 - End
+      ## UID: 82 - Begin
+      #
+      (item_set_slot, "itm_chicken_roasted", slot_item_food_bonus, 9),
+      (item_set_slot, "itm_fish_a", slot_item_food_bonus, 5),
+      (item_set_slot, "itm_fish_roasted", slot_item_food_bonus, 6),
+      (item_set_slot, "itm_bread_slice", slot_item_food_bonus, 2),
+      (item_set_slot, "itm_cheese_slice", slot_item_food_bonus, 1),
+      (item_set_slot, "itm_marrow_a", slot_item_food_bonus, 5),
+      (item_set_slot, "itm_marrow_b", slot_item_food_bonus, 6),
+      (item_set_slot, "itm_corn", slot_item_food_bonus, 4),
+      (item_set_slot, "itm_apple_a", slot_item_food_bonus, 2),
+      (item_set_slot, "itm_apple_b", slot_item_food_bonus, 1),
+      (item_set_slot, "itm_apple_c", slot_item_food_bonus, 1),
+      (item_set_slot, "itm_melon", slot_item_food_bonus, 7),
+      #
+      ## UID: 82 - End
+      
 	  #Produce
       (item_set_slot, "itm_raw_olives", slot_item_food_bonus, 1),
       (item_set_slot, "itm_cabbages", slot_item_food_bonus, 2),
@@ -6485,9 +6531,21 @@ scripts = [
       
       (item_set_slot, "itm_wine", slot_item_food_bonus, 5),
       (item_set_slot, "itm_ale", slot_item_food_bonus, 4),
+      ## UID: 81 - Begin
+      #
+      (item_set_slot, "itm_cider", slot_item_food_bonus, 5),
+      (item_set_slot, "itm_mead", slot_item_food_bonus, 6),
+      (item_set_slot, "itm_water", slot_item_food_bonus, 3),
+      #
+      ## UID: 81 - End
+      ## UID: 84 - Begin
+      #
+      (item_set_slot, "itm_tea", slot_item_food_bonus, 4),
+      #
+      ## UID: 84 - End
 
-	  #Item economic settings	  
-	  (item_set_slot, "itm_grain", slot_item_urban_demand, 20),
+      #Item economic settings
+      (item_set_slot, "itm_grain", slot_item_urban_demand, 20),
       (item_set_slot, "itm_grain", slot_item_rural_demand, 20),
       (item_set_slot, "itm_grain", slot_item_desert_demand, 20),
       (item_set_slot, "itm_grain", slot_item_production_slot, slot_center_acres_grain),
@@ -34575,6 +34633,24 @@ scripts = [
        (set_spawn_radius, 25),
        (spawn_around_party,":spawn_point","pt_forest_bandits"),
      (try_end),
+     ## UID: 80 - Begin
+     #
+     (try_begin),
+       (store_num_parties_of_template, ":num_parties", "pt_deer_herd"),
+       (lt, ":num_parties", 7),
+       (store_random,":spawn_point",num_mountain_bandit_spawn_points),
+       (val_add,":spawn_point","p_forest_bandit_spawn_point"),
+       (spawn_around_party,":spawn_point","pt_deer_herd"),
+     (try_end),
+     (try_begin),
+       (store_num_parties_of_template, ":num_parties", "pt_boar_herd"),
+       (lt, ":num_parties", 3),
+       (store_random,":spawn_point",num_mountain_bandit_spawn_points),
+       (val_add,":spawn_point","p_forest_bandit_spawn_point"),
+       (spawn_around_party,":spawn_point","pt_boar_herd"),
+     (try_end),
+     #
+     ## UID: 80 - End
      (try_begin),
        (store_num_parties_of_template, ":num_parties", "pt_sea_raiders"),
        (lt,":num_parties",16), #was 14 at mount&blade, 18 in warband, 16 last decision
@@ -46315,181 +46391,211 @@ scripts = [
 	(try_end),
 	
 	]),
-	
-	
-	("internal_politics_rate_feast_to_s9",
-	[
-	(store_script_param, ":householder", 1),
-	(store_script_param, ":num_servings", 2),	
-#	(store_script_param, ":faction", 3),	
-	(store_script_param, ":consume_items", 4),	
 
-	(val_max, ":num_servings", 1),
-	
-	(try_for_range, ":item", trade_goods_begin, trade_goods_end), 
-		(item_set_slot, ":item", slot_item_amount_available, 0), #had no "item"
-	(try_end),
-	
-	(troop_get_inventory_capacity, ":capacity", ":householder"),
-	(try_for_range, ":inventory_slot", 0, ":capacity"),
-		(troop_get_inventory_slot, ":item", ":householder", ":inventory_slot"),
-		(is_between, ":item", trade_goods_begin, trade_goods_end),
-	    (troop_inventory_slot_get_item_amount, ":slot_amount", ":householder", ":inventory_slot"),
-		(item_get_slot, ":item_amount", ":item", slot_item_amount_available),
-		(val_add, ":item_amount", ":slot_amount"),
-		(item_set_slot, ":item", slot_item_amount_available, ":item_amount"),
-	(try_end),
-	#food
-	(assign, ":food_amount", 0),
-	(assign, ":food_variety", 0),
-	
-	(store_div, ":servings_div_by_12", ":num_servings", 12),
-	(try_for_range, ":food_item", food_begin, food_end),
-		(item_get_slot, ":food_in_slot", ":food_item", slot_item_amount_available),
-		(val_add, ":food_amount", ":food_in_slot"),
+  ("internal_politics_rate_feast_to_s9", [
+      (store_script_param, ":householder", 1),
+      (store_script_param, ":num_servings", 2),
+      #(store_script_param, ":faction", 3),
+      (store_script_param, ":consume_items", 4),
 
+      (val_max, ":num_servings", 1),
+      (try_for_range, ":item", trade_goods_begin, trade_goods_end),
+        (item_set_slot, ":item", slot_item_amount_available, 0), #had no "item"
+      (try_end),
 
-##		(str_store_item_name, s4, ":food_item"),
-##		(assign, reg3, ":food_in_slot"),
-##		(assign, reg5, ":servings_div_by_12"),
-##		(display_message, "str_reg3_units_of_s4_for_reg5_guests_and_retinue"),
+      (troop_get_inventory_capacity, ":capacity", ":householder"),
+      (try_for_range, ":inventory_slot", 0, ":capacity"),
+        (troop_get_inventory_slot, ":item", ":householder", ":inventory_slot"),
+        (is_between, ":item", trade_goods_begin, trade_goods_end),
+        (troop_inventory_slot_get_item_amount, ":slot_amount", ":householder", ":inventory_slot"),
+        (item_get_slot, ":item_amount", ":item", slot_item_amount_available),
+        (val_add, ":item_amount", ":slot_amount"),
+        (item_set_slot, ":item", slot_item_amount_available, ":item_amount"),
+      (try_end),
 
-		
-		(ge, ":food_in_slot", ":servings_div_by_12"),
-		(val_add, ":food_variety", 1),
-	(try_end),
-	
-	(val_mul, ":food_amount", 100),
-	(val_div, ":food_amount", ":num_servings"), #1 to 100 for each
-	(val_min, ":food_amount", 100),
-	
-	(val_mul, ":food_variety", 85), #1 to 100 for each
-	(val_div, ":food_variety", 10), 
-	(val_min, ":food_variety", 100),
-	
-	#drink
-	(assign, ":drink_amount", 0),
-	(assign, ":drink_variety", 0),
-	(store_div, ":servings_div_by_4", ":num_servings", 4),
-	(try_for_range, ":drink_iterator", "itm_wine", "itm_smoked_fish"),
-		(assign, ":drink_item", ":drink_iterator"),
-		(item_get_slot, ":drink_in_slot", ":drink_item", slot_item_amount_available),
-		
-		(val_add, ":drink_amount", ":drink_in_slot"),
-	
-		(ge, ":drink_in_slot", ":servings_div_by_4"),
-		(val_add, ":drink_variety", 1),
-	(try_end),
-	
-	(val_mul, ":drink_amount", 200), #amount needed is 50% of the number of guests
-	(val_max, ":num_servings", 1),
-	
-	(val_div, ":drink_amount", ":num_servings"), #1 to 100 for each
-	(val_min, ":drink_amount", 100),
-	(val_mul, ":drink_variety", 50), #1 to 100 for each
+      #food
+      (assign, ":food_amount", 0),
+      (assign, ":food_variety", 0),
 
-	#in the future, it might be worthwhile to add different varieties of spices
-	(item_get_slot, ":spice_amount", "itm_spice", slot_item_amount_available),
-	(store_mul, ":spice_percentage", ":spice_amount", 100),
-	(val_max, ":servings_div_by_12", 1),
-	(val_div, ":spice_amount", ":servings_div_by_12"),
-	(val_min, ":spice_percentage", 100),
+      (store_div, ":servings_div_by_12", ":num_servings", 12),
+      (try_for_range, ":food_item", food_begin, food_end),
+        (item_get_slot, ":food_in_slot", ":food_item", slot_item_amount_available),
+        (val_add, ":food_amount", ":food_in_slot"),
+
+        #(str_store_item_name, s4, ":food_item"),
+        #(assign, reg3, ":food_in_slot"),
+        #(assign, reg5, ":servings_div_by_12"),
+        #(display_message, "str_reg3_units_of_s4_for_reg5_guests_and_retinue"),
+
+        (ge, ":food_in_slot", ":servings_div_by_12"),
+        (val_add, ":food_variety", 1),
+      (try_end),
+
+      (val_mul, ":food_amount", 100),
+      (val_div, ":food_amount", ":num_servings"), #1 to 100 for each
+      (val_min, ":food_amount", 100),
+
+      (val_mul, ":food_variety", 85), #1 to 100 for each
+      (val_div, ":food_variety", 10),
+      (val_min, ":food_variety", 100),
+
+      #drink
+      (assign, ":drink_amount", 0),
+      (assign, ":drink_variety", 0),
+      (store_div, ":servings_div_by_4", ":num_servings", 4),
+      (try_for_range, ":drink_iterator", "itm_wine", "itm_smoked_fish"),
+        (assign, ":drink_item", ":drink_iterator"),
+        (item_get_slot, ":drink_in_slot", ":drink_item", slot_item_amount_available),
+        (val_add, ":drink_amount", ":drink_in_slot"),
+        (ge, ":drink_in_slot", ":servings_div_by_4"),
+        (val_add, ":drink_variety", 1),
+      (try_end),
+
+      (val_mul, ":drink_amount", 200), #amount needed is 50% of the number of guests
+      (val_max, ":num_servings", 1),
+
+      (val_div, ":drink_amount", ":num_servings"), #1 to 100 for each
+      (val_min, ":drink_amount", 100),
+      (val_mul, ":drink_variety", 50), #1 to 100 for each
+
+      #in the future, it might be worthwhile to add different varieties of spices
+      ## UID: 82 - Begin
+      #
+      (assign, ":spice_amount", 0),
+      (assign, ":spice_variety", 0),
+      (store_div, ":servings_div_by_12", ":num_servings", 12),
+      (try_for_range, ":spice", spices_begin, spices_end),
+        (item_get_slot, ":spice_slot", ":spice", slot_item_amount_available),
+        (val_add, ":spice_amount", ":spice_slot"),
+        (ge, ":spice_slot", ":servings_div_by_12"),
+        (val_add, ":spice_variety", 1),
+      (try_end),
+      (val_mul, ":spice_amount", 100),
+      (val_max, ":num_servings", 1),
+      (val_div, ":spice_amount", ":num_servings"),
+      (val_min, ":spice_amount", 100),
+      (val_mul, ":spice_variety", 50),         
+##      (item_get_slot, ":spice_amount", "itm_spice", slot_item_amount_available),
+##      (store_mul, ":spice_percentage", ":spice_amount", 100),
+##      (val_max, ":servings_div_by_12", 1),
+##      (val_div, ":spice_amount", ":servings_div_by_12"),
+##      (val_min, ":spice_percentage", 100),
+      #
+      ## UID: 82 - End
 ##	(assign, reg3, ":spice_amount"),
 ##	(assign, reg5, ":servings_div_by_12"),
 ##	(assign, reg6, ":spice_percentage"),
 ##	(display_message, "str_reg3_units_of_spice_of_reg5_to_be_consumed"),
-	
-	#oil availability. In the future, this may become an "atmospherics" category, including incenses
-	(item_get_slot, ":oil_amount", "itm_oil", slot_item_amount_available),
-	(store_mul, ":oil_percentage", ":oil_amount", 100),
-	(val_max, ":servings_div_by_12", 1),
-	(val_div, ":oil_amount", ":servings_div_by_12"),
-	(val_min, ":oil_percentage", 100),
+
+      #oil availability. In the future, this may become an "atmospherics" category, including incenses
+      (item_get_slot, ":oil_amount", "itm_oil", slot_item_amount_available),
+      (store_mul, ":oil_percentage", ":oil_amount", 100),
+      (val_max, ":servings_div_by_12", 1),
+      (val_div, ":oil_amount", ":servings_div_by_12"),
+      (val_min, ":oil_percentage", 100),
 ##	(assign, reg3, ":oil_amount"),
 ##	(assign, reg5, ":servings_div_by_12"),
 ##	(assign, reg6, ":oil_percentage"),
 ##	(display_message, "str_reg3_units_of_oil_of_reg5_to_be_consumed"),
 
-	(store_div, ":food_amount_string", ":food_amount", 20),
-	(val_add, ":food_amount_string", "str_feast_description"),
-	(str_store_string, s8, ":food_amount_string"),
-	(str_store_string, s9, "str_of_food_which_must_come_before_everything_else_the_amount_is_s8"),
-	
-	(store_div, ":food_variety_string", ":food_variety", 20),
-	(val_add, ":food_variety_string", "str_feast_description"),
-	(str_store_string, s8, ":food_variety_string"),
-	(str_store_string, s9, "str_s9_and_the_variety_is_s8_"),
+      (store_div, ":food_amount_string", ":food_amount", 20),
+      (val_add, ":food_amount_string", "str_feast_description"),
+      (str_store_string, s8, ":food_amount_string"),
+      (str_store_string, s9, "str_of_food_which_must_come_before_everything_else_the_amount_is_s8"),
 
-	(store_div, ":drink_amount_string", ":drink_amount", 20),
-	(val_add, ":drink_amount_string", "str_feast_description"),
-	(str_store_string, s8, ":drink_amount_string"),
-	(str_store_string, s9, "str_s9_of_drink_which_guests_will_expect_in_great_abundance_the_amount_is_s8"),
-	
-	(store_div, ":drink_variety_string", ":drink_variety", 20),
-	(val_add, ":drink_variety_string", "str_feast_description"),
-	(str_store_string, s8, ":drink_variety_string"),
-	(str_store_string, s9, "str_s9_and_the_variety_is_s8_"),
-	
-	(store_div, ":spice_string", ":spice_percentage", 20),
-	(val_add, ":spice_string", "str_feast_description"),
-	(str_store_string, s8, ":spice_string"),
-	(str_store_string, s9, "str_s9_of_spice_which_is_essential_to_demonstrate_that_we_spare_no_expense_as_hosts_the_amount_is_s8_"),
-	
-	(store_div, ":oil_string", ":oil_percentage", 20),
-	(val_add, ":oil_string", "str_feast_description"),
-	(str_store_string, s8, ":oil_string"),
-	(str_store_string, s9, "str_s9_of_oil_which_we_shall_require_to_light_the_lamps_the_amount_is_s8"),
-	
-	(store_mul, ":food_amount_cap", ":food_amount", 8),
-	(store_add, ":total", ":food_amount", ":food_variety"),
-	(val_mul, ":total", 2), #x4
-	(val_add, ":total", ":drink_variety"),
-	(val_add, ":total", ":drink_amount"), #x6
-	(val_add, ":total", ":spice_amount"), #x7
-	(val_add, ":total", ":oil_amount"), #x8
-	(val_min, ":total", ":food_amount_cap"),
-	(val_div, ":total", 8),
-	(val_clamp, ":total", 1, 101),
-	(store_div, ":total_string", ":total", 20),
-	(val_add, ":total_string", "str_feast_description"),
-	(str_store_string, s8, ":total_string"),
-	(str_store_string, s9, "str_s9_overall_our_table_will_be_considered_s8"),
-	
-	(assign, reg0, ":total"), #zero to 100
-	
-	
-	
-	(try_begin),
-		(eq, ":consume_items", 1),
-		
-		(assign, ":num_of_servings_to_serve", ":num_servings"),
-		(try_for_range, ":unused", 0, 1999),
-			(gt, ":num_of_servings_to_serve", 0),
-			
-			(try_for_range, ":item", trade_goods_begin, trade_goods_end),
-				(item_set_slot, ":item", slot_item_is_checked, 0),
-			(try_end),
-			
-			(troop_get_inventory_capacity, ":inv_size", ":householder"),
-			(try_for_range, ":i_slot", 0, ":inv_size"),
-				(troop_get_inventory_slot, ":item", ":householder", ":i_slot"),
-				(this_or_next|eq, ":item", "itm_spice"),
-				(this_or_next|eq, ":item", "itm_oil"),
-				(this_or_next|eq, ":item", "itm_wine"),
-				(this_or_next|eq, ":item", "itm_ale"),
-					(is_between, ":item",  food_begin, food_end),
-				(item_slot_eq, ":item", slot_item_is_checked, 0),
-				(troop_inventory_slot_get_item_amount, ":cur_amount", ":householder", ":i_slot"),
-				(gt, ":cur_amount", 0),
-				
-				(val_sub, ":cur_amount", 1),
-				(troop_inventory_slot_set_item_amount, ":householder", ":i_slot", ":cur_amount"),
-				(val_sub, ":num_of_servings_to_serve", 1),
-				(item_set_slot, ":item", slot_item_is_checked, 1),
-			(try_end),
-		(try_end),
-	(try_end),
-	]),
+      (store_div, ":food_variety_string", ":food_variety", 20),
+      (val_add, ":food_variety_string", "str_feast_description"),
+      (str_store_string, s8, ":food_variety_string"),
+      (str_store_string, s9, "str_s9_and_the_variety_is_s8_"),
+
+      (store_div, ":drink_amount_string", ":drink_amount", 20),
+      (val_add, ":drink_amount_string", "str_feast_description"),
+      (str_store_string, s8, ":drink_amount_string"),
+      (str_store_string, s9, "str_s9_of_drink_which_guests_will_expect_in_great_abundance_the_amount_is_s8"),
+
+      (store_div, ":drink_variety_string", ":drink_variety", 20),
+      (val_add, ":drink_variety_string", "str_feast_description"),
+      (str_store_string, s8, ":drink_variety_string"),
+      (str_store_string, s9, "str_s9_and_the_variety_is_s8_"),
+
+      ## UID: 82 - Begin
+      #
+##      (store_div, ":spice_string", ":spice_percentage", 20),
+##      (val_add, ":spice_string", "str_feast_description"),
+##      (str_store_string, s8, ":spice_string"),
+##      (str_store_string, s9, "str_s9_of_spice_which_is_essential_to_demonstrate_that_we_spare_no_expense_as_hosts_the_amount_is_s8_"),
+      (store_div, ":spice_amount_string", ":spice_amount", 20),
+      (val_add, ":spice_amount_string", "str_feast_description"),
+      (str_store_string, s8, ":spice_amount_string"),
+      (str_store_string, s9, "str_s9_of_spice_which_is_essential_to_demonstrate_that_we_spare_no_expense_as_hosts_the_amount_is_s8_"),
+
+      (store_div, ":spice_variety_string", ":spice_variety", 20),
+      (val_add, ":spice_variety_string", "str_feast_description"),
+      (str_store_string, s8, ":spice_variety_string"),
+      (str_store_string, s9, "str_s9_and_the_variety_is_s8_"),
+      #
+      ## UID: 82 - End
+
+      (store_div, ":oil_string", ":oil_percentage", 20),
+      (val_add, ":oil_string", "str_feast_description"),
+      (str_store_string, s8, ":oil_string"),
+      (str_store_string, s9, "str_s9_of_oil_which_we_shall_require_to_light_the_lamps_the_amount_is_s8"),
+
+      (store_mul, ":food_amount_cap", ":food_amount", 8),
+      (store_add, ":total", ":food_amount", ":food_variety"),
+      (val_mul, ":total", 2), #x4
+      (val_add, ":total", ":drink_variety"),
+      (val_add, ":total", ":drink_amount"), #x6
+      ## UID: 82 - Begin
+      #
+      (val_add, ":total", ":spice_variety"),
+      #
+      ## UID: 82 - End
+      (val_add, ":total", ":spice_amount"), #x7
+      (val_add, ":total", ":oil_amount"), #x8
+      (val_min, ":total", ":food_amount_cap"),
+      (val_div, ":total", 8),
+      (val_clamp, ":total", 1, 101),
+      (store_div, ":total_string", ":total", 20),
+      (val_add, ":total_string", "str_feast_description"),
+      (str_store_string, s8, ":total_string"),
+      (str_store_string, s9, "str_s9_overall_our_table_will_be_considered_s8"),
+      (assign, reg0, ":total"), #zero to 100
+
+      (try_begin),
+        (eq, ":consume_items", 1),
+        (assign, ":num_of_servings_to_serve", ":num_servings"),
+        (try_for_range, ":unused", 0, 1999),
+          (gt, ":num_of_servings_to_serve", 0),
+          (try_for_range, ":item", trade_goods_begin, trade_goods_end),
+            (item_set_slot, ":item", slot_item_is_checked, 0),
+          (try_end),
+
+          (troop_get_inventory_capacity, ":inv_size", ":householder"),
+          (try_for_range, ":i_slot", 0, ":inv_size"),
+            (troop_get_inventory_slot, ":item", ":householder", ":i_slot"),
+            ## UID: 82 - Begin
+            #
+            #(this_or_next|eq, ":item", "itm_spice"),
+            (this_or_next|is_between, ":item", spices_begin, spices_end),
+            #
+            ## UID: 82 - End
+            (this_or_next|eq, ":item", "itm_oil"),
+            (this_or_next|eq, ":item", "itm_wine"),
+            (this_or_next|eq, ":item", "itm_ale"),
+            (is_between, ":item",  food_begin, food_end),
+            (item_slot_eq, ":item", slot_item_is_checked, 0),
+            (troop_inventory_slot_get_item_amount, ":cur_amount", ":householder", ":i_slot"),
+            (gt, ":cur_amount", 0),
+
+            (val_sub, ":cur_amount", 1),
+            (troop_inventory_slot_set_item_amount, ":householder", ":i_slot", ":cur_amount"),
+            (val_sub, ":num_of_servings_to_serve", 1),
+            (item_set_slot, ":item", slot_item_is_checked, 1),
+          (try_end),
+        (try_end),
+      (try_end),
+    ]),
 
 	
 	("faction_get_adjective_to_s10", 

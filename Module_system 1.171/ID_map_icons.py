@@ -236,3 +236,5 @@ icon_dedal_map_watchtower = 234
 icon_dedal_map_watchtower_ruined = 235
 icon_dedal_map_watchtower_snow = 236
 icon_dedal_map_watchtower_ruined_snow = 237
+icon_deer = 238
+icon_boar = 239

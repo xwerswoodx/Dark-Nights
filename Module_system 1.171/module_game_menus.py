@@ -101,6 +101,8 @@ game_menus = [
             (troop_raise_attribute, "trp_player", ":attr", 30),
           (try_end),
           (troop_set_name, "trp_player", "@Mod Editor"),
+          (party_set_name, "p_main_party", "@Mod Editor"),
+          (troop_raise_attribute, "trp_player", ca_strength, 4),
           (troop_add_gold, "trp_player", 9999999),
           (troop_add_item, "trp_player", "itm_persius_sword_01", imod_masterwork),
           (troop_add_item, "trp_player", "itm_steel_shield", imod_reinforced),
@@ -16058,7 +16060,7 @@ game_menus = [
 
   ## UID: 9 - Begin
   #
-  ("watch_tower", 0, "You have encountered watch tower", "none", [], [
+  ("watch_tower", 0, "You have encountered watch tower.", "none", [], [
       ("village_wait", [], "Wait here for some time.", [
           (rest_for_hours_interactive, 24 * 7, 5, 0),
           (change_screen_return),
@@ -16066,7 +16068,88 @@ game_menus = [
       ("leave", [], "Leave.", [(change_screen_return)]),
     ]),
   
-  ("windmill", 0, "You have encountered watch tower", "none", [], [("leave", [], "Leave.", [(change_screen_return)])]),
-  ("messenger_post", 0, "You have encountered watch tower", "none", [], [("leave", [], "Leave.", [(change_screen_return)])]),
+  ("windmill", 0, "You have encountered windmill.", "none", [], [("leave", [], "Leave.", [(change_screen_return)])]),
+  ("messenger_post", 0, "You have encountered messenger post.", "none", [], [("leave", [], "Leave.", [(change_screen_return)])]),
+  #
+  ## UID: 9 - End
+
+  ## UID: 80 - Begin
+  #
+  ("deer_herd", mnf_scale_picture, "You encounter a herd of deers.", "none", [
+      (try_begin),
+        (assign, reg10, "$num_deers_killed"),
+        (gt, reg10, 0),
+        (troop_clear_inventory, "trp_temp_troop"),
+        (store_mul, ":num_items", reg10, 2),
+        (troop_add_items, "trp_temp_troop", "itm_deer_meat", ":num_items"),
+
+        (try_begin),
+          (gt, "$g_encountered_party", 0),
+          #(party_get_num_companions, ":num_deers", "$g_encountered_party"),
+          (party_remove_members, "$g_encountered_party", "trp_deer", reg10),
+        (try_end),
+
+        (assign,"$num_deers_killed", 0),
+        (troop_sort_inventory, "trp_temp_troop"),
+        (change_screen_loot,"trp_temp_troop"),
+      (try_end),
+      (set_background_mesh, "mesh_pic_cattle"),
+    ], [
+        ("herd_attack", [
+            (try_begin),
+              (gt, "$g_encountered_party", 0),
+              (party_get_num_companions, reg11, "$g_encountered_party"),
+              (gt, reg11, 0),
+            (else_try),
+              (change_screen_return),
+            (try_end),
+        ], "Hunt some of the animals.", [
+            (set_jump_mission,"mt_deer_hunting"),
+            (jump_to_scene,"scn_random_scene_plain_forest"),
+            (change_screen_mission),
+        ]),
+
+        ("leave", [], "Leave.", [(change_screen_return)]),
+    ]),
+
+  ("boar_herd", mnf_scale_picture, "You encounter a herd of boars.", "none", [
+      (try_begin),
+        (assign, reg10, "$num_boars_killed"),
+        (gt, reg10, 0),
+        (troop_clear_inventory, "trp_temp_troop"),
+        (store_mul, ":num_items", reg10, 2),
+        (troop_add_items, "trp_temp_troop", "itm_boar_meat", ":num_items"),
+
+        (try_begin),
+          (gt, "$g_encountered_party", 0),
+          #(party_get_num_companions, ":num_deers", "$g_encountered_party"),
+          (party_remove_members, "$g_encountered_party", "trp_boar", reg10),
+        (try_end),
+
+        (assign,"$num_boars_killed", 0),
+        (troop_sort_inventory, "trp_temp_troop"),
+        (change_screen_loot,"trp_temp_troop"),
+      (try_end),
+      (set_background_mesh, "mesh_pic_cattle"),
+    ], [
+        ("herd_attack", [
+            (try_begin),
+              (gt, "$g_encountered_party", 0),
+              (party_get_num_companions, reg11, "$g_encountered_party"),
+              (gt, reg11, 0),
+            (else_try),
+              (change_screen_return),
+            (try_end),
+        ], "Hunt some of the animals.", [
+            (set_jump_mission,"mt_boar_hunting"),
+            (jump_to_scene,"scn_random_scene_plain_forest"),
+            (change_screen_mission),
+        ]),
+
+        ("leave", [], "Leave.", [(change_screen_return)]),
+    ]),
+  #
+  ## UID: 80 - End
+  
   ## EOF
  ]

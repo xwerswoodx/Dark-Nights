@@ -89,4 +89,10 @@ factions = [
 #INVASION MODE START
   ("ccoop_all_stars","All Stars", 0, 0.5,[], []),
 #INVASION MODE END
+
+  ## UID: 80 - Begin
+  #
+  ("wild_animals", "Wild Animals",0, 0.1, [("player_faction",-0.15)], [], 0xFFFFFF),
+  #
+  ## UID: 80 - End
 ]

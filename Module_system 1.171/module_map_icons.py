@@ -327,4 +327,11 @@ map_icons = [
   ("dedal_map_watchtower_ruined_snow", mcn_no_shadow, "dedal_map_watchtower_ruined_snow", 0.45, 0),
   #
   ## UID: 60 - End
+
+  ## UID: 80 - Begin
+  #
+  ("deer", 0.2, "deer", 0.2, snd_footstep_grass, 0.15, 0.173, 0),
+  ("boar", 0.2, "boar", 0.2, snd_footstep_grass, 0.15, 0.173, 0),
+  #
+  ## UID: 80 - End
 ]

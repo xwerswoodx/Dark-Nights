@@ -51,3 +51,5 @@ mst_town_fight = 49
 mst_multiplayer_duel = 50
 mst_ship_battle = 51
 mst_bandit_camp = 52
+mst_deer_hunting = 53
+mst_boar_hunting = 54

@@ -38,5 +38,6 @@ fac_slavers = 36
 fac_peasant_rebels = 37
 fac_noble_refugees = 38
 fac_ccoop_all_stars = 39
+fac_wild_animals = 40
 
 

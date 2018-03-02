@@ -57,8 +57,6 @@
 --- Vaegir: Hristiyan
 --- Svadya: Hristiyan
 --- Nord: Nors
-- Mod seçeneklerine kara şövalye ve çöl süvarilerini açma/kapatma eklendi. (Fikir: n00bPanda)
-- Artık sizle aynı dine inanan krallıklarla ilişkiniz +10 başlarken, inanmayan krallıklar ile ilişkiniz -25 olarak başlayacak.
 - Karakter raporuna din sekmesi eklendi.
 - Yeni eşyalar eklendi.
 --- Çay (Buz/Evlat Mod)

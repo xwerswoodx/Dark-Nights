@@ -2166,13 +2166,18 @@ strings = [
   ("feast_lengthy_description_6", 			  "The realm will be speaking of the bounty of your table for months to come, and it will become the standard to which all other feasts will aspire. You have filled the bellies not just of your noble guests and their retinues, but also of the poor who flocked to the gates. "),
   
   
-  ("kingdom_1_adjective",                     "Swadian"),
-  ("kingdom_2_adjective",                     "Vaegir"),
-  ("kingdom_3_adjective",                     "Khergit"),
-  ("kingdom_4_adjective",                     "Nord"),
-  ("kingdom_5_adjective",                     "Rhodok"),
-  ("kingdom_6_adjective",                     "Sarranid"),
-  
+  ("kingdom_1_adjective", "Swadian"),
+  ("kingdom_2_adjective", "Vaegir"),
+  ("kingdom_3_adjective", "Khergit"),
+  ("kingdom_4_adjective", "Nord"),
+  ("kingdom_5_adjective", "Rhodok"),
+  ("kingdom_6_adjective", "Sarranid"),
+  ## UID: 24 - Begin
+  #
+  ("kingdom_7_adjective", "Umalelithian"),
+  ("kingdom_8_adjective", "Kielian"),
+  #
+  ## UID: 24 - End
 
   ("credits_1", "Mount&Blade: Warband Copyright 2008-2014 Taleworlds Entertainment"),
   ("credits_2", "Game design:^Armagan Yavuz^Steve Negus^Cem Cimenbicer"),
@@ -3255,7 +3260,12 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("of_food_which_must_come_before_everything_else_the_amount_is_s8", "Of food, which must come before everything else, the amount is {s8}"),
   ("s9_and_the_variety_is_s8_", "{s9} and the variety is {s8}. "),
   ("s9_of_drink_which_guests_will_expect_in_great_abundance_the_amount_is_s8", "{s9} Of drink, which guests will expect in great abundance, the amount is {s8}"),
-  ("s9_of_spice_which_is_essential_to_demonstrate_that_we_spare_no_expense_as_hosts_the_amount_is_s8_", "{s9} Of spice, which is essential to demonstrate that we spare no expense as hosts, the amount is {s8}. "),
+  ## UID: 82 - Begin
+  #
+  #(.) removed from end.
+  ("s9_of_spice_which_is_essential_to_demonstrate_that_we_spare_no_expense_as_hosts_the_amount_is_s8_", "{s9} Of spice, which is essential to demonstrate that we spare no expense as hosts, the amount is {s8}"),
+  #
+  ## UID: 82 - End
   ("s9_of_oil_which_we_shall_require_to_light_the_lamps_the_amount_is_s8", "{s9} Of oil, which we shall require to light the lamps, the amount is {s8}."),
   ("s9_overall_our_table_will_be_considered_s8", "{s9} Overall, our table will be considered {s8}."),
   ("rebel", "rebel"),

@@ -1235,3 +1235,5 @@ trp_musician_male = 1233
 trp_musician_female = 1234
 trp_musicians_end = 1235
 trp_player_messenger = 1236
+trp_deer = 1237
+trp_boar = 1238
