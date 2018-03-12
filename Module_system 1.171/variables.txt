@@ -1244,3 +1244,4 @@ num_deers_killed
 leading_deer
 num_boars_killed
 leading_boar
+g_lotterys

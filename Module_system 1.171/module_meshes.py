@@ -1,4 +1,9 @@
-from header_meshes import *
+## UID: 85 - Begin
+#
+#from header_meshes import *
+render_order_plus_1 = 0x00000001
+#
+## UID: 85 - End
 
 ####################################################################################################################
 #  Each mesh record contains the following fields:

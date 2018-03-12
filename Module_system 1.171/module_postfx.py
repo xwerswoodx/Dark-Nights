@@ -1,4 +1,9 @@
-from header_postfx import *
+## UID: 85 - Begin
+#
+#from header_postfx import *
+fxf_highhdr        = 0x00000001
+#
+## UID: 85 - End
 
 ####################################################################################################################
 #  Each postfx_param contains the following fields:

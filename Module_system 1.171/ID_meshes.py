@@ -606,5 +606,3 @@ mesh_status_troop_ratio_bar_button = 604
 mesh_pic_soldier_world_map = 605
 mesh_pic_soldier_rebel = 606
 mesh_pic_soldier_desert = 607
-
-

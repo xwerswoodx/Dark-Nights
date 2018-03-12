@@ -1779,6 +1779,12 @@ trade_goods_begin = "itm_spice"
 trade_goods_end = "itm_siege_supply"
 food_begin = "itm_smoked_fish"
 food_end = "itm_siege_supply"
+## UID: 86 - Begin
+#
+drink_begin = "itm_wine"
+drink_end = food_begin
+#
+## UID: 86 - End
 ## UID: 34 - Begin
 #
 ##reference_books_begin = "itm_book_wound_treatment_reference"

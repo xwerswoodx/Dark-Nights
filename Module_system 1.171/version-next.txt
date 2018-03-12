@@ -14,9 +14,6 @@
 - Partideki kişilerin yiyeceği yemek miktarı azaltıldı. (Malum savaştayız, partide değil.)
 - Savaştan kazanılan para arttırıldı.
 - Savaş sırasında ölünce kameraya geçmesi eklendi. (OSP: MadVader)
-- Kamp bekleme süresi Kamp menüsünden ayarlanabilir.
-- Avcılık sistemi eklendi. (OSP: )
---- Avcılık sistemindeki arena sorunu giderildi. (Hayvanlara hasar verilemiyordu.)
 - Dolaşmaya çıkma seçeneğinde artık kişi tek başına spawn olacak.
 - Eğer kişinin sancağı var ise, kamp>bir işe giriş menüsünden onu değiştirebilmesi ayarlandı.
 - Artık gözcü kulesinde dinlenme için köy ile olan bağ kontrol ediliyor.
@@ -38,7 +35,6 @@
 --- Geliştirme: Canlar artık saniyede 1 yerine 12 saniyede 1+(ilk yardım/zorluk seviyesi) adet dolacak.
 --- Zor seviyesine kadar kullanılabilir. (Çok Zor seviyede kullanılamaz.)
 - Dini inanç şehir ve köy menülerine eklendi.
-- Haydut kamplarında, loot ve esir pencerelerindeki hata giderildi.
 - Yenilen krallığın tekrardan yükselmesi eklendi. (OSP: Rubin)
 - Oyuna boy sistemi eklendi. (OSP: Pelt)
 --- tf_(fe)male_vshort
@@ -59,7 +55,4 @@
 --- Nord: Nors
 - Karakter raporuna din sekmesi eklendi.
 - Yeni eşyalar eklendi.
---- Çay (Buz/Evlat Mod)
---- Zehirli Ok (Buz/Evlat Mod)
---- Nord Bow (Buz/Evlat Mod)
 - Devriyeler 50 den fazla askere sahip olduğunda otomatik olarak en yakın şehre girip askerleri oraya yerleştirecekler.

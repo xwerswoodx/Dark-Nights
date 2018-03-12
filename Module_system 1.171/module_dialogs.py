@@ -1,16 +1,39 @@
 # -*- coding: cp1254 -*-
 from header_common import *
-from header_dialogs import *
 from header_operations import *
 from header_parties import *
 from header_item_modifiers import *
-from header_skills import *
+## UID: 85 - Begin
+#
+#from header_skills import *
+from ID_skills import *
+#
+## UID: 85 - End
 from header_triggers import *
 from ID_troops import *
 from ID_party_templates import *
-
 from module_constants import *
 
+## UID: 85 - Begin
+#
+anyone      = 0x00000fff
+repeat_for_factions = 0x00001000
+repeat_for_parties  = 0x00002000
+repeat_for_troops   = 0x00003000
+repeat_for_100      = 0x00004000
+repeat_for_1000     = 0x00005000
+
+plyr                = 0x00010000
+party_tpl           = 0x00020000
+auto_proceed        = 0x00040000
+multi_line          = 0x00080000
+
+suf_other_bits   = 20
+
+def other(other_troop_id):
+  return other_troop_id << suf_other_bits
+#
+## UID: 85 - End
 
 ####################################################################################################################
 # During a dialog, the dialog lines are scanned from top to bottom.
@@ -86,7 +109,12 @@ dialogs = [
       (try_begin),
         (eq, "$cheat_mode", 1),
         (assign, reg3, "$g_talk_troop_effective_relation"),
-        (display_message, "str_test_effective_relation_=_reg3"),
+        ## UID: 85 - Begin
+        #
+        #(display_message, "str_test_effective_relation_=_reg3"),
+        (display_message, "str_test_effective_relation_reg3"),
+        #
+        ## UID: 85 - End
       (try_end),
 
       (try_begin),
@@ -8803,7 +8831,12 @@ dialogs = [
       (troop_get_slot, reg3, "$g_talk_troop", slot_troop_intrigue_impatience),
       (try_begin),
         (eq, "$cheat_mode", 1),
-        (display_message, "str_intrigue_impatience=_reg3_must_be_less_than_100"),
+        ## UID: 85 - Begin
+        #
+        #(display_message, "str_intrigue_impatience=_reg3_must_be_less_than_100"),
+        (display_message, "str_intrigue_impatience_reg3_must_be_less_than_100"),
+        #
+        ## UID: 85 - End
       (try_end),
     ]],
 
@@ -9848,7 +9881,12 @@ dialogs = [
 			#this will store 
 			(try_begin),
 			  (eq, "$cheat_mode", 1),
-			  (display_message, "str_preliminary_result_for_political_=_reg4"),
+                          ## UID: 85 - Begin
+                          #
+			  #(display_message, "str_preliminary_result_for_political_=_reg4"),
+			  (display_message, "str_preliminary_result_for_political_reg4"),
+                          #
+                          ## UID: 85 - End
 			(try_end),  
 			
 #			(assign, ":result_for_ideological", reg6),
@@ -9889,7 +9927,12 @@ dialogs = [
 					(str_store_string, s31, "str_there_are_some_outstanding_matters_between_me_and_some_of_your_vassals_"),										
 					(try_begin),
 					  (assign, reg41, ":result_for_political"),
-					  (display_message, "str_result_for_political_=_reg41"),
+                                          ## UID: 85 - Begin
+                                          #
+					  #(display_message, "str_result_for_political_=_reg41"),
+					  (display_message, "str_result_for_political_reg41"),
+                                          #
+                                          ## UID: 85 - End
 					(try_end),  					  
 				(else_try),
 					(troop_slot_eq, "$g_talk_troop", slot_lord_reputation_type, lrep_quarrelsome),
@@ -9996,7 +10039,12 @@ dialogs = [
 	  (try_begin),
 	    (eq, "$cheat_mode", 1),
 	    (assign, reg1, "$pledge_chance"),
-	    (display_message, "str_chance_of_success_=_reg1"),
+            ## UID: 85 - Begin
+            #
+	    #(display_message, "str_chance_of_success_=_reg1"),
+	    (display_message, "str_chance_of_success_reg1"),
+            #
+            ## UID: 85 - End
 	  (try_end),  
 	]],
 		
@@ -10031,7 +10079,12 @@ dialogs = [
       (try_begin),
         (eq, "$cheat_mode", 1),
         (assign, reg3, ":random"),
-        (display_message, "str_random_=_reg3"),
+        ## UID: 85 - Begin
+        #
+        #(display_message, "str_random_=_reg3"),
+        (display_message, "str_random_reg3"),
+        #
+        ## UID: 85 - End
       (try_end),  
       
       (faction_get_slot, ":leader", "$g_talk_troop_faction", slot_faction_leader),
@@ -20726,7 +20779,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
   ## UID: 51 - Begin
   #
-  [anyone|plyr, "tavernkeeper_talk", [(gt, "$g_lottery", 0)], "I want to take my winning prize.", "tavernkeeper_check_ticket", []],
+  [anyone|plyr, "tavernkeeper_talk", [(gt, "$g_lotterys", 0)], "I want to take my winning prize.", "tavernkeeper_check_ticket", []],
   [anyone, "tavernkeeper_check_ticket", [], "Lets check your ticket. Yes, you won {reg1} denars. Here is your price.", "tavernkeeper_pretalk", [
           (assign, reg1, "$g_lottery"),
           (troop_add_gold, "trp_player", reg1),
@@ -21958,7 +22011,12 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 	(else_try),
 		(assign, reg4, "$lady_selected"),
 		(str_store_troop_name, s9, "$lady_selected"),
-		(str_store_string, s12, "str_error_lady_selected_=_s9"),	
+                ## UID: 85 - Begin
+                #
+		#(str_store_string, s12, "str_error_lady_selected_=_s9"),	
+		(str_store_string, s12, "str_error_lady_selected_s9"),
+                #
+                ## UID: 85 - End
 	(try_end),	
    ],  
    "{s12}.", 

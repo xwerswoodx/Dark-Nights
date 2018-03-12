@@ -1,11 +1,37 @@
-from header_game_menus import *
+## UID: 85 - Begin
+#
+from header_common import *
+from header_operations import *
+from header_item_modifiers import *
+from ID_skills import *
+from header_troops import *
+#from header_game_menus import *
+#
+## UID: 85 - End
 from header_parties import *
 from header_items import *
 from header_mission_templates import *
 from header_music import *
-from header_terrain_types import *
-
+## UID: 85 - Begin
+#
+#from header_terrain_types import *
+from ID_terrain_types import *
+#
+## UID: 85 - End
 from module_constants import *
+
+## UID: 85 - Begin
+#
+mnf_join_battle            = 0x00000001 #Consider this menu when the player joins a battle
+mnf_auto_enter             = 0x00000010 #Automatically enter the town with the first menu option. 
+mnf_enable_hot_keys        = 0x00000100 #Enables P,I,C keys
+mnf_disable_all_keys       = 0x00000200 #Disables all keys
+mnf_scale_picture          = 0x00001000 #Scale menu picture to offest screen aspect ratio
+
+def menu_text_color(color):
+  return color << 32
+#
+## UID: 85 - End
 
 ####################################################################################################################
 #  (menu-id, menu-flags, menu_text, mesh-name, [<operations>], [<options>]),
@@ -11889,8 +11915,13 @@ game_menus = [
 	   
 	   (item_get_slot, ":production_string", ":cur_good", slot_item_production_string),
 	   (str_store_string, s4, ":production_string"),
-	   
-       (str_store_string, s1, "str___s3_price_=_reg4_calradian_average_reg6_capital_reg11_s4_base_reg1modified_by_raw_material_reg2modified_by_prosperity_reg3_calradian_average_production_base_reg5_total_reg12_consumed_reg7used_as_raw_material_reg8modified_total_reg9_calradian_consumption_base_reg10_total_reg13s1_"),	   	   
+
+         ## UID: 85 - Begin
+         #
+         #(str_store_string, s1, "str___s3_price_=_reg4_calradian_average_reg6_capital_reg11_s4_base_reg1modified_by_raw_material_reg2modified_by_prosperity_reg3_calradian_average_production_base_reg5_total_reg12_consumed_reg7used_as_raw_material_reg8modified_total_reg9_calradian_consumption_base_reg10_total_reg13s1_"),
+         (str_store_string, s1, "str___s3_price_reg4_calradian_average_reg6_capital_reg11_s4_base_reg1modified_by_raw_material_reg2modified_by_prosperity_reg3_calradian_average_production_base_reg5_total_reg12_consumed_reg7used_as_raw_material_reg8modified_total_reg9_calradian_consumption_base_reg10_total_reg13s1_"),
+         #
+         ## UID: 85 - End
      (try_end),
 	 
 	 
@@ -14721,7 +14752,12 @@ game_menus = [
 			(eq, "$cheat_mode", 1),
 			(quest_get_slot, ":giver_troop", "qst_visit_lady", slot_quest_giver_troop),
 			(str_store_troop_name, s2, ":giver_troop"),
-			(display_message, "str_giver_troop_=_s2"),
+                        ## UID: 85 - Begin
+                        #
+			#(display_message, "str_giver_troop_=_s2"),
+                        (display_message, "str_giver_troop_s2"),
+                        #
+                        ## UID: 85 - End
 		(try_end),	
 		
 		(quest_set_slot, "qst_visit_lady", slot_quest_expiration_days, 30),

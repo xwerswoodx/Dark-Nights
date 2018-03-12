@@ -674,5 +674,3 @@ anim_lute_sitting = 672
 anim_lute_standing = 673
 anim_lyre_sitting = 674
 anim_lyre_standing = 675
-
-

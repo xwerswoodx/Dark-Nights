@@ -13,12 +13,22 @@ from module_items import *
 ## UID: 25 - End
 ## UID: 39 - Begin
 #
-from header_terrain_types import *
+## UID: 85 - Begin
+#
+#from header_terrain_types import *
+from ID_terrain_types import *
+#
+## UID: 85 - End
 #
 ## UID: 39 - End
 ## UID: 46 - Begin
 #
-from header_skills import *
+## UID: 85 - Begin
+#
+#from header_skills import *
+from ID_skills import *
+#
+## UID: 85 - End
 #
 ## UID: 46 - End
 import string

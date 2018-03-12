@@ -2,7 +2,12 @@ from header_common import *
 from header_operations import *
 from header_parties import *
 from header_items import *
-from header_skills import *
+## UID: 85 - Begin
+#
+#from header_skills import *
+from ID_skills import *
+#
+## UID: 85 - End
 from header_triggers import *
 from header_troops import *
 

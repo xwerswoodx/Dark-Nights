@@ -2,11 +2,15 @@ from header_common import *
 from header_operations import *
 from header_parties import *
 from header_items import *
-from header_skills import *
+## UID: 85 - Begin
+#
+#from header_skills import *
+from ID_skills import *
+#
+## UID: 85 - End
 from header_triggers import *
 from header_troops import *
 from header_music import *
-
 from module_constants import *
 
 ####################################################################################################################
@@ -2451,60 +2455,96 @@ simple_triggers = [
     ]),
   
   # Consuming food at every 14 hours
-  (14,
-   [
-    (eq, "$g_player_is_captive", 0),
-    (party_get_num_companion_stacks, ":num_stacks","p_main_party"),
-    (assign, ":num_men", 0),
-    (try_for_range, ":i_stack", 0, ":num_stacks"),
-      (party_stack_get_size, ":stack_size","p_main_party",":i_stack"),
-      (val_add, ":num_men", ":stack_size"),
-    (try_end),
-    (val_div, ":num_men", 3),
-    (try_begin),
-      (eq, ":num_men", 0),
-      (val_add, ":num_men", 1),
-    (try_end),
-    
-    (try_begin),
-      (assign, ":number_of_foods_player_has", 0),
-      (try_for_range, ":cur_edible", food_begin, food_end),      
-        (call_script, "script_cf_player_has_item_without_modifier", ":cur_edible", imod_rotten),
-        (val_add, ":number_of_foods_player_has", 1),
+  (14, [
+      (eq, "$g_player_is_captive", 0),
+      (party_get_num_companion_stacks, ":num_stacks","p_main_party"),
+      (assign, ":num_men", 0),
+      (try_for_range, ":i_stack", 0, ":num_stacks"),
+        (party_stack_get_size, ":stack_size","p_main_party",":i_stack"),
+        (val_add, ":num_men", ":stack_size"),
       (try_end),
+      (val_div, ":num_men", 3),
       (try_begin),
-        (ge, ":number_of_foods_player_has", 6),
-        (unlock_achievement, ACHIEVEMENT_ABUNDANT_FEAST),        
+        (eq, ":num_men", 0),
+        (val_add, ":num_men", 1),
       (try_end),
-    (try_end),
-    
-    (assign, ":consumption_amount", ":num_men"),
-    (assign, ":no_food_displayed", 0),
-    (try_for_range, ":unused", 0, ":consumption_amount"),
-      (assign, ":available_food", 0),
-      (try_for_range, ":cur_food", food_begin, food_end),
-        (item_set_slot, ":cur_food", slot_item_is_checked, 0),
-        (call_script, "script_cf_player_has_item_without_modifier", ":cur_food", imod_rotten),
-        (val_add, ":available_food", 1),
-      (try_end),
+
       (try_begin),
-        (gt, ":available_food", 0),
-        (store_random_in_range, ":selected_food", 0, ":available_food"),
-        (call_script, "script_consume_food", ":selected_food"),
-      (else_try),
-        (eq, ":no_food_displayed", 0),
-        (display_message, "@Party has nothing to eat!", 0xFF0000),
-        (call_script, "script_change_player_party_morale", -3),
-        (assign, ":no_food_displayed", 1),
-#NPC companion changes begin
+        (assign, ":number_of_foods_player_has", 0),
+        (try_for_range, ":cur_edible", food_begin, food_end),
+          (call_script, "script_cf_player_has_item_without_modifier", ":cur_edible", imod_rotten),
+          (val_add, ":number_of_foods_player_has", 1),
+        (try_end),
+
         (try_begin),
+          (ge, ":number_of_foods_player_has", 6),
+          (unlock_achievement, ACHIEVEMENT_ABUNDANT_FEAST),
+        (try_end),
+      (try_end),
+
+      ## UID: 86 - Begin
+      #
+      (assign, ":number_of_drinks_player_has", 0),
+      (try_for_range, ":drink", drink_begin, drink_end),
+        (player_has_item, ":drink"),
+        (val_add, ":number_of_drinks_player_has", 1),
+      (try_end),
+
+      (assign, ":consumption_amount", ":num_men"),
+      (assign, ":no_food_displayed", 0),
+      ## UID: 86 - Begin
+      #
+      (assign, ":no_drink_displayed", 0),
+      #
+      ## UID: 86 - End
+      (try_for_range, ":unused", 0, ":consumption_amount"),
+        (assign, ":available_food", 0),
+        (try_for_range, ":cur_food", food_begin, food_end),
+          (item_set_slot, ":cur_food", slot_item_is_checked, 0),
+          (call_script, "script_cf_player_has_item_without_modifier", ":cur_food", imod_rotten),
+          (val_add, ":available_food", 1),
+        (try_end),
+
+        ## UID: 86 - Begin
+        #
+        (assign, ":available_drink", 0),
+        (try_for_range, ":drink", drink_begin, drink_end),
+          (item_set_slot, ":drink", slot_item_is_checked, 0),
+          (player_has_item, ":drink"),
+          (val_add, ":available_drink", 1),
+        (try_end),
+
+        (try_begin),
+          (gt, ":available_drink", 0),
+          (store_random_in_range, ":selected_drink", 0, ":available_drink"),
+          (call_script, "script_consume_drink", ":selected_drink"),
+        (else_try),
+          (eq, ":no_drink_displayed", 0),
+          (display_message, "@Party has nothing to drink!", 0xFF0000),
+          (call_script, "script_change_player_party_morale", -4),
+          (assign, ":no_drink_displayed", 1),
+        (try_end),
+        #
+        ## UID: 86 - End
+
+        (try_begin),
+          (gt, ":available_food", 0),
+          (store_random_in_range, ":selected_food", 0, ":available_food"),
+          (call_script, "script_consume_food", ":selected_food"),
+        (else_try),
+          (eq, ":no_food_displayed", 0),
+          (display_message, "@Party has nothing to eat!", 0xFF0000),
+          (call_script, "script_change_player_party_morale", -3),
+          (assign, ":no_food_displayed", 1),
+          #NPC companion changes begin
+          (try_begin),
             (call_script, "script_party_count_fit_regulars", "p_main_party"),
             (gt, reg0, 0),
             (call_script, "script_objectionable_action", tmt_egalitarian, "str_men_hungry"),
+          (try_end),
+          #NPC companion changes end
         (try_end),
-#NPC companion changes end
       (try_end),
-    (try_end),
     ]),
 
   # Setting item modifiers for food

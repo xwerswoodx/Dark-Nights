@@ -2767,7 +2767,11 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("sisterinlaw", "sister-in-law"),
   ("brotherinlaw", "brother-in-law"),
   ("print_party_members_entered", "print party members entered"),
-  ("num_companion_stacks_=_reg10", "num companion stacks = {reg10}"),
+  ## UID: 85 - Begin
+  #
+  ("num_companion_stacks_reg10", "num companion stacks = {reg10}"),
+  #
+  ## UID: 85 - End
   ("someone", "someone"),
   
   #Trade explanations
@@ -2834,7 +2838,11 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("s4_of_the_s5_is_unassigned", "{!}{s4} of the {s5} is unassigned"),
   ("s4_of_the_s5_is_reserved_for_player", "{!}{s4} of the {s5} is reserved for player"),
   ("s4_of_the_s5_has_no_fiefs", "{!}{s4} of the {s5} has no fiefs"),
-  ("s4_unassigned_centers_plus_landless_lords_=_reg4", "{!}{s4}: unassigned centers plus landless lords = {reg4}"),
+  ## UID: 85 - Begin
+  #
+  ("s4_unassigned_centers_plus_landless_lords_reg4", "{!}{s4}: unassigned centers plus landless lords = {reg4}"),
+  #
+  ## UID: 85 - End
   ("s4_holds_s5_in_reserve", "{!}{s4} holds {s5} in reserve"),
   ("s2s_rebellion", "{s2}'s Rebellion"),
   ("political_suggestion", "Political suggestion"),
@@ -3073,7 +3081,11 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("result_happy_engagement_between_s4_and_s5", "{!}Result: happy engagement between {s4} and {s5}"),
   ("result_s4_elopes_with_s5", "{!}Result: {s4} elopes with {s5}"),
   ("result_s4_reluctantly_agrees_to_engagement_with_s5", "{!}Result: {s4} reluctantly agrees to engagement with {s5}"),
-  ("result_stalemate_patience_roll_=_reg3", "{!}Result: stalemate, patience roll = {reg3}"),
+  ## UID: 85 - Begin
+  #
+  ("result_stalemate_patience_roll_reg3", "{!}Result: stalemate, patience roll = {reg3}"),
+  #
+  ## UID: 85 - End
   ("s3_marries_s4_at_s5", "{!}{s3} marries {s4} at {s5}"),
   ("_i_must_attend_to_this_matter_before_i_worry_about_the_affairs_of_the_realm", " I must attend to this matter before I worry about the affairs of the realm."),
   ("the_other_matter_took_precedence", "The other matter took precedence."),
@@ -3187,7 +3199,11 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("s15_is_at_war_with_s16_", "{s15} is at war with {s16}. "),
   ("in_the_short_term_s15_has_a_truce_with_s16_as_a_matter_of_general_policy_", "In the short term, {s15} has a truce with {s16}. As a matter of general policy, "),
   ("in_the_short_term_s15_was_recently_provoked_by_s16_and_is_under_pressure_to_declare_war_as_a_matter_of_general_policy_", "In the short term, {s15} was recently provoked by {s16}, and is under pressure to declare war. As a matter of general policy, "),
-  ("envoymodified_diplomacy_score_honor_plus_relation_plus_envoy_persuasion_=_reg4", "{!}Envoy-modified diplomacy score (honor plus relation plus envoy persuasion) = {reg4}"),
+  ## UID: 85 - Begin
+  #
+  ("envoymodified_diplomacy_score_honor_plus_relation_plus_envoy_persuasion_reg4", "{!}Envoy-modified diplomacy score (honor plus relation plus envoy persuasion) = {reg4}"),
+  #
+  ## UID: 85 - End
   ("s12s15_cannot_negotiate_with_s16_as_to_do_so_would_undermine_reg4herhis_own_claim_to_the_throne_this_civil_war_must_almost_certainly_end_with_the_defeat_of_one_side_or_another", "{s12}{s15} cannot negotiate with {s16}, as to do so would undermine {reg4?her:his} own claim to the throne. This civil war must almost certainly end with the defeat of one side or another."),
   ("s12s15_considers_s16_to_be_dangerous_and_untrustworthy_and_shehe_wants_to_bring_s16_down", "{s12}{s15} considers {s16} to be dangerous and untrustworthy, and {reg4?she:he} wants to bring {s16} down."),
   ("s12s15_is_anxious_to_reclaim_old_lands_such_as_s18_now_held_by_s16", "{s12}{s15} is anxious to reclaim old lands such as {s18}, now held by {s16}."),
@@ -3336,7 +3352,11 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("_however_you_have_sufficiently_distinguished_yourself_to_be_invited_to_attend_the_ongoing_feast_in_the_lords_castle", ". However, you have sufficiently distinguished yourself to be invited to attend the ongoing feast in the lord's castle."),
   ("s8_you_are_also_invited_to_attend_the_ongoing_feast_in_the_castle", "{s8}. You are also invited to attend the ongoing feast in the castle."),
   ("__hardship_index_reg0_avg_towns_reg1_avg_villages_reg2__", "{!}^^Hardship index: {reg0}, avg towns: {reg1}, avg villages: {reg2}^^"),
-  ("__s3_price_=_reg4_calradian_average_reg6_capital_reg11_s4_base_reg1modified_by_raw_material_reg2modified_by_prosperity_reg3_calradian_average_production_base_reg5_total_reg12_consumed_reg7used_as_raw_material_reg8modified_total_reg9_calradian_consumption_base_reg10_total_reg13s1_", "{!}^^{s3}^Price = {reg4} (Calradian average {reg6})^Capital: {reg11} {s4}^Base {reg1}/modified by raw material {reg2}/modified by prosperity {reg3}^(Calradian average production, base {reg5}, total {reg12}).^Consumed {reg7}/used as raw material {reg8}/modified total {reg9}^(Calradian consumption, base: {reg10}, total: {reg13}){s1}^"),
+  ## UID: 85 - Begin
+  #
+  ("__s3_price_reg4_calradian_average_reg6_capital_reg11_s4_base_reg1modified_by_raw_material_reg2modified_by_prosperity_reg3_calradian_average_production_base_reg5_total_reg12_consumed_reg7used_as_raw_material_reg8modified_total_reg9_calradian_consumption_base_reg10_total_reg13s1_", "{!}^^{s3}^Price = {reg4} (Calradian average {reg6})^Capital: {reg11} {s4}^Base {reg1}/modified by raw material {reg2}/modified by prosperity {reg3}^(Calradian average production, base {reg5}, total {reg12}).^Consumed {reg7}/used as raw material {reg8}/modified total {reg9}^(Calradian consumption, base: {reg10}, total: {reg13}){s1}^"),
+  #
+  ## UID: 85 - End
   ("s11_unfortunately_s12_was_wounded_and_had_to_be_left_behind", "{s11} Unfortunately, {s12} was wounded and had to be left behind."),
   ("s11_also_s12_was_wounded_and_had_to_be_left_behind", "{s11} Also, {s12} was wounded and had to be left behind."),
   ("trial_influences_s17s_relation_with_s18_by_reg3", "{!}Trial influences {s17}'s relation with {s18} by {reg3}"),
@@ -3365,7 +3385,11 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("_alas_as_we_know_my_s11_s16_will_not_permit_me_to_see_you_however_i_believe_that_i_can_arrange_away_for_you_to_enter_undetected", " Alas, as we know, my {s11} {s16} will not permit me to see you. However, I believe that I can arrange a way for you to enter undetected."),
   ("_as_my_s11_s16_has_already_granted_permission_for_you_to_see_me_i_shall_expect_your_imminent_arrival", " As my {s11} {s16} has already granted permission for you to see me, I shall expect your imminent arrival."),
   ("visit_s3_who_was_last_at_s4s18", "Visit {s3}, who was last at {s4}{s18}"),
-  ("giver_troop_=_s2", "{!}Giver troop = {s2}"),
+  ## UID: 85 - Begin
+  #
+  ("giver_troop_s2", "{!}Giver troop = {s2}"),
+  #
+  ## UID: 85 - End
   ("the_guards_at_the_gate_have_been_ordered_to_allow_you_through_you_might_be_imagining_things_but_you_think_one_of_them_may_have_given_you_a_wink", "The guards at the gate have been ordered to allow you through. You might be imagining things, but you think one of them may have given you a wink"),
   ("the_guards_glare_at_you_and_you_know_better_than_to_ask_permission_to_enter_however_as_you_walk_back_towards_your_lodgings_an_elderly_lady_dressed_in_black_approaches_you_i_am_s11s_nurse_she_whispers_urgently_don_this_dress_and_throw_the_hood_over_your_face_i_will_smuggle_you_inside_the_castle_to_meet_her_in_the_guise_of_a_skullery_maid__the_guards_will_not_look_too_carefully_but_i_beg_you_for_all_of_our_sakes_be_discrete", "The guards glare at you, and you know better than to ask permission to enter. However, as you walk back towards your lodgings, an elderly lady dressed in black approaches you. 'I am {s11}'s nurse,' she whispers urgently. 'Don this dress, and throw the hood over your face. I will smuggle you inside the castle to meet her in the guise of a scullery maid -- the guards will not look too carefully. But I beg you, for all of our sakes, be discreet!"),
   ("the_guards_glare_at_you_and_you_know_better_than_to_ask_permission_to_enter_however_as_you_walk_back_towards_your_lodgings_an_elderly_lady_dressed_in_black_approaches_you_i_am_s11s_nurse_she_whispers_urgently_wait_for_a_while_by_the_spring_outside_the_walls_i_will_smuggle_her_ladyship_out_to_meet_you_dressed_in_the_guise_of_a_shepherdess_but_i_beg_you_for_all_of_our_sakes_be_discrete", "The guards glare at you, and you know better than to ask permission to enter. However, as you walk back towards your lodgings, an elderly lady dressed in black approaches you. 'I am {s11}'s nurse,' she whispers urgently. 'Wait for a while by the spring outside the walls. I will smuggle her ladyship out to meet you, dressed in the guise of a shepherdess. But I beg you, for all of our sakes, be discreet!"),
@@ -3392,7 +3416,11 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("s1_s2", "{!}{s1} {s2}"),
   ("wanted_bandits_spotted_by_s4", "Wanted bandits spotted by {s4}"),
   ("s4_ready_to_voice_objection_to_s3s_mission_if_in_party", "{s4} ready to voice objection to {s3}'s mission, if in party"),
-  ("test_effective_relation_=_reg3", "{!}DEBUG : Effective relation = {reg3}"),
+  ## UID: 85 - Begin
+  #
+  ("test_effective_relation_reg3", "{!}DEBUG : Effective relation = {reg3}"),
+  #
+  ## UID: 85 - End
   ("g_talk_troop_=_reg0__g_encountered_party_=_reg1__slot_value_=_reg2", "{!}g talk troop = {reg0} , g encountered party = {reg1} , slot value = {reg2}"),
   ("strange_that_one_didnt_seem_like_your_ordenary_troublemaker_he_didnt_drink_all_that_much__he_just_stood_there_quietly_and_watched_the_door_you_may_wish_to_consider_whether_you_have_any_enemies_who_know_you_are_in_town_a_pity_that_blood_had_to_be_spilled_in_my_establishment", "Strange. That one didn't seem like your ordinary troublemaker. He didn't drink all that much -- he just stood there, quietly, and watched the door. You may wish to consider whether you have any enemies who know you are in town... A pity that blood had to be spilled in my establishment..."),
   ("wielded_item_reg3", "{!}Wielded item: {reg3}"),
@@ -3434,7 +3462,11 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("mug_of_kvass", "mug of kvass"),
   ("cup_of_wine", "cup of wine"),
   ("you_intend_to_challenge_s13_to_force_him_to_retract_an_insult", "You intend to challenge {s13} to force him to retract an insult."),
-  ("intrigue_impatience=_reg3_must_be_less_than_100", "{!}Intrigue impatience= {reg3}, must be less than 100"),
+  ## UID: 85 - Begin
+  #
+  ("intrigue_impatience_reg3_must_be_less_than_100", "{!}Intrigue impatience= {reg3}, must be less than 100"),
+  #
+  ## UID: 85 - End
   ("youll_have_to_speak_to_me_at_some_other_time_then", "You'll have to speak to me at some other time, then."),
   ("this_is_no_time_for_words", "This is no time for words!"),
   ("lord_not_alone", "{!}Lord not alone"),
@@ -3518,10 +3550,18 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("s12_s43", "{!}{s12} {s43}"),
   ("indeed_please_continue", "Indeed. Please continue."),
   ("me", "me"),
-  ("preliminary_result_for_political_=_reg4", "{!}DEBUG : Preliminary result for political = {reg4}"),
+  ## UID: 85 - Begin
+  #
+  ("preliminary_result_for_political_reg4", "{!}DEBUG : Preliminary result for political = {reg4}"),
+  #
+  ## UID: 85 - End
   ("i_worry_about_those_with_whom_you_have_chosen_to_surround_yourself", "I worry about those with whom you have chosen to surround yourself."),
   ("there_are_some_outstanding_matters_between_me_and_some_of_your_vassals_", "There are some outstanding matters between me and some of your vassals. "),
-  ("result_for_political_=_reg41", "{!}DEBUG : Result for political = {reg41}"),
+  ## UID: 85 - Begin
+  #
+  ("result_for_political_reg41", "{!}DEBUG : Result for political = {reg41}"),
+  #
+  ## UID: 85 - End
   ("my_liege_has_his_faults_but_i_dont_care_for_your_toadies", "My liege has his faults but I don't care for your toadies."),
   ("i_think_youre_a_good_man_but_im_worried_that_you_might_be_pushed_in_the_wrong_direction_by_some_of_those_around_you", "I think you're a good man, but I'm worried that you might be pushed in the wrong direction by some of those around you."),
   ("i_am_loathe_to_fight_alongside_you_so_long_as_you_take_under_your_wing_varlots_and_base_men", "I am loathe to fight alongside you, so long as you take under your wing varlots and base men."),
@@ -3540,8 +3580,12 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("finally_there_is_a_cost_to_ones_reputation_to_change_sides_in_this_case_the_cost_would_be_very_high", "Finally, one should always think carefully about retracting one's allegiance, even if there is good reason, as it is not good to get a name as one who changes lieges easily. In this case, the cost to my reputation would be very high."),
   ("finally_there_is_a_cost_to_ones_reputation_to_change_sides_in_this_case_the_cost_would_be_significant", "Finally, one should always think carefully about retracting one's allegiance, even if there is good reason, as it is not good to get a name as one who changes lieges easily. In this case, the cost to my reputation would be significant."),
   ("finally_there_is_a_cost_to_ones_reputation_to_change_sides_in_this_case_however_many_men_would_understand", "Finally, one should always think carefully about retracting one's allegiance, even if there is good reason, as it is not good to get a name as one who changes lieges easily. In this case, however, many men would understand."),
-  ("chance_of_success_=_reg1", "{!}DEBUG : Chance of success = {reg1}%"),
-  ("random_=_reg3", "{!}DEBUG : Random = {reg3}"),
+  ## UID: 85 - Begin
+  #
+  ("chance_of_success_reg1", "{!}DEBUG : Chance of success = {reg1}%"),
+  ("random_reg3", "{!}DEBUG : Random = {reg3}"),
+  #
+  ## UID: 85 - End
   ("i_will_not_have_it_be_said_about_me_that_i_am_a_traitor_that_is_my_final_decision_i_have_nothing_more_to_say_on_this_matter", "I will not have it be said about me that I am a traitor. That is my final decision. I have nothing more to say on this matter."),
   ("i_am_pledged_to_defend_s14_i_am_sorry_though_we_may_meet_on_the_battlefield_i_hope_that_we_will_still_be_friends", "I am pledged to defend {s14}. I am sorry. Though we may meet on the battlefield, I hope that we will still be friends."),
   ("i_really_cannot_bring_myself_to_renounce_s14_i_am_sorry_please_lets_not_talk_about_this_any_more", "I really cannot bring myself to renounce {s14}. I am sorry. Please, let's not talk about this any more."),
@@ -3681,7 +3725,11 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("they_say_that_s9_and_s11_have_wed", "They say that {s9} and {s11} have wed."),
   ("they_say_that_s9_was_recently_visited_by_s11_who_knows_where_that_might_lead", "They say that {s9} was recently visited by {s11}. Who knows where that might lead!"),
   ("there_is_not_much_to_tell_but_it_is_still_early_in_the_season", "There is not much to tell, but it is still early in the season"),
-  ("ERROR_lady_selected_=_s9", "{!}ERROR: lady selected = {s9}"),
+  ## UID: 85 - Begin
+  #
+  ("ERROR_lady_selected_s9", "{!}ERROR: lady selected = {s9}"),
+  #
+  ## UID: 85 - End
   ("s12there_is_a_feast_of_the_s3_in_progress_at_s4_but_it_has_been_going_on_for_a_couple_of_days_and_is_about_to_end_", "{s12}There is a feast of the {s3} in progress at {s4}, but it has been going on for a couple of days and is about to end. "),
   ("s12there_is_a_feast_of_the_s3_in_progress_at_s4_which_should_last_for_at_least_another_day_", "{s12}There is a feast of the {s3} in progress at {s4}, which should last for at least another day. "),
   ("s12there_is_a_feast_of_the_s3_in_progress_at_s4_which_has_only_just_begun_", "{s12}There is a feast of the {s3} in progress at {s4}, which has only just begun. "),

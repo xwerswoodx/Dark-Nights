@@ -1,4 +1,12 @@
-from header_quests import *
+## UID: 85 - Begin
+#
+#from header_quests import *
+from header_common import *
+
+qf_show_progression      = 0x00000001
+qf_random_quest          = 0x00000002
+#
+## UID: 85 - End
 
 ####################################################################################################################
 #  Each quest record contains the following fields:

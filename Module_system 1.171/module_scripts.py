@@ -4,13 +4,23 @@ from header_operations import *
 from module_constants import *
 from module_constants import *
 from header_parties import *
-from header_skills import *
+## UID: 85 - Begin
+#
+#from header_skills import *
+#from header_map_icons import *
+from ID_skills import *
+#
+## UID: 85 - End
 from header_mission_templates import *
 from header_items import *
 from header_triggers import *
-from header_terrain_types import *
+## UID: 85 - Begin
+#
+#from header_terrain_types import *
+from ID_terrain_types import *
+#
+## UID: 85 - End
 from header_music import *
-from header_map_icons import *
 from header_presentations import *
 from ID_animations import *
 ## UID: 63 - Begin
@@ -18,12 +28,6 @@ from ID_animations import *
 from ID_strings import *
 #
 ## UID: 63 - End
-## UID: 46 - Begin
-#
-from header_presentations import *
-#
-## UID: 46 - End
-
 
 ####################################################################################################################
 # scripts is a list of script records.
@@ -31665,26 +31669,45 @@ scripts = [
   # script_consume_food
   # Input: arg1: order of the food to be consumed
   # Output: none
-  ("consume_food",
-   [(store_script_param, ":selected_food", 1),
-    (troop_get_inventory_capacity, ":capacity", "trp_player"),
-    (try_for_range, ":cur_slot", 0, ":capacity"),
-      (troop_get_inventory_slot, ":cur_item", "trp_player", ":cur_slot"),
-      (is_between, ":cur_item", food_begin, food_end),
-      (troop_get_inventory_slot_modifier, ":item_modifier", "trp_player", ":cur_slot"),
-      (neq, ":item_modifier", imod_rotten),
-      (item_slot_eq, ":cur_item", slot_item_is_checked, 0),
-      (item_set_slot, ":cur_item", slot_item_is_checked, 1),
-      (val_sub, ":selected_food", 1),
-      (lt, ":selected_food", 0),
-      (assign, ":capacity", 0),
-      (troop_inventory_slot_get_item_amount, ":cur_amount", "trp_player", ":cur_slot"),
-      (val_sub, ":cur_amount", 1),
-      (troop_inventory_slot_set_item_amount, "trp_player", ":cur_slot", ":cur_amount"),
-    (try_end),
+  ("consume_food", [
+      (store_script_param, ":selected_food", 1),
+      (troop_get_inventory_capacity, ":capacity", "trp_player"),
+      (try_for_range, ":cur_slot", 0, ":capacity"),
+        (troop_get_inventory_slot, ":cur_item", "trp_player", ":cur_slot"),
+        (is_between, ":cur_item", food_begin, food_end),
+        (troop_get_inventory_slot_modifier, ":item_modifier", "trp_player", ":cur_slot"),
+        (neq, ":item_modifier", imod_rotten),
+        (item_slot_eq, ":cur_item", slot_item_is_checked, 0),
+        (item_set_slot, ":cur_item", slot_item_is_checked, 1),
+        (val_sub, ":selected_food", 1),
+        (lt, ":selected_food", 0),
+        (assign, ":capacity", 0),
+        (troop_inventory_slot_get_item_amount, ":cur_amount", "trp_player", ":cur_slot"),
+        (val_sub, ":cur_amount", 1),
+        (troop_inventory_slot_set_item_amount, "trp_player", ":cur_slot", ":cur_amount"),
+      (try_end),
     ]),
 
-	
+  ## UID: 86 - Begin
+  #
+  ("consume_drink", [
+      (store_script_param, ":selected_drink", 1),
+      (troop_get_inventory_capacity, ":capacity", "trp_player"),
+      (try_for_range, ":cur_slot", 0, ":capacity"),
+        (troop_get_inventory_slot, ":cur_item", "trp_player", ":cur_slot"),
+        (is_between, ":cur_item", drink_begin, drink_end),
+        (item_slot_eq, ":cur_item", slot_item_is_checked, 0),
+        (item_set_slot, ":cur_item", slot_item_is_checked, 1),
+        (val_sub, ":selected_drink", 1),
+        (lt, ":selected_drink", 0),
+        (assign, ":capacity", 0),
+        (troop_inventory_slot_get_item_amount, ":cur_amount", "trp_player", ":cur_slot"),
+        (val_sub, ":cur_amount", 1),
+        (troop_inventory_slot_set_item_amount, "trp_player", ":cur_slot", ":cur_amount"),
+      (try_end),
+    ]),
+  #
+  ## UID: 86 - End
 	
   # script_calculate_troop_score_for_center
   # Input: arg1 = troop_no, arg2 = center_no
@@ -31818,7 +31841,12 @@ scripts = [
  	  (try_for_range, ":faction", kingdoms_begin, kingdoms_end),
 		(faction_get_slot, reg4, ":faction", slot_faction_temp_slot),
 		(str_store_faction_name, s4, ":faction"),
-		(display_message, "str_s4_unassigned_centers_plus_landless_lords_=_reg4"),
+                ## UID: 85 - Begin
+                #
+                #(display_message, "str_s4_unassigned_centers_plus_landless_lords_=_reg4"),
+		(display_message, "str_s4_unassigned_centers_plus_landless_lords_reg4"),
+                #
+                ## UID: 85 - End
 	  (try_end),
     (try_end),
    
@@ -42650,7 +42678,12 @@ scripts = [
 			(store_random_in_range, reg3, 0, 3),
 			(try_begin),
 				(eq, "$cheat_mode", 1),
-				(display_message, "str_result_stalemate_patience_roll_=_reg3"),
+                                ## UID: 85 - Begin
+                                #
+				#(display_message, "str_result_stalemate_patience_roll_=_reg3"),
+				(display_message, "str_result_stalemate_patience_roll_reg3"),
+                                #
+                                ## UID: 85 - End
 			(try_end),
 
 			(eq, reg3, 0),
@@ -45422,7 +45455,12 @@ scripts = [
 		(try_begin),
 			(eq, "$cheat_mode", 1),
 			(assign, reg4, ":modified_honor_and_relation"),
-			(display_message, "str_envoymodified_diplomacy_score_honor_plus_relation_plus_envoy_persuasion_=_reg4"),
+                        ## UID: 85 - Begin
+                        #
+			#(display_message, "str_envoymodified_diplomacy_score_honor_plus_relation_plus_envoy_persuasion_=_reg4"),
+			(display_message, "str_envoymodified_diplomacy_score_honor_plus_relation_plus_envoy_persuasion_reg4"),
+                        #
+                        ## UID: 85 - End
 		(try_end),
 
 	(try_end),
@@ -52186,6 +52224,7 @@ scripts = [
         #set to faction
         (store_faction_of_party, ":faction", ":center"),
         (call_script, "script_give_center_to_faction_aux", ":party", ":faction"),
+      (try_end),
     ]),
   
   #script_get_improvement_detail_new, center, improvement_id

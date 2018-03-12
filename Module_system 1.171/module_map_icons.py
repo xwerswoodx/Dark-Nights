@@ -1,8 +1,19 @@
-from header_map_icons import *
+## UID: 85 - Begin
+#
+#from header_map_icons import *
+from header_common import *
+#
+## UID: 85 - End
 from module_constants import *
 from header_operations import *
 from header_triggers import *
 from ID_sounds import *
+
+## UID: 85 - Begin
+#
+mcn_no_shadow      = 0x00000001
+#
+## UID: 85 - End
 
 ####################################################################################################################
 #  Each map icon record contains the following fields:

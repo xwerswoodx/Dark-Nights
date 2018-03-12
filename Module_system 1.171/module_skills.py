@@ -1,42 +1,20 @@
 from header_common import *
-from header_skills import *
 
 ####################################################################################################################
 #  Each skill contains the following fields:
 #  1) Skill id (string): used for referencing skills in other files. The prefix skl_ is automatically added before each skill-id .
 #  2) Skill name (string).
-#  3) Skill flags (int). See header_skills.py for a list of available flags
+#  3) Skill flags (int). See ID_skills.py for a list of available flags
 #  4) Maximum level of the skill (int).
 #  5) Skill description (string): used in character window for explaining the skills.
-# 
 ####################################################################################################################
 
-#Hardcoded skills are {names (indexes, beginning with 0)}:
-# Trade (1)
-# Leadership (2)
-# Prisoner Management (3)
-# First Aid (9)
-# Surgery (10)
-# Wound Treatment (11)
-# Inventory Management (12)
-# Spotting (13)
-# Pathfinding (14)
-# Tactics (15)
-# Tracking (16)
-# Trainer (17)
-# Engineer (18)
-# Horse Archery (24)
-# Riding (25)
-# Athletics (26)
-# Shield (27)
-# Weapon Master (28)
-# Power Draw (34)
-# Power Throw (35)
-# Power Strike (36)
-# Ironflesh (37)
-#
-# The effects of these skills can only be removed if the skill is disabled with sf_inactive flag.
-# If you want to add a new skill, use the reserved skills or use non-hardcoded skills.
+sf_base_att_str         = 0x000
+sf_base_att_agi         = 0x001
+sf_base_att_int         = 0x002
+sf_base_att_cha         = 0x003
+sf_effects_party        = 0x010
+sf_inactive             = 0x100
 
 skills = [
   ("trade","Trade",sf_base_att_cha|sf_effects_party,10,"Every level of this skill reduces your trade penalty by 5%%. (Party skill)"),
@@ -59,7 +37,7 @@ skills = [
   ("trainer","Trainer",sf_base_att_int,10,"Every day, each hero with this skill adds some experience to every other member of the party whose level is lower than his/hers. Experience gained goes as: {0,4,10,16,23,30,38,46,55,65,80}. (Personal skill)"),
   ## UID: 34 - Begin
   #
-##  ("reserved_5","Reserved Skill 5",sf_base_att_int|sf_inactive,10,"This is a reserved skill."),
+  #("reserved_5","Reserved Skill 5",sf_base_att_int|sf_inactive,10,"This is a reserved skill."),
   ("literacy", "Literacy", sf_base_att_int, 10, "Book writing and reading speed increased 5%% per level of this skill."),
   #
   ## UID: 34 - End
