@@ -411,6 +411,11 @@ simple_triggers = [
       (le, "$auto_menu", 0),
       (gt, "$players_kingdom", 0),
       (neq, "$players_kingdom", "fac_player_supporters_faction"),
+      ## UID: 67 - Begin
+      #
+      (neg|faction_slot_eq, "$players_kingdom", slot_faction_leader, "trp_player"),
+      #
+      ## UID: 67 - End
       (eq, "$player_has_homage", 0),
 	  
 	  (troop_get_slot, ":player_spouse", "trp_player", slot_troop_spouse),
@@ -2821,73 +2826,102 @@ simple_triggers = [
 
   ## UID: 43 - Begin
   #
-    (24 * 7, [
-        (store_current_hours, ":hour"),
-        (val_add, ":hour", 168),
-        (assign, "$g_next_pay_time", ":hour"),
-        (eq, "$freelancer_state", 1),
-        (troop_get_slot, ":service_xp_start", "trp_player", slot_troop_freelancer_start_xp),
-        (troop_get_xp, ":player_xp_cur", "trp_player"),
-        (store_sub, ":service_xp_cur", ":player_xp_cur", ":service_xp_start"),
+  ## UID: 92 - Begin
+  #
+  #(24 * 7, [
+  (24, [
+  #
+  ## UID: 92 - End
+      (store_current_hours, ":hour"),
+      (val_add, ":hour", 168),
+      (assign, "$g_next_pay_time", ":hour"),
+      (eq, "$freelancer_state", 1),
+      (troop_get_slot, ":service_xp_start", "trp_player", slot_troop_freelancer_start_xp),
+      (troop_get_xp, ":player_xp_cur", "trp_player"),
+      (store_sub, ":service_xp_cur", ":player_xp_cur", ":service_xp_start"),
 
-        #ranks for pay levels and to upgrade player equipment based on upgrade troop level times 1000
-        # (try_begin),
-           # (troop_get_upgrade_troop, ":upgrade_troop", "$player_cur_troop", 0),
-           # (gt, ":upgrade_troop", 1), #make sure troop is valid and not player troop
-           # (store_character_level, ":level", ":upgrade_troop"),
-           # (store_pow, ":required_xp", ":level", 2), #square the level and
-           # (val_mul, ":required_xp", 100),           #multiply by 100 to get xp
-           # (ge, ":service_xp_cur", ":level"),
-           # (jump_to_menu, "mnu_upgrade_path"),
-        # (try_end),
-		(try_begin),
-           (troop_get_upgrade_troop, ":upgrade_troop", "$player_cur_troop", 0),
-           (gt, ":upgrade_troop", 1), #make sure troop is valid and not player troop
-           
-		   (call_script, "script_game_get_upgrade_xp", "$player_cur_troop"),
-		   (assign, ":required_xp", reg0),		   
-		   ##THIS  BLOCK IS ALMOST DEFINITELY BE BETTER than the above two lines which could be commented out in exchange for them.
-		   # (store_character_level, ":cur_level", "$player_cur_troop"),
-           # (val_sub, ":cur_level", 1),
-           # (get_level_boundary, ":cur_level", ":cur_level"),
-		   # (store_character_level, ":required_xp", ":upgrade_troop"),
-		   # (val_sub, ":required_xp", 1),
-		   # (get_level_boundary, ":required_xp", ":required_xp"),
-		   # (val_sub, ":required_xp", ":cur_level"),		   
-		   ##
-		   		   
-           (ge, ":service_xp_cur", ":required_xp"),
-		   (try_begin),
-		   		(call_script, "script_cf_freelancer_player_can_upgrade", ":upgrade_troop"),
-				(troop_set_slot, "trp_player", slot_troop_freelancer_start_xp, ":player_xp_cur"),
-				(jump_to_menu, "mnu_upgrade_path"),
-		   (else_try),
-				(assign, ":reason", reg0), #from cf_freelancer_player_can_upgrade
-				(try_begin),
-					(eq, ":reason", 0), #not enough strength, for melee weapons
-					(display_message, "@You are not strong enough to lift a weapon fit for your promotion!"),
-				(else_try),
-					(eq, ":reason", 1), #not enough strength, for armor
-					(display_message, "@You are not strong enough to hold all that weight required with promotion!."),
-				(else_try),
-					(eq, ":reason", 2), #not enough power draw/throw/strength for bow/crossbow/throwing
-					(display_message, "@Your arms are to weak to advance in the artillary at this moment."),
-				(else_try),
-					(eq, ":reason", 3), #not enough riding skill for horse
-					(display_message, "@You require more horse riding skills to fit your next poisition!"),
-				(try_end),				
-		   (try_end),			
+      #ranks for pay levels and to upgrade player equipment based on upgrade troop level times 1000
+      # (try_begin),
+      #   (troop_get_upgrade_troop, ":upgrade_troop", "$player_cur_troop", 0),
+      #   (gt, ":upgrade_troop", 1), #make sure troop is valid and not player troop
+      #   (store_character_level, ":level", ":upgrade_troop"),
+      #   (store_pow, ":required_xp", ":level", 2), #square the level and
+      #   (val_mul, ":required_xp", 100),           #multiply by 100 to get xp
+      #   (ge, ":service_xp_cur", ":level"),
+      #   (jump_to_menu, "mnu_upgrade_path"),
+      # (try_end),
+
+      (try_begin),
+        (troop_get_upgrade_troop, ":upgrade_troop", "$player_cur_troop", 0),
+        (gt, ":upgrade_troop", 1), #make sure troop is valid and not player troop
+        (call_script, "script_game_get_upgrade_xp", "$player_cur_troop"),
+        (assign, ":required_xp", reg0),
+        ##THIS  BLOCK IS ALMOST DEFINITELY BE BETTER than the above two lines which could be commented out in exchange for them.
+        # (store_character_level, ":cur_level", "$player_cur_troop"),
+        # (val_sub, ":cur_level", 1),
+        # (get_level_boundary, ":cur_level", ":cur_level"),
+        # (store_character_level, ":required_xp", ":upgrade_troop"),
+        # (val_sub, ":required_xp", 1),
+        # (get_level_boundary, ":required_xp", ":required_xp"),
+        # (val_sub, ":required_xp", ":cur_level"),
+        ##
+
+        (ge, ":service_xp_cur", ":required_xp"),
+        (try_begin),
+          (call_script, "script_cf_freelancer_player_can_upgrade", ":upgrade_troop"),
+          (troop_set_slot, "trp_player", slot_troop_freelancer_start_xp, ":player_xp_cur"),
+          (jump_to_menu, "mnu_upgrade_path"),
+        (else_try),
+          (assign, ":reason", reg0), #from cf_freelancer_player_can_upgrade
+          (try_begin),
+            (eq, ":reason", 0), #not enough strength, for melee weapons
+            (display_message, "@You are not strong enough to lift a weapon fit for your promotion!"),
+          (else_try),
+            (eq, ":reason", 1), #not enough strength, for armor
+            (display_message, "@You are not strong enough to hold all that weight required with promotion!."),
+          (else_try),
+            (eq, ":reason", 2), #not enough power draw/throw/strength for bow/crossbow/throwing
+            (display_message, "@Your arms are to weak to advance in the artillary at this moment."),
+          (else_try),
+            (eq, ":reason", 3), #not enough riding skill for horse
+            (display_message, "@You require more horse riding skills to fit your next poisition!"),
+          ## UID: 92 - Begin
+          #
+          (else_try),
+            (eq, ":reason", 4),
+            (display_message, "@You have leveled up!"),
+          #
+          ## UID: 92 - End
+          (try_end),
         (try_end),
-		
-		
-		
-        (store_character_level, ":level", "$player_cur_troop"),
-        #pays player 10 times the troop level
-        (store_mul, ":weekly_pay", 10, ":level"),
-        (troop_add_gold, "trp_player", ":weekly_pay"),
-        (add_xp_to_troop, 70, "trp_player"),
-        (play_sound, "snd_money_received", 0),
+      (try_end),
+
+      ## UID: 92 - Begin
+      #
+      #(store_character_level, ":level", "$player_cur_troop"),
+      #(val_add, ":level", "$player_cur_troop_prom"),
+      ##pays player 10 times the troop level
+      #(store_mul, ":weekly_pay", 10, ":level"),
+      #(troop_add_gold, "trp_player", ":weekly_pay"),
+      #(add_xp_to_troop, ":weekly_pay", "trp_player"),
+      #(play_sound, "snd_money_received", 0),
+      #
+      ## UID: 92 - End
     ]),
+
+  ## UID: 92 - Begin
+  #
+  (24 * 7, [
+      (store_character_level, ":level", "$player_cur_troop"),
+      (val_add, ":level", "$player_cur_troop_prom"),
+      #pays player 10 times the troop level
+      (store_mul, ":weekly_pay", 10, ":level"),
+      (troop_add_gold, "trp_player", ":weekly_pay"),
+      (add_xp_to_troop, ":weekly_pay", "trp_player"),
+      (play_sound, "snd_money_received", 0),
+    ]),
+  #
+  ## UID: 92 - End
 
 #  HOURLY CHECKS
 
@@ -2908,6 +2942,19 @@ simple_triggers = [
         (try_begin),
            (lt, ":num_food", 2),
            (troop_add_item, "trp_player", "itm_bread"),
+        (try_end),
+
+        (assign, ":num_drink", 0),
+        (troop_get_inventory_capacity, ":max_inv_slot", "trp_player"),
+        (try_for_range, ":cur_inv_slot", ek_item_0, ":max_inv_slot"),
+           (troop_get_inventory_slot, ":cur_item", "trp_player", ":cur_inv_slot"),
+           (ge, ":cur_item", 0),
+           (is_between, ":cur_item", drink_begin, drink_end),
+           (val_add, ":num_drink", 1),
+        (try_end),
+        (try_begin),
+           (lt, ":num_drink", 2),
+           (troop_add_item, "trp_player", "itm_tea"),
         (try_end),
     ]),
   #
@@ -3207,76 +3254,103 @@ simple_triggers = [
     (try_end),
     ]),
 
-  (3, #check to see if player's court has been captured
-   [
-     (try_begin), #The old court has been lost
-       (is_between, "$g_player_court", centers_begin, centers_end),
-       (store_faction_of_party, ":court_faction", "$g_player_court"),
-       (neq, ":court_faction", "fac_player_supporters_faction"),
-       (call_script, "script_add_notification_menu", "mnu_notification_court_lost", 0, 0),
-     (else_try),	#At least one new court has been found
-       (lt, "$g_player_court", centers_begin),
-       #Will by definition not active until a center is taken by the player faction
-       #Player minister must have been appointed at some point
-       (this_or_next|faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
-		(gt, "$g_player_minister", 0),
-		
-       (assign, ":center_found", 0),
-       (try_for_range, ":walled_center", walled_centers_begin, walled_centers_end),
-         (eq, ":center_found", 0),
-         (store_faction_of_party, ":court_faction", ":walled_center"),
-         (eq, ":court_faction", "fac_player_supporters_faction"),
-         (assign, ":center_found", ":walled_center"),
-       (try_end),
-       (ge, ":center_found", 1),
-       (call_script, "script_add_notification_menu", "mnu_notification_court_lost", 0, 0),
-     (try_end),
-     #Also, piggy-backing on this -- having bandits go to lairs and back
-     (try_for_parties, ":bandit_party"),
-       (gt, ":bandit_party", "p_spawn_points_end"),
-       (party_get_template_id, ":bandit_party_template", ":bandit_party"),
-       (is_between, ":bandit_party_template", "pt_steppe_bandits", "pt_deserters"),
-       (party_template_get_slot, ":bandit_lair", ":bandit_party_template", slot_party_template_lair_party),
-       (try_begin),#If party is active and bandit is far away, then move to location
-         (gt, ":bandit_lair", "p_spawn_points_end"),
-         (store_distance_to_party_from_party, ":distance", ":bandit_party", ":bandit_lair"), #this is the cause of the error
-         (gt, ":distance", 30),
-         #All this needs checking
-         (party_set_ai_behavior, ":bandit_party", ai_bhvr_travel_to_point),
-         (party_get_position, pos5, ":bandit_lair"),
-         (party_set_ai_target_position, ":bandit_party", pos5),
-       (else_try), #Otherwise, act freely
-         (get_party_ai_behavior, ":behavior", ":bandit_party"),
-         (eq, ":behavior", ai_bhvr_travel_to_point),
-         (try_begin),
-           (gt, ":bandit_lair", "p_spawn_points_end"),
-           (store_distance_to_party_from_party, ":distance", ":bandit_party", ":bandit_lair"),
-           (lt, ":distance", 3),
-           (party_set_ai_behavior, ":bandit_party", ai_bhvr_patrol_party),
-           (party_template_get_slot, ":spawnpoint", ":bandit_party_template", slot_party_template_lair_spawnpoint),
-           (party_set_ai_object, ":bandit_party", ":spawnpoint"),
-           (party_set_ai_patrol_radius, ":bandit_party", 45),
-         (else_try),
-           (lt, ":bandit_lair", "p_spawn_points_end"),
-           (party_set_ai_behavior, ":bandit_party", ai_bhvr_patrol_party),
-           (party_template_get_slot, ":spawnpoint", ":bandit_party_template", slot_party_template_lair_spawnpoint),
-           (party_set_ai_object, ":bandit_party", ":spawnpoint"),
-           (party_set_ai_patrol_radius, ":bandit_party", 45),
-         (try_end),
-       (try_end),
-     (try_end),
-     #Piggybacking on trigger:
-     (try_begin),
-       (troop_get_slot, ":betrothed", "trp_player", slot_troop_betrothed),
-       (gt, ":betrothed", 0),
-       (neg|check_quest_active, "qst_wed_betrothed"),
-       (neg|check_quest_active, "qst_wed_betrothed_female"),
-       (str_store_troop_name, s5, ":betrothed"),
-       (display_message, "@Betrothal to {s5} expires"),
-       (troop_set_slot, "trp_player", slot_troop_betrothed, -1),
-       (troop_set_slot, ":betrothed", slot_troop_betrothed, -1),
-     (try_end),
-     ]),
+  (3, [
+      (try_begin), #The old court has been lost
+        (is_between, "$g_player_court", centers_begin, centers_end),
+        (store_faction_of_party, ":court_faction", "$g_player_court"),
+
+        ## UID: 67 - Begin
+        #
+        (assign, ":pfaction", "fac_player_supporters_faction"),
+        (try_begin),
+          (is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
+          (faction_slot_eq, "$players_kingdom", slot_faction_leader, "trp_player"),
+          (assign, ":pfaction", "$players_kingdom"),
+        (try_end),
+        (neq, ":court_faction", ":pfaction"),
+        #(neq, ":court_faction", "fac_player_supporters_faction"),
+        #
+        ## UID: 67 - End
+        (call_script, "script_add_notification_menu", "mnu_notification_court_lost", 0, 0),
+      (else_try),	#At least one new court has been found
+        (lt, "$g_player_court", centers_begin),
+        #Will by definition not active until a center is taken by the player faction
+        #Player minister must have been appointed at some point
+        ## UID: 67 - Begin
+        #
+        (assign, ":pfaction", "fac_player_supporters_faction"),
+        (try_begin),
+          (is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
+          (faction_slot_eq, "$players_kingdom", slot_faction_leader, "trp_player"),
+          (assign, ":pfaction", "$players_kingdom"),
+        (try_end),
+        #(this_or_next|faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
+        (this_or_next|faction_slot_eq, ":pfaction", slot_faction_leader, "trp_player"),
+        #
+        ## UID: 67 - End
+        (             gt, "$g_player_minister", 0),
+        (assign, ":center_found", 0),
+        (try_for_range, ":walled_center", walled_centers_begin, walled_centers_end),
+          (eq, ":center_found", 0),
+          (store_faction_of_party, ":court_faction", ":walled_center"),
+          ## UID: 67 - Begin
+          #
+          (eq, ":court_faction", ":pfaction"),
+          #(eq, ":court_faction", "fac_player_supporters_faction"),
+          #
+          ## UID: 67 - End
+          (assign, ":center_found", ":walled_center"),
+        (try_end),
+        (ge, ":center_found", 1),
+        (call_script, "script_add_notification_menu", "mnu_notification_court_lost", 0, 0),
+      (try_end),
+
+      #Also, piggy-backing on this -- having bandits go to lairs and back
+      (try_for_parties, ":bandit_party"),
+        (gt, ":bandit_party", "p_spawn_points_end"),
+        (party_get_template_id, ":bandit_party_template", ":bandit_party"),
+        (is_between, ":bandit_party_template", "pt_steppe_bandits", "pt_deserters"),
+        (party_template_get_slot, ":bandit_lair", ":bandit_party_template", slot_party_template_lair_party),
+        (try_begin),#If party is active and bandit is far away, then move to location
+          (gt, ":bandit_lair", "p_spawn_points_end"),
+          (store_distance_to_party_from_party, ":distance", ":bandit_party", ":bandit_lair"), #this is the cause of the error
+          (gt, ":distance", 30),
+          #All this needs checking
+          (party_set_ai_behavior, ":bandit_party", ai_bhvr_travel_to_point),
+          (party_get_position, pos5, ":bandit_lair"),
+          (party_set_ai_target_position, ":bandit_party", pos5),
+        (else_try), #Otherwise, act freely
+          (get_party_ai_behavior, ":behavior", ":bandit_party"),
+          (eq, ":behavior", ai_bhvr_travel_to_point),
+          (try_begin),
+            (gt, ":bandit_lair", "p_spawn_points_end"),
+            (store_distance_to_party_from_party, ":distance", ":bandit_party", ":bandit_lair"),
+            (lt, ":distance", 3),
+            (party_set_ai_behavior, ":bandit_party", ai_bhvr_patrol_party),
+            (party_template_get_slot, ":spawnpoint", ":bandit_party_template", slot_party_template_lair_spawnpoint),
+            (party_set_ai_object, ":bandit_party", ":spawnpoint"),
+            (party_set_ai_patrol_radius, ":bandit_party", 45),
+          (else_try),
+            (lt, ":bandit_lair", "p_spawn_points_end"),
+            (party_set_ai_behavior, ":bandit_party", ai_bhvr_patrol_party),
+            (party_template_get_slot, ":spawnpoint", ":bandit_party_template", slot_party_template_lair_spawnpoint),
+            (party_set_ai_object, ":bandit_party", ":spawnpoint"),
+            (party_set_ai_patrol_radius, ":bandit_party", 45),
+          (try_end),
+        (try_end),
+      (try_end),
+      #Piggybacking on trigger:
+      (try_begin),
+        (troop_get_slot, ":betrothed", "trp_player", slot_troop_betrothed),
+        (gt, ":betrothed", 0),
+        (neg|check_quest_active, "qst_wed_betrothed"),
+        (neg|check_quest_active, "qst_wed_betrothed_female"),
+        (str_store_troop_name, s5, ":betrothed"),
+        (display_message, "@Betrothal to {s5} expires"),
+        (troop_set_slot, "trp_player", slot_troop_betrothed, -1),
+        (troop_set_slot, ":betrothed", slot_troop_betrothed, -1),
+      (try_end),
+    ]),
 		
   # Reduce renown slightly by 0.5% every week
   (7 * 24,
@@ -3947,6 +4021,8 @@ simple_triggers = [
           (try_end),
           (party_slot_eq, ":camp_no", slot_village_state, svs_normal),
           (store_random_in_range, ":range", 0, ":max"),
+          (party_get_num_companions, ":cur", ":camp_no"),
+          (lt, ":cur", 45),
           (party_add_members, ":camp_no", "trp_bandit", ":range"),
       (try_end),
     ]),

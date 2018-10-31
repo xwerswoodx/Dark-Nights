@@ -14393,7 +14393,8 @@ presentations = [
 
 		#Rank_name
 		(str_store_troop_name, s21, "$player_cur_troop"),
-		(create_text_overlay, reg0, "@Current Rank: {s21}", tf_left_align),
+                (assign, reg30, "$player_cur_troop_level"),
+		(create_text_overlay, reg0, "@Current Rank: {s21} [{reg30}]", tf_left_align),
 		(position_set_y, pos1, ":cur_y"),
 		(overlay_set_position, reg0, pos1),
 		(val_sub, ":cur_y", ":cur_y_adder"),
@@ -14428,7 +14429,12 @@ presentations = [
 
 		#current_wage
 		(store_character_level, ":level", "$player_cur_troop"),
-		#pays player 10 times the troop level
+                ## UID: 92 - Begin
+                #
+                (val_add, ":level", "$player_cur_troop_prom"),
+                #
+                ## UID: 92 - End
+                #pays player 10 times the troop level
 		(store_mul, ":weekly_pay", 10, ":level"),
 		(assign, reg23, ":weekly_pay"),
 		(create_text_overlay, reg0, "@Current Wage: {reg23} denars.", tf_left_align),

@@ -426,6 +426,19 @@ items = [
  ["sanjarinati","Sanjar Horse", [("sanjarinati",0)], itp_type_horse, 0, 2000, abundance(30)|body_armor(25)|hit_points(125)|difficulty(6)|horse_speed(55)|horse_maneuver(50)|horse_charge(25)|horse_scale(106), imodbits_horse_basic],
  #
  ## UID: 5 - End
+ ## UID: 99 - Begin
+ #
+ ["fi_horse_1", "Armored Hunter", [("horse1", 0)], itp_merchandise|itp_type_horse, 0, 1080, abundance(40)|hit_points(160)|body_armor(30)|difficulty(4)|horse_speed(41)|horse_maneuver(40)|horse_charge(28)|horse_scale(110), imodbits_horse_basic],
+ ["fi_horse_2", "Chained Hunter", [("horse2", 0)], itp_merchandise|itp_type_horse, 0, 1280, abundance(45)|hit_points(160)|body_armor(35)|difficulty(4)|horse_speed(42)|horse_maneuver(41)|horse_charge(30)|horse_scale(110), imodbits_horse_basic],
+ ["fi_horse_3", "Armored Saddle Horse", [("horse3", 0)], itp_merchandise|itp_type_horse, 0, 480, abundance(65)|hit_points(100)|body_armor(20)|difficulty(2)|horse_speed(43)|horse_maneuver(42)|horse_charge(10)|horse_scale(104), imodbits_horse_basic],
+ ["fi_horse_4", "Armored Sumpter Horse", [("horse4",0)], itp_merchandise|itp_type_horse, 0, 234, abundance(65)|hit_points(100)|body_armor(25)|difficulty(2)|horse_speed(35)|horse_maneuver(37)|horse_charge(9)|horse_scale(100), imodbits_horse_basic],
+ ["fi_horse_5", "Light Knight Horse", [("horse5_1", 0)], itp_merchandise|itp_type_horse, 0, 1615, abundance(40)|hit_points(162)|body_armor(47)|difficulty(4)|horse_speed(40)|horse_maneuver(52)|horse_charge(30)|horse_scale(110), imodbits_horse_basic],
+ ["fi_horse_6", "Light Knight Horse", [("horse5_1_a", 0)], itp_merchandise|itp_type_horse, 0, 1615, abundance(40)|hit_points(162)|body_armor(51)|difficulty(4)|horse_speed(39)|horse_maneuver(49)|horse_charge(30)|horse_scale(110), imodbits_horse_basic],
+ ["fi_horse_7", "Dark Knight Horse", [("horse5_2", 0)], itp_merchandise|itp_type_horse, 0, 1615, abundance(40)|hit_points(162)|body_armor(47)|difficulty(4)|horse_speed(40)|horse_maneuver(52)|horse_charge(30)|horse_scale(110), imodbits_horse_basic],
+ ["fi_horse_8", "Dark Knight Horse", [("horse5_2_a", 0)], itp_merchandise|itp_type_horse, 0, 1615, abundance(40)|hit_points(162)|body_armor(51)|difficulty(4)|horse_speed(39)|horse_maneuver(49)|horse_charge(30)|horse_scale(110), imodbits_horse_basic],
+ ["fi_horse_9", "Heavy Armored Saddle Horse", [("horse6", 0)], itp_merchandise|itp_type_horse, 0, 983, abundance(45)|hit_points(100)|body_armor(35)|difficulty(3)|horse_speed(30)|horse_maneuver(43)|horse_charge(20)|horse_scale(104), imodbits_horse_basic],
+ #
+ ## UID: 99 - End
 
 #whalebone crossbow, yew bow, war bow, arming sword 
  ["arrows","Arrows", [("arrow",0),("flying_missile",ixmesh_flying_ammo),("quiver", ixmesh_carry)], itp_type_arrows|itp_merchandise|itp_default_ammo, itcf_carry_quiver_back, 
@@ -448,11 +461,21 @@ items = [
 
 # ARMOR
 #handwear
-["leather_gloves","Leather Gloves", [("leather_gloves_L",0)], itp_merchandise|itp_type_hand_armor,0, 90, weight(0.25)|abundance(120)|body_armor(2)|difficulty(0),imodbits_cloth],
-["mail_mittens","Mail Mittens", [("mail_mittens_L",0)], itp_merchandise|itp_type_hand_armor,0, 350, weight(0.5)|abundance(100)|body_armor(4)|difficulty(0),imodbits_armor],
-["scale_gauntlets","Scale Gauntlets", [("scale_gauntlets_b_L",0)], itp_merchandise|itp_type_hand_armor,0, 710, weight(0.75)|abundance(100)|body_armor(5)|difficulty(0),imodbits_armor],
-["lamellar_gauntlets","Lamellar Gauntlets", [("scale_gauntlets_a_L",0)], itp_merchandise|itp_type_hand_armor,0, 910, weight(0.9)|abundance(100)|body_armor(6)|difficulty(0),imodbits_armor],
-["gauntlets","Gauntlets", [("gauntlets_L",0),("gauntlets_L",imodbit_reinforced)], itp_merchandise|itp_type_hand_armor,0, 1040, weight(1.0)|abundance(100)|body_armor(7)|difficulty(0),imodbits_armor],
+ ["leather_gloves","Leather Gloves", [("leather_gloves_L",0)], itp_merchandise|itp_type_hand_armor,0, 90, weight(0.25)|abundance(120)|body_armor(2)|difficulty(0),imodbits_cloth],
+ ["mail_mittens","Mail Mittens", [("mail_mittens_L",0)], itp_merchandise|itp_type_hand_armor,0, 350, weight(0.5)|abundance(100)|body_armor(4)|difficulty(0),imodbits_armor],
+ ["scale_gauntlets","Scale Gauntlets", [("scale_gauntlets_b_L",0)], itp_merchandise|itp_type_hand_armor,0, 710, weight(0.75)|abundance(100)|body_armor(5)|difficulty(0),imodbits_armor],
+ ["lamellar_gauntlets","Lamellar Gauntlets", [("scale_gauntlets_a_L",0)], itp_merchandise|itp_type_hand_armor,0, 910, weight(0.9)|abundance(100)|body_armor(6)|difficulty(0),imodbits_armor],
+ ["gauntlets","Gauntlets", [("gauntlets_L",0),("gauntlets_L",imodbit_reinforced)], itp_merchandise|itp_type_hand_armor,0, 1040, weight(1.0)|abundance(100)|body_armor(7)|difficulty(0),imodbits_armor],
+ ## UID: 99 - Begin
+ #
+ ["fi_glove_1", "Plate Gloves", [("glove1_L", 0)], itp_merchandise|itp_type_hand_armor, 0, 1580, weight(1.0)|abundance(100)|body_armor(9)|difficulty(0), imodbits_armor],
+ ["fi_glove_2", "Plate Gloves", [("glove2_L", 0)], itp_merchandise|itp_type_hand_armor, 0, 1357, weight(1.0)|abundance(100)|body_armor(8)|difficulty(0), imodbits_armor],
+ ["fi_glove_3", "Chain Gloves", [("glove3_L", 0)], itp_merchandise|itp_type_hand_armor, 0, 980, weight(0.75)|abundance(100)|body_armor(6)|difficulty(0), imodbits_armor],
+ ["fi_glove_4", "Leather Gloves", [("glove4_L", 0)], itp_merchandise|itp_type_hand_armor, 0, 180, weight(0.25)|abundance(100)|body_armor(3)|difficulty(0), imodbits_armor], 
+ ["fi_glove_5", "Tier I. Leather Gloves", [("glove5_L", 0)], itp_merchandise|itp_type_hand_armor, 0, 370, weight(0.5)|abundance(100)|body_armor(4)|difficulty(0), imodbits_armor], 
+ ["fi_glove_6", "Tier II. Leather Gloves", [("glove6_L", 0)], itp_merchandise|itp_type_hand_armor, 0, 732, weight(0.75)|abundance(100)|body_armor(5)|difficulty(0), imodbits_armor], 
+ #
+ ## UID: 99 - End
 
 #footwear
 ["wrapping_boots", "Wrapping Boots", [("wrapping_boots_a",0)], itp_merchandise| itp_type_foot_armor |itp_civilian | itp_attach_armature ,0,
@@ -1472,8 +1495,6 @@ items = [
 ["warhorse_sarranid","Sarranian War Horse", [("warhorse_sarranid",0)], itp_merchandise|itp_type_horse, 0, 1811,abundance(40)|hit_points(165)|body_armor(58)|difficulty(4)|horse_speed(40)|horse_maneuver(44)|horse_charge(32)|horse_scale(112),imodbits_horse_basic, [], [fac_kingdom_6]],
 ["warhorse_steppe","Steppe Charger", [("warhorse_steppe",0)], itp_merchandise|itp_type_horse, 0, 1400,abundance(45)|hit_points(150)|body_armor(40)|difficulty(4)|horse_speed(40)|horse_maneuver(50)|horse_charge(28)|horse_scale(112),imodbits_horse_basic, [], [fac_kingdom_3,fac_kingdom_2]],
 
-["items_end", "Items End", [("shield_round_a",0)], 0, 0, 1, 0, 0],
-
 ##INVASION MODE START
 ["javelin_bow",         "Javelin Bow", [("war_bow",0),("war_bow_carry",ixmesh_carry)],itp_type_bow|itp_primary|itp_two_handed ,itcf_shoot_bow|itcf_carry_bow_back, 
 0 , weight(1.5)|difficulty(0)|spd_rtng(84) | shoot_speed(59) | thrust_damage(25 ,pierce), 0, [(ti_on_weapon_attack, [(play_sound,"snd_throw_javelin")])] ],
@@ -1530,12 +1551,21 @@ items = [
  ["boar", "Boar", [("boar",0)], itp_unique|itp_type_horse, 0, 1411,abundance(40)|hit_points(100)|body_armor(0)|difficulty(11)|horse_speed(40)|horse_maneuver(20)|horse_charge(100),imodbits_horse_basic],
  #
  ## UID: 80 - End
+ ## UID: 101 - Begin
+ #
+ ["ssh_gloves", "Samurai Gloves", [("kote_L", 0)], itp_type_hand_armor, 0, 1580, weight(1.0)|abundance(100)|body_armor(4)|difficulty(1), imodbits_armor],
+ ["ssh_helmet", "Samurai Helmet", [("kabuto", 0)], itp_type_head_armor|itp_covers_head, 0, 1580 , weight(2.75)|abundance(100)|head_armor(24)|difficulty(1), imodbits_plate],
+ ["ssh_armor",  "Samurai Armor", [("yoroi", 0)], itp_type_body_armor|itp_covers_legs, 0, 0, weight(8)|abundance(100)|head_armor(0)|body_armor(32)|leg_armor(8)|difficulty(1), imodbits_armor],
+ ["ssh_boots", "Samurai Boots", [("suneate", 0)], itp_type_foot_armor|itp_attach_armature, 0, 1580, weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(12)|difficulty(1), imodbits_cloth],
+ #
+ ## UID: 101 - End
  ## UID: 4 - Begin
  #
  ["persius_sword_01", "Excalibur", [("excalibur", 0), ("scab_arabian_sword_c", ixmesh_carry)], itp_type_two_handed_wpn|itp_primary, itc_longsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn,
   15083, weight(1.13)|difficulty(20)|spd_rtng(120)|weapon_length(100)|swing_damage(69, cut)|thrust_damage(60, pierce), imodbits_sword_high],
  #
  ## UID: 4 - End
+ ["items_end", "Items End", [("shield_round_a",0)], 0, 0, 1, 0, 0],
 
  ## EOF
 ]

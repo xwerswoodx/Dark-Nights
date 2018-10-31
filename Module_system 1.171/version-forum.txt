@@ -126,7 +126,7 @@ omerfaruk:
   * Değişik bir fikirmiş, ama hoşuma gitti, dinlerle beraber böyle bir şey aktif edilebilir.
   
 Dylle:
-&Bence moddaki krallıkalr hayali. Dinlerde hayali olmalı. Çünkü moddaki diyar hayali bir diyar. Ne bileyim. En azından mesela İslam'ın farklı bir mezhebi olabilir. Hristiyanlık yerine Demirhaç gibi bir mezheb koyabilirsin. (SADECE ÖNERİDİR)
+&Bence moddaki krallıklar hayali. Dinlerde hayali olmalı. Çünkü moddaki diyar hayali bir diyar. Ne bileyim. En azından mesela İslam'ın farklı bir mezhebi olabilir. Hristiyanlık yerine Demirhaç gibi bir mezheb koyabilirsin. (SADECE ÖNERİDİR)
   * Hoşuma gitmedi diyemem, düşüneceğim bu öneriyi.
   
 JustSmiled:
@@ -145,7 +145,7 @@ frozenpainter:
   * Oda sistemindeki bugu aslında son sürümde çözmüştüm, ancak bu sürümde odayı aktif etmedim, ilerde eder miyim bilemiyorum ama şu sıralar böyle bir plan yok.
 &Yeni eklediğin bazı itemlerin hızı, zararı g,b, şeyler dengesiz olmuş, ya çok düşük yada çok abartı olmuş.
   * Eşyaların hepsini inceleme fırsatım olmadı ancak orjinal kılıçların değerlerine neredeyse eşit değerde yapıldı çoğu kılıç yine de tekrar incelerim.
--Şu köyde mhündis falan tutuyorum ama bir türlü odun taş falan olmuyordu, ordaki menüyü ve türkçe çeviriyi bir daha gözden geçir bence.
+-Şu köyde mühendis falan tutuyorum ama bir türlü odun taş falan olmuyordu, ordaki menüyü ve türkçe çeviriyi bir daha gözden geçir bence.
   * Odun taş sistemi tamamen iptal edildi, mühendisleride iptal ettim, eski şekline geri döndürdüm ancak sistemde bir kaç değişiklik var :)
 &Şu meydan savaşında savaş yetenekleri var, war cry, falan onları kullanmadım bir türlü.
   * Şuan onlar aktif değil ancak aktif edilince yeni sistem hakkında bilgi vereceğim.
@@ -157,8 +157,9 @@ frozenpainter:
   * Sanki sistemi biliyormuşsun gibi konuştun :))) Aslında sistem tam olarak böyle sayılır :))
 &v0.7de ekleyeceğin devriyelere emir verebilelim, ona göre düzenle.
   * Devriyelere emir verme eklenecek.
-&Başlangıçta boy seçbiliyoruz, ama savaştığımız adamların boyları hep aynı, bu boyları onlarada uygula, yani kısa ve uzun rodok çavuşları olsun.
++Başlangıçta boy seçbiliyoruz, ama savaştığımız adamların boyları hep aynı, bu boyları onlarada uygula, yani kısa ve uzun rodok çavuşları olsun.
   * Boy sistemi şuan aktif değil ancak askerlere uyarlanabilir.
+  * Yapıldı
 &Turnuvları kazandığımızda rastgle bir zırh yada silah gelsin, tabi iyi olanlarından ve bu zırh yada silahlar kuşanıldığında atletizm, güçlü darbe gibi ekstra yetenekler versin.Örneğin Şövalye botu(kuşanıldığında +1 atletizam veriri gibi)
   * Değişik bir fikir, bunu yapabilirim sanırım.
 

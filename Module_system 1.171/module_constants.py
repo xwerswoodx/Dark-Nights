@@ -1091,6 +1091,20 @@ troop_slots_reserved_for_relations_start        = 165 #this is based on id_troop
 
 slot_troop_relations_begin				= 0 #this creates an array for relations between troops
 											#Right now, lords start at 165 and run to around 290, including pretenders
+
+## UID: 100 - Begin
+#
+slot_player_order_item                         = 700
+slot_player_order_price                        = 725
+slot_player_order_modifier                     = 750
+slot_player_order_town                         = 775
+slot_player_order_slot                         = 800
+slot_player_order_found                        = 825
+slot_player_order_reach                        = 850
+slot_player_order_hours                        = 875
+slot_player_order_warned                       = 900
+#
+## UID: 100 - End
 											
 											
 											

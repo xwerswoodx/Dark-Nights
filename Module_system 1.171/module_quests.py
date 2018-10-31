@@ -19,19 +19,11 @@ qf_random_quest          = 0x00000002
 ####################################################################################################################
 
 quests = [
-# Note : This is defined as the first governer quest in module_constants.py: 
- ("deliver_message", "Deliver Message to {s13}", qf_random_quest,
-  "{!}{s9} asked you to take a message to {s13}. {s13} was at {s4} when you were given this quest."
-  ),
- ("deliver_message_to_enemy_lord", "Deliver Message to {s13}", qf_random_quest,
-  "{!}{s9} asked you to take a message to {s13} of {s15}. {s13} was at {s4} when you were given this quest."
-  ),
- ("raise_troops", "Raise {reg1} {s14}", qf_random_quest,
-  "{!}{s9} asked you to raise {reg1} {s14} and bring them to him."
-  ),
- ("escort_lady", "Escort {s13} to {s14}", qf_random_quest,
-  "{!}None"
-  ),
+    # Note : This is defined as the first governer quest in module_constants.py:
+    ("deliver_message", "Deliver Message to {s13}", qf_random_quest, "{!}{s9} asked you to take a message to {s13}. {s13} was at {s4} when you were given this quest."),
+    ("deliver_message_to_enemy_lord", "Deliver Message to {s13}", qf_random_quest, "{!}{s9} asked you to take a message to {s13} of {s15}. {s13} was at {s4} when you were given this quest."),
+    ("raise_troops", "Raise {reg1} {s14}", qf_random_quest, "{!}{s9} asked you to raise {reg1} {s14} and bring them to him."),
+    ("escort_lady", "Escort {s13} to {s14}", qf_random_quest, "{!}None"),
 ## ("rescue_lady_under_siege", "Rescue {s3} from {s4}", qf_random_quest,
 ##  "{s1} asked you to rescue his {s7} {s3} from {s4} and return her back to him."
 ##  ),

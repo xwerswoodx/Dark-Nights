@@ -2919,8 +2919,8 @@ game_menus = [
 ##            (assign, reg0, "$players_kingdom"),
 ##            (display_message, "@Kingdom: {s0} ({reg0})"),
 ##            (call_script, "script_set_prefix", "trp_player"),
-            (item_get_slot, reg0, "itm_bread", slot_item_food_bonus),
-            (display_message, "@Bread: {reg0}"),
+##            (item_get_slot, reg0, "itm_bread", slot_item_food_bonus),
+##          (display_message, "@{reg0} - {reg1} - {reg2} - {reg3} - {reg4}"),
         ]),
 
         ## UID: 39 - Begin
@@ -2967,274 +2967,248 @@ game_menus = [
 
         ("resume_travelling", [], "Resume travelling.", [(change_screen_return)]),
     ]),
-  
-  ("camp_cheat",0,
-   "Select a cheat:",
-   "none",
-   [
-     ],
-    [
-      ## UID: 25 - Begin
-      #
-      ("cheat_view_all_items", [], "View all items.", [
-          (assign, "$temp", 0),
-          (start_presentation, "prsnt_all_items"),
-        ]),
-      #
-      ## UID: 25 - End
-      
-      ("camp_cheat_find_item",[], "Find an item...",
-       [
-         (jump_to_menu, "mnu_cheat_find_item"),
-	   ]
-       ),	   
 
-      ("camp_cheat_find_item",[], "Change weather..",
-       [
-         (jump_to_menu, "mnu_cheat_change_weather"),
-	   ]
-       ),	   
-	   
-      ("camp_cheat_1",[],"{!}Increase player renown.",
-       [
-         (str_store_string, s1, "@Player renown is increased by 100. "),
-         (call_script, "script_change_troop_renown", "trp_player", 100),
-         (jump_to_menu, "mnu_camp_cheat"),
-        ]
-       ),
-	   
-      ("camp_cheat_2",[],"{!}Increase player honor.",      
-       [
-         (assign, reg7, "$player_honor"),
-         (val_add, reg7, 1),
-         (display_message, "@Player honor is increased by 1 and it is now {reg7}."),
-         (val_add, "$player_honor", 1),
-         (jump_to_menu, "mnu_camp_cheat"),
-        ]
-       ),
+  ("camp_cheat", 0, "Select a cheat:", "none", [], [
+    ## UID: 25 - Begin
+    #
+    ("cheat_view_all_items", [], "View all items.", [
+      (assign, "$temp", 0),
+      (start_presentation, "prsnt_all_items"),
+    ]),
+    #
+    ## UID: 25 - End
 
-      ("camp_cheat_3",[],"{!}Update political notes.",
-       [
-         (try_for_range, ":hero", active_npcs_begin, active_npcs_end),
-           (troop_slot_eq, ":hero", slot_troop_occupation, slto_kingdom_hero),
-           (call_script, "script_update_troop_political_notes", ":hero"),
-         (try_end),
-         
-         (try_for_range, ":kingdom", kingdoms_begin, kingdoms_end),
-           (call_script, "script_update_faction_political_notes", ":kingdom"),
-         (try_end),		
-        ]
-       ),	   
-	   
-      ("camp_cheat_4",[],"{!}Update troop notes.",
-       [
-         (try_for_range, ":hero", active_npcs_begin, active_npcs_end),
-           (troop_slot_eq, ":hero", slot_troop_occupation, slto_kingdom_hero),
-           (call_script, "script_update_troop_notes", ":hero"),
-         (try_end),
-         
-         (try_for_range, ":lady", kingdom_ladies_begin, kingdom_ladies_end),
-           (call_script, "script_update_troop_notes", ":lady"),
-           (call_script, "script_update_troop_political_notes", ":lady"),
-           (call_script, "script_update_troop_location_notes", ":lady", 0),
-         (try_end),		
-        ]
-       ),	   
-	   
-      ("camp_cheat_5",[],"{!}Scramble minstrels.",
-       [
-         (call_script, "script_update_tavern_minstrels"),
-        ]
-       ),	   
-	   
-      ("camp_cheat_6",[],"{!}Infinite camp",
-       [
-         (assign,"$g_camp_mode", 1),
-         (assign, "$g_infinite_camping", 1),
-         (assign, "$g_player_icon_state", pis_camping),
-         (rest_for_hours_interactive, 10 * 24 * 365, 20), #10 year rest while not attackable with 20x speed
-         (change_screen_return),
-        ]
-       ),	   
+    ("camp_cheat_find_item", [], "Find an item...", [(jump_to_menu, "mnu_cheat_find_item")]),
+    ## UID: 90 - Begin
+    #
+    #("camp_cheat_find_item", [], "Change weather..", [(jump_to_menu, "mnu_cheat_change_weather")]),
+    ("camp_cheat_cheat_weather", [], "Change weather..", [(jump_to_menu, "mnu_cheat_change_weather")]),
+    
+    ("camp_cheat_increase_renown", [], "Increase player renown.", [
+      (str_store_string, s1, "@Player renown is increased by 100."),
+      (call_script, "script_change_troop_renown", "trp_player", 100),
+      (jump_to_menu, "mnu_camp_cheat"),
+    ]),
+    
+    ("camp_cheat_increase_honor", [], "Increase player honor.", [
+      (assign, reg7, "$player_honor"),
+      (val_add, reg7, 1),
+      (display_message, "@Player honor is increased by 1 and it is now {reg7}."),
+      (val_add, "$player_honor", 1),
+      (jump_to_menu, "mnu_camp_cheat"),
+    ]),
 
-      ("cheat_faction_orders",[(ge,"$cheat_mode",1)],
-	  "{!}Cheat: Set Debug messages to All.",
-       [(assign,"$cheat_mode",1),
-         (jump_to_menu, "mnu_camp_cheat"),
-        ]
-       ),
-      ("cheat_faction_orders",[
-	  (ge, "$cheat_mode", 1),
-	  (neq,"$cheat_mode",3)],"{!}Cheat: Set Debug messages to Econ Only.",
-       [(assign,"$cheat_mode",3),
-         (jump_to_menu, "mnu_camp_cheat"),
-        ]
-       ),
-      ("cheat_faction_orders",[
-	  (ge, "$cheat_mode", 1),
-	  (neq,"$cheat_mode",4)],"{!}Cheat: Set Debug messages to Political Only.",
-       [(assign,"$cheat_mode",4),
-         (jump_to_menu, "mnu_camp_cheat"),
-        ]
-       ),
-	   
-	   
-      ("back_to_camp_menu",[],"{!}Back to camp menu.",
-       [
-         (jump_to_menu, "mnu_camp"),
-        ]
-       ),
-      ]
-  ),
-  
-  ("cheat_find_item",0,
-   "{!}Current item range: {reg5} to {reg6}",
-   "none",
-   [
-     (assign, reg5, "$cheat_find_item_range_begin"),
-     (store_add, reg6, "$cheat_find_item_range_begin", max_inventory_items),
-	 (val_min, reg6, "itm_items_end"),
-	 (val_sub, reg6, 1),
-     ],
-    [
-      ("cheat_find_item_next_range",[], "{!}Move to next item range.",
-       [
-	    (val_add, "$cheat_find_item_range_begin", max_inventory_items),
-	    (try_begin),
-	      (ge, "$cheat_find_item_range_begin", "itm_items_end"),
-		  (assign, "$cheat_find_item_range_begin", 0),
-	    (try_end),
-	    (jump_to_menu, "mnu_cheat_find_item"),
-	   ]
-       ),	   
+    ("camp_cheat_update_political", [], "Update political notes.", [
+      (try_for_range, ":hero", active_npcs_begin, active_npcs_end),
+        (troop_slot_eq, ":hero", slot_troop_occupation, slto_kingdom_hero),
+        (call_script, "script_update_troop_political_notes", ":hero"),
+      (try_end),
 
-	   ("cheat_find_item_choose_this",[], "{!}Choose from this range.",
-       [
-        (troop_clear_inventory, "trp_find_item_cheat"),
-        (store_add, ":max_item", "$cheat_find_item_range_begin", max_inventory_items),
-	    (val_min, ":max_item", "itm_items_end"),
-		(store_sub, ":num_items_to_add", ":max_item", "$cheat_find_item_range_begin"),
-		(try_for_range, ":i_slot", 0, ":num_items_to_add"),
-		  (store_add, ":item_id", "$cheat_find_item_range_begin", ":i_slot"),
-          (troop_add_items, "trp_find_item_cheat", ":item_id", 1),
-        (try_end),
-        (change_screen_trade, "trp_find_item_cheat"),
-	   ]
-       ),	   
-	   
-      ("camp_action_4",[],"{!}Back to camp menu.",
-       [(jump_to_menu, "mnu_camp"),
-        ]
-       ),
-      ]
-  ),
+      (try_for_range, ":kingdom", kingdoms_begin, kingdoms_end),
+        (call_script, "script_update_faction_political_notes", ":kingdom"),
+      (try_end),
+    ]),
 
-   ("cheat_change_weather",0,
-   "{!}Current cloud amount: {reg5}^Current Fog Strength: {reg6}",
-   "none",
-   [
-     (get_global_cloud_amount, reg5),
-     (get_global_haze_amount, reg6),
-     ],
-    [      
-      ("cheat_increase_cloud",[], "{!}Increase Cloud Amount.",
-       [
-	    (get_global_cloud_amount, ":cur_cloud_amount"),
-		(val_add, ":cur_cloud_amount", 5),
-		(val_min, ":cur_cloud_amount", 100),
-	    (set_global_cloud_amount, ":cur_cloud_amount"),
-	   ]
-       ),
-      ("cheat_decrease_cloud",[], "{!}Decrease Cloud Amount.",
-       [
-	    (get_global_cloud_amount, ":cur_cloud_amount"),
-		(val_sub, ":cur_cloud_amount", 5),
-		(val_max, ":cur_cloud_amount", 0),
-	    (set_global_cloud_amount, ":cur_cloud_amount"),
-	   ]
-       ),
-      ("cheat_increase_fog",[], "{!}Increase Fog Amount.",
-       [
-	    (get_global_haze_amount, ":cur_fog_amount"),
-		(val_add, ":cur_fog_amount", 5),
-		(val_min, ":cur_fog_amount", 100),
-	    (set_global_haze_amount, ":cur_fog_amount"),
-	   ]
-       ),
-      ("cheat_decrease_fog",[], "{!}Decrease Fog Amount.",
-       [
-	    (get_global_haze_amount, ":cur_fog_amount"),
-		(val_sub, ":cur_fog_amount", 5),
-		(val_max, ":cur_fog_amount", 0),
-	    (set_global_haze_amount, ":cur_fog_amount"),
-	   ]
-       ),
+    ("camp_cheat_update_troop", [], "Update troop notes.", [
+      (try_for_range, ":hero", active_npcs_begin, active_npcs_end),
+        (troop_slot_eq, ":hero", slot_troop_occupation, slto_kingdom_hero),
+        (call_script, "script_update_troop_notes", ":hero"),
+      (try_end),
 
-      ("camp_action_4",[],"{!}Back to camp menu.",
-       [(jump_to_menu, "mnu_camp"),
-        ]
-       ),
-      ]
-  ),
+      (try_for_range, ":lady", kingdom_ladies_begin, kingdom_ladies_end),
+        (call_script, "script_update_troop_notes", ":lady"),
+        (call_script, "script_update_troop_political_notes", ":lady"),
+        (call_script, "script_update_troop_location_notes", ":lady", 0),
+      (try_end),
+    ]),
+
+    #("camp_cheat_scramble_minstrels", [], "Scramble minstrels.", [(call_script, "script_update_tavern_minstrels")]),
+
+    ("camp_cheat_infinite_camp", [], "Infinite camp", [
+      (assign,"$g_camp_mode", 1),
+      (assign, "$g_infinite_camping", 1),
+      (assign, "$g_player_icon_state", pis_camping),
+      (rest_for_hours_interactive, 10 * 24 * 365, 20), #10 year rest while not attackable with 20x speed
+      (change_screen_return),
+    ]),
+
+    ("camp_cheat_debug", [
+      (try_begin),
+        (eq, "$cheat_mode", 1),
+        (str_store_string, s0, "@Set debug messages to Economic only."),
+      (else_try),
+        (eq, "$cheat_mode", 2),
+        (str_store_string, s0, "@Set debug messages to Political only."),
+      (else_try),
+        (str_store_string, s0, "@Set debug messages to all."),
+      (try_end),
+    ], "{s0}", [
+      (val_add, "$cheat_mode", 1),
+      (try_begin),
+        (ge, "$cheat_mode", 4),
+        (assign, "$cheat_mode", 1),
+      (try_end),
+      (jump_to_menu, "mnu_camp_cheat"),
+    ]),
+
+    #("cheat_faction_orders", [(ge, "$cheat_mode", 1)], "Set Debug messages to All.", [
+    #  (assign,"$cheat_mode",1),
+    #  (jump_to_menu, "mnu_camp_cheat"),
+    #]),
+
+    #("cheat_faction_orders", [
+    #  (ge, "$cheat_mode", 1),
+    #  (neq,"$cheat_mode",3),
+    #], "{!}Cheat: Set Debug messages to Econ Only.", [
+    #  (assign,"$cheat_mode",3),
+    #  (jump_to_menu, "mnu_camp_cheat"),
+    #]),
+
+    #("cheat_faction_orders",[
+    #  (ge, "$cheat_mode", 1),
+    #  (neq,"$cheat_mode",4),
+    #], "{!}Cheat: Set Debug messages to Political Only.", [
+    #  (assign,"$cheat_mode",4),
+    #  (jump_to_menu, "mnu_camp_cheat"),
+    #]),
+    #
+    ## UID: 90 - End
+
+    ("back_to_camp_menu", [], "Back to camp menu.", [(jump_to_menu, "mnu_camp")]),
+  ]),
+
+  ("cheat_find_item", 0, "{!}Current item range: {reg5} to {reg6}", "none", [
+    (assign, reg5, "$cheat_find_item_range_begin"),
+    (store_add, reg6, "$cheat_find_item_range_begin", max_inventory_items),
+    (val_min, reg6, "itm_items_end"),
+    (val_sub, reg6, 1),
+  ], [
+    ("cheat_find_item_next_range",[], "Move to next item range.", [
+      (val_add, "$cheat_find_item_range_begin", max_inventory_items),
+      (try_begin),
+        (ge, "$cheat_find_item_range_begin", "itm_items_end"),
+        (assign, "$cheat_find_item_range_begin", 0),
+      (try_end),
+      (jump_to_menu, "mnu_cheat_find_item"),
+    ]),
+
+    ("cheat_find_item_choose_this",[], "Choose from this range.", [
+      (troop_clear_inventory, "trp_find_item_cheat"),
+      (store_add, ":max_item", "$cheat_find_item_range_begin", max_inventory_items),
+      (val_min, ":max_item", "itm_items_end"),
+      (store_sub, ":num_items_to_add", ":max_item", "$cheat_find_item_range_begin"),
+      (try_for_range, ":i_slot", 0, ":num_items_to_add"),
+        (store_add, ":item_id", "$cheat_find_item_range_begin", ":i_slot"),
+        (troop_add_items, "trp_find_item_cheat", ":item_id", 1),
+      (try_end),
+      (change_screen_trade, "trp_find_item_cheat"),
+    ]),
+
+    ## UID: 90 - Begin
+    #
+    #("camp_action_4",[],"{!}Back to camp menu.", [(jump_to_menu, "mnu_camp")]),
+    ("back_to_camp_menu", [], "Back to camp menu.", [(jump_to_menu, "mnu_camp")]),
+    #
+    ## UID: 90 - End
+  ]),
+
+  ("cheat_change_weather", 0, "Current cloud amount: {reg5}^Current Fog Strength: {reg6}", "none", [
+    (get_global_cloud_amount, reg5),
+    (get_global_haze_amount, reg6),
+  ], [
+    ("cheat_increase_cloud", [], "Increase Cloud Amount.", [
+      (get_global_cloud_amount, ":cur_cloud_amount"),
+      (val_add, ":cur_cloud_amount", 5),
+      (val_min, ":cur_cloud_amount", 100),
+      (set_global_cloud_amount, ":cur_cloud_amount"),
+    ]),
+
+    ("cheat_decrease_cloud", [], "Decrease Cloud Amount.", [
+      (get_global_cloud_amount, ":cur_cloud_amount"),
+      (val_sub, ":cur_cloud_amount", 5),
+      (val_max, ":cur_cloud_amount", 0),
+      (set_global_cloud_amount, ":cur_cloud_amount"),
+    ]),
+
+    ("cheat_increase_fog", [], "Increase Fog Amount.", [
+      (get_global_haze_amount, ":cur_fog_amount"),
+      (val_add, ":cur_fog_amount", 5),
+      (val_min, ":cur_fog_amount", 100),
+      (set_global_haze_amount, ":cur_fog_amount"),
+    ]),
+
+    ("cheat_decrease_fog", [], "Decrease Fog Amount.", [
+      (get_global_haze_amount, ":cur_fog_amount"),
+      (val_sub, ":cur_fog_amount", 5),
+      (val_max, ":cur_fog_amount", 0),
+      (set_global_haze_amount, ":cur_fog_amount"),
+    ]),
+
+    ## UID: 90 - Begin
+    #
+    #("camp_action_4",[],"{!}Back to camp menu.", [(jump_to_menu, "mnu_camp")]),
+    ("back_to_camp_menu", [], "Back to camp menu.", [(jump_to_menu, "mnu_camp")]),
+    #
+    ## UID: 90 - End
+  ]),
 
   ("camp_action", 0, "Choose an action:", "none", [], [
-      ("camp_recruit_prisoners", [
-          (troops_can_join, 1),
-          (store_current_hours, ":cur_time"),
-          (val_sub, ":cur_time", 24),
-          (gt, ":cur_time", "$g_prisoner_recruit_last_time"),
-          (try_begin),
-            (gt, "$g_prisoner_recruit_last_time", 0),
-            (assign, "$g_prisoner_recruit_troop_id", 0),
-            (assign, "$g_prisoner_recruit_size", 0),
-            (assign, "$g_prisoner_recruit_last_time", 0),
-          (try_end),
-        ], "Recruit some of your prisoners to your party.", [(jump_to_menu, "mnu_camp_recruit_prisoners")]),
+    ("camp_recruit_prisoners", [
+      (troops_can_join, 1),
+      (store_current_hours, ":cur_time"),
+      (val_sub, ":cur_time", 24),
+      (gt, ":cur_time", "$g_prisoner_recruit_last_time"),
+      (try_begin),
+        (gt, "$g_prisoner_recruit_last_time", 0),
+        (assign, "$g_prisoner_recruit_troop_id", 0),
+        (assign, "$g_prisoner_recruit_size", 0),
+        (assign, "$g_prisoner_recruit_last_time", 0),
+      (try_end),
+    ], "Recruit some of your prisoners to your party.", [(jump_to_menu, "mnu_camp_recruit_prisoners")]),
 
-      ("action_read_book", [
-          ## UID: 75 - Begin
-          #
-          (le, "$g_player_writing_book", 0),
-          (le, "$g_player_reading_book", 0),
-          #
-          ## UID: 75 - End
-        ], "Select a book to read.", [(jump_to_menu, "mnu_camp_action_read_book")]),
-
+    ("action_read_book", [
       ## UID: 75 - Begin
       #
-      ("action_stop_reading", [
-          (gt, "$g_player_reading_book", 1),
-          (str_store_item_name, s1, "$g_player_reading_book"),
-        ], "Stop reading {s1}.", []),
-      
-      ("action_write_book", [
-          (le, "$g_player_writing_book", 0),
-          (le, "$g_player_reading_book", 0),
-        ], "Write a random book.", [(call_script, "script_write_random_book", "trp_player")]),
-
-      ("action_stop_writing", [
-          (gt, "$g_player_writing_book", 1),
-          (str_store_item_name, s1, "$g_player_writing_book"),
-        ], "Stop writing {s1}.", []),
+      (le, "$g_player_writing_book", 0),
+      (le, "$g_player_reading_book", 0),
       #
       ## UID: 75 - End
-      
-      ("action_rename_kingdom", [
-          (eq, "$players_kingdom_name_set", 1),
-          #Info: To block changing name of npc kingdoms, I used, fac_player_supporters_faction not $players_kingdom, because;
-          #if I use $players_kingdom, when player be a leader of npc kingdom, he could change it's name to what he want and the lords of
-          #the kingdom joined player.
-          (faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_active),
-          (faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
-        ], "Rename your kingdom.", [(start_presentation, "prsnt_name_kingdom")]),
+    ], "Select a book to read.", [(jump_to_menu, "mnu_camp_action_read_book")]),
 
-      ("action_modify_banner",[(eq, "$cheat_mode", 1)],"{!}Cheat: Modify your banner.",
-       [
-           (start_presentation, "prsnt_banner_selection"),
-           #(start_presentation, "prsnt_custom_banner"),
-        ]
-       ),
-      ("action_retire",[],"Retire from adventuring.",
+    ## UID: 75 - Begin
+    #
+    ("action_stop_reading", [
+      (gt, "$g_player_reading_book", 1),
+      (str_store_item_name, s1, "$g_player_reading_book"),
+    ], "Stop reading {s1}.", []),
+
+    ("action_write_book", [
+      (le, "$g_player_writing_book", 0),
+      (le, "$g_player_reading_book", 0),
+    ], "Write a random book.", [(call_script, "script_write_random_book", "trp_player")]),
+
+    ("action_stop_writing", [
+      (gt, "$g_player_writing_book", 1),
+      (str_store_item_name, s1, "$g_player_writing_book"),
+    ], "Stop writing {s1}.", []),
+    #
+    ## UID: 75 - End
+
+    ("action_rename_kingdom", [
+      (eq, "$players_kingdom_name_set", 1),
+      #Info: To block changing name of npc kingdoms, I used, fac_player_supporters_faction not $players_kingdom, because;
+      #if I use $players_kingdom, when player be a leader of npc kingdom, he could change it's name to what he want and the lords of
+      #the kingdom joined player.
+      (faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_active),
+      (faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
+    ], "Rename your kingdom.", [(start_presentation, "prsnt_name_kingdom")]),
+
+    ("action_modify_banner", [(eq, "$cheat_mode", 1)], "Cheat: Modify your banner.", [
+      (start_presentation, "prsnt_banner_selection"),
+      #(start_presentation, "prsnt_custom_banner"),
+    ]),
+
+    ("action_retire",[],"Retire from adventuring.",
        [(jump_to_menu, "mnu_retirement_verify"),
         ]
        ),
@@ -11945,7 +11919,7 @@ game_menus = [
           (ge, ":reln", 0),
         ], "Assess the local prices.", [(jump_to_menu,"mnu_town_trade_assessment_begin")]),
 
-      ("trade_with_arms_merchant",[(party_slot_ge, "$current_town", slot_town_weaponsmith, 1)], "Trade with the arms merchant.", [
+      ("trade_with_arms_merchant",[(party_slot_ge, "$current_town", slot_town_weaponsmith, 1)], "Talk with the arms merchant.", [
           (party_get_slot, ":merchant_troop", "$current_town", slot_town_weaponsmith),
           ## UID: 78 - Begin
           #
@@ -11962,7 +11936,7 @@ game_menus = [
           ## UID: 78 - End
         ]),
 
-      ("trade_with_armor_merchant",[(party_slot_ge, "$current_town", slot_town_armorer, 1)], "Trade with the armor merchant.", [
+      ("trade_with_armor_merchant",[(party_slot_ge, "$current_town", slot_town_armorer, 1)], "Talk with the armor merchant.", [
           (party_get_slot, ":merchant_troop", "$current_town", slot_town_armorer),
           ## UID: 78 - Begin
           #
@@ -11979,8 +11953,25 @@ game_menus = [
           ## UID: 78 - End
         ]),
 
-      ("trade_with_horse_merchant",[(party_slot_ge, "$current_town", slot_town_horse_merchant, 1)], "Trade with the horse merchant.", [
+      ("trade_with_horse_merchant",[(party_slot_ge, "$current_town", slot_town_horse_merchant, 1)], "Talk with the horse merchant.", [
           (party_get_slot, ":merchant_troop", "$current_town", slot_town_horse_merchant),
+          ## UID: 78 - Begin
+          #
+          #(change_screen_trade, ":merchant_troop"),
+          (party_get_slot, ":town_scene", "$current_town", slot_town_center),
+          (modify_visitors_at_site, ":town_scene"),
+          (reset_visitors),
+          (set_visitor,11, ":merchant_troop"),
+
+          (set_jump_mission, "mt_town_center"),
+          (jump_to_scene, ":town_scene"),
+          (change_screen_map_conversation, ":merchant_troop"),
+          #
+          ## UID: 78 - End
+        ]),
+
+      ("trade_with_tavern_merchant",[(party_slot_ge, "$current_town", slot_town_tavernkeeper, 1)], "Talk with the tavern keeper.", [
+          (party_get_slot, ":merchant_troop", "$current_town", slot_town_tavernkeeper),
           ## UID: 78 - Begin
           #
           #(change_screen_trade, ":merchant_troop"),
@@ -13973,76 +13964,93 @@ game_menus = [
   
   
   
-  (
-  "notification_court_lost",0,
-  "{s12}",
-  "none",
-  [
+  ("notification_court_lost", 0, "{s12}", "none", [
     (try_begin),
-		(is_between, "$g_player_court", centers_begin, centers_end),
-		(str_store_party_name, s10, "$g_player_court"),
-		(str_store_party_name, s11, "$g_player_court"),
-	(else_try),
-		(str_store_string, s10, "str_your_previous_court_some_time_ago"),
-		(str_store_string, s11, "str_your_previous_court_some_time_ago"),
-	(try_end),	
-	
-	(assign, "$g_player_court", -1),
-	(str_store_string, s14, "str_after_to_the_fall_of_s11_your_court_has_nowhere_to_go"),
-	(try_begin),
-		(faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_inactive),
-		(str_store_string, s14, "str_as_you_no_longer_maintain_an_independent_kingdom_you_no_longer_maintain_a_court"),
-	(try_end),
-	
-	(try_for_range, ":walled_center", walled_centers_begin, walled_centers_end),
-		(eq, "$g_player_court", -1),
-		(store_faction_of_party, ":walled_center_faction", ":walled_center"),
-		(eq, ":walled_center_faction", "fac_player_supporters_faction"),
-		(neg|party_slot_ge, ":walled_center", slot_town_lord, active_npcs_begin),
-		
-		(assign, "$g_player_court", ":walled_center"),
-		(try_begin),
-			(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
-			(is_between, ":spouse", kingdom_ladies_begin, kingdom_ladies_end),
-			(troop_set_slot, ":spouse", slot_troop_cur_center, "$g_player_court"),
-			(str_store_party_name, s11, "$g_player_court"),
-		(try_end),
-		
-		(str_store_string, s14, "str_due_to_the_fall_of_s10_your_court_has_been_relocated_to_s12"),
-	(try_end),
+      (is_between, "$g_player_court", centers_begin, centers_end),
+      (str_store_party_name, s10, "$g_player_court"),
+      (str_store_party_name, s11, "$g_player_court"),
+    (else_try),
+      (str_store_string, s10, "str_your_previous_court_some_time_ago"),
+      (str_store_string, s11, "str_your_previous_court_some_time_ago"),
+    (try_end),
 
-	(try_for_range, ":walled_center", walled_centers_begin, walled_centers_end),
-		(eq, "$g_player_court", -1),
-		
-		(store_faction_of_party, ":walled_center_faction", ":walled_center"),
-		(eq, ":walled_center_faction", "fac_player_supporters_faction"),
-		
-		(assign, "$g_player_court", ":walled_center"),
-		
-		(try_begin),
-			(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
-			(is_between, ":spouse", kingdom_ladies_begin, kingdom_ladies_end),
-			(troop_set_slot, ":spouse", slot_troop_cur_center, "$g_player_court"),
-		(try_end),
+    ## UID: 67 - Begin
+    #
+    (assign, ":pfaction", "fac_player_supporters_faction"),
+    (try_begin),
+      (is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
+      (faction_slot_eq, "$players_kingdom", slot_faction_leader, "trp_player"),
+      (assign, ":pfaction", "$players_kingdom"),
+    (try_end),
+    #
+    ## UID: 67 - End
+    (assign, "$g_player_court", -1),
+    (str_store_string, s14, "str_after_to_the_fall_of_s11_your_court_has_nowhere_to_go"),
+    (try_begin),
+      ## UID: 67 - Begin
+      #
+      (faction_slot_eq, ":pfaction", slot_faction_state, sfs_inactive),
+      #(faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_inactive),
+      #
+      ## UID: 67 - End
+      (str_store_string, s14, "str_as_you_no_longer_maintain_an_independent_kingdom_you_no_longer_maintain_a_court"),
+    (try_end),
 
-		(party_get_slot, ":town_lord", ":walled_center", slot_town_lord),
-		(str_store_party_name, s11, "$g_player_court"),
-		(str_store_troop_name, s9, ":town_lord"),
-		(str_store_string, s14, "str_after_to_the_fall_of_s10_your_faithful_vassal_s9_has_invited_your_court_to_s11_"),
-	(try_end),
-	
-	(try_begin),
-		(faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_inactive),
-		(str_store_string, s14, "str_as_you_no_longer_maintain_an_independent_kingdom_you_no_longer_maintain_a_court"),
-	(try_end),
-	(str_store_string, s12, s14),
-  ],
-  [
-      ("continue",[],"Continue...",[
-	  (change_screen_return),
-	  ]),
-     ],
-  ),
+    (try_for_range, ":walled_center", walled_centers_begin, walled_centers_end),
+      (eq, "$g_player_court", -1),
+      (store_faction_of_party, ":walled_center_faction", ":walled_center"),
+      ## UID: 67 - Begin
+      #
+      #(eq, ":walled_center_faction", "fac_player_supporters_faction"),
+      (eq, ":walled_center_faction", ":pfaction"),
+      #
+      ## UID: 67 - End
+      (neg|party_slot_ge, ":walled_center", slot_town_lord, active_npcs_begin),
+      (assign, "$g_player_court", ":walled_center"),
+      (try_begin),
+        (troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
+        (is_between, ":spouse", kingdom_ladies_begin, kingdom_ladies_end),
+        (troop_set_slot, ":spouse", slot_troop_cur_center, "$g_player_court"),
+        (str_store_party_name, s11, "$g_player_court"),
+      (try_end),
+      (str_store_string, s14, "str_due_to_the_fall_of_s10_your_court_has_been_relocated_to_s12"),
+    (try_end),
+
+    (try_for_range, ":walled_center", walled_centers_begin, walled_centers_end),
+      (eq, "$g_player_court", -1),
+      (store_faction_of_party, ":walled_center_faction", ":walled_center"),
+      ## UID: 67 - Begin
+      #
+      (eq, ":walled_center_faction", ":pfaction"),
+      #(eq, ":walled_center_faction", "fac_player_supporters_faction"),
+      #
+      ## UID: 67 - End
+      (assign, "$g_player_court", ":walled_center"),
+      (try_begin),
+        (troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
+        (is_between, ":spouse", kingdom_ladies_begin, kingdom_ladies_end),
+        (troop_set_slot, ":spouse", slot_troop_cur_center, "$g_player_court"),
+      (try_end),
+
+      (party_get_slot, ":town_lord", ":walled_center", slot_town_lord),
+      (str_store_party_name, s11, "$g_player_court"),
+      (str_store_troop_name, s9, ":town_lord"),
+      (str_store_string, s14, "str_after_to_the_fall_of_s10_your_faithful_vassal_s9_has_invited_your_court_to_s11_"),
+    (try_end),
+
+    (try_begin),
+      ## UID: 67 - Begin
+      #
+      (faction_slot_eq, ":pfaction", slot_faction_state, sfs_inactive),
+      #(faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_inactive),
+      #
+      ## UID: 67 - End
+      (str_store_string, s14, "str_as_you_no_longer_maintain_an_independent_kingdom_you_no_longer_maintain_a_court"),
+    (try_end),
+    (str_store_string, s12, s14),
+  ], [
+    ("continue", [], "Continue...", [(change_screen_return)]),
+  ]),
   
   
   
@@ -14499,6 +14507,21 @@ game_menus = [
               (store_relation, ":relation", ":kingdom", "fac_player_supporters_faction"), #Get relation with our original faction.
               (set_relation, ":kingdom", "$g_notification_menu_var1", ":relation"), #Move our relation to new kingdom.
             (try_end),
+
+            (party_get_num_prisoner_stacks, ":stacks", "trp_player"),
+            (try_for_range_backwards, ":stack_no", 0, ":stacks"),
+              (party_prisoner_stack_get_troop_id, ":troop", "trp_player", ":stack_no"),
+              (troop_is_hero, ":troop"),
+              (store_troop_faction, ":faction", ":troop"),
+              (eq, ":faction", "$players_kingdom"),
+              (party_remove_prisoners, "trp_player", ":troop", 1),
+              (call_script, "script_remove_troop_from_prison", ":troop"),
+            (try_end),
+            ## UID: 63 - Begin
+            #
+            (call_script, "script_set_prefix"),
+            #
+            ## UID: 63 - End
             (change_screen_return),
         ]),
         #
@@ -15905,6 +15928,11 @@ game_menus = [
             (str_store_troop_name, s5, "$player_cur_troop"),
             (str_store_string, s5, "@Current rank: {s5}"),
             (add_quest_note_from_sreg, "qst_freelancer_enlisted", 3, s5, 1),
+            ## UID: 92 - Begin
+            #
+            (assign, "$player_cur_troop_level", 0),
+            #
+            ## UID: 92 - End
             (change_screen_map),
         ]),
 
@@ -15920,6 +15948,11 @@ game_menus = [
             (str_store_troop_name, s5, "$player_cur_troop"),
             (str_store_string, s5, "@Current rank: {s5}"),
             (add_quest_note_from_sreg, "qst_freelancer_enlisted", 3, s5, 1),
+            ## UID: 92 - Begin
+            #
+            (assign, "$player_cur_troop_level", 0),
+            #
+            ## UID: 92 - End
             (change_screen_map),
         ]),
     ]),

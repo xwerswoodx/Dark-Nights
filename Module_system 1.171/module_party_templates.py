@@ -62,7 +62,12 @@ party_templates = [
   ## UID: 12 - Begin
   #
   ("dark_hunters","Dark Hunters",icon_dedal_map_swadia_king_b,0,fac_dark_knights,soldier_personality,[(trp_dark_knight,8,32),(trp_dark_hunter,6,24),(trp_dark_pikeman,8,32)]),
-  ("desert_cavalry", "Desert Cavalry", icon_dedal_map_swadia_lord_a, 0, fac_desert_cavalry, soldier_personality, [(trp_desert_cavalry, 10, 50)]),
+  ## UID: 95 - Begin
+  #
+  #("desert_cavalry", "Desert Cavalry", icon_dedal_map_swadia_lord_a, 0, fac_desert_cavalry, soldier_personality, [(trp_desert_cavalry, 10, 50)]),
+  ("desert_cavalry", "Desert Cavalry", icon_dedal_map_swadia_lord_a, 0, fac_desert_cavalry, soldier_personality, [(trp_desert_cavalry, 5, 35),(trp_desert_archer, 5, 15)]),
+  #
+  ## UID: 95 - End
   #
   ## UID: 12 - End
   

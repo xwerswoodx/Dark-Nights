@@ -1544,6 +1544,11 @@ dialogs = [
       (try_end),
       (str_store_troop_name, s1, reg1),
       (store_character_level, reg1, reg1),
+      ## UID: 92 - Begin
+      #
+      (val_add, reg1, "$player_cur_troop_prom"),
+      #
+      ## UID: 92 - End
       (val_mul, reg1, 10),
       (str_store_string, s2, "str_reg1_denars"),
       (call_script, "script_is_male", "trp_player"),
@@ -20540,6 +20545,12 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 ##   "I want to rest until evening.", "close_window",
 ##   [(assign, reg(2), 28),(val_sub,reg(2),reg(1)),(assign, "$g_town_visit_after_rest", 1),(rest_for_hours, reg(2)),(troop_remove_gold, "trp_player","$tavern_rest_cost"),(call_script, "script_change_player_party_morale", 2)]],
 ##  [anyone|plyr,"tavernkeeper_rest_2", [], "Forget it.", "close_window",[]],
+  ## UID: 98 - Begin
+  #
+  [anyone|plyr, "tavernkeeper_talk", [(is_between, "$g_talk_troop", tavernkeepers_begin, tavernkeepers_end)], "I want to buy some drinks. Show me your wares.", "trade_requested_drinks", []],
+  [anyone,"trade_requested_drinks", [(call_script, "script_is_male", "trp_player")], "Ah, yes {reg0?sir:madam}. These liquids are the best you'll find anywhere.", "merchant_trade",[[change_screen_trade]]],
+  #
+  ## UID: 98 - End
 
   [anyone|plyr,"tavernkeeper_talk", [
       (store_current_hours,":cur_hours"),
@@ -26231,8 +26242,28 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
   [anyone|plyr,"bandit_meet", [], "Never mind, I have no business with you.", "close_window",[(assign, "$g_leave_encounter", 1)]],
 # Ryan END
-  
- 
+
+  ## UID: 94 - Begin
+  #
+  [anyone, "start", [
+    (is_between, "$g_encountered_party_template", "pt_kingdom_0_patrol", "pt_watch_tower"),
+    (assign, ":min", -1),
+    (try_for_range, ":center", centers_begin, centers_end),
+      (store_distance_to_party_from_party, ":dist", "$g_encountered_party", ":center"),
+      (try_begin),
+        (this_or_next|lt, ":min", 0),
+        (             lt, ":dist", ":min"),
+        (assign, ":min", ":dist"),
+        (assign, ":near", ":center"),
+      (try_end),
+    (try_end),
+    (gt, ":center", 0),
+    (str_store_party_name, s23, ":near"),
+  ], "We are patrolling around {s23} at the moment.", "patrol_lord", []],
+
+  [anyone|plyr, "patrol_lord", [], "Ok. Continue what you are doing.", "close_window", []],
+  #
+  ## UID: 94 - End
 
   [party_tpl|pt_rescued_prisoners,"start", [(eq,"$talk_context",tc_party_encounter)], "Do you want us to follow you?", "disbanded_troop_ask",[]],
   [anyone|plyr,"disbanded_troop_ask", [], "Yes. Let us ride together.", "disbanded_troop_join",[]],
@@ -26410,8 +26441,20 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
     #
     # Order Weapon
     [anyone|plyr, "town_merchant_talk", [
-        (le, "$g_item_ordered", 0),
-        (is_between, "$g_talk_troop", weapon_merchants_begin, weapon_merchants_end),
+      ## UID: 100 - Begin
+      #
+      (assign, ":continue", 0),
+      (try_for_range, ":check", 0, 25),
+        (eq, ":continue", 0),
+        (store_add, ":slot", ":check", slot_player_order_item),
+        (troop_slot_lt, "trp_player", ":slot", 1),
+        (assign, ":continue", 1),
+      (try_end),
+      (eq, ":continue", 1),
+      #(le, "$g_item_ordered", 0),
+      #
+      ## UID: 100 - End
+      (is_between, "$g_talk_troop", weapon_merchants_begin, weapon_merchants_end),
     ], "I want to order a weapon.", "trade_order_selection_weapon", []],
     [anyone, "trade_order_selection_weapon", [], "Which weapon do you want to order?", "trade_order_select_weapon", []],
 
@@ -26482,8 +26525,20 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
     # Order Ranged Weapon
     [anyone|plyr, "town_merchant_talk", [
-        (le, "$g_item_ordered", 0),
-        (is_between, "$g_talk_troop", weapon_merchants_begin, weapon_merchants_end),
+      ## UID: 100 - Begin
+      #
+      (assign, ":continue", 0),
+      (try_for_range, ":check", 0, 25),
+        (eq, ":continue", 0),
+        (store_add, ":slot", ":check", slot_player_order_item),
+        (troop_slot_lt, "trp_player", ":slot", 1),
+        (assign, ":continue", 1),
+      (try_end),
+      (eq, ":continue", 1),
+      #(le, "$g_item_ordered", 0),
+      #
+      ## UID: 100 - End
+      (is_between, "$g_talk_troop", weapon_merchants_begin, weapon_merchants_end),
     ], "I want to order a ranged weapon.", "trade_order_selection_rweapon", []],
     [anyone, "trade_order_selection_rweapon", [], "Which weapon do you want to order?", "trade_order_select_rweapon", []],
 
@@ -26500,8 +26555,20 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
     # Order Shield
     [anyone|plyr, "town_merchant_talk", [
-        (le, "$g_item_ordered", 0),
-        (is_between, "$g_talk_troop", weapon_merchants_begin, weapon_merchants_end),
+      ## UID: 100 - Begin
+      #
+      (assign, ":continue", 0),
+      (try_for_range, ":check", 0, 25),
+        (eq, ":continue", 0),
+        (store_add, ":slot", ":check", slot_player_order_item),
+        (troop_slot_lt, "trp_player", ":slot", 1),
+        (assign, ":continue", 1),
+      (try_end),
+      (eq, ":continue", 1),
+      #(le, "$g_item_ordered", 0),
+      #
+      ## UID: 100 - End
+      (is_between, "$g_talk_troop", weapon_merchants_begin, weapon_merchants_end),
     ], "I want to order a shield.", "trade_order_selection_shield", []],
     [anyone, "trade_order_selection_shield", [], "Which shield do you want to order?", "trade_order_select_shield", []],
 
@@ -26547,8 +26614,20 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
     # Order Ammo
     [anyone|plyr, "town_merchant_talk", [
-        (le, "$g_item_ordered", 0),
-        (is_between, "$g_talk_troop", weapon_merchants_begin, weapon_merchants_end),
+      ## UID: 100 - Begin
+      #
+      (assign, ":continue", 0),
+      (try_for_range, ":check", 0, 25),
+        (eq, ":continue", 0),
+        (store_add, ":slot", ":check", slot_player_order_item),
+        (troop_slot_lt, "trp_player", ":slot", 1),
+        (assign, ":continue", 1),
+      (try_end),
+      (eq, ":continue", 1),
+      #(le, "$g_item_ordered", 0),
+      #
+      ## UID: 100 - End
+      (is_between, "$g_talk_troop", weapon_merchants_begin, weapon_merchants_end),
     ], "I want to order an ammo.", "trade_order_selection_ammo", []],
     [anyone, "trade_order_selection_ammo", [], "Which ammo do you want to order?", "trade_order_select_ammo", []],
 
@@ -26584,8 +26663,20 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
     # Order Headwears
     [anyone|plyr, "town_merchant_talk", [
-        (le, "$g_item_ordered", 0),
-        (is_between, "$g_talk_troop", armor_merchants_begin, armor_merchants_end),
+      ## UID: 100 - Begin
+      #
+      (assign, ":continue", 0),
+      (try_for_range, ":check", 0, 25),
+        (eq, ":continue", 0),
+        (store_add, ":slot", ":check", slot_player_order_item),
+        (troop_slot_lt, "trp_player", ":slot", 1),
+        (assign, ":continue", 1),
+      (try_end),
+      (eq, ":continue", 1),
+      #(le, "$g_item_ordered", 0),
+      #
+      ## UID: 100 - End
+      (is_between, "$g_talk_troop", armor_merchants_begin, armor_merchants_end),
     ], "I want to order a cap.", "trade_order_selection_head", []],
     [anyone, "trade_order_selection_head", [], "Which cap do you want to order?", "trade_order_select_head", []],
 
@@ -26602,8 +26693,20 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
     # Order Handwear
     [anyone|plyr, "town_merchant_talk", [
-        (le, "$g_item_ordered", 0),
-        (is_between, "$g_talk_troop", armor_merchants_begin, armor_merchants_end),
+      ## UID: 100 - Begin
+      #
+      (assign, ":continue", 0),
+      (try_for_range, ":check", 0, 25),
+        (eq, ":continue", 0),
+        (store_add, ":slot", ":check", slot_player_order_item),
+        (troop_slot_lt, "trp_player", ":slot", 1),
+        (assign, ":continue", 1),
+      (try_end),
+      (eq, ":continue", 1),
+      #(le, "$g_item_ordered", 0),
+      #
+      ## UID: 100 - End
+      (is_between, "$g_talk_troop", armor_merchants_begin, armor_merchants_end),
     ], "I want to order gloves.", "trade_order_selection_gloves", []],
     [anyone, "trade_order_selection_gloves", [], "Which gloves do you want to order?", "trade_order_select_gloves", []],
 
@@ -26620,8 +26723,20 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
     # Order Bodywear
     [anyone|plyr, "town_merchant_talk", [
-        (le, "$g_item_ordered", 0),
-        (is_between, "$g_talk_troop", armor_merchants_begin, armor_merchants_end),
+      ## UID: 100 - Begin
+      #
+      (assign, ":continue", 0),
+      (try_for_range, ":check", 0, 25),
+        (eq, ":continue", 0),
+        (store_add, ":slot", ":check", slot_player_order_item),
+        (troop_slot_lt, "trp_player", ":slot", 1),
+        (assign, ":continue", 1),
+      (try_end),
+      (eq, ":continue", 1),
+      #(le, "$g_item_ordered", 0),
+      #
+      ## UID: 100 - End
+      (is_between, "$g_talk_troop", armor_merchants_begin, armor_merchants_end),
     ], "I want to order a chestplate.", "trade_order_selection_body", []],
     [anyone, "trade_order_selection_body", [], "Which chestplate do you want to order?", "trade_order_select_body", []],
 
@@ -26638,8 +26753,20 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
     # Order Footwears
     [anyone|plyr, "town_merchant_talk", [
-        (le, "$g_item_ordered", 0),
-        (is_between, "$g_talk_troop", armor_merchants_begin, armor_merchants_end),
+      ## UID: 100 - Begin
+      #
+      (assign, ":continue", 0),
+      (try_for_range, ":check", 0, 25),
+        (eq, ":continue", 0),
+        (store_add, ":slot", ":check", slot_player_order_item),
+        (troop_slot_lt, "trp_player", ":slot", 1),
+        (assign, ":continue", 1),
+      (try_end),
+      (eq, ":continue", 1),
+      #(le, "$g_item_ordered", 0),
+      #
+      ## UID: 100 - End
+      (is_between, "$g_talk_troop", armor_merchants_begin, armor_merchants_end),
     ], "I want to order leggings.", "trade_order_selection_leg", []],
     [anyone, "trade_order_selection_leg", [], "Which leggings do you want to order?", "trade_order_select_leg", []],
 
@@ -26721,8 +26848,20 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
     # Order Horse
     [anyone|plyr, "town_merchant_talk", [
-        (le, "$g_item_ordered", 0),
-        (is_between, "$g_talk_troop", horse_merchants_begin, horse_merchants_end),
+      ## UID: 100 - Begin
+      #
+      (assign, ":continue", 0),
+      (try_for_range, ":check", 0, 25),
+        (eq, ":continue", 0),
+        (store_add, ":slot", ":check", slot_player_order_item),
+        (troop_slot_lt, "trp_player", ":slot", 1),
+        (assign, ":continue", 1),
+      (try_end),
+      (eq, ":continue", 1),
+      #(le, "$g_item_ordered", 0),
+      #
+      ## UID: 100 - End
+      (is_between, "$g_talk_troop", horse_merchants_begin, horse_merchants_end),
     ], "I want to order a horse.", "trade_order_selection_horse", []],
     [anyone, "trade_order_selection_horse", [], "Which horse do you want to order?", "trade_order_select_horse", []],
 
@@ -26781,161 +26920,423 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
     ]],
     [anyone|plyr, "trade_order_select_modifier_horse", [], "Forget it.", "town_merchant_pretalk", []],
 
+    ## UID: 100 - Begin
+    #
     # Global Get Your Order
-    [anyone|plyr, "town_merchant_talk", [
-        (gt, "$g_item_ordered", 0),
-        (gt, "$g_item_ordered_bought", 0),
-        (party_slot_eq, "$current_town", "$g_item_ordered_slot", "$g_talk_troop"),
-        (eq, "$g_item_ordered_party", "$current_town"),
+    #[anyone|plyr, "town_merchant_talk", [
+    #  (gt, "$g_item_ordered", 0),
+    #  (gt, "$g_item_ordered_bought", 0),
+    #  (party_slot_eq, "$current_town", "$g_item_ordered_slot", "$g_talk_troop"),
+    #  (eq, "$g_item_ordered_party", "$current_town"),
+    #
+    #  (store_current_hours, ":hour"),
+    #  (ge, ":hour", "$g_item_ordered_bought_reach"),
+    #
+    #  (str_store_item_name, s3, "$g_item_ordered"),
+    #], "I come to collect my {s3} which I ordered.", "merchant_collect_item", []],
+    [anyone|plyr|repeat_for_100, "town_merchant_talk", [
+      (store_repeat_object, ":order"),
+      (is_between, ":order", 0, 25),
+      (store_add, ":item", ":order", slot_player_order_item),
+      (store_add, ":found", ":order", slot_player_order_found),
+      (store_add, ":reach", ":order", slot_player_order_reach),
+      (store_add, ":town", ":order", slot_player_order_town),
+      (store_add, ":merchant", ":order", slot_player_order_slot),
+      (troop_get_slot, ":merchant_slot", "trp_player", ":merchant"),
+      (troop_slot_ge, "trp_player", ":item", 1),
+      (troop_slot_ge, "trp_player", ":found", 1),
+      (party_slot_eq, "$current_town", ":merchant_slot", "$g_talk_troop"),
+      (troop_slot_eq, "trp_player", ":town", "$current_town"),
 
-        (store_current_hours, ":hour"),
-        (ge, ":hour", "$g_item_ordered_bought_reach"),
+      (store_current_hours, ":hour"),
+      (troop_get_slot, ":time", "trp_player", ":reach"),
+      (ge, ":hour", ":time"),
 
-        (str_store_item_name, s3, "$g_item_ordered"),
-    ], "I come to collect my {s3} which I ordered.", "merchant_collect_item", []],
+      (troop_get_slot, ":item_no", "trp_player", ":item"),
+      (str_store_item_name, s3, ":item_no"),
+    ], "I come to collect my {s3} which I ordered.", "merchant_collect_item", [(store_repeat_object, "$temp")]],
 
+    #[anyone, "merchant_collect_item", [
+    #  (str_store_party_name, s2, "$g_item_ordered_party"),
+    #  (str_store_item_name, s3, "$g_item_ordered"),
+    #], "Welcome back, {playername}. Your {s3} has already reached here, so here is your {s3}. Can I help you with anything else?", "town_merchant_talk", [
+    #    (troop_add_item, "trp_player", "$g_item_ordered", "$g_item_ordered_modifier"),
+    #    (assign, "$g_item_ordered", 0),
+    #    (assign, "$g_item_ordered_troop", 0),
+    #    (assign, "$g_item_ordered_price", 0),
+    #    (assign, "$g_item_ordered_modifier", 0),
+    #    (assign, "$g_item_ordered_slot", 0),
+    #    (assign, "$g_item_ordered_bought", 0),
+    #    (assign, "$g_item_ordered_bought_hours", 0),
+    #    (assign, "$g_item_ordered_bought_reach", 0),
+    #    (assign, "$g_item_ordered_warned", 0),
+    #]],
     [anyone, "merchant_collect_item", [
-        (str_store_party_name, s2, "$g_item_ordered_party"),
-        (str_store_item_name, s3, "$g_item_ordered"),
+      (store_add, ":item_slot", "$temp", slot_player_order_item),
+      (store_add, ":town_slot", "$temp", slot_player_order_town),
+      (troop_get_slot, ":town", "trp_player", ":town_slot"),
+      (troop_get_slot, ":item", "trp_player", ":item_slot"),
+      (str_store_party_name, s2, ":town"),
+      (str_store_item_name, s3, ":item"),
     ], "Welcome back, {playername}. Your {s3} has already reached here, so here is your {s3}. Can I help you with anything else?", "town_merchant_talk", [
-        (troop_add_item, "trp_player", "$g_item_ordered", "$g_item_ordered_modifier"),
-        (assign, "$g_item_ordered", 0),
-        (assign, "$g_item_ordered_troop", 0),
-        (assign, "$g_item_ordered_price", 0),
-        (assign, "$g_item_ordered_modifier", 0),
-        (assign, "$g_item_ordered_slot", 0),
-        (assign, "$g_item_ordered_bought", 0),
-        (assign, "$g_item_ordered_bought_hours", 0),
-        (assign, "$g_item_ordered_bought_reach", 0),
-        (assign, "$g_item_ordered_warned", 0),
+      (store_add, ":item_slot", "$temp", slot_player_order_item),
+      (store_add, ":modifier_slot", "$temp", slot_player_order_modifier),
+      (store_add, ":price_slot", "$temp", slot_player_order_price),
+      (store_add, ":town_slot", "$temp", slot_player_order_town),
+      (store_add, ":slot_slot", "$temp", slot_player_order_slot),
+      (store_add, ":found_slot", "$temp", slot_player_order_found),
+      (store_add, ":reach_slot", "$temp", slot_player_order_reach),
+      (store_add, ":hours_slot", "$temp", slot_player_order_hours),
+      (store_add, ":warn_slot", "$temp", slot_player_order_warned),
+      
+      (troop_get_slot, ":item", "trp_player", ":item_slot"),
+      (troop_get_slot, ":modifier", "trp_player", ":modifier_slot"),
+      (troop_add_item, "trp_player", ":item", ":modifier"),
+
+      (troop_set_slot, "trp_player", ":item_slot", -1),
+      (troop_set_slot, "trp_player", ":modifier_slot", -1),
+      (troop_set_slot, "trp_player", ":price_slot", -1),
+      (troop_set_slot, "trp_player", ":town_slot", -1),
+      (troop_set_slot, "trp_player", ":slot_slot", -1),
+      (troop_set_slot, "trp_player", ":found_slot", -1),
+      (troop_set_slot, "trp_player", ":reach_slot", -1),
+      (troop_set_slot, "trp_player", ":hours_slot", -1),
+      (troop_set_slot, "trp_player", ":warn_slot", -1),
     ]],
 
-    [anyone|plyr, "town_merchant_talk", [
-        (gt, "$g_item_ordered", 0),
-        (gt, "$g_item_ordered_bought", 0),
-        (party_slot_eq, "$current_town", "$g_item_ordered_slot", "$g_talk_troop"),
-        (eq, "$g_item_ordered_party", "$current_town"),
+    #[anyone|plyr, "town_merchant_talk", [
+    #    (gt, "$g_item_ordered", 0),
+    #    (gt, "$g_item_ordered_bought", 0),
+    #    (party_slot_eq, "$current_town", "$g_item_ordered_slot", "$g_talk_troop"),
+    #    (eq, "$g_item_ordered_party", "$current_town"),
+    #
+    #    (store_current_hours, ":hour"),
+    #    (lt, ":hour", "$g_item_ordered_bought_reach"),
+    #
+    #   (str_store_item_name, s3, "$g_item_ordered"),
+    #], "I come to collect my {s3} which I ordered.", "merchant_collect_item_fail", []],
+    [anyone|plyr|repeat_for_100, "town_merchant_talk", [
+      (store_repeat_object, ":order"),
+      (is_between, ":order", 0, 25),
+      (store_add, ":item", ":order", slot_player_order_item),
+      (store_add, ":found", ":order", slot_player_order_found),
+      (store_add, ":reach", ":order", slot_player_order_reach),
+      (store_add, ":town", ":order", slot_player_order_town),
+      (store_add, ":merchant", ":order", slot_player_order_slot),
+      (troop_get_slot, ":merchant_slot", "trp_player", ":merchant"),
+      (troop_slot_ge, "trp_player", ":item", 1),
+      (troop_slot_ge, "trp_player", ":found", 1),
+      (party_slot_eq, "$current_town", ":merchant_slot", "$g_talk_troop"),
+      (troop_slot_eq, "trp_player", ":town", "$current_town"),
 
-        (store_current_hours, ":hour"),
-        (lt, ":hour", "$g_item_ordered_bought_reach"),
+      (store_current_hours, ":hour"),
+      (troop_get_slot, ":time", "trp_player", ":reach"),
+      (lt, ":hour", ":time"),
 
-        (str_store_item_name, s3, "$g_item_ordered"),
-    ], "I come to collect my {s3} which I ordered.", "merchant_collect_item_fail", []],
+      (troop_get_slot, ":item_no", "trp_player", ":item"),
+      (str_store_item_name, s3, ":item_no"),
+    ], "I come to collect my {s3} which I ordered.", "merchant_collect_item_fail", [(store_repeat_object, "$temp")]],
 
+    #[anyone, "merchant_collect_item_fail", [
+    #    (store_current_hours, ":hour"),
+    #    (assign, reg0, "$g_item_ordered_bought_reach"),
+    #    (val_sub, reg0, ":hour"),
+    #    (val_div, reg0, 24),
+    #    (store_sub, reg1, reg0, 1),
+    #
+    #    (str_store_party_name, s1, "$g_item_ordered_bought"),
+    #    (str_store_party_name, s2, "$g_item_ordered_party"),
+    #    (str_store_item_name, s3, "$g_item_ordered"),
+    #], "Welcome back, {playername}. Your {s3} has not reached here yet, as my friend from {s1} said your item should be here in {reg0} {reg1?days:day}. Can I help you with anything else?", "town_merchant_talk", []],
     [anyone, "merchant_collect_item_fail", [
-        (store_current_hours, ":hour"),
-        (assign, reg0, "$g_item_ordered_bought_reach"),
-        (val_sub, reg0, ":hour"),
-        (val_div, reg0, 24),
-        (store_sub, reg1, reg0, 1),
+      (store_current_hours, ":hour"),
+      (store_add, ":reach_slot", "$temp", slot_player_order_reach),
+      (store_add, ":item_slot", "$temp", slot_player_order_item),
+      (store_add, ":town_slot", "$temp", slot_player_order_town),
+      (store_add, ":found_slot", "$temp", slot_player_order_found),
+      (troop_get_slot, reg0, "trp_player", ":reach_slot"),
+      (val_sub, reg0, ":hour"),
+      (val_div, reg0, 24),
+      (store_sub, reg1, reg0, 1),
 
-        (str_store_party_name, s1, "$g_item_ordered_bought"),
-        (str_store_party_name, s2, "$g_item_ordered_party"),
-        (str_store_item_name, s3, "$g_item_ordered"),
+      (troop_get_slot, ":item", "trp_player", ":item_slot"),
+      (troop_get_slot, ":town", "trp_player", ":town_slot"),
+      (troop_get_slot, ":found", "trp_player", ":found_slot"),
+      (str_store_party_name, s1, ":found"),
+      (str_store_party_name, s2, ":town"),
+      (str_store_item_name, s3, ":item"),
     ], "Welcome back, {playername}. Your {s3} has not reached here yet, as my friend from {s1} said your item should be here in {reg0} {reg1?days:day}. Can I help you with anything else?", "town_merchant_talk", []],
     
-    [anyone|plyr, "town_merchant_talk", [
-        (gt, "$g_item_ordered", 0),
-        (gt, "$g_item_ordered_bought", 0),
-        (party_slot_eq, "$current_town", "$g_item_ordered_slot", "$g_talk_troop"),
+    #[anyone|plyr, "town_merchant_talk", [
+    #    (gt, "$g_item_ordered", 0),
+    #    (gt, "$g_item_ordered_bought", 0),
+    #    (party_slot_eq, "$current_town", "$g_item_ordered_slot", "$g_talk_troop"),
+    #
+    #    (eq, "$g_item_ordered_bought", "$current_town"),
+    #    (neq, "$g_item_ordered_party", "$current_town"),
+    #
+    #    (store_current_hours, ":hour"),
+    #    (val_sub, ":hour", "$g_item_ordered_bought_hours"),
+    #    (le, ":hour", 24),
+    #
+    #    (str_store_party_name, s2, "$g_item_ordered_party"),
+    #    (str_store_item_name, s3, "$g_item_ordered"),
+    #], "I come to collect my {s3} which I ordered at {s2}.", "merchant_collect_item_another", []],
+    [anyone|plyr|repeat_for_100, "town_merchant_talk", [
+      (store_repeat_object, ":order"),
+      (is_between, ":order", 0, 25),
+      (store_add, ":item", ":order", slot_player_order_item),
+      (store_add, ":found", ":order", slot_player_order_found),
+      (store_add, ":town", ":order", slot_player_order_town),
+      (store_add, ":merchant", ":order", slot_player_order_slot),
+      (troop_get_slot, ":merchant_slot", "trp_player", ":merchant"),
+      (store_add, ":hours", ":order", slot_player_order_hours),
+      (troop_slot_ge, "trp_player", ":item", 1),
+      (troop_slot_ge, "trp_player", ":found", 1),
+      (party_slot_eq, "$current_town", ":merchant_slot", "$g_talk_troop"),
+      (troop_slot_eq, "trp_player", ":found", "$current_town"),
+      (neg|troop_slot_eq, "trp_player", ":town", "$current_town"),
 
-        (eq, "$g_item_ordered_bought", "$current_town"),
-        (neq, "$g_item_ordered_party", "$current_town"),
+      (store_current_hours, ":hour"),
+      (troop_get_slot, ":hours_left", "trp_player", ":hours"),
+      (val_sub, ":hour", ":hours_left"),
+      (le, ":hour", 24),
 
-        (store_current_hours, ":hour"),
-        (val_sub, ":hour", "$g_item_ordered_bought_hours"),
-        (le, ":hour", 24),
+      (troop_get_slot, ":town_no", "trp_player", ":town"),
+      (str_store_party_name, s2, ":town_no"),
+      (troop_get_slot, ":item_no", "trp_player", ":item"),
+      (str_store_item_name, s3, ":item_no"),
+    ], "I come to collect my {s3} which I ordered at {s2}.", "merchant_collect_item_another", [(store_repeat_object, "$temp")]],
 
-        (str_store_party_name, s2, "$g_item_ordered_party"),
-        (str_store_item_name, s3, "$g_item_ordered"),
-    ], "I come to collect my {s3} which I ordered at {s2}.", "merchant_collect_item_another", []],
-
+    #[anyone, "merchant_collect_item_another", [
+    #    (str_store_party_name, s2, "$g_item_ordered_party"),
+    #    (str_store_item_name, s3, "$g_item_ordered"),
+    #], "Oh my friend from {s2} told you can come to collect your {s3}. I am thinking to send it with merchant to {s2}, but as you are here, here is your {s3}. Can I help you with anything else?", "town_merchant_talk", [
+    #    (troop_add_item, "trp_player", "$g_item_ordered", "$g_item_ordered_modifier"),
+    #    (assign, "$g_item_ordered", 0),
+    #    (assign, "$g_item_ordered_troop", 0),
+    #    (assign, "$g_item_ordered_price", 0),
+    #    (assign, "$g_item_ordered_modifier", 0),
+    #    (assign, "$g_item_ordered_slot", 0),
+    #    (assign, "$g_item_ordered_bought", 0),
+    #    (assign, "$g_item_ordered_bought_hours", 0),
+    #    (assign, "$g_item_ordered_bought_reach", 0),
+    #    (assign, "$g_item_ordered_warned", 0),
+    #]],
     [anyone, "merchant_collect_item_another", [
-        (str_store_party_name, s2, "$g_item_ordered_party"),
-        (str_store_item_name, s3, "$g_item_ordered"),
+      (store_add, ":item_slot", "$temp", slot_player_order_item),
+      (store_add, ":town_slot", "$temp", slot_player_order_town),
+      (troop_get_slot, ":town", "trp_player", ":town_slot"),
+      (troop_get_slot, ":item", "trp_player", ":item_slot"),
+      (str_store_party_name, s2, ":town"),
+      (str_store_item_name, s3, ":item"),
     ], "Oh my friend from {s2} told you can come to collect your {s3}. I am thinking to send it with merchant to {s2}, but as you are here, here is your {s3}. Can I help you with anything else?", "town_merchant_talk", [
-        (troop_add_item, "trp_player", "$g_item_ordered", "$g_item_ordered_modifier"),
-        (assign, "$g_item_ordered", 0),
-        (assign, "$g_item_ordered_troop", 0),
-        (assign, "$g_item_ordered_price", 0),
-        (assign, "$g_item_ordered_modifier", 0),
-        (assign, "$g_item_ordered_slot", 0),
-        (assign, "$g_item_ordered_bought", 0),
-        (assign, "$g_item_ordered_bought_hours", 0),
-        (assign, "$g_item_ordered_bought_reach", 0),
-        (assign, "$g_item_ordered_warned", 0),
+      (store_add, ":item_slot", "$temp", slot_player_order_item),
+      (store_add, ":modifier_slot", "$temp", slot_player_order_modifier),
+      (store_add, ":price_slot", "$temp", slot_player_order_price),
+      (store_add, ":town_slot", "$temp", slot_player_order_town),
+      (store_add, ":slot_slot", "$temp", slot_player_order_slot),
+      (store_add, ":found_slot", "$temp", slot_player_order_found),
+      (store_add, ":reach_slot", "$temp", slot_player_order_reach),
+      (store_add, ":hours_slot", "$temp", slot_player_order_hours),
+      (store_add, ":warn_slot", "$temp", slot_player_order_warned),
+      
+      (troop_get_slot, ":item", "trp_player", ":item_slot"),
+      (troop_get_slot, ":modifier", "trp_player", ":modifier_slot"),
+      (troop_add_item, "trp_player", ":item", ":modifier"),
+
+      (troop_set_slot, "trp_player", ":item_slot", -1),
+      (troop_set_slot, "trp_player", ":modifier_slot", -1),
+      (troop_set_slot, "trp_player", ":price_slot", -1),
+      (troop_set_slot, "trp_player", ":town_slot", -1),
+      (troop_set_slot, "trp_player", ":slot_slot", -1),
+      (troop_set_slot, "trp_player", ":found_slot", -1),
+      (troop_set_slot, "trp_player", ":reach_slot", -1),
+      (troop_set_slot, "trp_player", ":hours_slot", -1),
+      (troop_set_slot, "trp_player", ":warn_slot", -1),
     ]],
 
-    [anyone|plyr, "town_merchant_talk", [
-        (gt, "$g_item_ordered", 0),
-        (gt, "$g_item_ordered_bought", 0),
-        (party_slot_eq, "$current_town", "$g_item_ordered_slot", "$g_talk_troop"),
+    #[anyone|plyr, "town_merchant_talk", [
+    #    (gt, "$g_item_ordered", 0),
+    #    (gt, "$g_item_ordered_bought", 0),
+    #    (party_slot_eq, "$current_town", "$g_item_ordered_slot", "$g_talk_troop"),
+    #
+    #    (eq, "$g_item_ordered_bought", "$current_town"),
+    #    (neq, "$g_item_ordered_party", "$current_town"),
+    #
+    #    (store_current_hours, ":hour"),
+    #    (val_sub, ":hour", "$g_item_ordered_bought_hours"),
+    #    (gt, ":hour", 24),
+    #
+    #    (str_store_party_name, s2, "$g_item_ordered_party"),
+    #    (str_store_item_name, s3, "$g_item_ordered"),
+    #], "I come to collect my {s3} which I ordered at {s2}.", "merchant_collect_item_another_fail", []],
+    [anyone|plyr|repeat_for_100, "town_merchant_talk", [
+      (store_repeat_object, ":order"),
+      (is_between, ":order", 0, 25),
+      (store_add, ":item", ":order", slot_player_order_item),
+      (store_add, ":found", ":order", slot_player_order_found),
+      (store_add, ":town", ":order", slot_player_order_town),
+      (store_add, ":merchant", ":order", slot_player_order_slot),
+      (store_add, ":hours", ":order", slot_player_order_hours),
+      (troop_get_slot, ":merchant_slot", "trp_player", ":merchant"),
+      (troop_slot_ge, "trp_player", ":item", 1),
+      (troop_slot_ge, "trp_player", ":found", 1),
+      (party_slot_eq, "$current_town", ":merchant_slot", "$g_talk_troop"),
+      (troop_slot_eq, "trp_player", ":found", "$current_town"),
+      (neg|troop_slot_eq, "trp_player", ":town", "$current_town"),
 
-        (eq, "$g_item_ordered_bought", "$current_town"),
-        (neq, "$g_item_ordered_party", "$current_town"),
+      (store_current_hours, ":hour"),
+      (troop_get_slot, ":hours_left", "trp_player", ":hours"),
+      (val_sub, ":hour", ":hours_left"),
+      (gt, ":hour", 24),
 
-        (store_current_hours, ":hour"),
-        (val_sub, ":hour", "$g_item_ordered_bought_hours"),
-        (gt, ":hour", 24),
+      (troop_get_slot, ":town_no", "trp_player", ":town"),
+      (str_store_party_name, s2, ":town_no"),
+      (troop_get_slot, ":item_no", "trp_player", ":item"),
+      (str_store_item_name, s3, ":item_no"),
+    ], "I come to collect my {s3} which I ordered at {s2}.", "merchant_collect_item_another_fail", [(store_repeat_object, "$temp")]],
 
-        (str_store_party_name, s2, "$g_item_ordered_party"),
-        (str_store_item_name, s3, "$g_item_ordered"),
-    ], "I come to collect my {s3} which I ordered at {s2}.", "merchant_collect_item_another_fail", []],
-
+    #[anyone, "merchant_collect_item_another_fail", [
+    #    (str_store_party_name, s2, "$g_item_ordered_party"),
+    #
+    #    (assign, reg0, "$g_item_ordered_bought_reach"),
+    #    (store_current_hours, ":hour"),
+    #    (val_sub, reg0, ":hour"),
+    #    (ge, reg0, 1),
+    #    (val_div, reg0, 24),
+    #    (store_sub, reg1, reg0, 1),
+    #], "Ah, I already sent it to {s2}, it should be there in {reg0} {reg1?days:day}. Can I help you with anything else?", "town_merchant_talk", []],
     [anyone, "merchant_collect_item_another_fail", [
-        (str_store_party_name, s2, "$g_item_ordered_party"),
+      (store_current_hours, ":hour"),
+      (store_add, ":reach_slot", "$temp", slot_player_order_reach),
+      (store_add, ":town_slot", "$temp", slot_player_order_town),
+      (troop_get_slot, reg0, "trp_player", ":reach_slot"),
+      (val_sub, reg0, ":hour"),
+      (ge, reg0, 1),
+      (val_div, reg0, 24),
+      (store_sub, reg1, reg0, 1),
 
-        (assign, reg0, "$g_item_ordered_bought_reach"),
-        (store_current_hours, ":hour"),
-        (val_sub, reg0, ":hour"),
-        (ge, reg0, 1),
-        (val_div, reg0, 24),
-        (store_sub, reg1, reg0, 1),
+      (troop_get_slot, ":town", "trp_player", ":town_slot"),
+      (str_store_party_name, s2, ":town"),
     ], "Ah, I already sent it to {s2}, it should be there in {reg0} {reg1?days:day}. Can I help you with anything else?", "town_merchant_talk", []],
 
+    #[anyone, "merchant_collect_item_another_fail", [
+    #    (str_store_party_name, s2, "$g_item_ordered_party"),
+    #
+    #    (assign, reg0, "$g_item_ordered_bought_reach"),
+    #    (store_current_hours, ":hour"),
+    #    (val_sub, reg0, ":hour"),
+    #    (lt, reg0, 1),
+    #], "Ah, I already sent it to {s2}, as my messenger said my merchant has already reached {s2} so you can collect your item from {s2} anytime you want. Can I help you with anything else?", "town_merchant_talk", []],
     [anyone, "merchant_collect_item_another_fail", [
-        (str_store_party_name, s2, "$g_item_ordered_party"),
+      (store_current_hours, ":hour"),
+      (store_add, ":reach_slot", "$temp", slot_player_order_reach),
+      (store_add, ":town_slot", "$temp", slot_player_order_town),
+      (troop_get_slot, reg0, "trp_player", ":reach_slot"),
+      (val_sub, reg0, ":hour"),
+      (lt, reg0, 1),
 
-        (assign, reg0, "$g_item_ordered_bought_reach"),
-        (store_current_hours, ":hour"),
-        (val_sub, reg0, ":hour"),
-        (lt, reg0, 1),
-    ], "Ah, I already sent it to {s2}, as my messenger said my merchant has already reached {s2} so you can collect your item from {s2} anytime you want. Can I help you with anything else?", "town_merchant_talk", []],
-
+      (troop_get_slot, ":town", "trp_player", ":town_slot"),
+      (str_store_party_name, s2, ":town"),
+    ], "Ah, I already sent it to {s2}, it should be there in {reg0} {reg1?days:day}. Can I help you with anything else?", "town_merchant_talk", []],
+    
     # Global Cancel
-    [anyone|plyr, "town_merchant_talk", [
-        (gt, "$g_item_ordered", 0),
-        (eq, "$g_item_ordered_party", "$current_town"),
-        (le, "$g_item_ordered_bought", 0),
-        (party_slot_eq, "$current_town", "$g_item_ordered_slot", "$g_talk_troop"), #Is player talk with same merchant which he ordered item.
-        (str_store_item_name, s10, "$g_item_ordered"),
-    ], "I want to cancel my {s10} order.", "town_merchant_cancel_order", []],
+    #[anyone|plyr, "town_merchant_talk", [
+    #    (gt, "$g_item_ordered", 0),
+    #    (eq, "$g_item_ordered_party", "$current_town"),
+    #    (le, "$g_item_ordered_bought", 0),
+    #    (party_slot_eq, "$current_town", "$g_item_ordered_slot", "$g_talk_troop"), #Is player talk with same merchant which he ordered item.
+    #    (str_store_item_name, s10, "$g_item_ordered"),
+    #], "I want to cancel my {s10} order.", "town_merchant_cancel_order", []],
+    [anyone|plyr|repeat_for_100, "town_merchant_talk", [
+      (store_repeat_object, ":order"),
+      (is_between, ":order", 0, 25),
+      (store_add, ":item_slot", ":order", slot_player_order_item),
+      (store_add, ":town_slot", ":order", slot_player_order_town),
+      (store_add, ":found_slot", ":order", slot_player_order_found),
+      (troop_get_slot, ":found", "trp_player", ":found_slot"),
+      (troop_slot_eq, "trp_player", ":town_slot", "$current_town"),
+      (le, ":found", 0),
+      (troop_get_slot, ":item", "trp_player", ":item_slot"),
+      (str_store_item_name, s10, ":item"),
+    ], "I want to cancel my {s10} order.", "town_merchant_cancel_order", [(store_repeat_object, "$temp")]],
     
-    [anyone|plyr, "town_merchant_talk", [
-        (gt, "$g_item_ordered", 0),
-        (eq, "$g_item_ordered_party", "$current_town"),
-        (gt, "$g_item_ordered_bought", 0),
-        (party_slot_eq, "$current_town", "$g_item_ordered_slot", "$g_talk_troop"),
-        (str_store_item_name, s10, "$g_item_ordered"),
-    ], "I want to cancel my {s10} order.", "town_merchant_cancel_order_ask", []],
+    #[anyone|plyr, "town_merchant_talk", [
+    #    (gt, "$g_item_ordered", 0),
+    #    (eq, "$g_item_ordered_party", "$current_town"),
+    #    (gt, "$g_item_ordered_bought", 0),
+    #    (party_slot_eq, "$current_town", "$g_item_ordered_slot", "$g_talk_troop"),
+    #    (str_store_item_name, s10, "$g_item_ordered"),
+    #], "I want to cancel my {s10} order.", "town_merchant_cancel_order_ask", []],
+    [anyone|plyr|repeat_for_100, "town_merchant_talk", [
+      (store_repeat_object, ":order"),
+      (is_between, ":order", 0, 25),
+      (store_add, ":item_slot", ":order", slot_player_order_item),
+      (store_add, ":town_slot", ":order", slot_player_order_town),
+      (store_add, ":found_slot", ":order", slot_player_order_found),
+      (troop_get_slot, ":found", "trp_player", ":found_slot"),
+      (troop_slot_eq, "trp_player", ":town_slot", "$current_town"),
+      (gt, ":found", 0),
+      (troop_get_slot, ":item", "trp_player", ":item_slot"),
+      (str_store_item_name, s10, ":item"),
+    ], "I want to cancel my {s10} order.", "town_merchant_cancel_order_ask", [(store_repeat_object, "$temp")]],
     
-    [anyone, "town_merchant_cancel_order_ask", [(str_store_item_name, s10, "$g_item_ordered"),], "Your {s10} order already found, so are you sure to cancel your order?", "town_merchant_cancel_order_answer", []],
+    #[anyone, "town_merchant_cancel_order_ask", [(str_store_item_name, s10, "$g_item_ordered"),], "Your {s10} order already found, so are you sure to cancel your order?", "town_merchant_cancel_order_answer", []],
+    [anyone, "town_merchant_cancel_order_ask", [
+      (store_add, ":item_slot", "$temp", slot_player_order_item),
+      (troop_get_slot, ":item", "trp_player", ":item_slot"),
+      (str_store_item_name, s10, ":item"),
+    ], "Your {s10} order already found, so are you sure to cancel your order?", "town_merchant_cancel_order_answer", []],
+    #
+    ## UID: 100 - End
 
     [anyone|plyr, "town_merchant_cancel_order_answer", [], "Yes.", "town_merchant_cancel_order", []],
     [anyone|plyr, "town_merchant_cancel_order_answer", [], "No.", "town_merchant_pretalk", []],
-    
-    [anyone, "town_merchant_cancel_order", [(str_store_item_name, s10, "$g_item_ordered")], "Sure, I will not search for {s10} anymore. Anything else?", "town_merchant_talk", [
-        (troop_add_gold, "trp_player", "$g_item_ordered_price"),
-        (assign, "$g_item_ordered", 0),
-        (assign, "$g_item_ordered_troop", 0),
-        (assign, "$g_item_ordered_price", 0),
-        (assign, "$g_item_ordered_modifier", 0),
-        (assign, "$g_item_ordered_slot", 0),
-        (assign, "$g_item_ordered_bought", 0),
-        (assign, "$g_item_ordered_bought_hours", 0),
-        (assign, "$g_item_ordered_bought_reach", 0),
-        (assign, "$g_item_ordered_warned", 0),
+
+    ## UID: 100 - Begin
+    #
+    #[anyone, "town_merchant_cancel_order", [(str_store_item_name, s10, "$g_item_ordered")], "Sure, I will not search for {s10} anymore. Anything else?", "town_merchant_talk", [
+    #    (troop_add_gold, "trp_player", "$g_item_ordered_price"),
+    #    (assign, "$g_item_ordered", 0),
+    #    (assign, "$g_item_ordered_troop", 0),
+    #    (assign, "$g_item_ordered_price", 0),
+    #    (assign, "$g_item_ordered_modifier", 0),
+    #    (assign, "$g_item_ordered_slot", 0),
+    #    (assign, "$g_item_ordered_bought", 0),
+    #    (assign, "$g_item_ordered_bought_hours", 0),
+    #    (assign, "$g_item_ordered_bought_reach", 0),
+    #    (assign, "$g_item_ordered_warned", 0),
+    #]],
+    [anyone, "town_merchant_cancel_order", [
+      (store_add, ":item_slot", "$temp", slot_player_order_item),
+      (troop_get_slot, ":item", "trp_player", ":item_slot"),
+      (str_store_item_name, s10, ":item"),
+    ], "Sure, I will not search for {s10} anymore. Anything else?", "town_merchant_talk", [
+      (store_add, ":item_slot", "$temp", slot_player_order_item),
+      (store_add, ":modifier_slot", "$temp", slot_player_order_modifier),
+      (store_add, ":price_slot", "$temp", slot_player_order_price),
+      (store_add, ":town_slot", "$temp", slot_player_order_town),
+      (store_add, ":slot_slot", "$temp", slot_player_order_slot),
+      (store_add, ":found_slot", "$temp", slot_player_order_found),
+      (store_add, ":reach_slot", "$temp", slot_player_order_reach),
+      (store_add, ":hours_slot", "$temp", slot_player_order_hours),
+      (store_add, ":warn_slot", "$temp", slot_player_order_warned),
+      (troop_get_slot, ":price", "trp_player", ":price_slot"),
+      (troop_add_gold, "trp_player", ":price"),
+
+      (troop_set_slot, "trp_player", ":item_slot", -1),
+      (troop_set_slot, "trp_player", ":modifier_slot", -1),
+      (troop_set_slot, "trp_player", ":price_slot", -1),
+      (troop_set_slot, "trp_player", ":town_slot", -1),
+      (troop_set_slot, "trp_player", ":slot_slot", -1),
+      (troop_set_slot, "trp_player", ":found_slot", -1),
+      (troop_set_slot, "trp_player", ":reach_slot", -1),
+      (troop_set_slot, "trp_player", ":hours_slot", -1),
+      (troop_set_slot, "trp_player", ":warn_slot", -1),
     ]],
+    #
+    ## UID: 100 - End
 
     # Global Summary...
     [anyone, "trade_order_set_order_price", [
@@ -26957,27 +27358,71 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
     ], "Here is {reg0} {reg1?denars:denar}.", "trade_order_set_order", []],
     
     [anyone|plyr, "trade_order_set_order_price_answer", [], "Forget it.", "town_merchant_pretalk", []],
-     
+
+    ## UID: 100 - Begin
+    #
+    #[anyone, "trade_order_set_order", [(str_store_item_name, s10, "$temp")], "I will send a messenger to notice you when your {s10} will be ready.", "town_merchant_pretalk", [
+    #    (assign, "$g_item_ordered", "$temp"),
+    #    (assign, "$g_item_ordered_modifier", "$temp_2"),
+    #    (assign, "$g_item_ordered_party", "$current_town"),
+    #
+    #    (assign, "$g_item_ordered_slot", slot_town_horse_merchant),
+    #    (try_begin),
+    #      (is_between, "$g_talk_troop", weapon_merchants_begin, weapon_merchants_end),
+    #      (assign, "$g_item_ordered_slot", slot_town_weaponsmith),
+    #    (else_try),
+    #      (is_between, "$g_talk_troop", armor_merchants_begin, armor_merchants_end),
+    #      (assign, "$g_item_ordered_slot", slot_town_armorer),
+    #    (try_end),
+    #
+    #    (store_item_value, ":cost", "$temp"),
+    #    (val_mul, ":cost", "$temp_3"),
+    #    (val_div, ":cost", "$temp_4"),
+    #    (troop_remove_gold, "trp_player", ":cost"),
+    #    (assign, "$g_item_ordered_price", ":cost"),
+    #]],
     [anyone, "trade_order_set_order", [(str_store_item_name, s10, "$temp")], "I will send a messenger to notice you when your {s10} will be ready.", "town_merchant_pretalk", [
-        (assign, "$g_item_ordered", "$temp"),
-        (assign, "$g_item_ordered_modifier", "$temp_2"),
-        (assign, "$g_item_ordered_party", "$current_town"),
+      (assign, ":slot", -1),
+      (try_for_range, ":cur_slot", 0, 25),
+        (lt, ":slot", 0),
+        (store_add, ":islot", ":cur_slot", slot_player_order_item),
+        (neg|troop_slot_ge, "trp_player", ":islot", 1),
+        (assign, ":slot", ":cur_slot"),
+      (try_end),
+      (store_add, ":item", ":slot", slot_player_order_item),
+      (store_add, ":price", ":slot", slot_player_order_price),
+      (store_add, ":modifier", ":slot", slot_player_order_modifier),
+      (store_add, ":town", ":slot", slot_player_order_town),
+      (store_add, ":found", ":slot", slot_player_order_found),
+      (store_add, ":merchant", ":slot", slot_player_order_slot),
+      (store_add, ":reach", ":slot", slot_player_order_reach),
+      (store_add, ":hours", ":slot", slot_player_order_hours),
+      (store_add, ":warned", ":slot", slot_player_order_warned),
 
-        (assign, "$g_item_ordered_slot", slot_town_horse_merchant),
-        (try_begin),
-          (is_between, "$g_talk_troop", weapon_merchants_begin, weapon_merchants_end),
-          (assign, "$g_item_ordered_slot", slot_town_weaponsmith),
-        (else_try),
-          (is_between, "$g_talk_troop", armor_merchants_begin, armor_merchants_end),
-          (assign, "$g_item_ordered_slot", slot_town_armorer),
-        (try_end),
+      (troop_set_slot, "trp_player", ":item", "$temp"),
+      (troop_set_slot, "trp_player", ":modifier", "$temp_2"),
+      (troop_set_slot, "trp_player", ":town", "$current_town"),
+      (troop_set_slot, "trp_player", ":found", -1),
+      (troop_set_slot, "trp_player", ":reach", -1),
+      (troop_set_slot, "trp_player", ":hours", -1),
+      (troop_set_slot, "trp_player", ":warned", -1),
+      (troop_set_slot, "trp_player", ":merchant", slot_town_horse_merchant),
+      (try_begin),
+        (is_between, "$g_talk_troop", weapon_merchants_begin, weapon_merchants_end),
+        (troop_set_slot, "trp_player", ":merchant", slot_town_weaponsmith),
+      (else_try),
+        (is_between, "$g_talk_troop", armor_merchants_begin, armor_merchants_end),
+        (troop_set_slot, "trp_player", ":merchant", slot_town_armorer),
+      (try_end),
 
-        (store_item_value, ":cost", "$temp"),
-        (val_mul, ":cost", "$temp_3"),
-        (val_div, ":cost", "$temp_4"),
-        (troop_remove_gold, "trp_player", ":cost"),
-        (assign, "$g_item_ordered_price", ":cost"),
+      (store_item_value, ":cost", "$temp"),
+      (val_mul, ":cost", "$temp_3"),
+      (val_div, ":cost", "$temp_4"),
+      (troop_remove_gold, "trp_player", ":cost"),
+      (troop_set_slot, "trp_player", ":price", ":cost"),
     ]],
+    #
+    ## UID: 100 - End
 
     [anyone, "town_merchant_pretalk", [], "Anything else?", "town_merchant_talk", []],
     #

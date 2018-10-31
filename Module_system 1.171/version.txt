@@ -1,4 +1,4 @@
-[v0.1]
+﻿[v0.1]
 1. Recruiting amount of volunteer troops from villages increases with renown and relationship.
   * module_scripts.py
   ** Replaced:
@@ -12,7 +12,7 @@
 3. Bet count increases with renown for tournaments.
   * module_game_menus.py
   ** Replaced:
-  *** menu_tournament_bet
+  *** mnu_tournament_bet
   * game_menus.csv
   ** Removed:
   *** mno_bet_100_denars
@@ -110,6 +110,9 @@
   *** itm_fp_bow_03_pl
   *** itm_fp_bow_04
   *** itm_fp_bow_04_pl
+  * module_game_menus.py
+  ** Edited:
+  *** mnu_cheat_find_item
   
 5. New npcs added.
   * module_items.py
@@ -142,7 +145,7 @@
   * process_game_menus.py
   ** Edited:
   *** def_save_game_menus
-  *** def_save_game_menu_item
+  *** def_save_game_mnu_item
   * process_items.py
   ** Edited:
   *** def_write_items
@@ -372,16 +375,16 @@
   *** script_get_improvement_details
   * module_game_menus.py
   ** Added:
-  *** menu_watch_tower
-  *** menu_windmill
-  *** menu_messenger_post
+  *** mnu_watch_tower
+  *** mnu_windmill
+  *** mnu_messenger_post
   ** Replaced:
-  *** menu_center_manage
-  *** menu_center_improve
+  *** mnu_center_manage
+  *** mnu_center_improve
   ** Fixed:
   *** Unknown troop id -1 error fixed.
   ** Edited:
-  *** menu_village:mno_village_wait
+  *** mnu_village:mno_village_wait
   * module_simple_triggers.py
   ** Removed:
   *** 12h trigger for checking time left for constructions.
@@ -444,9 +447,9 @@
   *** mno_center_build_drop_6
   *** mno_center_build_drop_3
   *** mno_center_build_drop_1
-  *** menu_watch_tower
-  *** menu_windmill
-  *** menu_messenger_post
+  *** mnu_watch_tower
+  *** mnu_windmill
+  *** mnu_messenger_post
 
 10. Sea Wars added.
   * module_constants.py
@@ -454,11 +457,11 @@
   *** slot_town_near_shore
   * module_game_menus.py
   ** Replaced:
-  *** menu_castle_castle:mno_sail_from_port
-  *** menu_simple_encounter:mno_encounter_attack
-  *** menu_join_battle:mno_join_attack
-  *** menu_disembark:mno_disembark_yes
-  *** menu_captivity_wilderness_check:mno_continue
+  *** mnu_castle_castle:mno_sail_from_port
+  *** mnu_simple_encounter:mno_encounter_attack
+  *** mnu_join_battle:mno_join_attack
+  *** mnu_disembark:mno_disembark_yes
+  *** mnu_captivity_wilderness_check:mno_continue
   * module_party_templates.py
   ** Added:
   *** sea_raiders_ships
@@ -486,7 +489,7 @@
   *** p_bandit_camps_end
   * module_game_menus.py
   ** Added:
-  *** menu_bandit_camp
+  *** mnu_bandit_camp
   * module_simple_triggers.py
   ** Added:
   *** Trigger for p_bandit_camp_1 and p_bandit_camp_2 which recovers camps.
@@ -515,12 +518,12 @@
   *** g_difficulty
   * module_game_menus.py
   ** Edited:
-  *** menu_start_game_0:mno_continue
+  *** mnu_start_game_0:mno_continue
   ** Added:
-  *** menu_start_game_difficulty
+  *** mnu_start_game_difficulty
   * dialogs.csv
   ** Added:
-  *** menu_start_game_difficulty
+  *** mnu_start_game_difficulty
   *** mno_difficulty_realistic
   *** mno_difficulty_hard
   *** mno_difficulty_moderate
@@ -587,17 +590,17 @@
 14. Modder login added to first page.
   * module_game_menus.py
   ** Added:
-  *** menu_start_game_0:mno_modder
-  *** menu_start_game_2:mno_modder
+  *** mnu_start_game_0:mno_modder
+  *** mnu_start_game_2:mno_modder
   * game_menus.csv
   ** Fixed:
-  *** menu_start_game_0 translation issue.
+  *** mnu_start_game_0 translation issue.
 
 15. Added talking with village elders and guild masters directly from menu if already met with him.
   * module_game_menus.py
   ** Added:
-  *** menu_village:mno_meet_the_village_elder
-  *** menu_town:mno_meet_the_guild_master
+  *** mnu_village:mno_meet_the_village_elder
+  *** mnu_town:mno_meet_the_guild_master
   * game_menus.csv
   ** Added:
   *** mno_meet_the_guild_master
@@ -637,15 +640,15 @@
 17. Cattles track party after this time.
   * module_game_menus.py
   ** Edited:
-  *** menu_cattle_herd:mno_cattle_drive_away
+  *** mnu_cattle_herd:mno_cattle_drive_away
   
 18. Decreasing construction time system added.
   * module_game_menus.py
   ** Added:
-  *** menu_center_manage:mno_center_drop_12
-  *** menu_center_manage:mno_center_drop_6
-  *** menu_center_manage:mno_center_drop_3
-  *** menu_center_manage:mno_center_drop_1
+  *** mnu_center_manage:mno_center_drop_12
+  *** mnu_center_manage:mno_center_drop_6
+  *** mnu_center_manage:mno_center_drop_3
+  *** mnu_center_manage:mno_center_drop_1
   * module_scripts.py
   ** Added:
   *** script_upgrade_decrease_time (Inactive)
@@ -665,7 +668,7 @@
   *** party_prisoner_without_level
   * module_game_menus.py
   ** Edited:
-  *** menu_party_size_report
+  *** mnu_party_size_report
   * module_scripts.py
   ** Replaced:
   *** script_game_get_party_prisoner_limit
@@ -1178,7 +1181,7 @@
   *** str_faction_title_female_8
   * module_game_menus.py
   ** Edited:
-  *** menu_town:mno_town_tavern
+  *** mnu_town:mno_town_tavern
   * parties.csv
   ** Added:
   *** p_town_23
@@ -1428,7 +1431,7 @@
 25. Listing all items presentation added on camp cheat menu list.
   * module_game_menus.py
   ** Added:
-  *** menu_camp_cheat:mno_cheat_view_all_items
+  *** mnu_camp_cheat:mno_cheat_view_all_items
   * module_presentations.py
   ** Added:
   *** prsnt_all_items
@@ -1440,6 +1443,42 @@
   * module_scripts.py
   ** Added:
   *** script_is_male
+  * module_skins.py
+  ** Added:
+  *** skin_man_vshort
+  *** skin_man_short
+  *** skin_man_long
+  *** skin_man_vlong
+  *** skin_woman_vshort
+  *** skin_woman_short
+  *** skin_woman_long
+  *** skin_woman_vlong
+  ** Activated:
+  *** skin_undead
+  * header_troops.py
+  ** Replaced:
+  *** tf_male
+  *** tf_female
+  *** tf_undead
+  ** Added:
+  *** tf_male_vshort
+  *** tf_male_short
+  *** tf_male_long
+  *** tf_male_vlong
+  *** tf_female_vshort
+  *** tf_female_short
+  *** tf_female_long
+  *** tf_female_vlong
+  ** Import:
+  *** All from ID_skins.py (ID_skins is being created by v0.1.85 compile system)
+  * module_game_menus.py
+  ** Edited:
+  *** mnu_start_game_1
+  ** Added:
+  *** mnu_start_game_length
+  * module_mission_templates.py
+  ** Edited:
+  *** common_battle_init_banner
   * module_dialogs.py
   ** Edited:
   *** dlga_lord_ask_enter_service:lord_ask_enter_service_female_2
@@ -1449,6 +1488,9 @@
   * game_strings.csv
   ** Replaced:
   *** str_i_thank_you_reg39my_ladylord
+  + Thanks:
+  ++ frozenpainter
+  +++ idea for length system for ai soldiers.
   
 27. Lords can't escape after wars anymore.
   * module_constants.py
@@ -1458,13 +1500,13 @@
 28. Castle conquer gold reward increased.
   * module_game_menus.py
   ** Edited:
-  *** menu_requested_castle_granted_to_another:mno_accept_decision
-  *** menu_requested_castle_granted_to_another_female:mno_accept_decision
+  *** mnu_requested_castle_granted_to_another:mno_accept_decision
+  *** mnu_requested_castle_granted_to_another_female:mno_accept_decision
   
 29. Parties don't spawn on rt_mountains anymore when disembark.
   * module_game_menus.py
   ** Edited:
-  *** menu_disembark:mno_disembark_yes
+  *** mnu_disembark:mno_disembark_yes
   
 30. Lords can give more patience with intelligence and persuasion (DISABLED this time)
   * module_dialogs.py
@@ -1505,7 +1547,7 @@
   *** itm_dedal_lira
   * module_game_menus.py
   ** Edited:
-  *** menu_town:mno_town_tavern
+  *** mnu_town:mno_town_tavern
   * module_dialogs.py
   ** Added:
   *** dlga_start:tavern_walkers_talk
@@ -1566,7 +1608,7 @@
   *** dlga_farmer_from_bandit_village_3:farmer_from_bandit_village_4
   *** dlga_farmer_from_bandit_village_4:farmer_from_bandit_village_5
   
-34. Literacy skill and new books added.
+34. Literacy skill and new books added. (Book resource OSP: Lav)
   * module_skills.py
   ** Removed:
   *** skl_reserved_5
@@ -1623,9 +1665,9 @@
   *** readable_books_end
   * module_game_menus.py
   ** Replaced:
-  *** menu_camp_action_read_book
+  *** mnu_camp_action_read_book
   ** Edited:
-  *** menu_choose_skill
+  *** mnu_choose_skill
   * module_dialogs.py
   ** Added:
   *** dlga_tavern_traveler_talk:tavern_traveler_bookseller_location
@@ -1817,31 +1859,51 @@
   *** mt_besiege_inner_battle_castle
   *** mt_besiege_inner_battle_town_center
   *** mt_castle_attack_walls_defenders_sally
+  *** mt_castle_attack_walls_belfry
+  *** mt_castle_attack_walls_ladder
   *** mt_ship_battle
   
 36. Religion added to game. (Haven't set for factions and players can't choose yet.)
   * module_game_menus.py
   ** Added:
-  *** menu_start_game_religion
+  *** mnu_start_game_religion
   ** Edited:
-  *** menu_start_game_difficulty:mno_difficulty_realistic
-  *** menu_start_game_difficulty:mno_difficulty_hard
-  *** menu_start_game_difficulty:mno_difficulty_moderate
-  *** menu_start_game_difficulty:mno_difficulty_easy
-  *** menu_start_game_difficulty:mno_difficulty_casual
-  *** menu_start_game_1:mno_go_back
+  *** mnu_start_game_difficulty:mno_difficulty_realistic
+  *** mnu_start_game_difficulty:mno_difficulty_hard
+  *** mnu_start_game_difficulty:mno_difficulty_moderate
+  *** mnu_start_game_difficulty:mno_difficulty_easy
+  *** mnu_start_game_difficulty:mno_difficulty_casual
+  *** mnu_start_game_1:mno_go_back
+  * module_dialogs.py
+  ** Replaced:
+  *** dlga_lord_ask_enter_service:lord_give_oath_1
+  * module_scripts.py
+  ** Edited:
+  *** script_game_start
+  * module_constants.py
+  ** Added:
+  *** slot_faction_religion
+  *** religion_christianity
+  *** religion_islam
+  *** religion_hinduism
+  *** religion_buddhism
+  *** religion_atheism
+  *** religion_tengrism
+  *** religion_norse
+  *** religion_sikhism
+  *** religion_judaism
   * variables.txt
   ** Added:
   *** g_religion
   * dialogs.csv
   ** Added:
-  *** menu_start_game_religion
+  *** mnu_start_game_religion
   *** mno_religion_atheist
   
 37. Tournament System changed.
   * module_game_menus.py
   ** Edited:
-  *** menu_town_tournament:mno_tournament_join_next_fight
+  *** mnu_town_tournament:mno_tournament_join_next_fight
   * module_mission_templates.py
   ** Added:
   *** mt_arena_melee_fight_2
@@ -1849,9 +1911,9 @@
 38. Start tournament option added to town menu while in cheat mode.
   * module_game_menus.py
   ** Added:
-  *** menu_town:mno_start_tournament
+  *** mnu_town:mno_start_tournament
   **** Moved To:
-  ***** menu_town_cheat:mno_start_tournament
+  ***** mnu_town_cheat:mno_start_tournament
   
 39. World map added.
   * module_presentations.py
@@ -1859,7 +1921,7 @@
   *** prsnt_world_map
   * module_game_menus.py
   ** Added:
-  *** menu_camp:mno_camp_world_map
+  *** mnu_camp:mno_camp_world_map
   * game_menus.csv
   ** Added:
   *** mno_camp_world_map
@@ -1920,8 +1982,8 @@
   *** script_troop_set_title_according_to_faction
   * module_game_menus.py
   ** Edited:
-  *** menu_castle_taken_2
-  *** menu_castle_taken_2:mno_castle_taken_claim_2
+  *** mnu_castle_taken_2
+  *** mnu_castle_taken_2:mno_castle_taken_claim_2
   * dialogs.csv
   ** Replaced:
   *** dlga_tavernkeeper_talk:tavernkeeper_job_ask
@@ -1970,13 +2032,13 @@
   *** plyr_mission_vacation
   * module_game_menus.py
   ** Added:
-  *** menu_world_map_soldier
-  *** menu_commander_aud
-  *** menu_ask_revolt
-  *** menu_revolt
-  *** menu_ask_desert
-  *** menu_desert
-  *** menu_upgrade_path
+  *** mnu_world_map_soldier
+  *** mnu_commander_aud
+  *** mnu_ask_revolt
+  *** mnu_revolt
+  *** mnu_ask_desert
+  *** mnu_desert
+  *** mnu_upgrade_path
   * module_meshes.py
   ** Added:
   *** mesh_pic_soldier_world_map
@@ -2046,7 +2108,7 @@
   *** dlga_ask_return_from_leave:lord_pretalk
   * game_menus.csv
   ** Added:
-  *** menu_world_map_soldier
+  *** mnu_world_map_soldier
   *** mno_join_commander_battle
   *** mno_enter_town
   *** mno_commander
@@ -2054,21 +2116,21 @@
   *** mno_desert
   *** mno_report
   *** mno_return_to_duty
-  *** menu_commander_aud
+  *** mnu_commander_aud
   *** mno_reject_talk_lord
-  *** menu_ask_revolt
+  *** mnu_ask_revolt
   *** mno_confirm_revolt
   *** mno_reject_revolt
-  *** menu_revolt
+  *** mnu_revolt
   *** mno_revolt_prisoners
   *** mno_revolt_no_prisoners
-  *** menu_ask_desert
+  *** mnu_ask_desert
   *** mno_confirm_desert
   *** mno_reject_desert
-  *** menu_desert
+  *** mnu_desert
   *** mno_desert_party
   *** mno_desert_alone
-  *** menu_upgrade_path
+  *** mnu_upgrade_path
   *** mno_upgrade_path_1
   *** mno_upgrade_path_2
   * quick_strings.csv
@@ -2332,7 +2394,7 @@
 53. Force recruiting added as village hostile action.
   * module_game_menus.py
   ** Added:
-  *** menu_village_hostile_action:mno_village_force_recruit
+  *** mnu_village_hostile_action:mno_village_force_recruit
   * module_scripts.py
   ** Edited:
   *** script_update_volunteer_troops_in_village
@@ -2343,30 +2405,30 @@
   * game_menus.csv
   ** Added:
   *** mno_village_force_recruit
-  *** menu_village_force_confirm
-  *** menu_village_force_recruit
+  *** mnu_village_force_confirm
+  *** mnu_village_force_recruit
   
 54. Choose skill system changed.
   * module_game_menus.py
   ** Replaced:
-  *** menu_choose_skill
+  *** mnu_choose_skill
   ** Edited:
-  *** menu_start_character_3:mno_lady
+  *** mnu_start_character_3:mno_lady
   
 55. Merchant quest removed.
   * module_game_menus.py
   ** Edited:
-  *** menu_start_phase_2:mno_town_1
-  *** menu_start_phase_2:mno_town_2
-  *** menu_start_phase_2:mno_town_3
-  *** menu_start_phase_2:mno_town_4
-  *** menu_start_phase_2:mno_town_5
-  *** menu_start_phase_2:mno_town_6
+  *** mnu_start_phase_2:mno_town_1
+  *** mnu_start_phase_2:mno_town_2
+  *** mnu_start_phase_2:mno_town_3
+  *** mnu_start_phase_2:mno_town_4
+  *** mnu_start_phase_2:mno_town_5
+  *** mnu_start_phase_2:mno_town_6
   ** Added:
-  *** menu_start_phase_2:mno_town_7
-  *** menu_start_phase_2:mno_town_8
+  *** mnu_start_phase_2:mno_town_7
+  *** mnu_start_phase_2:mno_town_8
   ** Removed:
-  *** menu_start_phase_2:mno_training_cheat
+  *** mnu_start_phase_2:mno_training_cheat
 
 56. Some dialog mistakes fixed.
   * module_dialogs.py
@@ -2384,17 +2446,17 @@
 57. Town cheat menu added and cheats move in it.
   * module_game_menus.py
   ** Removed:
-  *** menu_town:mno_town_alley
-  *** menu_town:mno_castle_cheat_interior
-  *** menu_town:mno_castle_cheat_town_exterior
-  *** menu_town:mno_castle_cheat_dungeon
-  *** menu_town:mno_castle_cheat_town_walls
-  *** menu_town:mno_cheat_town_start_siege
-  *** menu_town:mno_start_tournament
-  *** menu_town:mno_center_reports
+  *** mnu_town:mno_town_alley
+  *** mnu_town:mno_castle_cheat_interior
+  *** mnu_town:mno_castle_cheat_town_exterior
+  *** mnu_town:mno_castle_cheat_dungeon
+  *** mnu_town:mno_castle_cheat_town_walls
+  *** mnu_town:mno_cheat_town_start_siege
+  *** mnu_town:mno_start_tournament
+  *** mnu_town:mno_center_reports
   ** Added:
-  *** menu_town_cheat
-  *** menu_town:mno_town_cheat
+  *** mnu_town_cheat
+  *** mnu_town:mno_town_cheat
   ** Edited:
   *** mnu_center_reports:mno_go_back_dot
   
@@ -2500,19 +2562,56 @@
   *** trp_supporters_infantry -> trp_supporters_sergeant
   *** trp_supporters_man_at_arms -> trp_supporters_knight
   *** trp_supporters_crossbowman -> trp_supporters_sharpshooter
+  * module_dialogs.py
+  ** Added:
+  *** dlga_minister_talk:minister_choose_soldier
+  *** dlga_minister_choose_soldier:minister_choose_soldier_selection
+  *** dlga_minister_choose_soldier_selection:minister_pretalk
+  *** dlga_minister_choose_soldier_selection:minister_pretalk.1
+  * module_triggers.py
+  ** Added:
+  *** 4h trigger for fixing name issue.
+  * quick_strings.csv
+  ** Added:
+  *** qstr_Recruit
+  *** qstr_Recruits
+  *** qstr_Militia
+  *** qstr_Militias
+  *** qstr_Footman
+  *** qstr_Footmen
+  *** qstr_Infantry
+  *** qstr_Infantries
+  *** qstr_Sergeant
+  *** qstr_Sergeants
+  *** qstr_Skirmisher
+  *** qstr_Skirmishers
+  *** qstr_Crossbowman
+  *** qstr_Crossbowmen
+  *** qstr_Sharpshooter
+  *** qstr_Sharpshooters
+  *** qstr_Man_at_Arms
+  *** qstr_Men_at_Arms
+  *** qstr_Knight
+  *** qstr_Knights
+  *** qstr_Messenger
+  *** qstr_Messengers
+  *** qstr_Deserter
+  *** qstr_Deserters
+  *** qstr_{s3}_s_{s1}
+  *** qstr_{s3}_s_{s2}
   
 63. Prefix for lords added.
   * module_game_menus.py
   ** Edited:
-  *** menu_start_phase_2:mno_modder
-  *** menu_start_phase_2:mno_town_1
-  *** menu_start_phase_2:mno_town_2
-  *** menu_start_phase_2:mno_town_3
-  *** menu_start_phase_2:mno_town_4
-  *** menu_start_phase_2:mno_town_5
-  *** menu_start_phase_2:mno_town_6
-  *** menu_start_phase_2:mno_town_7
-  *** menu_start_phase_2:mno_town_8
+  *** mnu_start_phase_2:mno_modder
+  *** mnu_start_phase_2:mno_town_1
+  *** mnu_start_phase_2:mno_town_2
+  *** mnu_start_phase_2:mno_town_3
+  *** mnu_start_phase_2:mno_town_4
+  *** mnu_start_phase_2:mno_town_5
+  *** mnu_start_phase_2:mno_town_6
+  *** mnu_start_phase_2:mno_town_7
+  *** mnu_start_phase_2:mno_town_8
   * module_strings.py
   ** Added:
   *** str_faction_title_king_male_player
@@ -2560,21 +2659,31 @@
 66. Camping on water/river terrain blocked.
   * module_game_menus.py
   ** Edited:
-  *** menu_camp:mno_camp_wait_here
+  *** mnu_camp:mno_camp_wait_here
   
 67. Continuing as an npc kingdoms added.
   * module_game_menus.py
   ** Added:
-  *** menu_notification_faction_defeated:mno_continue_as_npc_kingdom
-  *** menu_notification_faction_defeated:mno_continue_as_own_kingdom
+  *** mnu_notification_faction_defeated:mno_continue_as_npc_kingdom
+  *** mnu_notification_faction_defeated:mno_continue_as_own_kingdom
   ** Edited:
-  *** menu_notification_faction_defeated:mno_continue
-  *** menu_total_victory
-  *** menu_castle_taken
+  *** mnu_notification_faction_defeated:mno_continue
+  *** mnu_total_victory
+  *** mnu_castle_taken
+  *** mnu_notification_court_lost
   * module_scripts.py
   ** Added:
   *** script_troop_has_center_from_faction
   *** script_troop_change_faction
+  ** Edited:
+  *** script_decide_faction_ai
+  *** script_diplomacy_start_war_between_kingdoms
+  *** script_set_player_relation_with_faction
+  *** script_change_player_relation_with_faction
+  *** script_change_player_relation_with_faction_ex
+  *** script_make_kingdom_hostile_to_player
+  *** script_cf_get_random_active_faction_except_player_faction_and_faction
+  *** script_npc_decision_checklist_peace_or_war
   * module_dialogs.py
   ** Edited:
   *** dlga_event_triggered:award_fief_to_vassal
@@ -2591,11 +2700,15 @@
   *** dlga_center_captured_lord_advice:center_captured_lord_advice_2
   *** dlga_lord_requests_recruitment:close_window
   *** dlga_minister_issues:minister_talk
+  * module_simple_triggers.py
+  ** Edited:
+  *** 24h trigger for mercanary contract end.
+  *** 3h trigger for checking players kingdom court.
   
 68. When player faction conquer castle, player right to rule increase.
   * module_game_menus.py
   ** Edited:
-  *** menu_castle_taken
+  *** mnu_castle_taken
   
 69. After this time, when player conquer any center, reinforce added automatically.
   * module_dialogs.py
@@ -2617,6 +2730,9 @@
   * module_scripts.py
   ** Edited:
   *** script_set_prefix
+  * module_game_menus.py
+  ** Edited:
+  *** mnu_notification_faction_defeated:mno_continue_as_npc_kingdom
   * module_constants.py
   ** Added:
   *** slot_faction_original_color
@@ -2660,12 +2776,12 @@
   *** 1h trigger for reading book process.
   * module_game_menus.py
   ** Added:
-  *** menu_camp_action:mno_action_stop_reading
-  *** menu_camp_action:mno_action_write_book
-  *** menu_camp_action:mno_action_stop_writing
+  *** mnu_camp_action:mno_action_stop_reading
+  *** mnu_camp_action:mno_action_write_book
+  *** mnu_camp_action:mno_action_stop_writing
   ** Edited:
-  *** menu_camp_action:mno_action_read_book
-  *** menu_character_report
+  *** mnu_camp_action:mno_action_read_book
+  *** mnu_character_report
   * variables.txt
   ** Added:
   *** g_player_writing_book
@@ -2819,9 +2935,9 @@
   *** dlga_town_merchant_pretalk:town_merchant_talk
   * module_game_menus.py
   ** Edited:
-  *** menu_town_trade:mno_trade_with_arms_merchant
-  *** menu_town_trade:mno_trade_with_armor_merchant
-  *** menu_town_trade:mno_trade_with_horse_merchant
+  *** mnu_town_trade:mno_trade_with_arms_merchant
+  *** mnu_town_trade:mno_trade_with_armor_merchant
+  *** mnu_town_trade:mno_trade_with_horse_merchant
   * module_constants.py
   ** Added:
   *** handwears_begin
@@ -3013,8 +3129,8 @@
 80. Hunting system added.
   * module_game_menus.py
   ** Added:
-  *** menu_boar_herd
-  *** menu_deer_herd
+  *** mnu_boar_herd
+  *** mnu_deer_herd
   * module_items.py
   ** Added:
   *** itm_deer
@@ -3066,9 +3182,9 @@
   *** itm_deer_meat_pl
   * game_menus.csv
   ** Added:
-  *** menu_deer_herd
+  *** mnu_deer_herd
   *** mno_herd_attack
-  *** menu_boar_herd
+  *** mnu_boar_herd
 
 81. New foods added. (OSP: Fireman)
   * module_items.py
@@ -3208,6 +3324,8 @@
   * process_troops.py
   ** Edited:
   *** def_save_troops
+  * Note:
+  ** After changes of module compiling system it moves to compile.py
 
 84. New items added. (OSP: buz)
   * module_items.py
@@ -3261,8 +3379,8 @@
   *** script_npc_decision_checklist_peace_or_war
   * module_game_menus.py
   ** Edited:
-  *** menu_price_and_production
-  *** menu_notification_lady_requests_visit:mno_continue
+  *** mnu_price_and_production
+  *** mnu_notification_lady_requests_visit:mno_continue
   * module_dialogs.py
   ** Edited:
   *** dlga_start:close_window
@@ -3349,7 +3467,7 @@
   *** module_tableau_materials.py
   * Note:
   ** Strings:
-  *** Using, "=" on strings causes error.
+  *** Using, "=" in strings causes error.
   
 86. After this time parties need drink.
   * module_constants.py
@@ -3362,8 +3480,290 @@
   * module_simple_triggers.py
   ** Edited:
   *** 14h trigger for consuming food.
+  * quick_strings.csv
+  ** Replaced:
+  *** qstr_Party_has_nothing_to
+  ** Added:
+  *** qstr_Party_has_nothing_to_
+  
+87. Bounty hunter - the strong two handed infantry - added as a merchanary.
+  * module_troops.py
+  ** Added:
+  *** trp_bounty_hunter
+  ** Upgrade:
+  *** Added:
+  **** trp_hired_blade -> trp_bounty_hunter
+  **** trp_hired_blade -> trp_dark_knight
+  *** Removed:
+  **** trp_hired_blade -> trp_dark_knight
+  * Note:
+  ** Dragon's item modifier system used on bounty hunter.
+  
+88. Health regeneration added.
+  * module_mission_templates.py
+  ** Added:
+  *** common_health_regen
+  ** Edited:
+  *** mt_ship_battle
+  *** mt_lead_charge
+  *** mt_village_attack_bandits
+  *** mt_village_raid
+  *** mt_besiege_inner_battle_castle
+  *** mt_besiege_inner_battle_town_center
+  *** mt_castle_attack_walls_defenders_sally
+  *** mt_castle_attack_walls_belfry
+  *** mt_castle_attack_walls_ladder
+  *** mt_bandit_lair
+  *** mt_bandit_camp
+  ** Import:
+  *** All from ID_skills.py
+  
+89. Declaring war too far countries blocked.
+  * module_scripts.py
+  ** Added:
+  *** script_check_nearest_centers
+  ** Edited:
+  *** script_diplomacy_start_war_between_kingdoms
+  
+90. Fixed some menu mistakes and translate issues on camp cheat menu.
+  * module_game_menus.py
+  ** Changed:
+  *** mnu_camp_cheat:mno_camp_cheat_find_item.1
+  ** Removed:
+  *** mnu_camp_cheat:mno_camp_cheat_1
+  *** mnu_camp_cheat:mno_camp_cheat_2
+  *** mnu_camp_cheat:mno_camp_cheat_3
+  *** mnu_camp_cheat:mno_camp_cheat_4
+  *** mnu_camp_cheat:mno_camp_cheat_5 (Before changed to: mno_camp_scramble_minstrels)
+  *** mnu_camp_cheat:mno_camp_cheat_6
+  *** mnu_camp_cheat:mno_cheat_faction_orders
+  *** mnu_camp_cheat:mno_cheat_faction_orders.1
+  *** mnu_camp_cheat:mno_cheat_faction_orders.2
+  *** mnu_cheat_find_item:mno_camp_action_4
+  *** mnu_cheat_change_weather:mno_camp_action_4
+  ** Added:
+  *** mnu_camp_cheat:mno_camp_cheat_increase_renown
+  *** mnu_camp_cheat:mno_camp_cheat_increase_honor
+  *** mnu_camp_cheat:mno_camp_cheat_update_political
+  *** mnu_camp_cheat:mno_camp_cheat_update_troop
+  *** mnu_camp_cheat:mno_camp_cheat_infinite_camp
+  *** mnu_camp_cheat:mno_camp_cheat_debug
+  *** mnu_cheat_find_item:mno_back_to_camp_menu
+  *** mnu_cheat_change_weather:mno_back_to_camp_menu
+  * game_menus.csv
+  ** Added:
+  *** mno_back_to_camp_menu
+  *** mno_camp_cheat_debug
+  *** mno_camp_cheat_infinite_camp
+  *** mno_camp_cheat_update_political
+  *** mno_camp_cheat_increase_honor
+  *** mno_camp_cheat_increase_renown
+  ** Replaced:
+  *** mnu_camp_cheat
+  ** Deleted:
+  *** mno_camp_action_4.1
+  *** mno_camp_action_4.2
+  *** mno_camp_action_4.3
+  *** mno_camp_action_4.4
+  *** mno_camp_cheat_find_item
+  
+91. Lord relation system changed.
+  * module_scripts.py
+  ** Edited:
+  *** script_give_center_to_lord
+
+92. Added levelling system to freelancer mode, and needed experience increased.
+  * module_presentations.py
+  ** Edited:
+  *** prsnt_taragoth_lords_report
+  * variables.txt
+  ** Added:
+  *** player_cur_troop_level
+  *** player_cur_troop_prom
+  * module_dialogs.py
+  ** Edited:
+  *** dlga_lord_request_enlistment:lord_request_enlistment_confirm
+  * module_simple_triggers.py
+  ** Edited:
+  *** Weekly trigger for promotion changed to daily.
+  ** Added:
+  *** Weekly trigger for weekly page.
+  * module_scripts.py
+  ** Edited:
+  *** script_cf_freelancer_player_can_upgrade
+  *** script_game_get_upgrade_xp
+  *** script_game_start
+  * module_game_menus.py
+  ** Edited:
+  *** mnu_upgrade_path:mno_upgrade_path_1
+  *** mnu_upgrade_path:mno_upgrade_path_2
+  
+93. Translation issues fixed.
+  * troops.csv
+  ** Edited:
+  *** trp_knight_1_19_pl
+  *** trp_knight_3_2_pl
+  
+94. Added dialog for patrol parties.
+  * module_dialogs.py
+  ** Added:
+  *** dlga_start:patrol_lord
+  *** dlga_patrol_lord:close_window
+  
+95. New troop type Camel Archer added.
+  * module_troops.py
+  ** Added:
+  *** trp_desert_archer
+  ** Upgrade:
+  *** trp_desert_bandit -> trp_desert_archer
+  * module_party_templates.py
+  ** Replaced:
+  *** pt_desert_cavalry
+  * module_triggers.py
+  ** Replaced:
+  *** 24h trigger to add member for desert cavalries and dark knights
+  
+96. Tournament troops changed.
+  * module_troops.py
+  ** Added:
+  *** trp_tour_novice
+  *** trp_tour_regular
+  *** trp_tour_veteran
+  *** trp_tour_champion
+  * module_scripts.py
+  ** Edited:
+  *** script_fill_tournament_participants_troop
+  
+97. You can be invited by any kingdom to feast if you have more than 1500 fame.
+  * module_scripts.py
+  ** Edited:
+  *** script_decide_faction_ai
+  
+98. Added tavernkeeper shop for drinks.
+  * module_triggers.py
+  ** Added:
+  *** 168h trigger for refresh stock.
+  * module_scripts.py
+  ** Added:
+  *** script_refresh_center_taverns
+  * module_dialogs.py
+  ** Added:
+  *** dlga_tavernkeeper_talk:trade_requested_drinks
+  *** dlga_trade_requested_drinks:merchant_trade
+  
+99. New items added. (OSP: The Invasion Team)
+  * module_items.py
+  ** Added:
+  *** itm_fi_horse_1
+  *** itm_fi_horse_2
+  *** itm_fi_horse_3
+  *** itm_fi_horse_4
+  *** itm_fi_horse_5
+  *** itm_fi_horse_6
+  *** itm_fi_horse_7
+  *** itm_fi_horse_8
+  *** itm_fi_horse_9
+  *** itm_fi_glove_1
+  *** itm_fi_glove_2
+  *** itm_fi_glove_3
+  *** itm_fi_glove_4
+  *** itm_fi_glove_5
+  *** itm_fi_glove_6
+  * item_kinds.csv
+  ** Added:
+  *** itm_fi_horse_1
+  *** itm_fi_horse_2
+  *** itm_fi_horse_3
+  *** itm_fi_horse_4
+  *** itm_fi_horse_5
+  *** itm_fi_horse_6
+  *** itm_fi_horse_7
+  *** itm_fi_horse_8
+  *** itm_fi_horse_9
+  *** itm_fi_glove_1
+  *** itm_fi_glove_2
+  *** itm_fi_glove_3
+  *** itm_fi_glove_4
+  *** itm_fi_glove_5
+  *** itm_fi_glove_6
+  
+100. Order system changed.
+  * module_constants.py
+  ** Added:
+  *** slot_player_order_item
+  *** slot_player_order_price
+  *** slot_player_order_modifier
+  *** slot_player_order_town
+  *** slot_player_order_slot
+  *** slot_player_order_found
+  *** slot_player_order_reach
+  *** slot_player_order_hours
+  *** slot_player_order_warned
+  *  module_dialogs.py
+  ** Edited:
+  *** dlga_town_merchant_talk:trade_order_selection_weapon
+  *** dlga_town_merchant_talk:trade_order_selection_rweapon
+  *** dlga_town_merchant_talk:trade_order_selection_shield
+  *** dlga_town_merchant_talk:trade_order_selection_ammo
+  *** dlga_town_merchant_talk:trade_order_selection_head
+  *** dlga_town_merchant_talk:trade_order_selection_gloves
+  *** dlga_town_merchant_talk:trade_order_selection_body
+  *** dlga_town_merchant_talk:trade_order_selection_leg
+  *** dlga_town_merchant_talk:trade_order_selection_horse
+  ** Replaced:
+  *** dlga_town_merchant_talk:merchant_collect_item
+  *** dlga_merchant_collect_item:town_merchant_talk
+  *** dlga_town_merchant_talk:merchant_collect_item_fail
+  *** dlga_merchant_collect_item_fail:town_merchant_talk
+  *** dlga_town_merchant_talk:merchant_collect_item_another
+  *** dlga_merchant_collect_item_another:town_merchant_talk
+  *** dlga_town_merchant_talk:merchant_collect_item_another_fail
+  *** dlga_merchant_collect_item_another_fail:town_merchant_talk
+  *** dlga_town_merchant_talk:town_merchant_cancel_order
+  *** dlga_town_merchant_talk:town_merchant_cancel_order_ask
+  *** dlga_town_merchant_cancel_order:town_merchant_talk
+  *** dlga_trade_order_set_order:town_merchant_pretalk
+  * module_scripts.py
+  ** Edited:
+  *** script_game_start
+  * module_triggers.py
+  ** Replaced:
+  *** 12h trigger to check town markets.
+  *** 12h trigger to inform player item is ready.
+
+101. Added samurai armor. (OSP: Xenoargh)
+  * module_items.py
+  ** Added:
+  *** itm_ssh_gloves
+  *** itm_ssh_helmet
+  *** itm_ssh_armor
+  *** itm_ssh_boots
+  
+102. New hair styles added and khelian ladies changed.
+  * module_skins.py
+  ** Added:
+  *** hairmessy
+  *** shortlayer
+  *** shoulderhair
+  *** shortbob
+  *** shortcut
+  *** ponytail
+  *** longshoulder
+  *** longstraight
+  *** straightshoulder
+  *** slickedback
+  *** maidenhair
+  *** courthair
+  + OSP:
+  ++ Credits:
+  +++ ThrottleKitty (TESNexus) - Models
+  +++ Ren (TESNexus) - Models
+  +++ RoseSim - Models
+  +++ Nouk - Models
+  +++ Aligeth - Models
+  +++ Jaymosuke - Uvmapping the models and making import versions
 
 Known Bugs:
-tf_female; Ladies seems like man so dialogs should change with gender.
+tf_female; Ladies seems like a man so dialogs should be changed with gender.
 Turkish translate has stupid errors. Like "Kendimin yerine mareşal olarak kendim geçmek istiyorum.", "Köyün yeni sahibi kendim olsun istiyorum" etc...
-Troop ratio sometimes goes invisible.
+Troop ratio sometimes goes invisible. When player use Inventory, Character, Quest buttons.

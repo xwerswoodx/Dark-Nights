@@ -1245,3 +1245,5 @@ leading_deer
 num_boars_killed
 leading_boar
 g_lotterys
+player_cur_troop_level
+player_cur_troop_prom

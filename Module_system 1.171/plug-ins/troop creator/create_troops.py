@@ -9,7 +9,7 @@ iarmor_legs = 6
 iarmor_hand = 1
 
 iweapon_one_handed = 140 #One handed
-iweapon_two_handed = 160
+iweapon_two_handed = 65
 iweapon_one_handed_ranged = 150
 iweapon_two_handed_ranged = 275
 iweapon_bow = 110
@@ -62,99 +62,18 @@ stp_shield_horse = 0x01000 #Shield can use on horse
 stp_crossbow = 0x02000
 stp_bolt = 0x04000
 
-ifaction_id = "fac_player_supporters_faction"
-ifaction_name = "Supporters"
-ifaction_suffix_0 = 10
+ifaction_id = "fac_neutral"
+ifaction_name = 0
+ifaction_suffix_0 = 1
 
-ifaction_suffix_1 = "Recruit" #String
-ifaction_suffix_1_pl = "Recruits" #String
-ifaction_suffix_1_tier = 1 #Integer
-ifaction_suffix_1_upgrade = upgrade_slot_2|upgrade_slot_3 #upgrade to 2, 3 #Hexadecimal
-ifaction_suffix_1_weapons = stp_one_handed_weapon|stp_shield|stp_two_handed_weapon #Hexadecimal
-ifaction_suffix_1_armors = stp_head_armor|stp_body_armor|stp_leg_armor #Hexadecimal
+ifaction_suffix_1 = "Bounty Hunter" #String
+ifaction_suffix_1_pl = "Bounty Hunters" #String
+ifaction_suffix_1_tier = 5 #Integer
+ifaction_suffix_1_upgrade = 0 #Hexadecimal
+ifaction_suffix_1_weapons = stp_two_handed_weapon #Hexadecimal
+ifaction_suffix_1_armors = stp_head_armor|stp_body_armor|stp_leg_armor|stp_hand_armor #Hexadecimal
 ifaction_suffix_1_multiplier = 1 #Float
-ifaction_suffix_1_knows = "" #String
-
-ifaction_suffix_2 = "Militia"
-ifaction_suffix_2_pl = "Militia"
-ifaction_suffix_2_tier = 1
-ifaction_suffix_2_upgrade = upgrade_slot_4 #upgrade to 4
-ifaction_suffix_2_weapons = stp_one_handed_weapon|stp_shield|stp_two_handed_weapon
-ifaction_suffix_2_armors = stp_head_armor|stp_body_armor|stp_leg_armor
-ifaction_suffix_2_multiplier = 1.5
-ifaction_suffix_2_knows = ""
-
-ifaction_suffix_3 = "Skirmisher"
-ifaction_suffix_3_pl = "Skirmishers"
-ifaction_suffix_3_tier = 1
-ifaction_suffix_3_upgrade = upgrade_slot_9 #upgrade to 9
-ifaction_suffix_3_weapons = stp_bow|stp_arrow|stp_shield|stp_one_handed_weapon
-ifaction_suffix_3_armors = stp_head_armor|stp_body_armor|stp_leg_armor
-ifaction_suffix_3_multiplier = 1.5
-ifaction_suffix_3_knows = "knows_riding_2|knows_ironflesh_1"
-
-ifaction_suffix_4 = "Footman"
-ifaction_suffix_4_pl = "Footmen"
-ifaction_suffix_4_tier = 2
-ifaction_suffix_4_upgrade = upgrade_slot_5|upgrade_slot_7
-ifaction_suffix_4_weapons = stp_one_handed_weapon|stp_shield|stp_two_handed_weapon
-ifaction_suffix_4_armors = stp_head_armor|stp_hand_armor|stp_body_armor|stp_leg_armor
-ifaction_suffix_4_multiplier = 1
-ifaction_suffix_4_knows = "knows_ironflesh_2|knows_shield_2|knows_athletics_2|knows_power_strike_2"
-
-ifaction_suffix_5 = "Infantry"
-ifaction_suffix_5_pl = "Infantry"
-ifaction_suffix_5_tier = 2
-ifaction_suffix_5_upgrade = upgrade_slot_6
-ifaction_suffix_5_weapons = stp_one_handed_weapon|stp_shield|stp_two_handed_weapon
-ifaction_suffix_5_armors = stp_head_armor|stp_hand_armor|stp_body_armor|stp_leg_armor
-ifaction_suffix_5_multiplier = 1.5
-ifaction_suffix_5_knows = "knows_riding_3|knows_ironflesh_2|knows_power_strike_2|knows_shield_3|knows_athletics_3"
-
-ifaction_suffix_6 = "Sergeant"
-ifaction_suffix_6_pl = "Sergeants"
-ifaction_suffix_6_tier = 3
-ifaction_suffix_6_upgrade = 0
-ifaction_suffix_6_weapons = stp_one_handed_weapon|stp_shield_horse|stp_two_handed_weapon
-ifaction_suffix_6_armors = stp_head_armor|stp_hand_armor|stp_body_armor|stp_leg_armor|stp_horse
-ifaction_suffix_6_multiplier = 1
-ifaction_suffix_6_knows = "knows_shield_4|knows_ironflesh_4|knows_power_strike_4|knows_athletics_4"
-
-ifaction_suffix_7 = "Man At Arms"
-ifaction_suffix_7_pl = "Men At Arms"
-ifaction_suffix_7_tier = 4
-ifaction_suffix_7_upgrade = upgrade_slot_8
-ifaction_suffix_7_weapons = stp_one_handed_weapon|stp_shield_horse|stp_two_handed_weapon
-ifaction_suffix_7_armors = stp_head_armor|stp_hand_armor|stp_body_armor|stp_leg_armor|stp_horse
-ifaction_suffix_7_multiplier = 1
-ifaction_suffix_7_knows = "knows_riding_4|knows_ironflesh_2|knows_shield_2|knows_power_strike_3"
-
-ifaction_suffix_8 = "Knight"
-ifaction_suffix_8_pl = "Knights"
-ifaction_suffix_8_tier = 5
-ifaction_suffix_8_upgrade = 0
-ifaction_suffix_8_weapons = stp_one_handed_weapon|stp_shield_horse|stp_ranged_one_handed_weapon|stp_two_handed_weapon
-ifaction_suffix_8_armors = stp_head_armor|stp_hand_armor|stp_body_armor|stp_leg_armor|stp_horse
-ifaction_suffix_8_multiplier = 1
-ifaction_suffix_8_knows = "knows_riding_5|knows_shield_5|knows_ironflesh_5|knows_power_strike_5"
-
-ifaction_suffix_9 = "Crossbowman"
-ifaction_suffix_9_pl = "Crossbowmen"
-ifaction_suffix_9_tier = 3
-ifaction_suffix_9_upgrade = upgrade_slot_10
-ifaction_suffix_9_weapons = stp_crossbow|stp_bolt|stp_shield|stp_one_handed_weapon
-ifaction_suffix_9_armors = stp_head_armor|stp_hand_armor|stp_body_armor|stp_leg_armor
-ifaction_suffix_9_multiplier = 1
-ifaction_suffix_9_knows = "knows_riding_2|knows_ironflesh_1|knows_athletics_1"
-
-ifaction_suffix_10 = "Sharpshooter"
-ifaction_suffix_10_pl = "Sharpshooters"
-ifaction_suffix_10_tier = 4
-ifaction_suffix_10_upgrade = 0
-ifaction_suffix_10_weapons = stp_crossbow|stp_bolt|stp_shield|stp_one_handed_weapon
-ifaction_suffix_10_armors = stp_head_armor|stp_hand_armor|stp_body_armor|stp_leg_armor
-ifaction_suffix_10_multiplier = 1
-ifaction_suffix_10_knows = "knows_power_draw_3|knows_ironflesh_1|knows_power_strike_1|knows_athletics_2"
+ifaction_suffix_1_knows = "knows_ironflesh_4|knows_athletics_4|knows_power_strike_5" #String
 
 def get_armor(type, min, max):
     #1 = head
@@ -384,6 +303,8 @@ def getName(number):
     return getValue(number, 0)
 
 def getNameByFaction(number):
+    if ifaction_name == 0:
+        return getName(number)
     return ifaction_name + " " + getName(number)
 
 def getId(number):
@@ -393,6 +314,8 @@ def getPluralName(number):
     return getValue(number, "pl")
 
 def getPluralNameByFaction(number):
+    if ifaction_name == 0:
+        return getPluralName(number)
     return ifaction_name + " " + getPluralName(number)
 
 def getTier(number):
@@ -721,6 +644,7 @@ def get_weapon(type, number):
                 value = 0
                 value += int(get_swing_damage(item[6]))
                 value += int(get_thrust_damage(item[6]))
+                print item[1] + " " + str(value) + " " + str(getWeaponMin(number, 2)) + " " + str(getWeaponMax(number, 2))
                 if value <= getWeaponMax(number, 2) and value > getWeaponMin(number, 2):
                     if not result:
                         result = "itm_" + item[0]
@@ -974,9 +898,9 @@ def create_troop(number):
             grant = grant + "|tf_guarantee_shield"
         else:
             print("[Error]: No suitable shield that can use on horse for %s"%getNameByFaction(number))
-            
+
     if not wp:
-        wp = "wp(60)"
+        wp = "|wp(60)"
 
 ##    print("%s - %s"%(grant[1:], ar[2:]))
     result = result + "\"" + getId(number) + "\", \"" + getNameByFaction(number) + "\", \"" + getPluralNameByFaction(number) + "\", " + grant[1:] + ", 0, 0, " + ifaction_id + ", "
