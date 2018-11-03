@@ -1815,21 +1815,15 @@ dialogs = [
     #
     ## UID: 72 - End
 
-       [anyone,"supported_pretender_grant_fief", [
-  ],
-   "Which fief did you have in mind?", "supported_pretender_grant_fief_select",[]],
-
-  [anyone|plyr|repeat_for_parties,"supported_pretender_grant_fief_select", [
-  (store_repeat_object, ":fief_to_grant"),
-  (is_between, ":fief_to_grant", centers_begin, centers_end),
-  (store_faction_of_party, ":fief_faction", ":fief_to_grant"),
-  (eq, ":fief_faction", "fac_player_supporters_faction"),  
-  (party_slot_eq, ":fief_to_grant", slot_town_lord, -1),
-  (str_store_party_name, s4, ":fief_to_grant"),
-  ],
-   "{s4}", "supported_pretender_grant_fief_choose_recipient",[
-   (store_repeat_object, "$g_center_taken_by_player_faction"),   
-   ]],
+    [anyone,"supported_pretender_grant_fief", [], "Which fief did you have in mind?", "supported_pretender_grant_fief_select",[]],
+    [anyone|plyr|repeat_for_parties,"supported_pretender_grant_fief_select", [
+      (store_repeat_object, ":fief_to_grant"),
+      (is_between, ":fief_to_grant", centers_begin, centers_end),
+      (store_faction_of_party, ":fief_faction", ":fief_to_grant"),
+      (eq, ":fief_faction", "fac_player_supporters_faction"),
+      (party_slot_eq, ":fief_to_grant", slot_town_lord, -1),
+      (str_store_party_name, s4, ":fief_to_grant"),
+    ], "{s4}", "supported_pretender_grant_fief_choose_recipient",[(store_repeat_object, "$g_center_taken_by_player_faction")]],
 
    
    
@@ -3180,366 +3174,368 @@ dialogs = [
 #        (troop_get_slot, ":speech", "$g_talk_troop", slot_troop_fief_acceptance_string),
         (str_store_string, s5, ":speech"),  		
 		]],
-		
 
-		 
-  [anyone, "start", [(is_between, "$g_talk_troop", companions_begin, companions_end),
-                     (this_or_next|eq, "$talk_context", tc_tavern_talk),
-						(eq, "$talk_context", tc_court_talk),
-                     (main_party_has_troop, "$g_talk_troop")],
-   "Let's leave whenever you are ready.", "close_window", []],
+    [anyone, "start", [
+      (is_between, "$g_talk_troop", companions_begin, companions_end),
+      (this_or_next|eq, "$talk_context", tc_tavern_talk),
+      (             eq, "$talk_context", tc_court_talk),
+      (main_party_has_troop, "$g_talk_troop"),
+    ], "Let's leave whenever you are ready.", "close_window", []],
 
-  [anyone, "start", [(is_between, "$g_talk_troop", companions_begin, companions_end),
-                     (troop_slot_eq, "$g_talk_troop", slot_troop_occupation, 0),
-                     (troop_slot_eq, "$g_talk_troop", slot_troop_turned_down_twice, 1),
-   ],
-   "Please do not waste any more of my time today, {sir/madame}. Perhaps we shall meet again in our travels.", "close_window", [
-       ]],
+    [anyone, "start", [
+      (is_between, "$g_talk_troop", companions_begin, companions_end),
+      (troop_slot_eq, "$g_talk_troop", slot_troop_occupation, 0),
+      (troop_slot_eq, "$g_talk_troop", slot_troop_turned_down_twice, 1),
+      ## UID: 114 - Begin
+      #
+      (call_script, "script_is_male", "trp_player"),
+    #], "Please do not waste any more of my time today, {sir/madame}. Perhaps we shall meet again in our travels.", "close_window", []],
+    ], "Please do not waste any more of my time today, {reg0?sir:madame}. Perhaps we shall meet again in our travels.", "close_window", []],
+    #
+    ## UID: 114 - End
 
+    [anyone, "start", [
+      (is_between, "$g_talk_troop", companions_begin, companions_end),
+      (troop_slot_eq, "$g_talk_troop", slot_troop_occupation, 0),
+      (eq, "$g_talk_troop_met", 0),
+      (troop_get_slot, ":intro", "$g_talk_troop", slot_troop_intro),
+      ## UID: 114 - Begin
+      #
+      (call_script, "script_is_male", "trp_player"),
+      #
+      ## UID: 114 - End
+      (str_store_string, 5, ":intro"),
+      (str_store_party_name, 20, "$g_encountered_party"),
+    ], "{s5}", "companion_recruit_intro_response", [(troop_set_slot, "$g_talk_troop", slot_troop_first_encountered, "$g_encountered_party")]],
 
-  [anyone, "start", [(is_between, "$g_talk_troop", companions_begin, companions_end),
-                     (troop_slot_eq, "$g_talk_troop", slot_troop_occupation, 0),
-                     (eq, "$g_talk_troop_met", 0),
-                     (troop_get_slot, ":intro", "$g_talk_troop", slot_troop_intro),
-                     (str_store_string, 5, ":intro"),
-                     (str_store_party_name, 20, "$g_encountered_party"),
-   ],
-   "{s5}", "companion_recruit_intro_response", [
-                    (troop_set_slot, "$g_talk_troop", slot_troop_first_encountered, "$g_encountered_party"),
-       ]],
+    [anyone|plyr, "companion_recruit_intro_response", [
+      (troop_get_slot, ":intro_response", "$g_talk_troop", slot_troop_intro_response_1),
+      ## UID: 114 - Begin
+      #
+      (call_script, "script_is_male", "trp_player"),
+      #
+      ## UID: 114 - End
+      (str_store_string, 6, ":intro_response")
+    ], "{s6}", "companion_recruit_backstory_a", []],
 
+    [anyone|plyr, "companion_recruit_intro_response", [
+      (troop_get_slot, ":intro_response", "$g_talk_troop", slot_troop_intro_response_2),
+      ## UID: 114 - Begin
+      #
+      (call_script, "script_is_male", "trp_player"),
+      #
+      ## UID: 114 - End
+      (str_store_string, 7, ":intro_response")
+    ], "{s7}", "close_window", []],
 
-  [anyone|plyr, "companion_recruit_intro_response", [
-                     (troop_get_slot, ":intro_response", "$g_talk_troop", slot_troop_intro_response_1),
-                     (str_store_string, 6, ":intro_response")
-      ], "{s6}", "companion_recruit_backstory_a", []],
+    [anyone, "companion_recruit_backstory_a", [
+      (troop_get_slot, ":backstory_a", "$g_talk_troop", slot_troop_backstory_a),
+      ## UID: 114 - Begin
+      #
+      (call_script, "script_is_male", "trp_player"),
+      #
+      ## UID: 114 - End
+      (str_store_string, 5, ":backstory_a"),
+      (str_store_string, 19, "str_here_plus_space"),
+      (str_store_party_name, 20, "$g_encountered_party"),
+    ], "{s5}", "companion_recruit_backstory_b", []],
 
-  [anyone|plyr, "companion_recruit_intro_response", [
-                     (troop_get_slot, ":intro_response", "$g_talk_troop", slot_troop_intro_response_2),
-                     (str_store_string, 7, ":intro_response")
-      ],  "{s7}", "close_window", [
-          ]],
+    [anyone, "companion_recruit_backstory_b", [
+      (troop_get_slot, ":backstory_b", "$g_talk_troop", slot_troop_backstory_b),
+      ## UID: 114 - Begin
+      #
+      (call_script, "script_is_male", "trp_player"),
+      #
+      ## UID: 114 - End
+      (str_store_string, 5, ":backstory_b"),
+      (str_store_party_name, 20, "$g_encountered_party"),
+    ], "{s5}", "companion_recruit_backstory_c", []],
 
-  [anyone, "companion_recruit_backstory_a", [(troop_get_slot, ":backstory_a", "$g_talk_troop", slot_troop_backstory_a),
-                     (str_store_string, 5, ":backstory_a"),
-                     (str_store_string, 19, "str_here_plus_space"),
-                     (str_store_party_name, 20, "$g_encountered_party"),
-   ],
-   "{s5}", "companion_recruit_backstory_b", []],
+    [anyone, "companion_recruit_backstory_c", [
+      (troop_get_slot, ":backstory_c", "$g_talk_troop", slot_troop_backstory_c),
+      ## UID: 114 - Begin
+      #
+      (call_script, "script_is_male", "trp_player"),
+      #
+      ## UID: 114 - End
+      (str_store_string, 5, ":backstory_c"),
+    ], "{s5}", "companion_recruit_backstory_response", []],
 
-  [anyone, "companion_recruit_backstory_b", [(troop_get_slot, ":backstory_b", "$g_talk_troop", slot_troop_backstory_b),
-                     (str_store_string, 5, ":backstory_b"),
-                     (str_store_party_name, 20, "$g_encountered_party"),
-   ],
-   "{s5}", "companion_recruit_backstory_c", []],
+    [anyone|plyr, "companion_recruit_backstory_response", [
+      (troop_get_slot, ":backstory_response", "$g_talk_troop", slot_troop_backstory_response_1),
+      ## UID: 114 - Begin
+      #
+      (call_script, "script_is_male", "trp_player"),
+      #
+      ## UID: 114 - End
+      (str_store_string, 6, ":backstory_response")
+    ], "{s6}", "companion_recruit_signup", []],
 
-  [anyone, "companion_recruit_backstory_c", [(troop_get_slot, ":backstory_c", "$g_talk_troop", slot_troop_backstory_c),
-                     (str_store_string, 5, ":backstory_c"),
-   ],
-   "{s5}", "companion_recruit_backstory_response", []],
+    [anyone|plyr, "companion_recruit_backstory_response", [
+      (troop_get_slot, ":backstory_response", "$g_talk_troop", slot_troop_backstory_response_2),
+      ## UID: 114 - Begin
+      #
+      (call_script, "script_is_male", "trp_player"),
+      #
+      ## UID: 114 - End
+      (str_store_string, 7, ":backstory_response")
+    ], "{s7}", "close_window", []],
 
-  [anyone|plyr, "companion_recruit_backstory_response", [
-                     (troop_get_slot, ":backstory_response", "$g_talk_troop", slot_troop_backstory_response_1),
-                     (str_store_string, 6, ":backstory_response")
-      ], "{s6}", "companion_recruit_signup", []],
-
-  [anyone|plyr, "companion_recruit_backstory_response", [
-                     (troop_get_slot, ":backstory_response", "$g_talk_troop", slot_troop_backstory_response_2),
-                     (str_store_string, 7, ":backstory_response")
-      ],  "{s7}", "close_window", [
-          ]],
-
-  [anyone, "companion_recruit_signup", [(troop_get_slot, ":signup", "$g_talk_troop", slot_troop_signup),
-                     (str_store_string, 5, ":signup"),
-                     (str_store_party_name, 20, "$g_encountered_party"),
-
-   ],
-   "{s5}", "companion_recruit_signup_b", []],
-
-  [anyone, "companion_recruit_signup_b", [
-      (troop_get_slot, ":signup", "$g_talk_troop", slot_troop_signup_2),
-      (troop_get_slot, reg3, "$g_talk_troop", slot_troop_payment_request),#
-
+    [anyone, "companion_recruit_signup", [
+      (troop_get_slot, ":signup", "$g_talk_troop", slot_troop_signup),
+      ## UID: 114 - Begin
+      #
+      (call_script, "script_is_male", "trp_player"),
+      #
+      ## UID: 114 - End
       (str_store_string, 5, ":signup"),
       (str_store_party_name, 20, "$g_encountered_party"),
+    ], "{s5}", "companion_recruit_signup_b", []],
 
-   ],
-   "{s5}", "companion_recruit_signup_response", []],
+    [anyone, "companion_recruit_signup_b", [
+      (troop_get_slot, ":signup", "$g_talk_troop", slot_troop_signup_2),
+      (troop_get_slot, reg3, "$g_talk_troop", slot_troop_payment_request),
+      ## UID: 114 - Begin
+      #
+      (call_script, "script_is_male", "trp_player"),
+      #
+      ## UID: 114 - End
+      (str_store_string, 5, ":signup"),
+      (str_store_party_name, 20, "$g_encountered_party"),
+    ], "{s5}", "companion_recruit_signup_response", []],
 
-  [anyone|plyr, "companion_recruit_signup_response", [(neg|hero_can_join, "p_main_party"),], "Unfortunately, I can't take on any more hands in my party right now.", "close_window", [
-     ]],
+    [anyone|plyr, "companion_recruit_signup_response", [(neg|hero_can_join, "p_main_party")], "Unfortunately, I can't take on any more hands in my party right now.", "close_window", []],
+    
+    [anyone|plyr, "companion_recruit_signup_response", [
+      (hero_can_join, "p_main_party"),
+      (troop_get_slot, ":signup_response", "$g_talk_troop", slot_troop_signup_response_1),
+      ## UID: 114 - Begin
+      #
+      (call_script, "script_is_male", "trp_player"),
+      #
+      ## UID: 114 - End
+      (str_store_string, 6, ":signup_response")
+    ], "{s6}", "companion_recruit_payment", []],
 
-  [anyone|plyr, "companion_recruit_signup_response", [
-                    (hero_can_join, "p_main_party"),
-                    (troop_get_slot, ":signup_response", "$g_talk_troop", slot_troop_signup_response_1),
-                    (str_store_string, 6, ":signup_response")
-      ], "{s6}", "companion_recruit_payment", []],
+    [anyone|plyr, "companion_recruit_signup_response", [
+      (hero_can_join, "p_main_party"),
+      (troop_get_slot, ":signup_response", "$g_talk_troop", slot_troop_signup_response_2),
+      ## UID: 114 - Begin
+      #
+      (call_script, "script_is_male", "trp_player"),
+      #
+      ## UID: 114 - End
+      (str_store_string, 7, ":signup_response")
+    ], "{s7}", "close_window", []],
 
-  [anyone|plyr, "companion_recruit_signup_response", [
-                    (hero_can_join, "p_main_party"),
-                     (troop_get_slot, ":signup_response", "$g_talk_troop", slot_troop_signup_response_2),
-                     (str_store_string, 7, ":signup_response")
-      ],  "{s7}", "close_window", [
-          ]],
+    [anyone|auto_proceed, "companion_recruit_payment", [(troop_slot_eq, "$g_talk_troop", slot_troop_payment_request, 0)], ".", "companion_recruit_signup_confirm", []],
 
-  [anyone|auto_proceed, "companion_recruit_payment", [
-      (troop_slot_eq, "$g_talk_troop", slot_troop_payment_request, 0),
-   ],
-   ".", "companion_recruit_signup_confirm", []],
-  
-  [anyone, "companion_recruit_payment", [
+    [anyone, "companion_recruit_payment", [
       (store_sub, ":npc_offset", "$g_talk_troop", "trp_npc1"),
       (store_add, ":dialog_line", "str_npc1_payment", ":npc_offset"),
+      ## UID: 114 - Begin
+      #
+      (call_script, "script_is_male", "trp_player"),
+      #
+      ## UID: 114 - End
       (str_store_string, s5, ":dialog_line"),
       (troop_get_slot, reg3, "$g_talk_troop", slot_troop_payment_request),
       (str_store_party_name, s20, "$g_encountered_party"),
-   ],
-   "{s5}", "companion_recruit_payment_response", []],
+    ], "{s5}", "companion_recruit_payment_response", []],
 
-  [anyone|plyr, "companion_recruit_payment_response", [
-                    (hero_can_join, "p_main_party"),
-                    (troop_get_slot, ":amount_requested", "$g_talk_troop", slot_troop_payment_request),#
-                    (store_troop_gold, ":gold", "trp_player"),#
-                    (ge, ":gold", ":amount_requested"),#
-                    (assign, reg3, ":amount_requested"),
-                    (store_sub, ":npc_offset", "$g_talk_troop", "trp_npc1"),
-                    (store_add, ":dialog_line", "str_npc1_payment_response", ":npc_offset"),
-                    (str_store_string, s6, ":dialog_line"),
-      ], "{s6}", "companion_recruit_signup_confirm", [
-                    (troop_get_slot, ":amount_requested", "$g_talk_troop", slot_troop_payment_request),#
-                    (gt, ":amount_requested", 0),#
-                    (troop_remove_gold, "trp_player", ":amount_requested"),  #                  
-                    (troop_set_slot, "$g_talk_troop", slot_troop_payment_request, 0),#
-          ]],
+    [anyone|plyr, "companion_recruit_payment_response", [
+      (hero_can_join, "p_main_party"),
+      (troop_get_slot, ":amount_requested", "$g_talk_troop", slot_troop_payment_request),
+      (store_troop_gold, ":gold", "trp_player"),
+      (ge, ":gold", ":amount_requested"),
+      (assign, reg3, ":amount_requested"),
+      (store_sub, ":npc_offset", "$g_talk_troop", "trp_npc1"),
+      (store_add, ":dialog_line", "str_npc1_payment_response", ":npc_offset"),
+      ## UID: 114 - Begin
+      #
+      (call_script, "script_is_male", "trp_player"),
+      #
+      ## UID: 114 - End
+      (str_store_string, s6, ":dialog_line"),
+    ], "{s6}", "companion_recruit_signup_confirm", [
+      (troop_get_slot, ":amount_requested", "$g_talk_troop", slot_troop_payment_request),
+      (gt, ":amount_requested", 0),
+      (troop_remove_gold, "trp_player", ":amount_requested"),
+      (troop_set_slot, "$g_talk_troop", slot_troop_payment_request, 0),
+    ]],
 
-  [anyone|plyr, "companion_recruit_payment_response", [
-                     (troop_get_slot, ":signup_response", "$g_talk_troop", slot_troop_signup_response_2),
-                     (str_store_string, s7, ":signup_response")
-      ],  "Sorry. I can't afford that at the moment.", "close_window", [
-          ]],
+    [anyone|plyr, "companion_recruit_payment_response", [
+      (troop_get_slot, ":signup_response", "$g_talk_troop", slot_troop_signup_response_2),
+      (str_store_string, s7, ":signup_response"),
+    ],  "Sorry. I can't afford that at the moment.", "close_window", []],
 
-  [anyone, "start", [(is_between, "$g_talk_troop", companions_begin, companions_end),
-                     (troop_slot_eq, "$g_talk_troop", slot_troop_occupation, 0),
-                     (troop_slot_eq, "$g_talk_troop", slot_troop_met_previously, 1),
-                     (troop_slot_eq, "$g_talk_troop", slot_troop_playerparty_history, 0),
+    [anyone, "start", [
+      (is_between, "$g_talk_troop", companions_begin, companions_end),
+      (troop_slot_eq, "$g_talk_troop", slot_troop_occupation, 0),
+      (troop_slot_eq, "$g_talk_troop", slot_troop_met_previously, 1),
+      (troop_slot_eq, "$g_talk_troop", slot_troop_playerparty_history, 0),
+    ], "We meet again.", "companion_recruit_meet_again", [(troop_set_slot, "$g_talk_troop", slot_troop_turned_down_twice, 1)]],
 
-    ],
-   "We meet again.", "companion_recruit_meet_again", [
-                     (troop_set_slot, "$g_talk_troop", slot_troop_turned_down_twice, 1),
-       ]],
+    [anyone|plyr, "companion_recruit_meet_again", [], "So... What have you been doing since our last encounter?", "companion_recruit_backstory_delayed", []],
+    [anyone|plyr, "companion_recruit_meet_again", [],  "Good day to you.", "close_window", []],
 
-  [anyone|plyr, "companion_recruit_meet_again", [
-      ], "So... What have you been doing since our last encounter?", "companion_recruit_backstory_delayed", []],
+    [anyone, "start", [
+      (is_between, "$g_talk_troop", companions_begin, companions_end),
+      (troop_slot_eq, "$g_talk_troop", slot_troop_occupation, 0),
+      (troop_slot_eq, "$g_talk_troop", slot_troop_met_previously, 0),
+      (troop_slot_eq, "$g_talk_troop", slot_troop_playerparty_history, 0),
+    ], "Yes?", "companion_recruit_secondchance", [(troop_set_slot, "$g_talk_troop", slot_troop_turned_down_twice, 1)]],
 
-  [anyone|plyr, "companion_recruit_meet_again", [
-      ],  "Good day to you.", "close_window", [
-          ]],
+    [anyone|plyr, "companion_recruit_secondchance", [], "My apologies if I was rude, earlier. What was your story again?", "companion_recruit_backstory_b", []],
+    [anyone|plyr, "companion_recruit_secondchance", [], "Never mind.", "close_window", []],
 
+    [anyone, "companion_recruit_backstory_delayed", [
+      (troop_get_slot, ":backstory_delayed", "$g_talk_troop", slot_troop_backstory_delayed),
+      ## UID: 114 - Begin
+      #
+      (call_script, "script_is_male", "trp_player"),
+      #
+      ## UID: 114 - End
+      (str_store_string, 5, ":backstory_delayed")
+    ], "{s5}", "companion_recruit_backstory_delayed_response", []],
 
-  [anyone, "start", [(is_between, "$g_talk_troop", companions_begin, companions_end),
-                     (troop_slot_eq, "$g_talk_troop", slot_troop_occupation, 0),
-                     (troop_slot_eq, "$g_talk_troop", slot_troop_met_previously, 0),
-                     (troop_slot_eq, "$g_talk_troop", slot_troop_playerparty_history, 0),
-   ],
-   "Yes?", "companion_recruit_secondchance", [
-                     (troop_set_slot, "$g_talk_troop", slot_troop_turned_down_twice, 1),
-       ]],
+    [anyone|plyr, "companion_recruit_backstory_delayed_response", [], "I might be able to use you in my company.", "companion_recruit_signup_b", []],
+    [anyone|plyr, "companion_recruit_backstory_delayed_response", [],  "I'll let you know if I hear of anything.", "close_window", []],
+    [anyone, "companion_recruit_signup_confirm", [], "Good! Give me a few moments to prepare and I'll be ready to move.", "close_window", [(call_script, "script_recruit_troop_as_companion", "$g_talk_troop")]],
 
+    ### Rehire dialogues
+    [anyone, "start", [
+      (is_between, "$g_talk_troop", companions_begin, companions_end),
+      (neg|troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_kingdom_hero),
+      (troop_slot_eq, "$g_talk_troop", slot_troop_playerparty_history, pp_history_indeterminate),
+      (troop_get_slot, ":prison_center", "$g_talk_troop", slot_troop_prisoner_of_party),
+      (lt, ":prison_center", centers_begin),
+    ], "My offer to rejoin you still stands, if you'll have me.", "companion_rehire", []],
 
-  [anyone|plyr, "companion_recruit_secondchance", [
-      ], "My apologies if I was rude, earlier. What was your story again?", "companion_recruit_backstory_b", []],
+    ### If the companion and the player were separated in battle
+    [anyone, "start", [
+      (is_between, "$g_talk_troop", companions_begin, companions_end),
+      (neg|troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_kingdom_hero),
+      (troop_slot_eq, "$g_talk_troop", slot_troop_playerparty_history, pp_history_scattered),
 
-  [anyone|plyr, "companion_recruit_secondchance", [
-      ],  "Never mind.", "close_window", [
-          ]],
+      (this_or_next|eq, "$talk_context", tc_hero_freed),
+      (neg|troop_slot_ge, "$g_talk_troop", slot_troop_prisoner_of_party, 0),
+      (neq, "$talk_context", tc_prison_break),
+      (assign, ":battle_fate", "str_battle_fate_1"),
+      (store_random_in_range, ":fate_roll", 0, 5),
+      (val_add, ":battle_fate", ":fate_roll"),
+      (str_store_string, s6, ":battle_fate"),
+      (troop_get_slot, ":honorific", "$g_talk_troop", slot_troop_honorific),
+      (str_store_string, s5, ":honorific"),
+    ], "It is good to see you alive, {s5}! {s6}, and I did not know whether you had been captured, or slain, or got away. I've been roaming around since then, looking for you. Shall I get my gear together and rejoin your company?", "companion_rehire",  [
+      (troop_set_slot, "$g_talk_troop", slot_troop_playerparty_history, pp_history_indeterminate),
+      (troop_set_slot, "$g_talk_troop", slot_troop_prisoner_of_party, -1),
+    ]],
 
-  [anyone, "companion_recruit_backstory_delayed",
-   [(troop_get_slot, ":backstory_delayed", "$g_talk_troop", slot_troop_backstory_delayed),
-     (str_store_string, 5, ":backstory_delayed")
-   ],
-   "{s5}", "companion_recruit_backstory_delayed_response", []],
+    [anyone|plyr, "start", [
+      (is_between, "$g_talk_troop", companions_begin, companions_end),
+      (neg|troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_kingdom_hero),
+      (troop_slot_eq, "$g_talk_troop", slot_troop_playerparty_history, pp_history_scattered),
+      (troop_slot_ge, "$g_talk_troop", slot_troop_prisoner_of_party, 0),
+      (neq, "$talk_context", tc_prison_break),
+      (assign, ":battle_fate", "str_battle_fate_1"),
+      (store_random_in_range, ":fate_roll", 0, 5),
+      (val_add, ":battle_fate", ":fate_roll"),
+      (str_store_string, s6, ":battle_fate"),
+      (troop_get_slot, ":honorific", "$g_talk_troop", slot_troop_honorific),
+      (str_store_string, s5, ":honorific"),
+    ], "I've come to break you out of here.", "companion_prison_break_chains", []],
 
-  [anyone|plyr, "companion_recruit_backstory_delayed_response", [
-      ], "I might be able to use you in my company.", "companion_recruit_signup_b", [
-          ]],
+    [anyone,"companion_prison_break_chains", [], "Thank the heavens you came! However, I'm not going anywhere with these chains on my legs. You'll need to get the key away from the guard somehow.", "close_window",[]],
 
-  [anyone|plyr, "companion_recruit_backstory_delayed_response", [
-      ],  "I'll let you know if I hear of anything.", "close_window", [
-          ]],
+    ### If the player and the companion parted on bad terms
+    [anyone, "start", [
+      (is_between, "$g_talk_troop", companions_begin, companions_end),
+      (troop_slot_eq, "$g_talk_troop", slot_troop_occupation, 0),
+      (troop_slot_eq, "$g_talk_troop", slot_troop_turned_down_twice, 0),
+      (troop_slot_eq, "$g_talk_troop", slot_troop_playerparty_history, pp_history_quit),
+      (troop_get_slot, ":speech", "$g_talk_troop", slot_troop_rehire_speech),
+      ## UID: 114 - Begin
+      #
+      (call_script, "script_is_male", "trp_player"),
+      #
+      ## UID: 114 - End
+      (str_store_string, 5, ":speech"),
+    ], "{s5}", "companion_rehire", [(troop_set_slot, "$g_talk_troop", slot_troop_playerparty_history, pp_history_indeterminate)]],
 
-  [anyone, "companion_recruit_signup_confirm", [], "Good! Give me a few moments to prepare and I'll be ready to move.", "close_window",
-   [(call_script, "script_recruit_troop_as_companion", "$g_talk_troop")]],
+    ###If the player and the companion parted on good terms
+    [anyone, "start", [
+      (is_between, "$g_talk_troop", companions_begin, companions_end),
+      (troop_slot_eq, "$g_talk_troop", slot_troop_occupation, 0),
+      (troop_slot_eq, "$g_talk_troop", slot_troop_playerparty_history, pp_history_dismissed),
+      (troop_get_slot, ":honorific", "$g_talk_troop", slot_troop_honorific),
+      (str_store_string, 21, ":honorific"),
+      (troop_get_slot, ":speech", "$g_talk_troop", slot_troop_backstory_delayed),
+      ## UID: 114 - Begin
+      #
+      (call_script, "script_is_male", "trp_player"),
+      #
+      ## UID: 114 - End
+      (str_store_string, 5, ":speech"),
+    ], "It is good to see you, {s21}! To tell you the truth, I had hoped to run into you.", "companion_was_dismissed", [(troop_set_slot, "$g_talk_troop", slot_troop_playerparty_history, pp_history_indeterminate)]],
 
+    [anyone, "companion_was_dismissed", [
+      (neg|troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_kingdom_hero),
+      (troop_get_slot, ":speech", "$g_talk_troop", slot_troop_backstory_delayed),
+      ## UID: 114 - Begin
+      #
+      (call_script, "script_is_male", "trp_player"),
+      #
+      ## UID: 114 - End
+      (str_store_string, 5, ":speech"),
+    ], "{s5}. Would you want me to rejoin your company?", "companion_rehire", []],
 
+    [anyone|plyr, "companion_rehire", [(hero_can_join, "p_main_party")], "Welcome back, my friend!", "companion_recruit_signup_confirm", []],
+    [anyone|plyr, "companion_rehire", [], "Sorry, I can't take on anyone else right now.", "companion_rehire_refused", []],
 
-### Rehire dialogues
-  [anyone, "start", [(is_between, "$g_talk_troop", companions_begin, companions_end),
-					 (neg|troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_kingdom_hero),
-                     (troop_slot_eq, "$g_talk_troop", slot_troop_playerparty_history, pp_history_indeterminate),
-					 
-                     (troop_get_slot, ":prison_center", "$g_talk_troop", slot_troop_prisoner_of_party),
-                     (lt, ":prison_center", centers_begin),
-   ],
-   "My offer to rejoin you still stands, if you'll have me.", "companion_rehire", []],
+    [anyone, "companion_rehire_refused", [], "Well... Look me up if you change your mind, eh?", "close_window", [
+      (troop_get_slot, ":current_town_no", "$g_talk_troop", slot_troop_cur_center),
+      (try_begin),
+        (neg|is_between, ":current_town_no", towns_begin, towns_end),
+        (store_random_in_range, ":town_no", towns_begin, towns_end),
+        (troop_set_slot, "$g_talk_troop", slot_troop_cur_center, ":town_no"),
+        (try_begin),
+          (ge, "$cheat_mode", 1),
+          (assign, reg1, ":current_town_no"),
+          (str_store_party_name, s7, ":town_no"),
+          (display_message, "@{!}current town was {reg1}, now moved to {s7}"),
+        (try_end),
+      (try_end),
+    ]],
 
-### If the companion and the player were separated in battle
-  [anyone, "start", 
-  [
-    (is_between, "$g_talk_troop", companions_begin, companions_end),
-	(neg|troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_kingdom_hero),
-    (troop_slot_eq, "$g_talk_troop", slot_troop_playerparty_history, pp_history_scattered),
-        
-    (this_or_next|eq, "$talk_context", tc_hero_freed),
-    (neg|troop_slot_ge, "$g_talk_troop", slot_troop_prisoner_of_party, 0),
-    
-    (neq, "$talk_context", tc_prison_break),
-					 
-    (assign, ":battle_fate", "str_battle_fate_1"),
-    (store_random_in_range, ":fate_roll", 0, 5),
-    (val_add, ":battle_fate", ":fate_roll"),
-    (str_store_string, s6, ":battle_fate"),
-    (troop_get_slot, ":honorific", "$g_talk_troop", slot_troop_honorific),
-    (str_store_string, s5, ":honorific"),
-  ],
-  "It is good to see you alive, {s5}! {s6}, and I did not know whether you had been captured, or slain, or got away. I've been roaming around since then, looking for you. Shall I get my gear together and rejoin your company?","companion_rehire", 
-  [
-    (troop_set_slot, "$g_talk_troop", slot_troop_playerparty_history, pp_history_indeterminate),
-    (troop_set_slot, "$g_talk_troop", slot_troop_prisoner_of_party, -1),
-  ]],
+    #Default dialog added - for rehire
+    [anyone, "start", [
+      (is_between, "$g_talk_troop", companions_begin, companions_end),
+      (neg|troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_kingdom_hero),
+      (troop_get_slot, ":prison_center", "$g_talk_troop", slot_troop_prisoner_of_party),
+      (lt, ":prison_center", centers_begin),
+    ], "So... Do you want me back yet?", "companion_rehire", []],
 
-  [anyone|plyr,"start", 
-  [
-    (is_between, "$g_talk_troop", companions_begin, companions_end),
-	(neg|troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_kingdom_hero),
-    (troop_slot_eq, "$g_talk_troop", slot_troop_playerparty_history, pp_history_scattered),
-                     
-    (troop_slot_ge, "$g_talk_troop", slot_troop_prisoner_of_party, 0),
-    
-    (neq, "$talk_context", tc_prison_break),
-					 
-    (assign, ":battle_fate", "str_battle_fate_1"),
-    (store_random_in_range, ":fate_roll", 0, 5),
-    (val_add, ":battle_fate", ":fate_roll"),
-    (str_store_string, s6, ":battle_fate"),
-    (troop_get_slot, ":honorific", "$g_talk_troop", slot_troop_honorific),
-    (str_store_string, s5, ":honorific"),
-  ],
-  "I've come to break you out of here.", "companion_prison_break_chains",[]],
-
-  [anyone,"companion_prison_break_chains", [],   
-  "Thank the heavens you came! However, I'm not going anywhere with these chains on my legs. You'll need to get the key away from the guard somehow.", "close_window",[]],			
-
-
-
-
-### If the player and the companion parted on bad terms
-  [anyone, "start", [(is_between, "$g_talk_troop", companions_begin, companions_end),
-                     (troop_slot_eq, "$g_talk_troop", slot_troop_occupation, 0),
-                     (troop_slot_eq, "$g_talk_troop", slot_troop_turned_down_twice, 0),
-                     (troop_slot_eq, "$g_talk_troop", slot_troop_playerparty_history, pp_history_quit),
-                     (troop_get_slot, ":speech", "$g_talk_troop", slot_troop_rehire_speech),
-                     (str_store_string, 5, ":speech"),
-   ],
-   "{s5}", "companion_rehire", [
-                     (troop_set_slot, "$g_talk_troop", slot_troop_playerparty_history, pp_history_indeterminate),
-      ]],
-
-
-###If the player and the companion parted on good terms
-  [anyone, "start", [(is_between, "$g_talk_troop", companions_begin, companions_end),
-                     (troop_slot_eq, "$g_talk_troop", slot_troop_occupation, 0),
-                     (troop_slot_eq, "$g_talk_troop", slot_troop_playerparty_history, pp_history_dismissed),
-                     (troop_get_slot, ":honorific", "$g_talk_troop", slot_troop_honorific),
-                     (str_store_string, 21, ":honorific"),
-                     (troop_get_slot, ":speech", "$g_talk_troop", slot_troop_backstory_delayed),
-                     (str_store_string, 5, ":speech"),
-   ],
-   "It is good to see you, {s21}! To tell you the truth, I had hoped to run into you.",
-   "companion_was_dismissed", [
-                     (troop_set_slot, "$g_talk_troop", slot_troop_playerparty_history, pp_history_indeterminate),
-      ]],
-
-  [anyone, "companion_was_dismissed", [
-					 (neg|troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_kingdom_hero),
-                      (troop_get_slot, ":speech", "$g_talk_troop", slot_troop_backstory_delayed),
-                     (str_store_string, 5, ":speech"),
-   ],
-   "{s5}. Would you want me to rejoin your company?", "companion_rehire", [
-      ]],
-
-
-  [anyone|plyr, "companion_rehire", 
-  [
-    (hero_can_join, "p_main_party"),
-  ], "Welcome back, my friend!", "companion_recruit_signup_confirm", []],
-
-  [anyone|plyr, "companion_rehire", 
-  [],  
-  "Sorry, I can't take on anyone else right now.", "companion_rehire_refused", []],
-
-  [anyone, "companion_rehire_refused", [], "Well... Look me up if you change your mind, eh?", "close_window",
-   [
-     (troop_get_slot, ":current_town_no", "$g_talk_troop", slot_troop_cur_center),  
-   
-     (try_begin),
-       (neg|is_between, ":current_town_no", towns_begin, towns_end),
-              
-       (store_random_in_range, ":town_no", towns_begin, towns_end),       
-       (troop_set_slot, "$g_talk_troop", slot_troop_cur_center, ":town_no"),  
-     
-       (try_begin),
-         (ge, "$cheat_mode", 1),
-         (assign, reg1, ":current_town_no"),
-         (str_store_party_name, s7, ":town_no"),
-         (display_message, "@{!}current town was {reg1}, now moved to {s7}"),
-       (try_end),
-     (try_end),  
-   ]],
-
-   #Default dialog added - for rehire
-  [anyone, "start", [
-  (is_between, "$g_talk_troop", companions_begin, companions_end),  
-  (neg|troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_kingdom_hero),
-  
-  (troop_get_slot, ":prison_center", "$g_talk_troop", slot_troop_prisoner_of_party),
-  (lt, ":prison_center", centers_begin),  
-  ], "So... Do you want me back yet?", "companion_rehire",
-   []],
-#Ministerial issues
-   
-
-
-
-   [anyone, "minister_issues",
-   [
-    (check_quest_active, "qst_consult_with_minister"),
-	(eq, "$g_minister_notification_quest", "qst_resolve_dispute"),
-
-    (setup_quest_text,"qst_resolve_dispute"),
-	
-	(quest_get_slot, ":lord_1", "qst_resolve_dispute", slot_quest_target_troop),
-	(str_store_troop_name, s11, ":lord_1"),
-	
-	(quest_get_slot, ":lord_2", "qst_resolve_dispute", slot_quest_object_troop),
-	(str_store_troop_name, s12, ":lord_2"),	
-
-	(str_store_string, s2, "str_resolve_the_dispute_between_s11_and_s12"),
-	(call_script, "script_start_quest", "qst_resolve_dispute", -1),
-	(quest_set_slot, "qst_resolve_dispute", slot_quest_expiration_days, 30),
-	(quest_set_slot, "qst_resolve_dispute", slot_quest_giver_troop, "$g_player_minister"),
-	(quest_set_slot, "qst_resolve_dispute", slot_quest_target_state, 0),
-	(quest_set_slot, "qst_resolve_dispute", slot_quest_object_state, 0),
-	
-	(quest_get_slot, ":lord_1", "qst_resolve_dispute", slot_quest_target_troop), #this block just to check if the slots work
-	(str_store_troop_name, s11, ":lord_1"),
-	(quest_get_slot, ":lord_2", "qst_resolve_dispute", slot_quest_object_troop),
-	(str_store_troop_name, s12, ":lord_2"),	
-	
-     ],
-   "There is a matter which needs your attention. The quarrel between {s11} and {s12} has esclatated to a point where it has become unseemly. If you do intervene, you risk offending one of the lords. However, if you do nothing, you risk appearing weak. Such are the burdens of kingship, {sire/my lady}.", "minister_pretalk",
-   [
-   (call_script, "script_end_quest", "qst_consult_with_minister"),
-   ]],
+    #Ministerial issues
+    [anyone, "minister_issues", [
+      (check_quest_active, "qst_consult_with_minister"),
+      (eq, "$g_minister_notification_quest", "qst_resolve_dispute"),
+      (setup_quest_text,"qst_resolve_dispute"),
+      (quest_get_slot, ":lord_1", "qst_resolve_dispute", slot_quest_target_troop),
+      (str_store_troop_name, s11, ":lord_1"),
+      (quest_get_slot, ":lord_2", "qst_resolve_dispute", slot_quest_object_troop),
+      (str_store_troop_name, s12, ":lord_2"),
+      (str_store_string, s2, "str_resolve_the_dispute_between_s11_and_s12"),
+      (call_script, "script_start_quest", "qst_resolve_dispute", -1),
+      (quest_set_slot, "qst_resolve_dispute", slot_quest_expiration_days, 30),
+      (quest_set_slot, "qst_resolve_dispute", slot_quest_giver_troop, "$g_player_minister"),
+      (quest_set_slot, "qst_resolve_dispute", slot_quest_target_state, 0),
+      (quest_set_slot, "qst_resolve_dispute", slot_quest_object_state, 0),
+      (quest_get_slot, ":lord_1", "qst_resolve_dispute", slot_quest_target_troop), #this block just to check if the slots work
+      (str_store_troop_name, s11, ":lord_1"),
+      (quest_get_slot, ":lord_2", "qst_resolve_dispute", slot_quest_object_troop),
+      (str_store_troop_name, s12, ":lord_2"),
+    ], "There is a matter which needs your attention. The quarrel between {s11} and {s12} has esclatated to a point where it has become unseemly. If you do intervene, you risk offending one of the lords. However, if you do nothing, you risk appearing weak. Such are the burdens of kingship, {sire/my lady}.", "minister_pretalk", [(call_script, "script_end_quest", "qst_consult_with_minister")]],
 
     [anyone, "minister_issues", [
         (assign, "$g_center_taken_by_player_faction", -1),
@@ -3692,11 +3688,11 @@ dialogs = [
       (neg|troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_kingdom_hero),
     ], "I wish you to rejoin my party.", "minister_replace", []],
 
+    ## UID: 62 - Begin
+    #
     [anyone|plyr, "minister_talk", [], "I want to change equipment of my soldiers.", "minister_choose_soldier", []],
     [anyone, "minister_choose_soldier", [], "Which of your soldiers do you want to change equipment?", "minister_choose_soldier_selection", []],
 
-    ## UID: 62 - Begin
-    #
     [anyone|plyr|repeat_for_100, "minister_choose_soldier_selection", [
         (store_repeat_object, ":troop"),
         (assign, ":begin", "trp_supporters_recruit"),
@@ -3711,9 +3707,10 @@ dialogs = [
 
         (val_add, ":troop", ":begin"),
         (is_between, ":troop", ":begin", ":end"),
+        (call_script, "script_load_troop_inv", ":troop"),
         (str_store_troop_name, s1, ":troop"),
-    ], "{s1}", "minister_pretalk", [
-        (store_repeat_object, ":troop"),
+    ], "{s1}", "minister_choose_soldier_confirm", [
+        (store_repeat_object, "$temp"),
         (assign, ":begin", "trp_supporters_recruit"),
 
         (try_begin),
@@ -3723,14 +3720,45 @@ dialogs = [
           (val_add, ":begin", ":add"),
         (try_end),
 
-        (val_add, ":troop", ":begin"),
-        (troop_clear_inventory, ":troop"),
-        (change_screen_equip_other, ":troop"),
+        (val_add, "$temp", ":begin"),
+        (troop_clear_inventory, "$temp"),
+        (change_screen_equip_other, "$temp"),
     ]],
     
     [anyone|plyr, "minister_choose_soldier_selection", [], "Forget it.", "minister_pretalk", []],
+
+    [anyone, "minister_choose_soldier_confirm", [(str_store_troop_name, s9, "$temp")], "Are you sure to change equipment of {s9}?", "minister_choose_soldier_contirm_ask", []],
+    
+    [anyone|plyr, "minister_choose_soldier_contirm_ask", [], "Yes.", "minister_choose_soldier_pretalk", [(call_script, "script_save_troop_inv", "$temp")]],
+    [anyone|plyr, "minister_choose_soldier_contirm_ask", [], "No.", "minister_choose_soldier_pretalk", []],
+    
+    [anyone, "minister_choose_soldier_pretalk", [(call_script, "script_is_male", "trp_player")], "As you wish my {reg0?lord:lady}. Whould you like to change equipment of another soldier?", "minister_choose_soldier_selection", []],
     #
     ## UID: 62 - End
+
+    ## UID: 106 - Begin
+    #
+    [anyone|plyr, "minister_talk", [], "I want to change our kingdom's color.", "minister_change_color", []],
+    [anyone, "minister_change_color", [], "Which color do you like to change?", "minister_change_color_ask", []],
+
+    [anyone|plyr, "minister_change_color_ask", [], "Black", "minister_change_color_result", [(assign, "$temp", 0x000000)]],
+    [anyone|plyr, "minister_change_color_ask", [], "Blue", "minister_change_color_result", [(assign, "$temp", 0x0000FF)]],
+    [anyone|plyr, "minister_change_color_ask", [], "Gray", "minister_change_color_result", [(assign, "$temp", 0x808080)]],
+    [anyone|plyr, "minister_change_color_ask", [], "Green", "minister_change_color_result", [(assign, "$temp", 0x008000)]],
+    [anyone|plyr, "minister_change_color_ask", [], "Purple", "minister_change_color_result", [(assign, "$temp", 0x800080)]],
+    [anyone|plyr, "minister_change_color_ask", [], "Red", "minister_change_color_result", [(assign, "$temp", 0xFF0000)]],
+    [anyone|plyr, "minister_change_color_ask", [], "Silver", "minister_change_color_result", [(assign, "$temp", 0xC0C0C0)]],
+    [anyone|plyr, "minister_change_color_ask", [], "White", "minister_change_color_result", [(assign, "$temp", 0xFFFFFF)]],
+    [anyone|plyr, "minister_change_color_ask", [], "Yellow", "minister_change_color_result", [(assign, "$temp", 0xFFFF00)]],
+    [anyone|plyr, "minister_change_color_ask", [], "Pink", "minister_change_color_result", [(assign, "$temp", 0xFAAFBE)]],
+    [anyone|plyr, "minister_change_color_ask", [], "Forget it.", "minister_pretalk", []],
+    
+    [anyone, "minister_change_color_result", [
+      (faction_set_color, "$players_kingdom", "$temp"),
+      (call_script, "script_set_prefix"),
+    ], "As you wish. Anything else?", "minister_talk", []],
+    #
+    ## UID: 106 - End
 
     ## UID: 56 - Begin
     #
@@ -4705,30 +4733,24 @@ dialogs = [
 ##                    (assign, "$disable_npc_complaints", 1),
 ##          ]],
 
-
-
-# Personality clash 2 objections
-  [anyone, "event_triggered", [
-                     (store_conversation_troop, "$map_talk_troop"),
-					 (is_between, "$map_talk_troop", companions_begin, companions_end),
-					 
-                     (eq, "$map_talk_troop", "$npc_with_personality_clash_2"), 
-                     (eq, "$npc_map_talk_context", slot_troop_personalityclash2_state), 
-
-                     (troop_get_slot, ":speech", "$map_talk_troop", slot_troop_personalityclash2_speech),
-                     (troop_get_slot, ":object", "$map_talk_troop", slot_troop_personalityclash2_object),
-                     (str_store_troop_name, 11, ":object"),
-                     (str_store_string, 5, ":speech"),
-                     ],
-   "{s5}", "companion_personalityclash2_b", [
-                    (assign, "$npc_with_personality_clash_2", 0),
-                    (troop_get_slot, ":grievance", "$map_talk_troop", slot_troop_personalityclash_penalties),
-                    (val_add, ":grievance", 5),
-                    (troop_set_slot, "$map_talk_troop", slot_troop_personalityclash_penalties, ":grievance"),
-					
-                    (troop_get_slot, ":object", "$map_talk_troop", slot_troop_personalityclash2_object),
-					(call_script, "script_troop_change_relation_with_troop", "$map_talk_troop", ":object", -15),
-       ]],
+    # Personality clash 2 objections
+    [anyone, "event_triggered", [
+      (store_conversation_troop, "$map_talk_troop"),
+      (is_between, "$map_talk_troop", companions_begin, companions_end),
+      (eq, "$map_talk_troop", "$npc_with_personality_clash_2"),
+      (eq, "$npc_map_talk_context", slot_troop_personalityclash2_state),
+      (troop_get_slot, ":speech", "$map_talk_troop", slot_troop_personalityclash2_speech),
+      (troop_get_slot, ":object", "$map_talk_troop", slot_troop_personalityclash2_object),
+      (str_store_troop_name, 11, ":object"),
+      (str_store_string, 5, ":speech"),
+    ], "{s5}", "companion_personalityclash2_b", [
+      (assign, "$npc_with_personality_clash_2", 0),
+      (troop_get_slot, ":grievance", "$map_talk_troop", slot_troop_personalityclash_penalties),
+      (val_add, ":grievance", 5),
+      (troop_set_slot, "$map_talk_troop", slot_troop_personalityclash_penalties, ":grievance"),
+      (troop_get_slot, ":object", "$map_talk_troop", slot_troop_personalityclash2_object),
+      (call_script, "script_troop_change_relation_with_troop", "$map_talk_troop", ":object", -15),
+    ]],
 
   [anyone, "companion_personalityclash2_b", [
       ],  "{s5}", "companion_personalityclash2_response", [
@@ -4773,33 +4795,24 @@ dialogs = [
 ##                    (assign, "$disable_npc_complaints", 1),
 ##          ]],
 
-
-
-
-# Personality clash objections
-
-  [anyone, "event_triggered", [
-                     (store_conversation_troop, "$map_talk_troop"),
-					 (is_between, "$map_talk_troop", companions_begin, companions_end),
-					 
-                     (eq, "$map_talk_troop", "$npc_with_personality_clash"),
-                     (eq, "$npc_map_talk_context", slot_troop_personalityclash_state), 
-
-                     (troop_get_slot, ":speech", "$map_talk_troop", slot_troop_personalityclash_speech),
-                     (troop_get_slot, ":object", "$map_talk_troop", slot_troop_personalityclash_object),
-                     (str_store_troop_name, 11, ":object"),
-                     (str_store_string, 5, ":speech"),
-                     ],
-   "{s5}", "companion_personalityclash_b", [
-                    (assign, "$npc_with_personality_clash", 0),
-                    (troop_get_slot, ":grievance", "$map_talk_troop", slot_troop_personalityclash_penalties),
-                    (val_add, ":grievance", 5),
-                    (troop_set_slot, "$map_talk_troop", slot_troop_personalityclash_penalties, ":grievance"),
-
-                    (troop_get_slot, ":object", "$map_talk_troop", slot_troop_personalityclash_object),
-					(call_script, "script_troop_change_relation_with_troop", "$map_talk_troop", ":object", -15),
-				
-       ]],
+    # Personality clash objections
+    [anyone, "event_triggered", [
+      (store_conversation_troop, "$map_talk_troop"),
+      (is_between, "$map_talk_troop", companions_begin, companions_end),
+      (eq, "$map_talk_troop", "$npc_with_personality_clash"),
+      (eq, "$npc_map_talk_context", slot_troop_personalityclash_state),
+      (troop_get_slot, ":speech", "$map_talk_troop", slot_troop_personalityclash_speech),
+      (troop_get_slot, ":object", "$map_talk_troop", slot_troop_personalityclash_object),
+      (str_store_troop_name, 11, ":object"),
+      (str_store_string, 5, ":speech"),
+    ], "{s5}", "companion_personalityclash_b", [
+      (assign, "$npc_with_personality_clash", 0),
+      (troop_get_slot, ":grievance", "$map_talk_troop", slot_troop_personalityclash_penalties),
+      (val_add, ":grievance", 5),
+      (troop_set_slot, "$map_talk_troop", slot_troop_personalityclash_penalties, ":grievance"),
+      (troop_get_slot, ":object", "$map_talk_troop", slot_troop_personalityclash_object),
+      (call_script, "script_troop_change_relation_with_troop", "$map_talk_troop", ":object", -15),
+    ]],
 
   [anyone, "companion_personalityclash_b", [
       ],  "{s5}", "companion_personalityclash_response", [
@@ -6302,20 +6315,23 @@ dialogs = [
   [anyone ,"lord_event_choose_friend_neutral", [],  "Hmph. As you wish, {playername}.\
  Just remember that a {man/woman} needs friends in this world, and you'll never make any if you never stand with anyone.", "lord_pretalk", []],
 
-#Meeting.
-  [anyone ,"start", [(troop_slot_eq, "$g_talk_troop",slot_troop_occupation, slto_kingdom_hero),
-                     (troop_slot_eq, "trp_player", slot_troop_spouse, "$g_talk_troop"),
-                     ],
-   "Yes, my wife?", "lord_start",
-   []],
+    #Meeting.
+    [anyone ,"start", [
+      (troop_slot_eq, "$g_talk_troop",slot_troop_occupation, slto_kingdom_hero),
+      (troop_slot_eq, "trp_player", slot_troop_spouse, "$g_talk_troop"),
+    ], "Yes, my wife?", "lord_start", []],
 
-
-  [anyone ,"start", [(faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "trp_player"),
-					 (troop_slot_eq,"$g_talk_troop",slot_troop_occupation, slto_kingdom_hero),
-                     (le,"$talk_context",tc_siege_commander),
-                     ],
-   "Yes, {sire/my lady}?", "lord_start",
-   []],
+    [anyone ,"start", [
+      (faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "trp_player"),
+      (troop_slot_eq,"$g_talk_troop",slot_troop_occupation, slto_kingdom_hero),
+      (le,"$talk_context",tc_siege_commander),
+      ## UID: 26 - Begin
+      #
+      (call_script, "script_is_male", "trp_player"),
+    #], "Yes, {sire/my lady}?", "lord_start", []],
+    ], "Yes, {reg0?sire:my lady}?", "lord_start", []],
+    #
+    ## UID: 26 - End
 
    
   [anyone ,"start", [(is_between, "$g_talk_troop", companions_begin, companions_end),
@@ -19641,31 +19657,25 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 #       (try_end),
        ]],
 
-  [anyone,"start", [(eq,"$talk_context",tc_ally_thanks),
-                    (troop_is_hero, "$g_talk_troop"),
-                    (ge, "$g_talk_troop_relation", -5),
-                    ],
-   "Good to see you here, {playername}. {s43}", "close_window", [
-                    (call_script, "script_lord_comment_to_s43", "$g_talk_troop", "str_battle_won_default"),
-					(call_script, "script_troop_change_relation_with_troop", "$g_talk_troop", "trp_player", 1),
-       ]],
+    [anyone,"start", [
+      (eq,"$talk_context",tc_ally_thanks),
+      (troop_is_hero, "$g_talk_troop"),
+      (ge, "$g_talk_troop_relation", -5),
+    ], "Good to see you here, {playername}. {s43}", "close_window", [
+      (call_script, "script_lord_comment_to_s43", "$g_talk_troop", "str_battle_won_default"),
+      (call_script, "script_troop_change_relation_with_troop", "$g_talk_troop", "trp_player", 1),
+    ]],
 
+    [anyone,"start", [
+      (eq,"$talk_context",tc_ally_thanks),
+      (troop_is_hero, "$g_talk_troop"),
+      (ge, "$g_relation_boost", 4),
+    ], "{s43}", "close_window", [(call_script, "script_lord_comment_to_s43", "$g_talk_troop", "str_battle_won_grudging_default")]],
 
-  [anyone,"start", [(eq,"$talk_context",tc_ally_thanks),
-                    (troop_is_hero, "$g_talk_troop"),
-                    (ge, "$g_relation_boost", 4),
-                    ],
-   "{s43}", "close_window", [
-                    (call_script, "script_lord_comment_to_s43", "$g_talk_troop", "str_battle_won_grudging_default"),
-                    ]],
-
-
-  [anyone,"start", [(eq,"$talk_context",tc_ally_thanks),
-                    (troop_is_hero, "$g_talk_troop"),
-                    ],
-   "{s43}", "close_window", [
-                    (call_script, "script_lord_comment_to_s43", "$g_talk_troop", "str_battle_won_unfriendly_default"),
-                    ]],
+    [anyone,"start", [
+      (eq,"$talk_context",tc_ally_thanks),
+      (troop_is_hero, "$g_talk_troop"),
+    ], "{s43}", "close_window", [(call_script, "script_lord_comment_to_s43", "$g_talk_troop", "str_battle_won_unfriendly_default")]],
 
 
 #  [anyone,"start", [(eq,"$talk_context",tc_ally_thanks),
@@ -20548,7 +20558,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
   ## UID: 98 - Begin
   #
   [anyone|plyr, "tavernkeeper_talk", [(is_between, "$g_talk_troop", tavernkeepers_begin, tavernkeepers_end)], "I want to buy some drinks. Show me your wares.", "trade_requested_drinks", []],
-  [anyone,"trade_requested_drinks", [(call_script, "script_is_male", "trp_player")], "Ah, yes {reg0?sir:madam}. These liquids are the best you'll find anywhere.", "merchant_trade",[[change_screen_trade]]],
+  [anyone,"trade_requested_drinks", [(call_script, "script_is_male", "trp_player")], "Ah, yes {reg0?sir:madam}. These liquids are the best you'll find anywhere.", "tavernkeeper_pretalk",[[change_screen_trade]]],
   #
   ## UID: 98 - End
 
@@ -22364,14 +22374,14 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
       (assign, reg1, reg0),
       (assign, reg2, 0),
       (str_clear, s1),
-      (str_store_string, s1, "@I did, {reg1?sir:madam}, but our lord's men did not let me see him and said he was occupied with more important matters and that we should deal with our own problem ourselves."),
+      (str_store_string, s5, "@I did, {reg1?sir:madam}, but our lord's men did not let me see him and said he was occupied with more important matters and that we should deal with our own problem ourselves."),
       (try_begin),
         (this_or_next|faction_slot_eq, ":faction", slot_faction_leader, "trp_player"),
         (             party_slot_eq, ":target", slot_town_lord, "trp_player"),
-        (str_store_string, s1, "@I did, {reg1?my lord:my lady}, but your guard did not let me see you and said you were occupied with more important matters and that we should deal with our own problem ourselves."),
+        (str_store_string, s5, "@I did, {reg1?my lord:my lady}, but your guard did not let me see you and said you were occupied with more important matters and that we should deal with our own problem ourselves."),
         (assign, reg2, 1),
       (try_end),
-    ], "{s1}\
+    ], "{s5}\
  Please {reg2?{reg1?my lord:my lady}:{reg1?sir:madam}}, you look like a {reg1?man:lady} of valor and a fearsome warrior, and you have no doubt many friends and soldiers at your service.\
  If there is anyone who can help us, it's you.", "farmer_from_bandit_village_5", [(assign, "$temp", 0)]],
   #
@@ -26412,6 +26422,12 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 # Ryan END
 
   [anyone|plyr,"prisoner_chat", [], "Do not try running away or trying something stupid. I will be watching you.", "prisoner_chat_2",[]],
+    ## UID: 107 - Begin
+    #
+    [anyone|plyr, "prisoner_chat", [], "You're free to go this time, but don't cross my path again.", "prisoner_chat_free", [(remove_troops_from_prisoners, "$g_talk_troop", 1)]],
+    [anyone, "prisoner_chat_free", [], "We will meet again, {playername}.", "close_window", []],
+    #
+    ## UID: 107 - End
   [anyone,"prisoner_chat_2", [], "No, I swear I won't.", "close_window",[]],
 
     [anyone,"start", [
@@ -26956,6 +26972,15 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
       (str_store_item_name, s3, ":item_no"),
     ], "I come to collect my {s3} which I ordered.", "merchant_collect_item", [(store_repeat_object, "$temp")]],
 
+    ## UID: 110 - Begin
+    #
+    [anyone, "merchant_collect_item", [
+      (call_script, "script_troop_has_free_inventory_slot", "trp_player"),
+      (le, reg1, 0),
+    ], "You have no enough space to get this. Come back when you have space in your inventory.", "town_merchant_talk", []],
+    #
+    ## UID: 110 - End
+
     #[anyone, "merchant_collect_item", [
     #  (str_store_party_name, s2, "$g_item_ordered_party"),
     #  (str_store_item_name, s3, "$g_item_ordered"),
@@ -27036,7 +27061,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
       (troop_get_slot, ":item_no", "trp_player", ":item"),
       (str_store_item_name, s3, ":item_no"),
     ], "I come to collect my {s3} which I ordered.", "merchant_collect_item_fail", [(store_repeat_object, "$temp")]],
-
+    
     #[anyone, "merchant_collect_item_fail", [
     #    (store_current_hours, ":hour"),
     #    (assign, reg0, "$g_item_ordered_bought_reach"),
@@ -27108,6 +27133,15 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
       (str_store_item_name, s3, ":item_no"),
     ], "I come to collect my {s3} which I ordered at {s2}.", "merchant_collect_item_another", [(store_repeat_object, "$temp")]],
 
+    ## UID: 110 - Begin
+    #
+    [anyone, "merchant_collect_item_another", [
+      (call_script, "script_troop_has_free_inventory_slot", "trp_player"),
+      (le, reg1, 0),
+    ], "You have no enough space to get this. Come back when you have space in your inventory.", "town_merchant_talk", []],
+    #
+    ## UID: 110 - End
+    
     #[anyone, "merchant_collect_item_another", [
     #    (str_store_party_name, s2, "$g_item_ordered_party"),
     #    (str_store_item_name, s3, "$g_item_ordered"),

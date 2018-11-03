@@ -719,6 +719,13 @@ feature_troop_ratio = (
     0, 0, ti_once, [], [
         (start_presentation, "prsnt_troop_ratio_bar"),
     ])
+
+feature_troop_ratio_check = (
+    0.1, 0, 0, [], [
+        (neg|is_presentation_active, "prsnt_troop_ratio_bar"),
+        (neg|is_presentation_active, "prsnt_battle"),
+        (start_presentation, "prsnt_troop_ratio_bar"),
+    ])
 #
 ## UID: 35 - End
 
@@ -731,12 +738,12 @@ common_health_regen = (5, 0, 0, [], [
       (agent_is_alive, ":agent"),
       (agent_is_human, ":agent"),
       (agent_get_troop_id, ":troop", ":agent"),
-      (assign, ":regen", 2),
+      (assign, ":regen", 5),
       (try_begin),
         (this_or_next|eq, ":agent", ":player"),
         (             troop_is_hero, ":troop"),
         (store_skill_level, ":skill", skl_wound_treatment, ":troop"),
-        (val_div, ":skill", 2),
+        #(val_div, ":skill", 2),
         (assign, ":regen", ":skill"),
       (try_end),
       (gt, ":regen", 0),
@@ -768,6 +775,11 @@ common_battle_init_banner = (
   [
     (store_trigger_param_1, ":agent_no"),
     (agent_get_troop_id, ":troop_no", ":agent_no"),
+    ## UID: 62 - Begin
+    #
+    (call_script, "script_load_troop_inv", ":troop_no"),
+    #
+    ## UID: 62 - End
     (call_script, "script_troop_agent_set_banner", "tableau_game_troop_label_banner", ":agent_no", ":troop_no"),
   ])
 
@@ -1308,15 +1320,25 @@ tournament_triggers = [
          (neq, ":random_entry_point", "$g_player_entry_point"), # make sure we don't overwrite player
          (entry_point_get_position, pos1, ":random_entry_point"),
          (get_distance_between_positions, ":dist", pos5, pos1),
-         (gt, ":dist", 1200), #must be at least 12 meters away from the player
+         ## UID: 104 - Begin
+         #
+         #(gt, ":dist", 1200), #must be at least 12 meters away from the player
+         (gt, ":dist", 600),
+         #
+         ## UID: 104 - End
          (assign, ":end_cond", 0),
        (try_end),
        (add_visitors_to_current_scene, ":random_entry_point", ":added_troop", 1),
-       (store_add, ":new_spawned_count", "$g_arena_training_num_agents_spawned", 1),
+       ## UID: 104 - Begin
+       #
+       #(store_add, ":new_spawned_count", "$g_arena_training_num_agents_spawned", 1),
        (store_mission_timer_a, ":cur_time"),
-       (store_add, "$g_arena_training_next_spawn_time", ":cur_time", 14),
-       (store_div, ":time_reduction", ":new_spawned_count", 3),
-       (val_sub, "$g_arena_training_next_spawn_time", ":time_reduction"),
+       (store_add, "$g_arena_training_next_spawn_time", ":cur_time", 0),
+       #(store_add, "$g_arena_training_next_spawn_time", ":cur_time", 14),
+       #(store_div, ":time_reduction", ":new_spawned_count", 3),
+       #(val_sub, "$g_arena_training_next_spawn_time", ":time_reduction"),
+       #
+       ## UID: 104 - End
        ]),
 
   (0, 0, 0,
@@ -2501,6 +2523,7 @@ mission_templates = [
       ## UID: 35 - Begin
       #
       feature_troop_ratio,
+      feature_troop_ratio_check,
       #
       ## UID: 35 - End
       common_battle_inventory,
@@ -2597,6 +2620,7 @@ mission_templates = [
         ## UID: 35 - Begin
         #
         feature_troop_ratio,
+        feature_troop_ratio_check,
         #
         ## UID: 35 - End
         common_battle_inventory,
@@ -2695,6 +2719,7 @@ mission_templates = [
         ## UID: 35 - Begin
         #
         feature_troop_ratio,
+        feature_troop_ratio_check,
         #
         ## UID: 35 - End
         common_battle_inventory,
@@ -2931,6 +2956,7 @@ mission_templates = [
         ## UID: 35 - Begin
         #
         feature_troop_ratio,
+        feature_troop_ratio_check,
         #
         ## UID: 35 - End
         common_battle_order_panel,
@@ -3000,6 +3026,7 @@ mission_templates = [
         ## UID: 35 - Begin
         #
         feature_troop_ratio,
+        feature_troop_ratio_check,
         #
         ## UID: 35 - End
         common_battle_order_panel,
@@ -3105,6 +3132,7 @@ mission_templates = [
         ## UID: 35 - Begin
         #
         feature_troop_ratio,
+        feature_troop_ratio_check,
         #
         ## UID: 35 - End
         common_battle_order_panel,
@@ -3185,6 +3213,7 @@ mission_templates = [
         ## UID: 35 - Begin
         #
         feature_troop_ratio,
+        feature_troop_ratio_check,
         #
         ## UID: 35 - End
         common_battle_order_panel,
@@ -3237,6 +3266,7 @@ mission_templates = [
         ## UID: 35 - Begin
         #
         feature_troop_ratio,
+        feature_troop_ratio_check,
         #
         ## UID: 35 - End
         common_battle_order_panel,
@@ -4369,15 +4399,25 @@ mission_templates = [
               (neq, ":random_entry_point", "$g_player_entry_point"), # make sure we don't overwrite player
               (entry_point_get_position, pos1, ":random_entry_point"),
               (get_distance_between_positions, ":dist", pos5, pos1),
-              (gt, ":dist", 1200), #must be at least 12 meters away from the player
+              ## UID: 104 - Begin
+              #
+              #(gt, ":dist", 1200), #must be at least 12 meters away from the player
+              (gt, ":dist", 600),
+              #
+              ## UID: 104 - End
               (assign, ":end_cond", 0),
             (try_end),
             (add_visitors_to_current_scene, ":random_entry_point", ":added_troop", 1),
-            (store_add, ":new_spawned_count", "$g_arena_training_num_agents_spawned", 1),
+            ## UID: 104 - Begin
+            #
+            #(store_add, ":new_spawned_count", "$g_arena_training_num_agents_spawned", 1),
             (store_mission_timer_a, ":cur_time"),
-            (store_add, "$g_arena_training_next_spawn_time", ":cur_time", 14),
-            (store_div, ":time_reduction", ":new_spawned_count", 3),
-            (val_sub, "$g_arena_training_next_spawn_time", ":time_reduction"),
+            (store_add, "$g_arena_training_next_spawn_time", ":cur_time", 1),
+            #(store_add, "$g_arena_training_next_spawn_time", ":cur_time", 14),
+            #(store_div, ":time_reduction", ":new_spawned_count", 3),
+            #(val_sub, "$g_arena_training_next_spawn_time", ":time_reduction"),
+            #
+            ## UID: 104 - End
         ]),
 
         (0, 0, 0, [(eq, "$g_mt_mode", abm_training)], [
@@ -16529,6 +16569,7 @@ mission_templates = [
         ## UID: 35 - Begin
         #
         feature_troop_ratio,
+        feature_troop_ratio_check,
         #
         ## UID: 35 - End
         (ti_inventory_key_pressed, 0, 0, [(set_trigger_result, 1)], []),
@@ -16657,6 +16698,7 @@ mission_templates = [
         ## UID: 35 - Begin
         #
         feature_troop_ratio,
+        feature_troop_ratio_check,
         #
         ## UID: 35 - End
         (ti_inventory_key_pressed, 0, 0, [(set_trigger_result, 1)], []),

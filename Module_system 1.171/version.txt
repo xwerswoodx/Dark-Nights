@@ -266,6 +266,8 @@
   *** dlga_lord_start:lord_talk.2
   *** dlga_lord_start:lord_talk.3
   *** dlga_lord_start:lord_talk.4
+  *** dlga_lady_duel_rep_1:lady_start
+  *** dlga_lady_duel_rep_2:lady_start
   *** dlga_investment_summary:mayor_investment_confirm
   *** dlga_fighter_talk_train_attack_2:fighter_pretalk
   * troops.csv
@@ -1485,9 +1487,24 @@
   *** dlga_lord_ask_enter_service:lord_give_oath_1
   *** dlga_lord_give_oath_give_up:lord_pretalk
   *** dlga_lord_give_conclude:lord_give_conclude_2
+  *** dlga_start:lord_start.5
   * game_strings.csv
   ** Replaced:
   *** str_i_thank_you_reg39my_ladylord
+  * dialogs.csv
+  ** Replaced:
+  *** dlga_start:lord_start
+  *** dlga_start:lord_start.1
+  *** dlga_start:lord_start.2
+  *** dlga_start:lord_start.3
+  *** dlga_start:lord_start.4
+  *** dlga_start:lord_start.5
+  *** dlga_start:lord_start.6
+  *** dlga_start:lord_start.7
+  *** dlga_start:lord_start.8
+  *** dlga_start:lord_start.9
+  *** dlga_start:lord_start.10
+  *** dlga_start:lord_start.11
   + Thanks:
   ++ frozenpainter
   +++ idea for length system for ai soldiers.
@@ -2567,7 +2584,11 @@
   *** dlga_minister_talk:minister_choose_soldier
   *** dlga_minister_choose_soldier:minister_choose_soldier_selection
   *** dlga_minister_choose_soldier_selection:minister_pretalk
-  *** dlga_minister_choose_soldier_selection:minister_pretalk.1
+  *** dlga_minister_choose_soldier_selection:minister_choose_soldier_confirm
+  *** dlga_minister_choose_soldier_confirm:minister_choose_soldier_contirm_ask
+  *** dlga_minister_choose_soldier_contirm_ask:minister_choose_soldier_pretalk
+  *** dlga_minister_choose_soldier_contirm_ask:minister_choose_soldier_pretalk.1
+  *** dlga_minister_choose_soldier_pretalk:minister_choose_soldier_selection
   * module_triggers.py
   ** Added:
   *** 4h trigger for fixing name issue.
@@ -2599,6 +2620,16 @@
   *** qstr_Deserters
   *** qstr_{s3}_s_{s1}
   *** qstr_{s3}_s_{s2}
+  * dialogs.csv
+  ** Added:
+  *** dlga_minister_talk:minister_choose_soldier
+  *** dlga_minister_choose_soldier:minister_choose_soldier_selection
+  *** dlga_minister_choose_soldier_selection:minister_pretalk
+  *** dlga_minister_choose_soldier_selection:minister_choose_soldier_confirm
+  *** dlga_minister_choose_soldier_confirm:minister_choose_soldier_contirm_ask
+  *** dlga_minister_choose_soldier_contirm_ask:minister_choose_soldier_pretalk
+  *** dlga_minister_choose_soldier_contirm_ask:minister_choose_soldier_pretalk.1
+  *** dlga_minister_choose_soldier_pretalk:minister_choose_soldier_selection
   
 63. Prefix for lords added.
   * module_game_menus.py
@@ -2684,6 +2715,7 @@
   *** script_make_kingdom_hostile_to_player
   *** script_cf_get_random_active_faction_except_player_faction_and_faction
   *** script_npc_decision_checklist_peace_or_war
+  *** script_randomly_start_war_peace_new
   * module_dialogs.py
   ** Edited:
   *** dlga_event_triggered:award_fief_to_vassal
@@ -2704,6 +2736,10 @@
   ** Edited:
   *** 24h trigger for mercanary contract end.
   *** 3h trigger for checking players kingdom court.
+  * game_menus.csv
+  ** Added:
+  *** mno_continue_as_own_kingdom
+  *** mno_continue_as_npc_kingdom
   
 68. When player faction conquer castle, player right to rule increase.
   * module_game_menus.py
@@ -3123,8 +3159,8 @@
   *** script_initialize_sea_trade_routes
   *** script_cf_select_most_profitable_coastal_town_at_peace_with_faction_in_trade_route
   * module_simple_triggers.py
-  ** Edited:
-  *** 8h trigger to get most profitable town for trade routes.
+  ** Replaced:
+  *** 8h trigger to get most profitable town for trade routes to 2h.
   
 80. Hunting system added.
   * module_game_menus.py
@@ -3260,8 +3296,11 @@
   *** itm_apple_a
   *** itm_apple_b
   *** itm_apple_c
+  *** itm_apple_d
   *** itm_velvet_orange
+  *** itm_velvet_green
   *** itm_cloth_black
+  *** itm_cloth_purple
   *** itm_parsley
   *** itm_oregano
   *** itm_gift_a
@@ -3305,10 +3344,16 @@
   *** itm_apple_b_pl
   *** itm_apple_c
   *** itm_apple_c_pl
+  *** itm_apple_d
+  *** itm_apple_d_pl
   *** itm_velvet_orange
   *** itm_velvet_orange_pl
+  *** itm_velvet_green
+  *** itm_velvet_green_pl
   *** itm_cloth_black
   *** itm_cloth_black_pl
+  *** itm_cloth_purple
+  *** itm_cloth_purple_pl
   *** itm_parsley
   *** itm_parsley_pl
   *** itm_oregano
@@ -3498,6 +3543,10 @@
   **** trp_hired_blade -> trp_dark_knight
   * Note:
   ** Dragon's item modifier system used on bounty hunter.
+  * tooops.csv
+  ** Added:
+  *** trp_bounty_hunter
+  *** trp_bounty_hunter_pl
   
 88. Health regeneration added.
   * module_mission_templates.py
@@ -3614,14 +3663,22 @@
   * module_troops.py
   ** Added:
   *** trp_desert_archer
+  *** trp_desert_guard
   ** Upgrade:
   *** trp_desert_bandit -> trp_desert_archer
+  *** trp_desert_cavalry -> trp_desert_guard
   * module_party_templates.py
   ** Replaced:
   *** pt_desert_cavalry
   * module_triggers.py
   ** Replaced:
   *** 24h trigger to add member for desert cavalries and dark knights
+  * troops.csv
+  ** Added:
+  *** trp_desert_archer
+  *** trp_desert_archer_pl
+  *** trp_desert_guard
+  *** trp_desert_guard_pl
   
 96. Tournament troops changed.
   * module_troops.py
@@ -3633,6 +3690,16 @@
   * module_scripts.py
   ** Edited:
   *** script_fill_tournament_participants_troop
+  * dialogs.csv
+  ** Added:
+  *** trp_tour_novice
+  *** trp_tour_novice_pl
+  *** trp_tour_regular
+  *** trp_tour_regular_pl
+  *** trp_tour_veteran
+  *** trp_tour_veteran_pl
+  *** trp_tour_champion
+  *** trp_tour_champion_pl
   
 97. You can be invited by any kingdom to feast if you have more than 1500 fame.
   * module_scripts.py
@@ -3649,7 +3716,18 @@
   * module_dialogs.py
   ** Added:
   *** dlga_tavernkeeper_talk:trade_requested_drinks
-  *** dlga_trade_requested_drinks:merchant_trade
+  *** dlga_trade_requested_drinks:tavernkeeper_pretalk
+  * game_menus.csv
+  ** Replaced:
+  *** mnu_town_trade:mno_trade_with_arms_merchant
+  *** mnu_town_trade:mno_trade_with_armor_merchant
+  *** mnu_town_trade:mno_trade_with_horse_merchant
+  ** Added:
+  *** mnu_town_trade:mno_trade_with_tavern_merchant
+  * dialogs.csv
+  ** Added:
+  *** dlga_tavernkeeper_talk:trade_requested_drinks
+  *** dlga_trade_requested_drinks:tavernkeeper_pretalk
   
 99. New items added. (OSP: The Invasion Team)
   * module_items.py
@@ -3762,7 +3840,458 @@
   +++ Nouk - Models
   +++ Aligeth - Models
   +++ Jaymosuke - Uvmapping the models and making import versions
+  
+103. New weapons added. (OSP: Xenoargh)
+  * module_items.py
+  ** Added:
+  *** itm_mw_sword_01
+  *** itm_mw_sword_02
+  *** itm_mw_lance_01
+  
+104. Arena system changed. Now more troops spawned same time.
+  * module_mission_templates.py
+  ** Edited:
+  *** tournament_triggers
+  
+105. New ships and sea scenes added. (OSP: kraggrim)
+  * module_scenes.py
+  ** Added:
+  *** scn_sea_6
+  *** scn_sea_7
+  * module_game_menus.py
+  ** Edited:
+  *** mnu_simple_encounter:mno_encounter_attack
+  
+106. Changing faction color section added to minister.
+  * module_dialogs.py
+  ** Added:
+  *** dlga_minister_talk:minister_change_color
+  *** dlga_minister_change_color:minister_change_color_ask
+  *** dlga_minister_change_color_ask:minister_change_color_result
+  *** dlga_minister_change_color_ask:minister_change_color_result.1
+  *** dlga_minister_change_color_ask:minister_change_color_result.2
+  *** dlga_minister_change_color_ask:minister_change_color_result.3
+  *** dlga_minister_change_color_ask:minister_change_color_result.4
+  *** dlga_minister_change_color_ask:minister_change_color_result.5
+  *** dlga_minister_change_color_ask:minister_change_color_result.6
+  *** dlga_minister_change_color_ask:minister_change_color_result.7
+  *** dlga_minister_change_color_ask:minister_change_color_result.8
+  *** dlga_minister_change_color_ask:minister_change_color_result.9
+  *** dlga_minister_change_color_result:minister_pretalk
+  *** dlga_minister_change_color_result:minister_talk
+  * dialogs.csv
+  ** Added:
+  *** dlga_minister_talk:minister_change_color
+  *** dlga_minister_change_color:minister_change_color_ask
+  *** dlga_minister_change_color_ask:minister_change_color_result
+  *** dlga_minister_change_color_ask:minister_change_color_result.1
+  *** dlga_minister_change_color_ask:minister_change_color_result.2
+  *** dlga_minister_change_color_ask:minister_change_color_result.3
+  *** dlga_minister_change_color_ask:minister_change_color_result.4
+  *** dlga_minister_change_color_ask:minister_change_color_result.5
+  *** dlga_minister_change_color_ask:minister_change_color_result.6
+  *** dlga_minister_change_color_ask:minister_change_color_result.7
+  *** dlga_minister_change_color_ask:minister_change_color_result.8
+  *** dlga_minister_change_color_ask:minister_change_color_result.9
+  *** dlga_minister_change_color_result:minister_pretalk
+  *** dlga_minister_change_color_result:minister_talk
+  
+107. Free to hostage added.
+  * module_dialogs.py
+  ** Added:
+  *** dlga_prisoner_chat:prisoner_chat_free
+  *** dlga_prisoner_chat_free:close_window
+  * dialogs.csv
+  ** Added:
+  *** dlga_prisoner_chat:prisoner_chat_free
+  *** dlga_prisoner_chat_free:close_window
 
+108. New velvets added for moving court check.
+  * module_game_menus.py
+  ** Edited:
+  *** mnu_establish_court:mno_establish
+  
+109. Tunnels added. (OSP: Mandible)
+  * module_parties.py
+  ** Added:
+  *** p_tunnel_1
+  *** p_tunnel_2
+  * module_scenes.py
+  ** Added:
+  *** scn_out_mine
+  * module_scene_props.py
+  ** Added:
+  *** prop_tunnel_1
+  *** prop_tunnel_1a
+  *** prop_tunnel_2
+  *** prop_tunnel_2a
+  *** prop_tunnel_3
+  *** prop_tunnel_3a
+  *** prop_tunnel_4
+  *** prop_tunnel_4a
+  *** prop_tunnel_5
+  *** prop_tunnel_5a
+  *** prop_tunnel_6
+  *** prop_tunnel_6a
+  *** prop_tunnel_7
+  *** prop_tunnel_8
+  * module_game_menus.py
+  ** Added:
+  *** mnu_tunnel
+  * module_scripts.py
+  ** Edited:
+  *** script_game_event_party_encounter
+  
+110. Fixed order issue.
+  * module_dialogs.py
+  ** Added:
+  *** dlga_merchant_collect_item|town_merchant_talk
+  *** dlga_merchant_collect_item_another|town_merchant_talk
+  * module_scripts.py
+  ** Added:
+  *** script_troop_has_free_inventory_slot
+  * dialogs.csv
+  ** Added:
+  *** dlga_merchant_collect_item|town_merchant_talk
+  *** dlga_merchant_collect_item_another|town_merchant_talk
+  
+111. Lords won't join Kielian sultanate anymore.
+  * module_simple_triggers.py
+  ** Edited:
+  *** 0.5h trigger for changing faction.
+  
+112. Now drinks increase morale.
+  * module_scripts.py
+  ** Edited:
+  *** script_get_player_party_morale_values
+  
+113. Food and drink consume system changed.
+  * module_simple_triggers.py
+  ** Removed:
+  *** 14h trigger to consume food and drink.
+  ** Added:
+  *** 8h trigger to consume food and drink.
+  * module_skills.py
+  ** Removed:
+  *** skl_reserved_6
+  ** Added:
+  *** skl_taste_id
+  
+114. 2 new npcs added for taste identification skill.
+  * module_dialogs.py
+  ** Edited:
+  *** dlga_start:close_window.9
+  *** dlga_start:companion_recruit_intro_response
+  *** dlga_companion_recruit_intro_response:companion_recruit_backstory_a
+  *** dlga_companion_recruit_intro_response:close_window
+  *** dlga_companion_recruit_backstory_a:companion_recruit_backstory_b
+  *** dlga_companion_recruit_backstory_b:companion_recruit_backstory_c
+  *** dlga_companion_recruit_backstory_c:companion_recruit_backstory_response
+  *** dlga_companion_recruit_backstory_response:companion_recruit_signup
+  *** dlga_companion_recruit_backstory_response:close_window
+  *** dlga_companion_recruit_signup:companion_recruit_signup_b
+  *** dlga_companion_recruit_signup_b:companion_recruit_signup_response
+  *** dlga_companion_recruit_signup_response:companion_recruit_payment
+  *** dlga_companion_recruit_signup_response:close_window
+  *** dlga_companion_recruit_payment:companion_recruit_payment_response
+  *** dlga_companion_recruit_payment_response:companion_recruit_signup_confirm
+  *** dlga_companion_recruit_payment_response:close_window
+  *** dlga_companion_recruit_backstory_delayed:companion_recruit_backstory_delayed_response
+  *** dlga_start:companion_rehire
+  *** dlga_start:companion_was_dismissed
+  *** dlga_companion_was_dismissed:companion_rehire
+  * module_scripts.py
+  ** Edited:
+  *** script_initialize_npcs
+  * module_strings.py
+  ** Replaced:
+  *** str_npc9_intro
+  *** str_npc10_intro
+  *** str_npc11_intro
+  *** str_npc1_backstory_a
+  *** str_npc6_backstory_a
+  *** str_npc11_backstory_a
+  *** str_npc16_backstory_a
+  *** str_npc1_signup
+  *** str_npc9_signup
+  *** str_npc16_signup
+  *** str_npc6_signup_2
+  *** str_npc10_signup_2
+  *** str_npc11_signup_2
+  *** str_npc14_signup_2
+  *** str_npc1_payment
+  *** str_npc5_payment
+  *** str_npc8_payment
+  ** Added:
+  *** str_npc17_intro
+  *** str_npc18_intro
+  *** str_npc17_intro_response_1
+  *** str_npc18_intro_response_1
+  *** str_npc17_intro_response_2
+  *** str_npc18_intro_response_2
+  *** str_npc17_backstory_a
+  *** str_npc18_backstory_a
+  *** str_npc17_backstory_b
+  *** str_npc18_backstory_b
+  *** str_npc17_backstory_c
+  *** str_npc18_backstory_c
+  *** str_npc17_backstory_later
+  *** str_npc18_backstory_later
+  *** str_npc17_backstory_response_1
+  *** str_npc18_backstory_response_1
+  *** str_npc17_backstory_response_2
+  *** str_npc18_backstory_response_2
+  *** str_npc17_signup
+  *** str_npc18_signup
+  *** str_npc17_signup_2
+  *** str_npc18_signup_2
+  *** str_npc17_signup_response_1
+  *** str_npc18_signup_response_1
+  *** str_npc17_signup_response_2
+  *** str_npc18_signup_response_2
+  *** str_npc17_payment
+  *** str_npc18_payment
+  *** str_npc17_payment_response
+  *** str_npc18_payment_response
+  *** str_npc17_morality_speech
+  *** str_npc18_morality_speech
+  *** str_npc17_2ary_morality_speech
+  *** str_npc18_2ary_morality_speech
+  *** str_npc17_personalityclash_speech
+  *** str_npc18_personalityclash_speech
+  *** str_npc17_personalityclash_speech_b
+  *** str_npc18_personalityclash_speech_b
+  *** str_npc17_personalityclash2_speech
+  *** str_npc18_personalityclash2_speech
+  *** str_npc17_personalityclash2_speech_b
+  *** str_npc18_personalityclash2_speech_b
+  *** str_npc17_personalitymatch_speech
+  *** str_npc18_personalitymatch_speech
+  *** str_npc17_personalitymatch_speech_b
+  *** str_npc18_personalitymatch_speech_b
+  *** str_npc17_retirement_speech
+  *** str_npc18_retirement_speech
+  *** str_npc17_rehire_speech
+  *** str_npc18_rehire_speech
+  *** str_npc17_home_intro
+  *** str_npc18_home_intro
+  *** str_npc17_home_description
+  *** str_npc18_home_description
+  *** str_npc17_home_description_2
+  *** str_npc18_home_description_2
+  *** str_npc17_home_recap
+  *** str_npc18_home_recap
+  *** str_npc17_honorific
+  *** str_npc18_honorific
+  *** str_npc17_kingsupport_1
+  *** str_npc18_kingsupport_1
+  *** str_npc17_kingsupport_2
+  *** str_npc18_kingsupport_2
+  *** str_npc17_kingsupport_2a
+  *** str_npc18_kingsupport_2a
+  *** str_npc17_kingsupport_2b
+  *** str_npc18_kingsupport_2b
+  *** str_npc17_kingsupport_3
+  *** str_npc18_kingsupport_3
+  *** str_npc17_kingsupport_objection
+  *** str_npc18_kingsupport_objection
+  *** str_npc17_intel_mission
+  *** str_npc18_intel_mission
+  *** str_npc17_fief_acceptance
+  *** str_npc18_fief_acceptance
+  *** str_npc17_woman_to_woman
+  *** str_npc18_woman_to_woman
+  *** str_npc17_turn_against
+  *** str_npc18_turn_against
+  * module_troops.py
+  ** Added:
+  *** trp_npc17
+  *** trp_npc18
+  * dialogs.csv
+  ** Replaced:
+  *** dlga_start:close_window.9
+  * game_strings.csv
+  ** Replaced:
+  *** str_npc9_intro
+  *** str_npc1_backstory_a
+  *** str_npc6_backstory_a
+  *** str_npc11_backstory_a
+  *** str_npc16_backstory_a
+  *** str_npc1_signup
+  *** str_npc16_signup
+  *** str_npc10_signup_2
+  *** str_npc11_signup_2
+  *** str_npc14_signup_2
+  *** str_npc1_payment
+  *** str_npc8_payment
+  *** str_npc3_morality_speech
+  *** str_npc6_morality_speech
+  *** str_npc9_morality_speech
+  *** str_npc15_morality_speech
+  *** str_npc2_2ary_morality_speech
+  *** str_npc3_2ary_morality_speech
+  *** str_npc6_2ary_morality_speech
+  *** str_npc9_2ary_morality_speech
+  *** str_npc10_2ary_morality_speech
+  *** str_npc2_personalityclash_speech
+  *** str_npc4_personalityclash_speech
+  *** str_npc6_personalityclash_speech
+  *** str_npc4_personalityclash_speech_b
+  *** str_npc9_personalityclash_speech_b
+  *** str_npc16_personalityclash_speech_b
+  *** str_npc2_personalityclash2_speech
+  *** str_npc3_personalityclash2_speech
+  *** str_npc4_personalityclash2_speech
+  *** str_npc9_personalityclash2_speech
+  *** str_npc10_personalityclash2_speech
+  *** str_npc14_personalityclash2_speech_b
+  *** str_npc2_personalitymatch_speech
+  *** str_npc3_personalitymatch_speech
+  *** str_npc4_personalitymatch_speech
+  *** str_npc3_personalitymatch_speech_b
+  *** str_npc3_retirement_speech
+  *** str_npc2_rehire_speech
+  *** str_npc3_rehire_speech
+  *** str_npc6_rehire_speech
+  *** str_npc9_rehire_speech
+  *** str_npc3_home_description
+  *** str_npc11_home_description
+  *** str_npc11_home_description_2
+  *** str_npc10_home_recap
+  *** str_npc13_home_recap
+  *** str_npc2_honorific
+  *** str_npc3_honorific
+  *** str_npc4_honorific
+  *** str_npc9_honorific
+  *** str_npc10_honorific
+  *** str_npc11_honorific
+  *** str_npc4_kingsupport_1
+  *** str_npc9_kingsupport_1
+  *** str_npc10_kingsupport_1
+  *** str_npc12_kingsupport_1
+  *** str_npc1_kingsupport_1
+  *** str_npc16_kingsupport_1
+  *** str_npc3_kingsupport_2
+  *** str_npc4_kingsupport_2
+  *** str_npc7_kingsupport_2
+  *** str_npc9_kingsupport_2
+  *** str_npc10_kingsupport_2
+  *** str_npc15_kingsupport_2
+  *** str_npc16_kingsupport_2
+  *** str_npc5_kingsupport_2b
+  *** str_npc15_kingsupport_2b
+  *** str_npc3_kingsupport_3
+  *** str_npc6_kingsupport_3
+  *** str_npc8_kingsupport_3
+  *** str_npc9_kingsupport_3
+  *** str_npc10_kingsupport_3
+  *** str_npc11_kingsupport_3
+  *** str_npc12_kingsupport_3
+  *** str_npc14_kingsupport_3
+  *** str_npc16_kingsupport_3
+  *** str_npc3_kingsupport_objection
+  *** str_npc6_kingsupport_objection
+  *** str_npc7_kingsupport_objection
+  *** str_npc8_kingsupport_objection
+  *** str_npc9_kingsupport_objection
+  *** str_npc10_kingsupport_objection
+  *** str_npc11_kingsupport_objection
+  *** str_npc14_kingsupport_objection
+  *** str_npc2_intel_mission
+  *** str_npc9_intel_mission
+  *** str_npc11_intel_mission
+  *** str_npc2_fief_acceptance
+  *** str_npc3_fief_acceptance
+  *** str_npc6_fief_acceptance
+  *** str_npc7_fief_acceptance
+  *** str_npc9_fief_acceptance
+  *** str_npc12_fief_acceptance
+  *** str_npc13_fief_acceptance
+  *** str_npc15_fief_acceptance
+  *** str_npc16_fief_acceptance
+  *** str_npc11_turn_against
+  *** str_npc12_turn_against
+
+115. Base of alliance system coded.
+  * module_constants.py
+  ** Added:
+  *** slot_faction_alliance_1
+  *** slot_faction_alliance_2
+  *** slot_faction_alliance_3
+  * module_scripts.py
+  ** Added:
+  *** script_set_alliance
+  *** script_unset_alliance
+  *** script_is_ally
+  *** script_has_free_alliance_slot
+  *** script_get_alliance_slot
+
+116. Ladies added for Umalelith Kingdom.
+  * module_troops.py
+  ** Added:
+  *** trp_kingdom_7_lady_1
+  *** trp_kingdom_7_lady_2
+  *** trp_kingdom_7_lady_3
+  *** trp_kingdom_7_lady_4
+  *** trp_kingdom_7_lady_5
+  *** trp_kingdom_7_lady_6
+  *** trp_kingdom_7_lady_7
+  *** trp_kingdom_7_lady_8
+  *** trp_kingdom_7_lady_9
+  *** trp_kingdom_7_lady_10
+  *** trp_kingdom_7_lady_11
+  *** trp_kingdom_7_lady_12
+  *** trp_kingdom_7_lady_13
+  *** trp_kingdom_7_lady_14
+  *** trp_kingdom_7_lady_15
+  *** trp_kingdom_7_lady_16
+  *** trp_kingdom_7_lady_17
+  *** trp_kingdom_7_lady_18
+  *** trp_kingdom_7_lady_19
+  *** trp_kingdom_7_lady_20
+  * troops.csv
+  ** Added:
+  *** trp_kingdom_7_lady_1
+  *** trp_kingdom_7_lady_1_pl
+  *** trp_kingdom_7_lady_2
+  *** trp_kingdom_7_lady_2_pl
+  *** trp_kingdom_7_lady_3
+  *** trp_kingdom_7_lady_3_pl
+  *** trp_kingdom_7_lady_4
+  *** trp_kingdom_7_lady_4_pl
+  *** trp_kingdom_7_lady_5
+  *** trp_kingdom_7_lady_5_pl
+  *** trp_kingdom_7_lady_6
+  *** trp_kingdom_7_lady_6_pl
+  *** trp_kingdom_7_lady_7
+  *** trp_kingdom_7_lady_7_pl
+  *** trp_kingdom_7_lady_8
+  *** trp_kingdom_7_lady_8_pl
+  *** trp_kingdom_7_lady_9
+  *** trp_kingdom_7_lady_9_pl
+  *** trp_kingdom_7_lady_10
+  *** trp_kingdom_7_lady_10_pl
+  *** trp_kingdom_7_lady_11
+  *** trp_kingdom_7_lady_11_pl
+  *** trp_kingdom_7_lady_12
+  *** trp_kingdom_7_lady_12_pl
+  *** trp_kingdom_7_lady_13
+  *** trp_kingdom_7_lady_13_pl
+  *** trp_kingdom_7_lady_14
+  *** trp_kingdom_7_lady_14_pl
+  *** trp_kingdom_7_lady_15
+  *** trp_kingdom_7_lady_15_pl
+  *** trp_kingdom_7_lady_16
+  *** trp_kingdom_7_lady_16_pl
+  *** trp_kingdom_7_lady_17
+  *** trp_kingdom_7_lady_17_pl
+  *** trp_kingdom_7_lady_18
+  *** trp_kingdom_7_lady_18_pl
+  *** trp_kingdom_7_lady_19
+  *** trp_kingdom_7_lady_19_pl
+  *** trp_kingdom_7_lady_20
+  *** trp_kingdom_7_lady_20_pl
+  
 Known Bugs:
 tf_female; Ladies seems like a man so dialogs should be changed with gender.
 Turkish translate has stupid errors. Like "Kendimin yerine mareşal olarak kendim geçmek istiyorum.", "Köyün yeni sahibi kendim olsun istiyorum" etc...

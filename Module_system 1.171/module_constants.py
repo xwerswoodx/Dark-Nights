@@ -294,6 +294,16 @@ slot_faction_sum_advice_about_factions_begin 			= 150
 slot_faction_original_color = 250
 #
 ## UID: 72 - End
+
+## UID: 115 - Begin
+#
+# We should limit alliance with 3!
+slot_faction_alliance_1    = 251
+slot_faction_alliance_2    = 252
+slot_faction_alliance_3    = 253
+#
+## UID: 115 - End
+
 	
 ########################################################
 ##  PARTY SLOTS            #############################
@@ -1103,10 +1113,32 @@ slot_player_order_found                        = 825
 slot_player_order_reach                        = 850
 slot_player_order_hours                        = 875
 slot_player_order_warned                       = 900
+# Using > until 924
 #
 ## UID: 100 - End
-											
-											
+
+## UID: 62 - Begin
+#
+slot_troop_saved_item_0                        = 950
+slot_troop_saved_item_1                        = 951
+slot_troop_saved_item_2                        = 952
+slot_troop_saved_item_3                        = 953
+slot_troop_saved_item_head                     = 954
+slot_troop_saved_item_body                     = 955
+slot_troop_saved_item_foot                     = 956
+slot_troop_saved_item_gloves                   = 957
+slot_troop_saved_item_horse                    = 958
+slot_troop_saved_item_0_mod                    = 960
+slot_troop_saved_item_1_mod                    = 961
+slot_troop_saved_item_2_mod                    = 962
+slot_troop_saved_item_3_mod                    = 963
+slot_troop_saved_item_head_mod                 = 964
+slot_troop_saved_item_body_mod                 = 965
+slot_troop_saved_item_foot_mod                 = 966
+slot_troop_saved_item_gloves_mod               = 967
+slot_troop_saved_item_horse_mod                = 968
+#
+## UID: 62 - End
 											
 ########################################################
 ##  PLAYER SLOTS           #############################

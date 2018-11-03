@@ -1,4 +1,4 @@
-- Krallık ikna konuşma seçeneğindeki ben olsaydı gibi saçma sorunlar çözüldü.
+﻿- Krallık ikna konuşma seçeneğindeki ben olsaydı gibi saçma sorunlar çözüldü.
 - Savaş yetenekleri eklendi ve geliştirildi:
 --- İyileştirme (OSP: Chel)
 --- Odaklanma (OSP: Chel)
@@ -43,3 +43,4 @@
 - Çocuk yapma, Leydiler ile birlikte olma, leydiler için kişilik.
 - Leydilerin lordları aldatması.
 - Krallıkların asilerinin bir anda ortaya çıkıp krallığa savaş açması.
+- Yiyecek içecek için skill eklenecek (Taste Identification) ve yiyecek içecek masrafı ona göre düşecek.

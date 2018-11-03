@@ -412,5 +412,12 @@ parties = [
   #
   ## UID: 43 - End
 
+  ## UID: 109 - Begin
+  #
+  ("tunnel_1", "Tunnel Entrance", icon_dedal_map_watchtower|pf_is_static|pf_always_visible, no_menu, pt_none, fac_commoners, 0, ai_bhvr_hold, 0, (182, -33.99), [], 0),
+  ("tunnel_2", "Tunnel Entrance", icon_dedal_map_watchtower|pf_is_static|pf_always_visible, no_menu, pt_none, fac_commoners, 0, ai_bhvr_hold, 0, (186.57, -39.42), [], 0),
+  #
+  ## UID: 109 - End
+
   ## EOF
   ]

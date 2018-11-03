@@ -46,15 +46,15 @@ party_templates = [
 ##  ("peasant","Peasant",icon_peasant,0,fac_commoners,merchant_personality,[(trp_farmer,1,6),(trp_peasant_woman,0,7)]),
 
 #  ("black_khergit_raiders","Black Khergit Raiders",icon_khergit_horseman_b|carries_goods(2),0,fac_black_khergits,bandit_personality,[(trp_black_khergit_guard,1,10),(trp_black_khergit_horseman,5,5)]),
-  ("steppe_bandits","Steppe Bandits",icon_khergit|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_steppe_bandit,4,58)]),
-  ("taiga_bandits","Tundra Bandits",icon_axeman|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_taiga_bandit,4,58)]),
-  ("desert_bandits","Desert Bandits",icon_vaegir_knight|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_desert_bandit,4,58)]),
-  ("forest_bandits","Forest Bandits",icon_axeman|carries_goods(2),0,fac_forest_bandits,bandit_personality,[(trp_forest_bandit,4,52)]),
-  ("mountain_bandits","Mountain Bandits",icon_axeman|carries_goods(2),0,fac_mountain_bandits,bandit_personality,[(trp_mountain_bandit,4,60)]),
-  ("sea_raiders","Sea Raiders",icon_axeman|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_sea_raider,5,50)]),
+  ("steppe_bandits","Steppe Bandits",icon_khergit|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_steppe_bandit,2,38),(trp_bandit,2,20)]),
+  ("taiga_bandits","Tundra Bandits",icon_axeman|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_taiga_bandit,2,38),(trp_bandit,2,20)]),
+  ("desert_bandits","Desert Bandits",icon_vaegir_knight|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_desert_bandit,2,38),(trp_bandit,2,20)]),
+  ("forest_bandits","Forest Bandits",icon_axeman|carries_goods(2),0,fac_forest_bandits,bandit_personality,[(trp_forest_bandit,2,32),(trp_bandit,2,20)]),
+  ("mountain_bandits","Mountain Bandits",icon_axeman|carries_goods(2),0,fac_mountain_bandits,bandit_personality,[(trp_mountain_bandit,2,40),(trp_bandit,2,20)]),
+  ("sea_raiders","Sea Raiders",icon_axeman|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_sea_raider,3,30),(trp_bandit,2,20)]),
   ## UID: 10 - Begin
   #
-  ("sea_raiders_ships","Sea Raiders",icon_ship|pf_is_ship|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_sea_raider,8,80)]),
+  ("sea_raiders_ships","Sea Raiders",icon_ship|pf_is_ship|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_sea_raider,6,60),(trp_bandit,2,20)]),
   #
   ## UID: 10 - End
 
@@ -65,7 +65,7 @@ party_templates = [
   ## UID: 95 - Begin
   #
   #("desert_cavalry", "Desert Cavalry", icon_dedal_map_swadia_lord_a, 0, fac_desert_cavalry, soldier_personality, [(trp_desert_cavalry, 10, 50)]),
-  ("desert_cavalry", "Desert Cavalry", icon_dedal_map_swadia_lord_a, 0, fac_desert_cavalry, soldier_personality, [(trp_desert_cavalry, 5, 35),(trp_desert_archer, 5, 15)]),
+  ("desert_cavalry", "Desert Cavalry", icon_dedal_map_swadia_lord_a, 0, fac_desert_cavalry, soldier_personality, [(trp_desert_cavalry, 5, 35),(trp_desert_archer, 5, 15),(trp_desert_guard, 2, 5)]),
   #
   ## UID: 95 - End
   #

@@ -1122,6 +1122,12 @@ troops = [
    str_7|agi_11|int_8|cha_7|level(2),wp(80),knows_tracker_npc|
    knows_power_throw_3|knows_athletics_2|knows_power_strike_1,
    0x00000000000c100739ce9c805d2f381300000000001cc7ad0000000000000000],
+  ## UID: 114 - Begin
+  #
+  ["npc17", "Gunilda", "Gunilda", tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved, fac_commoners, [itm_dress, itm_head_wrappings, itm_practice_boots, itm_cleaver, itm_knife], str_6|agi_6|int_9|cha_10|level(2), wp(70), knows_taste_id_3|knows_power_strike_1|knows_athletics_2, 0x000000008510300d4b225198da8e62ac00000000001dd5660000000000000000],
+  ["npc18", "Gale", "Gale", tf_hero|tf_unmoveable_in_party_window, 0, reserved, fac_commoners, [itm_butchering_knife, itm_straw_hat, itm_leather_apron, itm_practice_boots], str_7|agi_7|int_9|cha_8|level(2), wp(110), knows_taste_id_3|knows_power_strike_2|knows_athletics_2|knows_trade_2, 0x000000053b0414d8691d7656dcb4c77500000000001dd8d90000000000000000],
+  #
+  ## UID: 114 - End
 #NPC system changes end
 
 
@@ -1515,7 +1521,31 @@ troops = [
   ["kingdom_6_lady_19","Lady Janab","Janab",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_6, [itm_sarranid_lady_dress_b,      itm_leather_boots],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, swadian_woman_face_1],
   ["kingdom_6_lady_20","Lady Sur","Sur",tf_hero|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_kingdom_6, [itm_sarranid_lady_dress,      itm_leather_boots],     def_attrib|level(2),wp(50),knows_common|knows_riding_2, swadian_woman_face_2],
 
-
+  ## UID: 116 - Begin
+  #
+  #Umalelith Ladies
+  ["kingdom_7_lady_1", "Lady Everilda", "Everilda", tf_hero|tf_female|tf_unmoveable_in_party_window, 0, reserved, fac_kingdom_7, [itm_lady_dress_ruby, itm_fur_hat, itm_practice_boots], def_attrib|level(2), wp(50), knows_common|knows_riding_2, 0x000000004910000d36db6db6db6db6db00000000001db6db0000000000000000],
+  ["kingdom_7_lady_2", "Lady Hazel", "Hazel", tf_hero|tf_female|tf_unmoveable_in_party_window, 0, reserved, fac_kingdom_7, [itm_lady_dress_green, itm_fur_hat, itm_practice_boots], def_attrib|level(2), wp(50), knows_common|knows_riding_2, 0x00000000520c0002448baec5594d569100000000001db31a0000000000000000],
+  ["kingdom_7_lady_3", "Lady Lorelle", "Lorelle", tf_hero|tf_female|tf_unmoveable_in_party_window, 0, reserved, fac_kingdom_7, [itm_brown_dress, itm_nomad_cap_b, itm_practice_boots], def_attrib|level(2), wp(50), knows_common|knows_riding_2, 0x00000000580810024c9b9232d88e46e3000000000006bda20000000000000000],
+  ["kingdom_7_lady_4", "Lady Magge", "Magge", tf_hero|tf_female|tf_unmoveable_in_party_window, 0, reserved, fac_kingdom_7, [itm_lady_dress_blue, itm_nomad_cap_b, itm_practice_boots], def_attrib|level(2), wp(50), knows_common|knows_riding_2, 0x0000000044041012459334b4e14b4b0c00000000000d37590000000000000000],
+  ["kingdom_7_lady_5", "Lady Marigold", "Marigold", tf_hero|tf_female|tf_unmoveable_in_party_window, 0, reserved, fac_kingdom_7, [itm_lady_dress_ruby, itm_fur_hat, itm_practice_boots], def_attrib|level(2), wp(50), knows_common|knows_riding_2, 0x000000004004001134966b575976ccdc00000000001264e80000000000000000],
+  ["kingdom_7_lady_6", "Lady Lilly", "Lilly", tf_hero|tf_female|tf_unmoveable_in_party_window, 0, reserved, fac_kingdom_7, [itm_lady_dress_ruby, itm_leather_cap, itm_practice_boots], def_attrib|level(2), wp(50), knows_common|knows_riding_2, 0x000000006310100952a77538dd91872c00000000001e66ed0000000000000000],
+  ["kingdom_7_lady_7", "Lady Ivy", "Ivy", tf_hero|tf_female|tf_unmoveable_in_party_window, 0, reserved, fac_kingdom_7, [itm_sarranid_common_dress_b, itm_fur_hat, itm_practice_boots], def_attrib|level(2), wp(50), knows_common|knows_riding_2, 0x000000004a04000534ab68ab36c922dd000000000015c8610000000000000000],
+  ["kingdom_7_lady_8", "Lady Farah", "Farah", tf_hero|tf_female|tf_unmoveable_in_party_window, 0, reserved, fac_kingdom_7, [itm_red_dress, itm_leather_cap, itm_practice_boots], def_attrib|level(2), wp(50), knows_common|knows_riding_2, 0x00000000450010011b6479aaf62d38dc00000000000d66a40000000000000000],
+  ["kingdom_7_lady_9", "Lady Alvina", "Alvina", tf_hero|tf_female|tf_unmoveable_in_party_window, 0, reserved, fac_kingdom_7, [itm_lady_dress_green, itm_leather_cap, itm_practice_boots], def_attrib|level(2), wp(50), knows_common|knows_riding_2, 0x000000006a0830126655f24b326dc71b00000000000d296d0000000000000000],
+  ["kingdom_7_lady_10", "Lady Balthilda", "Balthilda", tf_hero|tf_female|tf_unmoveable_in_party_window, 0, reserved, fac_kingdom_7, [itm_sarranid_common_dress, itm_leather_cap, itm_practice_boots], def_attrib|level(2), wp(50), knows_common|knows_riding_2, 0x00000000521010054424a632e264a69c00000000001116e50000000000000000],
+  ["kingdom_7_lady_11", "Lady Daisy", "Daisy", tf_hero|tf_female|tf_unmoveable_in_party_window, 0, reserved, fac_kingdom_7, [itm_green_dress, itm_leather_cap, itm_practice_boots], def_attrib|level(2), wp(50), knows_common|knows_riding_2, 0x000000005b0c2005456a9a5d5a312b0a00000000001255550000000000000000],
+  ["kingdom_7_lady_12", "Lady Ella", "Ella", tf_hero|tf_female|tf_unmoveable_in_party_window, 0, reserved, fac_kingdom_7, [itm_lady_dress_green, itm_nomad_cap_b, itm_practice_boots], def_attrib|level(2), wp(50), knows_common|knows_riding_2, 0x00000000400c00075a0971254a0e395d0000000000133ae50000000000000000],
+  ["kingdom_7_lady_13", "Lady Diana", "Diana", tf_hero|tf_female|tf_unmoveable_in_party_window, 0, reserved, fac_kingdom_7, [itm_lady_dress_green, itm_fur_hat, itm_practice_boots], def_attrib|level(2), wp(50), knows_common|knows_riding_2, 0x000000005c08200d37134ab6d06cb31b000000000006591b0000000000000000],
+  ["kingdom_7_lady_14", "Lady Brucie", "Brucie", tf_hero|tf_female|tf_unmoveable_in_party_window, 0, reserved, fac_kingdom_7, [itm_brown_dress, itm_nomad_cap_b, itm_practice_boots], def_attrib|level(2), wp(50), knows_common|knows_riding_2, 0x000000004100000e438b398693ae36ec00000000000dcac60000000000000000],
+  ["kingdom_7_lady_15", "Lady Rossa", "Rossa", tf_hero|tf_female|tf_unmoveable_in_party_window, 0, reserved, fac_kingdom_7, [itm_brown_dress, itm_fur_hat, itm_practice_boots], def_attrib|level(2), wp(50), knows_common|knows_riding_2, 0x0000000044100004174a98f95129c56300000000001e5b5e0000000000000000],
+  ["kingdom_7_lady_16", "Lady Odile", "Odile", tf_hero|tf_female|tf_unmoveable_in_party_window, 0, reserved, fac_kingdom_7, [itm_brown_dress, itm_leather_cap, itm_practice_boots], def_attrib|level(2), wp(50), knows_common|knows_riding_2, 0x000000006010100c3aa4959c64b2579e00000000001d45d30000000000000000],
+  ["kingdom_7_lady_17", "Lady Susane", "Susane", tf_hero|tf_female|tf_unmoveable_in_party_window, 0, reserved, fac_kingdom_7, [itm_lady_dress_ruby, itm_fur_hat, itm_practice_boots], def_attrib|level(2), wp(50), knows_common|knows_riding_2, 0x000000005210000328235516cc4746cc00000000000e49360000000000000000],
+  ["kingdom_7_lady_18", "Lady Wasila", "Wasila", tf_hero|tf_female|tf_unmoveable_in_party_window, 0, reserved, fac_kingdom_7, [itm_lady_dress_blue, itm_leather_cap, itm_practice_boots], def_attrib|level(2), wp(50), knows_common|knows_riding_2, 0x000000006108200b3b514516c999555b000000000011c71b0000000000000000],
+  ["kingdom_7_lady_19", "Lady Tana", "Tana", tf_hero|tf_female|tf_unmoveable_in_party_window, 0, reserved, fac_kingdom_7, [itm_lady_dress_blue, itm_leather_cap, itm_practice_boots], def_attrib|level(2), wp(50), knows_common|knows_riding_2, 0x000000007d0420104d2b4cb6a65a16eb000000000009c7390000000000000000],
+  ["kingdom_7_lady_20", "Lady Windy", "Windy", tf_hero|tf_female|tf_unmoveable_in_party_window, 0, reserved, fac_kingdom_7, [itm_lady_dress_blue, itm_leather_cap, itm_practice_boots], def_attrib|level(2), wp(50), knows_common|knows_riding_2, 0x000000004e0820032d12aedb246cb95400000000000cb9300000000000000000],
+  #
+  ## UID: 116 - End
 
   
 #  ["kingdom_11_lord_daughter","kingdom_11_lord_daughter","kingdom_11_lord_daughter",tf_hero|tf_female,0,reserved,fac_kingdom_10,  [ itm_lady_dress_blue ,   itm_turret_hat_blue,    itm_leather_boots], def_attrib|level(2),wp(50),knows_common|knows_riding_2, 0x000000000008300701c08d34a450ce43],
@@ -2950,7 +2980,7 @@ troops = [
   #
   ["dark_knight", "Dark Knight", "Dark Knights", tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse, 0, 0, fac_dark_knights, [itm_pa_sword_02, itm_pa_sword_03, itm_pa_axe_02, itm_morningstar, itm_pa_axe_03, itm_steel_shield, itm_war_shield, itm_steel_shield, itm_heater_shield, itm_black_armor, itm_black_greaves, itm_bascinet, itm_guard_helmet, itm_fi_horse_8, itm_fi_horse_7, itm_leather_gloves],
    def_attrib|level(33),wp(160),knows_common|knows_riding_6|knows_shield_5|knows_ironflesh_4|knows_power_strike_4,swadian_face_middle_1, swadian_face_middle_2],
-  ["dark_hunter", "Dark Hunter", "Dark Hunters", tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_ranged, 0, 0, fac_dark_knights, [itm_fp_bow_02, itm_fp_bow_03, itm_arrows, itm_morningstar, itm_heater_shield, itm_leather_jerkin, itm_iron_greaves, itm_guard_helmet, itm_saddle_horse, itm_fi_horse_7, itm_fp_bow_02, itm_fp_bow_01],
+  ["dark_hunter", "Dark Hunter", "Dark Hunters", tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_ranged, 0, 0, fac_dark_knights, [itm_fp_bow_02, itm_fp_bow_03, itm_arrows, itm_morningstar, itm_leather_jerkin, itm_iron_greaves, itm_guard_helmet, itm_saddle_horse, itm_fi_horse_7],
    def_attrib|level(25),wp(120),knows_common|knows_riding_5|knows_shield_3|knows_ironflesh_2|knows_power_strike_5|knows_power_draw_5,swadian_face_middle_1, swadian_face_middle_2],
   ["dark_pikeman", "Dark Pikeman", "Dark Pikemen", tf_mounted|tf_guarantee_polearm|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse, 0, 0, fac_dark_knights, [itm_great_lance, itm_war_shield, itm_leather_jerkin, itm_iron_greaves, itm_guard_helmet, itm_fi_horse_8, itm_fi_horse_7],
    def_attrib|level(30),wp(120),knows_common|knows_riding_7|knows_shield_3|knows_ironflesh_4|knows_power_strike_5,swadian_face_middle_1, swadian_face_middle_2],
@@ -2962,6 +2992,8 @@ troops = [
   #
   ["desert_archer", "Camel Archer", "Camel Archers", tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_ranged, 0, 0, fac_desert_cavalry, [itm_camel, itm_arrows, itm_fp_bow_01, itm_fp_bow_02, itm_lamellar_vest, itm_sarranid_elite_armor, itm_sarranid_warrior_cap, itm_sarranid_helmet1, itm_light_leather_boots],
    def_attrib|level(30), wp(130), knows_common|knows_riding_4|knows_ironflesh_5|knows_power_strike_4|knows_power_draw_5, swadian_face_young_1, swadian_face_middle_2],
+  ["desert_guard", "Desert Guard", "Desert Guards", tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse, 0, 0, fac_desert_cavalry, [itm_elephant, itm_plate_armor, itm_winged_great_helmet, itm_fi_glove_1, itm_iron_greaves, itm_glaive, itm_norman_shield_8, itm_broadsword],
+   def_attrib|level(30), wp(130), knows_common|knows_riding_8|knows_ironflesh_7|knows_power_strike_3, swadian_face_young_1, swadian_face_middle_2],
   #
   ## UID: 95 - End
 
@@ -3094,6 +3126,7 @@ upgrade2(troops, "hired_blade", "bounty_hunter", "dark_knight")
 #
 #upgrade(troops, "desert_bandit", "desert_cavalry")
 upgrade2(troops, "desert_bandit", "desert_cavalry", "desert_archer")
+upgrade(troops, "desert_cavalry", "desert_guard")
 #
 ## UID: 95 - End
 #

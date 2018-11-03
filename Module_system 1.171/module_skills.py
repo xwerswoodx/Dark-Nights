@@ -41,7 +41,12 @@ skills = [
   ("literacy", "Literacy", sf_base_att_int, 10, "Book writing and reading speed increased 5%% per level of this skill."),
   #
   ## UID: 34 - End
-  ("reserved_6","Reserved Skill 6",sf_base_att_int|sf_inactive,10,"This is a reserved skill."), 
+  ## UID: 113 - Begin
+  #
+  #("reserved_6","Reserved Skill 6",sf_base_att_int|sf_inactive,10,"This is a reserved skill."),
+  ("taste_id", "Taste Identification", sf_base_att_int|sf_effects_party, 10, "This skill allows you to make better meals from your food stock and spend less source. (Party Skill)"),
+  #
+  ## UID: 113 - End
   ("reserved_7","Reserved Skill 7",sf_base_att_int|sf_inactive,10,"This is a reserved skill."), 
   ("reserved_8","Reserved Skill 8",sf_base_att_int|sf_inactive,10,"This is a reserved skill."), 
   ("looting","Looting",sf_base_att_agi|sf_effects_party,10,"This skill increases the amount of loot obtained by 10%% per skill level. (Party skill)"), 

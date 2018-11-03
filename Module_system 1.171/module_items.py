@@ -269,10 +269,33 @@ items = [
 
  ["wool","Wool", [("wool_sack",0)], itp_merchandise|itp_type_goods, 0, 130,weight(40)|abundance(90),imodbits_none],
  ["wool_cloth","Wool Cloth", [("wool_cloth",0)], itp_merchandise|itp_type_goods, 0, 250,weight(40)|abundance(90),imodbits_none],
+ ## UID: 82 - Begin
+ #
+ ["cloth_black", "Black Cloth", [("cloth_black",0)], itp_merchandise|itp_type_goods, 0, 300,weight(40)|abundance(90),imodbits_none],
+ ["cloth_purple", "Purple Cloth", [("cloth_purple",0)], itp_merchandise|itp_type_goods, 0, 300,weight(40)|abundance(90),imodbits_none],
+ #
+ ## UID: 82 - End
+ ## UID: 81 - Begin
+ #
+ ["cloth_yellow", "Yellow Cloth", [("sari_kumas",0)], itp_merchandise|itp_type_goods, 0, 280,weight(40)|abundance(90),imodbits_none],
+ #
+ ## UID: 81 - End
 
  ["raw_silk","Raw Silk", [("raw_silk_bundle",0)], itp_merchandise|itp_type_goods, 0, 600,weight(30)|abundance(90),imodbits_none],
  ["raw_dyes","Dyes", [("dyes",0)], itp_merchandise|itp_type_goods, 0, 200,weight(10)|abundance(90),imodbits_none],
- ["velvet","Velvet", [("velvet",0)], itp_merchandise|itp_type_goods, 0, 1025,weight(40)|abundance(30),imodbits_none],
+ ["velvet", "Velvet", [("velvet",0)], itp_merchandise|itp_type_goods, 0, 1025,weight(40)|abundance(30),imodbits_none],
+ ## UID: 82 - Begin
+ #
+ ["velvet_orange", "Orange Velvet", [("velvet_orange",0)], itp_merchandise|itp_type_goods, 0, 1245,weight(40)|abundance(30),imodbits_none],
+ ["velvet_green", "Green Velvet", [("velvet_green",0)], itp_merchandise|itp_type_goods, 0, 1245,weight(40)|abundance(30),imodbits_none],
+ #
+ ## UID: 82 - End
+ ## UID: 81 - Begin
+ #
+ ["velvet_blue", "Blue Velvet", [("mavi_kadife",0)], itp_merchandise|itp_type_goods, 0, 1215,weight(40)|abundance(30),imodbits_none],
+ #
+ ## UID: 81 - End
+
 
  ["iron","Iron", [("iron",0)], itp_merchandise|itp_type_goods, 0,264,weight(60)|abundance(60),imodbits_none],
  ## UID: 84 - Begin
@@ -286,14 +309,10 @@ items = [
  ## UID: 81 - Begin
  #
  ["cattle_leather", "Cattle Hides", [("inek_derisi", 0)], itp_merchandise|itp_type_goods, 0, 180,weight(40)|abundance(60), imodbits_none], 
- ["velvet_blue", "Blue Velvet", [("mavi_kadife",0)], itp_merchandise|itp_type_goods, 0, 1215,weight(40)|abundance(30),imodbits_none],
- ["cloth_yellow", "Yellow Cloth", [("sari_kumas",0)], itp_merchandise|itp_type_goods, 0, 280,weight(40)|abundance(90),imodbits_none],
  #
  ## UID: 81 - End
  ## UID: 82 - Begin
  #
- ["velvet_orange", "Orange Velvet", [("velvet_orange",0)], itp_merchandise|itp_type_goods, 0, 1245,weight(40)|abundance(30),imodbits_none],
- ["cloth_black", "Black Cloth", [("cloth_black",0)], itp_merchandise|itp_type_goods, 0, 300,weight(40)|abundance(90),imodbits_none],
  ["gift_a", "Jar", [("gift_jar",0)], itp_merchandise|itp_type_goods, 0, 1045,weight(40)|abundance(90),imodbits_none],
  ["gift_b", "Jar", [("gift_oil",0)], itp_merchandise|itp_type_goods, 0, 940,weight(40)|abundance(90),imodbits_none], 
  #
@@ -362,6 +381,7 @@ items = [
  ["apple_a", "Red Apple", [("apple_a", 0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 15, weight(20)|abundance(140)|food_quality(80)|max_ammo(15), imodbits_none],
  ["apple_b", "Green Apple", [("apple_b", 0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 15, weight(20)|abundance(140)|food_quality(60)|max_ammo(15), imodbits_none],
  ["apple_c", "Yellow Apple", [("apple_c", 0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 15, weight(20)|abundance(140)|food_quality(70)|max_ammo(15), imodbits_none],
+ ["apple_d", "Orange Apple", [("apple_d", 0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 15, weight(20)|abundance(140)|food_quality(70)|max_ammo(15), imodbits_none],
  ["melon", "Melon", [("melon_p", 0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 80, weight(20)|abundance(70)|food_quality(90)|max_ammo(65), imodbits_none],
 
  ## UID: 80 - Begin
@@ -421,7 +441,7 @@ items = [
  ["camel", "Camel", [("camel", 0)], itp_merchandise|itp_type_horse, 0, 2020, abundance(40)|hit_points(190)|body_armor(20)|difficulty(4)|horse_speed(42)|horse_maneuver(60)|horse_charge(25)|horse_scale(100), imodbits_horse_basic, [], [fac_kingdom_6, fac_kingdom_8]],
  #
  ## UID: 24 - End
- ["elephant", "Elephant", [("elephant", 0)], itp_merchandise|itp_type_horse, 0, 7000, abundance(25)|hit_points(420)|body_armor(40)|difficulty(6)|horse_speed(28)|horse_maneuver(28)|horse_charge(62)|horse_scale(160), imodbits_horse_basic, [], [fac_kingdom_3]],
+ ["elephant", "Elephant", [("elephant", 0)], itp_merchandise|itp_type_horse, 0, 7000, abundance(25)|hit_points(480)|body_armor(40)|difficulty(6)|horse_speed(18)|horse_maneuver(28)|horse_charge(62)|horse_scale(160), imodbits_horse_basic, [], [fac_kingdom_6, fac_kingdom_8]],
  ["nordland", "Nordland Horse", [("nordland_ati", 0)], itp_merchandise|itp_type_horse, 0, 1255, abundance(50)|body_armor(23)|hit_points(147)|difficulty(3)|horse_speed(49)|horse_maneuver(35)|horse_charge(14)|horse_scale(100), imodbits_horse_basic, [], [fac_kingdom_4]],
  ["sanjarinati","Sanjar Horse", [("sanjarinati",0)], itp_type_horse, 0, 2000, abundance(30)|body_armor(25)|hit_points(125)|difficulty(6)|horse_speed(55)|horse_maneuver(50)|horse_charge(25)|horse_scale(106), imodbits_horse_basic],
  #
@@ -891,6 +911,11 @@ items = [
 210 , weight(1.5)|difficulty(0)|spd_rtng(101) | weapon_length(97)|swing_damage(30 , cut) | thrust_damage(0 ,  pierce),imodbits_sword_high ],
 ["scimitar_b",         "Elite Scimitar", [("scimitar_b",0),("scab_scimeter_b", ixmesh_carry)], itp_type_one_handed_wpn|itp_merchandise|itp_primary, itc_scimitar|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn, 
 290 , weight(1.5)|difficulty(0)|spd_rtng(100) | weapon_length(103)|swing_damage(32 , cut) | thrust_damage(0 ,  pierce),imodbits_sword_high ],
+ ## UID: 103 - Begin
+ #
+ ["mw_sword_01", "Cutlass", [("mackie_cutlass", 0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary, itc_scimitar|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn, 930, weight(1.0)|difficulty(3)|spd_rtng(112)|weapon_length(100)|swing_damage(35, cut)|thrust_damage(0, pierce), imodbits_sword],
+ #
+ ## UID: 103 - End
 
 ["arabian_sword_a",         "Sarranid Sword", [("arabian_sword_a",0),("scab_arabian_sword_a", ixmesh_carry)], itp_type_one_handed_wpn|itp_merchandise|itp_primary, itc_longsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn, 
 108 , weight(1.5)|difficulty(0)|spd_rtng(99) | weapon_length(97)|swing_damage(26 , cut) | thrust_damage(19 ,  pierce),imodbits_sword_high ],
@@ -960,6 +985,12 @@ items = [
   1910, weight(1.5)|difficulty(16)|spd_rtng(104)|weapon_length(95)|swing_damage(45, cut)|thrust_damage(0, pierce), imodbits_sword_high],
  ["fp_sword_06", "Sarranid Cutlass", [("os8", 0)], itp_type_two_handed_wpn|itp_merchandise|itp_two_handed|itp_primary, itc_nodachi|itcf_carry_sword_back,
   1323, weight(2.75)|difficulty(10)|spd_rtng(99)|weapon_length(120)|swing_damage(49, cut)|thrust_damage(0, pierce), imodbits_sword_high],
+
+ ## UID: 103 - Begin
+ #
+ ["mw_sword_02", "Katana", [("mackie_nodachi", 0)], itp_type_two_handed_wpn|itp_merchandise|itp_two_handed|itp_primary, itc_nodachi|itcf_carry_sword_back, 2984, weight(5)|difficulty(18)|spd_rtng(80)|weapon_length(120)|swing_damage(59, cut)|thrust_damage(0, pierce), imodbits_sword_high],
+##
+ ## UID: 103 - End
  
  ["fp_mace_01", "Black Mace", [("gurz1", 0)], itp_type_one_handed_wpn|itp_can_knock_down|itp_merchandise|itp_primary|itp_wooden_parry, itc_scimitar|itcf_carry_mace_left_hip,
   917, weight(2)|difficulty(7)|spd_rtng(98)|weapon_length(70)|swing_damage(36, blunt)|thrust_damage(0, pierce), imodbits_mace],
@@ -1202,6 +1233,12 @@ items = [
  360 , weight(2.75)|difficulty(10)|spd_rtng(75) | weapon_length(190)|swing_damage(16 , blunt) | thrust_damage(26 ,  pierce),imodbits_polearm ],
 ["great_lance",         "Great Lance", [("heavy_lance",0)], itp_couchable|itp_type_polearm|itp_merchandise| itp_primary|itp_penalty_with_shield|itp_wooden_parry, itc_greatlance, 
  410 , weight(5)|difficulty(11)|spd_rtng(55) | weapon_length(240)|swing_damage(0 , cut) | thrust_damage(21 ,  pierce),imodbits_polearm ],
+ ## UID: 103 - Begin
+ #
+ ["mw_lance_01", "Mackie Lance", [("mackie_mangler", 0)], itp_couchable|itp_type_polearm|itp_merchandise|itp_primary|itp_penalty_with_shield|itp_wooden_parry, itc_greatlance, 820, weight(6)|difficulty(14)|spd_rtng(65)|weapon_length(220)|swing_damage(0, cut)|thrust_damage(35, pierce), imodbits_polearm],
+ #
+ ## UID: 103 - End
+ 
 ["pike",         "Pike", [("spear_a_3m",0)], itp_type_polearm|itp_merchandise| itp_cant_use_on_horseback|itp_primary|itp_penalty_with_shield|itp_wooden_parry|itp_two_handed, itc_cutting_spear,
  125 , weight(3.0)|difficulty(0)|spd_rtng(81) | weapon_length(245)|swing_damage(16 , blunt) | thrust_damage(26 ,  pierce),imodbits_polearm ],
 ##["spear_e_3-25m",         "Spear_3-25m", [("spear_e_3-25m",0)], itp_type_polearm|itp_merchandise| itp_primary|itp_penalty_with_shield|itp_wooden_parry, itc_cutting_spear|itcf_carry_spear,

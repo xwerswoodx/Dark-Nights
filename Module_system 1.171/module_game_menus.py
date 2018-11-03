@@ -128,7 +128,6 @@ game_menus = [
           (try_end),
           (troop_set_name, "trp_player", "@Mod Editor"),
           (party_set_name, "p_main_party", "@Mod Editor"),
-          (troop_raise_attribute, "trp_player", ca_strength, 4),
           (troop_add_gold, "trp_player", 9999999),
           (troop_add_item, "trp_player", "itm_persius_sword_01", imod_masterwork),
           (troop_add_item, "trp_player", "itm_steel_shield", imod_reinforced),
@@ -138,10 +137,35 @@ game_menus = [
           (troop_add_item, "trp_player", "itm_black_armor", imod_lordly),
           (troop_add_item, "trp_player", "itm_black_greaves", imod_lordly),
           (troop_add_items, "trp_player", "itm_smoked_fish", 9),
+          (troop_add_items, "trp_player", "itm_tea", 6),
           (troop_add_item, "trp_player", "itm_fp_bow_01", imod_masterwork),
           (troop_add_item, "trp_player", "itm_bodkin_arrows", imod_large_bag),
           (troop_equip_items, "trp_player"),
           (party_relocate_near_party, "p_main_party", "p_town_6", 2),
+          (try_for_range, ":npc", companions_begin, companions_end),
+            (call_script, "script_recruit_troop_as_companion", ":npc"),
+            (try_for_range, ":skill", 0, 42),
+              (troop_raise_skill, ":npc", ":skill", 10),
+            (try_end),
+            (try_for_range, ":wpt", 0, 7),
+              (troop_raise_proficiency, ":npc", ":wpt", 400),
+            (try_end),
+            (try_for_range, ":attr", 0, 5),
+              (troop_raise_attribute, ":npc", ":attr", 30),
+            (try_end),
+            (troop_add_item, ":npc", "itm_persius_sword_01", imod_masterwork),
+            (troop_add_item, ":npc", "itm_steel_shield", imod_reinforced),
+            (troop_add_item, ":npc", "itm_sanjarinati", imod_champion),
+            (troop_add_item, ":npc", "itm_gauntlets", imod_lordly),
+            (troop_add_item, ":npc", "itm_guard_helmet", imod_lordly),
+            (troop_add_item, ":npc", "itm_black_armor", imod_lordly),
+            (troop_add_item, ":npc", "itm_black_greaves", imod_lordly),
+            (troop_add_items, ":npc", "itm_smoked_fish", 9),
+            (troop_add_items, ":npc", "itm_tea", 6),
+            (troop_add_item, ":npc", "itm_fp_bow_01", imod_masterwork),
+            (troop_add_item, ":npc", "itm_bodkin_arrows", imod_large_bag),
+            (troop_equip_items, ":npc"),
+          (try_end),
           ## UID: 63 - Begin
           #
           (call_script, "script_set_plural_name", "trp_player"),
@@ -4080,17 +4104,37 @@ game_menus = [
           (eq, ":terrain", 0),
           (set_jump_mission,"mt_ship_battle"),
 
+          ## UID: 105 - Begin
+          #
+          #(try_begin),
+          #  (val_add,reg10,reg11),
+          #  (gt,reg10,60),
+          #  (jump_to_scene, "scn_sea_4"),
+          #(else_try),
+          #  (val_add,reg10,reg11),
+          #  (gt,reg10,30),
+          #  (jump_to_scene, "scn_sea_2"),
+          #(else_try),
+          #  (jump_to_scene, "scn_sea_1"),
+          #(end_try),
+          (assign, ":scene", "scn_sea_1"),
+          (val_add, reg10, reg11),
           (try_begin),
-            (val_add,reg10,reg11),
-            (gt,reg10,60),
-            (jump_to_scene, "scn_sea_4"),
+            (ge, reg10, 60),
+            (assign, ":scene", "scn_sea_7"),
           (else_try),
-            (val_add,reg10,reg11),
-            (gt,reg10,30),
-            (jump_to_scene, "scn_sea_2"),
+            (ge, reg10, 45),
+            (assign, ":scene", "scn_sea_6"),
           (else_try),
-            (jump_to_scene, "scn_sea_1"),
-          (end_try),
+            (ge, reg10, 30),
+            (assign, ":scene", "scn_sea_4"),
+          (else_try),
+            (ge, reg10, 15),
+            (assign, ":scene", "scn_sea_2"),
+          (try_end),
+          (jump_to_scene, ":scene"),
+          #
+          ## UID: 105 - End
         (else_try),
         #
         ## UID: 10 - End        
@@ -11972,9 +12016,6 @@ game_menus = [
 
       ("trade_with_tavern_merchant",[(party_slot_ge, "$current_town", slot_town_tavernkeeper, 1)], "Talk with the tavern keeper.", [
           (party_get_slot, ":merchant_troop", "$current_town", slot_town_tavernkeeper),
-          ## UID: 78 - Begin
-          #
-          #(change_screen_trade, ":merchant_troop"),
           (party_get_slot, ":town_scene", "$current_town", slot_town_center),
           (modify_visitors_at_site, ":town_scene"),
           (reset_visitors),
@@ -11983,8 +12024,6 @@ game_menus = [
           (set_jump_mission, "mt_town_center"),
           (jump_to_scene, ":town_scene"),
           (change_screen_map_conversation, ":merchant_troop"),
-          #
-          ## UID: 78 - End
         ]),
 
       ("trade_with_goods_merchant",[(party_slot_ge, "$current_town", slot_town_merchant, 1)], "Trade with the goods merchant.", [
@@ -14517,6 +14556,18 @@ game_menus = [
               (party_remove_prisoners, "trp_player", ":troop", 1),
               (call_script, "script_remove_troop_from_prison", ":troop"),
             (try_end),
+
+            (try_for_range, ":center", walled_centers_begin, walled_centers_end),
+              (party_get_num_prisoner_stacks, ":stacks", ":center"),
+              (try_for_range_backwards, ":stack_no", 0, ":stacks"),
+                (party_prisoner_stack_get_troop_id, ":troop", ":center", ":stack_no"),
+                (troop_is_hero, ":troop"),
+                (store_troop_faction, ":faction", ":troop"),
+                (eq, ":faction", "$players_kingdom"),
+                (party_remove_prisoners, ":center", ":troop", 1),
+                (call_script, "script_remove_troop_from_prison", ":troop"),
+              (try_end),
+            (try_end),
             ## UID: 63 - Begin
             #
             (call_script, "script_set_prefix"),
@@ -15676,25 +15727,42 @@ game_menus = [
     ]
   ),
 
-
-  ("establish_court",mnf_disable_all_keys,
-    "To establish {s4} as your court will require a small refurbishment. In particular, you will need a set of tools and a bolt of velvet. it may also take a short while for some of your followers to relocate here. Do you wish to proceed?",
-    "none",
-    [
-	(str_store_party_name, s4, "$g_encountered_party"),
-	],
-	
-    [
-      ("establish",[
-	  (player_has_item, "itm_tools"),
-	  (player_has_item, "itm_velvet"),
-	  ],"Establish {s4} as your court",
-       [         
-		(assign, "$g_player_court", "$current_town"),
-	    (troop_remove_item, "trp_player", "itm_tools"),
-	    (troop_remove_item, "trp_player", "itm_velvet"),
-        (jump_to_menu, "mnu_town"),         
-       ]),       
+  ("establish_court", mnf_disable_all_keys,
+   "To establish {s4} as your court will require a small refurbishment. In particular, you will need a set of tools and a bolt of velvet. it may also take a short while for some of your followers to relocate here. Do you wish to proceed?",
+   "none", [(str_store_party_name, s4, "$g_encountered_party")], [
+     ("establish",[
+       (player_has_item, "itm_tools"),
+       ## UID: 108 - Begin
+       #
+       #(player_has_item, "itm_velvet"),
+       (this_or_next|player_has_item, "itm_velvet"),
+       (this_or_next|player_has_item, "itm_velvet_orange"),
+       (this_or_next|player_has_item, "itm_velvet_green"),
+       (             player_has_item, "itm_velvet_blue"),
+       #
+       ## UID: 108 - End
+      ], "Establish {s4} as your court", [
+        (assign, "$g_player_court", "$current_town"),
+        (troop_remove_item, "trp_player", "itm_tools"),
+        ## UID: 108 - Begin
+        #
+        (assign, ":velvet", "itm_velvet_blue"),
+        (try_begin),
+          (player_has_item, "itm_velvet"),
+          (assign, ":velvet", "itm_velvet"),
+        (else_try),
+          (player_has_item, "itm_velvet_orange"),
+          (assign, ":velvet", "itm_velvet_orange"),
+        (else_try),
+          (player_has_item, "itm_velvet_green"),
+          (assign, ":velvet", "itm_velvet_green"),
+        (try_end),
+        (troop_remove_item, "trp_player", ":velvet"),
+        #(troop_remove_item, "trp_player", "itm_velvet"),
+        #
+        ## UID: 108 - End
+        (jump_to_menu, "mnu_town"),
+      ]),       
 	
 	
       ("continue",[],"Hold off...",
@@ -16219,6 +16287,36 @@ game_menus = [
     ]),
   #
   ## UID: 80 - End
+
+  ## UID: 109 - Begin
+  #
+  ("tunnel", 0, "You are walking throught eastern tunnels...", "none", [], [
+        ("enter_tunnel", [], "Enter to tunnel.", [
+            (set_jump_entry, 0),
+            (try_begin),
+              (eq, "$g_encountered_party", "p_tunnel_2"),
+              (set_jump_entry, 1),
+            (try_end),
+            (set_jump_mission, "mt_town_default"),
+            (jump_to_scene, "scn_out_mine"),
+            (change_screen_mission),
+        ]),
+        ("leave", [], "Leave.", [(change_screen_return)]),
+
+        ("leave_1", [(eq, 1, 0)], ".", [
+          (party_get_position, pos0, "p_tunnel_1"),
+          (party_set_position, "p_main_party", pos0),
+          (change_screen_map),
+        ], "Leave."),
+
+        ("leave_2", [(eq, 1, 0)], ".", [
+          (party_get_position, pos0, "p_tunnel_2"),
+          (party_set_position, "p_main_party", pos0),
+          (change_screen_map),
+        ], "Leave.")
+    ]),
+  #
+  ## UID: 109 - End
   
   ## EOF
  ]

@@ -1019,172 +1019,180 @@ simple_triggers = [
 	
     #Individual lord political calculations
     #Check for lords without fiefs, auto-defections, etc
-    (0.5,	
-     [
-        (val_add, "$g_lord_long_term_count", 1),
-        (try_begin),
-          (neg|is_between, "$g_lord_long_term_count", "trp_kingdom_heroes_including_player_begin", active_npcs_end),
-          (assign, "$g_lord_long_term_count", "trp_kingdom_heroes_including_player_begin"),
+  (0.5, [
+      (val_add, "$g_lord_long_term_count", 1),
+      (try_begin),
+        (neg|is_between, "$g_lord_long_term_count", "trp_kingdom_heroes_including_player_begin", active_npcs_end),
+        (assign, "$g_lord_long_term_count", "trp_kingdom_heroes_including_player_begin"),
+      (try_end),
+      (assign, ":troop_no", "$g_lord_long_term_count"),
+
+      (try_begin),
+        (eq, ":troop_no", "trp_kingdom_heroes_including_player_begin"),
+        (assign, ":troop_no", "trp_player"),
+      (try_end),
+
+      (try_begin),
+        (eq, "$cheat_mode", 1),
+        (str_store_troop_name, s9, ":troop_no"),
+        (display_message, "@{!}DEBUG -- Doing political calculations for {s9}"),
+      (try_end),
+
+      #Penalty for no fief
+      (try_begin),
+        (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+        (neq, ":troop_no", "trp_player"),
+        (assign, ":fief_found", -1),
+
+        (try_for_range, ":center", centers_begin, centers_end),
+          (party_slot_eq, ":center", slot_town_lord, ":troop_no"),
+          (assign, ":fief_found", ":center"),
         (try_end),
 
-        (assign, ":troop_no", "$g_lord_long_term_count"),
-	
         (try_begin),
-          (eq, ":troop_no", "trp_kingdom_heroes_including_player_begin"),	
-          (assign, ":troop_no", "trp_player"),
-        (try_end),
+          (eq, ":fief_found", -1),
 
-        (try_begin),
-          (eq, "$cheat_mode", 1),
-          (str_store_troop_name, s9, ":troop_no"),
-          (display_message, "@{!}DEBUG -- Doing political calculations for {s9}"),
-        (try_end),
-	
-        #Penalty for no fief
-        (try_begin),
-          (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
-          (neq, ":troop_no", "trp_player"),
-		  
-          (assign, ":fief_found", -1),
-          (try_for_range, ":center", centers_begin, centers_end),
-            (party_slot_eq, ":center", slot_town_lord, ":troop_no"),
-            (assign, ":fief_found", ":center"),
-          (try_end),
-		
+          (store_faction_of_troop, ":original_faction", ":troop_no"),
+          (faction_get_slot, ":faction_leader", ":original_faction", slot_faction_leader),
+          (troop_get_slot, ":troop_reputation", ":troop_no", slot_lord_reputation_type),
+
           (try_begin),
-            (eq, ":fief_found", -1),
-                        			
-            (store_faction_of_troop, ":original_faction", ":troop_no"),
-            (faction_get_slot, ":faction_leader", ":original_faction", slot_faction_leader),
-            (troop_get_slot, ":troop_reputation", ":troop_no", slot_lord_reputation_type),
-			
+            (neq, ":faction_leader", ":troop_no"),
             (try_begin),
-              (neq, ":faction_leader", ":troop_no"),
-              (try_begin),
-                (this_or_next|eq, ":troop_reputation", lrep_quarrelsome),
-                (this_or_next|eq, ":troop_reputation", lrep_selfrighteous),
-                (this_or_next|eq, ":troop_reputation", lrep_cunning),
-                (eq, ":troop_reputation", lrep_debauched),
-                (call_script, "script_troop_change_relation_with_troop", ":troop_no", ":faction_leader", -4),
-                (val_add, "$total_no_fief_changes", -4),
-              (else_try),
-                (eq, ":troop_reputation", lrep_martial),
-                (call_script, "script_troop_change_relation_with_troop", ":troop_no", ":faction_leader", -2),
-                (val_add, "$total_no_fief_changes", -2),
-              (try_end),
+              (this_or_next|eq, ":troop_reputation", lrep_quarrelsome),
+              (this_or_next|eq, ":troop_reputation", lrep_selfrighteous),
+              (this_or_next|eq, ":troop_reputation", lrep_cunning),
+              (             eq, ":troop_reputation", lrep_debauched),
+              (call_script, "script_troop_change_relation_with_troop", ":troop_no", ":faction_leader", -4),
+              (val_add, "$total_no_fief_changes", -4),
+            (else_try),
+              (eq, ":troop_reputation", lrep_martial),
+              (call_script, "script_troop_change_relation_with_troop", ":troop_no", ":faction_leader", -2),
+              (val_add, "$total_no_fief_changes", -2),
             (try_end),
           (try_end),
-        (try_end),	
-		
-        #Auto-indictment or defection
+        (try_end),
+      (try_end),
+
+      #Auto-indictment or defection
+      (try_begin),
+        (this_or_next|troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+        (             eq, ":troop_no", "trp_player"),
         (try_begin),
-          (this_or_next|troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
-          (eq, ":troop_no", "trp_player"),		
-          (try_begin),
-            (eq, ":troop_no", "trp_player"),
-            (assign, ":faction", "$players_kingdom"),
-          (else_try),
-            (store_faction_of_troop, ":faction", ":troop_no"),
-          (try_end),
-
-          (faction_get_slot, ":faction_leader", ":faction", slot_faction_leader),
-          (neq, ":troop_no", ":faction_leader"),
-			
-          #I don't know why these are necessary, but they appear to be
-          (neg|is_between, ":troop_no", "trp_kingdom_1_lord", "trp_knight_1_1"),
-          (neg|is_between, ":troop_no", pretenders_begin, pretenders_end),
-		  
-		  (assign, ":num_centers", 0),		  
-		  (try_for_range,":cur_center", walled_centers_begin, walled_centers_end),		    
-		    (store_faction_of_party, ":faction_of_center", ":cur_center"),
-			(eq, ":faction_of_center", ":faction"),			
-			(val_add, ":num_centers", 1),
-		  (try_end),
-
-		  #we are counting num_centers to allow defection although there is high relation between faction leader and troop. 
-		  #but this rule should not applied for player's faction and player_supporters_faction so thats why here 1 is added to num_centers in that case.
-		  (try_begin), 
-		    (this_or_next|eq, ":faction", "$players_kingdom"),
-			(eq, ":faction", "fac_player_supporters_faction"),
-			(val_add, ":num_centers", 1),
-		  (try_end),
-			
-          (call_script, "script_troop_get_relation_with_troop", ":troop_no", ":faction_leader"),
-          (this_or_next|le, reg0, -50), #was -75
-		  (eq, ":num_centers", 0), #if there is no walled centers that faction has defection happens 100%.
-
-          (call_script, "script_cf_troop_can_intrigue", ":troop_no", 0), #Should include battle, prisoner, in a castle with others 
-          (store_random_in_range, ":who_moves_first", 0, 2),
-			
-          (try_begin),
-            (this_or_next|eq, ":num_centers", 0), #Thanks Caba`drin & Osviux
-            (neq, ":who_moves_first", 0),
-            (neq, ":troop_no", "trp_player"),
-				
-                        #do a defection
-                        (try_begin), 
-                          (neq, ":num_centers", 0), 
-                          (assign, "$g_give_advantage_to_original_faction", 1), 
-                        (try_end),
-			#(assign, "$g_give_advantage_to_original_faction", 1),
-        
-			(store_faction_of_troop, ":orig_faction", ":troop_no"),
-			(call_script, "script_lord_find_alternative_faction", ":troop_no"),
-			(assign, ":new_faction", reg0),			
-			(assign, "$g_give_advantage_to_original_faction", 0),
-			(try_begin),
-			  (neq, ":new_faction", ":orig_faction"),			  
-            
-              (is_between, ":new_faction", kingdoms_begin, kingdoms_end),
-              (str_store_troop_name_link, s1, ":troop_no"),
-              (str_store_faction_name_link, s2, ":new_faction"),	
-              (str_store_faction_name_link, s3, ":faction"),
-              (call_script, "script_change_troop_faction", ":troop_no", ":new_faction"),
-              (try_begin),
-                (ge, "$cheat_mode", 1),
-                (str_store_troop_name, s4, ":troop_no"),
-                (display_message, "@{!}DEBUG - {s4} faction changed in defection"), 
-              (try_end),	
-              (troop_get_type, reg4, ":troop_no"),
-              (str_store_string, s4, "str_lord_defects_ordinary"),
-              (display_log_message, "@{!}{s4}"),
-              (try_begin),
-                (eq, "$cheat_mode", 1),
-                (this_or_next|eq, ":new_faction", "$players_kingdom"),
-                (eq, ":faction", "$players_kingdom"),
-                (call_script, "script_add_notification_menu", "mnu_notification_lord_defects", ":troop_no", ":faction"),
-              (try_end),				
-			(try_end),
-          (else_try),	
-            (neq, ":faction_leader", "trp_player"),
-			(call_script, "script_troop_get_relation_with_troop", ":troop_no", ":faction_leader"),
-			(le, reg0, -50), #was -75
-            (call_script, "script_indict_lord_for_treason", ":troop_no", ":faction"),
-          (try_end),		  
-        (else_try),  #Take a stand on an issue
-          (neq, ":troop_no", "trp_player"),
+          (eq, ":troop_no", "trp_player"),
+          (assign, ":faction", "$players_kingdom"),
+        (else_try),
           (store_faction_of_troop, ":faction", ":troop_no"),
-          (faction_slot_ge, ":faction", slot_faction_political_issue, 1),
-          #This bit of complication is needed for savegame compatibility -- if zero is in the slot, they'll choose anyway			
-          (neg|troop_slot_ge, ":troop_no", slot_troop_stance_on_faction_issue, 1), 
-          (this_or_next|troop_slot_eq, ":troop_no", slot_troop_stance_on_faction_issue, -1),
-          (neq, "$players_kingdom", ":faction"),
-          (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
-          (call_script, "script_npc_decision_checklist_take_stand_on_issue", ":troop_no"),
-          (troop_set_slot, ":troop_no", slot_troop_stance_on_faction_issue, reg0),
         (try_end),
 
-        (try_for_range, ":active_npc", active_npcs_begin, active_npcs_end),
-          (call_script, "script_troop_get_relation_with_troop", ":troop_no", ":active_npc"),
-          (lt, reg0, 0),
-          (assign, ":relation", reg0),
-          (store_sub, ":chance_of_convergence", 0, ":relation"),
-          (store_random_in_range, ":random", 0, 300),
-          (lt, ":random", ":chance_of_convergence"),
-          (call_script, "script_troop_change_relation_with_troop", ":troop_no", ":active_npc", 1),
-          (val_add, "$total_relation_changes_through_convergence", 1),
-        (try_end),				
-        ]),
+        (faction_get_slot, ":faction_leader", ":faction", slot_faction_leader),
+        (neq, ":troop_no", ":faction_leader"),
+        #I don't know why these are necessary, but they appear to be
+        (neg|is_between, ":troop_no", "trp_kingdom_1_lord", "trp_knight_1_1"),
+        (neg|is_between, ":troop_no", pretenders_begin, pretenders_end),
+
+        (assign, ":num_centers", 0),
+        (try_for_range,":cur_center", walled_centers_begin, walled_centers_end),
+          (store_faction_of_party, ":faction_of_center", ":cur_center"),
+          (eq, ":faction_of_center", ":faction"),
+          (val_add, ":num_centers", 1),
+        (try_end),
+
+        #we are counting num_centers to allow defection although there is high relation between faction leader and troop.
+        #but this rule should not applied for player's faction and player_supporters_faction so thats why here 1 is added to num_centers in that case.
+        (try_begin),
+          (this_or_next|eq, ":faction", "$players_kingdom"),
+          (             eq, ":faction", "fac_player_supporters_faction"),
+          (val_add, ":num_centers", 1),
+        (try_end),
+
+        (call_script, "script_troop_get_relation_with_troop", ":troop_no", ":faction_leader"),
+        (this_or_next|le, reg0, -50), #was -75
+        (             eq, ":num_centers", 0), #if there is no walled centers that faction has defection happens 100%.
+
+        (call_script, "script_cf_troop_can_intrigue", ":troop_no", 0), #Should include battle, prisoner, in a castle with others
+        (store_random_in_range, ":who_moves_first", 0, 2),
+
+        (try_begin),
+          (this_or_next|eq, ":num_centers", 0), #Thanks Caba`drin & Osviux
+          (             neq, ":who_moves_first", 0),
+          (             neq, ":troop_no", "trp_player"),
+          #do a defection
+          (try_begin),
+            (neq, ":num_centers", 0),
+            (assign, "$g_give_advantage_to_original_faction", 1),
+          (try_end),
+          #(assign, "$g_give_advantage_to_original_faction", 1),
+
+          (store_faction_of_troop, ":orig_faction", ":troop_no"),
+          (call_script, "script_lord_find_alternative_faction", ":troop_no"),
+          (assign, ":new_faction", reg0),
+          (assign, "$g_give_advantage_to_original_faction", 0),
+          (try_begin),
+            (neq, ":new_faction", ":orig_faction"),
+            (is_between, ":new_faction", kingdoms_begin, kingdoms_end),
+            ## UID: 111 - Begin
+            #
+            (call_script, "script_is_male", ":troop_no"),
+            (assign, ":cont", 1),
+            (try_begin),
+              (ge, reg0, 1), #Is male?
+              (eq, ":new_faction", "fac_kingdom_8"), #Kielian?
+              (assign, ":cont", 0),
+            (try_end),
+            (gt, ":cont", 0),
+            #
+            ## UID: 111 - End
+            (str_store_troop_name_link, s1, ":troop_no"),
+            (str_store_faction_name_link, s2, ":new_faction"),
+            (str_store_faction_name_link, s3, ":faction"),
+            (call_script, "script_change_troop_faction", ":troop_no", ":new_faction"),
+            (try_begin),
+              (ge, "$cheat_mode", 1),
+              (str_store_troop_name, s4, ":troop_no"),
+              (display_message, "@{!}DEBUG - {s4} faction changed in defection"),
+            (try_end),
+            (troop_get_type, reg4, ":troop_no"),
+            (str_store_string, s4, "str_lord_defects_ordinary"),
+            (display_log_message, "@{!}{s4}"),
+
+            (try_begin),
+              (eq, "$cheat_mode", 1),
+              (this_or_next|eq, ":new_faction", "$players_kingdom"),
+              (             eq, ":faction", "$players_kingdom"),
+              (call_script, "script_add_notification_menu", "mnu_notification_lord_defects", ":troop_no", ":faction"),
+            (try_end),
+          (try_end),
+        (else_try),
+          (neq, ":faction_leader", "trp_player"),
+          (call_script, "script_troop_get_relation_with_troop", ":troop_no", ":faction_leader"),
+          (le, reg0, -50), #was -75
+          (call_script, "script_indict_lord_for_treason", ":troop_no", ":faction"),
+        (try_end),
+      (else_try),  #Take a stand on an issue
+        (neq, ":troop_no", "trp_player"),
+        (store_faction_of_troop, ":faction", ":troop_no"),
+        (faction_slot_ge, ":faction", slot_faction_political_issue, 1),
+        #This bit of complication is needed for savegame compatibility -- if zero is in the slot, they'll choose anyway
+        (neg|troop_slot_ge, ":troop_no", slot_troop_stance_on_faction_issue, 1),
+        (this_or_next|troop_slot_eq, ":troop_no", slot_troop_stance_on_faction_issue, -1),
+        (             neq, "$players_kingdom", ":faction"),
+        (             troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+        (call_script, "script_npc_decision_checklist_take_stand_on_issue", ":troop_no"),
+        (troop_set_slot, ":troop_no", slot_troop_stance_on_faction_issue, reg0),
+      (try_end),
+
+      (try_for_range, ":active_npc", active_npcs_begin, active_npcs_end),
+        (call_script, "script_troop_get_relation_with_troop", ":troop_no", ":active_npc"),
+        (lt, reg0, 0),
+        (assign, ":relation", reg0),
+        (store_sub, ":chance_of_convergence", 0, ":relation"),
+        (store_random_in_range, ":random", 0, 300),
+        (lt, ":random", ":chance_of_convergence"),
+        (call_script, "script_troop_change_relation_with_troop", ":troop_no", ":active_npc", 1),
+        (val_add, "$total_relation_changes_through_convergence", 1),
+      (try_end),
+    ]),
 	
 #TEMPORARILY DISABLED, AS READINESS IS NOW A PRODUCT OF NPC_DECISION_CHECKLIST	
   # Changing readiness to join army
@@ -2047,7 +2055,12 @@ simple_triggers = [
 
 
   #Troop AI: Merchants thinking
-  (8, [
+  ## UID: 79 - Begin
+  #
+  #(8, [
+  (2, [
+  #
+  ## UID: 79 - End
       (try_for_parties, ":party_no"),
         ## UID: 79 - Begin
         #
@@ -2458,99 +2471,181 @@ simple_triggers = [
        (try_end),
      (try_end),
     ]),
-  
-  # Consuming food at every 14 hours
-  (14, [
-      (eq, "$g_player_is_captive", 0),
-      (party_get_num_companion_stacks, ":num_stacks","p_main_party"),
-      (assign, ":num_men", 0),
-      (try_for_range, ":i_stack", 0, ":num_stacks"),
-        (party_stack_get_size, ":stack_size","p_main_party",":i_stack"),
-        (val_add, ":num_men", ":stack_size"),
-      (try_end),
-      (val_div, ":num_men", 3),
-      (try_begin),
-        (eq, ":num_men", 0),
-        (val_add, ":num_men", 1),
+
+  ## UID: 113 - Begin
+  #
+  # Before it was once in 14 hours but we should need 3 times a day!
+  (8, [
+      (eq, "$g_player_is_captive", 0), #Not captured?
+      (neq, "$freelancer_state", 1), #Not in freelancer mode?
+
+      (party_get_num_companion_stacks, ":stacks", "p_main_party"),
+      (assign, ":count", 0),
+      (try_for_range, ":i", 0, ":stacks"),
+        (party_stack_get_size, ":size", "p_main_party", ":i"),
+        (val_add, ":count", ":size"),
       (try_end),
 
+      (store_sub, ":difficulty", 5, "$g_difficulty"),
+      (val_mul, ":difficulty", 2),
+      (val_sub, ":difficulty", 1),
+      
+      (call_script, "script_get_max_skill_of_player_party", "skl_taste_id"),
+      (assign, ":skill", reg0),
       (try_begin),
-        (assign, ":number_of_foods_player_has", 0),
-        (try_for_range, ":cur_edible", food_begin, food_end),
-          (call_script, "script_cf_player_has_item_without_modifier", ":cur_edible", imod_rotten),
-          (val_add, ":number_of_foods_player_has", 1),
+        (gt, ":skill", 0),
+        (val_mul, ":skill", ":difficulty"), #Per Skill: (Reality = 1% - Hard = 3% - Normal = 5% - Easy = 7% - Very Easy = 9%)
+        (store_mul, ":bonus", ":count", ":skill"),
+        (val_mul, ":bonus", 100),
+        (val_sub, ":count", ":bonus"),
+      (try_end),
+      (val_max, ":count", 1),
+
+      (assign, ":no_drink", 0),
+      (assign, ":no_food", 0),
+      (try_for_range, ":unused", 0, ":count"),
+        (try_begin),
+          (assign, ":food", 0),
+          (try_for_range, ":i", food_begin, food_end),
+            (call_script, "script_cf_player_has_item_without_modifier", ":i", imod_rotten),
+            (val_add, ":food", 1),
+          (try_end),
+
+          (try_begin),
+            (ge, ":food", 6),
+            (unlock_achievement, ACHIEVEMENT_ABUNDANT_FEAST),
+          (try_end),
+        (try_end),
+
+        (assign, ":drink", 0),
+        (try_for_range, ":i", drink_begin, drink_end),
+          (player_has_item, ":i"),
+          (val_add, ":drink", 1),
         (try_end),
 
         (try_begin),
-          (ge, ":number_of_foods_player_has", 6),
-          (unlock_achievement, ACHIEVEMENT_ABUNDANT_FEAST),
-        (try_end),
-      (try_end),
-
-      ## UID: 86 - Begin
-      #
-      (assign, ":number_of_drinks_player_has", 0),
-      (try_for_range, ":drink", drink_begin, drink_end),
-        (player_has_item, ":drink"),
-        (val_add, ":number_of_drinks_player_has", 1),
-      (try_end),
-
-      (assign, ":consumption_amount", ":num_men"),
-      (assign, ":no_food_displayed", 0),
-      ## UID: 86 - Begin
-      #
-      (assign, ":no_drink_displayed", 0),
-      #
-      ## UID: 86 - End
-      (try_for_range, ":unused", 0, ":consumption_amount"),
-        (assign, ":available_food", 0),
-        (try_for_range, ":cur_food", food_begin, food_end),
-          (item_set_slot, ":cur_food", slot_item_is_checked, 0),
-          (call_script, "script_cf_player_has_item_without_modifier", ":cur_food", imod_rotten),
-          (val_add, ":available_food", 1),
-        (try_end),
-
-        ## UID: 86 - Begin
-        #
-        (assign, ":available_drink", 0),
-        (try_for_range, ":drink", drink_begin, drink_end),
-          (item_set_slot, ":drink", slot_item_is_checked, 0),
-          (player_has_item, ":drink"),
-          (val_add, ":available_drink", 1),
-        (try_end),
-
-        (try_begin),
-          (gt, ":available_drink", 0),
-          (store_random_in_range, ":selected_drink", 0, ":available_drink"),
-          (call_script, "script_consume_drink", ":selected_drink"),
+          (gt, ":drink", 0),
+          (store_random_in_range, ":sel", 0, ":drink"),
+          (call_script, "script_consume_drink", ":sel"),
         (else_try),
-          (eq, ":no_drink_displayed", 0),
+          (eq, ":no_drink", 0),
           (display_message, "@Party has nothing to drink!", 0xFF0000),
           (call_script, "script_change_player_party_morale", -4),
-          (assign, ":no_drink_displayed", 1),
+          (assign, ":no_drink", 1),
         (try_end),
-        #
-        ## UID: 86 - End
 
         (try_begin),
-          (gt, ":available_food", 0),
-          (store_random_in_range, ":selected_food", 0, ":available_food"),
-          (call_script, "script_consume_food", ":selected_food"),
+          (gt, ":food", 0),
+          (store_random_in_range, ":sel", 0, ":food"),
+          (call_script, "script_consume_food", ":sel"),
         (else_try),
-          (eq, ":no_food_displayed", 0),
+          (eq, ":no_food"),
           (display_message, "@Party has nothing to eat!", 0xFF0000),
           (call_script, "script_change_player_party_morale", -3),
-          (assign, ":no_food_displayed", 1),
-          #NPC companion changes begin
+          (assign, ":no_food", 1),
           (try_begin),
             (call_script, "script_party_count_fit_regulars", "p_main_party"),
             (gt, reg0, 0),
             (call_script, "script_objectionable_action", tmt_egalitarian, "str_men_hungry"),
           (try_end),
-          #NPC companion changes end
         (try_end),
       (try_end),
     ]),
+  
+  # Consuming food at every 14 hours
+##  (14, [
+##      (eq, "$g_player_is_captive", 0),
+##      (party_get_num_companion_stacks, ":num_stacks","p_main_party"),
+##      (assign, ":num_men", 0),
+##      (try_for_range, ":i_stack", 0, ":num_stacks"),
+##        (party_stack_get_size, ":stack_size","p_main_party",":i_stack"),
+##        (val_add, ":num_men", ":stack_size"),
+##      (try_end),
+##      (val_div, ":num_men", 3),
+##      (try_begin),
+##        (eq, ":num_men", 0),
+##        (val_add, ":num_men", 1),
+##      (try_end),
+##
+##      (try_begin),
+##        (assign, ":number_of_foods_player_has", 0),
+##        (try_for_range, ":cur_edible", food_begin, food_end),
+##          (call_script, "script_cf_player_has_item_without_modifier", ":cur_edible", imod_rotten),
+##          (val_add, ":number_of_foods_player_has", 1),
+##        (try_end),
+##
+##        (try_begin),
+##          (ge, ":number_of_foods_player_has", 6),
+##          (unlock_achievement, ACHIEVEMENT_ABUNDANT_FEAST),
+##        (try_end),
+##      (try_end),
+##
+##      ## UID: 86 - Begin
+##      #
+##      (assign, ":number_of_drinks_player_has", 0),
+##      (try_for_range, ":drink", drink_begin, drink_end),
+##        (player_has_item, ":drink"),
+##        (val_add, ":number_of_drinks_player_has", 1),
+##      (try_end),
+##
+##      (assign, ":consumption_amount", ":num_men"),
+##      (assign, ":no_food_displayed", 0),
+##      ## UID: 86 - Begin
+##      #
+##      (assign, ":no_drink_displayed", 0),
+##      #
+##      ## UID: 86 - End
+##      (try_for_range, ":unused", 0, ":consumption_amount"),
+##        (assign, ":available_food", 0),
+##        (try_for_range, ":cur_food", food_begin, food_end),
+##          (item_set_slot, ":cur_food", slot_item_is_checked, 0),
+##          (call_script, "script_cf_player_has_item_without_modifier", ":cur_food", imod_rotten),
+##          (val_add, ":available_food", 1),
+##        (try_end),
+##
+##        ## UID: 86 - Begin
+##        #
+##        (assign, ":available_drink", 0),
+##        (try_for_range, ":drink", drink_begin, drink_end),
+##          (item_set_slot, ":drink", slot_item_is_checked, 0),
+##          (player_has_item, ":drink"),
+##          (val_add, ":available_drink", 1),
+##        (try_end),
+##
+##        (try_begin),
+##          (gt, ":available_drink", 0),
+##          (store_random_in_range, ":selected_drink", 0, ":available_drink"),
+##          (call_script, "script_consume_drink", ":selected_drink"),
+##        (else_try),
+##          (eq, ":no_drink_displayed", 0),
+##          (display_message, "@Party has nothing to drink!", 0xFF0000),
+##          (call_script, "script_change_player_party_morale", -4),
+##          (assign, ":no_drink_displayed", 1),
+##        (try_end),
+##        #
+##        ## UID: 86 - End
+##
+##        (try_begin),
+##          (gt, ":available_food", 0),
+##          (store_random_in_range, ":selected_food", 0, ":available_food"),
+##          (call_script, "script_consume_food", ":selected_food"),
+##        (else_try),
+##          (eq, ":no_food_displayed", 0),
+##          (display_message, "@Party has nothing to eat!", 0xFF0000),
+##          (call_script, "script_change_player_party_morale", -3),
+##          (assign, ":no_food_displayed", 1),
+##          #NPC companion changes begin
+##          (try_begin),
+##            (call_script, "script_party_count_fit_regulars", "p_main_party"),
+##            (gt, reg0, 0),
+##            (call_script, "script_objectionable_action", tmt_egalitarian, "str_men_hungry"),
+##          (try_end),
+##          #NPC companion changes end
+##        (try_end),
+##      (try_end),
+##    ]),
+  #
+  ## UID: 113 - End
 
   # Setting item modifiers for food
   (24,

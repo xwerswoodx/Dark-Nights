@@ -584,6 +584,12 @@ scene_props = [
 
   ("ship",0,"ship","bo_ship", []),
 
+  ## UID: 105 - Begin
+  #
+  ("galleon_prop_01", 0, "galleon_prop_01", "bo_galleon_prop_01", []),
+  #
+  ## UID: 105 - End
+
   ("ship_b",0,"ship_b","bo_ship_b", []),
   ("ship_c",0,"ship_c","bo_ship_c", []),
 
@@ -3241,5 +3247,24 @@ scene_props = [
   ("persius_excalibur", 0, "excalibur", "0", []),
   #
   ## UID: 11 - End
+
+  ## UID: 109 - Begin
+  #
+  ("tunnel_1", 0, "tunnel_curved", "bo_tunnel_curved", []),
+  ("tunnel_1a", 0, "tunnel_curved_supports", "bo_tunnel_curved_supports", []),
+  ("tunnel_2", 0, "tunnel_crossing", "bo_tunnel_crossing", []),
+  ("tunnel_2a", 0, "tunnel_crossing_supports", "bo_tunnel_crossing_supports", []),
+  ("tunnel_3", 0, "tunnel_short", "bo_tunnel_short", []),
+  ("tunnel_3a", 0, "tunnel_short_supports", "bo_tunnel_short_supports", []),
+  ("tunnel_4", 0, "tunnel_sloped", "bo_tunnel_sloped", []),
+  ("tunnel_4a", 0, "tunnel_sloped_supports", "bo_tunnel_sloped_supports", []),
+  ("tunnel_5", 0, "tunnel_straight", "bo_tunnel_straight", []),
+  ("tunnel_5a", 0, "tunnel_straight_supports", "bo_tunnel_straight_supports", []),
+  ("tunnel_6", 0, "tunnel_split", "bo_tunnel_split", []),
+  ("tunnel_6a", 0, "tunnel_split_supports", "bo_tunnel_split_supports", []),
+  ("tunnel_7", 0, "tunnel_support", "bo_tunnel_support", []),
+  ("tunnel_8", 0, "chasm", "bo_chasm", []),
+  #
+  ## UID: 109 - End
 
 ]
