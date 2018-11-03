@@ -55170,7 +55170,7 @@ scripts = [
 
   ("get_alliance_slot", [
       (store_script_param, ":faction", 1),
-      (store_script_param, ":target", 1),
+      (store_script_param, ":target", 2),
       (assign, reg3, 0),
       (try_begin),
         (faction_slot_eq, ":faction", slot_faction_alliance_1, ":target"),
