@@ -856,7 +856,7 @@ items = [
 4 , weight(2.5)|difficulty(0)|spd_rtng(99) | weapon_length(63)|swing_damage(13 , blunt) | thrust_damage(0 ,  pierce),imodbits_none ],
 ["cudgel",         "Cudgel", [("club",0)], itp_type_one_handed_wpn|itp_merchandise| itp_primary|itp_wooden_parry|itp_wooden_attack, itc_scimitar, 
 4 , weight(2.5)|difficulty(0)|spd_rtng(99) | weapon_length(70)|swing_damage(13 , blunt) | thrust_damage(0 ,  pierce),imodbits_none ],
-["hammer",         "Hammer", [("iron_hammer_new",0)], itp_type_one_handed_wpn|itp_can_knock_down| itp_primary|itp_wooden_parry, itc_scimitar, 
+["hammer",         "Hammer", [("iron_hammer_new",0)], itp_type_one_handed_wpn|itp_can_knock_down|itp_primary|itp_wooden_parry, itc_scimitar, 
 7 , weight(2)|difficulty(0)|spd_rtng(100) | weapon_length(55)|swing_damage(24 , blunt) | thrust_damage(0 ,  pierce),imodbits_mace ],
 ["club",         "Club", [("club",0)], itp_type_one_handed_wpn|itp_merchandise| itp_can_knock_down|itp_primary|itp_wooden_parry|itp_wooden_attack, itc_scimitar, 
 11 , weight(2.5)|difficulty(0)|spd_rtng(98) | weapon_length(70)|swing_damage(20 , blunt) | thrust_damage(0 ,  pierce),imodbits_none ],
@@ -953,7 +953,7 @@ items = [
  ## UID: 4 - Begin
  #
  ["pa_axe_01", "One Handed War Axe", [("pa_axe_01",0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_bonus_against_shield|itp_wooden_parry, itc_nodachi|itcf_carry_axe_back,
-  592, weight(4)|difficulty(13)|spd_rtng(90)|weapon_length(90)|swing_damage(47, cut)|thrust_damage(0, pierce), imodbits_axe],
+  592, weight(4)|difficulty(13)|spd_rtng(95)|weapon_length(90)|swing_damage(40, cut)|thrust_damage(0, pierce), imodbits_axe],
  ["pa_axe_02", "Ornate Duble Axe", [("pa_axe_02",0)], itp_type_two_handed_wpn|itp_two_handed|itp_merchandise|itp_primary|itp_bonus_against_shield|itp_wooden_parry, itc_nodachi|itcf_carry_axe_back,
   915, weight(6)|difficulty(14)|spd_rtng(86)|weapon_length(100)|swing_damage(52, cut)|thrust_damage(0, pierce), imodbits_axe],
  ["pa_axe_03", "Northern Axe", [("pa_axe_03",0)], itp_type_two_handed_wpn|itp_two_handed|itp_merchandise|itp_primary|itp_bonus_against_shield|itp_wooden_parry, itc_nodachi|itcf_carry_axe_back,

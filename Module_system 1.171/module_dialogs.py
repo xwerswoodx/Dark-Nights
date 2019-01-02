@@ -25549,46 +25549,43 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 ##  [anyone,"goods_merchant_town_info", [],
 ##"Sorry. Caravans hardly ever trade anything here.", "goods_merchant_town_info_completed",[]],
 
+    #############################################################################
+    #### ARENA MASTERS
+    #############################################################################
+    [anyone, "start", [
+      (store_conversation_troop,reg(1)),
+      (is_between,reg(1),arena_masters_begin,arena_masters_end),
+      (assign, "$arena_reward_asked", 0), #set some variables.
+      (assign, "$arena_tournaments_asked", 0),
+      (eq,1,0),
+    ], "{!}.", "arena_intro_1", []],
 
+    [anyone, "start", [
+      (store_conversation_troop,reg(1)),
+      (is_between,reg(1),arena_masters_begin,arena_masters_end),
+      (eq,"$arena_master_first_talk", 0),
+    ], "Good day friend. If you came to watch the tournaments you came in vain. There won't be a tournament here anytime soon.", "arena_intro_1", [(assign,"$arena_master_first_talk", 1)]],
 
-
-
-
-#############################################################################
-#### ARENA MASTERS
-#############################################################################
-  [anyone ,"start", [(store_conversation_troop,reg(1)),
-                     (is_between,reg(1),arena_masters_begin,arena_masters_end),
-                     (assign, "$arena_reward_asked", 0), #set some variables.
-                     (assign, "$arena_tournaments_asked", 0),
-                     (eq,1,0),
-                     ],
-   "{!}.", "arena_intro_1",[]],
-  [anyone ,"start", [(store_conversation_troop,reg(1)),
-                     (is_between,reg(1),arena_masters_begin,arena_masters_end),
-                     (eq,"$arena_master_first_talk", 0),
-                     ],
-   "Good day friend. If you came to watch the tournaments you came in vain. There won't be a tournament here anytime soon.", "arena_intro_1",[(assign,"$arena_master_first_talk", 1)]],
-  [anyone|plyr,"arena_intro_1", [], "Tournaments? So they hold the tournaments here...", "arena_intro_2",[]],
-  [anyone,"arena_intro_2", [], "Yes. You should see this place during one of the tournament fights.\
+    [anyone|plyr, "arena_intro_1", [], "Tournaments? So they hold the tournaments here...", "arena_intro_2",[]],
+    [anyone, "arena_intro_2", [], "Yes. You should see this place during one of the tournament fights.\
  Everyone from the town and nearby villages comes here. The crowd becomes mad with excitement.\
  Anyway, as I said, there won't be an event here soon, so there isn't much to see.\
  Except, there is an official duel every now and then, and  of course we have melee fights almost every day.", "arena_intro_3",[]],
-  [anyone|plyr,"arena_intro_3", [], "Tell me about the melee fights.", "arena_training_melee_intro",[]],
-  [anyone,"arena_training_melee_intro", [], "The fighters and knights get bored waiting for the next tournament,\
+    [anyone|plyr, "arena_intro_3", [], "Tell me about the melee fights.", "arena_training_melee_intro",[]],
+    [anyone, "arena_training_melee_intro", [], "The fighters and knights get bored waiting for the next tournament,\
  so they have invented the training melee. It is a simple idea really.\
  Fighters jump into the arena with a weapon. There are no rules, no teams.\
  Everyone beats at each other until there is only one fighter left standing.\
  Sounds like fun, eh?", "arena_training_melee_intro_2",[]],
-  [anyone|plyr,"arena_training_melee_intro_2", [(eq, "$arena_reward_asked", 0)], "Is there a reward?", "arena_training_melee_intro_reward",[(assign, "$arena_reward_asked", 1)]],
-  [anyone,"arena_training_melee_intro_reward", [
+    [anyone|plyr, "arena_training_melee_intro_2", [(eq, "$arena_reward_asked", 0)], "Is there a reward?", "arena_training_melee_intro_reward", [(assign, "$arena_reward_asked", 1)]],
+    [anyone, "arena_training_melee_intro_reward", [
       ## UID: 8 - Begin
       #
-##      (assign, reg1, arena_tier1_opponents_to_beat),(assign, reg11, arena_tier1_prize),
-##      (assign, reg2, arena_tier2_opponents_to_beat),(assign, reg12, arena_tier2_prize),
-##      (assign, reg3, arena_tier3_opponents_to_beat),(assign, reg13, arena_tier3_prize),
-##      (assign, reg4, arena_tier4_opponents_to_beat),(assign, reg14, arena_tier4_prize),
-##      (assign, reg15, arena_grand_prize)
+      #(assign, reg1, arena_tier1_opponents_to_beat),(assign, reg11, arena_tier1_prize),
+      #(assign, reg2, arena_tier2_opponents_to_beat),(assign, reg12, arena_tier2_prize),
+      #(assign, reg3, arena_tier3_opponents_to_beat),(assign, reg13, arena_tier3_prize),
+      #(assign, reg4, arena_tier4_opponents_to_beat),(assign, reg14, arena_tier4_prize),
+      #(assign, reg15, arena_grand_prize)
       (assign, reg1, arena_tier1_opponents_to_beat),
       (assign, reg2, arena_tier2_opponents_to_beat),
       (assign, reg3, arena_tier3_opponents_to_beat),

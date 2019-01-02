@@ -2015,6 +2015,12 @@ arena_tier2_prize = 75
 arena_tier3_prize = 200
 arena_tier4_prize = 400
 arena_grand_prize = 1000
+## UID: 118 - Begin
+#
+arena_prize = 10 #10 per kill
+arena_grand_prize = 250 #250 Extra if player win.
+#
+## UID: 118 - End
 #
 ## UID: 8 - End
 

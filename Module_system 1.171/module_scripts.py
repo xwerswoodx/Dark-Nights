@@ -47,6 +47,12 @@ scripts = [
       (assign, "$g_player_luck", 200),
       (assign, "$g_player_luck", 200),
 
+      ## UID: 117 - Begin
+      #
+      (assign, "$disable_npc_complaints", 1),
+      #
+      ## UID: 117 - End
+
       ## UID: 92 - Begin
       #
       (assign, "$player_cur_troop_level", 0),

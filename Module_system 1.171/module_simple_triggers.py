@@ -2477,7 +2477,6 @@ simple_triggers = [
   # Before it was once in 14 hours but we should need 3 times a day!
   (8, [
       (eq, "$g_player_is_captive", 0), #Not captured?
-      (neq, "$freelancer_state", 1), #Not in freelancer mode?
 
       (party_get_num_companion_stacks, ":stacks", "p_main_party"),
       (assign, ":count", 0),
@@ -2496,7 +2495,7 @@ simple_triggers = [
         (gt, ":skill", 0),
         (val_mul, ":skill", ":difficulty"), #Per Skill: (Reality = 1% - Hard = 3% - Normal = 5% - Easy = 7% - Very Easy = 9%)
         (store_mul, ":bonus", ":count", ":skill"),
-        (val_mul, ":bonus", 100),
+        (val_div, ":bonus", 100),
         (val_sub, ":count", ":bonus"),
       (try_end),
       (val_max, ":count", 1),

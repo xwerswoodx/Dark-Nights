@@ -4292,6 +4292,11 @@
   *** trp_kingdom_7_lady_20
   *** trp_kingdom_7_lady_20_pl
   
+117. Npc complaints disabled.
+  * module_scripts.py
+  ** Edited:
+  *** script_game_start
+  
 Known Bugs:
 tf_female; Ladies seems like a man so dialogs should be changed with gender.
 Turkish translate has stupid errors. Like "Kendimin yerine mareşal olarak kendim geçmek istiyorum.", "Köyün yeni sahibi kendim olsun istiyorum" etc...
