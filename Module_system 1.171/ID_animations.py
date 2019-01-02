@@ -668,5 +668,9 @@ anim_unused_horse_anim_97 = 666
 anim_unused_horse_anim_98 = 667
 anim_unused_horse_anim_99 = 668
 anim_unused_horse_anim_100 = 669
-
-
+anim_sitting_drinking_low = 670
+anim_sitting_low = 671
+anim_lute_sitting = 672
+anim_lute_standing = 673
+anim_lyre_sitting = 674
+anim_lyre_standing = 675

@@ -8,6 +8,43 @@ from ID_factions import *
 # that it will be easy to change it if you need to.
 ##############################################################
 
+## UID: 43 - Begin
+#
+freelancer_version = 13
+freelancer_can_use_item  = "script_troop_can_use_item" 
+#with Diplomacy: 
+#freelancer_can_use_item = "script_dplmc_troop_can_use_item"
+
+#Party Slots
+slot_party_orig_morale = 999
+slot_freelancer_equip_start = 100 #only used for freelancer_party_backup
+slot_freelancer_version     = slot_freelancer_equip_start - 2 #only used for freelancer_party_backup
+
+#Faction Slot
+slot_faction_freelancer_troop = 101 #should be unused
+
+#Troop Slots
+slot_troop_freelancer_start_xp   =  998   #110 -only used for player
+slot_troop_freelancer_start_date =  997 #111 -only used for player
+
+plyr_mission_vacation = 1
+#
+## UID: 43 - End
+
+## UID: 36 - Begin
+#
+religion_christianity = 0
+religion_islam = 1
+religion_hinduism = 2
+religion_buddhism = 3
+religion_atheism = 4
+religion_tengrism = 5
+religion_norse = 6
+religion_sikhism = 7
+religion_judaism = 8
+#
+## UID: 36 - End
+
 ########################################################
 ##  ITEM SLOTS             #############################
 ########################################################
@@ -52,6 +89,36 @@ slot_item_ccoop_has_ammo                = 59 #should be set to 1 for Invasion it
 slot_item_multiplayer_item_class   = 60 #temporary, can be moved to higher values
 slot_item_multiplayer_availability_linked_list_begin = 61 #temporary, can be moved to higher values
 
+## UID: 34 - Begin
+#
+slot_item_book_raise_skill              = 100
+slot_item_book_raise_skill_level        = 101
+slot_item_book_raise_skill_limit        = 102
+slot_item_book_raise_attribute          = 103
+slot_item_book_raise_attribute_level    = 104
+slot_item_book_raise_attribute_limit    = 105
+slot_item_book_raise_proficiency        = 106
+slot_item_book_raise_proficiency_level  = 107
+slot_item_book_raise_proficiency_limit  = 108
+slot_item_book_author                   = 109
+slot_item_book_type                     = 110
+slot_item_book_pages                    = 111
+slot_item_book_writing_progress         = 112
+
+bt_readable = 0
+bt_bonus    = 1
+
+books_begin = "itm_book_tactics"
+books_end   = "itm_book_wound_treatment_reference" #"itm_spice"
+#
+## UID: 34 - End
+
+## UID: 82 - Begin
+#
+spices_begin = "itm_spice"
+spices_end = "itm_salt"
+#
+## UID: 82 - End
 
 ########################################################
 ##  AGENT SLOTS            #############################
@@ -213,14 +280,30 @@ slot_faction_sum_advice_about_factions_begin 			= 150
 #revolts -- notes for self
 #type 1 -- minor revolt, aimed at negotiating change without changing the ruler
 #type 2 -- alternate ruler revolt (ie, pretender, chinese dynastic revolt -- keep the same polity but switch the ruler)
-	#subtype -- pretender (keeps the same dynasty)
-	#"mandate of heaven" -- same basic rules, but a different dynasty
-	#alternate/religious
-	#alternate/political
+  #subtype -- pretender (keeps the same dynasty)
+  #"mandate of heaven" -- same basic rules, but a different dynasty
+  #alternate/religious
+  #alternate/political
 #type 3 -- separatist revolt
-	# reGonalist/dynastic (based around an alternate ruling house
-	# regionalist/republican
-	# messianic (ie, Canudos)
+  # reGonalist/dynastic based around an alternate ruling house
+  # regionalist/republican
+  # messianic (ie, Canudos)
+
+## UID: 72 - Begin
+#
+slot_faction_original_color = 250
+#
+## UID: 72 - End
+
+## UID: 115 - Begin
+#
+# We should limit alliance with 3!
+slot_faction_alliance_1    = 251
+slot_faction_alliance_2    = 252
+slot_faction_alliance_3    = 253
+#
+## UID: 115 - End
+
 	
 ########################################################
 ##  PARTY SLOTS            #############################
@@ -543,10 +626,15 @@ slot_center_last_reconnoitered_by_faction_time 				= 350
 #slot_center_last_reconnoitered_by_faction_cached_strength 	= 360
 #slot_center_last_reconnoitered_by_faction_friend_strength 	= 370
 
+## UID: 40 - Begin
+#
+slot_center_population = 540
+#
+## UID: 40 - End
 ## UID: 9 - Begin
 #
 slot_center_building_manor          = 550 #v
-slot_center_building_watch_tower    = 551 #v
+slot_center_building_watch_tower    = 551
 slot_center_building_fish_pond      = 552 #t, c, v
 slot_center_building_school         = 553 
 slot_center_building_college        = 554 
@@ -561,9 +649,11 @@ slot_center_building_farm           = 562
 slot_center_building_religion       = 563
 slot_center_building_statue         = 564
 slot_center_building_workshop       = 565
-slot_center_building_prisoner_tower = 566 #t, c
-slot_center_building_barracks       = 567
-slot_center_building_bank           = 568 #t
+slot_center_building_clinic         = 566
+slot_center_building_prisoner_tower = 567 #t, c
+slot_center_building_barracks       = 568
+slot_center_building_hospital       = 569
+slot_center_building_bank           = 570 #t
 
 village_buildings_begin = slot_center_building_manor
 village_buildings_end   = slot_center_building_prisoner_tower
@@ -574,11 +664,25 @@ town_buildings_end      = slot_center_building_bank + 1
 #
 ## UID: 9 - End
 
+## UID: 60 - Begin
+#
+slot_center_messenger_post = 600
+slot_center_mill = 601
+slot_center_watch_tower = 602
+#
+## UID: 60 - End
+
 ## UID: 10 - Begin
 #
 slot_town_near_shore = 700
 #
 ## UID: 10 - End
+## UID: 79 - Begin
+#
+slot_town_is_coastal = 701
+#
+## UID: 79 - End
+
 
 ## UID: 16 - Begin
 #
@@ -601,7 +705,11 @@ spt_village            = 4
 spt_kingdom_caravan    = 11
 ##spt_prisoner_train     = 12
 spt_kingdom_hero_party = 13
-##spt_merchant_caravan   = 14
+## UID: 79 - Begin
+#
+spt_merchant_caravan   = 14
+#
+## UID: 79 - End
 spt_village_farmer     = 15
 spt_ship               = 16
 spt_cattle_herd        = 17
@@ -993,8 +1101,44 @@ troop_slots_reserved_for_relations_start        = 165 #this is based on id_troop
 
 slot_troop_relations_begin				= 0 #this creates an array for relations between troops
 											#Right now, lords start at 165 and run to around 290, including pretenders
-											
-											
+
+## UID: 100 - Begin
+#
+slot_player_order_item                         = 700
+slot_player_order_price                        = 725
+slot_player_order_modifier                     = 750
+slot_player_order_town                         = 775
+slot_player_order_slot                         = 800
+slot_player_order_found                        = 825
+slot_player_order_reach                        = 850
+slot_player_order_hours                        = 875
+slot_player_order_warned                       = 900
+# Using > until 924
+#
+## UID: 100 - End
+
+## UID: 62 - Begin
+#
+slot_troop_saved_item_0                        = 950
+slot_troop_saved_item_1                        = 951
+slot_troop_saved_item_2                        = 952
+slot_troop_saved_item_3                        = 953
+slot_troop_saved_item_head                     = 954
+slot_troop_saved_item_body                     = 955
+slot_troop_saved_item_foot                     = 956
+slot_troop_saved_item_gloves                   = 957
+slot_troop_saved_item_horse                    = 958
+slot_troop_saved_item_0_mod                    = 960
+slot_troop_saved_item_1_mod                    = 961
+slot_troop_saved_item_2_mod                    = 962
+slot_troop_saved_item_3_mod                    = 963
+slot_troop_saved_item_head_mod                 = 964
+slot_troop_saved_item_body_mod                 = 965
+slot_troop_saved_item_foot_mod                 = 966
+slot_troop_saved_item_gloves_mod               = 967
+slot_troop_saved_item_horse_mod                = 968
+#
+## UID: 62 - End
 											
 ########################################################
 ##  PLAYER SLOTS           #############################
@@ -1681,12 +1825,22 @@ trade_goods_begin = "itm_spice"
 trade_goods_end = "itm_siege_supply"
 food_begin = "itm_smoked_fish"
 food_end = "itm_siege_supply"
-reference_books_begin = "itm_book_wound_treatment_reference"
-reference_books_end   = trade_goods_begin
-readable_books_begin = "itm_book_tactics"
-readable_books_end   = reference_books_begin
-books_begin = readable_books_begin
-books_end = reference_books_end
+## UID: 86 - Begin
+#
+drink_begin = "itm_wine"
+drink_end = food_begin
+#
+## UID: 86 - End
+## UID: 34 - Begin
+#
+##reference_books_begin = "itm_book_wound_treatment_reference"
+##reference_books_end   = trade_goods_begin
+##readable_books_begin = "itm_book_tactics"
+##readable_books_end   = reference_books_begin
+##books_begin = readable_books_begin
+##books_end = reference_books_end
+#
+## UID: 34 - End
 horses_begin = "itm_sumpter_horse"
 horses_end = "itm_arrows"
 weapons_begin = "itm_wooden_stick"
@@ -1697,6 +1851,22 @@ armors_begin = "itm_leather_gloves"
 armors_end = "itm_wooden_stick"
 shields_begin = "itm_wooden_shield"
 shields_end = ranged_weapons_begin
+
+## UID: 78 - Begin
+#
+handwears_begin = armors_begin
+footwears_begin = "itm_wrapping_boots"
+bodywears_begin = "itm_lady_dress_ruby"
+headwears_begin = "itm_turret_hat_ruby"
+ammos_begin = horses_end
+
+handwears_end = footwears_begin
+footwears_end = bodywears_begin
+bodywears_end = headwears_begin
+headwears_end = weapons_begin
+ammos_end = "itm_cartridges"
+#
+## UID: 78 - End
 
 #INVASION MODE START
 coop_drops_begin = "itm_javelin_bow"
@@ -1713,10 +1883,20 @@ coop_drops_descriptions_end = "str_npc1_1"
 # Banner constants
 
 banner_meshes_begin = "mesh_banner_a01"
-banner_meshes_end_minus_one = "mesh_banner_f21"
+## UID: 24 - Begin
+#
+##banner_meshes_end_minus_one = "mesh_banner_f21"
+banner_meshes_end_minus_one = "mesh_banner_end"
+#
+## UID: 24 - End
 
 arms_meshes_begin = "mesh_arms_a01"
-arms_meshes_end_minus_one = "mesh_arms_f21"
+## UID: 24 - Begin
+#
+##arms_meshes_end_minus_one = "mesh_arms_f21"
+arms_meshes_end_minus_one = "mesh_arms_end"
+#
+## UID: 24 - End
 
 custom_banner_charges_begin = "mesh_custom_banner_charge_01"
 custom_banner_charges_end = "mesh_tableau_mesh_custom_banner"
@@ -1740,7 +1920,12 @@ banner_map_icons_begin = "icon_banner_01"
 banner_map_icons_end_minus_one = "icon_banner_136"
 
 banner_scene_props_begin = "spr_banner_a"
-banner_scene_props_end_minus_one = "spr_banner_f21"
+## UID: 24 - Begin
+#
+##banner_scene_props_end_minus_one = "spr_banner_f21"
+banner_scene_props_end_minus_one = "spr_banner_end"
+#
+## UID: 24 - End
 
 khergit_banners_begin_offset = 63
 khergit_banners_end_offset = 84
@@ -1826,10 +2011,16 @@ arena_tier2_opponents_to_beat = 10
 arena_tier3_opponents_to_beat = 20
 arena_tier4_opponents_to_beat = 30
 arena_tier1_prize = 25
-arena_tier2_prize = 50
-arena_tier3_prize = 100
-arena_tier4_prize = 250
-arena_grand_prize = 500
+arena_tier2_prize = 75
+arena_tier3_prize = 200
+arena_tier4_prize = 400
+arena_grand_prize = 1000
+## UID: 118 - Begin
+#
+arena_prize = 10 #10 per kill
+arena_grand_prize = 250 #250 Extra if player win.
+#
+## UID: 118 - End
 #
 ## UID: 8 - End
 
@@ -1848,10 +2039,10 @@ arena_grand_prize = 500
 ## UID: 19 - Begin
 #
 #Party size
-party_size_base = 50
+party_size_base = 30
 party_size_per_level = 2
-party_size_per_skill = 50
-party_size_renown = 20
+party_size_per_skill = 25
+party_size_renown = 25
 party_size_without_level = 1
 
 party_prisoner_base = 25

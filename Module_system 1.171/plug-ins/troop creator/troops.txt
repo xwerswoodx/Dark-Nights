@@ -1,0 +1,2 @@
+["bounty_hunter", "Bounty Hunter", "Bounty Hunters", tf_guarantee_helmet|tf_guarantee_gloves|tf_guarantee_armor|tf_guarantee_boots, 0, 0, fac_neutral, [itm_spiked_helmet, itm_lamellar_gauntlets, itm_heraldic_mail_with_tunic, itm_plate_boots, itm_great_sword], def_attrib|level(35), wp_two_handed(135), knows_common|knows_ironflesh_4|knows_athletics_4|knows_power_strike_5, swadian_face_young_1, swadian_face_old_2],
+

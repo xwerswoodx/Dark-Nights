@@ -1,8 +1,24 @@
 from header_common import *
 from header_operations import *
 from header_triggers import *
-from header_scenes import *
+## UID: 85 - Begin
+#
+#from header_scenes import *
+#
+## UID: 85 - End
 from module_constants import *
+
+## UID: 85 - Begin
+#
+sf_indoors           = 0x00000001   #The scene shouldn't have a skybox and lighting by sun.
+sf_force_skybox      = 0x00000002   #Force adding a skybox even if indoors flag is set.
+sf_generate          = 0x00000100   #Generate terrain by terran-generator
+sf_randomize         = 0x00000200   #Randomize terrain generator key
+sf_auto_entry_points = 0x00000400   #Automatically create entry points
+sf_no_horses         = 0x00000800   #Horses are not avaible
+sf_muddy_water       = 0x00001000   #Changes the shader of the river mesh
+#
+## UID: 85 - End
 
 ####################################################################################################################
 #  Each scene record contains the following fields:
@@ -1477,6 +1493,12 @@ scenes = [
   ("sea_5", sf_generate, "none", "none", (0,0), (240,240), -0.5, "0x0000000030000000c00d2348000000008000000000000000", [], []), #Land
   #
   ## UID: 10 - End
+  ## UID: 105 - Begin
+  #
+  ("sea_6", sf_generate, "none", "none", (0,0), (240,240), -0.5, "0x0000000030000000c00d2348000000008000000000000000", [], []),
+  ("sea_7", sf_generate, "none", "none", (0,0), (240,240), -0.5, "0x0000000030000000c00d2348000000008000000000000000", [], []),
+  #
+  ## UID: 105 - End
 
   ## UID: 11 - Begin
   #
@@ -1492,4 +1514,9 @@ scenes = [
   #
   ## UID: 23 - End
 
+  ## UID: 109 - Begin
+  #
+  ("out_mine", sf_generate, "none", "none", (0, 0), (100, 100), -100, "0x00000004200005000002588c000061ef800069bc00006ab5", [], []),
+  #
+  ## UID: 109 - End
 ]

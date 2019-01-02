@@ -1,7 +1,12 @@
 from header_common import *
 from ID_animations import *
 from header_mission_templates import *
-from header_tableau_materials import *
+## UID: 85 - Begin
+#
+#from header_tableau_materials import *
+from header_operations import *
+#
+## UID: 85 - End
 from header_items import *
 from module_constants import *
 

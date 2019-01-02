@@ -103,7 +103,7 @@ parties = [
   ## UID: 24 - Begin
   #
   ("town_23", "Hillford", icon_town_desert|pf_town, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (78.94, -116.96), [], 225),
-  ("town_24", "Rochdale", icon_town_desert|pf_town, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (140.54, -133.14), [], 225),
+  ("town_24", "Rochdale", icon_town_desert|pf_town, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (138.98, -126.09), [], 225),
 
   ("town_25", "Ashborne", icon_town_snow|pf_town, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (93.54, 90.51), [], 90),
   ("town_26", "Lanchaster", icon_town_snow|pf_town, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (127.83, 92.67), [], 90),
@@ -111,7 +111,7 @@ parties = [
   #
   ## UID: 24 - End
 
-#   Aztaq_Castle       
+#  Aztaq_Castle       
 #  Malabadi_Castle
   ("castle_1","Culmarr_Castle",icon_castle_a|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-101.3, -21),[],50),
   ("castle_2","Malayurg_Castle",icon_castle_b|pf_castle, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(97.5, -2.2),[],75),
@@ -180,10 +180,9 @@ parties = [
   ## UID: 24 - End
  
 
-#     Rinimad      
-#              Rietal Derchios Gerdus
-# Tuavus   Pamir   vezona 
-  
+# Rinimad      
+# Rietal Derchios Gerdus
+# Tuavus Pamir    Vezona
   ("village_1", "Yaragar",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-60, -9.5),[], 100),
   ("village_2", "Burglen",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-13.5, 3.5),[], 110),
   ("village_3", "Azgad",  icon_village_a|pf_village, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-97.4, 36),[], 120),
@@ -330,7 +329,7 @@ parties = [
   ("village_131", "Ambridge", icon_village_snow_a|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (124.75, 73.03), [], 0),
 
   ("village_132", "Lodi", icon_village_c|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (66.48, -128.95), [], 0),
-  ("village_133", "Kittitas", icon_village_b|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (64.37, -108.54), [], 0),
+  ("village_133", "Kittitas", icon_village_c|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (64.37, -108.54), [], 0),
   ("village_134", "Kerman", icon_village_c|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (77.26, -104.87), [], 0),
   ("village_135", "Marfa", icon_village_c|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (92.49, -128.10), [], 0),
   ("village_136", "Michiana", icon_village_b|pf_village, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (101.47, -105.90), [], 0),
@@ -407,4 +406,18 @@ parties = [
   #
   ## UID: 11 - End
 
+  ## UID: 43 - Begin
+  #
+  ("freelancer_party_backup", "{!}",  pf_disabled, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(1,1),[]),
+  #
+  ## UID: 43 - End
+
+  ## UID: 109 - Begin
+  #
+  ("tunnel_1", "Tunnel Entrance", icon_dedal_map_watchtower|pf_is_static|pf_always_visible, no_menu, pt_none, fac_commoners, 0, ai_bhvr_hold, 0, (182, -33.99), [], 0),
+  ("tunnel_2", "Tunnel Entrance", icon_dedal_map_watchtower|pf_is_static|pf_always_visible, no_menu, pt_none, fac_commoners, 0, ai_bhvr_hold, 0, (186.57, -39.42), [], 0),
+  #
+  ## UID: 109 - End
+
+  ## EOF
   ]

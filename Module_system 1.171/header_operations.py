@@ -444,6 +444,11 @@ this_or_next = 0x40000000	 # (this_or_next|<operation>),
 lt           = neg | ge # less than		-- (lt,<value>,<value>),
 neq          = neg | eq # not equal to		-- (neq,<value>,<value>),
 le           = neg | gt # less or equal to	-- (le,<value>,<value>),
+party_slot_lt = neg | party_slot_ge
+party_slot_neq = neg | party_slot_eq
+troop_slot_lt = neg | troop_slot_ge
+troop_slot_neq = neg | troop_slot_eq
+
 
 #-------------------------------------------------------------------------------------------
 # CONSEQUENCE OPERATIONS                                                                   -
@@ -1863,6 +1868,10 @@ can_fail_operations = [ge,
                        lt,
                        neq,
                        le,
+                       party_slot_lt,
+                       party_slot_neq,
+                       troop_slot_lt,
+                       troop_slot_neq,
                        teams_are_enemies,
                        agent_is_alive,
                        agent_is_wounded,

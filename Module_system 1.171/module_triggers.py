@@ -2,7 +2,12 @@ from header_common import *
 from header_operations import *
 from header_parties import *
 from header_items import *
-from header_skills import *
+## UID: 85 - Begin
+#
+#from header_skills import *
+from ID_skills import *
+#
+## UID: 85 - End
 from header_triggers import *
 from header_troops import *
 
@@ -32,30 +37,39 @@ triggers = [
 # Tutorial:
   (0.1, 0, ti_once, [(map_free,0)], [(dialog_box,"str_tutorial_map1")]),
 
-# Refresh Merchants
-  (0.0, 0, 168.0, [],
-  [    
-    (call_script, "script_refresh_center_inventories"),
-  ]),
+  # Refresh Merchants
+  (0.0, 0, 168.0, [], [(call_script, "script_refresh_center_inventories")]),
+  # Refresh Armor sellers
+  (0.0, 0, 168.0, [], [(call_script, "script_refresh_center_armories")]),
+  # Refresh Weapon sellers
+  (0.0, 0, 168.0, [], [(call_script, "script_refresh_center_weaponsmiths")]),
+  # Refresh Horse sellers
+  (0.0, 0, 168.0, [], [(call_script, "script_refresh_center_stables")]),
 
-# Refresh Armor sellers
-  (0.0, 0, 168.0, [],
-  [    
-    (call_script, "script_refresh_center_armories"),
-  ]),
-
-# Refresh Weapon sellers
-  (0.0, 0, 168.0, [],
-  [
-    (call_script, "script_refresh_center_weaponsmiths"),
-  ]),
-
-# Refresh Horse sellers
-  (0.0, 0, 168.0, [],
-  [
-    (call_script, "script_refresh_center_stables"),
-  ]),
+  ## UID: 98 - Begin
+  #
+  # Refresh tavern keepers
+  (0.0, 0, 168.0, [], [(call_script, "script_refresh_center_taverns")]),
+  #
+  ##UID: 98 - End
   
+  ## UID: 34 - Begin
+  #
+  (0.0, 0, 168.0, [], [(call_script, "script_refresh_booksellers")]),
+  #
+  ## UID: 34 - End
+
+  ## UID: 62 - Begin
+  #
+  (0.0, 0, 4.0, [
+      (eq, "$players_kingdom", "fac_player_supporters_faction"),
+      (faction_slot_eq, "$players_kingdom", slot_faction_state, sfs_active),
+    ], [
+        (call_script, "script_set_supporters_name", 0),
+        (call_script, "script_set_supporters_name", "fac_player_supporters_faction"),
+    ]),
+  #
+  ## UID: 62 - End
 
 #############
 
@@ -184,6 +198,8 @@ triggers = [
         (store_random_in_range, ":town_no", towns_begin, towns_end),
         (set_spawn_radius, 1),
         (spawn_around_party, ":town_no", "pt_dark_hunters"),
+        (str_store_party_name, s1, reg0),
+##        (display_message, "@Party Spawned: {s1}."),
     ]),
   
   (10.1, 0, 0.0, [
@@ -192,14 +208,504 @@ triggers = [
       (lt, ":total_desert_cavalry", ":max_desert_cavalry"),
 ##      (neq, "$dnm_desert_cavalry", 1),
     ], [
-        (store_random_in_range, ":town_no", "p_town_18", "p_town_22"),
+        (store_random_in_range, ":town_no", "p_town_18", "p_town_24"),
         (val_add, ":town_no", 1),
         (set_spawn_radius, 1),
         (spawn_around_party, ":town_no", "pt_desert_cavalry"),
     ]),
 
+  (24.0, 0, 0.0, [
+      (store_num_parties_of_template, ":total_dark_knight", "pt_dark_hunters"),
+      (store_num_parties_of_template, ":total_desert_cavalry", "pt_desert_cavalry"),
+      (this_or_next|gt, ":total_dark_knight", 0),
+      (             gt, ":total_desert_cavalry", 0),
+    ], [
+        (try_for_parties, ":party"),
+          (store_random_in_range, ":dk", "trp_dark_knight", "trp_desert_cavalry"),
+          ## UID: 95 - Begin
+          #
+          #(assign, ":dc", "trp_desert_cavalry"),
+          (store_random_in_range, ":dc", "trp_desert_cavalry", "trp_musician_male"),
+          #
+          ## UID: 95 - End
+
+          (party_get_template_id, ":template", ":party"),
+          (try_begin),
+            (eq, ":template", "pt_dark_hunters"),
+            (party_add_members, ":party", ":dk", 1),
+          (else_try),
+            (eq, ":template", "pt_desert_cavalry"),
+            (party_add_members, ":party", ":dc", 1),
+          (try_end),
+        (try_end),
+    ]),      
   #
   ## UID: 12 - End
+
+  ## UID: 78 - Begin
+  #
+  ## UID: 100 - Begin
+  #
+  (12.0, 0, 0.0, [
+      (assign, ":cont", 0),
+      (try_for_range, ":rand", 0, 25),
+        (eq, ":cont", 0),
+        (store_add, ":item", ":rand", slot_player_order_item),
+        (store_add, ":found", ":rand", slot_player_order_found),
+        (troop_slot_ge, "trp_player", ":item", 1),
+        (troop_slot_lt, "trp_player", ":found", 0),
+        (assign, ":cont", 1),
+      (try_end),
+      (eq, ":cont", 1),
+      (map_free, 0),
+    ], [
+        (try_for_range, ":town", towns_begin, towns_end),
+          # Weaponsmith
+          (party_get_slot, ":merchant", ":town", slot_town_weaponsmith),
+          (try_for_range, ":slot", num_equipment_kinds, max_inventory_items + num_equipment_kinds),
+            (troop_get_inventory_slot, ":item", ":merchant", ":slot"),
+            (troop_get_inventory_slot_modifier, ":modifier", ":merchant", ":slot"),
+            (try_for_range, ":order", 0, 25),
+              (store_add, ":order_item", ":order", slot_player_order_item),
+              (store_add, ":order_mod", ":order", slot_player_order_modifier),
+              (store_add, ":order_found", ":order", slot_player_order_found),
+              (store_add, ":order_hours", ":order", slot_player_order_hours),
+              (store_add, ":order_slot", ":order", slot_player_order_slot),
+              (store_add, ":order_town", ":order", slot_player_order_town),
+              (store_add, ":order_reach", ":order", slot_player_order_reach),
+              (store_add, ":order_warn", ":order", slot_player_order_warned),
+              (troop_get_slot, ":order_town_no", "trp_player", ":order_town"),
+              (troop_slot_eq, "trp_player", ":order_slot", slot_town_weaponsmith),
+              (troop_slot_lt, "trp_player", ":order_found", 0),
+              (troop_slot_eq, "trp_player", ":order_item", ":item"),
+              (troop_slot_eq, "trp_player", ":order_mod", ":modifier"),
+              (troop_set_slot, "trp_player", ":order_found", ":town"),
+              (store_current_hours, ":hour"),
+              (troop_set_slot, "trp_player", ":order_hours", ":hour"),
+              (store_distance_to_party_from_party, ":dist", ":order_town_no", ":town"),
+              (val_mul, ":dist", 2),
+              (val_add, ":dist", ":hour"),
+              (troop_set_slot, "trp_player", ":order_reach", ":dist"),
+              (try_begin),
+                (troop_slot_eq, "trp_player", ":order_town", ":town"),
+                (troop_set_slot, "trp_player", ":order_reach", ":hour"),
+              (try_end),
+              (troop_set_inventory_slot, ":merchant", ":slot", -1),
+              (troop_sort_inventory, ":merchant"),
+              (troop_set_slot, "trp_player", ":order_warn", -1),
+              (str_store_party_name, s1, ":order_town_no"),
+
+              (troop_get_slot, ":reach_time", "trp_player", ":order_reach"),
+              (troop_get_slot, ":found_time", "trp_player", ":order_hours"),              
+              (store_sub, reg0, ":reach_time", ":found_time"),
+              (val_div, reg0, 24),
+              (store_sub, reg1, reg0, 1),
+        
+              (str_store_party_name, s2, ":town"),
+              (str_store_troop_name, s3, ":merchant"),
+              (str_store_item_name, s4, ":item"),
+              (dialog_box, "@You saw the messenger reached your party and gives you a paper which came from {s1} {s3}.\
+ '{reg0?Your {s4} will be reach within {reg0} {reg1?days:day} to {s1}. But if you close enought to {s2}, you can collect your {s4} from {s3} in a day.\
+ Tomorrow, your {s4} will be sent out with a notable merchant. You can come and collect your {s4} anytime you want after {reg0} {reg1?days:day}:Your {s4} is now ready at {s1} you can come and collect it anytime you want.}'"),
+            (try_end),
+          (try_end),
+          # Armorer
+          (party_get_slot, ":merchant", ":town", slot_town_armorer),
+          (try_for_range, ":slot", num_equipment_kinds, max_inventory_items + num_equipment_kinds),
+            (troop_get_inventory_slot, ":item", ":merchant", ":slot"),
+            (troop_get_inventory_slot_modifier, ":modifier", ":merchant", ":slot"),
+            (try_for_range, ":order", 0, 25),
+              (store_add, ":order_item", ":order", slot_player_order_item),
+              (store_add, ":order_mod", ":order", slot_player_order_modifier),
+              (store_add, ":order_found", ":order", slot_player_order_found),
+              (store_add, ":order_hours", ":order", slot_player_order_hours),
+              (store_add, ":order_slot", ":order", slot_player_order_slot),
+              (store_add, ":order_town", ":order", slot_player_order_town),
+              (store_add, ":order_reach", ":order", slot_player_order_reach),
+              (store_add, ":order_warn", ":order", slot_player_order_warned),
+              (troop_get_slot, ":order_town_no", "trp_player", ":order_town"),
+              (troop_slot_eq, "trp_player", ":order_slot", slot_town_armorer),
+              (troop_slot_lt, "trp_player", ":order_found", 0),
+              (troop_slot_eq, "trp_player", ":order_item", ":item"),
+              (troop_slot_eq, "trp_player", ":order_mod", ":modifier"),
+              (troop_set_slot, "trp_player", ":order_found", ":town"),
+              (store_current_hours, ":hour"),
+              (troop_set_slot, "trp_player", ":order_hours", ":hour"),
+              (store_distance_to_party_from_party, ":dist", ":order_town_no", ":town"),
+              (val_mul, ":dist", 2),
+              (val_add, ":dist", ":hour"),
+              (troop_set_slot, "trp_player", ":order_reach", ":dist"),
+              (try_begin),
+                (troop_slot_eq, "trp_player", ":order_town", ":town"),
+                (troop_set_slot, "trp_player", ":order_reach", ":hour"),
+              (try_end),
+              (troop_set_inventory_slot, ":merchant", ":slot", -1),
+              (troop_sort_inventory, ":merchant"),
+              (troop_set_slot, "trp_player", ":order_warn", -1),
+              (str_store_party_name, s1, ":order_town_no"),
+
+              (troop_get_slot, ":reach_time", "trp_player", ":order_reach"),
+              (troop_get_slot, ":found_time", "trp_player", ":order_hours"),              
+              (store_sub, reg0, ":reach_time", ":found_time"),
+              (val_div, reg0, 24),
+              (store_sub, reg1, reg0, 1),
+        
+              (str_store_party_name, s2, ":town"),
+              (str_store_troop_name, s3, ":merchant"),
+              (str_store_item_name, s4, ":item"),
+              (dialog_box, "@You saw the messenger reached your party and gives you a paper which came from {s1} {s3}.\
+ '{reg0?Your {s4} will be reach within {reg0} {reg1?days:day} to {s1}. But if you close enought to {s2}, you can collect your {s4} from {s3} in a day.\
+ Tomorrow, your {s4} will be sent out with a notable merchant. You can come and collect your {s4} anytime you want after {reg0} {reg1?days:day}:Your {s4} is now ready at {s1} you can come and collect it anytime you want.}'"),
+            (try_end),
+          (try_end),
+          # Horse Merchant
+          (party_get_slot, ":merchant", ":town", slot_town_horse_merchant),
+          (try_for_range, ":slot", num_equipment_kinds, max_inventory_items + num_equipment_kinds),
+            (troop_get_inventory_slot, ":item", ":merchant", ":slot"),
+            (troop_get_inventory_slot_modifier, ":modifier", ":merchant", ":slot"),
+            (try_for_range, ":order", 0, 25),
+              (store_add, ":order_item", ":order", slot_player_order_item),
+              (store_add, ":order_mod", ":order", slot_player_order_modifier),
+              (store_add, ":order_found", ":order", slot_player_order_found),
+              (store_add, ":order_hours", ":order", slot_player_order_hours),
+              (store_add, ":order_slot", ":order", slot_player_order_slot),
+              (store_add, ":order_town", ":order", slot_player_order_town),
+              (store_add, ":order_reach", ":order", slot_player_order_reach),
+              (store_add, ":order_warn", ":order", slot_player_order_warned),
+              (troop_get_slot, ":order_town_no", "trp_player", ":order_town"),
+              (troop_slot_eq, "trp_player", ":order_slot", slot_town_horse_merchant),
+              (troop_slot_lt, "trp_player", ":order_found", 0),
+              (troop_slot_eq, "trp_player", ":order_item", ":item"),
+              (troop_slot_eq, "trp_player", ":order_mod", ":modifier"),
+              (troop_set_slot, "trp_player", ":order_found", ":town"),
+              (store_current_hours, ":hour"),
+              (troop_set_slot, "trp_player", ":order_hours", ":hour"),
+              (store_distance_to_party_from_party, ":dist", ":order_town_no", ":town"),
+              (val_mul, ":dist", 2),
+              (val_add, ":dist", ":hour"),
+              (troop_set_slot, "trp_player", ":order_reach", ":dist"),
+              (try_begin),
+                (troop_slot_eq, "trp_player", ":order_town", ":town"),
+                (troop_set_slot, "trp_player", ":order_reach", ":hour"),
+              (try_end),
+              (troop_set_inventory_slot, ":merchant", ":slot", -1),
+              (troop_sort_inventory, ":merchant"),
+              (troop_set_slot, "trp_player", ":order_warn", -1),
+              (str_store_party_name, s1, ":order_town_no"),
+
+              (troop_get_slot, ":reach_time", "trp_player", ":order_reach"),
+              (troop_get_slot, ":found_time", "trp_player", ":order_hours"),              
+              (store_sub, reg0, ":reach_time", ":found_time"),
+              (val_div, reg0, 24),
+              (store_sub, reg1, reg0, 1),
+        
+              (str_store_party_name, s2, ":town"),
+              (str_store_troop_name, s3, ":merchant"),
+              (str_store_item_name, s4, ":item"),
+              (dialog_box, "@You saw the messenger reached your party and gives you a paper which came from {s1} {s3}.\
+ '{reg0?Your {s4} will be reach within {reg0} {reg1?days:day} to {s1}. But if you close enought to {s2}, you can collect your {s4} from {s3} in a day.\
+ Tomorrow, your {s4} will be sent out with a notable merchant. You can come and collect your {s4} anytime you want after {reg0} {reg1?days:day}:Your {s4} is now ready at {s1} you can come and collect it anytime you want.}'"),
+            (try_end),
+          (try_end),
+        (try_end),
+    ]),
+        
+##  (12.0, 0, 0.0, [
+##      (gt, "$g_item_ordered", 0),
+##      (le, "$g_item_ordered_bought", 0),
+##      (map_free, 0),
+##    ], [
+##      (try_for_range, ":town", towns_begin, towns_end),
+##        (party_get_slot, ":merchant", ":town", "$g_item_ordered_slot"),
+##
+##        (try_for_range, ":slot", num_equipment_kinds, max_inventory_items + num_equipment_kinds),
+##          (le, "$g_item_ordered_bought", 0), #Make sure it only removes item one time.
+##          (troop_get_inventory_slot, ":item", ":merchant", ":slot"),
+##          (troop_get_inventory_slot_modifier, ":modifier", ":merchant", ":slot"),
+##          (eq, ":item", "$g_item_ordered"),
+##          (eq, ":modifier", "$g_item_ordered_modifier"),
+##
+##          (try_begin),
+##            (le, "$g_item_ordered_bought", 0),
+##            (assign, "$g_item_ordered_bought", ":town"),
+##          (else_try),
+##            (store_distance_to_party_from_party, ":distnew", "$g_item_ordered_party", ":town"),
+##            (store_distance_to_party_from_party, ":distcur", "$g_item_ordered_party", "$g_item_ordered_bought"),
+##            (lt, ":distnew", ":distcur"), #Current town is nearest than already setted?
+##            (assign, "$g_item_ordered_bought", ":town"),
+##          (try_end),
+##        (try_end),
+##      (try_end),
+##
+##      (gt, "$g_item_ordered_bought", 0), #Does any town have the ordered item?
+##      (party_get_slot, ":merchant", "$g_item_ordered_bought", "$g_item_ordered_slot"), #Get the merchant from nearest party.
+##      (assign, ":continue", 1),
+##      (try_for_range, ":slot", num_equipment_kinds, max_inventory_items + num_equipment_kinds),
+##        (eq, ":continue", 1), #Make sure it only removes item one time.
+##        (troop_get_inventory_slot, ":item", ":merchant", ":slot"),
+##        (troop_get_inventory_slot_modifier, ":modifier", ":merchant", ":slot"),
+##        (eq, ":item", "$g_item_ordered"),
+##        (eq, ":modifier", "$g_item_ordered_modifier"),
+##      
+##        (store_current_hours, ":hour"),
+##        (assign, "$g_item_ordered_bought_hours", ":hour"), #Set the current time.
+##
+##        (store_distance_to_party_from_party, ":dist", "$g_item_ordered_party", "$g_item_ordered_bought"), 
+##        (val_mul, ":dist", 2),
+##        (val_add, ":dist", ":hour"),
+##        (assign, "$g_item_ordered_bought_reach", ":dist"), #When will the item reached?
+##        (try_begin),
+##          (eq, "$g_item_ordered_party", "$g_item_ordered_bought"), #Item found at same party, where player ordered item?
+##          (assign, "$g_item_ordered_bought_reach", ":hour"), #Item is ready
+##        (try_end),
+##
+##        (troop_set_inventory_slot, ":merchant", ":slot", -1),
+##        (troop_sort_inventory, ":merchant"),
+##
+##        (assign, ":continue", 0),
+##        (assign, "$g_item_ordered_warned", 0),
+##        (str_store_party_name, s1, "$g_item_ordered_party"),
+##        (store_sub, reg0, "$g_item_ordered_bought_reach", "$g_item_ordered_bought_hours"),
+##        (val_div, reg0, 24),
+##        (store_sub, reg1, reg0, 1),
+##        (str_store_party_name, s2, "$g_item_ordered_bought"),
+##        (str_store_troop_name, s3, ":merchant"),
+##        (str_store_item_name, s4, "$g_item_ordered"),
+##        (dialog_box, "@You saw the messenger reached your party and gives you a paper which came from {s1} {s3}.\
+## '{reg0?Your {s4} will be reach within {reg0} {reg1?days:day} to {s1}. But if you close enought to {s2}, you can collect your {s4} from {s3} in a day.\
+## Tomorrow, your {s4} will be sent out with a notable merchant. You can come and collect your {s4} anytime you want after {reg0} {reg1?days:day}:Your {s4} is now ready at {s1} you can come and collect it anytime you want.}'"),
+##      (try_end),
+##    ]),
+
+  (12.0, 0, 0.0, [
+      (assign, ":cont", 0),
+      (try_for_range, ":rand", 0, 25),
+        (eq, ":cont", 0),
+        (store_add, ":item", ":rand", slot_player_order_item),
+        (store_add, ":found", ":rand", slot_player_order_found),
+        (store_add, ":warn", ":rand", slot_player_order_warned),
+        (troop_slot_ge, "trp_player", ":item", 1),
+        (troop_slot_ge, "trp_player", ":found", 1),
+        (troop_slot_lt, "trp_player", ":warn", 0),
+        (assign, ":cont", 1),
+      (try_end),
+      (eq, ":cont", 1),
+      (map_free, 0),
+    ], [
+      (try_for_range, ":order", 0, 25),
+        (store_add, ":item", ":order", slot_player_order_item),
+        (store_add, ":found", ":order", slot_player_order_found),
+        (store_add, ":warn", ":order", slot_player_order_warned),
+        (store_add, ":reach", ":order", slot_player_order_reach),
+        (store_add, ":slot", ":order", slot_player_order_slot),
+        (store_add, ":town", ":order", slot_player_order_town),
+
+        (troop_slot_ge, "trp_player", ":item", 1),
+        (troop_slot_ge, "trp_player", ":found", 1),
+        (troop_slot_lt, "trp_player", ":warn", 0),
+        (store_current_hours, ":hour"),
+        (troop_get_slot, ":oreach", "trp_player", ":reach"),
+        (ge, ":hour", ":oreach"),
+        (troop_get_slot, ":item_no", "trp_player", ":item"),
+        (troop_get_slot, ":town_no", "trp_player", ":town"),
+        (troop_get_slot, ":slot_no", "trp_player", ":slot"),
+        (party_get_slot, ":merchant", ":town_no", ":slot_no"),
+        (str_store_party_name, s1, ":town_no"),
+        (str_store_troop_name, s2, ":merchant"),
+        (str_store_item_name, s3, ":item_no"),
+        (troop_set_slot, "trp_player", ":warn", 1),
+        (dialog_box, "@You saw the messenger reached your party and gives you a paper which came from {s1} {s2}.\
+ 'Your {s3} is now ready at {s1}, you can come and collect it anytime you want.'"),
+      (try_end),
+    ]),
+
+##  (12.0, 0, 0.0, [
+##      (gt, "$g_item_ordered", 0),
+##      (gt, "$g_item_ordered_bought", 0),
+##      (le, "$g_item_ordered_warned", 0),
+##      (map_free, 0),
+##    ], [
+##        (assign, ":reach", "$g_item_ordered_bought_reach"),
+##        (store_current_hours, ":hour"),
+##        (ge, ":hour", ":reach"),
+##        (party_get_slot, ":merchant", "$g_item_ordered_party", "$g_item_ordered_slot"),
+##        (str_store_party_name, s1, "$g_item_ordered_party"),
+##        (str_store_troop_name, s2, ":merchant"),
+##        (str_store_item_name, s3, "$g_item_ordered"),
+##        (assign, "$g_item_ordered_warned", 1),
+##        (dialog_box, "@You saw the messenger reached your party and gives you a paper which came from {s1} {s2}.\
+## 'Your {s3} is now ready at {s1}, you can come and collect it anytime you want.'"),
+##    ]),
+  #
+  ## UID: 100 - End
+  #
+  ## UID: 78 - End
+
+  ## UID: 63 - Begin
+  #
+  # Just set name to default one daily, if he changed his name.
+  (24.0, 0, 0.0, [(gt, "$players_kingdom", 0)], [(call_script, "script_set_prefix")]),
+  #
+  ## UID: 63 - End
+
+  ## UID: 43 - Begin
+  #
+    (0.0, 0, 0, [
+        (eq, "$freelancer_state", 1),
+        (gt, "$enlisted_party", 0),
+        (neg|party_is_active, "$enlisted_party"),
+    ],
+    [
+        (assign, "$freelancer_state", 0),
+        (call_script, "script_freelancer_detach_party"),
+		
+		#to prevent companions from being lost forever
+		(call_script, "script_party_restore"), 
+		(party_get_num_companion_stacks, ":num_stacks", "p_main_party"),
+        (try_for_range_backwards, ":cur_stack", 0, ":num_stacks"),
+			(party_stack_get_troop_id, ":return_troop", "p_main_party", ":cur_stack"),
+			(neg|troop_is_hero, ":return_troop"),
+			(party_stack_get_size, ":stack_size", "p_main_party", ":cur_stack"),
+			(party_remove_members, "p_main_party", ":return_troop", ":stack_size"),
+		(try_end),
+
+        #removes faction relation given at enlist
+		(store_troop_faction, ":commander_faction", "$enlisted_lord"),
+        (try_for_range, ":cur_faction", kingdoms_begin, kingdoms_end),
+            (neq, ":commander_faction", ":cur_faction"),
+			(faction_slot_eq, ":cur_faction", slot_faction_state, sfs_active),
+            (call_script, "script_set_player_relation_with_faction", ":cur_faction", 0),
+        (try_end),
+
+		(assign, "$g_encountered_party", "$g_enemy_party"),
+		(jump_to_menu, "mnu_captivity_start_wilderness"),
+    ]),
+
+ #  CHECKS IF "$enlisted_party" HAS JOINED BATTLE
+
+    (0.0, 0, 0, [
+        (eq, "$freelancer_state", 1),
+		
+		#collected nearby enemies->detach (post-battle)
+		(try_begin), 
+			(party_slot_ge, "p_freelancer_party_backup", slot_party_last_in_combat, 1),
+			(map_free),
+			(party_set_slot, "p_freelancer_party_backup", slot_party_last_in_combat, 0),
+			(party_get_num_attached_parties, ":num_attached", "p_main_party"),
+			(try_for_range_backwards, ":i", 0, ":num_attached"),
+				(party_get_attached_party_with_rank, ":party", "p_main_party", ":i"),
+				(party_detach, ":party"),
+			(try_end),
+		(try_end),
+		
+		#Is currently in battle
+        (party_get_battle_opponent, ":commander_enemy", "$enlisted_party"),
+        (gt, ":commander_enemy", 0),
+		
+		#checks that the player's health is high enough to join battle
+        (store_troop_health, ":player_health", "trp_player"),
+        (ge, ":player_health", 50),
+    ],
+    [
+        (jump_to_menu, "mnu_world_map_soldier"),
+    ]),
+
+#  CHECKS IF PLAYER WON THE REVOLT
+
+    (1.0, 0, 0, [
+        (eq, "$freelancer_state", 0),
+        (gt, "$enlisted_party", 0),
+        (neg|party_is_active, "$enlisted_party"),
+
+		(store_troop_faction, ":commander_faction", "$enlisted_lord"),
+        (store_relation, ":relation", "fac_player_supporters_faction", ":commander_faction"),
+        (lt, ":relation", 0),
+
+        (party_get_attached_party_with_rank, ":attached_party", "p_main_party", 0),
+        (eq, "p_temp_party_2", ":attached_party"),
+    ],
+    [
+        (assign, "$enlisted_party", -1),
+        (party_detach, "p_temp_party_2"),
+        (store_skill_level, ":cur_leadership", "skl_leadership", "trp_player"),
+        (store_skill_level, ":cur_persuasion", "skl_persuasion", "trp_player"),
+        (store_add, ":chance", ":cur_persuasion", ":cur_leadership"),
+        (val_add, ":chance", 10),
+        (store_random_in_range, ":prisoner_state", 0, ":chance"),
+
+        (try_begin),
+            (is_between, ":prisoner_state", 0, 5),
+            (call_script, "script_party_calculate_strength", "p_main_party", 0),
+            (assign, ":main_strength", reg0),
+            (call_script, "script_party_calculate_strength", "p_temp_party_2", 0),
+            (assign, ":temp_strength", reg0),
+            (ge, ":temp_strength", ":main_strength"),
+
+            (party_get_num_prisoner_stacks, ":num_stacks", "p_temp_party_2"),
+            (try_for_range, ":cur_stack", 0, ":num_stacks"),
+                (party_prisoner_stack_get_troop_id, ":cur_troops", "p_temp_party_2", ":cur_stack"),
+                (party_prisoner_stack_get_size, ":cur_size", "p_temp_party_2", ":cur_stack"),
+                (party_remove_prisoners, "p_temp_party_2", ":cur_troops", ":cur_size"),
+            (try_end),
+
+            (tutorial_box, "@The released prisoners were not be trusted and they are preparing to attack you!", "@Warning!"),
+            (start_encounter, "p_temp_party_2"),
+            (change_screen_map),
+        (else_try),
+            (is_between, ":prisoner_state", 5, 10),
+            (tutorial_box, "@The released prisoners scattered as soon as the battle finished. You will not be seeing them again.", "@Notice!"),
+            (party_clear, "p_temp_party_2"),
+        (else_try),
+            (tutorial_box, "@The released prisoners have remained loyal and will join your party", "@Notice!"),
+            (party_get_num_companion_stacks, ":num_stacks", "p_temp_party_2"),
+            (try_for_range, ":cur_stack", 0, ":num_stacks"),
+                (party_stack_get_troop_id, ":cur_troops", "p_temp_party_2", ":cur_stack"),
+                (party_stack_get_size, ":cur_size", "p_temp_party_2", ":cur_stack"),
+                (party_add_members, "p_main_party", ":cur_troops", ":cur_size"),
+            (try_end),
+            (party_clear, "p_temp_party_2"),
+        (try_end),
+    ]),
+
+# IF LEFT MOUSE CLICK GO TO SOLDIER'S MENU
+
+    (0.0, 0, 0, [
+        (eq, "$freelancer_state", 1),
+        (key_clicked, key_left_mouse_button),
+
+        (set_fixed_point_multiplier, 1000),
+        (mouse_get_position, pos0),
+        (position_get_y, ":y", pos0),
+        (gt, ":y", 50), #allows the camp, reports, quests, etc. buttons to be clicked
+    ],
+    [
+        (jump_to_menu, "mnu_world_map_soldier"),
+        (rest_for_hours_interactive, 9999, 4, 0),
+    ]),
+
+  (24.0, 0, 0, [
+        (eq, "$freelancer_state", 2),
+    ],
+    [
+		(troop_get_slot, ":days_left", "trp_player", slot_troop_days_on_mission),
+		(try_begin),
+		  (gt, ":days_left", 5),
+		  (val_sub, ":days_left", 1),
+		  (troop_set_slot, "trp_player", slot_troop_days_on_mission, ":days_left"),
+		(else_try),		  
+		  (is_between, ":days_left", 1, 5),
+		  (assign, reg0, ":days_left"),
+		  (display_message, "@You have {reg0} days left till you are declared as a deserter!"),
+		  (val_sub, ":days_left", 1),
+		  (troop_set_slot, "trp_player", slot_troop_days_on_mission, ":days_left"),
+		(else_try), #declare deserter
+		  (eq, ":days_left", 0),
+		  (call_script, "script_event_player_deserts"),
+          (display_message, "@You have now been declared as a deserter!"),
+		(try_end),  
+    ]),
+  #
+  ## UID: 43 - End
 
 ##Caravans
 #  (4.2, 0, 0.0, [],
@@ -299,42 +805,50 @@ triggers = [
 #                         (call_script,"script_cf_spawn_party_at_faction_town_if_below_limit"),
 #                    ]),
 
-#Kingdom Parties
-  (1.0, 0, 0.0, [],
-   [(try_for_range, ":cur_kingdom", kingdoms_begin, kingdoms_end),
-      (faction_slot_eq, ":cur_kingdom", slot_faction_state, sfs_active),
-##      (neq, ":cur_kingdom", "fac_player_supporters_faction"),
-##      (try_begin),
-##        (store_random_in_range, ":random_no", 0, 100),
-##        (lt, ":random_no", 10),
-##        (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_forager),
-##      (try_end),
-##      (try_begin),
-##        (store_random_in_range, ":random_no", 0, 100),
-##        (lt, ":random_no", 10),
-##        (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_scout),
-##      (try_end),
-##      (try_begin),
-##        (store_random_in_range, ":random_no", 0, 100),
-##        (lt, ":random_no", 10),
-##        (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_patrol),
-##      (try_end),
-##      (try_begin),
-##        (store_random_in_range, ":random_no", 0, 100),
-##        (lt, ":random_no", 10),
-##        (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_messenger),
-##      (try_end),
-      (try_begin),
-        (store_random_in_range, ":random_no", 0, 100),
-        (lt, ":random_no", 10),
-        (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_kingdom_caravan),
+  #Kingdom Parties
+  (1.0, 0, 0.0, [], [
+      (try_for_range, ":cur_kingdom", kingdoms_begin, kingdoms_end),
+        (faction_slot_eq, ":cur_kingdom", slot_faction_state, sfs_active),
+
+##        (neq, ":cur_kingdom", "fac_player_supporters_faction"),
+##        (try_begin),
+##          (store_random_in_range, ":random_no", 0, 100),
+##          (lt, ":random_no", 10),
+##          (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_forager),
+##        (try_end),
+##        (try_begin),
+##          (store_random_in_range, ":random_no", 0, 100),
+##          (lt, ":random_no", 10),
+##          (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_scout),
+##        (try_end),
+##        (try_begin),
+##          (store_random_in_range, ":random_no", 0, 100),
+##          (lt, ":random_no", 10),
+##          (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_patrol),
+##        (try_end),
+##        (try_begin),
+##          (store_random_in_range, ":random_no", 0, 100),
+##          (lt, ":random_no", 10),
+##          (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_messenger),
+##        (try_end),
+        (try_begin),
+          (store_random_in_range, ":random_no", 0, 100),
+          (lt, ":random_no", 10),
+          (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_kingdom_caravan),
+        (try_end),
+        ## UID: 79 - Begin
+        #
+        (try_begin),
+          (store_random_in_range, ":random_no", 0, 100),
+          (lt, ":random_no", 10),
+          (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_merchant_caravan),
+        (try_end),
+##        (try_begin),
+##          (store_random_in_range, ":random_no", 0, 100),
+##          (lt, ":random_no", 10),
+##          (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_prisoner_train),
+##        (try_end),
       (try_end),
-##      (try_begin),
-##        (store_random_in_range, ":random_no", 0, 100),
-##        (lt, ":random_no", 10),
-##        (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_prisoner_train),
-##      (try_end),
-    (try_end),
     ]),
 
 

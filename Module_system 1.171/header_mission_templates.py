@@ -12,7 +12,23 @@ from ID_scenes import *
 from ID_items import *
 from ID_strings import *
 
-from header_mission_types import *
+## UID: 85 - Begin
+#
+#from header_mission_types import *
+
+leave_wo_battle = 0
+leave_during_battle = 1
+cancel_attack = 2
+speak = 3
+intend_battle = 4
+cancel_reinforce = 5
+surrender = 6
+stay_back = 7
+charge = 8
+stay_back_with_ally = 9
+charge_with_ally = 10
+#
+## UID: 85 - End
 
 aif_group_bits    = 0
 aif_group_mask    = 0xF

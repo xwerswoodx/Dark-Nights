@@ -46,27 +46,37 @@ party_templates = [
 ##  ("peasant","Peasant",icon_peasant,0,fac_commoners,merchant_personality,[(trp_farmer,1,6),(trp_peasant_woman,0,7)]),
 
 #  ("black_khergit_raiders","Black Khergit Raiders",icon_khergit_horseman_b|carries_goods(2),0,fac_black_khergits,bandit_personality,[(trp_black_khergit_guard,1,10),(trp_black_khergit_horseman,5,5)]),
-  ("steppe_bandits","Steppe Bandits",icon_khergit|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_steppe_bandit,4,58)]),
-  ("taiga_bandits","Tundra Bandits",icon_axeman|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_taiga_bandit,4,58)]),
-  ("desert_bandits","Desert Bandits",icon_vaegir_knight|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_desert_bandit,4,58)]),
-  ("forest_bandits","Forest Bandits",icon_axeman|carries_goods(2),0,fac_forest_bandits,bandit_personality,[(trp_forest_bandit,4,52)]),
-  ("mountain_bandits","Mountain Bandits",icon_axeman|carries_goods(2),0,fac_mountain_bandits,bandit_personality,[(trp_mountain_bandit,4,60)]),
-  ("sea_raiders","Sea Raiders",icon_axeman|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_sea_raider,5,50)]),
+  ("steppe_bandits","Steppe Bandits",icon_khergit|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_steppe_bandit,2,38),(trp_bandit,2,20)]),
+  ("taiga_bandits","Tundra Bandits",icon_axeman|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_taiga_bandit,2,38),(trp_bandit,2,20)]),
+  ("desert_bandits","Desert Bandits",icon_vaegir_knight|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_desert_bandit,2,38),(trp_bandit,2,20)]),
+  ("forest_bandits","Forest Bandits",icon_axeman|carries_goods(2),0,fac_forest_bandits,bandit_personality,[(trp_forest_bandit,2,32),(trp_bandit,2,20)]),
+  ("mountain_bandits","Mountain Bandits",icon_axeman|carries_goods(2),0,fac_mountain_bandits,bandit_personality,[(trp_mountain_bandit,2,40),(trp_bandit,2,20)]),
+  ("sea_raiders","Sea Raiders",icon_axeman|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_sea_raider,3,30),(trp_bandit,2,20)]),
   ## UID: 10 - Begin
   #
-  ("sea_raiders_ships","Sea Raiders",icon_ship|pf_is_ship|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_sea_raider,5,50)]),
+  ("sea_raiders_ships","Sea Raiders",icon_ship|pf_is_ship|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_sea_raider,6,60),(trp_bandit,2,20)]),
   #
   ## UID: 10 - End
 
   ("deserters","Deserters",icon_vaegir_knight|carries_goods(3),0,fac_deserters,bandit_personality,[]),
   ## UID: 12 - Begin
   #
-  ("dark_hunters","Dark Hunters",icon_dedal_map_swadia_king_b,0,fac_dark_knights,soldier_personality,[(trp_dark_knight,7,35),(trp_dark_hunter,8,25)]),
-  ("desert_cavalry", "Desert Cavalry", icon_dedal_map_swadia_lord_a, 0, fac_desert_cavalry, soldier_personality, [(trp_desert_cavalry, 10, 50)]),
+  ("dark_hunters","Dark Hunters",icon_dedal_map_swadia_king_b,0,fac_dark_knights,soldier_personality,[(trp_dark_knight,8,32),(trp_dark_hunter,6,24),(trp_dark_pikeman,8,32)]),
+  ## UID: 95 - Begin
+  #
+  #("desert_cavalry", "Desert Cavalry", icon_dedal_map_swadia_lord_a, 0, fac_desert_cavalry, soldier_personality, [(trp_desert_cavalry, 10, 50)]),
+  ("desert_cavalry", "Desert Cavalry", icon_dedal_map_swadia_lord_a, 0, fac_desert_cavalry, soldier_personality, [(trp_desert_cavalry, 5, 35),(trp_desert_archer, 5, 15),(trp_desert_guard, 2, 5)]),
+  #
+  ## UID: 95 - End
   #
   ## UID: 12 - End
   
   ("merchant_caravan","Merchant Caravan",icon_gray_knight|carries_goods(20)|pf_auto_remove_in_town|pf_quest_party,0,fac_commoners,escorted_merchant_personality,[(trp_caravan_master,1,1),(trp_caravan_guard,5,25)]),
+  ## UID: 79 - Begin
+  #
+  ("sea_traders", "Royal Traders", icon_ship|pf_is_ship|carries_goods(20)|pf_auto_remove_in_town|pf_quest_party,0,fac_commoners,escorted_merchant_personality,[(trp_caravan_master,1,1),(trp_caravan_guard,5,25)]),
+  #
+  ## UID: 79 - End
   ("troublesome_bandits","Troublesome Bandits",icon_axeman|carries_goods(9)|pf_quest_party,0,fac_outlaws,bandit_personality,[(trp_bandit,14,55)]),
   ("bandits_awaiting_ransom","Bandits Awaiting Ransom",icon_axeman|carries_goods(9)|pf_auto_remove_in_town|pf_quest_party,0,fac_neutral,bandit_personality,[(trp_bandit,24,58),(trp_kidnapped_girl,1,1,pmf_is_prisoner)]),
   ("kidnapped_girl","Kidnapped Girl",icon_woman|pf_quest_party,0,fac_neutral,merchant_personality,[(trp_kidnapped_girl,1,1)]),
@@ -106,6 +116,14 @@ party_templates = [
   # less-modernised templates are generally includes 7-14 troops in total, 
   # med-modernised templates are generally includes 5-10 troops in total, 
   # high-modernised templates are generally includes 3-5 troops in total
+
+  ## UID: 62 - Begin
+  #
+  ("supporters_reinforcements_a", "{!}supporters_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_supporters_recruit,5,10),(trp_supporters_militia,2,4)]),
+  ("supporters_reinforcements_b", "{!}supporters_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_supporters_footman,3,6),(trp_supporters_skirmisher,2,4)]),
+  ("supporters_reinforcements_c", "{!}supporters_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_supporters_man_at_arms,2,4),(trp_supporters_crossbowman,1,2)]),
+  #
+  ## UID: 62 - End
 
   ("kingdom_1_reinforcements_a", "{!}kingdom_1_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_swadian_recruit,5,10),(trp_swadian_militia,2,4)]),
   ("kingdom_1_reinforcements_b", "{!}kingdom_1_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_swadian_footman,3,6),(trp_swadian_skirmisher,2,4)]),
@@ -177,20 +195,40 @@ party_templates = [
 
   ("leaded_looters","Band of robbers",icon_axeman|carries_goods(8)|pf_quest_party,0,fac_neutral,bandit_personality,[(trp_looter_leader,1,1),(trp_looter,3,3)]),
 
+  ## UID: 62 - Begin
+  #
+  ("kingdom_0_patrol", "Player Kingdom Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_player_supporters_faction, soldier_personality, [(trp_supporters_footman, 12, 36),(trp_supporters_knight, 10, 30),(trp_supporters_infantry, 12, 36)]),
+  #
+  ## UID: 62 - End
   ## UID: 21 - Begin
   #
-  ("kingdom_1_patrol", "Swadian Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_kingdom_1, soldier_personality, [(trp_swadian_recruit, 10, 15),(trp_swadian_militia,2, 7)]),
-  ("kingdom_2_patrol", "Vaegir Patrol Party", icon_vaegir_knight|pf_show_faction, 0, fac_kingdom_2, soldier_personality, [(trp_vaegir_recruit, 10, 15),(trp_vaegir_footman, 2, 7)]),
-  ("kingdom_3_patrol", "Khergit Patrol Party", icon_khergit|pf_show_faction, 0, fac_kingdom_3, soldier_personality, [(trp_khergit_tribesman, 8, 13),(trp_khergit_skirmisher, 4, 9)]),
-  ("kingdom_4_patrol", "Nord Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_kingdom_4, soldier_personality, [(trp_nord_footman, 10, 15),(trp_nord_recruit, 2, 7)]),
-  ("kingdom_5_patrol", "Rhodok Patrol Party", icon_vaegir_knight|pf_show_faction, 0, fac_kingdom_5, soldier_personality, [(trp_rhodok_tribesman, 8, 13),(trp_rhodok_spearman, 4, 9)]),
-  ("kingdom_6_patrol", "Sarranid Patrol Party", icon_khergit|pf_show_faction, 0, fac_kingdom_6, soldier_personality, [(trp_sarranid_recruit, 8, 13),(trp_sarranid_footman, 4, 9)]),
+  ("kingdom_1_patrol", "Swadian Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_kingdom_1, soldier_personality, [(trp_swadian_footman, 12, 36),(trp_swadian_knight, 10, 30),(trp_swadian_infantry, 12, 36)]),
+  ("kingdom_2_patrol", "Vaegir Patrol Party", icon_vaegir_knight|pf_show_faction, 0, fac_kingdom_2, soldier_personality, [(trp_vaegir_veteran, 12, 36),(trp_vaegir_knight, 10, 30),(trp_vaegir_infantry, 12, 36)]),
+  ("kingdom_3_patrol", "Khergit Patrol Party", icon_khergit|pf_show_faction, 0, fac_kingdom_3, soldier_personality, [(trp_khergit_horseman, 12, 34),(trp_khergit_veteran_horse_archer, 10, 30),(trp_khergit_horse_archer, 12, 36)]),
+  ("kingdom_4_patrol", "Nord Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_kingdom_4, soldier_personality, [(trp_nord_trained_footman, 12, 36),(trp_nord_veteran, 10, 30),(trp_nord_warrior, 12, 36)]),
+  ("kingdom_5_patrol", "Rhodok Patrol Party", icon_vaegir_knight|pf_show_faction, 0, fac_kingdom_5, soldier_personality, [(trp_rhodok_trained_spearman, 12, 36),(trp_rhodok_sergeant, 10, 30),(trp_rhodok_veteran_spearman, 12, 36)]),
+  ("kingdom_6_patrol", "Sarranid Patrol Party", icon_khergit|pf_show_faction, 0, fac_kingdom_6, soldier_personality, [(trp_sarranid_archer, 12, 36),(trp_sarranid_mamluke, 10, 30),(trp_sarranid_horseman, 12, 36)]),
   ## UID: 24 - Begin
   #
-  ("kingdom_7_patrol", "Umalelithian Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_kingdom_7, soldier_personality, [(trp_umalelithian_recruit, 10, 15), (trp_umalelithian_veteran, 2, 7)]),
-  ("kingdom_8_patrol", "Kielian Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_kingdom_8, soldier_personality, [(trp_kielian_tribeswoman, 10, 15), (trp_kielian_archer, 2, 7)]),
+  ("kingdom_7_patrol", "Umalelithian Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_kingdom_7, soldier_personality, [(trp_umalelithian_warrior, 12, 36),(trp_umalelithian_leader, 10, 30),(trp_umalelithian_trained_archer, 12, 36)]),
+  ("kingdom_8_patrol", "Kielian Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_kingdom_8, soldier_personality, [(trp_kielian_master_archer, 12, 36),(trp_kielian_sergeant, 10, 30),(trp_kielian_horsewoman, 12, 36)]),
   #
   ## UID: 24 - End
   #
   ## UID: 21 - End
+
+  ## UID: 60 - Begin
+  #
+  ("watch_tower", "Watch Tower", icon_dedal_map_watchtower|pf_is_static|pf_hide_defenders|pf_label_small, 0, fac_neutral, merchant_personality, []),
+  ("messenger_post", "Messenger Post", icon_dedal_map_messenger_post|pf_is_static|pf_hide_defenders|pf_label_small, 0, fac_neutral, merchant_personality, []),
+  ("windmill", "Wind Mill", icon_dedal_map_windmill|pf_is_static|pf_hide_defenders|pf_label_small, 0, fac_neutral, merchant_personality, []),
+  #
+  ## UID: 60 - End
+
+  ## UID: 80 - Begin
+  #
+  ("deer_herd", "Deer Herd", icon_deer|carries_goods(10), 0, fac_wild_animals, merchant_personality, [(trp_deer,3,15)]),
+  ("boar_herd", "Boar Herd", icon_boar|carries_goods(10), 0, fac_wild_animals, merchant_personality, [(trp_boar,2,7)]),
+  #
+  ## UID: 80 - End
 ]

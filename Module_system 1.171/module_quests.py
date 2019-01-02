@@ -1,4 +1,12 @@
-from header_quests import *
+## UID: 85 - Begin
+#
+#from header_quests import *
+from header_common import *
+
+qf_show_progression      = 0x00000001
+qf_random_quest          = 0x00000002
+#
+## UID: 85 - End
 
 ####################################################################################################################
 #  Each quest record contains the following fields:
@@ -11,19 +19,11 @@ from header_quests import *
 ####################################################################################################################
 
 quests = [
-# Note : This is defined as the first governer quest in module_constants.py: 
- ("deliver_message", "Deliver Message to {s13}", qf_random_quest,
-  "{!}{s9} asked you to take a message to {s13}. {s13} was at {s4} when you were given this quest."
-  ),
- ("deliver_message_to_enemy_lord", "Deliver Message to {s13}", qf_random_quest,
-  "{!}{s9} asked you to take a message to {s13} of {s15}. {s13} was at {s4} when you were given this quest."
-  ),
- ("raise_troops", "Raise {reg1} {s14}", qf_random_quest,
-  "{!}{s9} asked you to raise {reg1} {s14} and bring them to him."
-  ),
- ("escort_lady", "Escort {s13} to {s14}", qf_random_quest,
-  "{!}None"
-  ),
+    # Note : This is defined as the first governer quest in module_constants.py:
+    ("deliver_message", "Deliver Message to {s13}", qf_random_quest, "{!}{s9} asked you to take a message to {s13}. {s13} was at {s4} when you were given this quest."),
+    ("deliver_message_to_enemy_lord", "Deliver Message to {s13}", qf_random_quest, "{!}{s9} asked you to take a message to {s13} of {s15}. {s13} was at {s4} when you were given this quest."),
+    ("raise_troops", "Raise {reg1} {s14}", qf_random_quest, "{!}{s9} asked you to raise {reg1} {s14} and bring them to him."),
+    ("escort_lady", "Escort {s13} to {s14}", qf_random_quest, "{!}None"),
 ## ("rescue_lady_under_siege", "Rescue {s3} from {s4}", qf_random_quest,
 ##  "{s1} asked you to rescue his {s7} {s3} from {s4} and return her back to him."
 ##  ),
@@ -409,7 +409,18 @@ quests = [
 
   ("save_town_from_bandits", "Save Town from Bandits", 0,
   "{!}placeholder."
-  ),   
+  ),
+
+ ## UID: 43 - Begin
+ #
+  ("freelancer_enlisted", "Enlisted in the Party of {s13}", 0,
+   "{!}You are currently enlisted in the party of {s13} of {s14}."),
+  ("freelancer_vacation", "Enlisted: On Leave", 0,
+   "{!}You have been granted leave from the party of {s13} of {s14}."),
+  ("freelancer_captured", "Enlisted: Captured", 0,
+   "{!}Your commander's party has been defeated and you have been captured. Return to the service of {s13} of {s14}."),
+ #
+ ## UID: 43 - End
   
  ("quests_end", "Quests End", 0, "{!}."),
 ]

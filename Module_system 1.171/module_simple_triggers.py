@@ -2,11 +2,15 @@ from header_common import *
 from header_operations import *
 from header_parties import *
 from header_items import *
-from header_skills import *
+## UID: 85 - Begin
+#
+#from header_skills import *
+from ID_skills import *
+#
+## UID: 85 - End
 from header_triggers import *
 from header_troops import *
 from header_music import *
-
 from module_constants import *
 
 ####################################################################################################################
@@ -343,6 +347,62 @@ simple_triggers = [
        (eq, "$g_infinite_camping", 0),
        (start_presentation, "prsnt_budget_report"),
      (try_end),
+
+     ## UID: 51 - Begin
+     #
+     (try_begin),
+         (gt, "$g_lottery", 0),
+         (display_message, "@Your last lottery prize cancelled because you didn't take it.", 0xFF0000),
+         (assign, "$g_lottery", 0),
+     (try_end),
+
+     (try_begin),
+         (gt, "$g_lottery_number_1", 0),     
+         (store_random_in_range, reg1, 1, 10),
+         (store_random_in_range, reg2, 0, 10),
+         (store_random_in_range, reg3, 0, 10),
+
+         (assign, reg11, "$g_lottery_number_1"),
+         (assign, reg12, "$g_lottery_number_2"),
+         (assign, reg13, "$g_lottery_number_3"),
+
+         (try_begin),
+             (eq, reg1, reg11),
+             (eq, reg2, reg12),
+             (eq, reg3, reg13),
+             (assign, "$g_lottery", "$g_lottery_prize"),
+             (assign, reg6, 3),
+         (else_try),
+             (eq, reg1, reg11),
+             (eq, reg2, reg12),
+             (val_div, "$g_lottery_prize", 10),
+             (assign, reg6, 2),
+             (assign, "$g_lottery", "$g_lottery_prize"),
+         (else_try),
+             (eq, reg1, reg11),
+             (val_div, "$g_lottery_prize", 1000),
+             (assign, reg6, 1),
+             (assign, "$g_lottery", "$g_lottery_prize"),
+         (try_end),
+
+         (try_begin),
+             (gt, "$g_lottery", 0),
+             (val_div, "$g_lottery", "$g_lottery_type"),
+             (assign, reg5, "$g_lottery"),
+             (store_sub, reg7, reg6, 1),
+             (display_message, "@Lottery was drawn, the winning numbers are {reg1}-{reg2}-{reg3}. You won {reg5} denars from lottery with {reg6} hit{reg7?s}. Your numbers was {reg11}-{reg12}-{reg13}.", 0xD4A017),
+         (else_try),
+             (display_message, "@Lottery was drawn, the winning numbers are {reg1}-{reg2}-{reg3}. You didn't win anything. You can try your luck again.", 0x0000FF),
+         (try_end),
+     (try_end),
+     (store_random_in_range, "$g_lottery_prize", 25000, 200000),
+     (assign, "$g_lottery", 0),
+     (assign, "$g_lottery_number_1", 0),
+     (assign, "$g_lottery_number_2", 0),
+     (assign, "$g_lottery_number_3", 0),
+     (assign, "$g_lottery_type", 0),
+     #
+     ## UID: 51 - End
     ]),
 
   # Oath fulfilled -- ie, mercenary contract expired?
@@ -351,6 +411,11 @@ simple_triggers = [
       (le, "$auto_menu", 0),
       (gt, "$players_kingdom", 0),
       (neq, "$players_kingdom", "fac_player_supporters_faction"),
+      ## UID: 67 - Begin
+      #
+      (neg|faction_slot_eq, "$players_kingdom", slot_faction_leader, "trp_player"),
+      #
+      ## UID: 67 - End
       (eq, "$player_has_homage", 0),
 	  
 	  (troop_get_slot, ":player_spouse", "trp_player", slot_troop_spouse),
@@ -623,8 +688,13 @@ simple_triggers = [
     (try_begin),
       (neg|map_free),
       (ge, "$g_last_rest_center", 0),
-      (this_or_next|party_slot_eq, "$g_last_rest_center", slot_center_has_manor, 1),
-      (is_between, "$g_last_rest_center", walled_centers_begin, walled_centers_end),
+      ## UID: 9 - Begin
+      #
+      #(this_or_next|party_slot_eq, "$g_last_rest_center", slot_center_has_manor, 1),
+      (this_or_next|party_slot_ge, "$g_last_rest_center", slot_center_building_manor, 1),
+      #
+      ## UID: 9 - End
+      (             is_between, "$g_last_rest_center", walled_centers_begin, walled_centers_end),
       (assign, ":resting_at_manor_or_walled_center", 1),
     (try_end),
     (eq, ":resting_at_manor_or_walled_center", 0),
@@ -949,172 +1019,180 @@ simple_triggers = [
 	
     #Individual lord political calculations
     #Check for lords without fiefs, auto-defections, etc
-    (0.5,	
-     [
-        (val_add, "$g_lord_long_term_count", 1),
-        (try_begin),
-          (neg|is_between, "$g_lord_long_term_count", "trp_kingdom_heroes_including_player_begin", active_npcs_end),
-          (assign, "$g_lord_long_term_count", "trp_kingdom_heroes_including_player_begin"),
+  (0.5, [
+      (val_add, "$g_lord_long_term_count", 1),
+      (try_begin),
+        (neg|is_between, "$g_lord_long_term_count", "trp_kingdom_heroes_including_player_begin", active_npcs_end),
+        (assign, "$g_lord_long_term_count", "trp_kingdom_heroes_including_player_begin"),
+      (try_end),
+      (assign, ":troop_no", "$g_lord_long_term_count"),
+
+      (try_begin),
+        (eq, ":troop_no", "trp_kingdom_heroes_including_player_begin"),
+        (assign, ":troop_no", "trp_player"),
+      (try_end),
+
+      (try_begin),
+        (eq, "$cheat_mode", 1),
+        (str_store_troop_name, s9, ":troop_no"),
+        (display_message, "@{!}DEBUG -- Doing political calculations for {s9}"),
+      (try_end),
+
+      #Penalty for no fief
+      (try_begin),
+        (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+        (neq, ":troop_no", "trp_player"),
+        (assign, ":fief_found", -1),
+
+        (try_for_range, ":center", centers_begin, centers_end),
+          (party_slot_eq, ":center", slot_town_lord, ":troop_no"),
+          (assign, ":fief_found", ":center"),
         (try_end),
 
-        (assign, ":troop_no", "$g_lord_long_term_count"),
-	
         (try_begin),
-          (eq, ":troop_no", "trp_kingdom_heroes_including_player_begin"),	
-          (assign, ":troop_no", "trp_player"),
-        (try_end),
+          (eq, ":fief_found", -1),
 
-        (try_begin),
-          (eq, "$cheat_mode", 1),
-          (str_store_troop_name, s9, ":troop_no"),
-          (display_message, "@{!}DEBUG -- Doing political calculations for {s9}"),
-        (try_end),
-	
-        #Penalty for no fief
-        (try_begin),
-          (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
-          (neq, ":troop_no", "trp_player"),
-		  
-          (assign, ":fief_found", -1),
-          (try_for_range, ":center", centers_begin, centers_end),
-            (party_slot_eq, ":center", slot_town_lord, ":troop_no"),
-            (assign, ":fief_found", ":center"),
-          (try_end),
-		
+          (store_faction_of_troop, ":original_faction", ":troop_no"),
+          (faction_get_slot, ":faction_leader", ":original_faction", slot_faction_leader),
+          (troop_get_slot, ":troop_reputation", ":troop_no", slot_lord_reputation_type),
+
           (try_begin),
-            (eq, ":fief_found", -1),
-                        			
-            (store_faction_of_troop, ":original_faction", ":troop_no"),
-            (faction_get_slot, ":faction_leader", ":original_faction", slot_faction_leader),
-            (troop_get_slot, ":troop_reputation", ":troop_no", slot_lord_reputation_type),
-			
+            (neq, ":faction_leader", ":troop_no"),
             (try_begin),
-              (neq, ":faction_leader", ":troop_no"),
-              (try_begin),
-                (this_or_next|eq, ":troop_reputation", lrep_quarrelsome),
-                (this_or_next|eq, ":troop_reputation", lrep_selfrighteous),
-                (this_or_next|eq, ":troop_reputation", lrep_cunning),
-                (eq, ":troop_reputation", lrep_debauched),
-                (call_script, "script_troop_change_relation_with_troop", ":troop_no", ":faction_leader", -4),
-                (val_add, "$total_no_fief_changes", -4),
-              (else_try),
-                (eq, ":troop_reputation", lrep_martial),
-                (call_script, "script_troop_change_relation_with_troop", ":troop_no", ":faction_leader", -2),
-                (val_add, "$total_no_fief_changes", -2),
-              (try_end),
+              (this_or_next|eq, ":troop_reputation", lrep_quarrelsome),
+              (this_or_next|eq, ":troop_reputation", lrep_selfrighteous),
+              (this_or_next|eq, ":troop_reputation", lrep_cunning),
+              (             eq, ":troop_reputation", lrep_debauched),
+              (call_script, "script_troop_change_relation_with_troop", ":troop_no", ":faction_leader", -4),
+              (val_add, "$total_no_fief_changes", -4),
+            (else_try),
+              (eq, ":troop_reputation", lrep_martial),
+              (call_script, "script_troop_change_relation_with_troop", ":troop_no", ":faction_leader", -2),
+              (val_add, "$total_no_fief_changes", -2),
             (try_end),
           (try_end),
-        (try_end),	
-		
-        #Auto-indictment or defection
+        (try_end),
+      (try_end),
+
+      #Auto-indictment or defection
+      (try_begin),
+        (this_or_next|troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+        (             eq, ":troop_no", "trp_player"),
         (try_begin),
-          (this_or_next|troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
-          (eq, ":troop_no", "trp_player"),		
-          (try_begin),
-            (eq, ":troop_no", "trp_player"),
-            (assign, ":faction", "$players_kingdom"),
-          (else_try),
-            (store_faction_of_troop, ":faction", ":troop_no"),
-          (try_end),
-
-          (faction_get_slot, ":faction_leader", ":faction", slot_faction_leader),
-          (neq, ":troop_no", ":faction_leader"),
-			
-          #I don't know why these are necessary, but they appear to be
-          (neg|is_between, ":troop_no", "trp_kingdom_1_lord", "trp_knight_1_1"),
-          (neg|is_between, ":troop_no", pretenders_begin, pretenders_end),
-		  
-		  (assign, ":num_centers", 0),		  
-		  (try_for_range,":cur_center", walled_centers_begin, walled_centers_end),		    
-		    (store_faction_of_party, ":faction_of_center", ":cur_center"),
-			(eq, ":faction_of_center", ":faction"),			
-			(val_add, ":num_centers", 1),
-		  (try_end),
-
-		  #we are counting num_centers to allow defection although there is high relation between faction leader and troop. 
-		  #but this rule should not applied for player's faction and player_supporters_faction so thats why here 1 is added to num_centers in that case.
-		  (try_begin), 
-		    (this_or_next|eq, ":faction", "$players_kingdom"),
-			(eq, ":faction", "fac_player_supporters_faction"),
-			(val_add, ":num_centers", 1),
-		  (try_end),
-			
-          (call_script, "script_troop_get_relation_with_troop", ":troop_no", ":faction_leader"),
-          (this_or_next|le, reg0, -50), #was -75
-		  (eq, ":num_centers", 0), #if there is no walled centers that faction has defection happens 100%.
-
-          (call_script, "script_cf_troop_can_intrigue", ":troop_no", 0), #Should include battle, prisoner, in a castle with others 
-          (store_random_in_range, ":who_moves_first", 0, 2),
-			
-          (try_begin),
-            (this_or_next|eq, ":num_centers", 0), #Thanks Caba`drin & Osviux
-            (neq, ":who_moves_first", 0),
-            (neq, ":troop_no", "trp_player"),
-				
-                        #do a defection
-                        (try_begin), 
-                          (neq, ":num_centers", 0), 
-                          (assign, "$g_give_advantage_to_original_faction", 1), 
-                        (try_end),
-			#(assign, "$g_give_advantage_to_original_faction", 1),
-        
-			(store_faction_of_troop, ":orig_faction", ":troop_no"),
-			(call_script, "script_lord_find_alternative_faction", ":troop_no"),
-			(assign, ":new_faction", reg0),			
-			(assign, "$g_give_advantage_to_original_faction", 0),
-			(try_begin),
-			  (neq, ":new_faction", ":orig_faction"),			  
-            
-              (is_between, ":new_faction", kingdoms_begin, kingdoms_end),
-              (str_store_troop_name_link, s1, ":troop_no"),
-              (str_store_faction_name_link, s2, ":new_faction"),	
-              (str_store_faction_name_link, s3, ":faction"),
-              (call_script, "script_change_troop_faction", ":troop_no", ":new_faction"),
-              (try_begin),
-                (ge, "$cheat_mode", 1),
-                (str_store_troop_name, s4, ":troop_no"),
-                (display_message, "@{!}DEBUG - {s4} faction changed in defection"), 
-              (try_end),	
-              (troop_get_type, reg4, ":troop_no"),
-              (str_store_string, s4, "str_lord_defects_ordinary"),
-              (display_log_message, "@{!}{s4}"),
-              (try_begin),
-                (eq, "$cheat_mode", 1),
-                (this_or_next|eq, ":new_faction", "$players_kingdom"),
-                (eq, ":faction", "$players_kingdom"),
-                (call_script, "script_add_notification_menu", "mnu_notification_lord_defects", ":troop_no", ":faction"),
-              (try_end),				
-			(try_end),
-          (else_try),	
-            (neq, ":faction_leader", "trp_player"),
-			(call_script, "script_troop_get_relation_with_troop", ":troop_no", ":faction_leader"),
-			(le, reg0, -50), #was -75
-            (call_script, "script_indict_lord_for_treason", ":troop_no", ":faction"),
-          (try_end),		  
-        (else_try),  #Take a stand on an issue
-          (neq, ":troop_no", "trp_player"),
+          (eq, ":troop_no", "trp_player"),
+          (assign, ":faction", "$players_kingdom"),
+        (else_try),
           (store_faction_of_troop, ":faction", ":troop_no"),
-          (faction_slot_ge, ":faction", slot_faction_political_issue, 1),
-          #This bit of complication is needed for savegame compatibility -- if zero is in the slot, they'll choose anyway			
-          (neg|troop_slot_ge, ":troop_no", slot_troop_stance_on_faction_issue, 1), 
-          (this_or_next|troop_slot_eq, ":troop_no", slot_troop_stance_on_faction_issue, -1),
-          (neq, "$players_kingdom", ":faction"),
-          (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
-          (call_script, "script_npc_decision_checklist_take_stand_on_issue", ":troop_no"),
-          (troop_set_slot, ":troop_no", slot_troop_stance_on_faction_issue, reg0),
         (try_end),
 
-        (try_for_range, ":active_npc", active_npcs_begin, active_npcs_end),
-          (call_script, "script_troop_get_relation_with_troop", ":troop_no", ":active_npc"),
-          (lt, reg0, 0),
-          (assign, ":relation", reg0),
-          (store_sub, ":chance_of_convergence", 0, ":relation"),
-          (store_random_in_range, ":random", 0, 300),
-          (lt, ":random", ":chance_of_convergence"),
-          (call_script, "script_troop_change_relation_with_troop", ":troop_no", ":active_npc", 1),
-          (val_add, "$total_relation_changes_through_convergence", 1),
-        (try_end),				
-        ]),
+        (faction_get_slot, ":faction_leader", ":faction", slot_faction_leader),
+        (neq, ":troop_no", ":faction_leader"),
+        #I don't know why these are necessary, but they appear to be
+        (neg|is_between, ":troop_no", "trp_kingdom_1_lord", "trp_knight_1_1"),
+        (neg|is_between, ":troop_no", pretenders_begin, pretenders_end),
+
+        (assign, ":num_centers", 0),
+        (try_for_range,":cur_center", walled_centers_begin, walled_centers_end),
+          (store_faction_of_party, ":faction_of_center", ":cur_center"),
+          (eq, ":faction_of_center", ":faction"),
+          (val_add, ":num_centers", 1),
+        (try_end),
+
+        #we are counting num_centers to allow defection although there is high relation between faction leader and troop.
+        #but this rule should not applied for player's faction and player_supporters_faction so thats why here 1 is added to num_centers in that case.
+        (try_begin),
+          (this_or_next|eq, ":faction", "$players_kingdom"),
+          (             eq, ":faction", "fac_player_supporters_faction"),
+          (val_add, ":num_centers", 1),
+        (try_end),
+
+        (call_script, "script_troop_get_relation_with_troop", ":troop_no", ":faction_leader"),
+        (this_or_next|le, reg0, -50), #was -75
+        (             eq, ":num_centers", 0), #if there is no walled centers that faction has defection happens 100%.
+
+        (call_script, "script_cf_troop_can_intrigue", ":troop_no", 0), #Should include battle, prisoner, in a castle with others
+        (store_random_in_range, ":who_moves_first", 0, 2),
+
+        (try_begin),
+          (this_or_next|eq, ":num_centers", 0), #Thanks Caba`drin & Osviux
+          (             neq, ":who_moves_first", 0),
+          (             neq, ":troop_no", "trp_player"),
+          #do a defection
+          (try_begin),
+            (neq, ":num_centers", 0),
+            (assign, "$g_give_advantage_to_original_faction", 1),
+          (try_end),
+          #(assign, "$g_give_advantage_to_original_faction", 1),
+
+          (store_faction_of_troop, ":orig_faction", ":troop_no"),
+          (call_script, "script_lord_find_alternative_faction", ":troop_no"),
+          (assign, ":new_faction", reg0),
+          (assign, "$g_give_advantage_to_original_faction", 0),
+          (try_begin),
+            (neq, ":new_faction", ":orig_faction"),
+            (is_between, ":new_faction", kingdoms_begin, kingdoms_end),
+            ## UID: 111 - Begin
+            #
+            (call_script, "script_is_male", ":troop_no"),
+            (assign, ":cont", 1),
+            (try_begin),
+              (ge, reg0, 1), #Is male?
+              (eq, ":new_faction", "fac_kingdom_8"), #Kielian?
+              (assign, ":cont", 0),
+            (try_end),
+            (gt, ":cont", 0),
+            #
+            ## UID: 111 - End
+            (str_store_troop_name_link, s1, ":troop_no"),
+            (str_store_faction_name_link, s2, ":new_faction"),
+            (str_store_faction_name_link, s3, ":faction"),
+            (call_script, "script_change_troop_faction", ":troop_no", ":new_faction"),
+            (try_begin),
+              (ge, "$cheat_mode", 1),
+              (str_store_troop_name, s4, ":troop_no"),
+              (display_message, "@{!}DEBUG - {s4} faction changed in defection"),
+            (try_end),
+            (troop_get_type, reg4, ":troop_no"),
+            (str_store_string, s4, "str_lord_defects_ordinary"),
+            (display_log_message, "@{!}{s4}"),
+
+            (try_begin),
+              (eq, "$cheat_mode", 1),
+              (this_or_next|eq, ":new_faction", "$players_kingdom"),
+              (             eq, ":faction", "$players_kingdom"),
+              (call_script, "script_add_notification_menu", "mnu_notification_lord_defects", ":troop_no", ":faction"),
+            (try_end),
+          (try_end),
+        (else_try),
+          (neq, ":faction_leader", "trp_player"),
+          (call_script, "script_troop_get_relation_with_troop", ":troop_no", ":faction_leader"),
+          (le, reg0, -50), #was -75
+          (call_script, "script_indict_lord_for_treason", ":troop_no", ":faction"),
+        (try_end),
+      (else_try),  #Take a stand on an issue
+        (neq, ":troop_no", "trp_player"),
+        (store_faction_of_troop, ":faction", ":troop_no"),
+        (faction_slot_ge, ":faction", slot_faction_political_issue, 1),
+        #This bit of complication is needed for savegame compatibility -- if zero is in the slot, they'll choose anyway
+        (neg|troop_slot_ge, ":troop_no", slot_troop_stance_on_faction_issue, 1),
+        (this_or_next|troop_slot_eq, ":troop_no", slot_troop_stance_on_faction_issue, -1),
+        (             neq, "$players_kingdom", ":faction"),
+        (             troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+        (call_script, "script_npc_decision_checklist_take_stand_on_issue", ":troop_no"),
+        (troop_set_slot, ":troop_no", slot_troop_stance_on_faction_issue, reg0),
+      (try_end),
+
+      (try_for_range, ":active_npc", active_npcs_begin, active_npcs_end),
+        (call_script, "script_troop_get_relation_with_troop", ":troop_no", ":active_npc"),
+        (lt, reg0, 0),
+        (assign, ":relation", reg0),
+        (store_sub, ":chance_of_convergence", 0, ":relation"),
+        (store_random_in_range, ":random", 0, 300),
+        (lt, ":random", ":chance_of_convergence"),
+        (call_script, "script_troop_change_relation_with_troop", ":troop_no", ":active_npc", 1),
+        (val_add, "$total_relation_changes_through_convergence", 1),
+      (try_end),
+    ]),
 	
 #TEMPORARILY DISABLED, AS READINESS IS NOW A PRODUCT OF NPC_DECISION_CHECKLIST	
   # Changing readiness to join army
@@ -1358,7 +1436,7 @@ simple_triggers = [
    ]),
 	
     # Count faction armies
-    (24,
+    (24, #40
     [
        (try_for_range, ":faction_no", kingdoms_begin, kingdoms_end),
          (call_script, "script_faction_recalculate_strength", ":faction_no"),
@@ -1800,20 +1878,40 @@ simple_triggers = [
 	   (try_end),
     ]),
 
-  # Check escape chances of hero prisoners.
-  (48,
-   [
-       (call_script, "script_randomly_make_prisoner_heroes_escape_from_party", "p_main_party", 50),
-       (try_for_range, ":center_no", walled_centers_begin, walled_centers_end),
-##         (party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
-         (assign, ":chance", 30),
-         (try_begin),
-           (party_slot_eq, ":center_no", slot_center_has_prisoner_tower, 1),
-           (assign, ":chance", 5),
-         (try_end),
-         (call_script, "script_randomly_make_prisoner_heroes_escape_from_party", ":center_no", ":chance"),
-       (try_end),
+  ## UID: 59 - Begin,
+  #
+##  (48, [
+##       (call_script, "script_randomly_make_prisoner_heroes_escape_from_party", "p_main_party", 50),
+##       (try_for_range, ":center_no", walled_centers_begin, walled_centers_end),
+####         (party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
+##         (assign, ":chance", 30),
+##         (try_begin),
+##           (party_slot_eq, ":center_no", slot_center_has_prisoner_tower, 1),
+##           (assign, ":chance", 5),
+##         (try_end),
+##         (call_script, "script_randomly_make_prisoner_heroes_escape_from_party", ":center_no", ":chance"),
+##       (try_end),
+##    ]),
+
+  (48, [
+      (call_script, "script_randomly_make_prisoner_heroes_escape_from_party", "p_main_party", 50),
+      (try_for_range, ":center", walled_centers_begin, walled_centers_end),
+        (assign, ":chance", 25),
+        (try_begin),
+          (party_get_slot, ":level", ":center", slot_center_building_prisoner_tower),
+          (gt, ":level", 0),
+          (val_mul, ":level", 5),
+          (val_sub, ":chance", ":level"),
+        (try_end),
+
+        (try_begin),
+          (gt, ":chance", 0),
+          (call_script, "script_randomly_make_prisoner_heroes_escape_from_party", ":center", ":chance"),
+        (try_end),
+      (try_end),
     ]),
+  #
+  ## UID: 59 - End
 
   # Asking the ownership of captured centers to the player
 #  (3,
@@ -1957,84 +2055,168 @@ simple_triggers = [
 
 
   #Troop AI: Merchants thinking
-  (8,
-   [
-       (try_for_parties, ":party_no"),
-         (party_slot_eq, ":party_no", slot_party_type, spt_kingdom_caravan),
-         (party_is_in_any_town, ":party_no"),
+  ## UID: 79 - Begin
+  #
+  #(8, [
+  (2, [
+  #
+  ## UID: 79 - End
+      (try_for_parties, ":party_no"),
+        ## UID: 79 - Begin
+        #
+        (try_begin),
+        #
+        ## UID: 79 - End
+          (party_slot_eq, ":party_no", slot_party_type, spt_kingdom_caravan),
+          (party_is_in_any_town, ":party_no"),
 
-         (store_faction_of_party, ":merchant_faction", ":party_no"),
-         (faction_get_slot, ":num_towns", ":merchant_faction", slot_faction_num_towns),
-         (try_begin),
-           (le, ":num_towns", 0),
-           (remove_party, ":party_no"),
-         (else_try),
-           (party_get_cur_town, ":cur_center", ":party_no"),
-           
-           (store_random_in_range, ":random_no", 0, 100),                               
-           
-           (try_begin),
-             (party_slot_eq, ":cur_center", slot_town_lord, "trp_player"),
-             
-             (game_get_reduce_campaign_ai, ":reduce_campaign_ai"),
-             (try_begin),
-               (eq, ":reduce_campaign_ai", 0), #hard (less money from tariffs)
-               (assign, ":tariff_succeed_limit", 35),
-             (else_try),
-               (eq, ":reduce_campaign_ai", 1), #medium (normal money from tariffs)
-               (assign, ":tariff_succeed_limit", 45),
-             (else_try),
-               (eq, ":reduce_campaign_ai", 2), #easy (more money from tariffs)
-               (assign, ":tariff_succeed_limit", 60),
-             (try_end),                
-           (else_try),  
-             (assign, ":tariff_succeed_limit", 45),
-           (try_end),
-                      
-           (lt, ":random_no", ":tariff_succeed_limit"),                  
+          (store_faction_of_party, ":merchant_faction", ":party_no"),
+          (faction_get_slot, ":num_towns", ":merchant_faction", slot_faction_num_towns),
+          (try_begin),
+            (le, ":num_towns", 0),
+            (remove_party, ":party_no"),
+          (else_try),
+            (party_get_cur_town, ":cur_center", ":party_no"),
+            (store_random_in_range, ":random_no", 0, 100),
+            (try_begin),
+              (party_slot_eq, ":cur_center", slot_town_lord, "trp_player"),
+              (game_get_reduce_campaign_ai, ":reduce_campaign_ai"),
+              (try_begin),
+                (eq, ":reduce_campaign_ai", 0), #hard (less money from tariffs)
+                (assign, ":tariff_succeed_limit", 35),
+              (else_try),
+                (eq, ":reduce_campaign_ai", 1), #medium (normal money from tariffs)
+                (assign, ":tariff_succeed_limit", 45),
+              (else_try),
+                (eq, ":reduce_campaign_ai", 2), #easy (more money from tariffs)
+                (assign, ":tariff_succeed_limit", 60),
+              (try_end),                
+            (else_try),  
+              (assign, ":tariff_succeed_limit", 45),
+            (try_end),
+            (lt, ":random_no", ":tariff_succeed_limit"),                  
+            (assign, ":can_leave", 1),
+            (try_begin),
+              (is_between, ":cur_center", walled_centers_begin, walled_centers_end),
+              (neg|party_slot_eq, ":cur_center", slot_center_is_besieged_by, -1),
+              (assign, ":can_leave", 0),
+            (try_end),
+            (eq, ":can_leave", 1),
 
-           (assign, ":can_leave", 1),
-           (try_begin),
-             (is_between, ":cur_center", walled_centers_begin, walled_centers_end),
-             (neg|party_slot_eq, ":cur_center", slot_center_is_besieged_by, -1),
-             (assign, ":can_leave", 0),
-           (try_end),
-           (eq, ":can_leave", 1),
-
-           (assign, ":do_trade", 0),
-           (try_begin),
-             (party_get_slot, ":cur_ai_state", ":party_no", slot_party_ai_state),
-             (eq, ":cur_ai_state", spai_trading_with_town),
-             (party_get_slot, ":cur_ai_object", ":party_no", slot_party_ai_object),
-             (eq, ":cur_center", ":cur_ai_object"),
-             (assign, ":do_trade", 1),
-           (try_end),
-
-           (assign, ":target_center", -1),
-           
-           (try_begin), #Make sure escorted caravan continues to its original destination.
-             (eq, "$caravan_escort_party_id", ":party_no"),
-             (neg|party_is_in_town, ":party_no", "$caravan_escort_destination_town"),
-             (assign, ":target_center", "$caravan_escort_destination_town"),
-           (else_try),         
-             (call_script, "script_cf_select_most_profitable_town_at_peace_with_faction_in_trade_route", ":cur_center", ":merchant_faction"),
-             (assign, ":target_center", reg0),
-           (try_end),
-           (is_between, ":target_center", towns_begin, towns_end),
-           (neg|party_is_in_town, ":party_no", ":target_center"),
-       
-           (try_begin),
-             (eq, ":do_trade", 1),
-             (str_store_party_name, s7, ":cur_center"),             
-             (call_script, "script_do_merchant_town_trade", ":party_no", ":cur_center"),
-           (try_end),
-           (party_set_ai_behavior, ":party_no", ai_bhvr_travel_to_party),
-           (party_set_ai_object, ":party_no", ":target_center"),
-           (party_set_flags, ":party_no", pf_default_behavior, 0),
-           (party_set_slot, ":party_no", slot_party_ai_state, spai_trading_with_town),
-           (party_set_slot, ":party_no", slot_party_ai_object, ":target_center"),
-         (try_end),
-       (try_end),
+            (assign, ":do_trade", 0),
+            (try_begin),
+              (party_get_slot, ":cur_ai_state", ":party_no", slot_party_ai_state),
+              (eq, ":cur_ai_state", spai_trading_with_town),
+              (party_get_slot, ":cur_ai_object", ":party_no", slot_party_ai_object),
+              (eq, ":cur_center", ":cur_ai_object"),
+              (assign, ":do_trade", 1),
+            (try_end),
+  
+            (assign, ":target_center", -1),
+            (try_begin), #Make sure escorted caravan continues to its original destination.
+              (eq, "$caravan_escort_party_id", ":party_no"),
+              (neg|party_is_in_town, ":party_no", "$caravan_escort_destination_town"),
+              (assign, ":target_center", "$caravan_escort_destination_town"),
+            (else_try),         
+              (call_script, "script_cf_select_most_profitable_town_at_peace_with_faction_in_trade_route", ":cur_center", ":merchant_faction"),
+              (assign, ":target_center", reg0),
+            (try_end),
+            (is_between, ":target_center", towns_begin, towns_end),
+            (neg|party_is_in_town, ":party_no", ":target_center"), 
+  
+            (try_begin),
+              (eq, ":do_trade", 1),
+              (str_store_party_name, s7, ":cur_center"),             
+              (call_script, "script_do_merchant_town_trade", ":party_no", ":cur_center"),
+            (try_end),
+            (party_set_ai_behavior, ":party_no", ai_bhvr_travel_to_party),
+            (party_set_ai_object, ":party_no", ":target_center"),
+            (party_set_flags, ":party_no", pf_default_behavior, 0),
+            (party_set_slot, ":party_no", slot_party_ai_state, spai_trading_with_town),
+            (party_set_slot, ":party_no", slot_party_ai_object, ":target_center"),
+          (try_end),
+        ## UID: 79 - Begin
+        #
+        (else_try),
+          (party_slot_eq, ":party_no", slot_party_type, spt_merchant_caravan),
+          (get_party_ai_object, ":object_town", ":party_no"),
+          (party_slot_ge, ":object_town", slot_town_is_coastal, 1),
+          (store_distance_to_party_from_party, ":dist", ":party_no", ":object_town"),
+          (party_get_position, pos0, ":object_town"),     
+          (party_get_slot, ":radius", ":object_town", slot_town_is_coastal),
+          (val_add, ":radius", 3),
+          (lt, ":dist", ":radius"),               
+          (assign, ":cur_center", ":object_town"),
+          (store_faction_of_party, ":merchant_faction", ":party_no"),
+          (faction_get_slot, ":num_towns", ":merchant_faction", slot_faction_num_towns),
+          (try_begin),
+            (le, ":num_towns", 0),
+            (remove_party, ":party_no"),
+          (else_try),         
+            (store_random_in_range, ":random_no", 0, 100),
+            (try_begin),
+              (party_slot_eq, ":cur_center", slot_town_lord, "trp_player"),
+              (game_get_reduce_campaign_ai, ":reduce_campaign_ai"),
+              (try_begin),
+                (eq, ":reduce_campaign_ai", 0), #hard (less money from tariffs)
+                (assign, ":tariff_succeed_limit", 35),
+              (else_try),
+                (eq, ":reduce_campaign_ai", 1), #medium (normal money from tariffs)
+                (assign, ":tariff_succeed_limit", 45),
+              (else_try),
+                (eq, ":reduce_campaign_ai", 2), #easy (more money from tariffs)
+                (assign, ":tariff_succeed_limit", 60),
+              (try_end),               
+            (else_try),
+              (assign, ":tariff_succeed_limit", 45),
+            (try_end),
+            (lt, ":random_no", ":tariff_succeed_limit"),                 
+   
+            (assign, ":can_leave", 1),
+            (try_begin),
+              (is_between, ":cur_center", walled_centers_begin, walled_centers_end),
+              (neg|party_slot_eq, ":cur_center", slot_center_is_besieged_by, -1),
+              (assign, ":can_leave", 0),
+            (try_end),
+            (eq, ":can_leave", 1),
+   
+            (assign, ":do_trade", 0),
+            (try_begin),
+              (party_get_slot, ":cur_ai_state", ":party_no", slot_party_ai_state),
+              (eq, ":cur_ai_state", spai_trading_with_town),
+              (party_get_slot, ":cur_ai_object", ":party_no", slot_party_ai_object),
+              (eq, ":cur_center", ":cur_ai_object"),
+              (assign, ":do_trade", 1),
+            (try_end),
+            (assign, ":target_center", -1),
+            (try_begin),
+              (call_script, "script_cf_select_most_profitable_coastal_town_at_peace_with_faction_in_trade_route", ":cur_center", ":merchant_faction"),
+              (assign, ":target_center", reg0),
+            (try_end),
+            (is_between, ":target_center", towns_begin, towns_end),
+            (store_distance_to_party_from_party, ":target_dist", ":party_no", ":target_center"),
+            (party_get_position, pos0, ":target_center"),
+            (party_get_slot, ":radius", ":target_center", slot_town_is_coastal),
+            (map_get_water_position_around_position, pos1, pos0, ":radius"),
+            (val_add, ":radius", 2),           
+            (gt, ":target_dist", ":radius"), #was 5 #Ensures that they aren't already at the target party...just a redundancy check, as there is with caravans
+            (try_begin),
+              (eq, ":do_trade", 1),
+              (str_store_party_name, s7, ":cur_center"),
+              (call_script, "script_do_merchant_town_trade", ":party_no", ":cur_center"),
+            (try_end),
+   
+            (party_set_ai_behavior, ":party_no", ai_bhvr_travel_to_point),
+            (party_set_ai_target_position, ":party_no", pos1),
+            (party_set_ai_object, ":party_no", ":target_center"),
+            (party_set_flags, ":party_no", pf_default_behavior, 0),
+            (party_set_slot, ":party_no", slot_party_ai_state, spai_trading_with_town),
+            (party_set_slot, ":party_no", slot_party_ai_object, ":target_center"),
+          (try_end),
+        (try_end),
+        #
+        ## UID: 79 - End
+      (try_end),
     ]),
 
   #Troop AI: Village farmers thinking
@@ -2289,63 +2471,180 @@ simple_triggers = [
        (try_end),
      (try_end),
     ]),
-  
-  # Consuming food at every 14 hours
-  (14,
-   [
-    (eq, "$g_player_is_captive", 0),
-    (party_get_num_companion_stacks, ":num_stacks","p_main_party"),
-    (assign, ":num_men", 0),
-    (try_for_range, ":i_stack", 0, ":num_stacks"),
-      (party_stack_get_size, ":stack_size","p_main_party",":i_stack"),
-      (val_add, ":num_men", ":stack_size"),
-    (try_end),
-    (val_div, ":num_men", 3),
-    (try_begin),
-      (eq, ":num_men", 0),
-      (val_add, ":num_men", 1),
-    (try_end),
-    
-    (try_begin),
-      (assign, ":number_of_foods_player_has", 0),
-      (try_for_range, ":cur_edible", food_begin, food_end),      
-        (call_script, "script_cf_player_has_item_without_modifier", ":cur_edible", imod_rotten),
-        (val_add, ":number_of_foods_player_has", 1),
+
+  ## UID: 113 - Begin
+  #
+  # Before it was once in 14 hours but we should need 3 times a day!
+  (8, [
+      (eq, "$g_player_is_captive", 0), #Not captured?
+
+      (party_get_num_companion_stacks, ":stacks", "p_main_party"),
+      (assign, ":count", 0),
+      (try_for_range, ":i", 0, ":stacks"),
+        (party_stack_get_size, ":size", "p_main_party", ":i"),
+        (val_add, ":count", ":size"),
       (try_end),
+
+      (store_sub, ":difficulty", 5, "$g_difficulty"),
+      (val_mul, ":difficulty", 2),
+      (val_sub, ":difficulty", 1),
+      
+      (call_script, "script_get_max_skill_of_player_party", "skl_taste_id"),
+      (assign, ":skill", reg0),
       (try_begin),
-        (ge, ":number_of_foods_player_has", 6),
-        (unlock_achievement, ACHIEVEMENT_ABUNDANT_FEAST),        
+        (gt, ":skill", 0),
+        (val_mul, ":skill", ":difficulty"), #Per Skill: (Reality = 1% - Hard = 3% - Normal = 5% - Easy = 7% - Very Easy = 9%)
+        (store_mul, ":bonus", ":count", ":skill"),
+        (val_div, ":bonus", 100),
+        (val_sub, ":count", ":bonus"),
       (try_end),
-    (try_end),
-    
-    (assign, ":consumption_amount", ":num_men"),
-    (assign, ":no_food_displayed", 0),
-    (try_for_range, ":unused", 0, ":consumption_amount"),
-      (assign, ":available_food", 0),
-      (try_for_range, ":cur_food", food_begin, food_end),
-        (item_set_slot, ":cur_food", slot_item_is_checked, 0),
-        (call_script, "script_cf_player_has_item_without_modifier", ":cur_food", imod_rotten),
-        (val_add, ":available_food", 1),
-      (try_end),
-      (try_begin),
-        (gt, ":available_food", 0),
-        (store_random_in_range, ":selected_food", 0, ":available_food"),
-        (call_script, "script_consume_food", ":selected_food"),
-      (else_try),
-        (eq, ":no_food_displayed", 0),
-        (display_message, "@Party has nothing to eat!", 0xFF0000),
-        (call_script, "script_change_player_party_morale", -3),
-        (assign, ":no_food_displayed", 1),
-#NPC companion changes begin
+      (val_max, ":count", 1),
+
+      (assign, ":no_drink", 0),
+      (assign, ":no_food", 0),
+      (try_for_range, ":unused", 0, ":count"),
         (try_begin),
+          (assign, ":food", 0),
+          (try_for_range, ":i", food_begin, food_end),
+            (call_script, "script_cf_player_has_item_without_modifier", ":i", imod_rotten),
+            (val_add, ":food", 1),
+          (try_end),
+
+          (try_begin),
+            (ge, ":food", 6),
+            (unlock_achievement, ACHIEVEMENT_ABUNDANT_FEAST),
+          (try_end),
+        (try_end),
+
+        (assign, ":drink", 0),
+        (try_for_range, ":i", drink_begin, drink_end),
+          (player_has_item, ":i"),
+          (val_add, ":drink", 1),
+        (try_end),
+
+        (try_begin),
+          (gt, ":drink", 0),
+          (store_random_in_range, ":sel", 0, ":drink"),
+          (call_script, "script_consume_drink", ":sel"),
+        (else_try),
+          (eq, ":no_drink", 0),
+          (display_message, "@Party has nothing to drink!", 0xFF0000),
+          (call_script, "script_change_player_party_morale", -4),
+          (assign, ":no_drink", 1),
+        (try_end),
+
+        (try_begin),
+          (gt, ":food", 0),
+          (store_random_in_range, ":sel", 0, ":food"),
+          (call_script, "script_consume_food", ":sel"),
+        (else_try),
+          (eq, ":no_food"),
+          (display_message, "@Party has nothing to eat!", 0xFF0000),
+          (call_script, "script_change_player_party_morale", -3),
+          (assign, ":no_food", 1),
+          (try_begin),
             (call_script, "script_party_count_fit_regulars", "p_main_party"),
             (gt, reg0, 0),
             (call_script, "script_objectionable_action", tmt_egalitarian, "str_men_hungry"),
+          (try_end),
         (try_end),
-#NPC companion changes end
       (try_end),
-    (try_end),
     ]),
+  
+  # Consuming food at every 14 hours
+##  (14, [
+##      (eq, "$g_player_is_captive", 0),
+##      (party_get_num_companion_stacks, ":num_stacks","p_main_party"),
+##      (assign, ":num_men", 0),
+##      (try_for_range, ":i_stack", 0, ":num_stacks"),
+##        (party_stack_get_size, ":stack_size","p_main_party",":i_stack"),
+##        (val_add, ":num_men", ":stack_size"),
+##      (try_end),
+##      (val_div, ":num_men", 3),
+##      (try_begin),
+##        (eq, ":num_men", 0),
+##        (val_add, ":num_men", 1),
+##      (try_end),
+##
+##      (try_begin),
+##        (assign, ":number_of_foods_player_has", 0),
+##        (try_for_range, ":cur_edible", food_begin, food_end),
+##          (call_script, "script_cf_player_has_item_without_modifier", ":cur_edible", imod_rotten),
+##          (val_add, ":number_of_foods_player_has", 1),
+##        (try_end),
+##
+##        (try_begin),
+##          (ge, ":number_of_foods_player_has", 6),
+##          (unlock_achievement, ACHIEVEMENT_ABUNDANT_FEAST),
+##        (try_end),
+##      (try_end),
+##
+##      ## UID: 86 - Begin
+##      #
+##      (assign, ":number_of_drinks_player_has", 0),
+##      (try_for_range, ":drink", drink_begin, drink_end),
+##        (player_has_item, ":drink"),
+##        (val_add, ":number_of_drinks_player_has", 1),
+##      (try_end),
+##
+##      (assign, ":consumption_amount", ":num_men"),
+##      (assign, ":no_food_displayed", 0),
+##      ## UID: 86 - Begin
+##      #
+##      (assign, ":no_drink_displayed", 0),
+##      #
+##      ## UID: 86 - End
+##      (try_for_range, ":unused", 0, ":consumption_amount"),
+##        (assign, ":available_food", 0),
+##        (try_for_range, ":cur_food", food_begin, food_end),
+##          (item_set_slot, ":cur_food", slot_item_is_checked, 0),
+##          (call_script, "script_cf_player_has_item_without_modifier", ":cur_food", imod_rotten),
+##          (val_add, ":available_food", 1),
+##        (try_end),
+##
+##        ## UID: 86 - Begin
+##        #
+##        (assign, ":available_drink", 0),
+##        (try_for_range, ":drink", drink_begin, drink_end),
+##          (item_set_slot, ":drink", slot_item_is_checked, 0),
+##          (player_has_item, ":drink"),
+##          (val_add, ":available_drink", 1),
+##        (try_end),
+##
+##        (try_begin),
+##          (gt, ":available_drink", 0),
+##          (store_random_in_range, ":selected_drink", 0, ":available_drink"),
+##          (call_script, "script_consume_drink", ":selected_drink"),
+##        (else_try),
+##          (eq, ":no_drink_displayed", 0),
+##          (display_message, "@Party has nothing to drink!", 0xFF0000),
+##          (call_script, "script_change_player_party_morale", -4),
+##          (assign, ":no_drink_displayed", 1),
+##        (try_end),
+##        #
+##        ## UID: 86 - End
+##
+##        (try_begin),
+##          (gt, ":available_food", 0),
+##          (store_random_in_range, ":selected_food", 0, ":available_food"),
+##          (call_script, "script_consume_food", ":selected_food"),
+##        (else_try),
+##          (eq, ":no_food_displayed", 0),
+##          (display_message, "@Party has nothing to eat!", 0xFF0000),
+##          (call_script, "script_change_player_party_morale", -3),
+##          (assign, ":no_food_displayed", 1),
+##          #NPC companion changes begin
+##          (try_begin),
+##            (call_script, "script_party_count_fit_regulars", "p_main_party"),
+##            (gt, reg0, 0),
+##            (call_script, "script_objectionable_action", tmt_egalitarian, "str_men_hungry"),
+##          (try_end),
+##          #NPC companion changes end
+##        (try_end),
+##      (try_end),
+##    ]),
+  #
+  ## UID: 113 - End
 
   # Setting item modifiers for food
   (24,
@@ -2582,11 +2881,13 @@ simple_triggers = [
   (48, [
       (try_for_range, ":center", centers_begin, centers_end),
         (party_slot_eq, ":center", slot_center_current_improvement, 0),
-        (neg|party_slot_eq, ":center", slot_town_lord, "trp_player"),
+        (party_get_slot, ":lord", ":center", slot_town_lord),
+        (neq, ":lord", "trp_player"),
         (call_script, "script_get_random_improvement", ":center", 0),
         (gt, reg9, 0),
         (store_random_in_range, ":random", 0, 100),
-        (lt, ":random", 2), #2% chance to upgrade
+        (lt, ":random", 1), #1% chance to upgrade
+        (gt, ":lord", 0), #Check if center has a lord...
         (call_script, "script_upgrade_building", ":center", reg9, 0),
       (try_end),
     ]),
@@ -2601,15 +2902,157 @@ simple_triggers = [
         (try_begin),
           (gt, ":barracks", 0),
           (party_get_slot, ":faction", ":center", slot_center_original_faction),
+          (val_min, ":barracks", 4),
+          (val_add, ":barracks", 1),
           (store_random_in_range, ":random", 0, ":barracks"),
-          (assign, ":tier", slot_faction_tier_1_troop),
-          (val_add, ":tier", ":random"),
-          (faction_get_slot, ":troop", ":faction", ":random"),          
-          (party_add_members, ":center", ":troop", ":barracks"),
+          (store_add, ":tier", slot_faction_tier_1_troop, ":random"),
+          (faction_get_slot, ":troop", ":faction", ":tier"),
+
+          (store_sub, ":divider", ":tier", slot_faction_tier_1_troop),
+          (val_add, ":divider", 1),
+          (store_div, ":amount", ":barracks", ":divider"),
+          (party_add_members, ":center", ":troop", ":amount"),
         (try_end),
+      (try_end),
     ]),
   #
   ## UID: 20 - End
+
+  ## UID: 43 - Begin
+  #
+  ## UID: 92 - Begin
+  #
+  #(24 * 7, [
+  (24, [
+  #
+  ## UID: 92 - End
+      (store_current_hours, ":hour"),
+      (val_add, ":hour", 168),
+      (assign, "$g_next_pay_time", ":hour"),
+      (eq, "$freelancer_state", 1),
+      (troop_get_slot, ":service_xp_start", "trp_player", slot_troop_freelancer_start_xp),
+      (troop_get_xp, ":player_xp_cur", "trp_player"),
+      (store_sub, ":service_xp_cur", ":player_xp_cur", ":service_xp_start"),
+
+      #ranks for pay levels and to upgrade player equipment based on upgrade troop level times 1000
+      # (try_begin),
+      #   (troop_get_upgrade_troop, ":upgrade_troop", "$player_cur_troop", 0),
+      #   (gt, ":upgrade_troop", 1), #make sure troop is valid and not player troop
+      #   (store_character_level, ":level", ":upgrade_troop"),
+      #   (store_pow, ":required_xp", ":level", 2), #square the level and
+      #   (val_mul, ":required_xp", 100),           #multiply by 100 to get xp
+      #   (ge, ":service_xp_cur", ":level"),
+      #   (jump_to_menu, "mnu_upgrade_path"),
+      # (try_end),
+
+      (try_begin),
+        (troop_get_upgrade_troop, ":upgrade_troop", "$player_cur_troop", 0),
+        (gt, ":upgrade_troop", 1), #make sure troop is valid and not player troop
+        (call_script, "script_game_get_upgrade_xp", "$player_cur_troop"),
+        (assign, ":required_xp", reg0),
+        ##THIS  BLOCK IS ALMOST DEFINITELY BE BETTER than the above two lines which could be commented out in exchange for them.
+        # (store_character_level, ":cur_level", "$player_cur_troop"),
+        # (val_sub, ":cur_level", 1),
+        # (get_level_boundary, ":cur_level", ":cur_level"),
+        # (store_character_level, ":required_xp", ":upgrade_troop"),
+        # (val_sub, ":required_xp", 1),
+        # (get_level_boundary, ":required_xp", ":required_xp"),
+        # (val_sub, ":required_xp", ":cur_level"),
+        ##
+
+        (ge, ":service_xp_cur", ":required_xp"),
+        (try_begin),
+          (call_script, "script_cf_freelancer_player_can_upgrade", ":upgrade_troop"),
+          (troop_set_slot, "trp_player", slot_troop_freelancer_start_xp, ":player_xp_cur"),
+          (jump_to_menu, "mnu_upgrade_path"),
+        (else_try),
+          (assign, ":reason", reg0), #from cf_freelancer_player_can_upgrade
+          (try_begin),
+            (eq, ":reason", 0), #not enough strength, for melee weapons
+            (display_message, "@You are not strong enough to lift a weapon fit for your promotion!"),
+          (else_try),
+            (eq, ":reason", 1), #not enough strength, for armor
+            (display_message, "@You are not strong enough to hold all that weight required with promotion!."),
+          (else_try),
+            (eq, ":reason", 2), #not enough power draw/throw/strength for bow/crossbow/throwing
+            (display_message, "@Your arms are to weak to advance in the artillary at this moment."),
+          (else_try),
+            (eq, ":reason", 3), #not enough riding skill for horse
+            (display_message, "@You require more horse riding skills to fit your next poisition!"),
+          ## UID: 92 - Begin
+          #
+          (else_try),
+            (eq, ":reason", 4),
+            (display_message, "@You have leveled up!"),
+          #
+          ## UID: 92 - End
+          (try_end),
+        (try_end),
+      (try_end),
+
+      ## UID: 92 - Begin
+      #
+      #(store_character_level, ":level", "$player_cur_troop"),
+      #(val_add, ":level", "$player_cur_troop_prom"),
+      ##pays player 10 times the troop level
+      #(store_mul, ":weekly_pay", 10, ":level"),
+      #(troop_add_gold, "trp_player", ":weekly_pay"),
+      #(add_xp_to_troop, ":weekly_pay", "trp_player"),
+      #(play_sound, "snd_money_received", 0),
+      #
+      ## UID: 92 - End
+    ]),
+
+  ## UID: 92 - Begin
+  #
+  (24 * 7, [
+      (store_character_level, ":level", "$player_cur_troop"),
+      (val_add, ":level", "$player_cur_troop_prom"),
+      #pays player 10 times the troop level
+      (store_mul, ":weekly_pay", 10, ":level"),
+      (troop_add_gold, "trp_player", ":weekly_pay"),
+      (add_xp_to_troop, ":weekly_pay", "trp_player"),
+      (play_sound, "snd_money_received", 0),
+    ]),
+  #
+  ## UID: 92 - End
+
+#  HOURLY CHECKS
+
+    (1,[
+        (eq, "$freelancer_state", 1),
+        #so that sight and camera follows near commander's party
+        (set_camera_follow_party, "$enlisted_party"),
+        (party_relocate_near_party, "p_main_party", "$enlisted_party", 1), 
+
+        (assign, ":num_food", 0),
+        (troop_get_inventory_capacity, ":max_inv_slot", "trp_player"),
+        (try_for_range, ":cur_inv_slot", ek_item_0, ":max_inv_slot"),
+           (troop_get_inventory_slot, ":cur_item", "trp_player", ":cur_inv_slot"),
+           (ge, ":cur_item", 0),
+           (is_between, ":cur_item", food_begin, food_end),
+           (val_add, ":num_food", 1),
+        (try_end),
+        (try_begin),
+           (lt, ":num_food", 2),
+           (troop_add_item, "trp_player", "itm_bread"),
+        (try_end),
+
+        (assign, ":num_drink", 0),
+        (troop_get_inventory_capacity, ":max_inv_slot", "trp_player"),
+        (try_for_range, ":cur_inv_slot", ek_item_0, ":max_inv_slot"),
+           (troop_get_inventory_slot, ":cur_item", "trp_player", ":cur_inv_slot"),
+           (ge, ":cur_item", 0),
+           (is_between, ":cur_item", drink_begin, drink_end),
+           (val_add, ":num_drink", 1),
+        (try_end),
+        (try_begin),
+           (lt, ":num_drink", 2),
+           (troop_add_item, "trp_player", "itm_tea"),
+        (try_end),
+    ]),
+  #
+  ## UID: 43 - End
 
   # Adding tournaments to towns
   # Adding bandits to towns and villages
@@ -2905,76 +3348,103 @@ simple_triggers = [
     (try_end),
     ]),
 
-  (3, #check to see if player's court has been captured
-   [
-     (try_begin), #The old court has been lost
-       (is_between, "$g_player_court", centers_begin, centers_end),
-       (store_faction_of_party, ":court_faction", "$g_player_court"),
-       (neq, ":court_faction", "fac_player_supporters_faction"),
-       (call_script, "script_add_notification_menu", "mnu_notification_court_lost", 0, 0),
-     (else_try),	#At least one new court has been found
-       (lt, "$g_player_court", centers_begin),
-       #Will by definition not active until a center is taken by the player faction
-       #Player minister must have been appointed at some point
-       (this_or_next|faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
-		(gt, "$g_player_minister", 0),
-		
-       (assign, ":center_found", 0),
-       (try_for_range, ":walled_center", walled_centers_begin, walled_centers_end),
-         (eq, ":center_found", 0),
-         (store_faction_of_party, ":court_faction", ":walled_center"),
-         (eq, ":court_faction", "fac_player_supporters_faction"),
-         (assign, ":center_found", ":walled_center"),
-       (try_end),
-       (ge, ":center_found", 1),
-       (call_script, "script_add_notification_menu", "mnu_notification_court_lost", 0, 0),
-     (try_end),
-     #Also, piggy-backing on this -- having bandits go to lairs and back
-     (try_for_parties, ":bandit_party"),
-       (gt, ":bandit_party", "p_spawn_points_end"),
-       (party_get_template_id, ":bandit_party_template", ":bandit_party"),
-       (is_between, ":bandit_party_template", "pt_steppe_bandits", "pt_deserters"),
-       (party_template_get_slot, ":bandit_lair", ":bandit_party_template", slot_party_template_lair_party),
-       (try_begin),#If party is active and bandit is far away, then move to location
-         (gt, ":bandit_lair", "p_spawn_points_end"),
-         (store_distance_to_party_from_party, ":distance", ":bandit_party", ":bandit_lair"), #this is the cause of the error
-         (gt, ":distance", 30),
-         #All this needs checking
-         (party_set_ai_behavior, ":bandit_party", ai_bhvr_travel_to_point),
-         (party_get_position, pos5, ":bandit_lair"),
-         (party_set_ai_target_position, ":bandit_party", pos5),
-       (else_try), #Otherwise, act freely
-         (get_party_ai_behavior, ":behavior", ":bandit_party"),
-         (eq, ":behavior", ai_bhvr_travel_to_point),
-         (try_begin),
-           (gt, ":bandit_lair", "p_spawn_points_end"),
-           (store_distance_to_party_from_party, ":distance", ":bandit_party", ":bandit_lair"),
-           (lt, ":distance", 3),
-           (party_set_ai_behavior, ":bandit_party", ai_bhvr_patrol_party),
-           (party_template_get_slot, ":spawnpoint", ":bandit_party_template", slot_party_template_lair_spawnpoint),
-           (party_set_ai_object, ":bandit_party", ":spawnpoint"),
-           (party_set_ai_patrol_radius, ":bandit_party", 45),
-         (else_try),
-           (lt, ":bandit_lair", "p_spawn_points_end"),
-           (party_set_ai_behavior, ":bandit_party", ai_bhvr_patrol_party),
-           (party_template_get_slot, ":spawnpoint", ":bandit_party_template", slot_party_template_lair_spawnpoint),
-           (party_set_ai_object, ":bandit_party", ":spawnpoint"),
-           (party_set_ai_patrol_radius, ":bandit_party", 45),
-         (try_end),
-       (try_end),
-     (try_end),
-     #Piggybacking on trigger:
-     (try_begin),
-       (troop_get_slot, ":betrothed", "trp_player", slot_troop_betrothed),
-       (gt, ":betrothed", 0),
-       (neg|check_quest_active, "qst_wed_betrothed"),
-       (neg|check_quest_active, "qst_wed_betrothed_female"),
-       (str_store_troop_name, s5, ":betrothed"),
-       (display_message, "@Betrothal to {s5} expires"),
-       (troop_set_slot, "trp_player", slot_troop_betrothed, -1),
-       (troop_set_slot, ":betrothed", slot_troop_betrothed, -1),
-     (try_end),
-     ]),
+  (3, [
+      (try_begin), #The old court has been lost
+        (is_between, "$g_player_court", centers_begin, centers_end),
+        (store_faction_of_party, ":court_faction", "$g_player_court"),
+
+        ## UID: 67 - Begin
+        #
+        (assign, ":pfaction", "fac_player_supporters_faction"),
+        (try_begin),
+          (is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
+          (faction_slot_eq, "$players_kingdom", slot_faction_leader, "trp_player"),
+          (assign, ":pfaction", "$players_kingdom"),
+        (try_end),
+        (neq, ":court_faction", ":pfaction"),
+        #(neq, ":court_faction", "fac_player_supporters_faction"),
+        #
+        ## UID: 67 - End
+        (call_script, "script_add_notification_menu", "mnu_notification_court_lost", 0, 0),
+      (else_try),	#At least one new court has been found
+        (lt, "$g_player_court", centers_begin),
+        #Will by definition not active until a center is taken by the player faction
+        #Player minister must have been appointed at some point
+        ## UID: 67 - Begin
+        #
+        (assign, ":pfaction", "fac_player_supporters_faction"),
+        (try_begin),
+          (is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
+          (faction_slot_eq, "$players_kingdom", slot_faction_leader, "trp_player"),
+          (assign, ":pfaction", "$players_kingdom"),
+        (try_end),
+        #(this_or_next|faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
+        (this_or_next|faction_slot_eq, ":pfaction", slot_faction_leader, "trp_player"),
+        #
+        ## UID: 67 - End
+        (             gt, "$g_player_minister", 0),
+        (assign, ":center_found", 0),
+        (try_for_range, ":walled_center", walled_centers_begin, walled_centers_end),
+          (eq, ":center_found", 0),
+          (store_faction_of_party, ":court_faction", ":walled_center"),
+          ## UID: 67 - Begin
+          #
+          (eq, ":court_faction", ":pfaction"),
+          #(eq, ":court_faction", "fac_player_supporters_faction"),
+          #
+          ## UID: 67 - End
+          (assign, ":center_found", ":walled_center"),
+        (try_end),
+        (ge, ":center_found", 1),
+        (call_script, "script_add_notification_menu", "mnu_notification_court_lost", 0, 0),
+      (try_end),
+
+      #Also, piggy-backing on this -- having bandits go to lairs and back
+      (try_for_parties, ":bandit_party"),
+        (gt, ":bandit_party", "p_spawn_points_end"),
+        (party_get_template_id, ":bandit_party_template", ":bandit_party"),
+        (is_between, ":bandit_party_template", "pt_steppe_bandits", "pt_deserters"),
+        (party_template_get_slot, ":bandit_lair", ":bandit_party_template", slot_party_template_lair_party),
+        (try_begin),#If party is active and bandit is far away, then move to location
+          (gt, ":bandit_lair", "p_spawn_points_end"),
+          (store_distance_to_party_from_party, ":distance", ":bandit_party", ":bandit_lair"), #this is the cause of the error
+          (gt, ":distance", 30),
+          #All this needs checking
+          (party_set_ai_behavior, ":bandit_party", ai_bhvr_travel_to_point),
+          (party_get_position, pos5, ":bandit_lair"),
+          (party_set_ai_target_position, ":bandit_party", pos5),
+        (else_try), #Otherwise, act freely
+          (get_party_ai_behavior, ":behavior", ":bandit_party"),
+          (eq, ":behavior", ai_bhvr_travel_to_point),
+          (try_begin),
+            (gt, ":bandit_lair", "p_spawn_points_end"),
+            (store_distance_to_party_from_party, ":distance", ":bandit_party", ":bandit_lair"),
+            (lt, ":distance", 3),
+            (party_set_ai_behavior, ":bandit_party", ai_bhvr_patrol_party),
+            (party_template_get_slot, ":spawnpoint", ":bandit_party_template", slot_party_template_lair_spawnpoint),
+            (party_set_ai_object, ":bandit_party", ":spawnpoint"),
+            (party_set_ai_patrol_radius, ":bandit_party", 45),
+          (else_try),
+            (lt, ":bandit_lair", "p_spawn_points_end"),
+            (party_set_ai_behavior, ":bandit_party", ai_bhvr_patrol_party),
+            (party_template_get_slot, ":spawnpoint", ":bandit_party_template", slot_party_template_lair_spawnpoint),
+            (party_set_ai_object, ":bandit_party", ":spawnpoint"),
+            (party_set_ai_patrol_radius, ":bandit_party", 45),
+          (try_end),
+        (try_end),
+      (try_end),
+      #Piggybacking on trigger:
+      (try_begin),
+        (troop_get_slot, ":betrothed", "trp_player", slot_troop_betrothed),
+        (gt, ":betrothed", 0),
+        (neg|check_quest_active, "qst_wed_betrothed"),
+        (neg|check_quest_active, "qst_wed_betrothed_female"),
+        (str_store_troop_name, s5, ":betrothed"),
+        (display_message, "@Betrothal to {s5} expires"),
+        (troop_set_slot, "trp_player", slot_troop_betrothed, -1),
+        (troop_set_slot, ":betrothed", slot_troop_betrothed, -1),
+      (try_end),
+    ]),
 		
   # Reduce renown slightly by 0.5% every week
   (7 * 24,
@@ -2985,61 +3455,83 @@ simple_triggers = [
        (troop_set_slot, "trp_player", slot_troop_renown, ":player_renown"),
     ]),
 
+  ## UID: 34 - Begin
+  #
+  (1, [
+      (neg|map_free),
+      ## UID: 75 - Begin
+      #
+      (try_begin),
+        (gt, "$g_player_writing_book", 0),
+        (call_script, "script_write_book_process", "$g_player_writing_book"),
+      (else_try), #Cannot read book, if he has already writing a book.
+      #
+      ## UID: 75 - End
+        (gt, "$g_player_reading_book", 0),
+        (call_script, "script_read_book_process", "$g_player_reading_book"),
+      ## UID: 75 - Begin
+      #
+      (try_end),
+      #
+      ## UID: 75 - End
+    ]),
   # Read books if player is resting.
-  (1, [(neg|map_free),
-       (gt, "$g_player_reading_book", 0),
-       (player_has_item, "$g_player_reading_book"),
-       (store_attribute_level, ":int", "trp_player", ca_intelligence),
-       (item_get_slot, ":int_req", "$g_player_reading_book", slot_item_intelligence_requirement),
-       (le, ":int_req", ":int"),
-       (item_get_slot, ":book_reading_progress", "$g_player_reading_book", slot_item_book_reading_progress),
-       (item_get_slot, ":book_read", "$g_player_reading_book", slot_item_book_read),
-       (eq, ":book_read", 0),
-       (val_add, ":book_reading_progress", 7),
-       (item_set_slot, "$g_player_reading_book", slot_item_book_reading_progress, ":book_reading_progress"),
-       (ge, ":book_reading_progress", 1000),
-       (item_set_slot, "$g_player_reading_book", slot_item_book_read, 1),
-       (str_store_item_name, s1, "$g_player_reading_book"),
-       (str_clear, s2),
-       (try_begin),
-         (eq, "$g_player_reading_book", "itm_book_tactics"),
-         (troop_raise_skill, "trp_player", "skl_tactics", 1),
-         (str_store_string, s2, "@ Your tactics skill has increased by 1."),
-       (else_try),
-         (eq, "$g_player_reading_book", "itm_book_persuasion"),
-         (troop_raise_skill, "trp_player", "skl_persuasion", 1),
-         (str_store_string, s2, "@ Your persuasion skill has increased by 1."),
-       (else_try),
-         (eq, "$g_player_reading_book", "itm_book_leadership"),
-         (troop_raise_skill, "trp_player", "skl_leadership", 1),
-         (str_store_string, s2, "@ Your leadership skill has increased by 1."),
-       (else_try),
-         (eq, "$g_player_reading_book", "itm_book_intelligence"),
-         (troop_raise_attribute, "trp_player", ca_intelligence, 1),
-         (str_store_string, s2, "@ Your intelligence has increased by 1."),
-       (else_try),
-         (eq, "$g_player_reading_book", "itm_book_trade"),
-         (troop_raise_skill, "trp_player", "skl_trade", 1),
-         (str_store_string, s2, "@ Your trade skill has increased by 1."),
-       (else_try),
-         (eq, "$g_player_reading_book", "itm_book_weapon_mastery"),
-         (troop_raise_skill, "trp_player", "skl_weapon_master", 1),
-         (str_store_string, s2, "@ Your weapon master skill has increased by 1."),
-       (else_try),
-         (eq, "$g_player_reading_book", "itm_book_engineering"),
-         (troop_raise_skill, "trp_player", "skl_engineer", 1),
-         (str_store_string, s2, "@ Your engineer skill has increased by 1."),
-       (try_end),
-       
-       (unlock_achievement, ACHIEVEMENT_BOOK_WORM),
-
-       (try_begin),
-         (eq, "$g_infinite_camping", 0),
-         (dialog_box, "@You have finished reading {s1}.{s2}", "@Book Read"),
-       (try_end),  
-              
-       (assign, "$g_player_reading_book", 0),	   	   
-       ]),
+##  (1, [(neg|map_free),
+##       (gt, "$g_player_reading_book", 0),
+##       (player_has_item, "$g_player_reading_book"),
+##       (store_attribute_level, ":int", "trp_player", ca_intelligence),
+##       (item_get_slot, ":int_req", "$g_player_reading_book", slot_item_intelligence_requirement),
+##       (le, ":int_req", ":int"),
+##       (item_get_slot, ":book_reading_progress", "$g_player_reading_book", slot_item_book_reading_progress),
+##       (item_get_slot, ":book_read", "$g_player_reading_book", slot_item_book_read),
+##       (eq, ":book_read", 0),
+##       (val_add, ":book_reading_progress", 7),
+##       (item_set_slot, "$g_player_reading_book", slot_item_book_reading_progress, ":book_reading_progress"),
+##       (ge, ":book_reading_progress", 1000),
+##       (item_set_slot, "$g_player_reading_book", slot_item_book_read, 1),
+##       (str_store_item_name, s1, "$g_player_reading_book"),
+##       (str_clear, s2),
+##       (try_begin),
+##         (eq, "$g_player_reading_book", "itm_book_tactics"),
+##         (troop_raise_skill, "trp_player", "skl_tactics", 1),
+##         (str_store_string, s2, "@ Your tactics skill has increased by 1."),
+##       (else_try),
+##         (eq, "$g_player_reading_book", "itm_book_persuasion"),
+##         (troop_raise_skill, "trp_player", "skl_persuasion", 1),
+##         (str_store_string, s2, "@ Your persuasion skill has increased by 1."),
+##       (else_try),
+##         (eq, "$g_player_reading_book", "itm_book_leadership"),
+##         (troop_raise_skill, "trp_player", "skl_leadership", 1),
+##         (str_store_string, s2, "@ Your leadership skill has increased by 1."),
+##       (else_try),
+##         (eq, "$g_player_reading_book", "itm_book_intelligence"),
+##         (troop_raise_attribute, "trp_player", ca_intelligence, 1),
+##         (str_store_string, s2, "@ Your intelligence has increased by 1."),
+##       (else_try),
+##         (eq, "$g_player_reading_book", "itm_book_trade"),
+##         (troop_raise_skill, "trp_player", "skl_trade", 1),
+##         (str_store_string, s2, "@ Your trade skill has increased by 1."),
+##       (else_try),
+##         (eq, "$g_player_reading_book", "itm_book_weapon_mastery"),
+##         (troop_raise_skill, "trp_player", "skl_weapon_master", 1),
+##         (str_store_string, s2, "@ Your weapon master skill has increased by 1."),
+##       (else_try),
+##         (eq, "$g_player_reading_book", "itm_book_engineering"),
+##         (troop_raise_skill, "trp_player", "skl_engineer", 1),
+##         (str_store_string, s2, "@ Your engineer skill has increased by 1."),
+##       (try_end),
+##       
+##       (unlock_achievement, ACHIEVEMENT_BOOK_WORM),
+##
+##       (try_begin),
+##         (eq, "$g_infinite_camping", 0),
+##         (dialog_box, "@You have finished reading {s1}.{s2}", "@Book Read"),
+##       (try_end),  
+##              
+##       (assign, "$g_player_reading_book", 0),	   	   
+##       ]),
+  #
+  ## UID: 34 - End
 
 # Removing cattle herds if they are way out of range
   (12, [(try_for_parties, ":cur_party"),
@@ -3069,16 +3561,51 @@ simple_triggers = [
 # Village upgrade triggers
 
 # School
-  (30 * 24,
-   [(try_for_range, ":cur_village", villages_begin, villages_end),
-      (party_slot_eq, ":cur_village", slot_town_lord, "trp_player"),
-      (party_slot_eq, ":cur_village", slot_center_has_school, 1),
-      (party_get_slot, ":cur_relation", ":cur_village", slot_center_player_relation),
-      (val_add, ":cur_relation", 1),
-      (val_min, ":cur_relation", 100),
-      (party_set_slot, ":cur_village", slot_center_player_relation, ":cur_relation"),
-    (try_end),
+  ## UID: 9 - Begin
+  #
+  #(30 * 24, [
+  #    (try_for_range, ":cur_village", villages_begin, villages_end),
+  #      (party_slot_eq, ":cur_village", slot_town_lord, "trp_player"),
+  #      (party_slot_eq, ":cur_village", slot_center_has_school, 1),
+  #      (party_get_slot, ":cur_relation", ":cur_village", slot_center_player_relation),
+  #      (val_add, ":cur_relation", 1),
+  #      (val_min, ":cur_relation", 100),
+  #      (party_set_slot, ":cur_village", slot_center_player_relation, ":cur_relation"),
+  #    (try_end),
+  #  ]),
+  
+  (30 * 24, [
+      (try_for_range, ":center", centers_begin, centers_end),
+        (party_slot_eq, ":center", slot_town_lord, "trp_player"),
+
+        (assign, ":bonus", 0),
+        (try_begin),
+          (party_get_slot, ":statue", ":center", slot_center_building_statue),
+          (val_add, ":bonus", ":statue"),
+        (try_end),
+        (try_begin),
+          (party_get_slot, ":school", ":center", slot_center_building_school),
+          (val_mul, ":school", 2),
+          (val_add, ":bonus", ":statue"),
+        (try_end),
+        (try_begin),
+          (party_get_slot, ":college", ":center", slot_center_building_college),
+          (val_mul, ":college", 4),
+          (val_add, ":bonus", ":college"),
+        (try_end),
+        (try_begin),
+          (party_get_slot, ":university", ":center", slot_center_building_university),
+          (val_mul, ":university", 6),
+          (val_add, ":bonus", ":university"),
+        (try_end),
+        (party_get_slot, ":relation", ":center", slot_center_player_relation),
+        (val_add, ":relation", ":bonus"),
+        (val_min, ":relation", 100),
+        (party_set_slot, ":center", slot_center_player_relation, ":relation"),
+      (try_end),
     ]),
+  #
+  ## UID: 9 - End
 
 # Quest triggers:
 
@@ -3588,6 +4115,8 @@ simple_triggers = [
           (try_end),
           (party_slot_eq, ":camp_no", slot_village_state, svs_normal),
           (store_random_in_range, ":range", 0, ":max"),
+          (party_get_num_companions, ":cur", ":camp_no"),
+          (lt, ":cur", 45),
           (party_add_members, ":camp_no", "trp_bandit", ":range"),
       (try_end),
     ]),
@@ -4072,54 +4601,38 @@ simple_triggers = [
 	(party_set_slot, ":town", slot_center_player_enterprise_days_until_complete, ":days_to_completion"), 
    (try_end),
     ]),
-  (24,
-   [
-	  # Setting food bonuses in every 6 hours again and again because of a bug (we could not find its reason) which decreases especially slot_item_food_bonus slots of items to 0.
-	  #Staples
-      (item_set_slot, "itm_bread", slot_item_food_bonus, 8), #brought up from 4
-      (item_set_slot, "itm_grain", slot_item_food_bonus, 2), #new - can be boiled as porridge
-	  
-	  #Fat sources - preserved
-      (item_set_slot, "itm_smoked_fish", slot_item_food_bonus, 4),
-      (item_set_slot, "itm_dried_meat", slot_item_food_bonus, 5),
-      (item_set_slot, "itm_cheese", slot_item_food_bonus, 5),
-      (item_set_slot, "itm_sausages", slot_item_food_bonus, 5),
-      (item_set_slot, "itm_butter", slot_item_food_bonus, 4), #brought down from 8
+  
+##  (24,
+##   [
+##	  # Setting food bonuses in every 6 hours again and again because of a bug (we could not find its reason) which decreases especially slot_item_food_bonus slots of items to 0.
+##	  #Staples
+##      (item_set_slot, "itm_bread", slot_item_food_bonus, 8), #brought up from 4
+##      (item_set_slot, "itm_grain", slot_item_food_bonus, 2), #new - can be boiled as porridge
+##	  
+##	  #Fat sources - preserved
+##      (item_set_slot, "itm_smoked_fish", slot_item_food_bonus, 4),
+##      (item_set_slot, "itm_dried_meat", slot_item_food_bonus, 5),
+##      (item_set_slot, "itm_cheese", slot_item_food_bonus, 5),
+##      (item_set_slot, "itm_sausages", slot_item_food_bonus, 5),
+##      (item_set_slot, "itm_butter", slot_item_food_bonus, 4), #brought down from 8
+##
+##	  #Fat sources - perishable
+##      (item_set_slot, "itm_chicken", slot_item_food_bonus, 8), #brought up from 7
+##      (item_set_slot, "itm_cattle_meat", slot_item_food_bonus, 7), #brought down from 7
+##      (item_set_slot, "itm_pork", slot_item_food_bonus, 6), #brought down from 6
+##	  
+##	  #Produce
+##      (item_set_slot, "itm_raw_olives", slot_item_food_bonus, 1),
+##      (item_set_slot, "itm_cabbages", slot_item_food_bonus, 2),
+##      (item_set_slot, "itm_raw_grapes", slot_item_food_bonus, 3),
+##      (item_set_slot, "itm_apples", slot_item_food_bonus, 4), #brought down from 5
+##
+##	  #Sweet items
+##      (item_set_slot, "itm_raw_date_fruit", slot_item_food_bonus, 4), #brought down from 8
+##      (item_set_slot, "itm_honey", slot_item_food_bonus, 6), #brought down from 12
+##      
+##      (item_set_slot, "itm_wine", slot_item_food_bonus, 5),
+##      (item_set_slot, "itm_ale", slot_item_food_bonus, 4),
+##   ]),
 
-	  #Fat sources - perishable
-      (item_set_slot, "itm_chicken", slot_item_food_bonus, 8), #brought up from 7
-      (item_set_slot, "itm_cattle_meat", slot_item_food_bonus, 7), #brought down from 7
-      (item_set_slot, "itm_pork", slot_item_food_bonus, 6), #brought down from 6
-	  
-	  #Produce
-      (item_set_slot, "itm_raw_olives", slot_item_food_bonus, 1),
-      (item_set_slot, "itm_cabbages", slot_item_food_bonus, 2),
-      (item_set_slot, "itm_raw_grapes", slot_item_food_bonus, 3),
-      (item_set_slot, "itm_apples", slot_item_food_bonus, 4), #brought down from 5
-
-	  #Sweet items
-      (item_set_slot, "itm_raw_date_fruit", slot_item_food_bonus, 4), #brought down from 8
-      (item_set_slot, "itm_honey", slot_item_food_bonus, 6), #brought down from 12
-      
-      (item_set_slot, "itm_wine", slot_item_food_bonus, 5),
-      (item_set_slot, "itm_ale", slot_item_food_bonus, 4),
-   ]),
-  (24,
-   []),
-  (24,
-   []),
-  (24,
-   []),
-  (24,
-   []),
-  (24,
-   []),
-  (24,
-   []),
-  (24,
-   []),
-  (24,
-   []),
-  (24,
-   []),
 ]

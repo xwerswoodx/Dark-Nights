@@ -1,0 +1,115 @@
+[v0.1]
+1. Köylerden alınacak gönüllü sayısı artık nam ve ilişki ile artıyor.
+2. Şehirlerden alınabilecek asker sayısı artık nam ile artıyor.
+3. Turnuvalarda oynanabilecek bahis artık namınıza göre artıyor.
+4. Yeni silahlar eklendi.
+5. Yeni binekler eklendi.
+6. Artık orjinal İngilizce dil dosyalarını modül sistemi otomatik olarak yaratacak.  
+7. Bazı Türkçe çeviri hataları düzenlendi.
+8. Arena kazancı artık nam ve seviyeyle artacak. 
+9. Şehirlere, köylere ve kaleler için yeni binalar eklendi.
+10. Deniz savaşları eklendi.
+11. Haydut kampları eklendi.
+12. Zorluk eklendi.
+13. Kara şövalyeler ve Çöl süvarileri eklendi.
+14. Modocu girişi eklendi.
+15. Eğer köy yaşlıları veya lonca başkanı ile konuşulduysa menüye seçenek gelmesi, eklendi.
+16. Leydilere hediye verme eklendi.
+17. Sürüler artık partiyi takip edecek.
+18. İnşaat süresini düşürme sistemi eklendi.
+19. Parti limiti ve esir limiti artık nam, karizma ve seviye ile artıyor.
+20. Artık kışlalar 3 günde bir birim üretiyor.
+21. Devriyeler eklendi.
+22. Kralların ve Lordların şehirlerden asker alması eklendi.
+23. Banka sistemi kuruluyor. (Henüz bitmedi)
+24. Yeni krallıklar eklendi.
+25. Tüm eşyaları listeleme sistemi hile menüsüne eklendi.
+26. Cinsiyet kontrol sistemi sonrası için eklendi.  
+29. Partiler artık denizden çıktığında dağlarda takılmayacak.
+30. Lordlar artık ikna ve zeka kabiliyetine göre daha çok sabıtlı olacaklar. (Şuan için iptal)
+31. Taverna animasyonları eklendi.
+32. Lord ayrılma seçeneği değiştirildi.
+33. Köy görev konusu güncellendi.
+34. Okur Yazarlık yeteneği ve yeni kitaplar eklendi.
+35. Asker barı eklendi ve kalıcılık sorunu çözüldü.
+36. Dinler oyuna eklendi. (Herhangi bir krallığa atanmadı.)
+37. Yeni krallıklar için turnuva sistemi tamamen değiştirildi, artık yeni krallıklar ve oyuncunun kendi krallığında turnuvaya herkes kendi giysisi ile katılacak.
+38. Hile menüsüne bir şehirde turnuva başlatma seçeneği eklendi.
+39. Dünya haritası eklendi.
+40. Nüfus eklendi. (Stabilazition sorunundan dolayı iptal)
+41. Savaştan sonra elde edilen gelir miktarı arttırıldı.
+42. Bazı cinsiyet hataları düzenlendi.
+43. Freelancer modülü eklendi ve hataları giderilip, geliştirildi.
+44. Yiyecek moral sistemi değiştirildi.
+45. Lordların parti büyüklüğü arttırıldı.
+46. Asker ağacı eklendi.
+47. Bazı çeviri hataları giderildi.
+48. Tavernalara içecek ısmarlama seçeneği eklendi.
+49. Tavernalara yemek ısmarlama seçeneği eklendi.
+50. Tavernalara kadın kiralama sistemi eklendi.
+51. Loto sistemi eklendi.
+52. Tavernalara kumar oynama eklendi.
+53. Köylerin saldırgan bir eylemde bulun menüsüne zorla asker alma eklendi.  
+54. Oyuna başlama menüsündeki bazı hatalar giderildi.  
+55. Tüccar görevinin mecburiyeti kaldırıldı.
+56. Bazı diyalog hataları düzeltildi.
+57. Şehir hile menüsü eklendi ve hilelerin hepsi içine taşındı.
+58. Item modifier için yeni modül oluşturuldu.
+59. Mahkum kulesi güncellemeleri ayarlandı.
+60. Yeni harita ikonları eklendi.
+61. Lordlara emir verme seçeneğindeki hatalar giderildi.
+62. Oyuncu krallık kurduğunda kendi krallığının devriyesinin çıkması ayarlandı.
+63. Lordlar için takı sistemi oluşturuldu.
+64. Eğer esir limitine ulaşılmış ise artık lordları esir almak mümkün değil.
+65. Eğer bir lord esir alınmış ise artık oyuncunun o lord ile ilişkisi 3 den daha iyi olamaz.
+66. Deniz ve nehir üzerinde kamp kurulması engellendi.
+67. Devirilen krallığın başına geçme sistemi yazıldı.
+68. Oyuncunun krallığı eğer bir kale ele geçirir ise oyuncunun yönetim hakkının artması eklendi.
+69. Artık oyuncular da bir kale aldığında otomatik olarak asker eklenecek.
+70. Artık oyuncu birisine kale verirken, kaleyi feth eden kişinin başında Conquerer takısı olacak.
+71. Bir partinin lord partisi olup olmadığını kontrol eden sistem yazıldı.
+72. Oyuncu bir krallığa katıldığında renginin de ona göre değişmesi eklendi.>
+73. Başkanın ismi değiştirildi ve ulak eklendi.
+74. Artık hile modu açıkken, eşyaların en altında idsi yazacak.
+75. Kitap yazma sistemi eklendi.
+76. Lordlara emir verme sistemi eklendi. 
+77. Bazı evlilik hataları giderildi.
+78. Kale/Şehir tüccar sistemi değiştirildi.
+79. Deniz ticareti oyuna eklendi.
+80. Avcılık eklendi.
+81. Yeni yiyecekler eklendi.
+82. Yeni yiyecekler ve eşyalar eklendi. 
+83. iMod sistemi eklendi.
+84. Yeni eşyalar eklendi.
+85. Yeni modül derleme kodlaması yazıldı.
+86. Artık yiyecek gibi içecek de önemli.
+87. Ödül avcısı paralı asker olarak eklendi.  
+88. Can yenileme sistemi eklendi.
+89. Uzak krallıklara savaş açma engellendi.
+90. Hile menüsündeki bazı menü hataları giderildi.
+91. Lord ilişki sistemi değiştirildi.
+92. Freelancer moduna level atlama sistemi eklendi.
+93. Bazı çeviri hataları giderildi.
+94. Devriyeler için dialog eklendi.
+95. Yeni asker türü Çöl Avcıları ve Çöl Muhafızları eklendi.
+96. Turnuva askerleri değiştirildi.
+97. Artık 1500 den fazla nama sahipken başka krallıklar da turnuva için davet yollayacak.  
+98. Artık hancıdan içecek satın alınabilecek.
+99. Yeni eşyalar eklendi.  
+100. Silah sipariş sistemi değiştirildi.
+101. Samuray giysileri eklendi.
+102. Yeni saç şekilleri eklendi.
+103. Yeni silahlar eklendi.
+104. Arena sistemi değiştirildi, artık tek tek çıkmak yerine daha kalabalık çıkacak.
+105. Yeni gemi ve sahneler eklendi. (Henüz test edilmedi)
+106. Başkandna artık krallığımızın rengini değiştirebileceğiz.
+107. Lordları serbest bırakma eklendi. (Hatalı)
+108. Yeni eklenen kadifelerin artık şehir taşınırken kabul edilmesi eklendi.
+109. Tünel eklendi.
+110. Sipariş hataları düzeltildi.
+111. Artık lordlar kadın krallığı olan Kielian'a katılmayacak.  
+112. Artık içecekler de morali arttırıyor.
+113. Erzak yönetimi eklendi ve yiyecek/içecek sistemi değiştirildi.
+114. Erzak Yönetimi yeteneği için 2 yeni yandaş eklendi.
+115. Müttefiklik sisteminin temelleri atıldı. (Henüz oyuna etkisi yok.)
+116. Yeni eklenen umalelith krallığı için leydiler eklendi.

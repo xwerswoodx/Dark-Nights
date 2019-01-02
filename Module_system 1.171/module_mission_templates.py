@@ -6,6 +6,11 @@ from header_sounds import *
 from header_music import *
 from header_items import *
 from module_constants import *
+## UID: 88 - Begin
+#
+from ID_skills import *
+#
+## UID: 88 - End
 
 ####################################################################################################################
 #   Each mission-template is a tuple that contains the following fields:
@@ -341,6 +346,58 @@ multiplayer_server_check_belfry_movement = (
     (try_end),
     ])
 
+dedal_tavern_animations = (
+    ti_on_agent_spawn,1,0,[
+        (eq, "$talk_context", tc_tavern_talk),
+        (store_trigger_param_1,":agent"),
+        (agent_get_troop_id,":troop",":agent"),
+
+        (try_begin),
+          (is_between,":troop", "trp_musician_male", "trp_musicians_end"),
+          (try_begin),
+            (agent_has_item_equipped,":agent","itm_dedal_lutnia"),
+            (agent_set_stand_animation, ":agent", "anim_lute_sitting"),
+            (agent_set_animation, ":agent", "anim_lute_sitting"),
+            (agent_play_sound, ":agent", "snd_dedal_tavern_lute"),
+          (else_try),
+            (agent_has_item_equipped,":agent","itm_dedal_lira"),
+            (agent_set_stand_animation, ":agent", "anim_lyre_sitting"),
+            (agent_set_animation, ":agent", "anim_lyre_sitting"),
+            (agent_play_sound,":agent","snd_dedal_tavern_lyre"),
+          (try_end),
+          (store_random_in_range,":r",0,300),
+          (agent_set_animation_progress,":agent",":r"),
+        (else_try),
+          (is_between,":troop", tavern_minstrels_begin, tavern_minstrels_end),
+          (try_begin),
+            (agent_has_item_equipped, ":agent", "itm_dedal_lutnia"),
+            (agent_set_stand_animation, ":agent", "anim_lute_standing"),
+            (agent_set_animation, ":agent", "anim_lute_standing"),
+            (agent_play_sound,":agent","snd_dedal_tavern_lute"),
+          (else_try),
+            (agent_has_item_equipped,":agent","itm_dedal_lira"),
+            (agent_set_stand_animation, ":agent", "anim_lyre_standing"),
+            (agent_set_animation, ":agent", "anim_lyre_standing"),
+            (agent_play_sound,":agent","snd_dedal_tavern_lyre"),
+          (try_end),
+          (store_random_in_range,":r",0,300),
+          (agent_set_animation_progress,":agent",":r"),
+        (else_try),
+          (is_between,":troop",walkers_begin,walkers_end),
+          (try_begin),
+            (agent_has_item_equipped,":agent","itm_dedal_kufel"),
+            (agent_set_stand_animation, ":agent", "anim_sitting_drinking_low"),
+            (agent_set_animation, ":agent", "anim_sitting_drinking_low"),
+            (store_random_in_range,":r",0,300),
+          (else_try),
+            (agent_set_stand_animation, ":agent", "anim_sitting_low"),
+            (agent_set_animation, ":agent", "anim_sitting_low"),
+            (store_random_in_range,":r",0,300),
+          (try_end),
+          (agent_set_animation_progress,":agent",":r"),
+        (try_end),
+    ], [])
+
 multiplayer_server_spawn_bots = (
   0, 0, 0, [],
   [
@@ -645,6 +702,59 @@ common_battle_mission_start = (
     (call_script, "script_change_banners_and_chest"),
     ])
 
+## UID: 35 - Begin
+#
+common_battle_initialize = (
+    1, 4, ti_once, [(main_hero_fallen)], [
+        (assign, "$pin_player_fallen", 1),
+        (str_store_string, s5, "str_retreat"),
+        (call_script, "script_simulate_retreat", 5, 20, 0),
+        (assign, "$g_battle_result", -1),
+        (set_mission_result,-1),
+        (call_script, "script_count_mission_casualties_from_agents"),
+        (finish_mission,0),
+    ])
+
+feature_troop_ratio = (
+    0, 0, ti_once, [], [
+        (start_presentation, "prsnt_troop_ratio_bar"),
+    ])
+
+feature_troop_ratio_check = (
+    0.1, 0, 0, [], [
+        (neg|is_presentation_active, "prsnt_troop_ratio_bar"),
+        (neg|is_presentation_active, "prsnt_battle"),
+        (start_presentation, "prsnt_troop_ratio_bar"),
+    ])
+#
+## UID: 35 - End
+
+## UID: 88 - Begin
+#
+common_health_regen = (5, 0, 0, [], [
+    (get_player_agent_no, ":player"),
+    (try_for_agents, ":agent"),
+      (agent_is_active, ":agent"),
+      (agent_is_alive, ":agent"),
+      (agent_is_human, ":agent"),
+      (agent_get_troop_id, ":troop", ":agent"),
+      (assign, ":regen", 5),
+      (try_begin),
+        (this_or_next|eq, ":agent", ":player"),
+        (             troop_is_hero, ":troop"),
+        (store_skill_level, ":skill", skl_wound_treatment, ":troop"),
+        #(val_div, ":skill", 2),
+        (assign, ":regen", ":skill"),
+      (try_end),
+      (gt, ":regen", 0),
+      (store_agent_hit_points, ":health", ":agent", 0),
+      (val_add, ":health", ":regen"),
+      (agent_set_hit_points, ":agent", ":health", 0),
+    (try_end),
+])
+#
+## UID: 88 - End
+
 common_battle_tab_press = (
   ti_tab_pressed, 0, 0, [],
   [
@@ -665,6 +775,11 @@ common_battle_init_banner = (
   [
     (store_trigger_param_1, ":agent_no"),
     (agent_get_troop_id, ":troop_no", ":agent_no"),
+    ## UID: 62 - Begin
+    #
+    (call_script, "script_load_troop_inv", ":troop_no"),
+    #
+    ## UID: 62 - End
     (call_script, "script_troop_agent_set_banner", "tableau_game_troop_label_banner", ":agent_no", ":troop_no"),
   ])
 
@@ -1205,15 +1320,25 @@ tournament_triggers = [
          (neq, ":random_entry_point", "$g_player_entry_point"), # make sure we don't overwrite player
          (entry_point_get_position, pos1, ":random_entry_point"),
          (get_distance_between_positions, ":dist", pos5, pos1),
-         (gt, ":dist", 1200), #must be at least 12 meters away from the player
+         ## UID: 104 - Begin
+         #
+         #(gt, ":dist", 1200), #must be at least 12 meters away from the player
+         (gt, ":dist", 600),
+         #
+         ## UID: 104 - End
          (assign, ":end_cond", 0),
        (try_end),
        (add_visitors_to_current_scene, ":random_entry_point", ":added_troop", 1),
-       (store_add, ":new_spawned_count", "$g_arena_training_num_agents_spawned", 1),
+       ## UID: 104 - Begin
+       #
+       #(store_add, ":new_spawned_count", "$g_arena_training_num_agents_spawned", 1),
        (store_mission_timer_a, ":cur_time"),
-       (store_add, "$g_arena_training_next_spawn_time", ":cur_time", 14),
-       (store_div, ":time_reduction", ":new_spawned_count", 3),
-       (val_sub, "$g_arena_training_next_spawn_time", ":time_reduction"),
+       (store_add, "$g_arena_training_next_spawn_time", ":cur_time", 0),
+       #(store_add, "$g_arena_training_next_spawn_time", ":cur_time", 14),
+       #(store_div, ":time_reduction", ":new_spawned_count", 3),
+       #(val_sub, "$g_arena_training_next_spawn_time", ":time_reduction"),
+       #
+       ## UID: 104 - End
        ]),
 
   (0, 0, 0,
@@ -1273,44 +1398,60 @@ tournament_triggers = [
   ]
 
 mission_templates = [
-  (
-    "town_default",0,-1,
-    "Default town visit",
-    [(0,mtef_scene_source|mtef_team_0,af_override_horse,0,1,pilgrim_disguise),
-     (1,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
-     (2,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
-     (3,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
-     (4,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
-     (5,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
-     (6,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
-     (7,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
-     (8,mtef_scene_source,af_override_horse,0,1,[]),
-     (9,mtef_scene_source,af_override_horse,0,1,[]),
-     (10,mtef_scene_source,af_override_horse,0,1,[]),
-     (11,mtef_scene_source,af_override_horse,0,1,[]),
-     (12,mtef_scene_source,af_override_horse,0,1,[]),
-     (13,mtef_scene_source,0,0,1,[]),
-     (14,mtef_scene_source,0,0,1,[]),
-     (15,mtef_scene_source,0,0,1,[]),
-     (16,mtef_visitor_source,af_override_horse,0,1,[]),
-     (17,mtef_visitor_source,af_override_horse,0,1,[]),
-     (18,mtef_visitor_source,af_override_horse,0,1,[]),
-     (19,mtef_visitor_source,af_override_horse,0,1,[]),
-     (20,mtef_visitor_source,af_override_horse,0,1,[]),
-     (21,mtef_visitor_source,af_override_horse,0,1,[]),
-     (22,mtef_visitor_source,af_override_horse,0,1,[]),
-     (23,mtef_visitor_source,af_override_horse,0,1,[]),
-     (24,mtef_visitor_source,af_override_horse,0,1,[]),
-     (25,mtef_visitor_source,af_override_horse,0,1,[]),
-     (26,mtef_visitor_source,af_override_horse,0,1,[]),
-     (27,mtef_visitor_source,af_override_horse,0,1,[]),
-     (28,mtef_visitor_source,af_override_horse,0,1,[]),
-     (29,mtef_visitor_source,af_override_horse,0,1,[]),
-     (30,mtef_visitor_source,af_override_horse,0,1,[]),
-     (31,mtef_visitor_source,af_override_horse,0,1,[]),
-     ],     
-     [
-      (1, 0, ti_once, [], 
+    ("town_default", 0, -1, "Default town visit", [
+        (0,mtef_scene_source|mtef_team_0,af_override_horse,0,1,pilgrim_disguise),
+        (1,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
+        (2,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
+        (3,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
+        (4,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
+        (5,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
+        (6,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
+        (7,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
+        (8,mtef_scene_source,af_override_horse,0,1,[]),
+        (9,mtef_scene_source,af_override_horse,0,1,[]),
+        (10,mtef_scene_source,af_override_horse,0,1,[]),
+        (11,mtef_scene_source,af_override_horse,0,1,[]),
+        (12,mtef_scene_source,af_override_horse,0,1,[]),
+        (13,mtef_scene_source,0,0,1,[]),
+        (14,mtef_scene_source,0,0,1,[]),
+        (15,mtef_scene_source,0,0,1,[]),
+        (16,mtef_visitor_source,af_override_horse,0,1,[]),
+        (17,mtef_visitor_source,af_override_horse,0,1,[]),
+        (18,mtef_visitor_source,af_override_horse,0,1,[]),
+        (19,mtef_visitor_source,af_override_horse,0,1,[]),
+        (20,mtef_visitor_source,af_override_horse,0,1,[]),
+        (21,mtef_visitor_source,af_override_horse,0,1,[]),
+        (22,mtef_visitor_source,af_override_horse,0,1,[]),
+        (23,mtef_visitor_source,af_override_horse,0,1,[]),
+        (24,mtef_visitor_source,af_override_horse,0,1,[]),
+        (25,mtef_visitor_source,af_override_horse,0,1,[]),
+        (26,mtef_visitor_source,af_override_horse,0,1,[]),
+        (27,mtef_visitor_source,af_override_horse,0,1,[]),
+        (28,mtef_visitor_source,af_override_horse,0,1,[]),
+        (29,mtef_visitor_source,af_override_horse,0,1,[]),
+        (30,mtef_visitor_source,af_override_horse,0,1,[]),
+        (31,mtef_visitor_source,af_override_horse,0,1,[]),
+
+        ## UID: 31 - Begin
+        #
+        (1,mtef_visitor_source,af_override_horse|af_override_gloves,0,1,[]), #32
+        (2,mtef_visitor_source,af_override_horse|af_override_gloves,0,1,[]), #33
+        (3,mtef_visitor_source,af_override_horse|af_override_gloves,0,1,[]), #34
+        (4,mtef_visitor_source,af_override_horse|af_override_gloves,0,1,[]), #35
+        (5,mtef_visitor_source,af_override_horse|af_override_gloves,0,1,[]), #36
+        (6,mtef_visitor_source,af_override_horse|af_override_gloves,0,1,[]), #37
+        (7,mtef_visitor_source,af_override_horse|af_override_gloves,0,1,[]), #38
+        (8,mtef_visitor_source,af_override_horse|af_override_gloves,0,1,[]), #39
+        (10,mtef_visitor_source,af_override_horse|af_override_gloves,0,1,[]), #40
+        #
+        ## UID: 31 - End
+    ], [
+        ## UID: 31 - Begin
+        #
+        dedal_tavern_animations,
+        #
+        ## UID: 31 - End
+        (1, 0, ti_once, [], 
       [
         (store_current_scene, ":cur_scene"),
         (scene_set_slot, ":cur_scene", slot_scene_visited, 1),
@@ -2379,8 +2520,18 @@ mission_templates = [
               (call_script, "script_count_mission_casualties_from_agents"),
               (finish_mission,0)]),
 
+      ## UID: 35 - Begin
+      #
+      feature_troop_ratio,
+      feature_troop_ratio_check,
+      #
+      ## UID: 35 - End
       common_battle_inventory,
-
+        ## UID: 88 - Begin
+        #
+        common_health_regen,
+        #
+        ## UID: 88 - End
 
       #AI Triggers
       (0, 0, ti_once, [
@@ -2419,145 +2570,166 @@ mission_templates = [
     ],
   ),
 
-  (
-    "village_attack_bandits",mtf_battle_mode|mtf_synch_inventory,charge,
-    "You lead your men to battle.",
-    [
-     (3,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
-     (1,mtef_team_0|mtef_use_exact_number,0,aif_start_alarmed, 7,[]),
-     (1,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,1,[]),
-     ],
-    [
-      common_battle_tab_press,
-      common_battle_init_banner,
+    ("village_attack_bandits", mtf_battle_mode|mtf_synch_inventory,charge, "You lead your men to battle.", [
+        (3,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+        (1,mtef_team_0|mtef_use_exact_number,0,aif_start_alarmed, 7,[]),
+        (1,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,1,[]),
+    ], [
+        common_battle_tab_press,
+        common_battle_init_banner,
 
-      (ti_question_answered, 0, 0, [],
-       [(store_trigger_param_1,":answer"),
-        (eq,":answer",0),
-        (assign, "$pin_player_fallen", 0),
-        (str_store_string, s5, "str_retreat"),
-        (call_script, "script_simulate_retreat", 10, 20, 1),
-        (assign, "$g_battle_result", -1),
-        (call_script, "script_count_mission_casualties_from_agents"),
-        (finish_mission,0),]),
+        (ti_question_answered, 0, 0, [], [
+            (store_trigger_param_1,":answer"),
+            (eq,":answer",0),
+            (assign, "$pin_player_fallen", 0),
+            (str_store_string, s5, "str_retreat"),
+            (call_script, "script_simulate_retreat", 10, 20, 1),
+            (assign, "$g_battle_result", -1),
+            (call_script, "script_count_mission_casualties_from_agents"),
+            (finish_mission,0),
+        ]),
 
-      (0, 0, ti_once, [], [(assign, "$g_battle_won", 0),
-                           (assign, "$defender_reinforcement_stage", 0),
-                           (assign, "$attacker_reinforcement_stage", 0),
-                           (try_begin),
-                             (eq, "$g_mt_mode", vba_after_training),
-                             (add_reinforcements_to_entry, 1, 6),
-                           (else_try),
-                             (add_reinforcements_to_entry, 1, 29),
-                           (try_end),
-                           (call_script, "script_combat_music_set_situation_with_culture"),
-                           ]),
+        (0, 0, ti_once, [], [
+            (assign, "$g_battle_won", 0),
+            (assign, "$defender_reinforcement_stage", 0),
+            (assign, "$attacker_reinforcement_stage", 0),
+            (try_begin),
+              (eq, "$g_mt_mode", vba_after_training),
+              (add_reinforcements_to_entry, 1, 6),
+            (else_try),
+              (add_reinforcements_to_entry, 1, 29),
+            (try_end),
+            (call_script, "script_combat_music_set_situation_with_culture"),
+        ]),
 
-      common_music_situation_update,
-      common_battle_check_friendly_kills,
-      common_battle_check_victory_condition,
-      common_battle_victory_display,
+        common_music_situation_update,
+        common_battle_check_friendly_kills,
+        common_battle_check_victory_condition,
+        common_battle_victory_display,
 
-      (1, 4, ti_once, [(main_hero_fallen)],
-          [
-              (assign, "$pin_player_fallen", 1),
-              (str_store_string, s5, "str_retreat"),
-              (call_script, "script_simulate_retreat", 10, 20, 1),
-              (assign, "$g_battle_result", -1),
-              (set_mission_result, -1),
-              (call_script, "script_count_mission_casualties_from_agents"),
-              (finish_mission, 0)]),
+        (1, 4, ti_once, [(main_hero_fallen)], [
+            (assign, "$pin_player_fallen", 1),
+            (str_store_string, s5, "str_retreat"),
+            (call_script, "script_simulate_retreat", 10, 20, 1),
+            (assign, "$g_battle_result", -1),
+            (set_mission_result, -1),
+            (call_script, "script_count_mission_casualties_from_agents"),
+            (finish_mission, 0),
+        ]),
 
-      common_battle_inventory,      
-      common_battle_order_panel,
-      common_battle_order_panel_tick,
-      
-    ],
-  ),
+        ## UID: 35 - Begin
+        #
+        feature_troop_ratio,
+        feature_troop_ratio_check,
+        #
+        ## UID: 35 - End
+        common_battle_inventory,
+        common_battle_order_panel,
+        common_battle_order_panel_tick,
+        ## UID: 88 - Begin
+        #
+        common_health_regen,
+        #
+        ## UID: 88 - End
+    ]),
 
+    ("village_raid", mtf_battle_mode|mtf_synch_inventory,charge, "You lead your men to battle.", [
+        (3,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,12,[]),
+        (3,mtef_defenders|mtef_team_0,0,aif_start_alarmed,0,[]),
+        (1,mtef_attackers|mtef_team_1,0,aif_start_alarmed,12,[]),
+        (1,mtef_attackers|mtef_team_1,0,aif_start_alarmed,0,[]),
+    ], [
+        common_battle_tab_press,
+        common_battle_init_banner,
 
+        (ti_question_answered, 0, 0, [], [
+            (store_trigger_param_1,":answer"),
+            (eq,":answer",0),
+            (assign, "$pin_player_fallen", 0),
+            (str_store_string, s5, "str_retreat"),
+            (call_script, "script_simulate_retreat", 10, 20, 1),
+            (call_script, "script_count_mission_casualties_from_agents"),
+            (finish_mission,0),
+        ]),
 
-  (
-    "village_raid",mtf_battle_mode|mtf_synch_inventory,charge,
-    "You lead your men to battle.",
-    [
-     (3,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,12,[]),
-     (3,mtef_defenders|mtef_team_0,0,aif_start_alarmed,0,[]),
-     (1,mtef_attackers|mtef_team_1,0,aif_start_alarmed,12,[]),
-     (1,mtef_attackers|mtef_team_1,0,aif_start_alarmed,0,[]),
-     ],
-    [
-      common_battle_tab_press,
-      common_battle_init_banner,
+        (0, 0, ti_once, [], [
+            (assign,"$g_battle_won",0),
+            (assign,"$defender_reinforcement_stage",0),
+            (assign,"$attacker_reinforcement_stage",0),
+            (call_script, "script_combat_music_set_situation_with_culture"),
+        ]),
 
-      (ti_question_answered, 0, 0, [],
-       [(store_trigger_param_1,":answer"),
-        (eq,":answer",0),
-        (assign, "$pin_player_fallen", 0),
-        (str_store_string, s5, "str_retreat"),
-        (call_script, "script_simulate_retreat", 10, 20, 1),
-        (call_script, "script_count_mission_casualties_from_agents"),
-        (finish_mission,0),]),
+        common_music_situation_update,
+        common_battle_check_friendly_kills,
 
-      (0, 0, ti_once, [], [(assign,"$g_battle_won",0),
-                           (assign,"$defender_reinforcement_stage",0),
-                           (assign,"$attacker_reinforcement_stage",0),
-                           (call_script, "script_combat_music_set_situation_with_culture"),
-                           ]),
+        (1, 0, 5, [
+            (lt,"$defender_reinforcement_stage",2),
+            (store_mission_timer_a,":mission_time"),
+            (ge,":mission_time",10),
+            (store_normalized_team_count,":num_defenders", 0),
+            (lt,":num_defenders",6),
+        ], [
+            (add_reinforcements_to_entry,0,6),
+            (val_add,"$defender_reinforcement_stage",1),
+        ]),
 
-      common_music_situation_update,
-      common_battle_check_friendly_kills,
+        (1, 0, 5, [
+            (lt,"$attacker_reinforcement_stage",2),
+            (store_mission_timer_a,":mission_time"),
+            (ge,":mission_time",10),
+            (store_normalized_team_count,":num_attackers", 1),
+            (lt,":num_attackers",6),
+        ],[
+            (add_reinforcements_to_entry,3,6),
+            (val_add,"$attacker_reinforcement_stage",1),
+        ]),
 
-      (1, 0, 5, [(lt,"$defender_reinforcement_stage",2),
-                 (store_mission_timer_a,":mission_time"),
-                 (ge,":mission_time",10),
-                 (store_normalized_team_count,":num_defenders", 0),
-                 (lt,":num_defenders",6)],
-           [(add_reinforcements_to_entry,0,6),(val_add,"$defender_reinforcement_stage",1)]),
-      (1, 0, 5, [(lt,"$attacker_reinforcement_stage",2),
-                 (store_mission_timer_a,":mission_time"),
-                 (ge,":mission_time",10),
-                 (store_normalized_team_count,":num_attackers", 1),
-                 (lt,":num_attackers",6)],
-           [(add_reinforcements_to_entry,3,6),(val_add,"$attacker_reinforcement_stage",1)]),
+        (1, 60, ti_once, [
+            (store_mission_timer_a,reg(1)),
+            (ge,reg(1),10),
+            (all_enemies_defeated, 5),
+            (neg|main_hero_fallen, 0),
+            (set_mission_result,1),
+            (display_message,"str_msg_battle_won"),
+            (assign,"$g_battle_won",1),
+            (assign, "$g_battle_result", 1),
+            (try_begin),
+              (eq, "$g_village_raid_evil", 0),
+              (call_script, "script_play_victorious_sound"),
+            (else_try),
+              (play_track, "track_victorious_evil", 1),
+            (try_end),
+        ], [
+            (call_script, "script_count_mission_casualties_from_agents"),
+            (finish_mission, 1),
+        ]),
 
-      (1, 60, ti_once,
-       [
-         (store_mission_timer_a,reg(1)),
-         (ge,reg(1),10),
-         (all_enemies_defeated, 5),
-         (neg|main_hero_fallen, 0),
-         (set_mission_result,1),
-         (display_message,"str_msg_battle_won"),
-         (assign,"$g_battle_won",1),
-         (assign, "$g_battle_result", 1),
-         (try_begin),
-           (eq, "$g_village_raid_evil", 0),
-           (call_script, "script_play_victorious_sound"),
-         (else_try),
-           (play_track, "track_victorious_evil", 1),
-         (try_end),
-         ],
-       [
-         (call_script, "script_count_mission_casualties_from_agents"),
-         (finish_mission, 1),
-         ]),
+        common_battle_victory_display,
 
-      common_battle_victory_display,
+        (1, 4, ti_once, [(main_hero_fallen)], [
+            (assign, "$pin_player_fallen", 1),
+            (str_store_string, s5, "str_retreat"),
+            (call_script, "script_simulate_retreat", 10, 20, 1),
+            (assign, "$g_battle_result", -1),
+            (set_mission_result,-1),
+            (call_script, "script_count_mission_casualties_from_agents"),
+            (finish_mission,0),
+        ]),
 
-      (1, 4, ti_once, [(main_hero_fallen)],
-          [
-              (assign, "$pin_player_fallen", 1),
-              (str_store_string, s5, "str_retreat"),
-              (call_script, "script_simulate_retreat", 10, 20, 1),
-              (assign, "$g_battle_result", -1),
-              (set_mission_result,-1),
-              (call_script, "script_count_mission_casualties_from_agents"),
-              (finish_mission,0)]),
-
-      common_battle_inventory,
-      common_battle_order_panel,
-      common_battle_order_panel_tick,
+        ## UID: 35 - Begin
+        #
+        feature_troop_ratio,
+        feature_troop_ratio_check,
+        #
+        ## UID: 35 - End
+        common_battle_inventory,
+        common_battle_order_panel,
+        common_battle_order_panel_tick,
+        ## UID: 88 - Begin
+        #
+        common_health_regen,
+        #
+        ## UID: 88 - End
 
 ##      #AI Tiggers
 ##      (0, 0, ti_once, [
@@ -2569,8 +2741,7 @@ mission_templates = [
 ##          (store_mission_timer_a,reg(1)),(ge,reg(1),4),
 ##          (call_script, "script_battle_tactic_apply"),
 ##          ], []),
-    ],
-  ),
+    ]),
 
 
 
@@ -2728,380 +2899,406 @@ mission_templates = [
 ##    ],
 ##  ),
 
+    ("besiege_inner_battle_castle", mtf_battle_mode, -1, "You attack the walls of the castle...", [
+        (0, mtef_attackers|mtef_use_exact_number|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
+        (6, mtef_attackers|mtef_use_exact_number|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
+        (7, mtef_attackers|mtef_use_exact_number|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
+        (16, mtef_defenders|mtef_use_exact_number|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
+        (17, mtef_defenders|mtef_use_exact_number|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
+        (18, mtef_defenders|mtef_use_exact_number|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
+        (19, mtef_defenders|mtef_use_exact_number|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
+        (20, mtef_defenders|mtef_use_exact_number|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
+    ], [
+        (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
 
+        common_battle_tab_press,
+        common_battle_init_banner,
 
-  (
-    "besiege_inner_battle_castle",mtf_battle_mode,-1,
-    "You attack the walls of the castle...",
-    [
-     (0, mtef_attackers|mtef_use_exact_number|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
-     (6, mtef_attackers|mtef_use_exact_number|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
-     (7, mtef_attackers|mtef_use_exact_number|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
-     (16, mtef_defenders|mtef_use_exact_number|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
-     (17, mtef_defenders|mtef_use_exact_number|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
-     (18, mtef_defenders|mtef_use_exact_number|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
-     (19, mtef_defenders|mtef_use_exact_number|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
-     (20, mtef_defenders|mtef_use_exact_number|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
-     ],
-    [
-      (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
-
-      common_battle_tab_press,
-      common_battle_init_banner,
-
-      (ti_question_answered, 0, 0, [],
-       [(store_trigger_param_1,":answer"),
-        (eq,":answer",0),
-        (assign, "$pin_player_fallen", 0),
-        (str_store_string, s5, "str_retreat"),
-        (call_script, "script_simulate_retreat", 5, 20, 0),
-        (assign, "$g_battle_result", -1),
-        (set_mission_result,-1),
-        (call_script, "script_count_mission_casualties_from_agents"),
-        (finish_mission,0),
+        (ti_question_answered, 0, 0, [], [
+            (store_trigger_param_1,":answer"),
+            (eq,":answer",0),
+            (assign, "$pin_player_fallen", 0),
+            (str_store_string, s5, "str_retreat"),
+            (call_script, "script_simulate_retreat", 5, 20, 0),
+            (assign, "$g_battle_result", -1),
+            (set_mission_result,-1),
+            (call_script, "script_count_mission_casualties_from_agents"),
+            (finish_mission,0),
         ]),
-        
-      (0, 0, ti_once, [], [(assign,"$g_battle_won",0),
-                           (call_script, "script_music_set_situation_with_culture", mtf_sit_ambushed),
-                           ]),
-      
-      #AI Tiggers
-      (0, 0, ti_once, [
-          (assign, "$defender_team", 0),
-          (assign, "$attacker_team", 1),
-          (assign, "$defender_team_2", 2),
-          (assign, "$attacker_team_2", 3),
-          ], []),
 
-      common_battle_check_friendly_kills,
-      common_battle_check_victory_condition,
-      common_battle_victory_display,
-
-      (1, 4, ti_once, [(main_hero_fallen)],
-          [
-              (assign, "$pin_player_fallen", 1),
-              (str_store_string, s5, "str_retreat"),
-              (call_script, "script_simulate_retreat", 5, 20, 0),
-              (assign, "$g_battle_result", -1),
-              (set_mission_result,-1),
-              (call_script, "script_count_mission_casualties_from_agents"),
-              (finish_mission,0)
-              ]),
-      
-      common_battle_order_panel,
-      common_battle_order_panel_tick,
-      common_battle_inventory,
-    ],
-  ),
-
-  (
-    "besiege_inner_battle_town_center",mtf_battle_mode,-1,
-    "You attack the walls of the castle...",
-    [
-     (0, mtef_attackers|mtef_use_exact_number|mtef_team_1,af_override_horse,aif_start_alarmed,4,[]),
-     (2, mtef_defenders|mtef_use_exact_number|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
-     (23, mtef_defenders|mtef_use_exact_number|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
-     (24, mtef_defenders|mtef_use_exact_number|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
-     (25, mtef_defenders|mtef_use_exact_number|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
-     (26, mtef_defenders|mtef_use_exact_number|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
-     (27, mtef_defenders|mtef_use_exact_number|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
-     (28, mtef_defenders|mtef_use_exact_number|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
-     ],
-    [
-      (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
-
-      common_battle_tab_press,
-      common_battle_init_banner,
-
-      (ti_question_answered, 0, 0, [],
-       [(store_trigger_param_1,":answer"),
-        (eq,":answer",0),
-        (assign, "$pin_player_fallen", 0),
-        (str_store_string, s5, "str_retreat"),
-        (call_script, "script_simulate_retreat", 5, 20, 0),
-        (assign, "$g_battle_result", -1),
-        (set_mission_result,-1),
-        (call_script, "script_count_mission_casualties_from_agents"),
-        (finish_mission,0),
+        (0, 0, ti_once, [], [
+            (assign,"$g_battle_won",0),
+            (call_script, "script_music_set_situation_with_culture", mtf_sit_ambushed),
         ]),
-        
-      (0, 0, ti_once, [], [(assign,"$g_battle_won",0),
-                           (call_script, "script_music_set_situation_with_culture", mtf_sit_ambushed),
-                           ]),
-      
-      #AI Tiggers
-      (0, 0, ti_once, [
-          (assign, "$defender_team", 0),
-          (assign, "$attacker_team", 1),
-          (assign, "$defender_team_2", 2),
-          (assign, "$attacker_team_2", 3),
-          ], []),
 
-      common_battle_check_friendly_kills,
-      common_battle_check_victory_condition,
-      common_battle_victory_display,
+        #AI Tiggers
+        (0, 0, ti_once, [
+            (assign, "$defender_team", 0),
+            (assign, "$attacker_team", 1),
+            (assign, "$defender_team_2", 2),
+            (assign, "$attacker_team_2", 3),
+        ], []),
 
-      (1, 4, ti_once, [(main_hero_fallen)],
-          [
-              (assign, "$pin_player_fallen", 1),
-              (str_store_string, s5, "str_retreat"),
-              (call_script, "script_simulate_retreat", 5, 20, 0),
-              (assign, "$g_battle_result", -1),
-              (set_mission_result,-1),
-              (call_script, "script_count_mission_casualties_from_agents"),
-              (finish_mission,0)
-              ]),
+        common_battle_check_friendly_kills,
+        common_battle_check_victory_condition,
+        common_battle_victory_display,
 
-      common_battle_order_panel,
-      common_battle_order_panel_tick,
-      common_battle_inventory,
-    ],
-  ),
+        (1, 4, ti_once, [(main_hero_fallen)], [
+            (assign, "$pin_player_fallen", 1),
+            (str_store_string, s5, "str_retreat"),
+            (call_script, "script_simulate_retreat", 5, 20, 0),
+            (assign, "$g_battle_result", -1),
+            (set_mission_result,-1),
+            (call_script, "script_count_mission_casualties_from_agents"),
+            (finish_mission,0),
+        ]),
 
-  (
-    "castle_attack_walls_defenders_sally",mtf_battle_mode|mtf_synch_inventory,-1,
-    "You attack the walls of the castle...",
-    [
-     (0,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,12,[]),
-     (0,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,0,[]),
-     (3,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,12,[]),
-     (3,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,0,[]),
-     ],
-    [
-      (ti_on_agent_spawn, 0, 0, [],
-       [
-         (store_trigger_param_1, ":agent_no"),
-         (call_script, "script_agent_reassign_team", ":agent_no"),
-         ]),
-      
-      (ti_before_mission_start, 0, 0, [],
-       [
-         (team_set_relation, 0, 2, 1),
-         (team_set_relation, 1, 3, 1),
-         (call_script, "script_change_banners_and_chest"),
-         (call_script, "script_remove_siege_objects"),
-         ]),
+        ## UID: 35 - Begin
+        #
+        feature_troop_ratio,
+        feature_troop_ratio_check,
+        #
+        ## UID: 35 - End
+        common_battle_order_panel,
+        common_battle_order_panel_tick,
+        common_battle_inventory,
+        ## UID: 88 - Begin
+        #
+        common_health_regen,
+        #
+        ## UID: 88 - End
+    ]),
 
-      common_battle_tab_press,
-      common_battle_init_banner,
+    ("besiege_inner_battle_town_center", mtf_battle_mode, -1, "You attack the walls of the castle...", [
+        (0, mtef_attackers|mtef_use_exact_number|mtef_team_1,af_override_horse,aif_start_alarmed,4,[]),
+        (2, mtef_defenders|mtef_use_exact_number|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
+        (23, mtef_defenders|mtef_use_exact_number|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
+        (24, mtef_defenders|mtef_use_exact_number|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
+        (25, mtef_defenders|mtef_use_exact_number|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
+        (26, mtef_defenders|mtef_use_exact_number|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
+        (27, mtef_defenders|mtef_use_exact_number|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
+        (28, mtef_defenders|mtef_use_exact_number|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
+    ], [
+        (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
 
-      (ti_on_agent_killed_or_wounded, 0, 0, [], #new
-       [
-        (store_trigger_param_1, ":dead_agent_no"),
-        (store_trigger_param_2, ":killer_agent_no"),
-        (store_trigger_param_3, ":is_wounded"),
+        common_battle_tab_press,
+        common_battle_init_banner,
 
-        (try_begin),
-          (ge, ":dead_agent_no", 0),
-          (neg|agent_is_ally, ":dead_agent_no"),
-          (agent_is_human, ":dead_agent_no"),
-          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
-          (str_store_troop_name, s6, ":dead_agent_troop_id"),
-          (assign, reg0, ":dead_agent_no"),
-          (assign, reg1, ":killer_agent_no"),
-          (assign, reg2, ":is_wounded"),
-          (agent_get_team, reg3, ":dead_agent_no"),          
-          #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"), 
-          (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
-          (eq, ":is_wounded", 1),
-          (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), 
-        (try_end),
-       ]),
+        (ti_question_answered, 0, 0, [], [
+            (store_trigger_param_1,":answer"),
+            (eq,":answer",0),
+            (assign, "$pin_player_fallen", 0),
+            (str_store_string, s5, "str_retreat"),
+            (call_script, "script_simulate_retreat", 5, 20, 0),
+            (assign, "$g_battle_result", -1),
+            (set_mission_result,-1),
+            (call_script, "script_count_mission_casualties_from_agents"),
+            (finish_mission,0),
+        ]),
 
-      (ti_question_answered, 0, 0, [],
-       [(store_trigger_param_1,":answer"),
-        (eq,":answer",0),
-        (assign, "$pin_player_fallen", 0),
-        (str_store_string, s5, "str_retreat"),
-        (call_script, "script_simulate_retreat", 5, 20, 0),
-        (call_script, "script_count_mission_casualties_from_agents"),
-        (finish_mission,0),]),
-        
-      (0, 0, ti_once, [], [(assign,"$g_battle_won",0),
-                           (call_script, "script_combat_music_set_situation_with_culture"),
-                           ]),
-      
-      common_music_situation_update,
-      common_battle_check_friendly_kills,
+        (0, 0, ti_once, [], [
+            (assign,"$g_battle_won",0),
+            (call_script, "script_music_set_situation_with_culture", mtf_sit_ambushed),
+        ]),
 
-      (1, 60, ti_once, [(store_mission_timer_a, reg(1)),
-                        (ge, reg(1), 10),
-                        (all_enemies_defeated, 2),
-                        (neg|main_hero_fallen,0),
-                        (set_mission_result,1),
-                        (display_message,"str_msg_battle_won"),
-                        (assign, "$g_battle_won", 1),
-                        (assign, "$g_battle_result", 1),
-                        (assign, "$g_siege_sallied_out_once", 1),
-                        (assign, "$g_siege_method", 1), #reset siege timer
-                        (call_script, "script_play_victorious_sound"),
-                        ],
-           [(call_script, "script_count_mission_casualties_from_agents"),
-            (finish_mission,1)]),
+        #AI Tiggers
+        (0, 0, ti_once, [
+            (assign, "$defender_team", 0),
+            (assign, "$attacker_team", 1),
+            (assign, "$defender_team_2", 2),
+            (assign, "$attacker_team_2", 3),
+        ], []),
 
-      common_battle_victory_display,
+        common_battle_check_friendly_kills,
+        common_battle_check_victory_condition,
+        common_battle_victory_display,
 
-      (1, 4, ti_once, [(main_hero_fallen)],
-          [
-              (assign, "$pin_player_fallen", 1),
-              (str_store_string, s5, "str_retreat"),
-              (call_script, "script_simulate_retreat", 5, 20, 0),
-              (assign, "$g_battle_result", -1),
-              (set_mission_result, -1),
-              (call_script, "script_count_mission_casualties_from_agents"),
-              (finish_mission,0)]),
+        (1, 4, ti_once, [(main_hero_fallen)], [
+            (assign, "$pin_player_fallen", 1),
+            (str_store_string, s5, "str_retreat"),
+            (call_script, "script_simulate_retreat", 5, 20, 0),
+            (assign, "$g_battle_result", -1),
+            (set_mission_result,-1),
+            (call_script, "script_count_mission_casualties_from_agents"),
+            (finish_mission,0),
+        ]),
 
-      common_battle_order_panel,
-      common_battle_order_panel_tick,
-      common_battle_inventory,
-    ],
-  ),
+        ## UID: 35 - Begin
+        #
+        feature_troop_ratio,
+        feature_troop_ratio_check,
+        #
+        ## UID: 35 - End
+        common_battle_order_panel,
+        common_battle_order_panel_tick,
+        common_battle_inventory,
+        ## UID: 88 - Begin
+        #
+        common_health_regen,
+        #
+        ## UID: 88 - End
+    ]),
 
+    ("castle_attack_walls_defenders_sally", mtf_battle_mode|mtf_synch_inventory, -1, "You attack the walls of the castle...", [
+        (0,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,12,[]),
+        (0,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,0,[]),
+        (3,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,12,[]),
+        (3,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,0,[]),
+    ], [
+        (ti_on_agent_spawn, 0, 0, [], [
+            (store_trigger_param_1, ":agent_no"),
+            (call_script, "script_agent_reassign_team", ":agent_no"),
+        ]),
 
-  (
-    "castle_attack_walls_belfry",mtf_battle_mode|mtf_synch_inventory,-1,
-    "You attack the walls of the castle...",
-    [
-     (0,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,12,[]),
-     (0,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,0,[]),
-     (10,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,0,[]),
-     (11,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,7,[]),
-     (15,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,0,[]),
+        (ti_before_mission_start, 0, 0, [], [
+            (team_set_relation, 0, 2, 1),
+            (team_set_relation, 1, 3, 1),
+            (call_script, "script_change_banners_and_chest"),
+            (call_script, "script_remove_siege_objects"),
+        ]),
 
-     (40,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
-     (41,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
-     (42,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
-     (43,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
-     (44,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
-     (45,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
-     (46,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
-     (47,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
-     ],
-    [
-      common_battle_mission_start,
-      common_battle_tab_press,
-      common_battle_init_banner,
-      common_siege_question_answered,
-      common_siege_init,
-      common_music_situation_update,
-      common_siege_ai_trigger_init,
-      common_siege_ai_trigger_init_2,
+        common_battle_tab_press,
+        common_battle_init_banner,
 
-      (0, 0, ti_once,
-       [
-         (set_show_messages, 0),
-         (team_give_order, "$attacker_team", grc_everyone, mordr_spread_out),
-         (team_give_order, "$attacker_team", grc_everyone, mordr_spread_out),
-         (team_give_order, "$attacker_team", grc_everyone, mordr_spread_out),
-         (set_show_messages, 1),
-         ], []),
-      
-      (ti_on_agent_killed_or_wounded, 0, 0, [],
-       [
-        (store_trigger_param_1, ":dead_agent_no"),
-        (store_trigger_param_2, ":killer_agent_no"),
-        (store_trigger_param_3, ":is_wounded"),
+        (ti_on_agent_killed_or_wounded, 0, 0, [], [
+            (store_trigger_param_1, ":dead_agent_no"),
+            (store_trigger_param_2, ":killer_agent_no"),
+            (store_trigger_param_3, ":is_wounded"),
 
-        (try_begin),
-          (ge, ":dead_agent_no", 0),
-          (neg|agent_is_ally, ":dead_agent_no"),
-          (agent_is_human, ":dead_agent_no"),
-          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
-          (str_store_troop_name, s6, ":dead_agent_troop_id"),
-          (assign, reg0, ":dead_agent_no"),
-          (assign, reg1, ":killer_agent_no"),
-          (assign, reg2, ":is_wounded"),
-          (agent_get_team, reg3, ":dead_agent_no"),          
-          #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"), 
-          (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
-          (eq, ":is_wounded", 1),
-          (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), 
-        (try_end),
-       ]),
+            (try_begin),
+              (ge, ":dead_agent_no", 0),
+              (neg|agent_is_ally, ":dead_agent_no"),
+              (agent_is_human, ":dead_agent_no"),
+              (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
+              (str_store_troop_name, s6, ":dead_agent_troop_id"),
+              (assign, reg0, ":dead_agent_no"),
+              (assign, reg1, ":killer_agent_no"),
+              (assign, reg2, ":is_wounded"),
+              (agent_get_team, reg3, ":dead_agent_no"),
+              #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"),
+              (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
+              (eq, ":is_wounded", 1),
+              (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
+            (try_end),
+        ]),
 
-      common_siege_ai_trigger_init_after_2_secs,
-      common_siege_defender_reinforcement_check,
-      common_siege_defender_reinforcement_archer_reposition,
-      common_siege_attacker_reinforcement_check,
-      common_siege_attacker_do_not_stall,
-      common_battle_check_friendly_kills,
-      common_battle_check_victory_condition,
-      common_battle_victory_display,
-      common_siege_refill_ammo,
-      common_siege_check_defeat_condition,
-      common_battle_order_panel,
-      common_battle_order_panel_tick,
-      common_inventory_not_available,
-      common_siege_init_ai_and_belfry,
-      common_siege_move_belfry,
-      common_siege_rotate_belfry,
-      common_siege_assign_men_to_belfry,
-    ],
-  ),
+        (ti_question_answered, 0, 0, [], [
+            (store_trigger_param_1,":answer"),
+            (eq,":answer",0),
+            (assign, "$pin_player_fallen", 0),
+            (str_store_string, s5, "str_retreat"),
+            (call_script, "script_simulate_retreat", 5, 20, 0),
+            (call_script, "script_count_mission_casualties_from_agents"),
+            (finish_mission,0),
+        ]),
 
-  (
-    "castle_attack_walls_ladder",mtf_battle_mode|mtf_synch_inventory,-1,
-    "You attack the walls of the castle...",
-    [
-     (0,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,12,[]),
-     (0,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,0,[]),
-     (10,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,0,[]),
-     (11,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,7,[]),
-     (15,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,0,[]),
+        (0, 0, ti_once, [], [
+            (assign,"$g_battle_won",0),
+            (call_script, "script_combat_music_set_situation_with_culture"),
+        ]),
 
-     (40,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
-     (41,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
-     (42,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
-     (43,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
-     (44,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
-     (45,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
-     (46,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
-     ],
-    [
-      common_battle_mission_start,
-      common_battle_tab_press,
-      common_battle_init_banner,
-      common_siege_question_answered,
-      common_siege_init,
-      common_music_situation_update,
-      common_siege_ai_trigger_init,
-      common_siege_ai_trigger_init_2,
-      common_siege_ai_trigger_init_after_2_secs,
-      common_siege_defender_reinforcement_check,
-      common_siege_defender_reinforcement_archer_reposition,
-      common_siege_attacker_reinforcement_check,
-      common_siege_attacker_do_not_stall,
-      common_battle_check_friendly_kills,
-      common_battle_check_victory_condition,
-      common_battle_victory_display,
-      common_siege_refill_ammo,
-      common_siege_check_defeat_condition,
-      common_battle_order_panel,
-      common_battle_order_panel_tick,
-      common_inventory_not_available,
+        common_music_situation_update,
+        common_battle_check_friendly_kills,
 
-      (ti_on_agent_killed_or_wounded, 0, 0, [],
-       [
-        (store_trigger_param_1, ":dead_agent_no"),
-        (store_trigger_param_2, ":killer_agent_no"),
-        (store_trigger_param_3, ":is_wounded"),
+        (1, 60, ti_once, [
+            (store_mission_timer_a, reg(1)),
+            (ge, reg(1), 10),
+            (all_enemies_defeated, 2),
+            (neg|main_hero_fallen,0),
+            (set_mission_result,1),
+            (display_message,"str_msg_battle_won"),
+            (assign, "$g_battle_won", 1),
+            (assign, "$g_battle_result", 1),
+            (assign, "$g_siege_sallied_out_once", 1),
+            (assign, "$g_siege_method", 1), #reset siege timer
+            (call_script, "script_play_victorious_sound"),
+        ], [
+            (call_script, "script_count_mission_casualties_from_agents"),
+            (finish_mission,1),
+        ]),
 
-        (try_begin),
-          (ge, ":dead_agent_no", 0),
-          (neg|agent_is_ally, ":dead_agent_no"),
-          (agent_is_human, ":dead_agent_no"),
-          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
-          (str_store_troop_name, s6, ":dead_agent_troop_id"),
-          (assign, reg0, ":dead_agent_no"),
-          (assign, reg1, ":killer_agent_no"),
-          (assign, reg2, ":is_wounded"),
-          (agent_get_team, reg3, ":dead_agent_no"),          
-          #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"), 
-          (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
-          (eq, ":is_wounded", 1),
-          (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), 
-        (try_end),
-       ]),
+        common_battle_victory_display,
+
+        (1, 4, ti_once, [(main_hero_fallen)], [
+            (assign, "$pin_player_fallen", 1),
+            (str_store_string, s5, "str_retreat"),
+            (call_script, "script_simulate_retreat", 5, 20, 0),
+            (assign, "$g_battle_result", -1),
+            (set_mission_result, -1),
+            (call_script, "script_count_mission_casualties_from_agents"),
+            (finish_mission,0),
+        ]),
+
+        ## UID: 35 - Begin
+        #
+        feature_troop_ratio,
+        feature_troop_ratio_check,
+        #
+        ## UID: 35 - End
+        common_battle_order_panel,
+        common_battle_order_panel_tick,
+        common_battle_inventory,
+        ## UID: 88 - Begin
+        #
+        common_health_regen,
+        #
+        ## UID: 88 - End
+    ]),
+
+    ("castle_attack_walls_belfry", mtf_battle_mode|mtf_synch_inventory, -1, "You attack the walls of the castle...", [
+        (0,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,12,[]),
+        (0,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,0,[]),
+        (10,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,0,[]),
+        (11,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,7,[]),
+        (15,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,0,[]),
+
+        (40,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
+        (41,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
+        (42,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
+        (43,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
+        (44,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
+        (45,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
+        (46,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
+        (47,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
+    ], [
+        common_battle_mission_start,
+        common_battle_tab_press,
+        common_battle_init_banner,
+        common_siege_question_answered,
+        common_siege_init,
+        common_music_situation_update,
+        common_siege_ai_trigger_init,
+        common_siege_ai_trigger_init_2,
+
+        (0, 0, ti_once, [
+            (set_show_messages, 0),
+            (team_give_order, "$attacker_team", grc_everyone, mordr_spread_out),
+            (team_give_order, "$attacker_team", grc_everyone, mordr_spread_out),
+            (team_give_order, "$attacker_team", grc_everyone, mordr_spread_out),
+            (set_show_messages, 1),
+        ], []),
+
+        (ti_on_agent_killed_or_wounded, 0, 0, [], [
+            (store_trigger_param_1, ":dead_agent_no"),
+            (store_trigger_param_2, ":killer_agent_no"),
+            (store_trigger_param_3, ":is_wounded"),
+
+            (try_begin),
+              (ge, ":dead_agent_no", 0),
+              (neg|agent_is_ally, ":dead_agent_no"),
+              (agent_is_human, ":dead_agent_no"),
+              (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
+              (str_store_troop_name, s6, ":dead_agent_troop_id"),
+              (assign, reg0, ":dead_agent_no"),
+              (assign, reg1, ":killer_agent_no"),
+              (assign, reg2, ":is_wounded"),
+              (agent_get_team, reg3, ":dead_agent_no"),
+              #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"),
+              (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
+              (eq, ":is_wounded", 1),
+              (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
+            (try_end),
+        ]),
+
+        common_siege_ai_trigger_init_after_2_secs,
+        common_siege_defender_reinforcement_check,
+        common_siege_defender_reinforcement_archer_reposition,
+        common_siege_attacker_reinforcement_check,
+        common_siege_attacker_do_not_stall,
+        common_battle_check_friendly_kills,
+        common_battle_check_victory_condition,
+        common_battle_victory_display,
+        common_siege_refill_ammo,
+        common_siege_check_defeat_condition,
+        ## UID: 35 - Begin
+        #
+        feature_troop_ratio,
+        feature_troop_ratio_check,
+        #
+        ## UID: 35 - End
+        common_battle_order_panel,
+        common_battle_order_panel_tick,
+        common_inventory_not_available,
+        common_siege_init_ai_and_belfry,
+        common_siege_move_belfry,
+        common_siege_rotate_belfry,
+        common_siege_assign_men_to_belfry,
+        ## UID: 88 - Begin
+        #
+        common_health_regen,
+        #
+        ## UID: 88 - End
+    ]),
+
+    ("castle_attack_walls_ladder", mtf_battle_mode|mtf_synch_inventory, -1, "You attack the walls of the castle...", [
+        (0,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,12,[]),
+        (0,mtef_attackers|mtef_team_1,af_override_horse,aif_start_alarmed,0,[]),
+        (10,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,0,[]),
+        (11,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,7,[]),
+        (15,mtef_defenders|mtef_team_0,af_override_horse,aif_start_alarmed,0,[]),
+
+        (40,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
+        (41,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
+        (42,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
+        (43,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
+        (44,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
+        (45,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
+        (46,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
+    ], [
+        common_battle_mission_start,
+        common_battle_tab_press,
+        common_battle_init_banner,
+        common_siege_question_answered,
+        common_siege_init,
+        common_music_situation_update,
+        common_siege_ai_trigger_init,
+        common_siege_ai_trigger_init_2,
+        common_siege_ai_trigger_init_after_2_secs,
+        common_siege_defender_reinforcement_check,
+        common_siege_defender_reinforcement_archer_reposition,
+        common_siege_attacker_reinforcement_check,
+        common_siege_attacker_do_not_stall,
+        common_battle_check_friendly_kills,
+        common_battle_check_victory_condition,
+        common_battle_victory_display,
+        common_siege_refill_ammo,
+        common_siege_check_defeat_condition,
+        ## UID: 35 - Begin
+        #
+        feature_troop_ratio,
+        feature_troop_ratio_check,
+        #
+        ## UID: 35 - End
+        common_battle_order_panel,
+        common_battle_order_panel_tick,
+        common_inventory_not_available,
+        ## UID: 88 - Begin
+        #
+        common_health_regen,
+        #
+        ## UID: 88 - End
+
+        (ti_on_agent_killed_or_wounded, 0, 0, [], [
+            (store_trigger_param_1, ":dead_agent_no"),
+            (store_trigger_param_2, ":killer_agent_no"),
+            (store_trigger_param_3, ":is_wounded"),
+
+            (try_begin),
+              (ge, ":dead_agent_no", 0),
+              (neg|agent_is_ally, ":dead_agent_no"),
+              (agent_is_human, ":dead_agent_no"),
+              (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
+              (str_store_troop_name, s6, ":dead_agent_troop_id"),
+              (assign, reg0, ":dead_agent_no"),
+              (assign, reg1, ":killer_agent_no"),
+              (assign, reg2, ":is_wounded"),
+              (agent_get_team, reg3, ":dead_agent_no"),
+              #(display_message, "@{!}dead agent no : {reg0} ; killer agent no : {reg1} ; is_wounded : {reg2} ; dead agent team : {reg3} ; {s6} is added"),
+              (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
+              (eq, ":is_wounded", 1),
+              (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
+            (try_end),
+        ]),
 
 ##      (15, 0, 0,
 ##       [
@@ -3151,13 +3348,9 @@ mission_templates = [
 ##         (try_end),
 ##         ],
 ##       []),
-    ],
-  ),
-  
+    ]),
 
-  (
-    "castle_visit",0,-1,
-    "Castle visit",
+    ("castle_visit", 0, -1, "Castle visit",
     [(0,mtef_scene_source|mtef_team_0,af_override_horse|af_override_weapons|af_override_head,0,1,pilgrim_disguise),
      (1,mtef_scene_source|mtef_team_0,af_override_horse,0,1,pilgrim_disguise),
      (2,mtef_scene_source|mtef_team_0,af_override_horse,0,1,pilgrim_disguise),
@@ -3661,11 +3854,8 @@ mission_templates = [
     ],
   ),
 
-  (
-    "sneak_caught_fight",mtf_battle_mode,-1,
-    "You must fight your way out!",
-    [
-     (0,mtef_scene_source|mtef_team_0,af_override_all,aif_start_alarmed,1,pilgrim_disguise),
+    ("sneak_caught_fight", mtf_battle_mode, -1, "You must fight your way out!", [
+        (0,mtef_scene_source|mtef_team_0,af_override_all,aif_start_alarmed,1,pilgrim_disguise),
      (1,mtef_scene_source|mtef_team_0,af_override_all,aif_start_alarmed,1,pilgrim_disguise),
      (2,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
      (3,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
@@ -3988,6 +4178,301 @@ mission_templates = [
     ],
     tournament_triggers
   ),
+
+  ## UID: 37 - Begin
+  #
+  ("arena_melee_fight_2", mtf_arena_fight,-1, "You enter a melee fight in the arena.", [
+      (0,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,1,[]),
+      (1,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,1,[]),
+      (2,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,1,[]),
+      (3,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,1,[]),
+      (4,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,1,[]),
+      (5,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,1,[]),
+      (6,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,1,[]),
+      (7,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,1,[]),
+
+      (8,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (9,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (10,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (11,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (12,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (13,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (14,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (15,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+
+      (16,mtef_visitor_source|mtef_team_2,0,aif_start_alarmed,1,[]),
+      (17,mtef_visitor_source|mtef_team_2,0,aif_start_alarmed,1,[]),
+      (18,mtef_visitor_source|mtef_team_2,0,aif_start_alarmed,1,[]),
+      (19,mtef_visitor_source|mtef_team_2,0,aif_start_alarmed,1,[]),
+      (20,mtef_visitor_source|mtef_team_2,0,aif_start_alarmed,1,[]),
+      (21,mtef_visitor_source|mtef_team_2,0,aif_start_alarmed,1,[]),
+      (22,mtef_visitor_source|mtef_team_2,0,aif_start_alarmed,1,[]),
+      (23,mtef_visitor_source|mtef_team_2,0,aif_start_alarmed,1,[]),
+ 
+      (24,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (25,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (26,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (27,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (28,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (29,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (30,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (31,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+
+      (32,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (33,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (34,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (35,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (36,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (37,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (38,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+      (39,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
+#40-49 not used yet
+      (40,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (41,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (42,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (43,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (44,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (45,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (46,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (47,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (48,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+      (49,mtef_visitor_source|mtef_team_3,0,aif_start_alarmed,1,[]),
+
+      (50, mtef_scene_source,af_override_horse|af_override_weapons|af_override_head,0,1,[]),
+      (51, mtef_visitor_source,af_override_horse|af_override_weapons|af_override_head,0,1,[]),
+      (52, mtef_scene_source,af_override_horse,0,1,[]),
+#not used yet:
+      (53, mtef_scene_source,af_override_horse,0,1,[]),(54, mtef_scene_source,af_override_horse,0,1,[]),(55, mtef_scene_source,af_override_horse,0,1,[]),
+#used for torunament master scene
+
+      (56, mtef_visitor_source|mtef_team_0, af_override_all, aif_start_alarmed, 1, [itm_practice_sword, itm_practice_shield, itm_padded_cloth, itm_segmented_helmet]),
+      (57, mtef_visitor_source|mtef_team_0, af_override_all, aif_start_alarmed, 1, [itm_practice_sword, itm_practice_shield, itm_padded_cloth, itm_segmented_helmet]),
+    ], [
+        (ti_before_mission_start, 0, 0, [], [
+            (call_script, "script_change_banners_and_chest"),
+            (assign, "$g_arena_training_num_agents_spawned", 0)
+        ]),
+
+        (ti_on_agent_spawn, 0, 0, [], [
+            (store_trigger_param_1, ":agent_no"),
+            (agent_get_troop_id, ":troop_no", ":agent_no"),
+            (call_script, "script_troop_agent_set_banner", "tableau_game_troop_label_banner", ":agent_no", ":troop_no"),
+        ]),
+
+        (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_arena")], []),
+
+        (ti_tab_pressed, 0, 0, [], [
+            (try_begin),
+              (eq, "$g_mt_mode", abm_visit),
+              (set_trigger_result, 1),
+            (else_try),
+              (question_box,"str_give_up_fight"),
+            (try_end),
+        ]),
+
+        (ti_question_answered, 0, 0, [], [
+            (store_trigger_param_1,":answer"),
+            (eq,":answer",0),
+            (try_begin),
+              (eq, "$g_mt_mode", abm_tournament),
+              (call_script, "script_end_tournament_fight", 0),
+            (else_try),
+              (eq, "$g_mt_mode", abm_training),
+              (get_player_agent_no, ":player_agent"),
+              (agent_get_kill_count, "$g_arena_training_kills", ":player_agent", 1),#use this for conversation
+            (try_end),
+            (finish_mission,0),
+        ]),
+
+        (1, 0, ti_once, [], [
+            (eq, "$g_mt_mode", abm_visit),
+            (call_script, "script_music_set_situation_with_culture", mtf_sit_travel),
+            (store_current_scene, reg(1)),
+            (scene_set_slot, reg(1), slot_scene_visited, 1),
+            (mission_enable_talk),
+            (get_player_agent_no, ":player_agent"),
+            (assign, ":team_set", 0),
+            (try_for_agents, ":agent_no"),
+              (neq, ":agent_no", ":player_agent"),
+              (agent_get_troop_id, ":troop_id", ":agent_no"),
+              (is_between, ":troop_id", regular_troops_begin, regular_troops_end),
+              (eq, ":team_set", 0),
+              (agent_set_team, ":agent_no", 1),
+              (assign, ":team_set", 1),
+            (try_end),
+        ]),
+
+        (0, 0, ti_once, [], [
+            (eq, "$g_mt_mode", abm_tournament),
+            (play_sound, "snd_arena_ambiance", sf_looping),
+            (call_script, "script_music_set_situation_with_culture", mtf_sit_arena),
+        ]),
+
+        (1, 4, ti_once, [
+            (eq, "$g_mt_mode", abm_tournament),
+            (this_or_next|main_hero_fallen),
+            (num_active_teams_le, 1)
+        ], [
+            (try_begin),
+              (neg|main_hero_fallen),
+              (call_script, "script_end_tournament_fight", 1),
+              (call_script, "script_play_victorious_sound"),
+              (finish_mission),
+            (else_try),
+              (call_script, "script_end_tournament_fight", 0),
+              (finish_mission),
+            (try_end),
+        ]),
+
+        (ti_battle_window_opened, 0, 0, [], [(eq, "$g_mt_mode", abm_training),(start_presentation, "prsnt_arena_training")]),
+
+        (0, 0, ti_once, [], [
+            (eq, "$g_mt_mode", abm_training),
+            (assign, "$g_arena_training_max_opponents", 40),
+            (assign, "$g_arena_training_num_agents_spawned", 0),
+            (assign, "$g_arena_training_kills", 0),
+            (assign, "$g_arena_training_won", 0),
+            (call_script, "script_music_set_situation_with_culture", mtf_sit_arena),
+        ]),
+
+        (1, 4, ti_once, [
+            (eq, "$g_mt_mode", abm_training),
+            (store_mission_timer_a, ":cur_time"),
+            (gt, ":cur_time", 3),
+            (assign, ":win_cond", 0),
+            (try_begin),
+              (ge, "$g_arena_training_num_agents_spawned", "$g_arena_training_max_opponents"),#spawn at most 40 agents
+              (num_active_teams_le, 1),
+              (assign, ":win_cond", 1),
+            (try_end),
+            (this_or_next|eq, ":win_cond", 1),
+            (main_hero_fallen)
+        ],[
+            (get_player_agent_no, ":player_agent"),
+            (agent_get_kill_count, "$g_arena_training_kills", ":player_agent", 1),#use this for conversation
+            (assign, "$g_arena_training_won", 0),
+            (try_begin),
+              (neg|main_hero_fallen),
+              (assign, "$g_arena_training_won", 1),#use this for conversation
+            (try_end),
+            (assign, "$g_mt_mode", abm_visit),
+            (set_jump_mission, "mt_arena_melee_fight_2"),
+            (party_get_slot, ":arena_scene", "$current_town", slot_town_arena),
+            (modify_visitors_at_site, ":arena_scene"),
+            (reset_visitors),
+            (set_visitor, 35, "trp_veteran_fighter"),
+            (set_visitor, 36, "trp_hired_blade"),
+            (set_jump_entry, 50),
+            (jump_to_scene, ":arena_scene"),
+        ]),
+
+        (0.2, 0, 0, [
+            (eq, "$g_mt_mode", abm_training),
+            (assign, ":num_active_fighters", 0),
+            (try_for_agents, ":agent_no"),
+              (agent_is_human, ":agent_no"),
+              (agent_is_alive, ":agent_no"),
+              (agent_get_team, ":team_no", ":agent_no"),
+              (is_between, ":team_no", 0 ,7),
+              (val_add, ":num_active_fighters", 1),
+            (try_end),
+            (lt, ":num_active_fighters", 7),
+            (neg|main_hero_fallen),
+            (store_mission_timer_a, ":cur_time"),
+            (this_or_next|ge, ":cur_time", "$g_arena_training_next_spawn_time"),
+            (this_or_next|lt, "$g_arena_training_num_agents_spawned", 6),
+            (num_active_teams_le, 1),
+            (lt, "$g_arena_training_num_agents_spawned", "$g_arena_training_max_opponents"),
+        ], [
+            (assign, ":added_troop", "$g_arena_training_num_agents_spawned"),
+            (store_div,  ":added_troop", "$g_arena_training_num_agents_spawned", 6),
+            (assign, ":added_troop_sequence", "$g_arena_training_num_agents_spawned"),
+            (val_mod, ":added_troop_sequence", 6),
+            (val_add, ":added_troop", ":added_troop_sequence"),
+            (val_min, ":added_troop", 9),
+            (val_add, ":added_troop", "trp_arena_training_fighter_1"),
+            (assign, ":end_cond", 10000),
+            (get_player_agent_no, ":player_agent"),
+            (agent_get_position, pos5, ":player_agent"),
+            (try_for_range, ":unused", 0, ":end_cond"),
+              (store_random_in_range, ":random_entry_point", 32, 40),
+              (neq, ":random_entry_point", "$g_player_entry_point"), # make sure we don't overwrite player
+              (entry_point_get_position, pos1, ":random_entry_point"),
+              (get_distance_between_positions, ":dist", pos5, pos1),
+              ## UID: 104 - Begin
+              #
+              #(gt, ":dist", 1200), #must be at least 12 meters away from the player
+              (gt, ":dist", 600),
+              #
+              ## UID: 104 - End
+              (assign, ":end_cond", 0),
+            (try_end),
+            (add_visitors_to_current_scene, ":random_entry_point", ":added_troop", 1),
+            ## UID: 104 - Begin
+            #
+            #(store_add, ":new_spawned_count", "$g_arena_training_num_agents_spawned", 1),
+            (store_mission_timer_a, ":cur_time"),
+            (store_add, "$g_arena_training_next_spawn_time", ":cur_time", 1),
+            #(store_add, "$g_arena_training_next_spawn_time", ":cur_time", 14),
+            #(store_div, ":time_reduction", ":new_spawned_count", 3),
+            #(val_sub, "$g_arena_training_next_spawn_time", ":time_reduction"),
+            #
+            ## UID: 104 - End
+        ]),
+
+        (0, 0, 0, [(eq, "$g_mt_mode", abm_training)], [
+            (assign, ":max_teams", 6),
+            (val_max, ":max_teams", 1),
+            (get_player_agent_no, ":player_agent"),
+            (try_for_agents, ":agent_no"),
+              (agent_is_human, ":agent_no"),
+              (agent_is_alive, ":agent_no"),
+              (agent_slot_eq, ":agent_no", slot_agent_arena_team_set, 0),
+              (agent_get_team, ":team_no", ":agent_no"),
+              (is_between, ":team_no", 0 ,7),
+              (try_begin),
+                (eq, ":agent_no", ":player_agent"),
+                (agent_set_team, ":agent_no", 6), #player is always team 6.
+              (else_try),
+                (store_random_in_range, ":selected_team", 0, ":max_teams"),
+                (try_for_range, ":t", 0, 6),
+                  (troop_set_slot, "trp_temp_array_a", ":t", 0),
+                (try_end),
+
+                (try_for_agents, ":other_agent_no"),
+                  (agent_is_human, ":other_agent_no"),
+                  (agent_is_alive, ":other_agent_no"),
+                  (neq, ":agent_no", ":player_agent"),
+                  (agent_slot_eq, ":other_agent_no", slot_agent_arena_team_set, 1),
+                  (agent_get_team, ":other_agent_team", ":other_agent_no"),
+                  (troop_get_slot, ":count", "trp_temp_array_a", ":other_agent_team"),
+                  (val_add, ":count", 1),
+                  (troop_set_slot, "trp_temp_array_a", ":other_agent_team", ":count"),
+                (try_end),
+                (assign, ":strongest_team", 0),
+                (troop_get_slot, ":strongest_team_count", "trp_temp_array_a", 0),
+                (try_for_range, ":t", 1, 6),
+                  (troop_slot_ge, "trp_temp_array_a", ":t", ":strongest_team_count"),
+                  (troop_get_slot, ":strongest_team_count", "trp_temp_array_a", ":t"),
+                  (assign, ":strongest_team", ":t"),
+                (try_end),
+                (store_random_in_range, ":rand", 5, 100),
+                (try_begin),
+                  (lt, ":rand", "$g_arena_training_num_agents_spawned"),
+                  (assign, ":selected_team", ":strongest_team"),
+                (try_end),
+                (agent_set_team, ":agent_no", ":selected_team"),
+              (try_end),
+              (agent_set_slot, ":agent_no", slot_agent_arena_team_set, 1),
+              (try_begin),
+                (neq, ":agent_no", ":player_agent"),
+                (val_add, "$g_arena_training_num_agents_spawned", 1),
+              (try_end),
+            (try_end),
+        ]),
+    ]),
+  #
+  ## UID: 37 - End
 
   (
     "arena_challenge_fight",mtf_arena_fight|mtf_commit_casualties,-1,
@@ -14702,85 +15187,71 @@ mission_templates = [
   #############################  END OF WAVE MODE
   ###############################################
 #INVASION MODE END
-  
-  (
-	"bandit_lair",mtf_battle_mode|mtf_synch_inventory,charge,
-    "Ambushing a bandit lair",
-    [
-      (0,mtef_team_0|mtef_use_exact_number,af_override_horse, aif_start_alarmed, 7,[]),
-      (1,mtef_visitor_source|mtef_team_1,af_override_horse, aif_start_alarmed,20,[]),
-      (2,mtef_visitor_source|mtef_team_1,af_override_horse, aif_start_alarmed,20,[]),
-      (3,mtef_visitor_source|mtef_team_1,af_override_horse, aif_start_alarmed,20,[]),
-      (4,mtef_visitor_source|mtef_team_1,af_override_horse, aif_start_alarmed,20,[]),
-      (5,mtef_visitor_source|mtef_team_1,af_override_horse, aif_start_alarmed,20,[]),
-      (6,mtef_visitor_source|mtef_team_1,af_override_horse, aif_start_alarmed,20,[]),
-      (7,mtef_visitor_source|mtef_team_1,af_override_horse, aif_start_alarmed,20,[]),
-      (8,mtef_visitor_source|mtef_team_1,af_override_horse, aif_start_alarmed,20,[]),
-      (9,mtef_visitor_source|mtef_team_1,af_override_horse, aif_start_alarmed,20,[]),
-      (10,mtef_visitor_source|mtef_team_1,af_override_horse, aif_start_alarmed,20,[]),
-    ],
-    [
-      common_battle_init_banner,
-    
-      common_inventory_not_available,
-      
-      (ti_on_agent_spawn, 0, 0, [],
-      [
-        (store_trigger_param_1, ":agent_no"),
-        
-        (assign, "$relative_of_merchant_is_found", 0),
-              
-        (try_begin),
-          (agent_is_human, ":agent_no"),
-          (agent_is_alive, ":agent_no"),
-          (agent_get_team, ":agent_team", ":agent_no"),
-          (eq, ":agent_team", 1),
 
-          (agent_get_position, pos4, ":agent_no"),
-          (agent_set_scripted_destination, ":agent_no", pos4, 1),
-        (try_end),  
-        
-        (try_begin),
-          (agent_get_troop_id, ":troop_no", ":agent_no"),
-          (is_between, ":troop_no", "trp_relative_of_merchant", "trp_relative_of_merchants_end"),
-          (agent_set_team, ":agent_no", 7),
-          (team_set_relation, 0, 7, 0),          
-        (try_end),                
+    ("bandit_lair", mtf_battle_mode|mtf_synch_inventory, charge, "Ambushing a bandit lair", [
+        (0,mtef_team_0|mtef_use_exact_number,af_override_horse, aif_start_alarmed, 7,[]),
+        (1,mtef_visitor_source|mtef_team_1,af_override_horse, aif_start_alarmed,20,[]),
+        (2,mtef_visitor_source|mtef_team_1,af_override_horse, aif_start_alarmed,20,[]),
+        (3,mtef_visitor_source|mtef_team_1,af_override_horse, aif_start_alarmed,20,[]),
+        (4,mtef_visitor_source|mtef_team_1,af_override_horse, aif_start_alarmed,20,[]),
+        (5,mtef_visitor_source|mtef_team_1,af_override_horse, aif_start_alarmed,20,[]),
+        (6,mtef_visitor_source|mtef_team_1,af_override_horse, aif_start_alarmed,20,[]),
+        (7,mtef_visitor_source|mtef_team_1,af_override_horse, aif_start_alarmed,20,[]),
+        (8,mtef_visitor_source|mtef_team_1,af_override_horse, aif_start_alarmed,20,[]),
+        (9,mtef_visitor_source|mtef_team_1,af_override_horse, aif_start_alarmed,20,[]),
+        (10,mtef_visitor_source|mtef_team_1,af_override_horse, aif_start_alarmed,20,[]),
+    ], [
+        common_battle_init_banner,
+        common_inventory_not_available,
+
+        (ti_on_agent_spawn, 0, 0, [], [
+            (store_trigger_param_1, ":agent_no"),
+            (assign, "$relative_of_merchant_is_found", 0),
+
+            (try_begin),
+              (agent_is_human, ":agent_no"),
+              (agent_is_alive, ":agent_no"),
+              (agent_get_team, ":agent_team", ":agent_no"),
+              (eq, ":agent_team", 1),
+              (agent_get_position, pos4, ":agent_no"),
+              (agent_set_scripted_destination, ":agent_no", pos4, 1),
+            (try_end),
+
+            (try_begin),
+              (agent_get_troop_id, ":troop_no", ":agent_no"),
+              (is_between, ":troop_no", "trp_relative_of_merchant", "trp_relative_of_merchants_end"),
+              (agent_set_team, ":agent_no", 7),
+              (team_set_relation, 0, 7, 0),
+            (try_end),
         ]),
-        
-	   (0, 0, 0, 
-	   [	     
-         (party_get_template_id, ":template", "$g_encountered_party"),
-         (eq, ":template", "pt_looter_lair"),
-         (check_quest_active, "qst_save_relative_of_merchant"),	   
-         (eq, "$relative_of_merchant_is_found", 0),
-	   ],
-	   [
-        (get_player_agent_no, ":player_agent"),
-        (agent_get_position, pos0, ":player_agent"),
 
-        (try_for_agents, ":agent_no"),
-          (agent_get_troop_id, ":troop_no", ":agent_no"),
-          (is_between, ":troop_no", "trp_relative_of_merchant", "trp_relative_of_merchants_end"),    
-          (agent_set_scripted_destination, ":agent_no", pos0),
-          (agent_get_position, pos1, ":agent_no"),
-          (get_distance_between_positions, ":dist", pos0, pos1),
-          (le, ":dist", 200),
-          #(assign, "$g_talk_troop", "trp_relative_of_merchant"),
-          (start_mission_conversation, "trp_relative_of_merchant"),
-        (try_end),
-	   ]),
-        
-      (ti_tab_pressed, 0, 0,
-       [
-        (display_message, "str_cannot_leave_now"),
-       ], []),
-     
-      (1, 0, ti_once, [],
-       [
-        (assign, "$defender_reinforcement_stage", 0),
-        (assign, "$bandits_spawned_extra", 0),
-	   ]),
+        (0, 0, 0, [
+            (party_get_template_id, ":template", "$g_encountered_party"),
+            (eq, ":template", "pt_looter_lair"),
+            (check_quest_active, "qst_save_relative_of_merchant"),
+            (eq, "$relative_of_merchant_is_found", 0),
+        ], [
+            (get_player_agent_no, ":player_agent"),
+            (agent_get_position, pos0, ":player_agent"),
+
+            (try_for_agents, ":agent_no"),
+              (agent_get_troop_id, ":troop_no", ":agent_no"),
+              (is_between, ":troop_no", "trp_relative_of_merchant", "trp_relative_of_merchants_end"),
+              (agent_set_scripted_destination, ":agent_no", pos0),
+              (agent_get_position, pos1, ":agent_no"),
+              (get_distance_between_positions, ":dist", pos0, pos1),
+              (le, ":dist", 200),
+              #(assign, "$g_talk_troop", "trp_relative_of_merchant"),
+              (start_mission_conversation, "trp_relative_of_merchant"),
+            (try_end),
+        ]),
+
+        (ti_tab_pressed, 0, 0, [(display_message, "str_cannot_leave_now")], []),
+
+        (1, 0, ti_once, [], [
+            (assign, "$defender_reinforcement_stage", 0),
+            (assign, "$bandits_spawned_extra", 0),
+        ]),
 	   
 	   (1, 0, 0, [],
 	   [
@@ -15054,6 +15525,11 @@ mission_templates = [
 
        common_battle_order_panel,
        common_battle_order_panel_tick,
+        ## UID: 88 - Begin
+        #
+        common_health_regen,
+        #
+        ## UID: 88 - End
 
        (1, 4, ti_once,
        [
@@ -16074,6 +16550,11 @@ mission_templates = [
         common_battle_check_victory_condition,
         common_battle_victory_display,
         common_battle_tab_press,
+        ## UID: 88 - Begin
+        #
+        common_health_regen,
+        #
+        ## UID: 88 - End
 
         (1, 4, ti_once, [(main_hero_fallen)], [
             (assign, "$pin_player_fallen", 1),
@@ -16085,6 +16566,12 @@ mission_templates = [
             (finish_mission,0)
         ]),
 
+        ## UID: 35 - Begin
+        #
+        feature_troop_ratio,
+        feature_troop_ratio_check,
+        #
+        ## UID: 35 - End
         (ti_inventory_key_pressed, 0, 0, [(set_trigger_result, 1)], []),
     ]),
   #
@@ -16110,120 +16597,8 @@ mission_templates = [
       (14,mtef_defenders|mtef_team_0,0,aif_start_alarmed,20,[]),
       (15,mtef_defenders|mtef_team_0,0,aif_start_alarmed,20,[]),
     ], [
+        common_battle_mission_start,
         common_battle_init_banner,
-
-        (ti_inventory_key_pressed, 0, 0, [(set_trigger_result,1)], []),
-        (ti_on_agent_spawn, 0, 0, [], [
-            (store_trigger_param_1, ":agent_no"),
-            (assign, "$relative_of_merchant_is_found", 0),
-
-            (try_begin),
-              (agent_is_human, ":agent_no"),
-              (agent_is_alive, ":agent_no"),
-              (agent_get_team, ":agent_team", ":agent_no"),
-              (eq, ":agent_team", 1),
-
-              (agent_get_position, pos4, ":agent_no"),
-              (agent_set_scripted_destination, ":agent_no", pos4, 1),
-            (try_end),
-
-            (try_begin),
-              (agent_get_troop_id, ":troop_no", ":agent_no"),
-              (is_between, ":troop_no", "trp_relative_of_merchant", "trp_relative_of_merchants_end"),
-              (agent_set_team, ":agent_no", 7),
-              (team_set_relation, 0, 7, 0),
-            (try_end),
-        ]),
-
-##        (ti_tab_pressed, 0, 0, [
-##            (display_message, "str_cannot_leave_now"),], []),
-
-        (1, 0, ti_once, [], [
-            (assign, "$defender_reinforcement_stage", 0),
-        ]),
-
-        (1, 0, 0, [], [
-            (try_for_agents, ":bandit_id"),
-              (agent_is_alive, ":bandit_id"),
-              (agent_get_team, ":agent_team_1", ":bandit_id"),
-              (eq, ":agent_team_1", 1),
-              (agent_is_in_special_mode, ":bandit_id"),
-              (agent_is_human, ":bandit_id"),
-
-              (agent_get_position, pos0, ":bandit_id"),
-              (try_for_agents, ":player_team_agent_id"),
-                (agent_is_alive, ":player_team_agent_id"),
-                (agent_get_team, ":agent_team_2", ":player_team_agent_id"),
-                (eq, ":agent_team_2", 0),
-                (agent_is_human, ":player_team_agent_id"),
-
-                (store_agent_hit_points, ":bandit_hit_points", ":bandit_id"),
-                (assign, ":continue", 0),
-
-                (try_begin),
-                  (lt, ":bandit_hit_points", 100),
-
-                  (try_for_agents, ":bandit_2_id"),
-                    (agent_is_alive, ":bandit_2_id"),  
-                    (agent_get_team, ":bandit_2_team", ":bandit_2_id"),
-                    (eq, ":bandit_2_team", 1),
-                    (neq, ":bandit_id", ":bandit_2_id"),
-                    (agent_is_in_special_mode, ":bandit_2_id"),
-                    (agent_is_human, ":bandit_2_id"),
-                  
-                    (agent_get_position, pos1, ":bandit_id"),
-                    (agent_get_position, pos2, ":bandit_2_id"),                        
-                    (get_distance_between_positions, ":distance", pos1, pos2),
-                    (le, ":distance", 1000),
-
-                    (agent_clear_scripted_mode, ":bandit_2_id"),  
-                  (try_end),                             
-                
-                  (assign, ":continue", 1),
-                (else_try),  
-                  (agent_get_position, pos1, ":bandit_id"),
-                  (agent_get_position, pos2, ":player_team_agent_id"),                        
-                  (get_distance_between_positions, ":distance", pos1, pos2),                                                                        
-                  (le, ":distance", 4000),
-              
-                  (try_for_agents, ":bandit_2_id"),
-                    (agent_is_alive, ":bandit_2_id"),  
-                    (agent_get_team, ":bandit_2_team", ":bandit_2_id"),
-                    (eq, ":bandit_2_team", 1),
-                    (neq, ":bandit_id", ":bandit_2_id"),
-                    (agent_is_in_special_mode, ":bandit_2_id"),
-                    (agent_is_human, ":bandit_2_id"),
-                    
-                    (agent_get_position, pos1, ":bandit_id"),
-                    (agent_get_position, pos2, ":bandit_2_id"),                        
-                    (get_distance_between_positions, ":distance", pos1, pos2),
-                    (le, ":distance", 1000),
-                    
-                    (agent_clear_scripted_mode, ":bandit_2_id"),  
-                  (try_end),                
-  
-                  (assign, ":continue", 1),
-                (try_end),  
-              
-                (eq, ":continue", 1),
-                (agent_clear_scripted_mode, ":bandit_id"),
-              (try_end),
-            (try_end),
-        ]),
-
-        (30, 0, 0, [(le, "$defender_reinforcement_stage", 1)], [
-            (store_character_level, ":player_level", "trp_player"),
-            (store_add, ":number_of_bandits_will_be_spawned_at_each_period", 5, ":player_level"),
-            (val_div, ":number_of_bandits_will_be_spawned_at_each_period", 3),
-
-            (lt, "$bandits_spawned_extra", ":number_of_bandits_will_be_spawned_at_each_period"),
-            (val_add, "$bandits_spawned_extra", 1),                   
-
-            (store_current_scene, ":cur_scene"), 
-            (modify_visitors_at_site, ":cur_scene"),
-            (store_random_in_range, ":random_entry_point", 8, 16),
-            (add_visitors_to_current_scene, ":random_entry_point", "trp_bandit", 1),
-        ]),
 
         (ti_on_agent_killed_or_wounded, 0, 0, [], [
             (store_trigger_param_1, ":dead_agent_no"),
@@ -16232,59 +16607,55 @@ mission_templates = [
 
             (try_begin),
               (ge, ":dead_agent_no", 0),
+              (neg|agent_is_ally, ":dead_agent_no"),
               (agent_is_human, ":dead_agent_no"),
               (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
-              (str_store_troop_name, s6, ":dead_agent_troop_id"),
-
-              (try_begin),
-                (neg|agent_is_ally, ":dead_agent_no"),
-                (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),    
-                (try_begin),
-                (eq, ":is_wounded", 1),
-                  (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
-                (try_end),  
-              (try_end),
-              (party_add_members, "p_temp_casualties", ":dead_agent_troop_id", 1), 
+##              (display_message, "@Test: +1"),
+              (party_add_members, "p_temp_casualties", ":dead_agent_troop_id", 1),
+##              (party_get_num_companions, reg0, "p_temp_casualties"),
+##              (display_message, "@X: {reg0}"),
               (eq, ":is_wounded", 1),
-              (party_wound_members, "p_temp_casualties", ":dead_agent_troop_id", 1), 
+              (party_wound_members, "p_temp_casualties", ":dead_agent_troop_id", 1),
             (try_end),
-        
-            (assign, ":number_of_enemies", 0),
-            (try_for_agents, ":cur_agent"),
-              (agent_is_non_player, ":cur_agent"),
-              (agent_is_human, ":cur_agent"),
-              (agent_is_alive, ":cur_agent"),
-              (neg|agent_is_ally, ":cur_agent"),
-              (val_add, ":number_of_enemies", 1),
-            (try_end),
-            (assign, reg11, ":number_of_enemies"),
-        
-            (try_begin),
-              (le, ":number_of_enemies", 2),
-              (le, "$defender_reinforcement_stage", 1),
-              (val_add, "$defender_reinforcement_stage", 1),
+        ]),
 
-              (store_character_level, ":player_level", "trp_player"),
-              (val_mul, ":player_level", 2),
-              (store_add, ":number_of_bandits_will_be_spawned_at_each_period", 6, ":player_level"),
-              (val_div, ":number_of_bandits_will_be_spawned_at_each_period", 6),
-
-              (store_current_scene, ":cur_scene"), 
-              (modify_visitors_at_site, ":cur_scene"),
-              (try_for_range, ":unused", 0, ":number_of_bandits_will_be_spawned_at_each_period"),
-                (store_random_in_range, ":random_entry_point", 8, 16),
-                (add_visitors_to_current_scene, ":random_entry_point", "trp_bandit", 1),
-              (try_end),
-            (try_end),
+        (ti_on_agent_spawn, 0, 0, [], [
+            (store_trigger_param_1, ":agent_no"),
+            (call_script, "script_agent_reassign_team", ":agent_no"),
         ]),
 
         (0, 0, ti_once, [], [
-            (call_script, "script_music_set_situation_with_culture", mtf_sit_ambushed),
-            (set_party_battle_mode),
+            (assign,"$g_battle_won",0),
+            (assign,"$defender_reinforcement_stage",0),
+            (assign,"$attacker_reinforcement_stage",0),
+            (call_script, "script_place_player_banner_near_inventory"),
+            (call_script, "script_combat_music_set_situation_with_culture"),
         ]),
 
-        common_battle_order_panel,
-        common_battle_order_panel_tick,
+        common_music_situation_update,
+        common_battle_check_friendly_kills,
+
+        (1, 0, 5, [
+            (lt,"$defender_reinforcement_stage",2),
+            (store_mission_timer_a,":mission_time"),
+            (ge,":mission_time",10),
+            (store_normalized_team_count,":num_defenders", 0),
+            (lt,":num_defenders",6),
+        ], [
+            (add_reinforcements_to_entry, 0, 7),
+            (val_add, "$defender_reinforcement_stage", 1)
+        ]),
+        
+        (1, 0, 5, [
+            (lt,"$attacker_reinforcement_stage",2),
+            (store_mission_timer_a,":mission_time"),
+            (ge,":mission_time",10),
+            (store_normalized_team_count,":num_attackers", 1),
+            (lt,":num_attackers",6),
+        ], [
+            (add_reinforcements_to_entry, 3, 7),
+            (val_add, "$attacker_reinforcement_stage", 1)
+        ]),
 
         (1, 60, ti_once, [
             (store_mission_timer_a,reg(1)),
@@ -16293,17 +16664,503 @@ mission_templates = [
             (neg|main_hero_fallen, 0),
             (set_mission_result,1),
             (display_message,"str_msg_battle_won"),
+            (party_set_slot, "$g_encountered_party", slot_party_ai_substate, 2),
+            (display_message, "@{s10}"),
+            (jump_to_menu, "mnu_bandit_camp"),
             (assign,"$g_battle_won",1),
             (assign, "$g_battle_result", 1),
             (call_script, "script_play_victorious_sound"),
-            (party_set_slot, "$g_encountered_party", slot_party_ai_substate, 2),
         ], [
             (call_script, "script_count_mission_casualties_from_agents"),
             (finish_mission, 1),
         ]),
+        
         common_battle_victory_display,
         common_battle_tab_press,
+        ## UID: 88 - Begin
+        #
+        common_health_regen,
+        #
+        ## UID: 88 - End
+
+        (1, 4, ti_once, [(main_hero_fallen)], [
+            (assign, "$pin_player_fallen", 1),
+            (str_store_string, s5, "str_retreat"),
+            (call_script, "script_simulate_retreat", 10, 20),
+            (assign, "$g_battle_result", -1),
+            (set_mission_result,-1),
+            (call_script, "script_count_mission_casualties_from_agents"),
+            (party_set_slot, "$g_encountered_party", slot_party_ai_substate, 1),
+            (jump_to_menu, "mnu_bandit_camp"),
+            (finish_mission, 0)
+        ]),
+
+        ## UID: 35 - Begin
+        #
+        feature_troop_ratio,
+        feature_troop_ratio_check,
+        #
+        ## UID: 35 - End
+        (ti_inventory_key_pressed, 0, 0, [(set_trigger_result, 1)], []),
     ]),
   #
   ## UID: 11 - End
+
+    ## UID: 80 - Begin
+    #
+    ("deer_hunting", mtf_battle_mode, -1, "You lead your deers to battle.", [
+        (1,mtef_team_0|mtef_leader_only,0,aif_start_alarmed,12,[]),
+        (4,mtef_visitor_source,0,aif_start_alarmed,0,[]),
+    ], [
+        (ti_tab_pressed, 0, 0, [(change_screen_map)], []),
+
+        (0, 0, ti_once, [
+            (party_count_members_of_type,":num_deers","$g_encountered_party","trp_deer"),
+            (val_sub,":num_deers",1),
+            (ge,":num_deers",0),
+            (assign,"$num_deers_killed",0),
+            (get_scene_boundaries, pos10,pos11),
+            (position_get_x, ":scene_min_x", pos10),
+            (position_get_x, ":scene_max_x", pos11),
+            (position_get_y, ":scene_min_y", pos10),
+            (position_get_y, ":scene_max_y", pos11),
+            (store_div,":border_x",":scene_max_x",10),
+            (val_add,":scene_min_x",":border_x"),
+            (val_sub,":scene_max_x",":border_x"),
+            (store_div,":border_y",":scene_max_y",10),
+            (val_add,":scene_min_y",":border_y"),
+            (val_sub,":scene_max_y",":border_y"),
+            (store_random_in_range,":x_pos",":scene_min_x",":scene_max_x"),
+            (store_random_in_range,":y_pos",":scene_min_y",":scene_max_y"),
+            (init_position, pos1),
+            (position_set_x,pos1,":x_pos"),
+            (position_set_y,pos1,":y_pos"),
+            (position_set_z,pos1,10000),
+            (position_set_z_to_ground_level,pos1),
+            (set_spawn_position, pos1),
+            (spawn_horse, "itm_deer"),
+            (assign,"$leading_deer",reg0),
+            (try_for_range,":unused",0,":num_deers"),
+              (init_position, pos1),
+              (store_random_in_range,":x_pos_add",0,1000),
+              (store_random_in_range,":y_pos_add",0,1000),
+              (val_add,":x_pos_add",":x_pos"),
+              (val_add,":y_pos_add",":y_pos"),
+              (position_set_x,pos1,":x_pos_add"),
+              (position_set_y,pos1,":y_pos_add"),
+              (position_set_z,pos1,10000),
+              (position_set_z_to_ground_level,pos1),
+              (set_spawn_position, pos1),
+              (spawn_horse, "itm_deer"),
+            (try_end),
+        ], []),
+
+        (1, 0, 0, [], [
+            (try_for_agents,reg(1)),
+              (agent_get_item_id,reg(2),reg(1)),
+              (eq,reg(2),"itm_deer"),
+              (store_agent_hit_points,reg(2),reg(1)),
+              (store_mul,reg(3),20,reg(2)),
+              (val_div,reg(3),40),
+              (agent_set_speed_limit,reg(1),reg(3)),
+            (try_end),
+        ]),
+
+        (5, 0, 0, [(neg|agent_is_alive,"$leading_deer")], [
+            (try_for_agents,reg(1)),
+              (agent_get_item_id,reg(2),reg(1)),
+              (eq,reg(2),"itm_deer"),
+              (assign,"$leading_deer",reg(1)),
+            (try_end),
+        ]),
+
+        (1, 0, 0, [], [
+            (assign,":num_kills",0),
+            (try_for_agents,reg(1)),
+              (agent_get_item_id,reg(2),reg(1)),
+              (eq,reg(2),"itm_deer"),
+              (store_agent_hit_points,reg(2),reg(1)),
+              (eq,reg(2),0),
+              (val_add,":num_kills",1),
+            (try_end),
+            (gt,":num_kills","$num_deers_killed"),
+            (get_scene_boundaries, pos10,pos11),
+            (position_get_x, ":scene_min_x", pos10),
+            (position_get_x, ":scene_max_x", pos11),
+            (position_get_y, ":scene_min_y", pos10),
+            (position_get_y, ":scene_max_y", pos11),
+            (store_div,":border_x",":scene_max_x",10),
+            (val_add,":scene_min_x",":border_x"),
+            (val_sub,":scene_max_x",":border_x"),
+            (store_div,":border_y",":scene_max_y",10),
+            (val_add,":scene_min_y",":border_y"),
+            (val_sub,":scene_max_y",":border_y"),
+            (store_random_in_range,":x_pos",":scene_min_x",":scene_max_x"),
+            (store_random_in_range,":y_pos",":scene_min_y",":scene_max_y"),
+            (init_position, pos1),
+            (position_set_x,pos1,":x_pos"),
+            (position_set_y,pos1,":y_pos"),
+            (position_set_z,pos1,10000),
+            (position_set_z_to_ground_level,pos1),
+            (agent_set_scripted_destination,"$leading_deer",pos1),
+            (assign,"$num_deers_killed",":num_kills"),
+        ]),
+
+        (5, 0, 0, [], [
+            (agent_get_position,pos1,"$leading_deer"),
+            (position_get_x,":x_pos",pos1),
+            (position_get_y,":y_pos",pos1),
+            (this_or_next|le,":x_pos",5000),
+            (this_or_next|le,":y_pos",5000),
+            (this_or_next|ge,":x_pos",38000),
+            (             ge,":y_pos",38000),
+            (get_scene_boundaries, pos10,pos11),
+            (position_get_x, ":scene_min_x", pos10),
+            (position_get_x, ":scene_max_x", pos11),
+            (position_get_y, ":scene_min_y", pos10),
+            (position_get_y, ":scene_max_y", pos11),
+            (store_div,":border_x",":scene_max_x",10),
+            (val_add,":scene_min_x",":border_x"),
+            (val_sub,":scene_max_x",":border_x"),
+            (store_div,":border_y",":scene_max_y",10),
+            (val_add,":scene_min_y",":border_y"),
+            (val_sub,":scene_max_y",":border_y"),
+            (store_random_in_range,":x_pos",":scene_min_x",":scene_max_x"),
+            (store_random_in_range,":y_pos",":scene_min_y",":scene_max_y"),
+            (init_position, pos1),
+            (position_set_x,pos1,":x_pos"),
+            (position_set_y,pos1,":y_pos"),
+            (position_set_z,pos1,10000),
+            (position_set_z_to_ground_level,pos1),
+            (agent_set_scripted_destination,"$leading_deer",pos1),
+        ]),
+
+        (1, 0, 0, [], [
+            (try_for_agents,reg(1)),
+              (agent_get_item_id,reg(2),reg(1)),
+              (eq,reg(2),"itm_deer"),
+              (store_agent_hit_points,":health",reg(1)),
+              (store_sub,":damage",100,":health"),
+              (agent_get_slot,":prev_damage",reg(1),1),
+              (neq,":prev_damage",":damage"),
+              (agent_set_slot,reg(1),1,":damage"),
+              (agent_get_position,pos1,reg(1)),
+              (position_get_x,":x_pos",pos1),
+	(position_get_y,":y_pos",pos1),
+        (store_random_in_range,":x_pos_add",0,1000),
+        (store_random_in_range,":y_pos_add",0,1000),
+	(val_add,":x_pos",":x_pos_add"),
+	(val_add,":y_pos",":y_pos_add"),
+	(position_set_x,pos1,":x_pos"),
+	(position_set_y,pos1,":y_pos"),
+        (agent_set_scripted_destination,reg(1),pos1),
+      (try_end),
+      ]),
+      (0.5,0,0, #deer travelling
+      [],
+      [
+      (get_player_agent_no,reg(1)),
+      (agent_get_position,pos1,reg(1)),
+      (agent_get_position,pos4,"$leading_deer"),
+      (position_get_x,":x_pos",pos4),
+      (position_get_y,":y_pos",pos4),
+      (try_for_agents,reg(1)),
+	(agent_get_item_id,reg(2),reg(1)),
+	(eq,reg(2),"itm_deer"),
+        (agent_get_position,pos2,reg(1)),
+	(get_distance_between_positions,reg(3),pos1,pos2),
+	(try_begin),
+	        (position_get_x,":pos_x",pos2),
+	        (position_get_x,":pos_y",pos2),
+		     (position_get_x, ":scene_min_x", pos10),
+                     (position_get_x, ":scene_max_x", pos11),
+                     (position_get_y, ":scene_min_y", pos10),
+                     (position_get_y, ":scene_max_y", pos11),
+		     (store_div,":border_x",":scene_max_x",10),
+		     (val_add,":scene_min_x",":border_x"),
+		     (val_sub,":scene_max_x",":border_x"),
+		     (store_div,":border_y",":scene_max_y",10),
+		     (val_add,":scene_min_y",":border_y"),
+		     (val_sub,":scene_max_y",":border_y"),
+		(this_or_next|gt,":pos_x",":scene_max_x"),
+		(this_or_next|lt,":pos_x",":scene_min_x"),
+		(this_or_next|gt,":pos_y",":scene_max_y"),
+		(lt,":pos_y",":scene_min_y"),
+		(store_random_in_range,":x_pos",":scene_min_x",":scene_max_x"),
+		(store_random_in_range,":y_pos",":scene_min_y",":scene_max_y"),
+                (init_position, pos1),
+		(position_set_x,pos1,":x_pos"),
+		(position_set_y,pos1,":y_pos"),
+		(position_set_z,pos1,10000),
+		(position_set_z_to_ground_level,pos1),
+                (agent_set_scripted_destination,reg(1),pos1),
+	(else_try),
+		(le,reg(3),2500),
+		(position_get_x,reg(4),pos1),
+		(position_get_x,reg(5),pos2),
+		(store_sub,":x_dist",reg(5),reg(4)),
+		(val_mul,":x_dist",10),
+		(position_get_y,reg(6),pos1),
+		(position_get_y,reg(7),pos2),
+		(store_sub,":y_dist",reg(7),reg(6)),
+		(val_mul,":y_dist",10),
+		(init_position,pos3),
+		(val_add,":x_dist",reg(5)),
+		(val_add,":y_dist",reg(7)),
+		(position_set_x,pos3,":x_dist"),
+		(position_set_y,pos3,":y_dist"),
+	        (position_set_z,pos3,10000),
+	        (position_set_z_to_ground_level,pos3),
+		(agent_set_scripted_destination,reg(1),pos3),
+	(else_try),
+		(get_distance_between_positions,reg(3),pos4,pos2),
+		(ge,reg(3),2000),
+                       (init_position, pos6),
+		       (store_random_in_range,":x_pos_add",0,1000),
+		       (store_random_in_range,":y_pos_add",0,1000),
+		       (val_add,":x_pos_add",":x_pos"),
+		       (val_add,":y_pos_add",":y_pos"),
+		       (position_set_x,pos6,":x_pos_add"),
+		       (position_set_y,pos6,":y_pos_add"),
+		       (position_set_z,pos6,10000),
+		       (position_set_z_to_ground_level,pos6),
+		       (agent_set_scripted_destination,reg(1),pos6),
+	(try_end),
+      (try_end),
+      ]),
+    ]),
+
+    
+  (
+    "boar_hunting",mtf_battle_mode,-1,
+    "You lead your boars to battle.",
+    [
+     (1,mtef_team_0|mtef_leader_only,0,aif_start_alarmed,12,[]),
+     (4,mtef_visitor_source,0,aif_start_alarmed,0,[]),
+     ],
+    [
+      (ti_tab_pressed, 0, 0, [
+          (change_screen_map)
+          #(set_trigger_result,1)
+        ], []), #leaving area
+      (0, 0, ti_once, [ #spawing boars
+		     (party_count_members_of_type,":num_boars","$g_encountered_party","trp_boar"),
+		     (val_sub,":num_boars",1),
+		     (ge,":num_boars",0),
+                     (assign,"$num_boars_killed",0),
+                     (get_scene_boundaries, pos10,pos11),
+                     (position_get_x, ":scene_min_x", pos10),
+                     (position_get_x, ":scene_max_x", pos11),
+                     (position_get_y, ":scene_min_y", pos10),
+                     (position_get_y, ":scene_max_y", pos11),
+		     (store_div,":border_x",":scene_max_x",10),
+		     (val_add,":scene_min_x",":border_x"),
+		     (val_sub,":scene_max_x",":border_x"),
+		     (store_div,":border_y",":scene_max_y",10),
+		     (val_add,":scene_min_y",":border_y"),
+		     (val_sub,":scene_max_y",":border_y"),
+		     (store_random_in_range,":x_pos",":scene_min_x",":scene_max_x"),
+		     (store_random_in_range,":y_pos",":scene_min_y",":scene_max_y"),
+                     (init_position, pos1),
+		     (position_set_x,pos1,":x_pos"),
+		     (position_set_y,pos1,":y_pos"),
+		     (position_set_z,pos1,10000),
+		     (position_set_z_to_ground_level,pos1),
+                     (set_spawn_position, pos1),
+                     (spawn_horse, "itm_boar"),
+		     (assign,"$leading_boar",reg0),
+		     (try_for_range,":unused",0,":num_boars"),
+                       (init_position, pos1),
+		       (store_random_in_range,":x_pos_add",0,1000),
+		       (store_random_in_range,":y_pos_add",0,1000),
+		       (val_add,":x_pos_add",":x_pos"),
+		       (val_add,":y_pos_add",":y_pos"),
+		       (position_set_x,pos1,":x_pos_add"),
+		       (position_set_y,pos1,":y_pos_add"),
+		       (position_set_z,pos1,10000),
+		       (position_set_z_to_ground_level,pos1),
+		       (set_spawn_position, pos1),
+                       (spawn_horse, "itm_boar"),
+		     (try_end),
+                 ], []),
+      (1,0,0,[], #wounded boars move slower
+      [(try_for_agents,reg(1)),
+       (agent_get_item_id,reg(2),reg(1)),
+       (eq,reg(2),"itm_boar"),
+       (store_agent_hit_points,reg(2),reg(1)),
+       (store_mul,reg(3),20,reg(2)),
+       (val_div,reg(3),100),
+       (agent_set_speed_limit,reg(1),reg(3)),
+       (try_end),
+      ]),
+      (5,0,0,
+      [
+      (neg|agent_is_alive,"$leading_boar"),
+      ],
+      [
+      (try_for_agents,reg(1)),
+      	(agent_get_item_id,reg(2),reg(1)),
+	(eq,reg(2),"itm_boar"),
+	(assign,"$leading_boar",reg(1)),
+      (try_end),
+      ]),
+      (1,0,0,[],
+      [
+              (assign,":num_kills",0),
+	      (try_for_agents,reg(1)),
+	        (agent_get_item_id,reg(2),reg(1)),
+	        (eq,reg(2),"itm_boar"),
+                (store_agent_hit_points,reg(2),reg(1)),
+		(eq,reg(2),0),
+		(val_add,":num_kills",1),
+	      (try_end),    
+	      (gt,":num_kills","$num_boars_killed"),	      
+                     (get_scene_boundaries, pos10,pos11),
+                     (position_get_x, ":scene_min_x", pos10),
+                     (position_get_x, ":scene_max_x", pos11),
+                     (position_get_y, ":scene_min_y", pos10),
+                     (position_get_y, ":scene_max_y", pos11),
+		     (store_div,":border_x",":scene_max_x",10),
+		     (val_add,":scene_min_x",":border_x"),
+		     (val_sub,":scene_max_x",":border_x"),
+		     (store_div,":border_y",":scene_max_y",10),
+		     (val_add,":scene_min_y",":border_y"),
+		     (val_sub,":scene_max_y",":border_y"),
+		     (store_random_in_range,":x_pos",":scene_min_x",":scene_max_x"),
+		     (store_random_in_range,":y_pos",":scene_min_y",":scene_max_y"),
+                     (init_position, pos1),
+		     (position_set_x,pos1,":x_pos"),
+		     (position_set_y,pos1,":y_pos"),
+		     (position_set_z,pos1,10000),
+		     (position_set_z_to_ground_level,pos1),
+                     (agent_set_scripted_destination,"$leading_boar",pos1),
+	             (assign,"$num_boars_killed",":num_kills"),
+      ]),
+      (5,0,0,[],
+      [
+      (agent_get_position,pos1,"$leading_boar"),
+      (position_get_x,":x_pos",pos1),
+      (position_get_y,":y_pos",pos1),
+      (this_or_next|le,":x_pos",5000),
+      (this_or_next|le,":y_pos",5000),
+      (this_or_next|ge,":x_pos",38000),
+      (ge,":y_pos",38000),
+                     (get_scene_boundaries, pos10,pos11),
+                     (position_get_x, ":scene_min_x", pos10),
+                     (position_get_x, ":scene_max_x", pos11),
+                     (position_get_y, ":scene_min_y", pos10),
+                     (position_get_y, ":scene_max_y", pos11),
+		     (store_div,":border_x",":scene_max_x",10),
+		     (val_add,":scene_min_x",":border_x"),
+		     (val_sub,":scene_max_x",":border_x"),
+		     (store_div,":border_y",":scene_max_y",10),
+		     (val_add,":scene_min_y",":border_y"),
+		     (val_sub,":scene_max_y",":border_y"),
+		     (store_random_in_range,":x_pos",":scene_min_x",":scene_max_x"),
+		     (store_random_in_range,":y_pos",":scene_min_y",":scene_max_y"),
+                     (init_position, pos1),
+		     (position_set_x,pos1,":x_pos"),
+		     (position_set_y,pos1,":y_pos"),
+		     (position_set_z,pos1,10000),
+		     (position_set_z_to_ground_level,pos1),
+                     (agent_set_scripted_destination,"$leading_boar",pos1),
+      ]),
+      (1,0,0,[],
+      [
+      (try_for_agents,reg(1)),
+	(agent_get_item_id,reg(2),reg(1)),
+	(eq,reg(2),"itm_boar"),
+	(store_agent_hit_points,":health",reg(1)),
+	(store_sub,":damage",100,":health"),
+	(agent_get_slot,":prev_damage",reg(1),1),
+	(neq,":prev_damage",":damage"),
+	(agent_set_slot,reg(1),1,":damage"),
+        (agent_get_position,pos1,reg(1)),
+        (position_get_x,":x_pos",pos1),
+	(position_get_y,":y_pos",pos1),
+        (store_random_in_range,":x_pos_add",0,1000),
+        (store_random_in_range,":y_pos_add",0,1000),
+	(val_add,":x_pos",":x_pos_add"),
+	(val_add,":y_pos",":y_pos_add"),
+	(position_set_x,pos1,":x_pos"),
+	(position_set_y,pos1,":y_pos"),
+        (agent_set_scripted_destination,reg(1),pos1),
+      (try_end),
+      ]),
+      (0.5,0,0, #boar travelling
+      [],
+      [
+      (get_player_agent_no,reg(1)),
+      (agent_get_position,pos1,reg(1)),
+      (agent_get_position,pos4,"$leading_boar"),
+      (position_get_x,":x_pos",pos4),
+      (position_get_y,":y_pos",pos4),
+      (try_for_agents,reg(1)),
+	(agent_get_item_id,reg(2),reg(1)),
+	(eq,reg(2),"itm_boar"),
+        (agent_get_position,pos2,reg(1)),
+	(get_distance_between_positions,reg(3),pos1,pos2),
+	(try_begin),
+	        (position_get_x,":pos_x",pos2),
+	        (position_get_x,":pos_y",pos2),
+		     (position_get_x, ":scene_min_x", pos10),
+                     (position_get_x, ":scene_max_x", pos11),
+                     (position_get_y, ":scene_min_y", pos10),
+                     (position_get_y, ":scene_max_y", pos11),
+		     (store_div,":border_x",":scene_max_x",10),
+		     (val_add,":scene_min_x",":border_x"),
+		     (val_sub,":scene_max_x",":border_x"),
+		     (store_div,":border_y",":scene_max_y",10),
+		     (val_add,":scene_min_y",":border_y"),
+		     (val_sub,":scene_max_y",":border_y"),
+		(this_or_next|gt,":pos_x",":scene_max_x"),
+		(this_or_next|lt,":pos_x",":scene_min_x"),
+		(this_or_next|gt,":pos_y",":scene_max_y"),
+		(lt,":pos_y",":scene_min_y"),
+		(store_random_in_range,":x_pos",":scene_min_x",":scene_max_x"),
+		(store_random_in_range,":y_pos",":scene_min_y",":scene_max_y"),
+                (init_position, pos1),
+		(position_set_x,pos1,":x_pos"),
+		(position_set_y,pos1,":y_pos"),
+		(position_set_z,pos1,10000),
+		(position_set_z_to_ground_level,pos1),
+                (agent_set_scripted_destination,reg(1),pos1),
+	(else_try),
+		(le,reg(3),2500),
+		(position_get_x,reg(4),pos1),
+		(position_get_x,reg(5),pos2),
+		(store_sub,":x_dist",reg(5),reg(4)),
+		(val_mul,":x_dist",10),
+		(position_get_y,reg(6),pos1),
+		(position_get_y,reg(7),pos2),
+		(store_sub,":y_dist",reg(7),reg(6)),
+		(val_mul,":y_dist",10),
+		(init_position,pos3),
+		(val_add,":x_dist",reg(5)),
+		(val_add,":y_dist",reg(7)),
+		(position_set_x,pos3,":x_dist"),
+		(position_set_y,pos3,":y_dist"),
+	        (position_set_z,pos3,10000),
+	        (position_set_z_to_ground_level,pos3),
+		(agent_set_scripted_destination,reg(1),pos3),
+	(else_try),
+		(get_distance_between_positions,reg(3),pos4,pos2),
+		(ge,reg(3),2000),
+                       (init_position, pos6),
+		       (store_random_in_range,":x_pos_add",0,1000),
+		       (store_random_in_range,":y_pos_add",0,1000),
+		       (val_add,":x_pos_add",":x_pos"),
+		       (val_add,":y_pos_add",":y_pos"),
+		       (position_set_x,pos6,":x_pos_add"),
+		       (position_set_y,pos6,":y_pos_add"),
+		       (position_set_z,pos6,10000),
+		       (position_set_z_to_ground_level,pos6),
+		       (agent_set_scripted_destination,reg(1),pos6),
+	(try_end),
+      (try_end),
+      ]),
+    ]),
+    #
+    ## UID: 80 - End
+    ## EOF
 ]

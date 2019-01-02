@@ -1,4 +1,12 @@
-from header_factions import *
+from header_common import *
+
+ff_always_hide_label = 0x00000001
+ff_max_rating_bits = 8
+ff_max_rating_mask = 0x0000ff00
+
+def max_player_rating(rating):
+  r = 100 - rating
+  return (r << ff_max_rating_bits) & ff_max_rating_mask
 
 ####################################################################################################################
 #  Each faction record contains the following fields:
@@ -27,15 +35,16 @@ factions = [
   ("innocents","Innocents", ff_always_hide_label, 0.5,[("outlaws",-0.05)], []),
   ("merchants","Merchants", ff_always_hide_label, 0.5,[("outlaws",-0.5),], []),
 
-  ("dark_knights", "Dark Knights", 0, 0.5, [("innocents",-0.9), ("player_faction",-0.4),("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05)], [], 0x000000),
-  ("desert_cavalry", "Desert Cavalry", 0, 0.5, [("kingdom_6", -0.5), ("player_faction", -0.4), ("innocents", -0.9), ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02), ("mountain_bandits", -0.05), ("forest_bandits", -0.05)], [], 0xF0E68C),
+  ("dark_knights", "Dark Knights", 0, 0.5, [("innocents",-0.9), ("player_supporters_faction", -0.4), ("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05),("kingdom_1", -0.1),("kingdom_2", -0.1),("kingdom_3", -0.1),("kingdom_4", -0.1),("kingdom_5", -0.1),("kingdom_6", -0.1),("kingdom_7", -0.1),("kingdom_8", -0.1)], [], 0x000000),
+  ("desert_cavalry", "Desert Cavalry", 0, 0.5, [("kingdom_6", -0.5), ("player_supporters_faction", -0.4), ("innocents", -0.9), ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02), ("mountain_bandits", -0.05), ("forest_bandits", -0.05),("kingdom_1", -0.1),("kingdom_2", -0.1),("kingdom_3", -0.1),("kingdom_4", -0.1),("kingdom_5", -0.1),("kingdom_6", -0.1),("kingdom_7", -0.1),("kingdom_8", -0.1)], [], 0xF0E68C),
 
-  ("culture_1",  "{!}culture_1", 0, 0.9, [], []),
-  ("culture_2",  "{!}culture_2", 0, 0.9, [], []),
-  ("culture_3",  "{!}culture_3", 0, 0.9, [], []),
-  ("culture_4",  "{!}culture_4", 0, 0.9, [], []),
-  ("culture_5",  "{!}culture_5", 0, 0.9, [], []),
-  ("culture_6",  "{!}culture_6", 0, 0.9, [], []),
+  ("culture_0", "{!}culture_0", 0, 0.0, [], []),
+  ("culture_1", "{!}culture_1", 0, 0.9, [], []),
+  ("culture_2", "{!}culture_2", 0, 0.9, [], []),
+  ("culture_3", "{!}culture_3", 0, 0.9, [], []),
+  ("culture_4", "{!}culture_4", 0, 0.9, [], []),
+  ("culture_5", "{!}culture_5", 0, 0.9, [], []),
+  ("culture_6", "{!}culture_6", 0, 0.9, [], []),
   ## UID: 24 - Begin
   #
   ("culture_7",  "{!}culture_6", 0, 0.9, [], []),
@@ -46,18 +55,18 @@ factions = [
 #  ("swadian_caravans","Swadian Caravans", 0, 0.5,[("outlaws",-0.8), ("dark_knights",-0.2)], []),
 #  ("vaegir_caravans","Vaegir Caravans", 0, 0.5,[("outlaws",-0.8), ("dark_knights",-0.2)], []),
 
-  ("player_faction","Player Faction",0, 0.9, [], []),
-  ("player_supporters_faction","Player's Supporters",0, 0.9, [("player_faction",1.00),("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05)], [], 0xFF4433), #changed name so that can tell difference if shows up on map
-  ("kingdom_1",  "Kingdom of Swadia", 0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05)], [], 0xEE7744),
-  ("kingdom_2",  "Kingdom of Vaegirs",    0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05)], [], 0xCCBB99),
-  ("kingdom_3",  "Khergit Khanate", 0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05)], [], 0xCC99FF),
-  ("kingdom_4",  "Kingdom of Nords",    0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05)], [], 0x33DDDD),
-  ("kingdom_5",  "Kingdom of Rhodoks",  0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05)], [], 0x33DD33),
-  ("kingdom_6",  "Sarranid Sultanate",  0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05)], [], 0xDDDD33),
+  ("player_faction","Player Faction",0, 0.9, [("player_supporters_faction",1.00)], []),
+  ("player_supporters_faction","Player's Supporters",0, 0.9, [("player_faction",1.00),("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05),("dark_knights", -0.4),("desert_cavalry", -0.1)], [], 0xFF4433), #changed name so that can tell difference if shows up on map
+  ("kingdom_1",  "Kingdom of Swadia", 0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05),("dark_knights", -0.1),("desert_cavalry", -0.1)], [], 0xEE7744),
+  ("kingdom_2",  "Kingdom of Vaegirs",    0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05),("dark_knights", -0.1),("desert_cavalry", -0.1)], [], 0xCCBB99),
+  ("kingdom_3",  "Khergit Khanate", 0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05),("dark_knights", -0.1),("desert_cavalry", -0.1)], [], 0xCC99FF),
+  ("kingdom_4",  "Kingdom of Nords",    0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05),("dark_knights", -0.1),("desert_cavalry", -0.1)], [], 0x33DDDD),
+  ("kingdom_5",  "Kingdom of Rhodoks",  0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05),("dark_knights", -0.1),("desert_cavalry", -0.1)], [], 0x33DD33),
+  ("kingdom_6",  "Sarranid Sultanate",  0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05),("dark_knights", -0.1),("desert_cavalry", -0.1)], [], 0xDDDD33),
   ## UID: 24 - Begin
   #
-  ("kingdom_7",  "Kingdom of Umalelith", 0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05)], [], 0x996600),
-  ("kingdom_8",  "Kielian Sultanate", 0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05)], [], 0x0066cc),
+  ("kingdom_7",  "Kingdom of Umalelith", 0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05),("dark_knights", -0.1),("desert_cavalry", -0.1)], [], 0x996600),
+  ("kingdom_8",  "Kielian Sultanate", 0, 0.9, [("outlaws",-0.05),("peasant_rebels", -0.1),("deserters", -0.02),("mountain_bandits", -0.05),("forest_bandits", -0.05),("dark_knights", -0.1),("desert_cavalry", -0.1)], [], 0x0066cc),
   #
   ## UID: 24 - End
 
@@ -88,4 +97,10 @@ factions = [
 #INVASION MODE START
   ("ccoop_all_stars","All Stars", 0, 0.5,[], []),
 #INVASION MODE END
+
+  ## UID: 80 - Begin
+  #
+  ("wild_animals", "Wild Animals",0, 0.1, [("player_faction",-0.15)], [], 0xFFFFFF),
+  #
+  ## UID: 80 - End
 ]

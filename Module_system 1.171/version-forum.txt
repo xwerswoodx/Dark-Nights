@@ -1,0 +1,219 @@
+profenix:
++Askerlere handa bira ısmarlayıp (1000 dinar karşılığında) morallerini yükseltebiliriz, hatta askerleri karıya götürme olayı da olabilir :D
+  * Kadın ve yemek kiralama var, ayrıca orjinal içki ısmarlama sisteminde ufak değişiklik yapılacak.
+-Köylere yağmaya karşı koruma olarak en fazla 50 asker olmak üzere asker koyabiliriz.
+  * Köy sistemini değişmenın ne gibi buglara yol açabileceğini bilmiyorum, o yüzden bu düşünceyi şu sıralar düşünmüyorum.
+&Lordlarla ilişkimizi yükseltmek için hediye verebiliriz.
+  * Diplomasi için yapılabilir.
+&Kral olduğumuzda bir derebeyimizin kalesi veya şehri varsa başka bir derebeyine kale, şehir, köy verdiğimizde bizimle ilişkisi düşmesin.
+  * Bu konuda aynı düşünceye bende sahibim yine de bu konuda henüz bir şey yapmak için erken, ancak el atmayı düşünüyorum.
+&Turnuvayı kazanmak için hakeme rüşvet verebiliriz ama onurumuz düşer.
+  * Farklı bir sistem, yapılamaz bir şey değil, düşüneceğim.
++Köylerimizi korumak için devriyeler olabilir bu devriyelerin nereyi gezeceğine biz karar veririz.
+  * Artık krallıkların devriyeleri otomatik çıkıyor, ancak henüz görev verme yapılmadı ancak oda yapılacak.
+&Sanırım Floris'te veya Anno Domini'de görmüştüm,hanları gezmek yerine şehirlerden iş arayan grup yetenekleri olan yoldaşlar alabiliyorduk bunu yapabilirsin.
+  Lonca başkanıyla konuştuktan sonra "burada iş arayan gençler var mı?" diye soracağız o da bize söyleyecek bunlar çeşitli olacak ve ilgili grup yetenekleri başlangıçta "3" olacak.
+  Rehber:Yön bulma,iz sürme,tespit etme 
+  Doktor:Yara bakımı,cerrahlık,ilk yardım
+  Komutan:Taktik,talimci
+  Mimar:Mühendislik,yağma
+  * Daha önce de belirttiğim gibi buda yapılacak.
+
+Arkenhes:
+&'Şu anda politika konuşmaktan yoruldum, belki başka zaman.' yazısını ya temelli kaldır ya da o yazının süresini 3 güne filan indir. Azmı çektim o yazı yüzünden.
+  .profenix: Veya yorulan adama para vererek ikna edebiliriz.
+  * Bu konuda bir şeyler yapabilirim.
+
+aykut07:
+&Yeni müzikler, yeni trooplar ve yabancıların deyimiyle efsanevi itemler ekleyebilirsin. Floris ve A New Dawn benzeri bir mod olabilir.
+  * Efsanevi itemlerin olması düşünülen bir şey, ancak müzik için bir söz veremem.
+
+You're a wizard Harry ..:
++Mesela, Sultan'ın derebeyi olunca "Emir" ünvanı, diğerlerinde "Lord" "Kont" "Yarl" gibiler ismimizin başına gelse?
+  * Yeni ve eski krallıklarda artık kral/derebeyi olunca otomatik olarak cinsiyete göre rütbeler alacak.
++Satınca onur kaybettiğimiz için, esir alınca da bir süre sonra kaçıyorlar ve düşmansız bir oyun oluyor, bende direk esir almadan "Gitmekte özgürsün" diyorum. Savaş-Yen-Özgür bırak artık o kadar çok oldu ki, düşman krallığındaki lordlarla ilişkim +54.
+  * Yeni sistemle beraber, lord ile ilişki sıfır veya altında iken; üç artarken birden büyük ise otomatik olarak bir düşerek azalacak. Yani teknik olarak en fazla üç olabilecek. Tabi önceden yüksek seviye arkadaşlıklarınızda savaştıkca bir eksilerek ta ki sıfır olana kadar düşecek.
+
+Tüfekçi Başı:
+&Esirim olan komutanı fidyeyle satınca onur düşüyor. Orijinal oyunda var mıydı hatırlamıyorum ama bence bu yanlış.
+  * Yoktu ancak yeni bir sistem yazıldı onun için, basitçe açıklamam gerekir ise, orjinal hali kalacak, yani bir esir satılmayınca onur kaybedilecek, ancak esir alma ekranında oyuncu düşman ile üç seviyeden daha fazla arkadaşlık kuramayacak. Ayrıca esir yakalama ekranını ise Esir Yönetimine göre yapmayı düşünüyorum, yani esir yönetimi ne kadar çok ise lordun yakalanma oranı o kadar artacak.
++Yerleşim geliştirme şıkları çok fazla ve benzer.
+  * Yerleşim yerleri önceden biraz sıkıntılıydı, aslında kolej ve üniversite gibi şeyler sırayla seviye seviye atlanacaktı, bu sürümde düzeltildi.
+&Okuduğum kitap tekrar önüme çıktı.
+  * Kitaplar satıcılara rastgele olarak dağıtılır, ancak yeni bir sistemin geleceğini söylemem gerek.
+&Mühimmat sayılarının artması fena olmamış. Ama fazla olabilir mi emin değilim.
+  * Mühimmat sayıları yeni sistemde biraz azaltılacak ancak tam bir test yapmak gerekiyor bunun için, daha öncede açıkladığım gibi ilerleyen oyunda oyuncu 2-3bin askeri birliğine alabildiği için yemek sorunu var olan değerlerle çok büyüktü.
+&Haydut kampları hatalı zaten söylemeye gerek yok.
+  * Yeni bir haydut kampı sistemi kuruldu, şuan üzerinde çalışılıyor, ancak yeni sürümde düzgün bir şekilde çalışacak.
++Kara şövalyeler biraz fazla fantastik ve şu tank atları yüzünden neredeyse durdurulamaz(Bence ellerinde mızrakları olursa hiç durdurulamazlar. Ama ben mızrak eklerdim. Ayrıca develi haydutların kara şövalye olması da pek olmamış.)
+  * Mızraklılar eklendi ancak önceki sürüme nazaran bu sürümde kara şövalyeler sadece sizle değil lordlarla ve devriyelerle uğraşmak zorunda kalacak, yani devriyeler ile birlikte ortam daha güvenilir. Ayrıca freelancer özelliği neticesinde, lordların ordusuna katılıp güvende kalmakta daha kolay.
+&Lordun kızına yetmiş dinarlık çömlek verince hoşuna gitmesi de pek mantıklı değil. :) Ama hediye sistemi çok başarılı.
+  * Bunun nedeni oyunda olan eşyaların azlığı, ancak daha önce de belirttiğimi hatırlıyorum, bu konuda bir şeyler yapılacak.
+
+Kızılçeri:
++Gemiyle denize açılınca denizin herhangi noktasında kamp kurduktan sonra kamptan ayrılınca gemi yok oluyor denizde dört nala koşmaya başlıyoruz. İşin kötü yanı karayada çıkamıyoruz.
+  * Deniz ve nehir üzerinde kamp kurulması engellendi.
+  
+siyahankakuşu:
++Kara Şövalyeler ve Çöl Süvarileri bence yeterince güçlü. Seviye arttıkça sayılarının artması daha mantıklı.
+  * Artık her gün asker sayıları bir artıyor.
+.Bu iki grubu paralı askerler tarzında belli günlüğüne bizim yanımızda savaştırsak, gün bitince onlar da gitseler güzel olabilir.
++Turnuvadan aldığımız para biraz fazla olmuş. 2000 dinar ve turnuva arasında pek fark kalmamış. Bence biraz düşmeli.
+  * Arenadan bahsediyorsun sanırım, kazanılan altın düşürüldü.
+.Geyik ve Domuz etinin yeni bir resme ihtiyacı var , kurutulmuş etle birler. Ayrıca geyik, domuz ve deve ölünce at sesi çıkarıyor. Bunları da düzeltseniz çok iyi olur.
+&Haritanın belli bir kısmına mühendislerimizle kale yaptırabilsek çok iyi olur. Aletler,40.000 dinar vb. birkaç şeyle yapılması iyi olabilirdi.
+  * Düşünmediğim bir sistem değil, ancak her kale, köy ve şehir için scene tanımlamak gerektiği için bu o kadar basit değil ancak aklımda bir fikir var bu konuda.
+&Detaylı bir diplomasi olsa çok iyi olur. Bir amaç için kurulan ittifaklar eğlenceli olur.
+  * Diplomasi üzerinde durmayı düşünüyorum.
+?Lordlar oyunun ilerleyen zamanlarında çılgınlar gibi taraf değiştiriyor. Bunları biraz daha az hale getirebilir misiniz?
+  * Sanıyorum bunun nedeni krallığın yeni diriliş sistemiydi şuan o sistem tamamen deaktif.
+&Bir kaleyi aldığımızda kaleyi kime vereceğimizi lordlara sorsak ve anket gibi karşımıza çıksa iyi olur. Ayrıca birine köy verince diğerleriyle  olan ilişkinin düşmesi biraz saçma değil mi?? :idea:
+  * Bu konuda bir söz vermeyeyim ama düşüneceğim.
+&Dinlerde rastgele dağıtılmasa daha mantıklı olur. Sarranidlerin Hristiyan ; Svadyanların Müslüman olması acayip oluyor.
+  * Şuan aktif olmasa da, yapılacak.
++Namın asker ve esir yeteneğini kontrol etmesinin biraz daha az etkisi olmalı. Çok hızlı artıyor.
+  * Yeni sürümde düşürüldü.
+?Ayrıca grup morali hemen düşüyor. Buna da bir çare bulsanız iyi olur. Askerlerin yediklerini arttırmanız biraz daha mantıklı hale getirecektir.
+  * Tam olarak anlayamadım, yemek çeşidi mi arttırılsın? Yemek miktarları mı? Yoksa askerler daha çok mu yemek yesin? 
++Yapılan binaların etkisi çeşitli olsa ve dinlerle birlikte dini yapılar da kurulsa harika olur.
+  Dini yapılar şuan aktif olmasa da dediğiniz sistem yeni sürümde mevcut.
+&Son olarak kendimiz krallık kurduğumuzda bir asker ağacı oluştursak ve isimler versek. Kendimiz zırh çeşitleri alsak ve atıyorum (Göktürk Ağır Süvarisi) yazıp bu zırhları versek. Bu şekilde kendimiz isimlendirip ayrı bir ırk ve asker ağacı oluştursak. Bunu yapsanız harika olur!  :D :D :D
+  * İsimlendirme işini yapabilirim, zırh için şuan bir şey söyleyemem ancak krallığınızın askerleri olacağını söyleyebilirim.
+  
+Fatihbey:
+&npc'lerin tartışmasını önleyebilmek için ve lordların taraf değişimini önleyebilmek için kamp menüsüne seçenek konulabilir.
+  * Bu konu şahsen benimde sinirimi bozuyor, bu nedenle derebeyi, mareşal veya kral olduğunuzda kafalarına göre ayrılamayacaklar, ne de olsa bir lordun birliğinden canın istediğinde ayrılamazsın. Tartışmalar içinse henüz düşünüyorum.
+&Sakatlanan atları normal fiyatından daha ucuza iyileştirme olabilir.
+  * Yapılabilir.
+&Yeni trooplar eklenebilir, krallığı koruyan devriyeciler ya da gözcüler. Bunlar para karşılığıda tutulabilir.
+  * Devriyeler yapıldı, para karşılığı tutulacak gözcüler olabilir, yeni troop için kesin bir şey diyemem.
++Başlangıçta para ve tecrübe kazanmak için lordların ordusuna maaşlı asker olarak katılabiliriz.
+  * Freelancer modülü biraz zor olsada bu sürüme uyarlandı.
+-Okçuların ok sayılarını düşürmek daha gerçekçilik katar oyuna. şehir ve kale savunmalarında ok ve mızrak sınırsız olabilir.
+  * Oku sınırsız yapmayı düşünmüyorum, ancak birden fazla okla dolaşmayın diye ok miktarı arttırıldı, ancak bilgisayarın okçuları için daha düşük miktarda ok ayarlanabilir.
+&Lordların, kralların ve leydilerin görevlerini yaptığımızda ilişki en az 15 artmalı yada görev zorluğuna göre bu değiştirilebilir. şu anda çok az bence.
+  * Görevlerde düzenleme yapmayı düşünüyorum, ama 15 biraz abartı.
+?Esir aldığımız lorda istediğimiz kadar işgence yapabilmeliyiz :D bu şöyle olabilir; esir lord ile konuşma penceresine yeni bir seçenek eklenir "savaşta senin yüzünden ölen askerlerimin hesabını soracağım şimdi senden" bu seçeneğe tıklarız ve yanımızdaki npc ler ile bir arazide adamı tokatlarız sürekli ve adam bayılır. Sonra tab tuşuna bastığımızda iki seçenek gelir ve seçeneğin birinde "su dök uyandır ve işgenceye devam et" diğerinde ise "tamam şimdilik bu kadar yeter"
+?Her işgencede onurumuz "1" eksilip nam ise "20" artabilir ve her işgenceden sonra krallık lordu satın alma için teklif yollayabilir.
+  * Net bir şey diyemiyorum.
+&Oyuna yeni diyaloglar eklenebilir sadece oyun daha zevkli olması açısından. mesela "Alayen" ile konuşacağımız zaman "bugün çok iyi savaştın" diye bir seçenek ekleriz ve oda bundan gurur duyar ve ilişkimiz "1" yükselebilir. Ve daha bir çok şey olabilir bunu geliştiririz ama sadece mod yapanlar bilsinki tadı kaçmasın. tabi yapar isek.
+  * Güzel bir fikir beğendim, bunu yapmayı deneyebilirim.
+-Savaş sırasında düşmanın kafasına kılıçla vurduğumuzda kafası kopabilir ve adamlarımızın morali artar.
+  * Böyle bir sistem yapmayı düşünmüştüm ancak vazgeçtim sonradan.
+-Hareket halinde tekme atabilmeliyiz, yani ben rakibe tekme atarken adam geri çekilip kılıçla indiriyor beni bu saçma. ve kalkan varken tekme işlememeli.
+  * Sanırım bu hardcoded bir durum elimden bir şey gelmiyor maalesef.
+-Kara şövalyeler sadece 110 uzunluğunda sağlam bir kılıç ve kalkan kullanmalı ve hepsinin gövde zırhı 70 olmalı. mızrak kullanmaları onları güçsüz yapıyor. Ve kara şövalyelerin bir bölgesi olmala ve bölgede "Lady Larktin" isminde bir liderleri olmalı ve kalradyaya hükmetmeleri için onlara yardım edebiliriz.
+  * Bölge için bir şeyler yapabilirim, kılıçlarda değişikliğe gitmedim, ancak gönderili silah kullanan birlikleri eklendi.
+-Her ırkın birde kanunsuz düşmanı olmalı mesela "swadyalılar" için kara şovalyeler var ve diğer ırklar içinde bir şeyler uydurulabilir ve her ırkın kanunsuz düşmanlarıyla mücadele etmesi için özel bir grup askeri birimi olmalı. (evlat modundan esinlendim)
+  * Aslında teknik olarak Kara Şövalyeler tüm ülkelerin, Çöl süvarileri ise Sarranid ve Yeni eklenen Kielian sultanlığının düşmanı.
+-Son öneri olarak "evlat" modunun sahibi "buz" ile görüşüp ortak bir çalışma olabilir :) evlat moduyla bu mod arasında kaldım hangisini oynasam diye :D
+  * Evlat modülüde güzeldir oynamanı tavsiye ederim, keyifli bir mod :)
+
+mertgreen:
+&Merkez i degiştirme durumu var mı ben sladya bi kont olarak oynuyorum  veluca ve sargot sehri bana ait  karakteri evlendirdim ama evlendirdigim kadin  velucaya gitmesini istiyorum  sargot sehrine gitmiş  velucaya nasıl cekebilirim
+  * Kral olmayınca taşınmıyor normalde, buna bir çözüm bulabiliriz ama.
+  
+Biloağa:
+&Merhaba oncelikle modunuzu oynuyorum ve cok begendim yapan ve emegi gecen arkadaslara tesekkurler.Sorum bu moda diplomasi modu eklenicekmi eklenirse super olabilir
+  * Diplomasi modülü eklenmeyecek, ancak oyunun kendine has bir diplomasisi olacak.
+
+Ya ALLAH!:
+&Şu köy yağmalama olayını en aza indirme şansın var mı? Ya da modda böyle bir özellik bulunuyor mu? Çok canımı sıkıyor köyümün dakika başı saldırıya uğraması.
+  * Bilgisayarın bu konudaki işlemlerini inceleyeceğim, kesin bir şey söyleyemem ama azaltabilirim.
+  
+omerfaruk:
+&Aynı dine inanmadığımız krallıkla ilişkimizin -25 olması pek iyi olmamış. 1 kişilik orduya 300 kişilik kralın ordusu saldırıyor :) Bunun yerine ilişkimiz 0 olsun ama Krallığına girmek istediğimizde bizi kabul etmesin. Mesela Müslümanlığı seçtik. Kral Harlaus bize "Halk içinde cesur bir savaşçı ve iyi bir lider olarak biliniyorsun. Ama ülkemizin dini Hristiyanlıktır. Seni almam mümkün değil. Ancak dinini değiştirirsen alabilirim" Din değiştirmek de kolay olmasın mesela Hristiyanlığı yapmak için bir büyük bir Kilise'de bulunan Papa'nın veya Papaz'ların yanına gidip onlardan değiştirebilelim ve bunu sadece 1 kez yapma hakkına sahip olalım.
+  * Değişik bir fikirmiş, ama hoşuma gitti, dinlerle beraber böyle bir şey aktif edilebilir.
+  
+Dylle:
+&Bence moddaki krallıklar hayali. Dinlerde hayali olmalı. Çünkü moddaki diyar hayali bir diyar. Ne bileyim. En azından mesela İslam'ın farklı bir mezhebi olabilir. Hristiyanlık yerine Demirhaç gibi bir mezheb koyabilirsin. (SADECE ÖNERİDİR)
+  * Hoşuma gitmedi diyemem, düşüneceğim bu öneriyi.
+  
+JustSmiled:
++Hocam daha önceden yazmıştım ama görmedin sanırım  :wink: Mod için bir önerim olucak mesela bir krallığın lordu olduğumuz zaman , kralla arası bozuk olan lordları kendi etrafımızda toplayıp krallığı ele geçirme , normal oyunda krallıktan ayrılıp lordları kendi etrafımızda toplayıp yeni bir devlet kuruyoduk öyle değilde ateş ve kılıçta olduğu gibi direk kralın yerine geçme yapılabilir mi?
+  * Var olan krallığın başına geçmeyi bende düşünüyorum, ama kesin bir şey söyleyemem, yine de bu konu üzerinde çalışıyorum.
+  * Eklendi ve çoğu düzenleme yapıldı ama hala eksikleri olduğuna eminim.
+
+frozenpainter:
+&Köylerde gözcü kulesi gibi şeyler inşa edince haritada map iconlarının belirmesi ve oralarda dilenebilmemiz iyi olmuş, oralara başka şeylerde ekleyebilirsin.Örneğin gözcü kulesinde her hafta 5 asker yetişir ve biz onları alırız.Yani kısaca işlevlerine göre orda yapacağımız fonksiyonlar olmalı, tabi oyun ilerledikçe harita fazla kalabalık oluyor.
+  * Gözcü kulesi için gözcü yetişmesi ekleyebilirim.
+&Örneğin köyde değirmen kurunca haftalık 15 ekmek üretsin.
+  * Değirmen için fikir bulamamıştım, ancak bu fikri beğendim uyarlayabilirim.
++Bu bazı yerlerde dinlenince zaman normalden hızlı akıyordu, onu eski haline getir bence.
+  * Dinlenmeler eski haline getirildi.
++Şehirlerde hancıya para verip dinleniyoruz ve bizi odaya götürüyor, odada hancıyla konuşmayıp direk dinlenmeye başlayınca sorun değil, ama bir daha hanlarda dinlenemiyoruz, çünkü odaya gittiğimizde hancıyla olan dialog çıkıyor hep, sonuç olarak bence bunuda eski haline getir, yani eskisi gibi burada biraz bekle şeklinde olmalı.
+  * Oda sistemindeki bugu aslında son sürümde çözmüştüm, ancak bu sürümde odayı aktif etmedim, ilerde eder miyim bilemiyorum ama şu sıralar böyle bir plan yok.
+&Yeni eklediğin bazı itemlerin hızı, zararı g,b, şeyler dengesiz olmuş, ya çok düşük yada çok abartı olmuş.
+  * Eşyaların hepsini inceleme fırsatım olmadı ancak orjinal kılıçların değerlerine neredeyse eşit değerde yapıldı çoğu kılıç yine de tekrar incelerim.
+-Şu köyde mühendis falan tutuyorum ama bir türlü odun taş falan olmuyordu, ordaki menüyü ve türkçe çeviriyi bir daha gözden geçir bence.
+  * Odun taş sistemi tamamen iptal edildi, mühendisleride iptal ettim, eski şekline geri döndürdüm ancak sistemde bir kaç değişiklik var :)
+&Şu meydan savaşında savaş yetenekleri var, war cry, falan onları kullanmadım bir türlü.
+  * Şuan onlar aktif değil ancak aktif edilince yeni sistem hakkında bilgi vereceğim.
+&Bu binalarda level atlama var ama ben onuda beceremedim, bide köye girdiğimde sürekli malikanemiydi mi neydi o inşa ediliyor hep, bitiyor ama yine inşa ediliyordu.
+  * Mühendislik sisteminde böyle bir bug vardı ancak düzeltildi, artık diğer lordlar/leydiler(leydiler dememde bir süpriz olsun :)) inşaatlarını otomatik yapabiliyorlar.
++Bir kale yada şehir ele geçirince ona bağlı olan köydeki kuleler falan eski krallığın renginde kalıyor.
+  * Yeni sürümde bu düzeltildi.
++Bu haritada haydut kampları vardı, saldırıyordum bişeyler oluyordu ama tam neydi hatırlamıym.Orayı yağmaladığımızda, ekmek,şarap et gbi gıdalar ganimet olarak düşsün.
+  * Sanki sistemi biliyormuşsun gibi konuştun :))) Aslında sistem tam olarak böyle sayılır :))
+&v0.7de ekleyeceğin devriyelere emir verebilelim, ona göre düzenle.
+  * Devriyelere emir verme eklenecek.
++Başlangıçta boy seçbiliyoruz, ama savaştığımız adamların boyları hep aynı, bu boyları onlarada uygula, yani kısa ve uzun rodok çavuşları olsun.
+  * Boy sistemi şuan aktif değil ancak askerlere uyarlanabilir.
+  * Yapıldı
+&Turnuvları kazandığımızda rastgle bir zırh yada silah gelsin, tabi iyi olanlarından ve bu zırh yada silahlar kuşanıldığında atletizm, güçlü darbe gibi ekstra yetenekler versin.Örneğin Şövalye botu(kuşanıldığında +1 atletizam veriri gibi)
+  * Değişik bir fikir, bunu yapabilirim sanırım.
+
+DarkNightsFan:
+&Moddaki şu arkadaşlarında belirttiği saçma olan şeyleri kaldırırsan hele ki bana göre, şu Çöl Süvarilerini falan kaldırırsan mod kusursuz olur. Şöyle bi durum var 40 kişilik acemi ordu yaptım, daha yeni taptaze. Oyunu asla hileli oynamam. Yaptıktan sonra geldiler, bütün orduyu beni de yok ettiler. Bir kere Çöl Süvarileri aşırı derecede overpowered(abartı güce sahipler.) Gerek atın hızı, gerek üstlerindeki zırh(üstlerindeki zırh sarranidin en iyi zırhı.) kılıçları vs. hepsi üst düzey. Yok etmek imkânsız. Sanki karşımda Sultan Hakim var. Yani o kadar zor ki, 100 kişilik sağlam ordu ile zor yok ederim. Umarım yakın zamanda 0.7 güncellemesini yaparsın, çok birşey eklemeni istemiyorum sadece şu güzelim modu böyle bir şekilde bozan küçük ama büyük etki eden pürüzleri kaldırmanı istiyorum. İnan, öyle kalsa yine baya bi oynanır yani ne diyeyim şahane. Daha çok şey yazardım, baya bi güzel fikirler var aklımda hatta seni belkide zorlamaz, çok renk katar. Yinede sadece sırf şu sorun çözülsün diye kayıt olup, mesaj attım. Umarım dediğim gibi yakın zamanda çözülür, gerçekten güzel bir mod tebrik ediyorum.
+  * Dediğim gibi önerileri her zaman dikkate alıyorum, o nedenle oyuncu krallık kurana kadar yada derebeyi olana kadar (veya bir derebeyinin takımına katılana kadar) kara şövalyeler ve çöl süvarileri tarafından düşman görünmeyecek.
+  
+Tylis:
+&Mod özelliklerinde çocuk seçenekleri var, modda çocuk yapma gibi bir olasılığımız mı var veya mod gelişimi devam mı ediyor, güncelleniyor mu, ileride böyle bir şey yapılacak mı ? Eğer yapılırsa gerçekten çok güzel olacağını düşünüyorum örneğin oyuna ölüm seçeneğinin eklenişi gibi devrim niteliğindeki olaylara yol açabilir. 
+  * Çocuk yapma düşünülen bir sistemdi ancak şu sıralar yapıp yapmamak konusunda kararsızım, ancak yine de kesin bir şey söylemek istemesemde, özel bir npc gibi yapmayı düşünüyorum yani belli bir yaşa gelince takıma alabileceksiniz vs.
+
+emintnr3:
+&Devlet kurunca kendi askerlerini oluşturma GELSİN LÜTFEN!
+  * Kendi devletinin askerleri olacak.
+  
+lordyurdola:
++Ayrıca belirtmek istediğim hatalar var. Loto oynarken 2500 lük bilet alıyorum yinede 5000 gidiyor. 1250 oynuyorum 20.000 gidiyor (20.000 hatasının burada olduğuna emin değilim ama gidiyor. Tam bilet sorunsuz. ) bu hataları düzeltirsen sevinirim.
+  * Bölmek yerine çarptığım için 5000/4 yapıp 1250 keseceğine, 5000x4 yapıp 20000 kesiyormuş :))
+  
+mehmet11212:
++Hanlarda uyurken geçen sürede donma meydana geliyor böyle kasıyor gibi , ancak şu  gözlem kulesi mi nedir adını unuttum onda dinlenirken sorun yok.
+  * Eski sürüme döndüğümüz için bu sorun kalmadı.
++Hanlarda bir süre sonra Hancı ya tıklayınca hep başka isteğiniz beyim diyor kapanıyor , başka bir seçenek yok nereye gitsem böyle.
+  * Üstteki ile aynı sebepten buda kalmadı.
+&Haydut  kamplarına gidince üstüne tıklayınca bir sürü kırmızı yazı çıkıyor bana dinar veriyor , esirler çıkıyor ve kamp yıkılıyor ( kimseyle savaşmadan bir şey yapmadan)
+  * Haydut kampları yeniden kodlandı henüz deneme aşamasında olsa da sorunsuz görünüyor.
+&Hanlarda oturan insanlara tıklayınca İngilizce yazıyor How is life tarzı bunların Türkçeleştirilmesi hoş olur.
+  * Türkçeleştirmelere az önem veriyorum kodlama yaparken, ancak bu sürümde eksiksiz yapmaya çalışacağım.
++Başka krallığın inşa ettirdiği yapı , o şehri falan ele geçirince hala o krallığın yapısı gibi görünüyor mesela atıyorum sarranidler  ulak karakolu yapmış diyelim Tulga şehrine , sen Tulga'yı alsında sarı renkte ulak karakolu duruyor.
+  * Bu sorun düzeltildi.
+&Mühendis alım , yani genel olarak inşaat ekranı tamamı ile İngilizce.
+  * Mühendis sistemi kalktı ancak yeni bir sistem var.
+&Kara şövalyeler birisiyle savaşırken tıkladığımda sadece ayrıl seçeneği var .
+  * İki tarafta düşmansa böyle olabiliyor.
+&Dinimin Tengri olmasına rağmen krallığımın Hristiyan olması.
+  * Bu sorun biliniyor, ancak din sistemi sıfırlandığı için şuan bu sorun yok.
+&Bu moddan sonra bir de oyundan çok sık atıyor Warband durduruldu falan diyor . 
+  * Böyle bir durumla karşılaşmadım hiç ancak tüm modül sistemi tekrardan kodlandı.
++Yataklarda siyahlık var .
+  * Oda kaldırıldı.
++Bu mod ile alakalı değil ama konuşmalara el atarsan çok müthiş olur , mesela yolda giden adamıma tıklıyorum " Ev sahibimiz Zengin'le kadeh kaldıralım " tarzı cümleler kuruyor bu konuşmalara el atsan tadından yenmez hani
+  * Konuşmalara el atılıyor, bunada el atmak için bakarım.
+  * Belirttiğin konuşmaların sırası hatalı yazılmıştı, tahminimce devreye girmesi gereken Ne vardı? sorusu yerine bu belirtilen yazı geliyordu, sıra düzeltildi, hata hala devam ederse yine incelerim.
+&Böyle mesela kaleyi almaya gidiyoruz kalede diyelim Sultan hakim var , hakime teke tek düelloya davet edebilsek yenersek kale almaya falan , ama bazen böyle kabul etmemesi olsun , sonra yenilip de vermemesi olsun tarzı . yani olursa güzel olur gibi geliyor.
+  * Çok kolay olabilir böyle kale almak ama farklı bir fikir, değerlendireceğim.
++Aklıma bir şey takıldı, Deniz savaşı var demişsin , ancak ben denizde benden başka gemi göremedim.
+  * Denizde haydutlar var ancak deniz savaşları hala geliştirmeye açık bir sistem.
++Gizli kasalar olayını anlamadım şehrin kalesinde mi yoksa şehir meydanında mı ?
+  * Şehirlerde gizlenmiş kasalar bulunuyordu, ancak bu sistem yeni sürümde aktif edilmedi.
+  
+Alp-Er Tonga:
+?Eğer yapabilirseniz M&B Ateş ve Kılıç'taki her milletin başkenti yakınlarında o milliete has paralı asker kampları yaparsanız güzel bir eklenti olur
+  * Bunu tam olarak anlamadım, ancak illede bir yerden krallığın askerlerini kiralamak istiyorsanız böyle bir sistem yapabilirim.
+  
+Xylar:
++Hata mı bilmiyorum ama kitabı normal kamp yaparken okuyamıyorum. Daha odaya girip denemedim.
+  * Odada okunuyordu eski sürümde ancak yeni sürümde tekrardan kamp yaparken okuyabiliyorsunuz.

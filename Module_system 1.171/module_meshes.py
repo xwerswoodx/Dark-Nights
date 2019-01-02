@@ -1,4 +1,9 @@
-from header_meshes import *
+## UID: 85 - Begin
+#
+#from header_meshes import *
+render_order_plus_1 = 0x00000001
+#
+## UID: 85 - End
 
 ####################################################################################################################
 #  Each mesh record contains the following fields:
@@ -50,6 +55,12 @@ meshes = [
   ("pic_arms_nord", 0, "pic_arms_nord", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("pic_arms_rhodok", 0, "pic_arms_rhodok", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("pic_sarranid_arms", 0, "pic_sarranid_arms", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ## UID: 24 - Begin
+  #
+  ("pic_arms_umalelith", 0, "pic_arms_umalelith", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_arms_khelian", 0, "pic_arms_kielian", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  #
+  ## UID: 24 - End
   ("pic_castle1", 0, "pic_castle1", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("pic_castledes", 0, "pic_castledes", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("pic_castlesnow", 0, "pic_castlesnow", 0, 0, 0, 0, 0, 0, 1, 1, 1),
@@ -420,10 +431,10 @@ meshes = [
   #
   ("banner_kingdom_g", 0, "arms_d15", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("banner_kingdom_h", 0, "arms_c12", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+##  ("banner_f21", 0, "banner_a15", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("banner_end", 0, "banner_a15", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   #
   ## UID: 24 - End
-  ("banner_f21", 0, "banner_a15", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-
 
   ("arms_a01", 0, "arms_a01", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("arms_a02", 0, "arms_a02", 0, 0, 0, -90, 0, 0, 1, 1, 1),
@@ -551,7 +562,12 @@ meshes = [
   ("arms_f18", 0, "banner_f18", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("arms_f19", 0, "banner_f19", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("arms_f20", 0, "banner_f20", 0, 0, 0, -90, 0, 0, 1, 1, 1),
-
+  ## UID: 24 - Begin
+  #
+  ("arms_f21", 0, "banner_d20", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  #
+  ## UID: 24 - End
+  
   ("arms_g01", 0, "banner_f01", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("arms_g02", 0, "banner_f02", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("arms_g03", 0, "banner_f03", 0, 0, 0, -90, 0, 0, 1, 1, 1),
@@ -562,6 +578,31 @@ meshes = [
   ("arms_g08", 0, "banner_f08", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("arms_g09", 0, "banner_f09", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("arms_g10", 0, "banner_f10", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ## UID: 24 - Begin
+  #
+  ("arms_g11", 0, "banner_f11", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_g12", 0, "banner_f12", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_g13", 0, "banner_f13", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_g14", 0, "banner_f14", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_g15", 0, "banner_f15", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_g16", 0, "banner_f16", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_g17", 0, "banner_f17", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_g18", 0, "banner_f18", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_g19", 0, "banner_f19", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_g20", 0, "banner_f20", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_g21", 0, "banner_e21", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+
+  ("arms_h01", 0, "banner_d01", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_h02", 0, "banner_d02", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_h03", 0, "banner_d03", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_h04", 0, "banner_d04", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_h05", 0, "banner_d05", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_h06", 0, "banner_d06", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_h07", 0, "banner_d07", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_h08", 0, "banner_d08", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_h09", 0, "banner_d09", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  #
+  ## UID: 24 - End
   
   ("arms_kingdom_a", 0, "banner_kingdom_a", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("arms_kingdom_b", 0, "banner_kingdom_b", 0, 0, 0, -90, 0, 0, 1, 1, 1),
@@ -569,7 +610,14 @@ meshes = [
   ("arms_kingdom_d", 0, "banner_kingdom_d", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("arms_kingdom_e", 0, "banner_kingdom_e", 0, 0, 0, -90, 0, 0, 1, 1, 1),  
   ("arms_kingdom_f", 0, "banner_kingdom_f", 0, 0, 0, -90, 0, 0, 1, 1, 1),  
-  ("arms_f21", 0, "banner_a15", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ## UID: 24 - Begin
+  #
+  ("arms_kingdom_g", 0, "arms_d15", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_kingdom_h", 0, "arms_c12", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+##  ("arms_f21", 0, "banner_a15", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  ("arms_end", 0, "banner_a15", 0, 0, 0, -90, 0, 0, 1, 1, 1),
+  #
+  ## UID: 24 - End
 
   ("banners_default_a", 0, "banners_default_a", 0, 0, 0, -90, 0, 0, 1, 1, 1),
   ("banners_default_b", 0, "banners_default_b", 0, 0, 0, -90, 0, 0, 1, 1, 1),
@@ -635,7 +683,7 @@ meshes = [
   ("mp_ui_host_maps_20", 0, "mp_ui_host_maps_e1", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("mp_ui_host_maps_21", 0, "mp_ui_host_maps_cold_cost", 0, 0, 0, 0, 0, 0, 1, 1, 1),
 
-#INVASION MODE START  
+  #INVASION MODE START  
   ("incoming_enemy", 0, "cb_ui_icon_infantry", 0, 0, 0, 0, 0, 0, 2, 2, 2),
   ("prison_cart_pos", 0, "ccoop_prison_cart", 0, 0, 0, 0, 0, 0, 2, 2, 2),
 
@@ -646,5 +694,22 @@ meshes = [
   ("ccoop_melee_class", 0, "ccoop_melee_class", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("ccoop_ranged_class", 0, "ccoop_ranged_class", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("ccoop_mounted_class", 0, "ccoop_mounted_class", 0, 0, 0, 0, 0, 0, 1, 1, 1),
-#INVASION MODE END
+  #INVASION MODE END
+
+  ## UID: 35 - Begin
+  #
+  ("status_troop_ratio_bar", 0, "slider_hor", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("status_troop_ratio_bar_button", 0, "handle_hor", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  #
+  ## UID: 35 - End
+
+  ## UID: 43 - Begin
+  #
+  ("pic_soldier_world_map", 0, "pic_sally_out", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_soldier_rebel", 0, "pic_camp", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_soldier_desert", 0, "pic_siege_sighted", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  #
+  ## UID: 43 - End
+
+  ## EOF
 ]
