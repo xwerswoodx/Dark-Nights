@@ -2986,6 +2986,9 @@ troops = [
    def_attrib|level(30),wp(120),knows_common|knows_riding_7|knows_shield_3|knows_ironflesh_4|knows_power_strike_5,swadian_face_middle_1, swadian_face_middle_2],
   ["desert_cavalry", "Desert Cavalry", "Desert Cavalry", tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse, 0, 0, fac_desert_cavalry, [itm_camel, itm_fp_sword_05, itm_fp_sword_06, itm_lamellar_vest, itm_sarranid_elite_armor, itm_sarranid_warrior_cap, itm_sarranid_helmet1, itm_light_leather_boots],
    def_attrib|level(30), wp(130), knows_common|knows_riding_4|knows_ironflesh_5|knows_power_strike_4, swadian_face_young_1, swadian_face_middle_2],
+  
+   ["dark_recruit","Dark_Recruit","Dark_Recruits",tf_guarantee_boots|tf_guarantee_armor,0,0,fac_dark_knights,[itm_khergit_leather_boots,itm_spiked_mace,itm_tab_shield_round_b,itm_darts],def_attrib|level(8),wp(70),knows_power_strike_2|knows_power_throw_2|knows_riding_1|knows_athletics_3,swadian_face_young_1, swadian_face_middle_2],
+  
   #
   ## UID: 13 - End
   ## UID: 95 - Begin
