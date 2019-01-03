@@ -959,11 +959,11 @@ items = [
  ["pa_axe_03", "Northern Axe", [("pa_axe_03",0)], itp_type_two_handed_wpn|itp_two_handed|itp_merchandise|itp_primary|itp_bonus_against_shield|itp_wooden_parry, itc_nodachi|itcf_carry_axe_back,
   1015, weight(7)|difficulty(14)|spd_rtng(88)|weapon_length(100)|swing_damage(54, cut)|thrust_damage(0, pierce), imodbits_axe],
  ["pa_axe_04", "Long War Axe", [("pa_axe_04",0)], itp_type_two_handed_wpn|itp_two_handed|itp_merchandise|itp_primary|itp_bonus_against_shield|itp_wooden_parry, itc_nodachi|itcf_carry_axe_back,
-  345, weight(5)|difficulty(11)|spd_rtng(88)|weapon_length(143)|swing_damage(42, cut)|thrust_damage(0, pierce), imodbits_axe],
+  345, weight(5)|difficulty(11)|spd_rtng(92)|weapon_length(143)|swing_damage(42, cut)|thrust_damage(0, pierce), imodbits_axe],
  ["fp_axe_01", "Hatchet", [("balta1", 0)], itp_type_one_handed_wpn|itp_merchandise| itp_primary|itp_secondary|itp_bonus_against_shield|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip,
   280, weight(2.5)|difficulty(8)|spd_rtng(98)|weapon_length(80)|swing_damage(36, cut)|thrust_damage(0, pierce), imodbits_axe],
  ["fp_axe_02", "Black Axe", [("balta2", 0)], itp_type_two_handed_wpn|itp_merchandise|itp_two_handed|itp_primary|itp_bonus_against_shield|itp_wooden_parry, itc_nodachi|itcf_carry_axe_back,
-  950, weight(5)|difficulty(11)|spd_rtng(100)|weapon_length(95)|swing_damage(50, cut)|thrust_damage(0, pierce), imodbits_axe],
+  950, weight(5)|difficulty(11)|spd_rtng(94)|weapon_length(95)|swing_damage(50, cut)|thrust_damage(0, pierce), imodbits_axe],
  ["fp_axe_03", "Heavy Hatchet", [("os2", 0)], itp_type_two_handed_wpn|itp_merchandise|itp_two_handed|itp_primary|itp_bonus_against_shield|itp_wooden_parry, itc_nodachi|itcf_carry_axe_back,
   730, weight(5)|difficulty(9)|spd_rtng(97)|weapon_length(95)|swing_damage(45, cut)|thrust_damage(0, pierce), imodbits_axe],
 
@@ -974,17 +974,17 @@ items = [
  ["pa_sword_03", "Ancient Rune Sword", [("pa_sword_03",0),("pa_sword_03_scabbard", ixmesh_carry)], itp_type_one_handed_wpn|itp_merchandise|itp_primary, itc_longsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn,
   2250 , weight(1.3)|difficulty(15)|spd_rtng(115)|weapon_length(98)|swing_damage(42, cut)|thrust_damage(38, pierce), imodbits_sword_high],
  ["fp_sword_01", "Yataghan", [("os1", 0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_no_parry|itp_wooden_parry, itc_cleaver,
-  910, weight(1.5)|difficulty(0)|spd_rtng(103)|weapon_length(95)|swing_damage(33, cut)|thrust_damage(0, pierce), imodbits_sword_high],
+  250, weight(1.5)|difficulty(0)|spd_rtng(103)|weapon_length(95)|swing_damage(33, cut)|thrust_damage(0, pierce), imodbits_sword_high],
  ["fp_sword_02", "Katana", [("os3", 0)], itp_type_two_handed_wpn|itp_merchandise|itp_two_handed|itp_primary, itc_nodachi|itcf_carry_sword_back,
-  2723, weight(2.50)|difficulty(15)|spd_rtng(83)|weapon_length(120)|swing_damage(53, cut)|thrust_damage(0, pierce), imodbits_sword_high],
+  1900, weight(2.50)|difficulty(15)|spd_rtng(99)|weapon_length(120)|swing_damage(53, cut)|thrust_damage(0, pierce), imodbits_sword_high],
  ["fp_sword_03", "Long Sword", [("os4", 0), ("scab_arabian_sword_b", ixmesh_carry)], itp_type_one_handed_wpn|itp_merchandise|itp_primary, itc_scimitar|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn,
-  1320, weight(1.7)|difficulty(14)|spd_rtng(92)|weapon_length(97)|swing_damage(36, cut)|thrust_damage(32, pierce), imodbits_sword_high],
+  500, weight(1.7)|difficulty(14)|spd_rtng(92)|weapon_length(97)|swing_damage(36, cut)|thrust_damage(32, pierce), imodbits_sword_high],
  ["fp_sword_04", "Silver Sword", [("os7", 0), ("scab_arabian_sword_c", ixmesh_carry)], itp_type_one_handed_wpn|itp_merchandise|itp_primary, itc_longsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn,
-  1520, weight(1.7)|difficulty(17)|spd_rtng(125)|weapon_length(97)|swing_damage(25, cut)|thrust_damage(20, pierce), imodbits_sword_high],
+  850, weight(1.7)|difficulty(11)|spd_rtng(105)|weapon_length(97)|swing_damage(32, cut)|thrust_damage(26, pierce), imodbits_sword_high],
  ["fp_sword_05", "Cutlass", [("os5", 0), ("scab_scimeter_b",ixmesh_carry)], itp_type_one_handed_wpn|itp_no_parry|itp_merchandise|itp_wooden_parry|itp_primary|itp_secondary, itc_scimitar|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn,
-  1910, weight(1.5)|difficulty(16)|spd_rtng(104)|weapon_length(95)|swing_damage(45, cut)|thrust_damage(0, pierce), imodbits_sword_high],
+  350, weight(1.5)|difficulty(14)|spd_rtng(104)|weapon_length(95)|swing_damage(38, cut)|thrust_damage(0, pierce), imodbits_sword_high],
  ["fp_sword_06", "Sarranid Cutlass", [("os8", 0)], itp_type_two_handed_wpn|itp_merchandise|itp_two_handed|itp_primary, itc_nodachi|itcf_carry_sword_back,
-  1323, weight(2.75)|difficulty(10)|spd_rtng(99)|weapon_length(120)|swing_damage(49, cut)|thrust_damage(0, pierce), imodbits_sword_high],
+  500, weight(2.75)|difficulty(10)|spd_rtng(99)|weapon_length(120)|swing_damage(49, cut)|thrust_damage(0, pierce), imodbits_sword_high],
 
  ## UID: 103 - Begin
  #
@@ -993,17 +993,17 @@ items = [
  ## UID: 103 - End
  
  ["fp_mace_01", "Black Mace", [("gurz1", 0)], itp_type_one_handed_wpn|itp_can_knock_down|itp_merchandise|itp_primary|itp_wooden_parry, itc_scimitar|itcf_carry_mace_left_hip,
-  917, weight(2)|difficulty(7)|spd_rtng(98)|weapon_length(70)|swing_damage(36, blunt)|thrust_damage(0, pierce), imodbits_mace],
+  300, weight(2)|difficulty(7)|spd_rtng(98)|weapon_length(70)|swing_damage(36, blunt)|thrust_damage(0, pierce), imodbits_mace],
  ["fp_mace_02", "Spiny Mace", [("gurz2", 0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip,
-  1120, weight(1.0)|difficulty(9)|spd_rtng(100)|weapon_length(75)|swing_damage(35, pierce)|thrust_damage(0, pierce), imodbits_axe],
+  312, weight(1.0)|difficulty(9)|spd_rtng(100)|weapon_length(75)|swing_damage(35, pierce)|thrust_damage(0, pierce), imodbits_axe],
  ["fp_mace_03", "Heavy Black Mace", [("topuz1", 0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip,
-  1230, weight(3.0)|difficulty(11)|spd_rtng(95)|weapon_length(80)|swing_damage(39, pierce)|thrust_damage(0, pierce), imodbits_axe],
+  422, weight(3.0)|difficulty(11)|spd_rtng(95)|weapon_length(80)|swing_damage(39, pierce)|thrust_damage(0, pierce), imodbits_axe],
 
  ["pa_maul_01", "Maul", [("pa_maul_01", 0)], itp_crush_through|itp_type_two_handed_wpn|itp_merchandise|itp_can_knock_down|itp_primary|itp_two_handed|itp_wooden_parry|itp_wooden_attack|itp_unbalanced, itc_nodachi|itcf_carry_spear, 
-  245 , weight(5)|difficulty(10)|spd_rtng(85)|weapon_length(86)|swing_damage(36, blunt)|thrust_damage(0, pierce), imodbits_mace],
+  456 , weight(5)|difficulty(10)|spd_rtng(90)|weapon_length(86)|swing_damage(43, blunt)|thrust_damage(0, pierce), imodbits_mace],
 
  ["fp_hammer_01", "War Hammer", [("os6", 0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_wooden_parry, itc_scimitar|itcf_carry_axe_left_hip,
-  1120, weight(1.0)|difficulty(9)|spd_rtng(102)|weapon_length(70)|swing_damage(38, pierce)|thrust_damage(0, pierce), imodbits_axe],
+  371, weight(1.0)|difficulty(9)|spd_rtng(102)|weapon_length(70)|swing_damage(38, pierce)|thrust_damage(0, pierce), imodbits_axe],
  #
  ## UID: 4 - End
 
@@ -1445,11 +1445,11 @@ items = [
 ## UID: 4 - Begin
 #
  ["fp_bow_01", "Elven Bow", [("os9", 0),("hunting_bow_carry",ixmesh_carry)], itp_type_bow|itp_merchandise|itp_primary|itp_two_handed, itcf_shoot_bow|itcf_carry_bow_back,
-  1920, weight(1.5)|difficulty(5)|spd_rtng(145)|shoot_speed(140) | thrust_damage(18, pierce), imodbits_bow],
+  850, weight(1.5)|difficulty(4)|spd_rtng(110)|shoot_speed(70) | thrust_damage(20, pierce), imodbits_bow],
  ["fp_bow_02", "Archer Bow", [("os12", 0),("war_bow_carry",ixmesh_carry)],itp_type_bow|itp_merchandise|itp_primary|itp_two_handed, itcf_shoot_bow|itcf_carry_bow_back,
-  1728, weight(1.5)|difficulty(6)|spd_rtng(50)|shoot_speed(45) | thrust_damage(71, pierce),imodbits_bow],
+  1100, weight(1.5)|difficulty(4)|spd_rtng(87)|shoot_speed(45) | thrust_damage(30, pierce),imodbits_bow],
  ["fp_bow_03", "Wooden Bow", [("os11", 0), ("hunting_bow_carry", ixmesh_carry)], itp_type_bow|itp_merchandise|itp_primary|itp_two_handed, itcf_shoot_bow|itcf_carry_bow_back,
-  1325, weight(1.0)|difficulty(4)|spd_rtng(75)|shoot_speed(65)|thrust_damage(29, pierce), imodbits_bow],
+  900, weight(1.0)|difficulty(4)|spd_rtng(91)|shoot_speed(65)|thrust_damage(25, pierce), imodbits_bow],
  ["fp_bow_04", "Khergit Bow", [("os10", 0), ("hunting_bow_carry", ixmesh_carry)], itp_type_bow|itp_merchandise|itp_primary|itp_two_handed, itcf_shoot_bow|itcf_carry_bow_back,
   755, weight(1.0)|difficulty(2)|spd_rtng(82)|shoot_speed(55)|thrust_damage(20, pierce), imodbits_bow],
 #
