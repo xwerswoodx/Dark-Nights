@@ -539,23 +539,12 @@ slot_center_walker_7_type                    = 187
 slot_center_walker_8_type                    = 188
 slot_center_walker_9_type                    = 189
 
-slot_town_trade_route_1           = 190
-slot_town_trade_route_2           = 191
-slot_town_trade_route_3           = 192
-slot_town_trade_route_4           = 193
-slot_town_trade_route_5           = 194
-slot_town_trade_route_6           = 195
-slot_town_trade_route_7           = 196
-slot_town_trade_route_8           = 197
-slot_town_trade_route_9           = 198
-slot_town_trade_route_10          = 199
-slot_town_trade_route_11          = 200
-slot_town_trade_route_12          = 201
-slot_town_trade_route_13          = 202
-slot_town_trade_route_14          = 203
-slot_town_trade_route_15          = 204
-slot_town_trade_routes_begin = slot_town_trade_route_1
-slot_town_trade_routes_end = slot_town_trade_route_15 + 1
+## UID: 119 - Begin
+#
+slot_town_trade_routes_begin = 800
+slot_town_trade_routes_end = 901
+#
+## UID: 119 - End
 
 
 num_trade_goods = itm_siege_supply - itm_spice
