@@ -1,7 +1,7 @@
 import sys
 from Tkinter import Tk
 
-from ID_items import *
+from ids.ID_items import *
 from module_items import *
 
 list = sys.argv

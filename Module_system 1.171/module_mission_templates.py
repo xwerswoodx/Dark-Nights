@@ -1,16 +1,28 @@
-from header_common import *
-from header_operations import *
-from header_mission_templates import *
-from header_animations import *
-from header_sounds import *
-from header_music import *
-from header_items import *
-from module_constants import *
+## UID: 121 - Begin
+#
+#from header_common import *
+#from header_operations import *
+#from header_mission_templates import *
+#from header_animations import *
+#from header_sounds import *
+#from header_music import *
+#from header_items import *
 ## UID: 88 - Begin
 #
-from ID_skills import *
+#from ID_skills import *
 #
 ## UID: 88 - End
+from headers.header_common import *
+from headers.header_operations import *
+from headers.header_mission_templates import *
+from headers.header_animations import *
+from headers.header_sounds import *
+from headers.header_music import *
+from headers.header_items import *
+from ids.ID_skills import *
+#
+## UID: 121 - End
+from module_constants import *
 
 ####################################################################################################################
 #   Each mission-template is a tuple that contains the following fields:

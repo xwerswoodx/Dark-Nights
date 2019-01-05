@@ -1,15 +1,26 @@
-from header_common import *
-from header_operations import *
-from header_parties import *
-from header_items import *
+## UID: 121 - Begin
+#
+#from header_common import *
+#from header_operations import *
+#from header_parties import *
+#from header_items import *
+from headers.header_common import *
+from headers.header_operations import *
+from headers.header_parties import *
+from headers.header_items import *
 ## UID: 85 - Begin
 #
 #from header_skills import *
-from ID_skills import *
+#from ID_skills import *
 #
 ## UID: 85 - End
-from header_triggers import *
-from header_troops import *
+from ids.ID_skills import *
+from headers.header_triggers import *
+from headers.header_troops import *
+#from header_triggers import *
+#from header_troops import *
+#
+## UID: 121 - End
 
 from module_constants import *
 

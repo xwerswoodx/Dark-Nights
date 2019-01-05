@@ -1,4 +1,9 @@
-from header_common import *
+## UID: 121 - Begin
+#
+#from header_common import *
+from headers.header_common import *
+#
+## UID: 121 - End
 
 ####################################################################################################################
 #  Each skill contains the following fields:

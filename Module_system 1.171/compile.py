@@ -43,30 +43,52 @@ from module_scripts import *
 from module_postfx import *
 from module_animations import *
 
-from header_operations import *
-from header_items import *
-from header_troops import *
-from header_scene_props import *
-from header_common import *
+from headers.header_operations import *
+from headers.header_items import *
+from headers.header_troops import *
+from headers.header_scene_props import *
+from headers.header_common import *
 
-from ID_items import *
-from ID_factions import *
-from ID_quests import *
-from ID_party_templates import *
-from ID_parties import *
-from ID_scenes import *
-from ID_mission_templates import *
-from ID_menus import *
-from ID_particle_systems import *
-from ID_scene_props import *
-from ID_presentations import *
-from ID_sounds import *
-from ID_map_icons import *
-from ID_animations import *
-from ID_tableau_materials import *
-from ID_scripts import *
-from ID_strings import *
-from ID_music import *
+## UID: 121 - Begin
+#
+#from ID_items import *
+#from ID_factions import *
+#from ID_quests import *
+#from ID_party_templates import *
+#from ID_parties import *
+#from ID_scenes import *
+#from ID_mission_templates import *
+#from ID_menus import *
+#from ID_particle_systems import *
+#from ID_scene_props import *
+#from ID_presentations import *
+#from ID_sounds import *
+#from ID_map_icons import *
+#from ID_animations import *
+#from ID_tableau_materials import *
+#from ID_scripts import *
+#from ID_strings import *
+#from ID_music import *
+from ids.ID_items import *
+from ids.ID_factions import *
+from ids.ID_quests import *
+from ids.ID_party_templates import *
+from ids.ID_parties import *
+from ids.ID_scenes import *
+from ids.ID_mission_templates import *
+from ids.ID_menus import *
+from ids.ID_particle_systems import *
+from ids.ID_scene_props import *
+from ids.ID_presentations import *
+from ids.ID_sounds import *
+from ids.ID_map_icons import *
+from ids.ID_animations import *
+from ids.ID_tableau_materials import *
+from ids.ID_scripts import *
+from ids.ID_strings import *
+from ids.ID_music import *
+#
+## UID: 121 - End
 
 class colors():
     reset = Style.RESET_ALL
@@ -94,10 +116,17 @@ class colors():
     white = Style.NORMAL + Fore.WHITE
 
 num_voice_types = 2
+start_time = int(round(time.time() * 1000))
 class strs():
     error = colors.dred + "[Error]: " + colors.cyan
     warn = colors.dyellow + "[Warning]: " + colors.cyan
     info = colors.pink + "[Info]: " + colors.cyan
+
+def calcTime():
+    _start = start_time
+    _end = int(round(time.time() * 1000))
+    _diff = (_end - _start) / 1000.0
+    return _diff
     
 # Global Definitions - Begin
 def findObject(tag, obj):
@@ -939,7 +968,7 @@ def compile_init():
 ##    file.close()
     
     #Item Modifiers:
-    file = open("./header_item_modifiers.py", "w")
+    file = open("./headers/header_item_modifiers.py", "w")
     langFile = open(language_dir + "item_modifiers.csv", "w")
     i = 1
     for imod in xrange(len(imods)):
@@ -1089,7 +1118,7 @@ def compile_init():
 
     #Skins:
     file = open(export_dir + "skins.txt", "w")
-    ifile = open("./ID_skins.py", "w")
+    ifile = open("./ids/ID_skins.py", "w")
     langFile = open(language_dir + "skins.csv", "w")
     file.write("skins_file version 1\n")
     skn = skins
@@ -1638,7 +1667,7 @@ def compile_init():
     save_quick_strings(quick_strings)
     end_time = int(round(time.time() * 1000))
     diff_time = str((end_time - start_time) / 1000.0)
-    clear_module() #Clean the module system at the end...
-    print(colors.dgreen + "Compiling completed in " + colors.dred + diff_time + colors.dgreen + " milliseconds.")
+    #clear_module() #Clean the module system at the end...
+    print(colors.dgreen + "Compiling completed in " + colors.dcyan + diff_time + colors.dgreen + " milliseconds.")
 
 compile_init()

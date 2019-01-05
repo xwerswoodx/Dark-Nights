@@ -1,4 +1,6 @@
 @echo off
 python compile_id.py
-python compile.py
+@del *.pyc
+@del ids\*.pyc
+@del headers\*.pyc
 pause>nul

@@ -3,7 +3,12 @@
 #from header_skins import *
 #
 ## UID: 85 - End
-from ID_particle_systems import *
+## UID: 121 - Begin
+#
+#from ID_particle_systems import *
+from ids.ID_particle_systems import *
+#
+## UID: 121 - End
 
 ## UID: 85 - Begin
 #

@@ -1,4 +1,9 @@
-from header_sounds import *
+## UID: 121 - Begin
+#
+#from header_sounds import *
+from headers.header_sounds import *
+#
+## UID: 121 - End
 
 sounds = [
  ("click", sf_2d|sf_vol_3,["drum_3.ogg"]),

@@ -1,13 +1,22 @@
-from header_common import *
-from ID_animations import *
-from header_mission_templates import *
+## UID: 121 - Begin
+#
+#from header_common import *
+from headers.header_common import *
+#from ID_animations import *
+from ids.ID_animations import *
+#from header_mission_templates import *
+from headers.header_mission_templates import *
 ## UID: 85 - Begin
 #
 #from header_tableau_materials import *
-from header_operations import *
+#from header_operations import *
 #
 ## UID: 85 - End
-from header_items import *
+from headers.header_operations import *
+#from header_items import *
+from headers.header_items import *
+#
+## UID: 121 - End
 from module_constants import *
 
 ####################################################################################################################

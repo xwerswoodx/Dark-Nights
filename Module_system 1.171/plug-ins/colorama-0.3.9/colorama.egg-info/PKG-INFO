@@ -1,10 +1,11 @@
-Metadata-Version: 1.1
+Metadata-Version: 1.2
 Name: colorama
 Version: 0.3.9
 Summary: Cross-platform colored terminal text.
 Home-page: https://github.com/tartley/colorama
-Author: Arnon Yaari
+Author: Jonathan Hartley
 Author-email: tartley@tartley.com
+Maintainer: Arnon Yaari
 License: BSD
 Description: .. image:: https://img.shields.io/pypi/v/colorama.svg
             :target: https://pypi.python.org/pypi/colorama/

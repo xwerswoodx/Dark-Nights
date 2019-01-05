@@ -4292,11 +4292,972 @@
   *** trp_kingdom_7_lady_20
   *** trp_kingdom_7_lady_20_pl
   
+[v0.2] - Sea Update
 117. Npc complaints disabled.
   * module_scripts.py
   ** Edited:
   *** script_game_start
+
+118. Tournament win system changed now it gives random item and denars.
+  * module_game_menus.py
+  ** Edited:
+  *** mnu_town_tournament_won
+
+119. Trade init system changed.
+  * module_constants.py
+  ** Removed:
+  *** slot_town_trade_route_1
+  *** slot_town_trade_route_2
+  *** slot_town_trade_route_3
+  *** slot_town_trade_route_4
+  *** slot_town_trade_route_5
+  *** slot_town_trade_route_6
+  *** slot_town_trade_route_7
+  *** slot_town_trade_route_8
+  *** slot_town_trade_route_9
+  *** slot_town_trade_route_10
+  *** slot_town_trade_route_11
+  *** slot_town_trade_route_12
+  *** slot_town_trade_route_13
+  *** slot_town_trade_route_14
+  *** slot_town_trade_route_15
+  ** Replaced:
+  *** slot_town_trade_routes_begin
+  *** slot_town_trade_routes_end
+  * module_scripts.py
+  ** Replaced:
+  *** script_set_trade_route_between_centers
+  *** script_average_trade_good_prices_2
+
+120. New items added. (OSP: Spak)
+  * SceneObj
+  ** Replaced:
+  *** scn_bandit_camp_1
+  * module_items.py
+  ** Added:
+  *** itm_spak_1lamellar_charger
+  *** itm_spakhorse_03
+  *** itm_3lamellar_charger
+  *** itm_twilight_horse
+  *** itm_2imperial_warhorse
+  *** itm_whg2
+  *** itm_5warhorse_holy
+  *** itm_charger3_new
+  *** itm_charger4_new
+  *** itm_eagle_on_yellow
+  *** itm_g_horseblack
+  *** itm_g_horsebrown
+  *** itm_g_horsebrown2
+  *** itm_g_horsepimto
+  *** itm_g_horsepalomino
+  *** itm_g_horsewhite
+  *** itm_heavy_riper
+  *** itm_horny_charger_plate
+  *** itm_nibbler
+  *** itm_riper
+  *** itm_yak1
+  *** itm_yak2
+  *** itm_yak3
+  *** itm_yak4
+  *** itm_zombie_horse
+  *** itm_zombie_horse2
+  *** itm_spak_1steel_arrow
+  *** itm_spak_snake_arrow
+  *** itm_spak_lonely_ar
+  *** itm_spak_gromitearrow
+  *** itm_spak_new1_arrow
+  *** itm_spak_skull_arrow
+  *** itm_spak_skeleton_archer_arrow
+  *** itm_spak_amazon_arrow
+  *** itm_spak_evil_arrow
+  *** itm_spak_holy_arrow
+  *** itm_spak_beargauntlets_l
+  *** itm_spak_g_scale_gauntlets_a_l
+  *** itm_spak_demonic_gauntlets_l
+  *** itm_spak_bear_boots
+  *** itm_spak_g_iron_greaves_a
+  *** itm_spak_g_mail_boots_a
+  *** itm_spak_g_mail_chausses_a
+  *** itm_spak_plate_boots3
+  *** itm_spak_black_boots
+  *** itm_spak_demonic_boots
+  *** itm_twilight_boots
+  *** itm_spak_skeleton_bandit_1
+  *** itm_spak_skeleton_bandit_2
+  *** itm_spak_skeleton_bandit_3
+  *** itm_spak_skeleton_bandit_b
+  *** itm_spak_skeleton_bandit_b2
+  *** itm_spak_skeleton_bandit_b3
+  *** itm_spak_2full_plate_armor
+  *** itm_spak_splate_armor
+  *** itm_spak_splate_armor2
+  *** itm_spak_elite_cavalary
+  *** itm_spak_elite_cavalary_2
+  *** itm_spak_spak_black_armor
+  *** itm_spak_spak_coat_of_plates_a
+  *** itm_spak_spak_coat_of_plates_b
+  *** itm_spak_spak_coat_of_plates_d
+  *** itm_spak_spak_coat_of_plates_e
+  *** itm_spak_spak_coat_of_plates_f
+  *** itm_spak_dark_lord_armor
+  *** itm_spak_dark_lord_armor2
+  *** itm_spak_bear_warrior
+  *** itm_spak_g_tabard_a
+  *** itm_spak_fix_black_armor
+  *** itm_spak_demonrobe
+  *** itm_spak_g_reinf_jerkin
+  *** itm_spak_glowing_armor
+  *** itm_spak_sk_barbutte
+  *** itm_spak_sk_bascinet
+  *** itm_spak_sk_bascinet_avt
+  *** itm_spak_sk_bascinet_nasal
+  *** itm_spak_sk_black_helm
+  *** itm_spak_sk_felt_hat_a
+  *** itm_spak_sk_felt_hat_b
+  *** itm_spak_sk_hat_fur_a
+  *** itm_spak_sk_flattop_helmet
+  *** itm_spak_sk_helmet_cm_a
+  *** itm_spak_sk_helmet_fur_a
+  *** itm_spak_sk_helmet_fur_b
+  *** itm_spak_sk_helmet_w_eyeguard
+  *** itm_spak_sk_hood_a
+  *** itm_spak_sk_hood_b
+  *** itm_spak_sk_hood_c
+  *** itm_spak_sk_hood_d
+  *** itm_spak_sk_straw_hat
+  *** itm_spak_sk_woolen_cap
+  *** itm_spak_sk_nomad_cap_a
+  *** itm_spak_sk_padded_coif
+  *** itm_spak_sk_leather_cap
+  *** itm_spak_sk_kettle_hat
+  *** itm_spak_sk_mail_coif
+  *** itm_spak_sk_nasal_helmet
+  *** itm_spak_sk_neckguard_helm
+  *** itm_spak_sk_reinf_helmet
+  *** itm_spak_sk_segmented_helm
+  *** itm_spak_sk_skull_cap
+  *** itm_spak_sk_spiked_helmet
+  *** itm_spak_2kettle_hat_new
+  *** itm_spak_asmoday_helmet2
+  *** itm_spak_assassin_helmet
+  *** itm_spak_assassin_helmet2
+  *** itm_spak_bear_warrior_helm
+  *** itm_spak_g_helm_spak2
+  *** itm_spak_demon_hood
+  *** itm_spak_glowing_helmet
+  *** itm_spak_scullhead4
+  *** itm_spak_sp_helm1
+  *** itm_spak_spak_helmet_k
+  *** itm_spak_sub_helm
+  *** itm_spak_sub_helm2
+  *** itm_spak_sub_helm4
+  *** itm_spak_twilighthelm
+  *** itm_spak_twilighthelm2
+  *** itm_spak_wolf_helm1
+  *** itm_spak_wolf_helm2
+  *** itm_spak_wolf_helm3
+  *** itm_spak_helm07
+  *** itm_spak_helmet_enforser
+  *** itm_spak_2shield
+  *** itm_spak_alt_sh_run
+  *** itm_hermitage_shield_1
+  *** itm_hermitage_shield_2
+  *** itm_hermitage_shield_3
+  *** itm_hermitage_shield_4
+  *** itm_hermitage_shield_5
+  *** itm_round_dragon_shield
+  *** itm_round_dragon_shield2
+  *** itm_spak_asmoday_seel
+  *** itm_heavy_shield2
+  *** itm_sh3
+  *** itm_sh_oval
+  *** itm_sh_snake
+  *** itm_sh_spak1
+  *** itm_shb1
+  *** itm_sh_spak2
+  *** itm_shield_amazon
+  *** itm_shield_greek
+  *** itm_sp_newsh
+  *** itm_sp_shrl
+  *** itm_sub_shield_01
+  *** itm_spak_shield_small_round_3
+  *** itm_shield_imperial
+  *** itm_towershield_steel
+  *** itm_spikeshield_01
+  *** itm_spikeshield_02
+  *** itm_spak_2dblhead_ax
+  *** itm_spak_darbor_axe
+  *** itm_pickaxe_hand
+  *** itm_spak_iceaxe
+  *** itm_spak_spak_2h_battle_axe
+  *** itm_spak_asmoday_sword
+  *** itm_kingslayer
+  *** itm_sp_2hsw
+  *** itm_flamberg
+  *** itm_spak_butcher
+  *** itm_spak_flat_sword
+  *** itm_hooksword_spak
+  * item_kinds.csv
+  ** Added:
+  *** itm_spak_1lamellar_charger
+  *** itm_spak_1lamellar_charger_pl
+  *** itm_spakhorse_03
+  *** itm_spakhorse_03_pl
+  *** itm_3lamellar_charger
+  *** itm_3lamellar_charger_pl
+  *** itm_twilight_horse
+  *** itm_twilight_horse_pl
+  *** itm_2imperial_warhorse
+  *** itm_2imperial_warhorse_pl
+  *** itm_whg2
+  *** itm_whg2_pl
+  *** itm_5warhorse_holy
+  *** itm_5warhorse_holy_pl
+  *** itm_charger3_new
+  *** itm_charger3_new_pl
+  *** itm_charger4_new
+  *** itm_charger4_new_pl
+  *** itm_eagle_on_yellow
+  *** itm_eagle_on_yellow_pl
+  *** itm_g_horseblack
+  *** itm_g_horseblack_pl
+  *** itm_g_horsebrown
+  *** itm_g_horsebrown_pl
+  *** itm_g_horsebrown2
+  *** itm_g_horsebrown2_pl
+  *** itm_g_horsepimto
+  *** itm_g_horsepimto_pl
+  *** itm_g_horsepalomino
+  *** itm_g_horsepalomino_pl
+  *** itm_g_horsewhite
+  *** itm_g_horsewhite_pl
+  *** itm_heavy_riper
+  *** itm_heavy_riper_pl
+  *** itm_horny_charger_plate
+  *** itm_horny_charger_plate_pl
+  *** itm_nibbler
+  *** itm_nibbler_pl
+  *** itm_riper
+  *** itm_riper_pl
+  *** itm_yak1
+  *** itm_yak1_pl
+  *** itm_yak2
+  *** itm_yak2_pl
+  *** itm_yak3
+  *** itm_yak3_pl
+  *** itm_yak4
+  *** itm_yak4_pl
+  *** itm_zombie_horse
+  *** itm_zombie_horse_pl
+  *** itm_zombie_horse2
+  *** itm_zombie_horse2_pl
+  *** itm_spak_1steel_arrow
+  *** itm_spak_1steel_arrow_pl
+  *** itm_spak_snake_arrow
+  *** itm_spak_snake_arrow_pl
+  *** itm_spak_lonely_ar
+  *** itm_spak_lonely_ar_pl
+  *** itm_spak_gromitearrow
+  *** itm_spak_gromitearrow_pl
+  *** itm_spak_new1_arrow
+  *** itm_spak_new1_arrow_pl
+  *** itm_spak_skull_arrow
+  *** itm_spak_skull_arrow_pl
+  *** itm_spak_skeleton_archer_arrow
+  *** itm_spak_skeleton_archer_arrow_pl
+  *** itm_spak_amazon_arrow
+  *** itm_spak_amazon_arrow_pl
+  *** itm_spak_evil_arrow
+  *** itm_spak_evil_arrow_pl
+  *** itm_spak_holy_arrow
+  *** itm_spak_holy_arrow_pl
+  *** itm_spak_beargauntlets_l
+  *** itm_spak_beargauntlets_l_pl
+  *** itm_spak_g_scale_gauntlets_a_l
+  *** itm_spak_g_scale_gauntlets_a_l_pl
+  *** itm_spak_demonic_gauntlets_l
+  *** itm_spak_demonic_gauntlets_l_pl
+  *** itm_spak_bear_boots
+  *** itm_spak_bear_boots_pl
+  *** itm_spak_g_iron_greaves_a
+  *** itm_spak_g_iron_greaves_a_pl
+  *** itm_spak_g_mail_boots_a
+  *** itm_spak_g_mail_boots_a_pl
+  *** itm_spak_g_mail_chausses_a
+  *** itm_spak_g_mail_chausses_a_pl
+  *** itm_spak_plate_boots3
+  *** itm_spak_plate_boots3_pl
+  *** itm_spak_black_boots
+  *** itm_spak_black_boots_pl
+  *** itm_spak_demonic_boots
+  *** itm_spak_demonic_boots_pl
+  *** itm_twilight_boots
+  *** itm_twilight_boots_pl
+  *** itm_spak_skeleton_bandit_1
+  *** itm_spak_skeleton_bandit_1_pl
+  *** itm_spak_skeleton_bandit_2
+  *** itm_spak_skeleton_bandit_2_pl
+  *** itm_spak_skeleton_bandit_3
+  *** itm_spak_skeleton_bandit_3_pl
+  *** itm_spak_skeleton_bandit_b
+  *** itm_spak_skeleton_bandit_b_pl
+  *** itm_spak_skeleton_bandit_b2
+  *** itm_spak_skeleton_bandit_b2_pl
+  *** itm_spak_skeleton_bandit_b3
+  *** itm_spak_skeleton_bandit_b3_pl
+  *** itm_spak_2full_plate_armor
+  *** itm_spak_2full_plate_armor_pl
+  *** itm_spak_splate_armor
+  *** itm_spak_splate_armor_pl
+  *** itm_spak_splate_armor2
+  *** itm_spak_splate_armor2_pl
+  *** itm_spak_elite_cavalary
+  *** itm_spak_elite_cavalary_pl
+  *** itm_spak_elite_cavalary_2
+  *** itm_spak_elite_cavalary_2_pl
+  *** itm_spak_spak_black_armor
+  *** itm_spak_spak_black_armor_pl
+  *** itm_spak_spak_coat_of_plates_a
+  *** itm_spak_spak_coat_of_plates_a_pl
+  *** itm_spak_spak_coat_of_plates_b
+  *** itm_spak_spak_coat_of_plates_b_pl
+  *** itm_spak_spak_coat_of_plates_d
+  *** itm_spak_spak_coat_of_plates_d_pl
+  *** itm_spak_spak_coat_of_plates_e
+  *** itm_spak_spak_coat_of_plates_e_pl
+  *** itm_spak_spak_coat_of_plates_f
+  *** itm_spak_spak_coat_of_plates_f_pl
+  *** itm_spak_dark_lord_armor
+  *** itm_spak_dark_lord_armor_pl
+  *** itm_spak_dark_lord_armor2
+  *** itm_spak_dark_lord_armor2_pl
+  *** itm_spak_bear_warrior
+  *** itm_spak_bear_warrior_pl
+  *** itm_spak_g_tabard_a
+  *** itm_spak_g_tabard_a_pl
+  *** itm_spak_fix_black_armor
+  *** itm_spak_fix_black_armor_pl
+  *** itm_spak_demonrobe
+  *** itm_spak_demonrobe_pl
+  *** itm_spak_g_reinf_jerkin
+  *** itm_spak_g_reinf_jerkin_pl
+  *** itm_spak_glowing_armor
+  *** itm_spak_glowing_armor_pl
+  *** itm_spak_sk_barbutte
+  *** itm_spak_sk_barbutte_pl
+  *** itm_spak_sk_bascinet
+  *** itm_spak_sk_bascinet_pl
+  *** itm_spak_sk_bascinet_avt
+  *** itm_spak_sk_bascinet_avt_pl
+  *** itm_spak_sk_bascinet_nasal
+  *** itm_spak_sk_bascinet_nasal_pl
+  *** itm_spak_sk_black_helm
+  *** itm_spak_sk_black_helm_pl
+  *** itm_spak_sk_felt_hat_a
+  *** itm_spak_sk_felt_hat_a_pl
+  *** itm_spak_sk_felt_hat_b
+  *** itm_spak_sk_felt_hat_b_pl
+  *** itm_spak_sk_hat_fur_a
+  *** itm_spak_sk_hat_fur_a_pl
+  *** itm_spak_sk_flattop_helmet
+  *** itm_spak_sk_flattop_helmet_pl
+  *** itm_spak_sk_helmet_cm_a
+  *** itm_spak_sk_helmet_cm_a_pl
+  *** itm_spak_sk_helmet_fur_a
+  *** itm_spak_sk_helmet_fur_a_pl
+  *** itm_spak_sk_helmet_fur_b
+  *** itm_spak_sk_helmet_fur_b_pl
+  *** itm_spak_sk_helmet_w_eyeguard
+  *** itm_spak_sk_helmet_w_eyeguard_pl
+  *** itm_spak_sk_hood_a
+  *** itm_spak_sk_hood_a_pl
+  *** itm_spak_sk_hood_b
+  *** itm_spak_sk_hood_b_pl
+  *** itm_spak_sk_hood_c
+  *** itm_spak_sk_hood_c_pl
+  *** itm_spak_sk_hood_d
+  *** itm_spak_sk_hood_d_pl
+  *** itm_spak_sk_straw_hat
+  *** itm_spak_sk_straw_hat_pl
+  *** itm_spak_sk_woolen_cap
+  *** itm_spak_sk_woolen_cap_pl
+  *** itm_spak_sk_nomad_cap_a
+  *** itm_spak_sk_nomad_cap_a_pl
+  *** itm_spak_sk_padded_coif
+  *** itm_spak_sk_padded_coif_pl
+  *** itm_spak_sk_leather_cap
+  *** itm_spak_sk_leather_cap_pl
+  *** itm_spak_sk_kettle_hat
+  *** itm_spak_sk_kettle_hat_pl
+  *** itm_spak_sk_mail_coif
+  *** itm_spak_sk_mail_coif_pl
+  *** itm_spak_sk_nasal_helmet
+  *** itm_spak_sk_nasal_helmet_pl
+  *** itm_spak_sk_neckguard_helm
+  *** itm_spak_sk_neckguard_helm_pl
+  *** itm_spak_sk_reinf_helmet
+  *** itm_spak_sk_reinf_helmet_pl
+  *** itm_spak_sk_segmented_helm
+  *** itm_spak_sk_segmented_helm_pl
+  *** itm_spak_sk_skull_cap
+  *** itm_spak_sk_skull_cap_pl
+  *** itm_spak_sk_spiked_helmet
+  *** itm_spak_sk_spiked_helmet_pl
+  *** itm_spak_2kettle_hat_new
+  *** itm_spak_2kettle_hat_new_pl
+  *** itm_spak_asmoday_helmet2
+  *** itm_spak_asmoday_helmet2_pl
+  *** itm_spak_assassin_helmet
+  *** itm_spak_assassin_helmet_pl
+  *** itm_spak_assassin_helmet2
+  *** itm_spak_assassin_helmet2_pl
+  *** itm_spak_bear_warrior_helm
+  *** itm_spak_bear_warrior_helm_pl
+  *** itm_spak_g_helm_spak2
+  *** itm_spak_g_helm_spak2_pl
+  *** itm_spak_demon_hood
+  *** itm_spak_demon_hood_pl
+  *** itm_spak_glowing_helmet
+  *** itm_spak_glowing_helmet_pl
+  *** itm_spak_scullhead4
+  *** itm_spak_scullhead4_pl
+  *** itm_spak_sp_helm1
+  *** itm_spak_sp_helm1_pl
+  *** itm_spak_spak_helmet_k
+  *** itm_spak_spak_helmet_k_pl
+  *** itm_spak_sub_helm
+  *** itm_spak_sub_helm_pl
+  *** itm_spak_sub_helm2
+  *** itm_spak_sub_helm2_pl
+  *** itm_spak_sub_helm4
+  *** itm_spak_sub_helm4_pl
+  *** itm_spak_twilighthelm
+  *** itm_spak_twilighthelm_pl
+  *** itm_spak_twilighthelm2
+  *** itm_spak_twilighthelm2_pl
+  *** itm_spak_wolf_helm1
+  *** itm_spak_wolf_helm1_pl
+  *** itm_spak_wolf_helm2
+  *** itm_spak_wolf_helm2_pl
+  *** itm_spak_wolf_helm3
+  *** itm_spak_wolf_helm3_pl
+  *** itm_spak_helm07
+  *** itm_spak_helm07_pl
+  *** itm_spak_helmet_enforser
+  *** itm_spak_helmet_enforser_pl
+  *** itm_spak_2shield
+  *** itm_spak_2shield_pl
+  *** itm_spak_alt_sh_run
+  *** itm_spak_alt_sh_run_pl
+  *** itm_hermitage_shield_1
+  *** itm_hermitage_shield_1_pl
+  *** itm_hermitage_shield_2
+  *** itm_hermitage_shield_2_pl
+  *** itm_hermitage_shield_3
+  *** itm_hermitage_shield_3_pl
+  *** itm_hermitage_shield_4
+  *** itm_hermitage_shield_4_pl
+  *** itm_hermitage_shield_5
+  *** itm_hermitage_shield_5_pl
+  *** itm_round_dragon_shield
+  *** itm_round_dragon_shield_pl
+  *** itm_round_dragon_shield2
+  *** itm_round_dragon_shield2_pl
+  *** itm_spak_asmoday_seel
+  *** itm_spak_asmoday_seel_pl
+  *** itm_heavy_shield2
+  *** itm_heavy_shield2_pl
+  *** itm_sh3
+  *** itm_sh3_pl
+  *** itm_sh_oval
+  *** itm_sh_oval_pl
+  *** itm_sh_snake
+  *** itm_sh_snake_pl
+  *** itm_sh_spak1
+  *** itm_sh_spak1_pl
+  *** itm_shb1
+  *** itm_shb1_pl
+  *** itm_sh_spak2
+  *** itm_sh_spak2_pl
+  *** itm_shield_amazon
+  *** itm_shield_amazon_pl
+  *** itm_shield_greek
+  *** itm_shield_greek_pl
+  *** itm_sp_newsh
+  *** itm_sp_newsh_pl
+  *** itm_sp_shrl
+  *** itm_sp_shrl_pl
+  *** itm_sub_shield_01
+  *** itm_sub_shield_01_pl
+  *** itm_spak_shield_small_round_3
+  *** itm_spak_shield_small_round_3_pl
+  *** itm_shield_imperial
+  *** itm_shield_imperial_pl
+  *** itm_towershield_steel
+  *** itm_towershield_steel_pl
+  *** itm_spikeshield_01
+  *** itm_spikeshield_01_pl
+  *** itm_spikeshield_02
+  *** itm_spikeshield_02_pl
+  *** itm_spak_2dblhead_ax
+  *** itm_spak_2dblhead_ax_pl
+  *** itm_spak_darbor_axe
+  *** itm_spak_darbor_axe_pl
+  *** itm_pickaxe_hand
+  *** itm_pickaxe_hand_pl
+  *** itm_spak_iceaxe
+  *** itm_spak_iceaxe_pl
+  *** itm_spak_spak_2h_battle_axe
+  *** itm_spak_spak_2h_battle_axe_pl
+  *** itm_spak_asmoday_sword
+  *** itm_spak_asmoday_sword_pl
+  *** itm_kingslayer
+  *** itm_kingslayer_pl
+  *** itm_sp_2hsw
+  *** itm_sp_2hsw_pl
+  *** itm_flamberg
+  *** itm_flamberg_pl
+  *** itm_spak_butcher
+  *** itm_spak_butcher_pl
+  *** itm_spak_flat_sword
+  *** itm_spak_flat_sword_pl
+  *** itm_hooksword_spak
+  *** itm_hooksword_spak_pl
   
+121. ID files moved into ids file.
+  * module_troops.py
+  ** Removed:
+  *** from header_common import *
+  *** from header_items import *
+  *** from header_troops import *
+  *** from ID_skills import *
+  *** from ID_factions import *
+  *** from ID_items import *
+  *** from ID_scenes import *
+  ** Added:
+  *** from headers.header_common import *
+  *** from headers.header_items import *
+  *** from headers.header_troops import *
+  *** from ids.ID_skills import *
+  *** from ids.ID_factions import *
+  *** from ids.ID_items import *
+  *** from ids.ID_scenes import *
+  * module_triggers.py
+  ** Removed:
+  *** from header_common import *
+  *** from header_operations import *
+  *** from header_parties import *
+  *** from header_items import *
+  *** from ID_skills import *
+  *** from header_triggers import *
+  *** from header_troops import *
+  ** Added:
+  *** from headers.header_common import *
+  *** from headers.header_operations import *
+  *** from headers.header_parties import *
+  *** from headers.header_items import *
+  *** from ids.ID_skills import *
+  *** from headers.header_triggers import *
+  *** from headers.header_troops import *
+  * module_tableau_materials.py
+  ** Removed:
+  *** from header_common import *
+  *** from ID_animations import *
+  *** from header_mission_templates import *
+  *** from header_operations import *
+  *** from header_items import *
+  ** Added:
+  *** from headers.header_common import *
+  *** from ids.ID_animations import *
+  *** from headers.header_mission_templates import *
+  *** from headers.header_operations import *
+  *** from headers.header_items import *
+  * module_skins.py
+  ** Removed:
+  *** from ID_particle_systems import *
+  ** Added:
+  *** from ids.ID_particle_systems import *
+  * module_simple_triggers.py
+  ** Removed:
+  *** from header_common import *
+  *** from header_operations import *
+  *** from header_parties import *
+  *** from header_items import *
+  *** from ID_skills import *
+  *** from header_triggers import *
+  *** from header_troops import *
+  *** from header_music import *
+  ** Added:
+  *** from headers.header_common import *
+  *** from headers.header_operations import *
+  *** from headers.header_parties import *
+  *** from headers.header_items import *
+  *** from ids.ID_skills import *
+  *** from headers.header_triggers import *
+  *** from headers.header_troops import *
+  *** from headers.header_music import *
+  * module_scripts.py
+  ** Removed:
+  *** from header_common import *
+  *** from header_operations import *
+  *** from header_parties import *
+  *** from ID_skills import *
+  *** from header_mission_templates import *
+  *** from header_items import *
+  *** from header_triggers import *
+  *** from ID_terrain_types import *
+  *** from header_music import *
+  *** from header_presentations import *
+  *** from ID_animations import *
+  *** from ID_strings import *
+  ** Added:
+  *** from headers.header_common import *
+  *** from headers.header_operations import *
+  *** from headers.header_parties import *
+  *** from ids.ID_skills import *
+  *** from headers.header_mission_templates import *
+  *** from headers.header_items import *
+  *** from headers.header_triggers import *
+  *** from ids.ID_terrain_types import *
+  *** from headers.header_music import *
+  *** from headers.header_presentations import *
+  *** from ids.ID_animations import *
+  *** from ids.ID_strings import *
+  * module_presentations.py
+  ** Removed:
+  *** from header_common import *
+  *** from header_presentations import *
+  *** from header_mission_templates import *
+  *** from ID_meshes import *
+  *** from header_operations import *
+  *** from header_triggers import *
+  *** from header_items import *
+  *** from ID_terrain_types import *
+  *** from ID_skills import *
+  ** Added:
+  *** from headers.header_common import *
+  *** from headers.header_presentations import *
+  *** from headers.header_mission_templates import *
+  *** from ids.ID_meshes import *
+  *** from headers.header_operations import *
+  *** from headers.header_triggers import *
+  *** from headers.header_items import *
+  *** from ids.ID_terrain_types import *
+  *** from ids.ID_skills import *
+  * module_party_templates.py
+  ** Removed:
+  *** from header_common import *
+  *** from header_parties import *
+  *** from ID_troops import *
+  *** from ID_factions import *
+  *** from ID_map_icons import *
+  ** Added:
+  *** from headers.header_common import *
+  *** from headers.header_parties import *
+  *** from ids.ID_troops import *
+  *** from ids.ID_factions import *
+  *** from ids.ID_map_icons import *
+  * module_parties.py
+  ** Removed:
+  *** from header_common import *
+  *** from header_parties import *
+  *** from ID_troops import *
+  *** from ID_factions import *
+  *** from ID_party_templates import *
+  *** from ID_map_icons import *
+  ** Added:
+  *** from headers.header_common import *
+  *** from headers.header_parties import *
+  *** from ids.ID_troops import *
+  *** from ids.ID_factions import *
+  *** from ids.ID_party_templates import *
+  *** from ids.ID_map_icons import *
+  * module_mission_templates.py
+  ** Removed:
+  *** from header_common import *
+  *** from header_operations import *
+  *** from header_mission_templates import *
+  *** from header_animations import *
+  *** from header_sounds import *
+  *** from header_music import *
+  *** from header_items import *
+  *** from ID_skills import *
+  ** Added:
+  *** from headers.header_common import *
+  *** from headers.header_operations import *
+  *** from headers.header_mission_templates import *
+  *** from headers.header_animations import *
+  *** from headers.header_sounds import *
+  *** from headers.header_music import *
+  *** from headers.header_items import *
+  *** from ids.ID_skills import *
+  * module_map_icons.py
+  ** Removed:
+  *** from header_common import *
+  *** from header_operations import *
+  *** from header_triggers import *
+  *** from ID_sounds import *
+  ** Added:
+  *** from headers.header_common import *
+  *** from headers.header_operations import *
+  *** from headers.header_triggers import *
+  *** from ids.ID_sounds import *
+  * module_items.py
+  ** Removed:
+  *** from ID_factions import *
+  *** from header_items import  *
+  *** from header_operations import *
+  *** from header_triggers import *
+  ** Added:
+  *** from ids.ID_factions import *
+  *** from headers.header_items import  *
+  *** from headers.header_operations import *
+  *** from headers.header_triggers import *
+  * module_game_menus.py
+  ** Removed:
+  *** from header_common import *
+  *** from header_operations import *
+  *** from header_item_modifiers import *
+  *** from ID_skills import *
+  *** from header_troops import *
+  *** from header_game_menus import *
+  *** from header_parties import *
+  *** from header_items import *
+  *** from header_mission_templates import *
+  *** from header_music import *
+  *** from ID_terrain_types import *
+  ** Added:
+  *** from headers.header_common import *
+  *** from headers.header_operations import *
+  *** from headers.header_item_modifiers import *
+  *** from ids.ID_skills import *
+  *** from headers.header_troops import *
+  *** from headers.header_parties import *
+  *** from headers.header_items import *
+  *** from headers.header_mission_templates import *
+  *** from headers.header_music import *
+  *** from ids.ID_terrain_types import *
+  * module_dialogs.py
+  ** Removed:
+  *** from header_common import *
+  *** from header_operations import *
+  *** from header_parties import *
+  *** from header_item_modifiers import *
+  *** from ID_skills import *
+  *** from header_triggers import *
+  *** from ID_troops import *
+  *** from ID_party_templates import *
+  ** Added:
+  *** from headers.header_common import *
+  *** from headers.header_operations import *
+  *** from headers.header_parties import *
+  *** from headers.header_item_modifiers import *
+  *** from ids.ID_skills import *
+  *** from headers.header_triggers import *
+  *** from ids.ID_troops import *
+  *** from ids.ID_party_templates import *
+  * module_constants.py
+  ** Removed:
+  *** from ID_items import *
+  *** from ID_quests import *
+  *** from ID_factions import *
+  ** Added:
+  *** from ids.ID_items import *
+  *** from ids.ID_quests import *
+  *** from ids.ID_factions import *
+  * header_mission_templates.py
+  ** Removed:
+  *** from ID_scenes import *
+  *** from ID_items import *
+  *** from ID_strings import *
+  ** Added:
+  *** from ids.ID_scenes import *
+  *** from ids.ID_items import *
+  *** from ids.ID_strings import *
+  * module_sounds.py
+  ** Removed:
+  *** from header_sounds import *
+  ** Added:
+  *** from headers.header_sounds import *
+  * module_skills.py
+  ** Removed:
+  *** from header_common import *
+  ** Added:
+  *** from headers.header_common import *
+  * module_scenes.py
+  ** Removed:
+  *** from header_common import *
+  *** from header_operations import *
+  *** from header_triggers import *
+  ** Added:
+  *** from headers.header_common import *
+  *** from headers.header_operations import *
+  *** from headers.header_triggers import *
+  * module_scene_props.py
+  ** Removed:
+  *** from header_common import *
+  *** from header_scene_props import *
+  *** from header_operations import *
+  *** from header_triggers import *
+  *** from header_sounds import *
+  ** Added:
+  *** from headers.header_common import *
+  *** from headers.header_scene_props import *
+  *** from headers.header_operations import *
+  *** from headers.header_triggers import *
+  *** from headers.header_sounds import *
+  * module_quests.py
+  ** Removed:
+  *** from header_common import *
+  ** Added:
+  *** from headers.header_common import *
+  * module_music.py
+  ** Removed:
+  *** from header_music import *
+  ** Added:
+  *** from headers.header_music import *
+  * module_factions.py
+  ** Removed:
+  *** from header_common import *
+  ** Added:
+  *** from headers.header_common import *
+  * module_animations.py
+  ** Removed:
+  *** from header_common import *
+  *** from header_animations import *
+  ** Added:
+  *** from headers.header_common import *
+  *** from headers.header_animations import *
+  
+122. New troops added and some troops changed/balanced.
+  * module_party_templates.py
+  ** Replaced:
+  *** pt_manhunters
+  *** pt_dark_hunters
+  *** pt_kingdom_7_reinforcements_b
+  *** pt_kingdom_7_reinforcements_c
+  *** pt_kingdom_7_patrol
+  * module_scripts.py
+  ** Edited:
+  *** script_game_start
+  * module_troops.py
+  ** Removed:
+  *** trp_umalelithian_veteran
+  *** trp_umalelithian_warrior
+  *** trp_umalelithian_guard
+  *** trp_umalelithian_leader
+  *** trp_umalelithian_archer
+  *** trp_umalelithian_trained_archer
+  *** trp_umalelithian_veteran_archer
+  ** Added:
+  *** trp_umalelithian_wolf_rider
+  *** trp_umalelithian_wolf_lord
+  *** trp_umalelithian_bear_warrior
+  *** trp_umalelithian_bear_berserker
+  *** trp_umalelithian_skirmisher
+  *** trp_umalelithian_archer
+  *** trp_umalelithian_archer_2
+  *** trp_dark_recruit
+  *** trp_dark_skirmisher
+  *** trp_dark_archer
+  *** trp_dark_archer_elite
+  *** trp_dark_lord_archer
+  *** trp_dark_crossbowman
+  *** trp_master_dark_crossbowman
+  *** trp_dark_infantry
+  *** trp_dark_champion
+  *** trp_dark_cavalary
+  *** trp_dark_knight_2
+  *** trp_dark_lord
+  ** Upgrade:
+  *** trp_umalelithian_recruit -> umalelithian_infantry
+  *** trp_umalelithian_recruit -> umalelithian_skirmisher
+  *** trp_umalelithian_infantry -> trp_umalelithian_wolf_rider
+  *** trp_umalelithian_infantry -> trp_umalelithian_bear_warrior
+  *** trp_umalelithian_wolf_rider -> trp_umalelithian_wolf_lord
+  *** trp_umalelithian_bear_warrior -> trp_umalelithian_bear_berserker
+  *** trp_umalelithian_skirmisher -> trp_umalelithian_archer
+  *** trp_umalelithian_archer -> trp_umalelithian_archer_2
+  * troops.csv
+  ** Added:
+  *** trp_umalelithian_wolf_rider
+  *** trp_umalelithian_wolf_rider_pl
+  *** trp_umalelithian_wolf_lord
+  *** trp_umalelithian_wolf_lord_pl
+  *** trp_umalelithian_bear_warrior
+  *** trp_umalelithian_bear_warrior_pl
+  *** trp_umalelithian_bear_berserker
+  *** trp_umalelithian_bear_berserker_pl
+  *** trp_umalelithian_skirmisher
+  *** trp_umalelithian_skirmisher_pl
+  *** trp_umalelithian_archer
+  *** trp_umalelithian_archer_pl
+  *** trp_umalelithian_archer_2
+  *** trp_umalelithian_archer_2_pl
+  *** trp_dark_recruit
+  *** trp_dark_recruit_pl
+  *** trp_dark_skirmisher
+  *** trp_dark_skirmisher_pl
+  *** trp_dark_archer
+  *** trp_dark_archer_pl
+  *** trp_dark_archer_elite
+  *** trp_dark_archer_elite_pl
+  *** trp_dark_lord_archer
+  *** trp_dark_lord_archer_pl
+  *** trp_dark_crossbowman
+  *** trp_dark_crossbowman_pl
+  *** trp_master_dark_crossbowman
+  *** trp_master_dark_crossbowman_pl
+  *** trp_dark_infantry
+  *** trp_dark_infantry_pl
+  *** trp_dark_champion
+  *** trp_dark_champion_pl
+  *** trp_dark_cavalary
+  *** trp_dark_cavalary_pl
+  *** trp_dark_knight_2
+  *** trp_dark_knight_2_pl
+  *** trp_dark_lord
+  *** trp_dark_lord_pl
+  ** Removed:
+  *** trp_umalelithian_veteran
+  *** trp_umalelithian_veteran_pl
+  *** trp_umalelithian_warrior
+  *** trp_umalelithian_warrior_pl
+  *** trp_umalelithian_guard
+  *** trp_umalelithian_guard_pl
+  *** trp_umalelithian_leader
+  *** trp_umalelithian_leader_pl
+  *** trp_umalelithian_archer
+  *** trp_umalelithian_archer_pl
+  *** trp_umalelithian_trained_archer
+  *** trp_umalelithian_trained_archer_pl
+  *** trp_umalelithian_veteran_archer
+  *** trp_umalelithian_veteran_archer_pl
+  
+123. New arena items added.
+  * module_items.py
+  ** Added:
+  *** itm_arena_tunic_brown
+  *** itm_arena_tunic_dblue
+  *** steppe_helmet_brown
+  *** steppe_helmet_dblue
+  *** tourney_helm_brown
+  *** tourney_helm_dblue
+  * item_kinds.py
+  ** Added:
+  *** itm_arena_tunic_brown
+  *** itm_arena_tunic_brown_pl
+  *** itm_arena_tunic_dblue
+  *** itm_arena_tunic_dblue_pl
+  *** steppe_helmet_brown
+  *** steppe_helmet_brown_pl
+  *** steppe_helmet_dblue
+  *** steppe_helmet_dblue_pl
+  *** tourney_helm_brown
+  *** tourney_helm_brown_pl
+  *** tourney_helm_dblue
+  *** tourney_helm_dblue_pl
+ 
 Known Bugs:
 tf_female; Ladies seems like a man so dialogs should be changed with gender.
 Turkish translate has stupid errors. Like "Kendimin yerine mareşal olarak kendim geçmek istiyorum.", "Köyün yeni sahibi kendim olsun istiyorum" etc...

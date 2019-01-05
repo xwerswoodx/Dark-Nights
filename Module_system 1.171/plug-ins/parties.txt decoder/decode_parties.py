@@ -1,5 +1,5 @@
 from module_map_icons import *
-from header_parties import *
+from headers.header_parties import *
 from module_factions import *
 from module_troops import *
 from module_info import *

@@ -8,9 +8,16 @@ from header_common import *
 from header_operations import *
 from header_triggers import *
 from header_troops import *
-from ID_scenes import *
-from ID_items import *
-from ID_strings import *
+## UID: 121 - Begin
+#
+#from ID_scenes import *
+#from ID_items import *
+#from ID_strings import *
+from ids.ID_scenes import *
+from ids.ID_items import *
+from ids.ID_strings import *
+#
+## UID: 121 - End
 
 ## UID: 85 - Begin
 #

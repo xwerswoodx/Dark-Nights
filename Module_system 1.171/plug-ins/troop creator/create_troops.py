@@ -1,6 +1,6 @@
 import random
 import os
-from header_items import *
+from headers.header_items import *
 from module_items import *
 
 iarmor_head = 7
