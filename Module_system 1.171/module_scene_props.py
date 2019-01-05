@@ -1,9 +1,17 @@
-# -*- coding: cp1252 -*-
-from header_common import *
-from header_scene_props import *
-from header_operations import *
-from header_triggers import *
-from header_sounds import *
+## UID: 121 - Begin
+#
+#from header_common import *
+#from header_scene_props import *
+#from header_operations import *
+#from header_triggers import *
+#from header_sounds import *
+from headers.header_common import *
+from headers.header_scene_props import *
+from headers.header_operations import *
+from headers.header_triggers import *
+from headers.header_sounds import *
+#
+## UID: 121 - End
 from module_constants import *
 import string
 
@@ -3250,20 +3258,20 @@ scene_props = [
 
   ## UID: 109 - Begin
   #
-  ("tunnel_1", 0, "tunnel_curved", "bo_tunnel_curved", []),
-  ("tunnel_1a", 0, "tunnel_curved_supports", "bo_tunnel_curved_supports", []),
-  ("tunnel_2", 0, "tunnel_crossing", "bo_tunnel_crossing", []),
-  ("tunnel_2a", 0, "tunnel_crossing_supports", "bo_tunnel_crossing_supports", []),
-  ("tunnel_3", 0, "tunnel_short", "bo_tunnel_short", []),
-  ("tunnel_3a", 0, "tunnel_short_supports", "bo_tunnel_short_supports", []),
-  ("tunnel_4", 0, "tunnel_sloped", "bo_tunnel_sloped", []),
-  ("tunnel_4a", 0, "tunnel_sloped_supports", "bo_tunnel_sloped_supports", []),
-  ("tunnel_5", 0, "tunnel_straight", "bo_tunnel_straight", []),
-  ("tunnel_5a", 0, "tunnel_straight_supports", "bo_tunnel_straight_supports", []),
-  ("tunnel_6", 0, "tunnel_split", "bo_tunnel_split", []),
-  ("tunnel_6a", 0, "tunnel_split_supports", "bo_tunnel_split_supports", []),
-  ("tunnel_7", 0, "tunnel_support", "bo_tunnel_support", []),
-  ("tunnel_8", 0, "chasm", "bo_chasm", []),
+  ("1tunnel_1", 0, "tunnel_curved", "bo_tunnel_curved", []),
+  ("1tunnel_1a", 0, "tunnel_curved_supports", "bo_tunnel_curved_supports", []),
+  ("1tunnel_2", 0, "tunnel_crossing", "bo_tunnel_crossing", []),
+  ("1tunnel_2a", 0, "tunnel_crossing_supports", "bo_tunnel_crossing_supports", []),
+  ("1tunnel_3", 0, "tunnel_short", "bo_tunnel_short", []),
+  ("1tunnel_3a", 0, "tunnel_short_supports", "bo_tunnel_short_supports", []),
+  ("1tunnel_4", 0, "tunnel_sloped", "bo_tunnel_sloped", []),
+  ("1tunnel_4a", 0, "tunnel_sloped_supports", "bo_tunnel_sloped_supports", []),
+  ("1tunnel_5", 0, "tunnel_straight", "bo_tunnel_straight", []),
+  ("1tunnel_5a", 0, "tunnel_straight_supports", "bo_tunnel_straight_supports", []),
+  ("1tunnel_6", 0, "tunnel_split", "bo_tunnel_split", []),
+  ("1tunnel_6a", 0, "tunnel_split_supports", "bo_tunnel_split_supports", []),
+  ("1tunnel_7", 0, "tunnel_support", "bo_tunnel_support", []),
+  ("1tunnel_8", 0, "chasm", "bo_chasm", []),
   #
   ## UID: 109 - End
 

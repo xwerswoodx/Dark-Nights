@@ -1,4 +1,9 @@
-from header_music import *
+## UID: 121 - Begin
+#
+#from header_music import *
+from headers.header_music import *
+#
+## UID: 121 - End
 ####################################################################################################################
 #  Each track record contains the following fields:
 #  1) Track id: used for referencing tracks.

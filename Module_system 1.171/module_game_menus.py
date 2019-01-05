@@ -1,23 +1,37 @@
+## UID: 121 - Begin
+#
 ## UID: 85 - Begin
 #
-from header_common import *
-from header_operations import *
-from header_item_modifiers import *
-from ID_skills import *
-from header_troops import *
+#from header_common import *
+#from header_operations import *
+#from header_item_modifiers import *
+#from ID_skills import *
+#from header_troops import *
 #from header_game_menus import *
 #
 ## UID: 85 - End
-from header_parties import *
-from header_items import *
-from header_mission_templates import *
-from header_music import *
+#from header_parties import *
+#from header_items import *
+#from header_mission_templates import *
+#from header_music import *
 ## UID: 85 - Begin
 #
 #from header_terrain_types import *
-from ID_terrain_types import *
+#from ID_terrain_types import *
 #
 ## UID: 85 - End
+from headers.header_common import *
+from headers.header_operations import *
+from headers.header_item_modifiers import *
+from ids.ID_skills import *
+from headers.header_troops import *
+from headers.header_parties import *
+from headers.header_items import *
+from headers.header_mission_templates import *
+from headers.header_music import *
+from ids.ID_terrain_types import *
+#
+## UID: 121 - End
 from module_constants import *
 
 ## UID: 85 - Begin
@@ -2945,6 +2959,12 @@ game_menus = [
 ##            (call_script, "script_set_prefix", "trp_player"),
 ##            (item_get_slot, reg0, "itm_bread", slot_item_food_bonus),
 ##          (display_message, "@{reg0} - {reg1} - {reg2} - {reg3} - {reg4}"),
+          (store_random_in_range, ":type", 0, 1),
+          (try_begin),
+            (eq, ":type", 0),
+            (troop_add_merchandise_with_faction, "trp_player", "fac_kingdom_1", itp_type_horse, 1),
+            (display_message, "@{reg0} - {reg1} - {reg2}"),
+          (try_end),
         ]),
 
         ## UID: 39 - Begin
@@ -10790,51 +10810,95 @@ game_menus = [
     ]
   ),
 
-  (
-    "town_tournament_won",mnf_disable_all_keys,
-    "You have won the tournament of {s3}! You are filled with pride as the crowd cheers your name.\
- In addition to honour, fame and glory, you earn a prize of {reg9} denars. {s8}",
-    "none",
-    [
-        (str_store_party_name, s3, "$current_town"),
-        (call_script, "script_change_troop_renown", "trp_player", 20),
-        (call_script, "script_change_player_relation_with_center", "$current_town", 1),   
-        (assign, reg9, 200),
-        (add_xp_to_troop, 250, "trp_player"),
-        (troop_add_gold, "trp_player", reg9),
-        (str_clear, s8),
-        (store_add, ":total_win", "$g_tournament_bet_placed", "$g_tournament_bet_win_amount"),
-        (try_begin),
-          (gt, "$g_tournament_bet_win_amount", 0),
-          (assign, reg8, ":total_win"),
-          (str_store_string, s8, "@Moreover, you earn {reg8} denars from the clever bets you placed on yourself..."),
-        (try_end),
-		(try_begin),
-			(this_or_next|neq, "$players_kingdom", "$g_encountered_party_faction"),
-				(neg|troop_slot_ge, "trp_player", slot_troop_renown, 70),
-			(neg|troop_slot_ge, "trp_player", slot_troop_renown, 145),
+  ("town_tournament_won", mnf_disable_all_keys,
+   "You have won the tournament of {s3}! You are filled with pride as the crowd cheers your name. In addition to honour, fame and glory, you earn a prize of {reg9} denars and a random item. {s8}",
+   "none", [
+     (str_store_party_name, s3, "$current_town"),
+     (call_script, "script_change_troop_renown", "trp_player", 20),
+     (call_script, "script_change_player_relation_with_center", "$current_town", 1),
+     (assign, reg9, 200),
+     (add_xp_to_troop, 250, "trp_player"),
+     (troop_add_gold, "trp_player", reg9),
+     (str_clear, s8),
+     (store_add, ":total_win", "$g_tournament_bet_placed", "$g_tournament_bet_win_amount"),
 
-			(faction_slot_eq, "$g_encountered_party_faction", slot_faction_ai_state, sfai_feast),
-			(faction_slot_eq, "$g_encountered_party_faction", slot_faction_ai_object, "$g_encountered_party"),
-			(str_store_string, s8, "str_s8_you_are_also_invited_to_attend_the_ongoing_feast_in_the_castle"),
-		(try_end),
-        (troop_add_gold, "trp_player", ":total_win"),
-        (assign, ":player_odds_sub", 0),
-        (store_div, ":player_odds_sub", "$g_tournament_bet_win_amount", 5),
-        (party_get_slot, ":player_odds", "$current_town", slot_town_player_odds),
-        (val_sub, ":player_odds", ":player_odds_sub"),
-        (val_max, ":player_odds", 250),
-        (party_set_slot, "$current_town", slot_town_player_odds, ":player_odds"),
-        (call_script, "script_play_victorious_sound"),
-        
-        (unlock_achievement, ACHIEVEMENT_MEDIEVAL_TIMES),
-        ],
-    [
-      ("continue", [], "Continue...",
-       [(jump_to_menu, "mnu_town"),
-        ]),
-    ]
-  ),
+     (try_begin),
+       (gt, "$g_tournament_bet_win_amount", 0),
+       (assign, reg8, ":total_win"),
+       (str_store_string, s8, "@Moreover, you earn {reg8} denars from the clever bets you placed on yourself..."),
+     (try_end),
+
+     (try_begin),
+       (this_or_next|neq, "$players_kingdom", "$g_encountered_party_faction"),
+       (         neg|troop_slot_ge, "trp_player", slot_troop_renown, 70),
+       ## UID: 118 - Begin
+       #
+       #(         neg|troop_slot_ge, "trp_player", slot_troop_renown, 145),
+       #
+       ## UID: 118 - End
+       (             faction_slot_eq, "$g_encountered_party_faction", slot_faction_ai_state, sfai_feast),
+       (             faction_slot_eq, "$g_encountered_party_faction", slot_faction_ai_object, "$g_encountered_party"),
+       (str_store_string, s8, "str_s8_you_are_also_invited_to_attend_the_ongoing_feast_in_the_castle"),
+     (try_end),
+
+     ## UID: 118 - Begin
+     #
+     (store_random_in_range, ":type", 0, 13),
+     (try_begin),
+       (eq, ":type", 0),
+       (troop_add_merchandise_with_faction, "trp_player", "$g_encountered_party_faction", itp_type_horse, 1),
+     (else_try),
+       (eq, ":type", 1),
+       (troop_add_merchandise_with_faction, "trp_player", "$g_encountered_party_faction", itp_type_one_handed_wpn, 1),
+     (else_try),
+       (eq, ":type", 2),
+       (troop_add_merchandise_with_faction, "trp_player", "$g_encountered_party_faction", itp_type_two_handed_wpn, 1),
+     (else_try),
+       (eq, ":type", 3),
+       (troop_add_merchandise_with_faction, "trp_player", "$g_encountered_party_faction", itp_type_polearm, 1),
+     (else_try),
+       (eq, ":type", 4),
+       (troop_add_merchandise_with_faction, "trp_player", "$g_encountered_party_faction", itp_type_shield, 1),
+     (else_try),
+       (eq, ":type", 5),
+       (troop_add_merchandise_with_faction, "trp_player", "$g_encountered_party_faction", itp_type_bow, 1),
+     (else_try),
+       (eq, ":type", 6),
+       (troop_add_merchandise_with_faction, "trp_player", "$g_encountered_party_faction", itp_type_crossbow, 1),
+     (else_try),
+       (eq, ":type", 7),
+       (troop_add_merchandise_with_faction, "trp_player", "$g_encountered_party_faction", itp_type_thrown, 1),
+     (else_try),
+       (eq, ":type", 8),
+       (troop_add_merchandise_with_faction, "trp_player", "$g_encountered_party_faction", itp_type_head_armor, 1),
+     (else_try),
+       (eq, ":type", 9),
+       (troop_add_merchandise_with_faction, "trp_player", "$g_encountered_party_faction", itp_type_body_armor, 1),
+     (else_try),
+       (eq, ":type", 10),
+       (troop_add_merchandise_with_faction, "trp_player", "$g_encountered_party_faction", itp_type_foot_armor, 1),
+     (else_try),
+       (eq, ":type", 11),
+       (troop_add_merchandise_with_faction, "trp_player", "$g_encountered_party_faction", itp_type_hand_armor, 1),
+     (else_try),
+       (eq, ":type", 12),
+       (troop_add_merchandise_with_faction, "trp_player", "$g_encountered_party_faction", itp_type_book, 1),
+     (try_end),
+     #
+     ## UID: 118 - End
+
+     (troop_add_gold, "trp_player", ":total_win"),
+     (assign, ":player_odds_sub", 0),
+     (store_div, ":player_odds_sub", "$g_tournament_bet_win_amount", 5),
+     (party_get_slot, ":player_odds", "$current_town", slot_town_player_odds),
+     (val_sub, ":player_odds", ":player_odds_sub"),
+     (val_max, ":player_odds", 250),
+     (party_set_slot, "$current_town", slot_town_player_odds, ":player_odds"),
+     (call_script, "script_play_victorious_sound"),
+     (unlock_achievement, ACHIEVEMENT_MEDIEVAL_TIMES),
+    ], [
+      ("continue", [], "Continue...", [(jump_to_menu, "mnu_town")]),
+    ]),
   
   (
     "town_tournament_won_by_another",mnf_disable_all_keys,

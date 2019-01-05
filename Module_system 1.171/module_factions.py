@@ -1,4 +1,9 @@
-from header_common import *
+## UID: 121 - Begin
+#
+#from header_common import *
+from headers.header_common import *
+#
+## UID: 121 - End
 
 ff_always_hide_label = 0x00000001
 ff_max_rating_bits = 8

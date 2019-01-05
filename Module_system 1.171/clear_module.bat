@@ -1,5 +1,7 @@
 @echo off
 @del *.pyc
+@del ids\*.pyc
+@del headers\*.pyc
 echo.
 echo ______________________________
 echo.

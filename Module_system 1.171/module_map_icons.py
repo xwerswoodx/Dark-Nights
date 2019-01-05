@@ -1,13 +1,25 @@
+## UID: 121 - Begin
+#
 ## UID: 85 - Begin
 #
 #from header_map_icons import *
-from header_common import *
+#from header_common import *
 #
 ## UID: 85 - End
+from headers.header_common import *
+#
+## UID: 121 - End
 from module_constants import *
-from header_operations import *
-from header_triggers import *
-from ID_sounds import *
+## UID: 121 - Begin
+#
+#from header_operations import *
+#from header_triggers import *
+#from ID_sounds import *
+from headers.header_operations import *
+from headers.header_triggers import *
+from ids.ID_sounds import *
+#
+## UID: 121 - End
 
 ## UID: 85 - Begin
 #

@@ -1,6 +1,13 @@
-from header_common import *
-from header_operations import *
-from header_triggers import *
+## UID: 121 - Begin
+#
+#from header_common import *
+#from header_operations import *
+#from header_triggers import *
+from headers.header_common import *
+from headers.header_operations import *
+from headers.header_triggers import *
+#
+## UID: 121 - End
 ## UID: 85 - Begin
 #
 #from header_scenes import *

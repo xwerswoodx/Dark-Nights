@@ -1,5 +1,11 @@
-from header_common import *
-from header_animations import *
+## UID: 121 - Begin
+#
+#from header_common import *
+#from header_animations import *
+from headers.header_common import *
+from headers.header_animations import *
+#
+## UID: 121 - End
 
 ####################################################################################################################
 #  There are two animation arrays (one for human and one for horse). Each animation in these arrays contains the following fields:

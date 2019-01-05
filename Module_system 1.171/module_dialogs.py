@@ -1,17 +1,28 @@
-# -*- coding: cp1254 -*-
-from header_common import *
-from header_operations import *
-from header_parties import *
-from header_item_modifiers import *
+## UID: 121 - Begin
+#
+#from header_common import *
+#from header_operations import *
+#from header_parties import *
+#from header_item_modifiers import *
 ## UID: 85 - Begin
 #
 #from header_skills import *
-from ID_skills import *
+#from ID_skills import *
 #
 ## UID: 85 - End
-from header_triggers import *
-from ID_troops import *
-from ID_party_templates import *
+#from header_triggers import *
+#from ID_troops import *
+#from ID_party_templates import *
+from headers.header_common import *
+from headers.header_operations import *
+from headers.header_parties import *
+from headers.header_item_modifiers import *
+from ids.ID_skills import *
+from headers.header_triggers import *
+from ids.ID_troops import *
+from ids.ID_party_templates import *
+#
+## UID: 121 - End
 from module_constants import *
 
 ## UID: 85 - Begin

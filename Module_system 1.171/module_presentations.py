@@ -1,22 +1,39 @@
-from header_common import *
-from header_presentations import *
-from header_mission_templates import *
-from ID_meshes import *
-from header_operations import *
-from header_triggers import *
+## UID: 121 - Begin
+#
+#from header_common import *
+#from header_presentations import *
+#from header_mission_templates import *
+#from ID_meshes import *
+#from header_operations import *
+#from header_triggers import *
+from headers.header_common import *
+from headers.header_presentations import *
+from headers.header_mission_templates import *
+from ids.ID_meshes import *
+from headers.header_operations import *
+from headers.header_triggers import *
+#
+## UID: 121 - End
 from module_constants import *
 ## UID: 25 - Begin
 #
-from header_items import *
+## UID: 121 - Begin
+#
+#from header_items import *
+from headers.header_items import *
+#
+## UID: 121 - End
 from module_items import *
 #
 ## UID: 25 - End
+## UID: 121 - Begin
+#
 ## UID: 39 - Begin
 #
 ## UID: 85 - Begin
 #
 #from header_terrain_types import *
-from ID_terrain_types import *
+#from ID_terrain_types import *
 #
 ## UID: 85 - End
 #
@@ -26,11 +43,15 @@ from ID_terrain_types import *
 ## UID: 85 - Begin
 #
 #from header_skills import *
-from ID_skills import *
+#from ID_skills import *
 #
 ## UID: 85 - End
 #
 ## UID: 46 - End
+from ids.ID_terrain_types import *
+from ids.ID_skills import *
+#
+## UID: 121 - End
 import string
 
 ####################################################################################################################

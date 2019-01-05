@@ -1,7 +1,12 @@
 ## UID: 85 - Begin
 #
 #from header_quests import *
-from header_common import *
+## UID: 121 - Begin
+#
+#from header_common import *
+from headers.header_common import *
+#
+## UID: 121 - End
 
 qf_show_progression      = 0x00000001
 qf_random_quest          = 0x00000002

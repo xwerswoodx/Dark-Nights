@@ -1,33 +1,52 @@
-# -*- coding: cp1254 -*-
-from header_common import *
-from header_operations import *
+## UID: 121 - Begin
+#
+#from header_common import *
+#from header_operations import *
+from headers.header_common import *
+from headers.header_operations import *
+#
+## UID: 121 - End
 from module_constants import *
 from module_constants import *
-from header_parties import *
+## UID: 121 - Begin
+#
+#from header_parties import *
+from headers.header_parties import *
 ## UID: 85 - Begin
 #
 #from header_skills import *
 #from header_map_icons import *
-from ID_skills import *
+#from ID_skills import *
 #
 ## UID: 85 - End
-from header_mission_templates import *
-from header_items import *
-from header_triggers import *
+from ids.ID_skills import *
+#from header_mission_templates import *
+#from header_items import *
+#from header_triggers import *
+from headers.header_mission_templates import *
+from headers.header_items import *
+from headers.header_triggers import *
 ## UID: 85 - Begin
 #
 #from header_terrain_types import *
-from ID_terrain_types import *
+#from ID_terrain_types import *
 #
 ## UID: 85 - End
-from header_music import *
-from header_presentations import *
-from ID_animations import *
+from ids.ID_terrain_types import *
+#from header_music import *
+#from header_presentations import *
+#from ID_animations import *
+from headers.header_music import *
+from headers.header_presentations import *
+from ids.ID_animations import *
 ## UID: 63 - Begin
 #
-from ID_strings import *
+#from ID_strings import *
 #
 ## UID: 63 - End
+from ids.ID_strings import *
+#
+## UID: 121 - End
 
 ####################################################################################################################
 # scripts is a list of script records.
@@ -198,15 +217,20 @@ scripts = [
 
       ## UID: 24 - Begin
       #
-	  ## UID: 121 - Begin
-      #
       (faction_set_slot, "fac_culture_7", slot_faction_tier_1_troop, "trp_umalelithian_recruit"),
+      ## UID: 122 - Begin
+      #
+      #(faction_set_slot, "fac_culture_7", slot_faction_tier_2_troop, "trp_umalelithian_veteran"),
+      #(faction_set_slot, "fac_culture_7", slot_faction_tier_3_troop, "trp_umalelithian_warrior"),
+      #(faction_set_slot, "fac_culture_7", slot_faction_tier_4_troop, "trp_umalelithian_trained_archer"),
+      #(faction_set_slot, "fac_culture_7", slot_faction_tier_5_troop, "trp_umalelithian_leader"),
       (faction_set_slot, "fac_culture_7", slot_faction_tier_2_troop, "trp_umalelithian_bear_warrior"),
       (faction_set_slot, "fac_culture_7", slot_faction_tier_3_troop, "trp_umalelithian_bear_berserker"),
       (faction_set_slot, "fac_culture_7", slot_faction_tier_4_troop, "trp_umalelithian_archer_2"),
-      (faction_set_slot, "fac_culture_7", slot_faction_tier_5_troop, "trp_umalelithian_wolf_lord"),
-#
-      ## UID: 121 - End
+      (faction_set_slot, "fac_culture_7", slot_faction_tier_5_troop, "trp_umalelithian_wolf_lord"),      
+      #
+      ## UID: 122 - End
+
       (faction_set_slot, "fac_culture_8", slot_faction_tier_1_troop, "trp_kielian_tribeswoman"),
       (faction_set_slot, "fac_culture_8", slot_faction_tier_2_troop, "trp_kielian_spearwoman"),
       (faction_set_slot, "fac_culture_8", slot_faction_tier_3_troop, "trp_kielian_master_archer"),
@@ -14692,40 +14716,65 @@ scripts = [
       (assign, reg0, ":upper_limit"),
   ]),
 
-  #script_set_trade_route_between_centers
-  # INPUT:
-  # param1: center_no_1
-  # param1: center_no_2
-  ("set_trade_route_between_centers",
-    [(store_script_param, ":center_no_1", 1),
-     (store_script_param, ":center_no_2", 2),
-     (assign, ":center_1_added", 0),
-     (assign, ":center_2_added", 0),
-     (try_for_range, ":cur_slot", slot_town_trade_routes_begin, slot_town_trade_routes_end),
-       (try_begin),
-         (eq, ":center_1_added", 0),
-         (party_slot_eq, ":center_no_1", ":cur_slot", 0),
-         (party_set_slot, ":center_no_1", ":cur_slot", ":center_no_2"),
-         (assign, ":center_1_added", 1),
-       (try_end),
-       (try_begin),
-         (eq, ":center_2_added", 0),
-         (party_slot_eq, ":center_no_2", ":cur_slot", 0),
-         (party_set_slot, ":center_no_2", ":cur_slot", ":center_no_1"),
-         (assign, ":center_2_added", 1),
-       (try_end),
-     (try_end),
-     (try_begin),
-       (eq, ":center_1_added", 0),
-       (str_store_party_name, s1, ":center_no_1"),
-       (display_message, "@{!}DEBUG -- ERROR: More than 15 trade routes are given for {s1}."),
-     (try_end),
-     (try_begin),
-       (eq, ":center_2_added", 0),
-       (str_store_party_name, s1, ":center_no_2"),
-       (display_message, "@{!}DEBUG -- ERROR: More than 15 trade routes are given for {s1}."),
-     (try_end),
-     ]),
+  ## UID: 119 - Begin
+  #
+##  ("set_trade_route_between_centers",
+##    [(store_script_param, ":center_no_1", 1),
+##     (store_script_param, ":center_no_2", 2),
+##     (assign, ":center_1_added", 0),
+##     (assign, ":center_2_added", 0),
+##     (try_for_range, ":cur_slot", slot_town_trade_routes_begin, slot_town_trade_routes_end),
+##       (try_begin),
+##         (eq, ":center_1_added", 0),
+##         (party_slot_eq, ":center_no_1", ":cur_slot", 0),
+##         (party_set_slot, ":center_no_1", ":cur_slot", ":center_no_2"),
+##         (assign, ":center_1_added", 1),
+##       (try_end),
+##       (try_begin),
+##         (eq, ":center_2_added", 0),
+##         (party_slot_eq, ":center_no_2", ":cur_slot", 0),
+##         (party_set_slot, ":center_no_2", ":cur_slot", ":center_no_1"),
+##         (assign, ":center_2_added", 1),
+##       (try_end),
+##     (try_end),
+##     (try_begin),
+##       (eq, ":center_1_added", 0),
+##       (str_store_party_name, s1, ":center_no_1"),
+##       (display_message, "@{!}DEBUG -- ERROR: More than 15 trade routes are given for {s1}."),
+##     (try_end),
+##     (try_begin),
+##       (eq, ":center_2_added", 0),
+##       (str_store_party_name, s1, ":center_no_2"),
+##       (display_message, "@{!}DEBUG -- ERROR: More than 15 trade routes are given for {s1}."),
+##     (try_end),
+##     ]),
+
+  ("set_trade_route_between_centers", [
+      (store_script_param, ":center", 1),
+      (store_script_param, ":target", 2),
+
+      (assign, ":cSuccess", 0),
+      (assign, ":tSuccess", 0),
+      (try_for_range, ":slot", slot_town_trade_routes_begin, slot_town_trade_routes_end),
+        (this_or_next|eq, ":cSuccess", 0),
+        (             eq, ":tSuccess", 0),
+        (try_begin),
+          (eq, ":cSuccess", 0),
+          (party_slot_eq, ":center", ":slot", 0),
+          (party_set_slot, ":center", ":slot", ":target"),
+          (assign, ":cSuccess", 1),
+        (try_end),
+
+        (try_begin),
+          (eq, ":tSuccess", 0),
+          (party_slot_eq, ":target", ":slot", 0),
+          (party_set_slot, ":target", ":slot", ":center"),
+          (assign, ":tSuccess", 1),
+        (try_end),
+      (try_end),
+    ]),
+  #
+  ## UID: 119 - End
 
   #script_center_change_trade_good_production
   # INPUT:
@@ -14797,60 +14846,90 @@ scripts = [
       (try_end),
   ]),
 
-  ("average_trade_good_prices_2", #Called from start
-    [
-	
-	#This should be done by route rather than distance
-      (store_sub, ":item_to_slot", slot_town_trade_good_prices_begin, trade_goods_begin),
+  ## UID: 119 - Begin
+  #
+#  ("average_trade_good_prices_2", [
+#      #Called from start
+#      #This should be done by route rather than distance
+#      (store_sub, ":item_to_slot", slot_town_trade_good_prices_begin, trade_goods_begin),
+#
+#      (try_for_range, ":center_no", towns_begin, towns_end),
+#        (try_for_range, ":other_center", centers_begin, centers_end),
+#          (this_or_next|is_between, ":other_center", towns_begin, towns_end),
+#          (is_between, ":other_center", villages_begin, villages_end),
+#
+#          (this_or_next|party_slot_eq, ":other_center", slot_village_market_town, ":center_no"),
+#          (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_1, ":other_center"),
+#          (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_2, ":other_center"),
+#          (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_3, ":other_center"),
+#          (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_4, ":other_center"),
+#          (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_5, ":other_center"),
+#          (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_6, ":other_center"),
+#          (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_7, ":other_center"),
+#          (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_8, ":other_center"),
+#          (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_9, ":other_center"),
+#          (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_10, ":other_center"),
+#          (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_11, ":other_center"),
+#          (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_12, ":other_center"),
+#          (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_13, ":other_center"),
+#          (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_14, ":other_center"),
+#          (party_slot_eq, ":center_no", slot_town_trade_route_15, ":other_center"),
+##          (neq, ":other_center", ":center_no"),
+##          (store_distance_to_party_from_party, ":cur_distance", ":center_no", ":other_center"),
+##          (lt, ":cur_distance", 50), #Reduced from 110
+##          (store_sub, ":dist_factor", 50, ":cur_distance"),
+#          (try_for_range, ":cur_good", trade_goods_begin, trade_goods_end),
+#            (store_add, ":cur_good_slot", ":cur_good", ":item_to_slot"),
+#            (party_get_slot, ":center_price", ":center_no", ":cur_good_slot"),
+#            (party_get_slot, ":other_center_price", ":other_center", ":cur_good_slot"),
+#            (store_sub, ":price_dif", ":center_price", ":other_center_price"),
+#            (store_div, ":price_dif_change", ":price_dif", 5), #this is done twice, reduced from 4
+##            (assign, ":price_dif_change", ":price_dif"),
+##            (val_mul ,":price_dif_change", ":dist_factor"),
+##            (val_div ,":price_dif_change", 500), #Maximum of 1/10 per center
+#            (val_add, ":other_center_price", ":price_dif_change"),
+#            (party_set_slot, ":other_center", ":cur_good_slot", ":other_center_price"),
+#            (val_sub, ":center_price", ":price_dif_change"),
+#            (party_set_slot, ":center_no", ":cur_good_slot", ":center_price"),
+#          (try_end),
+#        (try_end),
+#      (try_end),
+#  ]),
 
-      (try_for_range, ":center_no", towns_begin, towns_end),       		
-        (try_for_range, ":other_center", centers_begin, centers_end),
-          (this_or_next|is_between, ":other_center", towns_begin, towns_end),
-			(is_between, ":other_center", villages_begin, villages_end),
+  ("average_trade_good_prices_2", [
+      (store_sub, ":item", slot_town_trade_good_prices_begin, trade_goods_begin),
 
-		  (this_or_next|party_slot_eq, ":other_center", slot_village_market_town, ":center_no"),
-		  (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_1, ":other_center"),
-		  (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_2, ":other_center"),
-		  (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_3, ":other_center"),
-		  (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_4, ":other_center"),
-		  (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_5, ":other_center"),
-		  (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_6, ":other_center"),
-		  (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_7, ":other_center"),
-		  (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_8, ":other_center"),
-		  (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_9, ":other_center"),
-		  (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_10, ":other_center"),
-		  (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_11, ":other_center"),
-		  (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_12, ":other_center"),
-		  (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_13, ":other_center"),
-		  (this_or_next|party_slot_eq, ":center_no", slot_town_trade_route_14, ":other_center"),
-			(party_slot_eq, ":center_no", slot_town_trade_route_15, ":other_center"),
-
-#          (neq, ":other_center", ":center_no"),
-#          (store_distance_to_party_from_party, ":cur_distance", ":center_no", ":other_center"),
-#          (lt, ":cur_distance", 50), #Reduced from 110
-#          (store_sub, ":dist_factor", 50, ":cur_distance"),
-		  
-          (try_for_range, ":cur_good", trade_goods_begin, trade_goods_end),
-            (store_add, ":cur_good_slot", ":cur_good", ":item_to_slot"),
-            (party_get_slot, ":center_price", ":center_no", ":cur_good_slot"),
-            (party_get_slot, ":other_center_price", ":other_center", ":cur_good_slot"),
-            (store_sub, ":price_dif", ":center_price", ":other_center_price"),
-			
-			(store_div, ":price_dif_change", ":price_dif", 5), #this is done twice, reduced from 4
-#            (assign, ":price_dif_change", ":price_dif"),
-
-#            (val_mul ,":price_dif_change", ":dist_factor"),
-#            (val_div ,":price_dif_change", 500), #Maximum of 1/10 per center
-            (val_add, ":other_center_price", ":price_dif_change"),
-            (party_set_slot, ":other_center", ":cur_good_slot", ":other_center_price"),
-			
-            (val_sub, ":center_price", ":price_dif_change"),
-            (party_set_slot, ":center_no", ":cur_good_slot", ":center_price"),
-			
+      (try_for_range, ":center", towns_begin, towns_end),
+        (try_for_range, ":target", centers_begin, centers_end),
+          (this_or_next|is_between, ":target", towns_begin, towns_end),
+          (             is_between, ":target", villages_begin, villages_end),
+          (assign, ":cont", 0),
+          (try_begin),
+            (party_slot_eq, ":target", slot_village_market_town, ":center"),
+            (assign, ":cont", 1),
+          (else_try),
+            (try_for_range, ":slot", slot_town_trade_routes_begin, slot_town_trade_routes_end),
+              (party_slot_eq, ":center", ":slot", ":target"),
+              (assign, ":cont", 1),
+            (try_end),
+          (try_end),
+          (eq, ":cont", 1),
+          (try_for_range, ":good", trade_goods_begin, trade_goods_end),
+            (store_add, ":gSlot", ":good", ":item"),
+            (party_get_slot, ":price", ":center", ":gSlot"),
+            (party_get_slot, ":tPrice", ":target", ":gSlot"),
+            (store_sub, ":dif", ":price", ":tPrice"),
+            (store_div, ":difChange", ":dif", 5),
+            (val_add, ":tPrice", ":difChange"),
+            (party_set_slot, ":target", ":gSlot", ":tPrice"),
+            (val_sub, ":price", ":difChange"),
+            (party_set_slot, ":center", ":gSlot", ":price"),
           (try_end),
         (try_end),
       (try_end),
-  ]),
+    ]),
+  #
+  ## UID: 119 - End
 
 
   

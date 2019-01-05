@@ -1,9 +1,19 @@
-from header_common import *
-from header_parties import *
-from ID_troops import *
-from ID_factions import *
-from ID_party_templates import *
-from ID_map_icons import *
+## UID: 121 - Begin
+#
+#from header_common import *
+#from header_parties import *
+#from ID_troops import *
+#from ID_factions import *
+#from ID_party_templates import *
+#from ID_map_icons import *
+from headers.header_common import *
+from headers.header_parties import *
+from ids.ID_troops import *
+from ids.ID_factions import *
+from ids.ID_party_templates import *
+from ids.ID_map_icons import *
+#
+## UID: 121 - End
 
 ####################################################################################################################
 #  Each party record contains the following fields:
