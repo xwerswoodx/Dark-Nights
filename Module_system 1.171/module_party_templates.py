@@ -42,7 +42,11 @@ party_templates = [
 # Ryan BEGIN
   ("looters","Looters",icon_axeman|carries_goods(8),0,fac_outlaws,bandit_personality,[(trp_looter,3,45)]),
 # Ryan END
-  ("manhunters","Manhunters",icon_gray_knight,0,fac_manhunters,soldier_personality,[(trp_manhunter,9,40)]),
+## UID: 121 - Begin
+  #
+  ("manhunters","Manhunters",icon_gray_knight,0,fac_manhunters,soldier_personality,[(trp_slaver_chief,1,1),(trp_slave_crusher,2,4),(trp_slave_hunter,9,12),(trp_slave_driver,9,12),(trp_manhunter,9,12)]),
+  #
+  ## UID: 121 - End
 ##  ("peasant","Peasant",icon_peasant,0,fac_commoners,merchant_personality,[(trp_farmer,1,6),(trp_peasant_woman,0,7)]),
 
 #  ("black_khergit_raiders","Black Khergit Raiders",icon_khergit_horseman_b|carries_goods(2),0,fac_black_khergits,bandit_personality,[(trp_black_khergit_guard,1,10),(trp_black_khergit_horseman,5,5)]),
@@ -61,7 +65,7 @@ party_templates = [
   ("deserters","Deserters",icon_vaegir_knight|carries_goods(3),0,fac_deserters,bandit_personality,[]),
   ## UID: 12 - Begin
   #
-  ("dark_hunters","Dark Hunters",icon_dedal_map_swadia_king_b,0,fac_dark_knights,soldier_personality,[(trp_dark_knight,8,32),(trp_dark_hunter,6,24),(trp_dark_pikeman,8,32)]),
+  ("dark_hunters","Dark Hunters",icon_dedal_map_swadia_king_b,0,fac_dark_knights,soldier_personality,[(trp_dark_lord,1,5),(trp_dark_knight_2,4,12),(trp_dark_cavalary,8,12),(trp_dark_champion,5,15),(trp_master_dark_crossbowman,8,12),(trp_dark_lord_archer,3,10)]),
   ## UID: 95 - Begin
   #
   #("desert_cavalry", "Desert Cavalry", icon_dedal_map_swadia_lord_a, 0, fac_desert_cavalry, soldier_personality, [(trp_desert_cavalry, 10, 50)]),
@@ -151,10 +155,13 @@ party_templates = [
 
   ## UID: 24 - Begin
   #
+  ## UID: 121 - Begin
+  #
   ("kingdom_7_reinforcements_a", "{!}kingdom_7_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_umalelithian_recruit,5,10),(trp_umalelithian_infantry,2,4)]),
-  ("kingdom_7_reinforcements_b", "{!}kingdom_7_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_umalelithian_veteran,2,4),(trp_umalelithian_warrior,2,3),(trp_umalelithian_archer,1,3)]),
-  ("kingdom_7_reinforcements_c", "{!}kingdom_7_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_umalelithian_guard,3,5)]),
-
+  ("kingdom_7_reinforcements_b", "{!}kingdom_7_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_umalelithian_bear_warrior,2,4),(trp_umalelithian_skirmisher,2,3),(trp_umalelithian_wolf_rider,1,3)]),
+  ("kingdom_7_reinforcements_c", "{!}kingdom_7_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_umalelithian_bear_berserker,1,2),(trp_umalelithian_archer_2,1,2)]),
+#
+      ## UID: 121 - End
   ("kingdom_8_reinforcements_a", "{!}kingdom_8_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_kielian_tribeswoman,5,10),(trp_kielian_spearwoman,2,4)]),
   ("kingdom_8_reinforcements_b", "{!}kingdom_8_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_kielian_archer,2,4),(trp_kielian_trained_spearwoman,2,3),(trp_kielian_veteran_spearwoman,1,3)]),
   ("kingdom_8_reinforcements_c", "{!}kingdom_8_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_kielian_swordswoman,3,5)]),

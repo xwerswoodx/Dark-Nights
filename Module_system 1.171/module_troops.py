@@ -719,6 +719,20 @@ troops = [
   ["umalelithian_infantry", "Umalelithian Infantry", "Umelelithian Infantries",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield,0,0,fac_kingdom_7,
    [itm_sword_medieval_c_small,itm_sword_medieval_b_small,itm_tab_shield_heater_b,itm_nomad_cap_b,itm_leather_gloves,itm_tabard,itm_hunter_boots],
    def_attrib|level(9),wp_one_handed(80)|wp_two_handed(70)|wp_polearm(40)|wp_archery(40)|wp_crossbow(30)|wp_throwing(30),knows_common,swadian_face_young_1, swadian_face_old_2],
+   ## UID: 121 - Begin
+  #
+   ["umalelithian_wolf_rider","Umalelithian_Wolf_Rider","Umalelithian_Wolf_Riders",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_shield,0,0,fac_kingdom_7,[itm_mw_sword_01,itm_scimitar_b,itm_mace_4,itm_fp_sword_01,itm_spikeshield_02,itm_spak_elite_cavalary_2,itm_spak_g_mail_chausses_a, itm_spak_wolf_helm2,itm_spak_beargauntlets_l,itm_nibbler], def_attrib|level(19),wp_melee(110),knows_common|knows_riding_4|knows_ironflesh_4|knows_shield_2|knows_power_strike_3,swadian_face_young_1, swadian_face_old_2],
+   ["umalelithian_wolf_lord","Umalelithian_Wolf_Lord","Umalelithian_Wolf_Lords",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_shield|tf_guarantee_all,0,0,fac_kingdom_7,[itm_mw_sword_01,itm_hooksword_spak,itm_fp_sword_01,itm_spak_spak_2h_battle_axe,itm_spikeshield_02,itm_spak_elite_cavalary,itm_spak_g_mail_chausses_a, itm_spak_wolf_helm1,itm_spak_wolf_helm3,itm_spak_beargauntlets_l,itm_nibbler], def_attrib|level(25),wp_melee(150),knows_common|knows_riding_6|knows_ironflesh_6|knows_shield_4|knows_power_strike_5,swadian_face_young_1, swadian_face_old_2],
+   ["umalelithian_bear_warrior","Umalelithian_Bear_Warrior","Umalelithian_Bear_Warriors",tf_guarantee_shield|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet,0,0,fac_kingdom_7,[itm_spak_bear_warrior,itm_spak_bear_warior_helm,itm_spak_bear_boots,itm_spak_spak_2h_battle_axe,itm_spak_butcher,itm_spak_2dblhead_ax,itm_sh_oval],str_20 | agi_15 | int_4 | cha_4|level(19),wp_one_handed (110) | wp_two_handed (115) | wp_polearm (105) | wp_archery (75) | wp_crossbow (75) | wp_throwing (110),knows_common|knows_ironflesh_6|knows_power_strike_4|knows_shield_5 |knows_athletics_5,swadian_face_middle_1, swadian_face_old_2],
+   ["umalelithian_bear_berserker","Umalelithian_Bear_Berserker","Umalelithian_Bear_Berserkerss",tf_guarantee_shield|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_all,0,0,fac_kingdom_7,[itm_spak_bear_warrior,itm_spak_bear_warior_helm,itm_spak_bear_boots,itm_spak_spak_2h_battle_axe,itm_spak_dargor_axe,itm_pa_axe_03,itm_spak_butcher,itm_spak_2dblhead_ax,itm_sh_oval],str_30 | agi_20 | int_4 | cha_4|level(28),wp_one_handed (135) | wp_two_handed (155) | wp_polearm (105) | wp_archery (75) | wp_crossbow (75) | wp_throwing (110),knows_common|knows_ironflesh_9|knows_power_strike_7|knows_shield_7 |knows_athletics_7,swadian_face_middle_1, swadian_face_old_2],
+
+   ["umalelithian_skirmisher","Umalelithian_Skirmisher","Umalelithian_Skirmishers",tf_guarantee_ranged|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_kingdom_7,[itm_vaegir_fur_cap,itm_pelt_coat,itm_javelin,itm_javelin,itm_one_handed_war_axe_a,itm_spiked_club,itm_sh_oval,itm_spak_bear_boots], def_attrib|level(14),wp(80),knows_common|knows_riding_2|knows_power_throw_2|knows_ironflesh_1|knows_athletics_3,swadian_face_young_1, swadian_face_middle_2],
+
+   ["umalelithian_archer","Umalelithian_Archer","Umalelithian_Archers",tf_guarantee_ranged|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_kingdom_7, [itm_arrows,itm_spak_gromitearrow,itm_fp_bow_03,itm_one_handed_war_axe_a,itm_leather_gloves,itm_padded_leather,itm_spak_bear_boots,itm_sh_oval,itm_spak_bear_warior_helm],def_attrib|level(20),wp_one_handed (105) | wp_two_handed (90) | wp_polearm (90) | wp_archery (105) | wp_crossbow (90) | wp_throwing (100),knows_common|knows_power_draw_4|knows_ironflesh_3|knows_athletics_3|knows_power_strike_2,swadian_face_young_1, swadian_face_old_2],
+   ["umalelithian_archer_2","Umalelithian_Bear_Archer","Umalelithian_Bear_Archers",tf_guarantee_ranged|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_all,0,0,fac_kingdom_7, [itm_spak_gromitearrow,itm_spak_gromitearrow,itm_spak_bogen5,itm_spak_flat_sword,itm_spak_2dblhead_ax,itm_spak_beargauntlets_l,itm_spak_bear_warrior,itm_spak_bear_boots,itm_spak_bear_warior_helm],def_attrib|level(27),wp_one_handed (90) | wp_two_handed (125) | wp_polearm (90) | wp_archery (145) | wp_crossbow (90) | wp_throwing (100),knows_common|knows_power_draw_6|knows_ironflesh_5|knows_athletics_5|knows_power_strike_3,swadian_face_young_1, swadian_face_old_2],
+ #
+  ## UID: 121 - End
+   
   ["umalelithian_veteran","Umalelithian Veteran","Umalelithian Veterans",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield|tf_guarantee_helmet,0,0,fac_kingdom_7,
    [itm_military_cleaver_b,itm_one_handed_war_axe_a,itm_tab_shield_round_c,itm_ankle_boots,itm_skullcap,itm_red_gambeson,itm_mail_mittens],
    def_attrib|level(14),wp_one_handed(85)|wp_two_handed(90)|wp_polearm(50)|wp_archery(40)|wp_crossbow(40)|wp_throwing(30),knows_common|knows_athletics_2|knows_power_throw_2|knows_ironflesh_1|knows_power_strike_2|knows_shield_2,swadian_face_young_1, swadian_face_old_2],
@@ -3001,8 +3015,11 @@ troops = [
   ["dark_lord_archer","Dark_Lord_Archer","Dark_Lord_Archers",tf_guarantee_ranged|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_gloves,0,0,fac_dark_knights,[itm_spak_g_scale_gauntlets_a_l,itm_twilight_boots,itm_spak_spak_coat_of_plates_a,itm_spak_sub_helm4,itm_spak_scorm,itm_spak_amazon_arrow,itm_spak_amazon_arrow,itm_spak_iceaxe,itm_sp_shr1,itm_spak_asmoday_sword],str_28 | agi_24 | int_4 | cha_4|level(35),wp_one_handed (185) | wp_two_handed (195) | wp_polearm (70) | wp_archery (210) | wp_crossbow (70) | wp_throwing (105),knows_power_strike_7|knows_ironflesh_9|knows_power_draw_9|knows_athletics_9|knows_power_throw_3,vaegir_face_young_1, vaegir_face_older_2],
    ["dark_crossbowman","Dark_Croossbowman","Dark_Croossbowmen",tf_guarantee_ranged|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_gloves,0,0,fac_dark_knights,[itm_ssh_gloves,itm_ssh_boots,itm_spak_g_tabard_a,itm_spak_helm07,itm_spak_spak_crsb01,itm_bolts,itm_warhammer],str_21 | agi_12 | int_4 | cha_4|level(22),wp_one_handed (120) | wp_two_handed (145) | wp_polearm (70) | wp_archery (100) | wp_crossbow (150) | wp_throwing (105),knows_power_strike_7|knows_ironflesh_7|knows_power_draw_5|knows_athletics_4|knows_power_throw_3,vaegir_face_young_1, vaegir_face_older_2],
    ["master_dark_crossbowman","Master_Dark_Croossbowman","Master_Dark_Croossbowmen",tf_guarantee_ranged|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_gloves,0,0,fac_dark_knights,[itm_spak_g_scale_gauntlets_a_l,itm_twilight_boots,itm_spak_spak_coat_of_plates_d,itm_spak_twilighthelm,itm_spak_spak_crsb02,itm_steel_bolts,itm_pa_maul_01],str_25 | agi_15 | int_4 | cha_4|level(28),wp_one_handed (120) | wp_two_handed (195) | wp_polearm (70) | wp_archery (100) | wp_crossbow (190) | wp_throwing (105),knows_power_strike_8|knows_ironflesh_9|knows_power_draw_7|knows_athletics_5|knows_power_throw_3,vaegir_face_young_1, vaegir_face_older_2],
-     ["dark_infantry_test","Test","Dark_Recruits",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_all,0,0,fac_dark_knights,[itm_khergit_leather_boots,itm_spiked_mace,itm_tab_shield_round_b,itm_darts,itm_pickaxe_hand,itm_black_hood,itm_robe],def_attrib|level(9),wp(90),knows_power_strike_2|knows_power_throw_2|knows_riding_1|knows_athletics_3,swadian_face_young_1, swadian_face_middle_2],
-
+   ["dark_infantry_test","Dark_Infantry","Dark_Infantries",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_all,0,0,fac_dark_knights,[itm_ssh_gloves,itm_ssh_boots,itm_spak_demonrobe,itm_spak_sub_helm2,itm_spak_asmoday_seel,itm_fp_mace_01,itm_fp_axe_01,itm_morningstar],def_attrib|level(15),wp(120),knows_power_strike_4|knows_ironflesh_5|knows_athletics_5|knows_shield_4,swadian_face_young_1, swadian_face_middle_2],
+   ["dark_champion","Dark_Champion","Dark_Champions",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_all,0,0,fac_dark_knights,[itm_spak_g_scale_gauntlets_a_l,itm_twilight_boots,itm_spak_spak_black_armor,itm_spak_twilighthelm,itm_sp_newsh,itm_pa_axe_01,itm_pa_axe_02,itm_spak_dargor_axe,itm_spak_iceaxe],str_28 | agi_24 | int_4 | cha_4|level(25),wp(180),knows_power_strike_7|knows_ironflesh_8|knows_athletics_8|knows_shield_7,swadian_face_young_1, swadian_face_middle_2],
+ ["dark_cavalary","Dark_Cavalary","Dark_Cavalries",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_shield|tf_guarantee_all,0,0,fac_dark_knights,[itm_lance,itm_morningstar,itm_bastard_sword_b,itm_sp_2hsw,itm_sub_shield_01,itm_spak_g_tabard_a,itm_ssh_gloves,itm_spak_g_mail_chausses_a,itm_spak_sub_helm2,itm_g_horseblack],str_22 | agi_18 | int_4 | cha_4|level(21),wp_melee(160),knows_common|knows_riding_5|knows_ironflesh_5|knows_shield_5|knows_power_strike_5,swadian_face_young_1, swadian_face_old_2],
+ ["dark_knight_2","Dark_Knight","Dark_Knights",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_shield|tf_guarantee_all,0,0,fac_dark_knights,[itm_heavy_lance,itm_morningstar,itm_pa_sword_02,itm_pa_sword_03,itm_spak_flat_sword,itm_pa_maul_01,itm_sp_2hsw,itm_sp_newsh,itm_spak_spak_black_armor,itm_spak_g_scale_gauntlets_a_l,itm_twilight_boots,itm_spak_twilighthelm2,itm_riper],str_28 | agi_22 | int_4 | cha_4|level(29),wp_melee(200),knows_common|knows_riding_7|knows_ironflesh_8|knows_shield_8|knows_power_strike_7,swadian_face_young_1, swadian_face_old_2],
+ ["dark_lord","Dark_Lord","Dark_Lords",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_shield|tf_guarantee_all,0,0,fac_dark_knights,[itm_morningstar,itm_pa_axe_02,itm_pa_sword_02,itm_pa_sword_03,itm_spak_flat_sword,itm_spak_dargor_axe,itm_pa_maul_01,itm_flamberg,itm_sp_newsh,itm_spak_dark_lord_armor,itm_spak_g_scale_gauntlets_a_l,itm_twilight_boots,itm_spak_twilighthelm,itm_heavy_riper],str_30 | agi_30 | int_4 | cha_4|level(38),wp_melee(250),knows_common|knows_riding_9|knows_ironflesh_10|knows_shield_9|knows_power_strike_9,swadian_face_young_1, swadian_face_old_2],
   #
   ## UID: 121 - End
   
@@ -3164,16 +3181,18 @@ upgrade(troops,"hunter_woman","fighter_woman")
 upgrade(troops,"fighter_woman","sword_sister")
 upgrade(troops,"refugee","follower_woman")
 upgrade(troops,"peasant_woman","follower_woman")
-
 ## UID: 24 - Begin
 #
-upgrade(troops, "umalelithian_recruit", "umalelithian_infantry"),
-upgrade2(troops, "umalelithian_infantry", "umalelithian_veteran", "umalelithian_archer"),
-upgrade(troops, "umalelithian_veteran", "umalelithian_warrior"),
-upgrade(troops, "umalelithian_warrior", "umalelithian_guard"),
-upgrade(troops, "umalelithian_guard", "umalelithian_leader"),
-upgrade(troops, "umalelithian_archer", "umalelithian_trained_archer"),
-upgrade(troops, "umalelithian_trained_archer", "umalelithian_veteran_archer"),
+## UID: 121 - Begin
+#
+upgrade2(troops, "umalelithian_recruit", "umalelithian_infantry", "umalelithian_skirmisher"),
+upgrade2(troops, "umalelithian_infantry", "umalelithian_wolf_rider", "umalelithian_bear_warrior"),
+upgrade(troops, "umalelithian_wolf_rider", "umalelithian_wolf_lord"),
+upgrade(troops, "umalelithian_bear_warrior", "umalelithian_bear_berserker"),
+upgrade(troops, "umalelithian_skirmisher", "umalelithian_archer"),
+upgrade(troops, "umalelithian_archer", "umalelithian_archer_2"),
+#
+  ## UID: 121 - End
 
 upgrade2(troops, "kielian_tribeswoman", "kielian_spearwoman", "kielian_archer"),
 upgrade(troops, "kielian_spearwoman", "kielian_trained_spearwoman"),
@@ -3202,15 +3221,18 @@ upgrade(troops, "supporters_man_at_arms", "supporters_knight")
 upgrade(troops, "supporters_crossbowman", "supporters_sharpshooter")
 #
 ## UID: 62 - End
-## UID: 122 - Begin
+## UID: 121 - Begin
 #
 upgrade2(troops, "dark_recruit", "dark_infantry_test", "dark_skirmisher")
+upgrade2(troops, "dark_infantry_test", "dark_cavalary", "dark_champion")
 upgrade2(troops, "dark_skirmisher", "dark_archer", "dark_crossbowman")
 upgrade(troops, "dark_archer", "dark_archer_elite")
 upgrade(troops, "dark_archer_elite", "dark_lord_archer")
 upgrade(troops, "dark_crossbowman", "master_dark_crossbowman")
+upgrade(troops, "dark_cavalary", "dark_knight_2")
+upgrade(troops, "dark_knight_2", "dark_lord")
 #
-## UID: 122 - End
+## UID: 121 - End
 
 
 
