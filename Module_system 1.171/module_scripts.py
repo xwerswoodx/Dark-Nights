@@ -198,12 +198,15 @@ scripts = [
 
       ## UID: 24 - Begin
       #
+	  ## UID: 121 - Begin
+      #
       (faction_set_slot, "fac_culture_7", slot_faction_tier_1_troop, "trp_umalelithian_recruit"),
-      (faction_set_slot, "fac_culture_7", slot_faction_tier_2_troop, "trp_umalelithian_veteran"),
-      (faction_set_slot, "fac_culture_7", slot_faction_tier_3_troop, "trp_umalelithian_warrior"),
-      (faction_set_slot, "fac_culture_7", slot_faction_tier_4_troop, "trp_umalelithian_trained_archer"),
-      (faction_set_slot, "fac_culture_7", slot_faction_tier_5_troop, "trp_umalelithian_leader"),
-
+      (faction_set_slot, "fac_culture_7", slot_faction_tier_2_troop, "trp_umalelithian_bear_warrior"),
+      (faction_set_slot, "fac_culture_7", slot_faction_tier_3_troop, "trp_umalelithian_bear_berserker"),
+      (faction_set_slot, "fac_culture_7", slot_faction_tier_4_troop, "trp_umalelithian_archer_2"),
+      (faction_set_slot, "fac_culture_7", slot_faction_tier_5_troop, "trp_umalelithian_wolf_lord"),
+#
+      ## UID: 121 - End
       (faction_set_slot, "fac_culture_8", slot_faction_tier_1_troop, "trp_kielian_tribeswoman"),
       (faction_set_slot, "fac_culture_8", slot_faction_tier_2_troop, "trp_kielian_spearwoman"),
       (faction_set_slot, "fac_culture_8", slot_faction_tier_3_troop, "trp_kielian_master_archer"),

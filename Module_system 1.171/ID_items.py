@@ -902,4 +902,5 @@ itm_shield_imperial = 900
 itm_towershield_steel = 901
 itm_spikeshield_01 = 902
 itm_spikeshield_02 = 903
-itm_items_end = 904
+itm_spak_elite_cavalary_2 = 904
+itm_items_end = 905
