@@ -772,22 +772,34 @@ troops = [
    [itm_military_pick,itm_tab_shield_pavise_a,
     itm_turban,itm_khergit_lady_dress_b,itm_woolen_hose],
    def_attrib|level(4),wp(55),knows_common|knows_power_draw_2|knows_ironflesh_1,woman_face_1, woman_face_2],
-  
-  ["kielian_spearwoman","Kielian Spearwoman","Kielian Spearwomen",tf_guarantee_boots|tf_guarantee_armor|tf_female,0,0,fac_kingdom_8,
-   [itm_spear,itm_pike,itm_spear,itm_tab_shield_pavise_a,itm_falchion,
-    itm_felt_hat_b,itm_common_hood,itm_leather_armor,itm_arena_tunic_green,itm_wrapping_boots,itm_nomad_boots],
-   def_attrib|level(9),wp(80),knows_common|knows_ironflesh_2|knows_shield_1|knows_power_strike_2|knows_athletics_1,woman_face_1, woman_face_2],
-  ["kielian_trained_spearwoman","Kielian Trained Spearwoman","Kielian Trained Spearwomen",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield|tf_female,0,0,fac_kingdom_8,
-   [itm_pike,itm_war_spear,itm_tab_shield_pavise_b,
-    itm_footman_helmet,itm_padded_coif,itm_aketon_green,itm_aketon_green,itm_ragged_outfit,itm_nomad_boots,itm_leather_boots],
-   def_attrib|level(14),wp_one_handed (105) | wp_two_handed (105) | wp_polearm (115) | wp_archery (105) | wp_crossbow (105) | wp_throwing (105),knows_common|knows_ironflesh_3|knows_shield_2|knows_power_strike_2|knows_athletics_2,woman_face_1, woman_face_2],
-  ["kielian_veteran_spearwoman","Kielian Veteran Spearwoman","Kielian Veteran Spearwomen",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_shield|tf_female,0,0,fac_kingdom_8,
-   [itm_ashwood_pike,itm_glaive,itm_tab_shield_pavise_c,
-    itm_kettle_hat,itm_mail_coif,itm_mail_with_tunic_green,itm_leather_boots,itm_splinted_leather_greaves,itm_leather_gloves],
-   def_attrib|level(19),wp_one_handed (115) | wp_two_handed (115) | wp_polearm (130) | wp_archery (115) | wp_crossbow (115) | wp_throwing (115),knows_common|knows_ironflesh_5|knows_shield_3|knows_power_strike_4|knows_athletics_3,woman_face_1, woman_face_2],
+
+  ## UID: 137 - Begin
+  #
+  #["kielian_spearwoman","Kielian Spearwoman","Kielian Spearwomen",tf_guarantee_boots|tf_guarantee_armor|tf_female,0,0,fac_kingdom_8,
+  # [itm_spear,itm_pike,itm_spear,itm_tab_shield_pavise_a,itm_falchion,
+  #  itm_felt_hat_b,itm_common_hood,itm_leather_armor,itm_arena_tunic_green,itm_wrapping_boots,itm_nomad_boots],
+  # def_attrib|level(9),wp(80),knows_common|knows_ironflesh_2|knows_shield_1|knows_power_strike_2|knows_athletics_1,woman_face_1, woman_face_2],
+  #["kielian_trained_spearwoman","Kielian Trained Spearwoman","Kielian Trained Spearwomen",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield|tf_female,0,0,fac_kingdom_8,
+  # [itm_pike,itm_war_spear,itm_tab_shield_pavise_b,
+  #  itm_footman_helmet,itm_padded_coif,itm_aketon_green,itm_aketon_green,itm_ragged_outfit,itm_nomad_boots,itm_leather_boots],
+  # def_attrib|level(14),wp_one_handed (105) | wp_two_handed (105) | wp_polearm (115) | wp_archery (105) | wp_crossbow (105) | wp_throwing (105),knows_common|knows_ironflesh_3|knows_shield_2|knows_power_strike_2|knows_athletics_2,woman_face_1, woman_face_2],
+  #["kielian_veteran_spearwoman","Kielian Veteran Spearwoman","Kielian Veteran Spearwomen",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_shield|tf_female,0,0,fac_kingdom_8,
+  # [itm_ashwood_pike,itm_glaive,itm_tab_shield_pavise_c,
+  #  itm_kettle_hat,itm_mail_coif,itm_mail_with_tunic_green,itm_leather_boots,itm_splinted_leather_greaves,itm_leather_gloves],
+  # def_attrib|level(19),wp_one_handed (115) | wp_two_handed (115) | wp_polearm (130) | wp_archery (115) | wp_crossbow (115) | wp_throwing (115),knows_common|knows_ironflesh_5|knows_shield_3|knows_power_strike_4|knows_athletics_3,woman_face_1, woman_face_2],
+  ["kielian_spearwoman","Kielian Spearwoman","Kielian Spearwomen", tf_guarantee_boots|tf_guarantee_armor|tf_female, 0, 0, fac_kingdom_8,
+   [itm_spear,itm_pike,itm_spear,itm_shield_amazon_2,itm_scimitar,itm_gold_tourney_helmet,itm_gold_tourney_armor,itm_sarranid_boots_b],
+   def_attrib|level(9),wp_one_handed (85) | wp_two_handed (80) | wp_polearm (95) | wp_archery (80) | wp_crossbow (80) | wp_throwing (80),knows_common|knows_ironflesh_2|knows_shield_1|knows_power_strike_2|knows_athletics_1,woman_face_1, woman_face_2],
+  ["kielian_assassin_woman","Kielian Assassin Woman","Kielian Assassin Women",tf_guarantee_boots|tf_guarantee_armor|tf_female|tf_guarantee_all,0,0,fac_kingdom_8,
+   [itm_throwing_daggers_2,itm_throwing_daggers_2,itm_mw_sword_01,itm_shield_amazon_2,itm_scimitar,itm_spak_asmoday_sword_2,itm_leather_gloves,itm_spak_assassin_helmet,itm_robe_assassin,itm_khergit_leather_boots],
+   def_attrib|level(15),wp_one_handed (110) | wp_two_handed (105) | wp_polearm (95) | wp_archery (80) | wp_crossbow (80) | wp_throwing (115),knows_common|knows_ironflesh_4|knows_shield_3|knows_power_strike_3|knows_athletics_4|knows_power_throw_4,woman_face_1, woman_face_2],
+  ["kielian_assassin_woman_2","Kielian Royal Assassin Woman","Kielian Royal Assassin Women",tf_guarantee_boots|tf_guarantee_armor|tf_female|tf_guarantee_all,0,0,fac_kingdom_8,
+   [itm_throwing_daggers_2,itm_throwing_daggers_2,itm_mw_sword_01,itm_shield_amazon,itm_scimitar_b,itm_spak_asmoday_sword,itm_pickaxe_hand,itm_sp_2hsw,itm_fi_glove_6,itm_spak_demon_hood,itm_spak_demonrobe,itm_ssh_boots],
+   def_attrib|level(25),wp_one_handed (145) | wp_two_handed (155) | wp_polearm (95) | wp_archery (80) | wp_crossbow (80) | wp_throwing (165),knows_common|knows_ironflesh_7|knows_shield_4|knows_power_strike_5|knows_athletics_7|knows_power_throw_7,woman_face_1, woman_face_2],
+  #
+  ## UID: 137 - End  
   ["kielian_sergeant","Kielian Sergeant","Kielian Sergeants",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_shield|tf_guarantee_gloves|tf_female,0,0,fac_kingdom_8,
-   [itm_glaive,itm_military_hammer,itm_military_cleaver_c,itm_tab_shield_pavise_d,
-    itm_full_helm, itm_bascinet_3,itm_bascinet_2,itm_surcoat_over_mail,itm_surcoat_over_mail,itm_heraldic_mail_with_surcoat,itm_mail_chausses,itm_leather_gloves,itm_mail_mittens],
+   [itm_glaive,itm_military_hammer,itm_military_cleaver_c,itm_tab_shield_pavise_d,itm_full_helm, itm_bascinet_3,itm_bascinet_2,itm_surcoat_over_mail,itm_surcoat_over_mail,itm_heraldic_mail_with_surcoat,itm_mail_chausses,itm_leather_gloves,itm_mail_mittens],
    def_attrib|level(25),wp_one_handed (130) | wp_two_handed (115) | wp_polearm (155) | wp_archery (115) | wp_crossbow (115) | wp_throwing (115),knows_common|knows_ironflesh_6|knows_shield_5|knows_power_strike_5|knows_athletics_5,woman_face_1, woman_face_2],
  ["kielian_archer","Kielian Archer","Kielian Archers",tf_guarantee_ranged|tf_guarantee_boots|tf_guarantee_armor|tf_female,0,0,fac_kingdom_8,
    [itm_arrows,itm_arrows,itm_nomad_bow,itm_arabian_sword_a,itm_archers_vest,itm_sarranid_boots_b,itm_sarranid_helmet1,itm_sarranid_warrior_cap,itm_turban,itm_desert_turban],
@@ -796,15 +808,23 @@ troops = [
    [itm_barbed_arrows,itm_barbed_arrows,itm_arabian_sword_b,itm_mace_3,itm_strong_bow,itm_nomad_bow,
     itm_arabian_armor_b,itm_sarranid_boots_c,itm_sarranid_boots_b,itm_sarranid_mail_coif],
    str_14 | agi_5 | int_4 | cha_4|level(24),wp_one_handed (100) | wp_two_handed (100) | wp_polearm (100) | wp_archery (130) | wp_crossbow (100) | wp_throwing (130),knows_common|knows_power_draw_4|knows_power_throw_4|knows_ironflesh_3|knows_athletics_5,woman_face_1, woman_face_2],
- ["kielian_horsewoman","Kielian Horsewoman","Kielian Horsewomen",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_shield|tf_female,0,0,fac_kingdom_8,
-   [itm_lance,itm_arabian_sword_b,itm_scimitar_b,itm_mace_4,itm_tab_shield_small_round_b,
-    itm_sarranid_mail_shirt,itm_sarranid_boots_c,itm_sarranid_boots_b, itm_sarranid_horseman_helmet,itm_leather_gloves,itm_arabian_horse_a,itm_courser,itm_hunter],
-   def_attrib|level(20),wp_melee(100),knows_common|knows_riding_4|knows_ironflesh_2|knows_shield_2|knows_power_strike_3,woman_face_1, woman_face_2],
+  ## UID: 137 - Begin
+  #
+  #["kielian_horsewoman","Kielian Horsewoman","Kielian Horsewomen",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_shield|tf_female,0,0,fac_kingdom_8,
+  # [itm_lance,itm_arabian_sword_b,itm_scimitar_b,itm_mace_4,itm_tab_shield_small_round_b,itm_sarranid_mail_shirt,itm_sarranid_boots_c,itm_sarranid_boots_b, itm_sarranid_horseman_helmet,itm_leather_gloves,itm_arabian_horse_a,itm_courser,itm_hunter],
+  # def_attrib|level(20),wp_melee(100),knows_common|knows_riding_4|knows_ironflesh_2|knows_shield_2|knows_power_strike_3,woman_face_1, woman_face_2],
+  #["kielian_swordswoman","Kielian Swordswoman","Kielian Swordswomen",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_shield|tf_female,0,0,fac_kingdom_8,
+  # [itm_fp_sword_06,itm_fp_sword_03,itm_fp_sword_04,itm_tab_shield_small_round_c,itm_coat_of_plates_red,itm_mail_boots,itm_segmented_helmet,itm_nordland,itm_warhorse_sarranid,itm_gauntlets,itm_mail_mittens],
+  # def_attrib|level(27),wp_one_handed (150) | wp_two_handed (130) | wp_polearm (130) | wp_archery (75) | wp_crossbow (75) | wp_throwing (110),knows_common|knows_riding_6|knows_shield_5|knows_ironflesh_5|knows_power_strike_5,woman_face_1, woman_face_2],
+  ["kielian_horsewoman","Kielian Horsewoman","Kielian Horsewomen",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_shield|tf_female,0,0,fac_kingdom_8,
+   [itm_lance,itm_fp_sword_04,itm_fp_sword_05,itm_mace_4,itm_shield_amazon,itm_sarranid_cavalry_robe,itm_sarranid_boots_c, itm_shahi,itm_leather_gloves,itm_arabian_horse_a,itm_arabian_horse_b,],
+   def_attrib|level(20),wp_melee(100),knows_common|knows_riding_4|knows_ironflesh_3|knows_shield_3|knows_power_strike_3,woman_face_1, woman_face_2],
+  ["kielian_swordswoman","Kielian Swordswoman","Kielian Swordswomen",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_shield|tf_female,0,0,fac_kingdom_8,
+   [itm_fp_sword_03,itm_fp_sword_05,itm_shield_amazon,itm_fp_sword_06,itm_heavy_lance,itm_fp_mace_02,itm_spak_splate_armor2,itm_sarranid_boots_d, itm_sarranid_veiled_helmet,itm_lamellar_gauntlets,itm_spakhorse_03],
+   def_attrib|level(29),wp_one_handed (165) | wp_two_handed (170) | wp_polearm (135) | wp_archery (75) | wp_crossbow (75) | wp_throwing (110),knows_common|knows_riding_7|knows_shield_5|knows_ironflesh_7|knows_power_strike_5,woman_face_1, woman_face_2],
+  #
+  ## UID: 137 - End
 
- ["kielian_swordswoman","Kielian Swordswoman","Kielian Swordswomen",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_shield|tf_female,0,0,fac_kingdom_8,
-   [itm_fp_sword_06,itm_fp_sword_03,itm_fp_sword_04,itm_tab_shield_small_round_c,
-    itm_coat_of_plates_red,itm_mail_boots,itm_segmented_helmet,itm_nordland,itm_warhorse_sarranid,itm_gauntlets,itm_mail_mittens],
-   def_attrib|level(27),wp_one_handed (150) | wp_two_handed (130) | wp_polearm (130) | wp_archery (75) | wp_crossbow (75) | wp_throwing (110),knows_common|knows_riding_6|knows_shield_5|knows_ironflesh_5|knows_power_strike_5,woman_face_1, woman_face_2],
 
   ["kielian_messenger","Kielian Messenger","Kielian Messengers",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_horse|tf_guarantee_ranged|tf_female,0,0,fac_kingdom_8,
    [itm_lance,itm_arabian_sword_b,itm_scimitar_b,itm_mace_4,itm_tab_shield_small_round_b,
@@ -853,6 +873,26 @@ troops = [
   ["desert_bandit","Desert Bandit","Desert Bandits",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_horse|tf_mounted,0,0,fac_outlaws,
    [itm_arrows,itm_arabian_sword_a,itm_winged_mace,itm_spear, itm_light_lance,itm_jarid,itm_nomad_bow,itm_short_bow,itm_jarid,itm_sarranid_cloth_robe, itm_sarranid_cloth_robe, itm_skirmisher_armor, itm_desert_turban, itm_turban,itm_leather_steppe_cap_b,itm_leather_covered_round_shield,itm_leather_covered_round_shield,itm_saddle_horse,itm_arabian_horse_a],
    def_attrib|level(12),wp(100),knows_riding_4|knows_horse_archery_3|knows_power_draw_3,khergit_face_young_1, khergit_face_old_2],
+
+  ## UID: 137 - Begin
+  #
+  ["taiga_bandit_2","Taiga Bandit Leader","Taiga Bandit Leader",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_all,0,0,fac_outlaws,
+   [itm_spak_beargauntlets_l,itm_spak_bear_boots,itm_spak_sub_helm2,itm_spak_bear_warrior,itm_spak_iceaxe,itm_pa_sword_01,itm_pa_maul_01,itm_sh_oval],
+   def_attrib|level(25),wp(155),knows_common|knows_power_strike_5|knows_ironflesh_7|knows_athletics_5|knows_shield_5,vaegir_face_young_1, vaegir_face_old_2],
+  ["sea_raider_2","Sea Raider Leader","Sea Raiders Leader",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield|tf_guarantee_all,0,0,fac_outlaws,
+   [itm_mail_and_plate,itm_spak_wolf_helm3,itm_spak_g_mail_boots_a,itm_fi_glove_3,itm_pa_axe_01,itm_spak_2shield,itm_pa_sword_01,itm_spak_dargor_axe,itm_heavy_throwing_axes,itm_heavy_throwing_axes,],
+   def_attrib|level(26),wp(160),knows_ironflesh_8|knows_power_strike_7|knows_power_draw_3|knows_power_throw_7|knows_riding_1|knows_athletics_8,nord_face_young_1, nord_face_old_2],
+  ["steppe_bandit_2","Steppe Bandit Leader","Steppe Bandits Leader",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_horse|tf_guarantee_ranged|tf_mounted|tf_guarantee_all,0,0,fac_outlaws,
+   [itm_spak_1steel_arrow,itm_khergit_sword_two_handed_b,itm_mw_sword_02,itm_spak_amazon_bow,itm_khergit_guard_helmet,itm_khergit_guard_armor,itm_khergit_guard_boots,itm_sanjarinati],
+   def_attrib|level(28),wp(170),knows_riding_8|knows_horse_archery_8|knows_power_draw_7|knows_ironflesh_5|knows_power_strike_4,khergit_face_young_1, khergit_face_old_2],
+  ["forest_bandit_2","Forest Bandit Leader","Forest Bandits Leader",tf_guarantee_armor|tf_guarantee_ranged|tf_guarantee_boots|tf_guarantee_all,0,0,fac_outlaws,
+   [itm_spak_1steel_arrow,itm_spak_1steel_arrow,itm_pa_axe_02,itm_spak_imperial_bow,itm_guard_helmet,itm_scale_armor,itm_fi_glove_4,itm_splinted_leather_greaves],
+   def_attrib|level(23),wp(155),knows_common|knows_power_draw_8|knows_athletics_8|knows_ironflesh_6|knows_power_strike_4,swadian_face_young_1, swadian_face_old_2],
+  ["mountain_bandit_2","Mountain Bandit Leader","Mountain Bandits Leader",tf_guarantee_armor|tf_guarantee_boots|tf_guarantee_all,0,0,fac_outlaws,
+   [itm_brigandine_red,itm_bascinet_3,itm_mail_boots,itm_fi_glove_3,itm_spak_spak_crsb02,itm_steel_bolts,itm_spikeshield_01,itm_fp_hammer_01,itm_fp_mace_02,],
+   def_attrib|level(24),wp(160),knows_common|knows_power_draw_5|knows_athletics_6|knows_ironflesh_8|knows_power_strike_5|knows_shield_5,rhodok_face_young_1, rhodok_face_old_2],
+  #
+  ## UID: 137 - End
   
   ["black_khergit_horseman","Black Khergit Horseman","Black Khergit Horsemen",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_horse,0,0,fac_black_khergits,
    [itm_arrows,itm_sword_khergit_2,itm_scimitar,itm_scimitar,itm_winged_mace,itm_spear,itm_lance,itm_khergit_bow,itm_khergit_bow,itm_nomad_bow,itm_nomad_bow,itm_steppe_cap,itm_nomad_cap,itm_khergit_war_helmet,itm_khergit_war_helmet,itm_mail_hauberk,itm_lamellar_armor,itm_hide_boots,itm_plate_covered_round_shield,itm_plate_covered_round_shield,itm_saddle_horse,itm_steppe_horse],
@@ -3012,16 +3052,19 @@ troops = [
   #
   #
   ## UID: 122 - End
-  ["desert_cavalry", "Desert Cavalry", "Desert Cavalry", tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse, 0, 0, fac_desert_cavalry, [itm_camel, itm_fp_sword_05, itm_fp_sword_06, itm_lamellar_vest, itm_sarranid_elite_armor, itm_sarranid_warrior_cap, itm_sarranid_helmet1, itm_light_leather_boots],
-   def_attrib|level(30), wp(130), knows_common|knows_riding_4|knows_ironflesh_5|knows_power_strike_4, swadian_face_young_1, swadian_face_middle_2],
+  ["desert_cavalry", "Desert Cavalry", "Desert Cavalry", tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse, 0, 0, fac_desert_cavalry,
+   [itm_camel, itm_fp_sword_05, itm_fp_sword_06, itm_lamellar_vest, itm_sarranid_elite_armor, itm_sarranid_warrior_cap, itm_sarranid_helmet1, itm_light_leather_boots],
+   def_attrib|level(22), wp(130), knows_common|knows_riding_4|knows_ironflesh_5|knows_power_strike_4, swadian_face_young_1, swadian_face_middle_2],
   #
   ## UID: 13 - End
   ## UID: 95 - Begin
   #
-  ["desert_archer", "Camel Archer", "Camel Archers", tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_ranged, 0, 0, fac_desert_cavalry, [itm_camel, itm_arrows, itm_fp_bow_01, itm_fp_bow_02, itm_lamellar_vest, itm_sarranid_elite_armor, itm_sarranid_warrior_cap, itm_sarranid_helmet1, itm_light_leather_boots],
-   def_attrib|level(30), wp(130), knows_common|knows_riding_4|knows_ironflesh_5|knows_power_strike_4|knows_power_draw_5, swadian_face_young_1, swadian_face_middle_2],
-  ["desert_guard", "Desert Guard", "Desert Guards", tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse, 0, 0, fac_desert_cavalry, [itm_elephant, itm_plate_armor, itm_winged_great_helmet, itm_fi_glove_1, itm_iron_greaves, itm_glaive, itm_norman_shield_8, itm_broadsword],
-   def_attrib|level(30), wp(130), knows_common|knows_riding_8|knows_ironflesh_7|knows_power_strike_3, swadian_face_young_1, swadian_face_middle_2],
+  ["desert_archer", "Camel Archer", "Camel Archers", tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_ranged, 0, 0, fac_desert_cavalry,
+   [itm_camel, itm_arrows, itm_fp_bow_01, itm_fp_bow_02, itm_lamellar_vest, itm_sarranid_elite_armor, itm_sarranid_warrior_cap, itm_sarranid_helmet1, itm_light_leather_boots],
+   def_attrib|level(22), wp(130), knows_common|knows_riding_4|knows_ironflesh_5|knows_power_strike_4|knows_power_draw_5, swadian_face_young_1, swadian_face_middle_2],
+  ["desert_guard", "Desert Guard", "Desert Guards", tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_all, 0, 0, fac_desert_cavalry,
+   [itm_elephant, itm_spak_splate_armor, itm_spak_spak_helmet_k, itm_fi_glove_1, itm_iron_greaves,  itm_norman_shield_8,itm_fp_sword_05,itm_spak_asmoday_sword,itm_flamberg,],
+   def_attrib|level(30), wp(170), knows_common|knows_riding_8|knows_ironflesh_9|knows_power_strike_5, swadian_face_young_1, swadian_face_middle_2],
   #
   ## UID: 95 - End
 
@@ -3129,14 +3172,24 @@ upgrade(troops,"sarranid_horseman","sarranid_mamluke")
 
 upgrade2(troops,"looter","mountain_bandit", "forest_bandit")
 
+## UID: 137 - Begin
+#
 #new tree connections
-upgrade(troops,"mountain_bandit","rhodok_tribesman")
-upgrade(troops,"forest_bandit","swadian_recruit")
-upgrade(troops,"steppe_bandit","khergit_tribesman")
-upgrade(troops,"taiga_bandit","vaegir_recruit")
-upgrade(troops,"sea_raider","nord_recruit")
-upgrade(troops,"desert_bandit","sarranid_recruit")
+#upgrade(troops,"mountain_bandit","rhodok_tribesman")
+#upgrade(troops,"forest_bandit","swadian_recruit")
+#upgrade(troops,"steppe_bandit","khergit_tribesman")
+#upgrade(troops,"taiga_bandit","vaegir_recruit")
+#upgrade(troops,"sea_raider","nord_recruit")
+#upgrade(troops,"desert_bandit","sarranid_recruit")
 #new tree connections ended
+upgrade(troops,"mountain_bandit","mountain_bandit_2")
+upgrade(troops,"forest_bandit","forest_bandit_2")
+upgrade(troops,"steppe_bandit","steppe_bandit_2")
+upgrade(troops,"taiga_bandit","taiga_bandit_2")
+upgrade(troops,"sea_raider","sea_raider_2")
+upgrade2(troops, "desert_bandit", "desert_cavalry", "desert_archer")
+#
+## UID: 137 - End
 
 upgrade2(troops,"bandit","brigand","mercenary_swordsman")
 upgrade(troops,"manhunter","slave_driver")
@@ -3194,10 +3247,18 @@ upgrade(troops, "umalelithian_archer", "umalelithian_archer_2"),
 ## UID: 122 - End
 
 upgrade2(troops, "kielian_tribeswoman", "kielian_spearwoman", "kielian_archer"),
-upgrade(troops, "kielian_spearwoman", "kielian_trained_spearwoman"),
-upgrade(troops, "kielian_trained_spearwoman", "kielian_veteran_spearwoman"),
-upgrade2(troops, "kielian_veteran_spearwoman", "kielian_sergeant", "kielian_horsewoman"),
-upgrade(troops, "kielian_horsewoman", "kielian_swordswoman"),
+
+## UID: 137 - Begin
+#
+#upgrade(troops, "kielian_spearwoman", "kielian_trained_spearwoman"),
+#upgrade(troops, "kielian_trained_spearwoman", "kielian_veteran_spearwoman"),
+#upgrade2(troops, "kielian_veteran_spearwoman", "kielian_sergeant", "kielian_horsewoman"),
+#upgrade(troops, "kielian_horsewoman", "kielian_swordswoman"),
+upgrade2(troops, "kielian_spearwoman", "kielian_horsewoman", "kielian_assassin_woman"),
+upgrade(troops, "kielian_assassin_woman", "kielian_assassin_woman_2"),
+upgrade2(troops, "kielian_horsewoman", "kielian_sergeant", "kielian_swordswoman"),
+#
+## UID: 137 - End
 upgrade(troops, "kielian_archer", "kielian_master_archer"),
 #
 ## UID: 24 - End

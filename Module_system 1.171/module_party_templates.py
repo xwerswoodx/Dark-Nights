@@ -61,17 +61,28 @@ party_templates = [
 ##  ("peasant","Peasant",icon_peasant,0,fac_commoners,merchant_personality,[(trp_farmer,1,6),(trp_peasant_woman,0,7)]),
 
 #  ("black_khergit_raiders","Black Khergit Raiders",icon_khergit_horseman_b|carries_goods(2),0,fac_black_khergits,bandit_personality,[(trp_black_khergit_guard,1,10),(trp_black_khergit_horseman,5,5)]),
-  ("steppe_bandits","Steppe Bandits",icon_khergit|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_steppe_bandit,2,38),(trp_bandit,2,20)]),
-  ("taiga_bandits","Tundra Bandits",icon_axeman|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_taiga_bandit,2,38),(trp_bandit,2,20)]),
-  ("desert_bandits","Desert Bandits",icon_vaegir_knight|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_desert_bandit,2,38),(trp_bandit,2,20)]),
-  ("forest_bandits","Forest Bandits",icon_axeman|carries_goods(2),0,fac_forest_bandits,bandit_personality,[(trp_forest_bandit,2,32),(trp_bandit,2,20)]),
-  ("mountain_bandits","Mountain Bandits",icon_axeman|carries_goods(2),0,fac_mountain_bandits,bandit_personality,[(trp_mountain_bandit,2,40),(trp_bandit,2,20)]),
-  ("sea_raiders","Sea Raiders",icon_axeman|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_sea_raider,3,30),(trp_bandit,2,20)]),
+  ## UID: 137 - Begin
+  #
+  #("steppe_bandits","Steppe Bandits",icon_khergit|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_steppe_bandit,2,38),(trp_bandit,2,20)]),
+  #("taiga_bandits","Tundra Bandits",icon_axeman|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_taiga_bandit,2,38),(trp_bandit,2,20)]),
+  #("desert_bandits","Desert Bandits",icon_vaegir_knight|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_desert_bandit,2,38),(trp_bandit,2,20)]),
+  #("forest_bandits","Forest Bandits",icon_axeman|carries_goods(2),0,fac_forest_bandits,bandit_personality,[(trp_forest_bandit,2,32),(trp_bandit,2,20)]),
+  #("mountain_bandits","Mountain Bandits",icon_axeman|carries_goods(2),0,fac_mountain_bandits,bandit_personality,[(trp_mountain_bandit,2,40),(trp_bandit,2,20)]),
+  #("sea_raiders","Sea Raiders",icon_axeman|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_sea_raider,3,30),(trp_bandit,2,20)]),
+  ("steppe_bandits", "Steppe Bandits", icon_khergit|carries_goods(2), 0, fac_outlaws, bandit_personality, [(trp_steppe_bandit_2,1,2), (trp_steppe_bandit,2,38), (trp_bandit,2,20)]),
+  ("taiga_bandits", "Tundra Bandits", icon_axeman|carries_goods(2), 0, fac_outlaws, bandit_personality, [(trp_taiga_bandit_2,1,2), (trp_taiga_bandit,2,38), (trp_bandit,2,20)]),
+  ("desert_bandits", "Desert Bandits", icon_vaegir_knight|carries_goods(2), 0, fac_outlaws, bandit_personality, [(trp_desert_guard,1,2), (trp_desert_bandit,2,38), (trp_bandit,2,20)]),
+  ("forest_bandits", "Forest Bandits", icon_axeman|carries_goods(2), 0, fac_forest_bandits, bandit_personality, [(trp_forest_bandit_2,1,2), (trp_forest_bandit,2,32), (trp_bandit,2,20)]),
+  ("mountain_bandits", "Mountain Bandits", icon_axeman|carries_goods(2), 0, fac_mountain_bandits,bandit_personality,[(trp_mountain_bandit_2,1,2), (trp_mountain_bandit,2,40), (trp_bandit,2,20)]),
+  ("sea_raiders", "Sea Raiders", icon_axeman|carries_goods(2), 0, fac_outlaws,bandit_personality,[(trp_sea_raider_2,1,2), (trp_sea_raider,3,30), (trp_bandit,2,20)]),
   ## UID: 10 - Begin
   #
-  ("sea_raiders_ships","Sea Raiders",icon_ship|pf_is_ship|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_sea_raider,6,60),(trp_bandit,2,20)]),
+  #("sea_raiders_ships","Sea Raiders",icon_ship|pf_is_ship|carries_goods(2),0,fac_outlaws,bandit_personality,[(trp_sea_raider,6,60),(trp_bandit,2,20)]),
+  ("sea_raiders_ships", "Sea Raiders", icon_ship|pf_is_ship|carries_goods(2), 0, fac_outlaws, bandit_personality, [(trp_sea_raider_2,1,2), (trp_sea_raider,6,60), (trp_bandit,2,20)]),
   #
   ## UID: 10 - End
+  #
+  ## UID: 137 - End
 
   ("deserters","Deserters",icon_vaegir_knight|carries_goods(3),0,fac_deserters,bandit_personality,[]),
   ## UID: 12 - Begin
@@ -181,8 +192,13 @@ party_templates = [
   #
   ## UID: 122 - End
 
-  ("kingdom_8_reinforcements_a", "{!}kingdom_8_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_kielian_tribeswoman,5,10),(trp_kielian_spearwoman,2,4)]),
-  ("kingdom_8_reinforcements_b", "{!}kingdom_8_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_kielian_archer,2,4),(trp_kielian_trained_spearwoman,2,3),(trp_kielian_veteran_spearwoman,1,3)]),
+  ("kingdom_8_reinforcements_a", "{!}kingdom_8_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_kielian_tribeswoman,5,10), (trp_kielian_spearwoman,2,4)]),
+  ## UID: 137 - Begin
+  #
+  #("kingdom_8_reinforcements_b", "{!}kingdom_8_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_kielian_archer,2,4),(trp_kielian_trained_spearwoman,2,3),(trp_kielian_veteran_spearwoman,1,3)]),
+  ("kingdom_8_reinforcements_b", "{!}kingdom_8_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_kielian_archer,2,4), (trp_kielian_assassin_woman,2,3), (trp_kielian_horsewoman,1,3)]),
+  #
+  ## UID: 137 - End
   ("kingdom_8_reinforcements_c", "{!}kingdom_8_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_kielian_swordswoman,3,5)]),
   #
   ## UID: 24 - End
@@ -242,7 +258,12 @@ party_templates = [
   ("kingdom_7_patrol", "Umalelithian Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_kingdom_7, soldier_personality, [(trp_umalelithian_bear_berserker, 12, 36),(trp_umalelithian_archer_2, 10, 30),(trp_umalelithian_wolf_rider, 12, 36)]),
   #
   ## UID: 122 - End
-  ("kingdom_8_patrol", "Kielian Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_kingdom_8, soldier_personality, [(trp_kielian_master_archer, 12, 36),(trp_kielian_sergeant, 10, 30),(trp_kielian_horsewoman, 12, 36)]),
+  ## UID: 137 - Begin
+  #
+  #("kingdom_8_patrol", "Kielian Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_kingdom_8, soldier_personality, [(trp_kielian_master_archer, 12, 36),(trp_kielian_sergeant, 10, 30),(trp_kielian_horsewoman, 12, 36)]),
+  ("kingdom_8_patrol", "Kielian Patrol Party", icon_gray_knight|pf_show_faction, 0, fac_kingdom_8, soldier_personality, [(trp_kielian_master_archer, 12, 36),(trp_kielian_assassin_woman, 10, 30),(trp_kielian_horsewoman, 12, 36)]),
+  #
+  ## UID: 137 - End
   #
   ## UID: 24 - End
   #

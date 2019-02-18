@@ -5428,6 +5428,72 @@
   *** icon_banner_160
   *** icon_map_flag_kingdom_g
   *** icon_map_flag_kingdom_h
+  
+137. Kielian troop tree and some bandit changes.
+  * module_items.py
+  ** Added:
+  *** itm_robe_assassin
+  *** itm_spak_asmoday_sword_2
+  *** itm_shield_amazon_2
+  *** itm_throwing_daggers_2
+  * module_party_templates.py
+  ** Replaced:
+  *** pt_steppe_bandits
+  *** pt_taiga_bandits
+  *** pt_desert_bandits
+  *** pt_forest_bandits
+  *** pt_mountain_bandits
+  *** pt_sea_raiders
+  *** pt_sea_raiders_ships
+  *** pt_kingdom_8_reinforcements_b
+  *** pt_kingdom_8_patrol
+  * module_troops.py
+  ** Replaced:
+  *** trp_kielian_spearwoman
+  *** trp_kielian_horsewoman
+  *** trp_kielian_swordswoman
+  ** Removed:
+  *** trp_kielian_trained_spearwoman
+  *** trp_kielian_veteran_spearwoman
+  ** Added:
+  *** trp_kielian_assassin_woman
+  *** trp_kielian_assassin_woman_2
+  *** trp_taiga_bandit_2
+  *** trp_sea_raider_2
+  *** trp_steppe_bandit_2
+  *** trp_forest_bandit_2
+  *** trp_mountain_bandit_2
+  * troops.csv
+  ** Added:
+  *** trp_kielian_assassin_woman
+  *** trp_kielian_assassin_woman_pl
+  *** trp_kielian_assassin_woman_2
+  *** trp_kielian_assassin_woman_2_pl
+  *** trp_taiga_bandit_2
+  *** trp_taiga_bandit_2_pl
+  *** trp_sea_raider_2
+  *** trp_sea_raider_2_pl
+  *** trp_steppe_bandit_2
+  *** trp_steppe_bandit_2_pl
+  *** trp_forest_bandit_2
+  *** trp_forest_bandit_2_pl
+  *** trp_mountain_bandit_2
+  *** trp_mountain_bandit_2_pl
+  ** Removed:
+  *** trp_kielian_trained_spearwoman
+  *** trp_kielian_trained_spearwoman_pl
+  *** trp_kielian_veteran_spearwoman
+  *** trp_kielian_veteran_spearwoman_pl
+  * item_kinds.csv
+  ** Added:
+  *** itm_robe_assassin
+  *** itm_robe_assassin_pl
+  *** itm_spak_asmoday_sword_2
+  *** itm_spak_asmoday_sword_2_pl
+  *** itm_shield_amazon_2
+  *** itm_shield_amazon_2_pl
+  *** itm_throwing_daggers_2
+  *** itm_throwing_daggers_2_pl
 
 Known Bugs:
 tf_female; Ladies seems like a man so dialogs should be changed with gender.
