@@ -824,8 +824,6 @@ troops = [
    def_attrib|level(29),wp_one_handed (165) | wp_two_handed (170) | wp_polearm (135) | wp_archery (75) | wp_crossbow (75) | wp_throwing (110),knows_common|knows_riding_7|knows_shield_5|knows_ironflesh_7|knows_power_strike_5,woman_face_1, woman_face_2],
   #
   ## UID: 137 - End
-
-
   ["kielian_messenger","Kielian Messenger","Kielian Messengers",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_horse|tf_guarantee_ranged|tf_female,0,0,fac_kingdom_8,
    [itm_lance,itm_arabian_sword_b,itm_scimitar_b,itm_mace_4,itm_tab_shield_small_round_b,
     itm_sarranid_mail_shirt,itm_mail_chausses,itm_sarranid_helmet1,itm_courser,itm_hunter],
@@ -870,6 +868,28 @@ troops = [
   ["taiga_bandit","Taiga Bandit","Taiga Bandits",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_ranged,0,0,fac_outlaws,
    [itm_arrows,itm_sword_khergit_1,itm_winged_mace,itm_spear, itm_light_lance,itm_nomad_bow,itm_nomad_bow,itm_short_bow,itm_jarid,itm_javelin,itm_vaegir_fur_cap,itm_leather_steppe_cap_c,itm_nomad_armor,itm_leather_jerkin,itm_hide_boots,itm_nomad_boots,itm_leather_covered_round_shield,itm_leather_covered_round_shield],
    def_attrib|level(15),wp(110),knows_common|knows_power_draw_4|knows_power_throw_3,vaegir_face_young_1, vaegir_face_old_2],
+  
+  ## UID: 123 - End
+#
+  ["taiga_bandit_2","Taiga Bandit Leader","Taiga Bandit Leader",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_all,0,0,fac_outlaws,
+   [itm_spak_beargauntlets_l,itm_spak_bear_boots,itm_spak_sub_helm2,itm_spak_bear_warrior,itm_spak_iceaxe,itm_pa_sword_01,itm_pa_maul_01,itm_sh_oval],
+   def_attrib|level(25),wp(155),knows_common|knows_power_strike_5|knows_ironflesh_7|knows_athletics_5|knows_shield_5,vaegir_face_young_1, vaegir_face_old_2],
+ ["sea_raider_2","Sea Raider Leader","Sea Raiders Leader",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield|tf_guarantee_all,0,0,fac_outlaws,
+   [itm_mail_and_plate,itm_spak_wolf_helm3,itm_spak_g_mail_boots_a,itm_fi_glove_3,itm_pa_axe_01,itm_spak_2shield,itm_pa_sword_01,itm_spak_dargor_axe,itm_heavy_throwing_axes,itm_heavy_throwing_axes,],
+   def_attrib|level(26),wp(160),knows_ironflesh_8|knows_power_strike_7|knows_power_draw_3|knows_power_throw_7|knows_riding_1|knows_athletics_8,nord_face_young_1, nord_face_old_2],
+
+   ["steppe_bandit_2","Steppe Bandit Leader","Steppe Bandits Leader",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_horse|tf_guarantee_ranged|tf_mounted|tf_guarantee_all,0,0,fac_outlaws,
+   [itm_spak_1steel_arrow,itm_khergit_sword_two_handed_b,itm_mw_sword_02,itm_spak_amazon_bow,itm_khergit_guard_helmet,itm_khergit_guard_armor,itm_khergit_guard_boots,itm_sanjarinati],
+   def_attrib|level(28),wp(170),knows_riding_8|knows_horse_archery_8|knows_power_draw_7|knows_ironflesh_5|knows_power_strike_4,khergit_face_young_1, khergit_face_old_2],
+   ["forest_bandit_2","Forest Bandit Leader","Forest Bandits Leader",tf_guarantee_armor|tf_guarantee_ranged|tf_guarantee_boots|tf_guarantee_all,0,0,fac_outlaws,
+   [itm_spak_1steel_arrow,itm_spak_1steel_arrow,itm_pa_axe_02,itm_spak_imperial_bow,
+    itm_guard_helmet,itm_scale_armor,itm_fi_glove_4,itm_splinted_leather_greaves],
+   def_attrib|level(23),wp(155),knows_common|knows_power_draw_8|knows_athletics_8|knows_ironflesh_6|knows_power_strike_4,swadian_face_young_1, swadian_face_old_2],
+    ["mountain_bandit_2","Mountain Bandit Leader","Mountain Bandits Leader",tf_guarantee_armor|tf_guarantee_boots|tf_guarantee_all,0,0,fac_outlaws,
+   [itm_brigandine_red,itm_bascinet_3,itm_mail_boots,itm_fi_glove_3,itm_spak_spak_crsb02,itm_steel_bolts,itm_spikeshield_01,itm_fp_hammer_01,itm_fp_mace_02,],
+   def_attrib|level(24),wp(160),knows_common|knows_power_draw_5|knows_athletics_6|knows_ironflesh_8|knows_power_strike_5|knows_shield_5,rhodok_face_young_1, rhodok_face_old_2],
+#
+  ## UID: 123 - End   
   ["desert_bandit","Desert Bandit","Desert Bandits",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_horse|tf_mounted,0,0,fac_outlaws,
    [itm_arrows,itm_arabian_sword_a,itm_winged_mace,itm_spear, itm_light_lance,itm_jarid,itm_nomad_bow,itm_short_bow,itm_jarid,itm_sarranid_cloth_robe, itm_sarranid_cloth_robe, itm_skirmisher_armor, itm_desert_turban, itm_turban,itm_leather_steppe_cap_b,itm_leather_covered_round_shield,itm_leather_covered_round_shield,itm_saddle_horse,itm_arabian_horse_a],
    def_attrib|level(12),wp(100),knows_riding_4|knows_horse_archery_3|knows_power_draw_3,khergit_face_young_1, khergit_face_old_2],
