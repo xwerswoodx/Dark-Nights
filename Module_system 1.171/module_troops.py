@@ -733,7 +733,7 @@ troops = [
   ## UID: 122 - Begin
   #
   ["umalelithian_wolf_rider", "Umalelithian Wolf Rider", "Umalelithian Wolf Riders", tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_shield,0,0,fac_kingdom_7,
-   [itm_mw_sword_01,itm_scimitar_b,itm_mace_4,itm_fp_sword_01,itm_spikeshield_02,itm_spak_g_mail_chausses_a, itm_spak_wolf_helm2, itm_spak_beargauntlets_l, itm_nibbler],
+   [itm_mw_sword_01,itm_scimitar_b,itm_mace_4,itm_fp_sword_01,itm_spikeshield_02,itm_spak_elite_cavalary_2,itm_spak_g_mail_chausses_a, itm_spak_wolf_helm2, itm_spak_beargauntlets_l, itm_nibbler],
    def_attrib|level(19),wp_melee(110),knows_common|knows_riding_4|knows_ironflesh_4|knows_shield_2|knows_power_strike_3,swadian_face_young_1, swadian_face_old_2],
   ["umalelithian_wolf_lord", "Umalelithian Wolf Lord", "Umalelithian Wolf Lords", tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_shield|tf_guarantee_all,0,0,fac_kingdom_7,
    [itm_mw_sword_01,itm_hooksword_spak,itm_fp_sword_01,itm_spak_spak_2h_battle_axe,itm_spikeshield_02,itm_spak_elite_cavalary,itm_spak_g_mail_chausses_a, itm_spak_wolf_helm1,itm_spak_wolf_helm3,itm_spak_beargauntlets_l,itm_nibbler],

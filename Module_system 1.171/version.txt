@@ -2451,6 +2451,8 @@
   * module_dialogs.py
   ** Edited:
   *** dlga_minister_talk:minister_grant_fief
+  *** dlga_minister_talk:minister_diplomatic_kingdoms
+  *** dlga_minister_talk:minister_indict
   ** Removed:
   *** dlga_minister_talk:minister_grant_fief_self
   ** Added:
@@ -3564,6 +3566,7 @@
   *** mt_castle_attack_walls_ladder
   *** mt_bandit_lair
   *** mt_bandit_camp
+  *** mt_arena_melee_fight_2
   ** Import:
   *** All from ID_skills.py
   
@@ -5257,8 +5260,175 @@
   *** tourney_helm_brown_pl
   *** tourney_helm_dblue
   *** tourney_helm_dblue_pl
- 
+  
+124. Some translation issues fixed.
+  * dialogs.csv
+  ** Replaced:
+  *** dlga_start:lord_start.5
+  * module_dialogs.py
+  ** Edited:
+  *** dlga_start:close_window
+  *** dlga_minister_talk:minister_change_marshal
+  *** dlga_minister_talk:minister_change_marshal.1
+  
+125. Fixed lords who attack his own kingdom villages.
+  * module_scripts.py
+  ** Edited:
+  *** script_process_hero_ai
+
+126. Fixed some translation issue on spouse and added feast starting to ministers.
+  * module_dialogs.py
+  ** Replaced:
+  *** dlga_spouse_talk:close_window
+  *** dlga_spouse_pretalk:spouse_talk
+  *** dlga_spouse_organize_feast:spouse_pretalk
+  *** dlga_spouse_organize_feast:spouse_pretalk.1
+  *** dlga_spouse_organize_feast:spouse_pretalk.2
+  *** dlga_spouse_organize_feast:spouse_evaluate_larder_for_feast
+  *** dlga_start:spouse_talk
+  *** dlga_minister_replace_select:minister_replace_confirm
+  *** dlga_minister_replace_select:minister_replace_confirm.1
+  *** dlga_minister_replace_select:minister_replace_confirm.2
+  ** Edited:
+  *** dlga_spouse_feast_confirm_yes:spouse_pretalk
+  *** dlga_lord_talk:offer_gift_quest_complete
+  *** dlga_offer_gift_quest_complete:close_window
+  * dialogs.csv
+  ** Replaced:
+  *** dlga_spouse_talk:close_window
+  *** dlga_spouse_pretalk:spouse_talk
+  *** dlga_start:spouse_talk
+  *** dlga_spouse_feast_confirm_yes:spouse_pretalk.1
+  *** dlga_minister_replace_select:minister_replace_confirm
+  *** dlga_minister_replace_select:minister_replace_confirm.1
+  *** dlga_minister_replace_select:minister_replace_confirm.2
+  ** Added:
+  *** dlga_minister_talk:minister_organize_feast
+  *** dlga_minister_talk:minister_household_possessions
+  *** dlga_minister_household_possessions:minister_pretalk
+  *** dlga_minister_organize_feast:minister_pretalk
+  *** dlga_minister_organize_feast:minister_pretalk.1
+  *** dlga_minister_organize_feast:minister_pretalk.2
+  *** dlga_minister_organize_feast:minister_evaluate_larder_for_feast
+  *** dlga_minister_evaluate_larder_for_feast:minister_feast_confirm
+  *** dlga_minister_feast_confirm:minister_feast_added_items
+  *** dlga_minister_feast_added_items:minister_evaluate_larder_for_feast
+  *** dlga_minister_feast_confirm:minister_feast_confirm_yes
+  *** dlga_minister_feast_confirm:minister_pretalk
+  *** dlga_minister_feast_confirm_yes:minister_pretalk
+  *** dlga_minister_feast_confirm_yes:minister_pretalk.1
+  
+127. Npcs won't leave from party and not complaint anymore.
+  * module_simple_triggers.py
+  ** Edited:
+  *** 1h trigger that check pretender and npc status.
+  * module_scripts.py
+  ** Edited:
+  *** script_game_start
+  * variables.txt
+  ** Added:
+  *** disable_npc_quit
+  
+128. Tournament settings added for new two kingdoms.
+  * module_game_menus.py
+  ** Edited:
+  *** mnu_town_tournament:mno_tournament_join_next_fight
+  
+129. Tea added for new created chars.
+  * module_game_menus.py
+  ** Edited:
+  *** mnu_choose_skill:mno_begin_adventuring
+  
+130. Added ban dialog for pretenders. We can ban him from our castle.
+  * module_constants.py
+  ** Added:
+  *** slot_troop_banned
+  * module_scripts.py
+  ** Edited:
+  *** script_get_heroes_attached_to_center
+  * module_dialogs.py
+  ** Edited:
+  *** dlga_pretender_start:pretender_rebellion_cause_prelim
+  *** dlga_pretender_start:pretender_discuss_rebellion_1
+  ** Added:
+  *** dlga_pretender_start:pretender_banned
+  *** dlga_pretender_banned:close_window
+  *** dlga_pretender_start:pretender_banned2
+  *** dlga_pretender_banned2:close_window
+  
+131. Two new check scripts added for later usage.
+  * module_scripts.py
+  ** Added:
+  *** script_is_king
+  *** script_is_marshall
+  
+132. Bandit lair quest changed.
+  * module_scripts.py
+  ** Edited:
+  *** script_get_dynamic_quest
+  
+133. Shield bash system added and edited for Dark Night module system. (Osp: Xenoargh)
+  * module_scripts.py
+  ** Added:
+  *** script_shield_bash
+  * module_animations.py
+  ** Added:
+  *** anim_shield_bash
+  *** anim_shield_strike
+  ** Removed:
+  *** anim_unused_human_anim_44
+  *** anim_unused_human_anim_45
+  * module_mission_templates.py
+  ** Edited:
+  *** mt_ship_battle
+  *** mt_lead_charge
+  *** mt_village_attack_bandits
+  *** mt_village_raid
+  *** mt_besiege_inner_battle_castle
+  *** mt_besiege_inner_battle_town_center
+  *** mt_castle_attack_walls_defenders_sally
+  *** mt_castle_attack_walls_belfry
+  *** mt_castle_attack_walls_ladder
+  *** mt_bandit_lair
+  *** mt_bandit_camp
+  *** mt_arena_melee_fight_2
+  ** Added:
+  *** common_shield_bash
+
+134. Some changes made for later usage on Marriage.
+  * module_game_menus.py
+  ** Edited:
+  *** mnu_notification_player_faction_active
+  
+135. New npcs added to player faction minister selection and default minister move top.
+  * module_game_menus.py
+  ** Moved:
+  *** mnu_notification_player_faction_active:mno_appoint_default
+  ** Added:
+  *** mnu_notification_player_faction_active:mno_appoint_npc17
+  *** mnu_notification_player_faction_active:mno_appoint_npc18
+  
+136. New banners added. (OSP: Roudrac)
+  * module_map_icons.py
+  ** Replaced:
+  *** icon_banner_146
+  *** icon_banner_147
+  *** icon_banner_148
+  *** icon_banner_149
+  *** icon_banner_150
+  *** icon_banner_151
+  *** icon_banner_152
+  *** icon_banner_153
+  *** icon_banner_154
+  *** icon_banner_155
+  *** icon_banner_156
+  *** icon_banner_157
+  *** icon_banner_158
+  *** icon_banner_159
+  *** icon_banner_160
+  *** icon_map_flag_kingdom_g
+  *** icon_map_flag_kingdom_h
+
 Known Bugs:
 tf_female; Ladies seems like a man so dialogs should be changed with gender.
-Turkish translate has stupid errors. Like "Kendimin yerine mareşal olarak kendim geçmek istiyorum.", "Köyün yeni sahibi kendim olsun istiyorum" etc...
 Troop ratio sometimes goes invisible. When player use Inventory, Character, Quest buttons.

@@ -1557,6 +1557,11 @@ game_menus = [
             (troop_add_item, "trp_player", ":book"),
             #
             ## UID: 34 - End
+            ## UID: 129 - Begin
+            #
+            (troop_add_item, "trp_player", "itm_tea", 0),
+            #
+            ## UID: 129 - End
             # First Section
             (try_begin),
               (eq, "$background_type", cb_noble),
@@ -11132,6 +11137,19 @@ game_menus = [
              (else_try),
                (call_script, "script_set_items_for_tournament", 50, 0, 60, 0, 30, 30, 0, 0, "itm_arena_tunic_red", "itm_arena_turban_red"),
              (try_end),
+           ## UID: 128 - Begin
+           #
+           (else_try),
+             #Umalelith
+             (eq, ":town_original_faction", "fac_kingdom_7"),
+             (call_script, "script_set_items_for_tournament", 0, 0, 20, 80, 25, 0, 0, 0, "itm_arena_armor_white", "itm_steppe_helmet_white"),
+           (else_try),
+             #Kielian
+             (eq, ":town_original_faction", "fac_kingdom_8"),
+             (call_script, "script_set_items_for_tournament", 15, 5, 75, 0, 50, 25, 0, 0, "itm_arena_tunic_white", -1),
+           (else_try),
+           #
+           ## UID: 128 - End
            ## UID: 37 - Begin
            #
            (else_try),
@@ -13850,189 +13868,210 @@ game_menus = [
         ]),
      ]
   ),
-  
-  
-  
-  
-  (
-    "notification_player_faction_active",0,
-    "You now possess land in your name, without being tied to any kingdom. This makes you a monarch in your own right, with your court temporarily located at {s12}. However, the other kings in Calradia will at first consider you a threat, for if any upstart warlord can grab a throne, then their own legitimacy is called into question.^^You may find it desirable at this time to pledge yourself to an existing kingdom. If you want to continue as a sovereign monarch, then your first priority should be to establish an independent right to rule. You can establish your right to rule through several means -- marrying into a high-born family, recruiting new lords, governing your lands, treating with other kings, or dispatching your companions on missions.^^At any rate, your first step should be to appoint a chief minister from among your companions, to handle affairs of state. Different companions have different capabilities.^You may appoint new ministers from time to time. You may also change the location of your court, by speaking to the minister.",
-    "none",
-    [
-      (set_fixed_point_multiplier, 100),
-      (position_set_x, pos0, 65),
-      (position_set_y, pos0, 30),
-      (position_set_z, pos0, 170),
-      (set_game_menu_tableau_mesh, "tableau_faction_note_mesh_banner", "fac_player_supporters_faction", pos0),
-      
-      (unlock_achievement, ACHIEVEMENT_CALRADIAN_TEA_PARTY),
-      (play_track, "track_coronation"),
-	  
-	  (try_for_range, ":walled_center", walled_centers_begin, walled_centers_end),
-	    (lt, "$g_player_court", walled_centers_begin),
-		(store_faction_of_party, ":walled_center_faction", ":walled_center"),
-	    (eq, ":walled_center_faction", "fac_player_supporters_faction"),
-		(assign, "$g_player_court", ":walled_center"),
-		
-		(try_begin),
-			(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
-			(is_between, ":spouse", kingdom_ladies_begin, kingdom_ladies_end),
-			(troop_set_slot, ":spouse", slot_troop_cur_center, "$g_player_court"),
-		(try_end),
-		
-		(str_store_party_name, s12, "$g_player_court"),
-	  (try_end),
-	  
-      ],
-    [
-      ("appoint_spouse",[
-	  (troop_slot_ge, "trp_player", slot_troop_spouse, 1),
-	  (troop_get_slot, ":player_spouse", "trp_player", slot_troop_spouse),
-	  (neg|troop_slot_eq, ":player_spouse", slot_troop_occupation, slto_kingdom_hero),
-	  (str_store_troop_name, s10, ":player_spouse"),
-	  ],"Appoint your wife, {s10}...",
-       [
-	   (troop_get_slot, ":player_spouse", "trp_player", slot_troop_spouse),
-	   (assign, "$g_player_minister", ":player_spouse"),
-	   (jump_to_menu, "mnu_minister_confirm"),
-	   ]),
 
-      ("appoint_npc1",[
-	  (main_party_has_troop, "trp_npc1"),
-	  (str_store_troop_name, s10, "trp_npc1"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc1"),
-	   (jump_to_menu, "mnu_minister_confirm"),
-	   ]),
-	   
+  ("notification_player_faction_active", 0,
+   "You now possess land in your name, without being tied to any kingdom. This makes you a monarch in your own right, with your court temporarily located at {s12}. However, the other kings in Calradia will at first consider you a threat, for if any upstart warlord can grab a throne, then their own legitimacy is called into question.^^You may find it desirable at this time to pledge yourself to an existing kingdom. If you want to continue as a sovereign monarch, then your first priority should be to establish an independent right to rule. You can establish your right to rule through several means -- marrying into a high-born family, recruiting new lords, governing your lands, treating with other kings, or dispatching your companions on missions.^^At any rate, your first step should be to appoint a chief minister from among your companions, to handle affairs of state. Different companions have different capabilities.^You may appoint new ministers from time to time. You may also change the location of your court, by speaking to the minister.",
+   "none", [
+     (set_fixed_point_multiplier, 100),
+     (position_set_x, pos0, 65),
+     (position_set_y, pos0, 30),
+     (position_set_z, pos0, 170),
+     (set_game_menu_tableau_mesh, "tableau_faction_note_mesh_banner", "fac_player_supporters_faction", pos0),
+     (unlock_achievement, ACHIEVEMENT_CALRADIAN_TEA_PARTY),
+     (play_track, "track_coronation"),
+     (try_for_range, ":walled_center", walled_centers_begin, walled_centers_end),
+       (lt, "$g_player_court", walled_centers_begin),
+       (store_faction_of_party, ":walled_center_faction", ":walled_center"),
+       (eq, ":walled_center_faction", "fac_player_supporters_faction"),
+       (assign, "$g_player_court", ":walled_center"),
+       (try_begin),
+         (troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
+         ## UID: 134 - Begin
+         #
+         #(is_between, ":spouse", kingdom_ladies_begin, kingdom_ladies_end),
+         (gt, ":spouse", 0),
+         #
+         ## UID: 134 - End
+         (troop_set_slot, ":spouse", slot_troop_cur_center, "$g_player_court"),
+       (try_end),
+       (str_store_party_name, s12, "$g_player_court"),
+     (try_end),
+    ], [
+      ("appoint_spouse", [
+        (troop_slot_ge, "trp_player", slot_troop_spouse, 1),
+        (troop_get_slot, ":player_spouse", "trp_player", slot_troop_spouse),
+        (neg|troop_slot_eq, ":player_spouse", slot_troop_occupation, slto_kingdom_hero),
+        (str_store_troop_name, s10, ":player_spouse"),
+      ],"Appoint your wife, {s10}...", [
+        (troop_get_slot, ":player_spouse", "trp_player", slot_troop_spouse),
+        (assign, "$g_player_minister", ":player_spouse"),
+        (jump_to_menu, "mnu_minister_confirm"),
+      ]),
+
+      ## UID: 135 - Begin
+      #
+      ("appoint_default", [], "Appoint a prominent citizen from the area...", [
+        (assign, "$g_player_minister", "trp_temporary_minister"),
+        (troop_set_faction, "trp_temporary_minister", "fac_player_supporters_faction"),
+        (jump_to_menu, "mnu_minister_confirm"),
+      ]),
+      #
+      ## UID: 135 - End
+
+      ("appoint_npc1", [
+        (main_party_has_troop, "trp_npc1"),
+        (str_store_troop_name, s10, "trp_npc1"),
+      ], "Appoint {s10}", [
+        (assign, "$g_player_minister", "trp_npc1"),
+        (jump_to_menu, "mnu_minister_confirm"),
+      ]),
+
       ("appoint_npc2",[
-	  (main_party_has_troop, "trp_npc2"),
-	  (str_store_troop_name, s10, "trp_npc2"),],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc2"),
-	   (jump_to_menu, "mnu_minister_confirm"),]),
-	   
-      ("appoint_npc3",[
-	  (main_party_has_troop, "trp_npc3"),
-	  (str_store_troop_name, s10, "trp_npc3"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc3"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
-      ("appoint_npc4",[
-	  (main_party_has_troop, "trp_npc4"),
-	  (str_store_troop_name, s10, "trp_npc4"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc4"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
-      ("appoint_npc5",[
-	  (main_party_has_troop, "trp_npc5"),
-	  (str_store_troop_name, s10, "trp_npc5"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc5"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
-      ("appoint_npc6",[
-	  (main_party_has_troop, "trp_npc6"),
-	  (str_store_troop_name, s10, "trp_npc6"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc6"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
-      ("appoint_npc7",[
-	  (main_party_has_troop, "trp_npc7"),
-	  (str_store_troop_name, s10, "trp_npc7"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc7"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
-      ("appoint_npc8",[
-	  (main_party_has_troop, "trp_npc8"),
-	  (str_store_troop_name, s10, "trp_npc8"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc8"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
-      ("appoint_npc9",[
-	  (main_party_has_troop, "trp_npc9"),
-	  (str_store_troop_name, s10, "trp_npc9"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc9"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
-      ("appoint_npc10",[ #was npc9
-	  (main_party_has_troop, "trp_npc10"),
-	  (str_store_troop_name, s10, "trp_npc10"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc10"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
-      ("appoint_npc11",[
-	  (main_party_has_troop, "trp_npc11"),
-	  (str_store_troop_name, s10, "trp_npc11"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc11"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
-      ("appoint_npc12",[
-	  (main_party_has_troop, "trp_npc12"),
-	  (str_store_troop_name, s10, "trp_npc12"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc12"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
-      ("appoint_npc13",[
-	  (main_party_has_troop, "trp_npc13"),
-	  (str_store_troop_name, s10, "trp_npc13"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc13"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
-      ("appoint_npc14",[
-	  (main_party_has_troop, "trp_npc14"),
-	  (str_store_troop_name, s10, "trp_npc14"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc14"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
-      ("appoint_npc15",[
-	  (main_party_has_troop, "trp_npc15"),
-	  (str_store_troop_name, s10, "trp_npc15"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc15"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
-      ("appoint_npc16",[
-	  (main_party_has_troop, "trp_npc16"),
-	  (str_store_troop_name, s10, "trp_npc16"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc16"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
+        (main_party_has_troop, "trp_npc2"),
+        (str_store_troop_name, s10, "trp_npc2"),
+      ], "Appoint {s10}", [
+        (assign, "$g_player_minister", "trp_npc2"),
+        (jump_to_menu, "mnu_minister_confirm"),
+      ]),
 
-      ("appoint_default",[],"Appoint a prominent citizen from the area...",
-       [
-	   (assign, "$g_player_minister", "trp_temporary_minister"),
-	   (troop_set_faction, "trp_temporary_minister", "fac_player_supporters_faction"),
-	   (jump_to_menu, "mnu_minister_confirm"),
-        ]),				
-     ]
-  ),  
+      ("appoint_npc3", [
+        (main_party_has_troop, "trp_npc3"),
+        (str_store_troop_name, s10, "trp_npc3"),
+      ], "Appoint {s10}", [
+        (assign, "$g_player_minister", "trp_npc3"),
+        (jump_to_menu, "mnu_minister_confirm"),
+      ]),
+
+      ("appoint_npc4", [
+        (main_party_has_troop, "trp_npc4"),
+        (str_store_troop_name, s10, "trp_npc4"),
+      ], "Appoint {s10}", [
+        (assign, "$g_player_minister", "trp_npc4"),
+        (jump_to_menu, "mnu_minister_confirm"),
+      ]),
+
+      ("appoint_npc5", [
+        (main_party_has_troop, "trp_npc5"),
+        (str_store_troop_name, s10, "trp_npc5"),
+      ], "Appoint {s10}", [
+        (assign, "$g_player_minister", "trp_npc5"),
+        (jump_to_menu, "mnu_minister_confirm"),
+      ]),
+
+      ("appoint_npc6", [
+        (main_party_has_troop, "trp_npc6"),
+        (str_store_troop_name, s10, "trp_npc6"),
+      ], "Appoint {s10}", [
+        (assign, "$g_player_minister", "trp_npc6"),
+        (jump_to_menu, "mnu_minister_confirm"),
+      ]),
+
+      ("appoint_npc7", [
+        (main_party_has_troop, "trp_npc7"),
+        (str_store_troop_name, s10, "trp_npc7"),
+      ], "Appoint {s10}", [
+        (assign, "$g_player_minister", "trp_npc7"),
+        (jump_to_menu, "mnu_minister_confirm"),
+      ]),
+
+      ("appoint_npc8", [
+        (main_party_has_troop, "trp_npc8"),
+        (str_store_troop_name, s10, "trp_npc8"),
+      ], "Appoint {s10}", [
+        (assign, "$g_player_minister", "trp_npc8"),
+        (jump_to_menu, "mnu_minister_confirm"),
+      ]),
+
+      ("appoint_npc9", [
+        (main_party_has_troop, "trp_npc9"),
+        (str_store_troop_name, s10, "trp_npc9"),
+      ], "Appoint {s10}", [
+        (assign, "$g_player_minister", "trp_npc9"),
+        (jump_to_menu, "mnu_minister_confirm"),
+      ]),
+
+      ("appoint_npc10", [
+        (main_party_has_troop, "trp_npc10"),
+        (str_store_troop_name, s10, "trp_npc10"),
+      ], "Appoint {s10}", [
+        (assign, "$g_player_minister", "trp_npc10"),
+        (jump_to_menu, "mnu_minister_confirm"),
+      ]),
+
+      ("appoint_npc11", [
+        (main_party_has_troop, "trp_npc11"),
+        (str_store_troop_name, s10, "trp_npc11"),
+      ], "Appoint {s10}", [
+        (assign, "$g_player_minister", "trp_npc11"),
+        (jump_to_menu, "mnu_minister_confirm"),
+      ]),
+
+      ("appoint_npc12", [
+        (main_party_has_troop, "trp_npc12"),
+        (str_store_troop_name, s10, "trp_npc12"),
+      ], "Appoint {s10}", [
+        (assign, "$g_player_minister", "trp_npc12"),
+        (jump_to_menu, "mnu_minister_confirm"),
+      ]),
+
+      ("appoint_npc13", [
+        (main_party_has_troop, "trp_npc13"),
+        (str_store_troop_name, s10, "trp_npc13"),
+      ], "Appoint {s10}", [
+        (assign, "$g_player_minister", "trp_npc13"),
+        (jump_to_menu, "mnu_minister_confirm"),
+      ]),
+
+      ("appoint_npc14", [
+        (main_party_has_troop, "trp_npc14"),
+        (str_store_troop_name, s10, "trp_npc14"),
+      ], "Appoint {s10}", [
+        (assign, "$g_player_minister", "trp_npc14"),
+        (jump_to_menu, "mnu_minister_confirm"),
+      ]),
+
+      ("appoint_npc15", [
+        (main_party_has_troop, "trp_npc15"),
+        (str_store_troop_name, s10, "trp_npc15"),
+      ], "Appoint {s10}", [
+        (assign, "$g_player_minister", "trp_npc15"),
+        (jump_to_menu, "mnu_minister_confirm"),
+      ]),
+
+      ("appoint_npc16", [
+        (main_party_has_troop, "trp_npc16"),
+        (str_store_troop_name, s10, "trp_npc16"),
+      ], "Appoint {s10}", [
+        (assign, "$g_player_minister", "trp_npc16"),
+        (jump_to_menu, "mnu_minister_confirm"),
+      ]),
+
+      ## UID: 135 - Begin
+      #
+      #("appoint_default", [], "Appoint a prominent citizen from the area...", [
+      #  (assign, "$g_player_minister", "trp_temporary_minister"),
+      #  (troop_set_faction, "trp_temporary_minister", "fac_player_supporters_faction"),
+      #  (jump_to_menu, "mnu_minister_confirm"),
+      #]),
+      
+      ("appoint_npc17", [
+        (main_party_has_troop, "trp_npc17"),
+        (str_store_troop_name, s10, "trp_npc17"),
+      ], "Appoint {s10}", [
+        (assign, "$g_player_minister", "trp_npc17"),
+        (jump_to_menu, "mnu_minister_confirm"),
+      ]),
+
+      ("appoint_npc18", [
+        (main_party_has_troop, "trp_npc18"),
+        (str_store_troop_name, s10, "trp_npc18"),
+      ], "Appoint {s10}", [
+        (assign, "$g_player_minister", "trp_npc18"),
+        (jump_to_menu, "mnu_minister_confirm"),
+      ]),
+      #
+      ## UID: 135 - End
+    ]),  
 
   (
     "minister_confirm",0,

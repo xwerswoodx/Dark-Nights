@@ -281,21 +281,25 @@ map_icons = [
   ("banner_143",0,"map_flag_f18", banner_scale,0),
   ("banner_144",0,"map_flag_f19", banner_scale,0),
   ("banner_145",0,"map_flag_f20", banner_scale,0),
-  ("banner_146",0,"map_flag_d01", banner_scale,0),
-  ("banner_147",0,"map_flag_d02", banner_scale,0),
-  ("banner_148",0,"map_flag_d03", banner_scale,0),
-  ("banner_149",0,"map_flag_d04", banner_scale,0),
-  ("banner_150",0,"map_flag_d05", banner_scale,0),
-  ("banner_151",0,"map_flag_d06", banner_scale,0),
-  ("banner_152",0,"map_flag_d07", banner_scale,0),
-  ("banner_153",0,"map_flag_d08", banner_scale,0),
-  ("banner_154",0,"map_flag_d09", banner_scale,0),
-  ("banner_155",0,"map_flag_d10", banner_scale,0),
-  ("banner_156",0,"map_flag_d11", banner_scale,0),
-  ("banner_157",0,"map_flag_d12", banner_scale,0),
-  ("banner_158",0,"map_flag_d13", banner_scale,0),
-  ("banner_159",0,"map_flag_d14", banner_scale,0),
-  ("banner_160",0,"map_flag_d15", banner_scale,0),
+  ## UID: 136 - Begin
+  #
+  ("banner_146",0,"map_flag_h01", banner_scale,0),
+  ("banner_147",0,"map_flag_h02", banner_scale,0),
+  ("banner_148",0,"map_flag_h03", banner_scale,0),
+  ("banner_149",0,"map_flag_h04", banner_scale,0),
+  ("banner_150",0,"map_flag_h05", banner_scale,0),
+  ("banner_151",0,"map_flag_h06", banner_scale,0),
+  ("banner_152",0,"map_flag_h08", banner_scale,0),
+  ("banner_153",0,"map_flag_h09", banner_scale,0),
+  ("banner_154",0,"map_flag_h10", banner_scale,0),
+  ("banner_155",0,"map_flag_h11", banner_scale,0),
+  ("banner_156",0,"map_flag_h12", banner_scale,0),
+  ("banner_157",0,"map_flag_h13", banner_scale,0),
+  ("banner_158",0,"map_flag_h14", banner_scale,0),
+  ("banner_159",0,"map_flag_h15", banner_scale,0),
+  ("banner_160",0,"map_flag_h16", banner_scale,0),
+  #
+  ## UID: 136 - End
   #
   ## UID: 24 - End
   
@@ -307,8 +311,12 @@ map_icons = [
   ("map_flag_kingdom_f",0,"map_flag_kingdom_f", banner_scale,0),
   ## UID: 24 - Begin
   #
-  ("map_flag_kingdom_g", 0, "map_flag_d15", banner_scale, 0),
-  ("map_flag_kingdom_h", 0, "map_flag_28", banner_scale, 0),
+  ## UID: 136 - Begin
+  #
+  ("map_flag_kingdom_g", 0, "map_flag_h10", banner_scale, 0),
+  ("map_flag_kingdom_h", 0, "map_flag_h07", banner_scale, 0),
+  #
+  ## UID: 136 - End
   #
   ## UID: 24 - End
   ("banner_136",0,"map_flag_15", banner_scale,0),

@@ -66,12 +66,6 @@ scripts = [
       (assign, "$g_player_luck", 200),
       (assign, "$g_player_luck", 200),
 
-      ## UID: 117 - Begin
-      #
-      (assign, "$disable_npc_complaints", 1),
-      #
-      ## UID: 117 - End
-
       ## UID: 92 - Begin
       #
       (assign, "$player_cur_troop_level", 0),
@@ -135,7 +129,19 @@ scripts = [
       (call_script, "script_initialize_item_info"),
       (call_script, "script_initialize_aristocracy"),
       (call_script, "script_initialize_npcs"),
-      (assign, "$disable_npc_complaints", 0),
+      ## UID: 117 - Begin
+      #
+      #(assign, "$disable_npc_complaints", 0),
+      (assign, "$disable_npc_complaints", 1),
+      #
+      ## UID: 117 - End
+      ## UID: 127 - Begin
+      #
+      (assign, "$disable_npc_quit", 1),
+      (assign, "$disable_sisterly_advice", 1),
+      (assign, "$disable_local_histories", 1),
+      #
+      ## UID: 127 - End
       #NPC companion changes end
       
       # Setting random feast time
@@ -14523,7 +14529,7 @@ scripts = [
       #
       (else_try),
         (eq, ":extra_text_id", 0),
-        (ge, "$cheat_mode", 1),
+        #(ge, "$cheat_mode", 1),
         (assign, reg1, ":item_no"),
         (set_result_string, "@ID: {reg1}"),
         (set_trigger_result, 0x6600ff),
@@ -19591,142 +19597,127 @@ scripts = [
       
       (assign, reg0, ":result"),
   ]),
-  
-  ("get_dynamic_quest",
-  #Dynamic quests are rarer, more important quests
-  #this is a separate script from get_quest, so that tavern keepers can scan all NPCs for quests 
-    [
-    (store_script_param_1, ":giver_troop"),
-	
-	(assign, ":result", -1),
-	(assign, ":relevant_troop", -1),
-	(assign, ":relevant_party", -1),
-	(assign, ":relevant_faction", -1),
-		
-	(try_begin),
-		(eq, ":giver_troop", -1),
-		
-	(else_try),
-		#1 rescue prisoner		
-		(neg|check_quest_active, "qst_rescue_prisoner"),
-		(this_or_next|troop_slot_eq, ":giver_troop", slot_troop_occupation, slto_kingdom_hero),
-			(troop_slot_eq, ":giver_troop", slot_troop_occupation, slto_kingdom_lady),
 
-		(assign, ":target_troop", -1),	
-		(try_for_range, ":possible_prisoner", active_npcs_begin, active_npcs_end),	
-			(troop_get_slot, ":captor_location", ":possible_prisoner", slot_troop_prisoner_of_party),
-			(is_between, ":captor_location", walled_centers_begin, walled_centers_end),
-			(store_troop_faction, ":giver_troop_faction_no", ":giver_troop"),
-			(store_faction_of_party, ":captor_location_faction_no", ":captor_location"),
-			(store_relation, ":giver_captor_relation", ":giver_troop_faction_no", ":captor_location_faction_no"),
-			(lt, ":giver_captor_relation", 0),
-			
-			(call_script, "script_troop_get_family_relation_to_troop", ":giver_troop", ":possible_prisoner"), 
-			(ge, reg0, 10),
-			
-			(assign, ":offered_parole", 0),
-			(try_begin),
-				(call_script, "script_cf_prisoner_offered_parole", ":possible_prisoner"),
-				(assign, ":offered_parole", 1),
-			(try_end),
-			(eq, ":offered_parole", 0),
-			
-			(neg|party_slot_eq, ":captor_location", slot_town_lord, "trp_player"),
-			
-			(assign, ":target_troop", ":possible_prisoner"),
-			(assign, ":target_party", ":captor_location"),
-		(try_end),
+  ("get_dynamic_quest", [
+      #Dynamic quests are rarer, more important quests
+      #this is a separate script from get_quest, so that tavern keepers can scan all NPCs for quests
+      (store_script_param_1, ":giver_troop"),
 
-		(gt, ":target_troop", -1),
-		(assign, ":result", "qst_rescue_prisoner"),
-		(assign, ":relevant_troop", ":target_troop"),
-		(assign, ":relevant_party", ":target_party"),
-		
-	(else_try),
-		#2 retaliate for border incident
-		(is_between, ":giver_troop", mayors_begin, mayors_end),
-		(store_faction_of_troop, ":giver_faction", ":giver_troop"),
-		
-		(neg|check_quest_active, "qst_retaliate_for_border_incident"),
-		(quest_slot_eq, "qst_retaliate_for_border_incident", slot_quest_dont_give_again_remaining_days, 0),
-		(assign, ":target_leader", 0),
-  
-		(try_for_range, ":kingdom", "fac_kingdom_1", kingdoms_end),
-			(call_script, "script_diplomacy_faction_get_diplomatic_status_with_faction", ":giver_faction", ":kingdom"),
-			(assign, ":diplomatic_status", reg0),
-			(eq, ":diplomatic_status", -1),
-			(assign, ":duration", reg1),
-			(ge, ":duration", 10),
-			
-			
-			(try_for_range, ":lord", active_npcs_begin, active_npcs_end),
-				(store_faction_of_troop, ":lord_faction", ":lord"),
-				(eq, ":lord_faction", ":kingdom"),
-		
-				(troop_slot_eq, ":lord", slot_lord_reputation_type, lrep_debauched),
-				
-				(assign, ":target_leader", ":lord"),
-				(assign, ":target_faction", ":kingdom"),
-			(try_end),
-		(try_end),
-		(is_between, ":target_leader", active_npcs_begin, active_npcs_end),
-		
-		(assign, ":result", "qst_retaliate_for_border_incident"),
-		(assign, ":relevant_troop", ":target_leader"),  
-		(assign, ":relevant_faction", ":target_faction"),  
-	(else_try), #Find bandit hideout
-		(troop_slot_eq, ":giver_troop", slot_troop_occupation, slto_kingdom_hero),
-		(neg|check_quest_active, "qst_destroy_bandit_lair"),
-		(quest_slot_eq, "qst_destroy_bandit_lair", slot_quest_dont_give_again_remaining_days, 0),
+      (assign, ":result", -1),
+      (assign, ":relevant_troop", -1),
+      (assign, ":relevant_party", -1),
+      (assign, ":relevant_faction", -1),
 
-#		(display_message, "@Checking for bandit lair quest"),
-				
-		(assign, ":lair_found", -1),
-		
-		(try_for_range, ":bandit_template", "pt_steppe_bandits", "pt_deserters"),
-			(party_template_get_slot, ":bandit_lair", ":bandit_template", slot_party_template_lair_party),
-						
-			#No party is active because bandit lairs are removed as soon as they are attacked, by the player -- but can only be removed by the player. This will reset bandit lair to zero
-			(gt, ":bandit_lair", "p_spawn_points_end"),
-			
-			(assign, ":closest_town", -1),
-			(assign, ":score_to_beat", 99999),
-			
-			(try_for_range, ":town_no", towns_begin, towns_end),
-				(store_distance_to_party_from_party, ":distance", ":bandit_lair", ":town_no"),
-				(lt, ":distance", ":score_to_beat"),
-				(assign, ":closest_town", ":town_no"),
-				(assign, ":score_to_beat", ":distance"),
-			(try_end),
-			
-			#(str_store_party_name, s7, ":closest_town"),
-			#(party_get_slot, ":closest_town_lord", ":closest_town", slot_town_lord),						
-			#(str_store_troop_name, s8, ":closest_town_lord"),						
-			
-			(party_slot_eq, ":closest_town", slot_town_lord, ":giver_troop"),
-			(assign, ":lair_found", ":bandit_lair"),
-		(try_end),
-		
-		(gt, ":lair_found", "p_spawn_points_end"),
-		
-		(assign ,":result", "qst_destroy_bandit_lair"),
-		(assign, ":relevant_party", ":lair_found"),  						  
-	(else_try),  #3 - bounty on bandit party
-		(is_between, ":giver_troop", mayors_begin, mayors_end),
-		(neg|check_quest_active, "qst_track_down_bandits"),
-		(quest_slot_eq, "qst_track_down_bandits", slot_quest_dont_give_again_remaining_days, 0),
+      (try_begin),
+        (eq, ":giver_troop", -1),
+      (else_try),
+        #1 rescue prisoner
+        (neg|check_quest_active, "qst_rescue_prisoner"),
+        (this_or_next|troop_slot_eq, ":giver_troop", slot_troop_occupation, slto_kingdom_hero),
+        (             troop_slot_eq, ":giver_troop", slot_troop_occupation, slto_kingdom_lady),
 
-		(assign, ":cur_town", -1),
-		(try_for_range, ":town", towns_begin, towns_end),
-			(party_slot_eq, ":town", slot_town_elder, ":giver_troop"),
-			(assign, ":cur_town", ":town"),
-		(try_end),
-		(gt, ":cur_town", -1),
-		
-		(call_script, "script_merchant_road_info_to_s42", ":cur_town"), 
-		(assign, ":bandit_party_found", reg0),
-		(party_is_active, ":bandit_party_found"),
-		(gt, ":bandit_party_found", 0),
+        (assign, ":target_troop", -1),
+        (try_for_range, ":possible_prisoner", active_npcs_begin, active_npcs_end),
+          (troop_get_slot, ":captor_location", ":possible_prisoner", slot_troop_prisoner_of_party),
+          (is_between, ":captor_location", walled_centers_begin, walled_centers_end),
+          (store_troop_faction, ":giver_troop_faction_no", ":giver_troop"),
+          (store_faction_of_party, ":captor_location_faction_no", ":captor_location"),
+          (store_relation, ":giver_captor_relation", ":giver_troop_faction_no", ":captor_location_faction_no"),
+          (lt, ":giver_captor_relation", 0),
+
+          (call_script, "script_troop_get_family_relation_to_troop", ":giver_troop", ":possible_prisoner"),
+          (ge, reg0, 10),
+          (assign, ":offered_parole", 0),
+          (try_begin),
+            (call_script, "script_cf_prisoner_offered_parole", ":possible_prisoner"),
+            (assign, ":offered_parole", 1),
+          (try_end),
+          (eq, ":offered_parole", 0),
+          (neg|party_slot_eq, ":captor_location", slot_town_lord, "trp_player"),
+          (assign, ":target_troop", ":possible_prisoner"),
+          (assign, ":target_party", ":captor_location"),
+        (try_end),
+
+        (gt, ":target_troop", -1),
+        (assign, ":result", "qst_rescue_prisoner"),
+        (assign, ":relevant_troop", ":target_troop"),
+        (assign, ":relevant_party", ":target_party"),
+      (else_try),
+        #2 retaliate for border incident
+        (is_between, ":giver_troop", mayors_begin, mayors_end),
+        (store_faction_of_troop, ":giver_faction", ":giver_troop"),
+
+        (neg|check_quest_active, "qst_retaliate_for_border_incident"),
+        (quest_slot_eq, "qst_retaliate_for_border_incident", slot_quest_dont_give_again_remaining_days, 0),
+        (assign, ":target_leader", 0),
+
+        (try_for_range, ":kingdom", "fac_kingdom_1", kingdoms_end),
+          (call_script, "script_diplomacy_faction_get_diplomatic_status_with_faction", ":giver_faction", ":kingdom"),
+          (assign, ":diplomatic_status", reg0),
+          (eq, ":diplomatic_status", -1),
+          (assign, ":duration", reg1),
+          (ge, ":duration", 10),
+
+          (try_for_range, ":lord", active_npcs_begin, active_npcs_end),
+            (store_faction_of_troop, ":lord_faction", ":lord"),
+            (eq, ":lord_faction", ":kingdom"),
+            (troop_slot_eq, ":lord", slot_lord_reputation_type, lrep_debauched),
+            (assign, ":target_leader", ":lord"),
+            (assign, ":target_faction", ":kingdom"),
+          (try_end),
+        (try_end),
+        (is_between, ":target_leader", active_npcs_begin, active_npcs_end),
+        (assign, ":result", "qst_retaliate_for_border_incident"),
+	(assign, ":relevant_troop", ":target_leader"),
+        (assign, ":relevant_faction", ":target_faction"),
+      (else_try), #Find bandit hideout
+        (troop_slot_eq, ":giver_troop", slot_troop_occupation, slto_kingdom_hero),
+        (neg|check_quest_active, "qst_destroy_bandit_lair"),
+        (quest_slot_eq, "qst_destroy_bandit_lair", slot_quest_dont_give_again_remaining_days, 0),
+        #(display_message, "@Checking for bandit lair quest"),
+        (assign, ":lair_found", -1),
+        (try_for_range, ":bandit_template", "pt_steppe_bandits", "pt_deserters"),
+          (party_template_get_slot, ":bandit_lair", ":bandit_template", slot_party_template_lair_party),
+          #No party is active because bandit lairs are removed as soon as they are attacked, by the player -- but can only be removed by the player. This will reset bandit lair to zero
+          (gt, ":bandit_lair", "p_spawn_points_end"),
+          (assign, ":closest_town", -1),
+          (assign, ":score_to_beat", 99999),
+
+          (try_for_range, ":town_no", towns_begin, towns_end),
+            (store_distance_to_party_from_party, ":distance", ":bandit_lair", ":town_no"),
+            (lt, ":distance", ":score_to_beat"),
+            (assign, ":closest_town", ":town_no"),
+            (assign, ":score_to_beat", ":distance"),
+          (try_end),
+
+          #(str_store_party_name, s7, ":closest_town"),
+          #(party_get_slot, ":closest_town_lord", ":closest_town", slot_town_lord),
+          #(str_store_troop_name, s8, ":closest_town_lord"),
+          (party_slot_eq, ":closest_town", slot_town_lord, ":giver_troop"),
+          (assign, ":lair_found", ":bandit_lair"),
+        (try_end),
+        (gt, ":lair_found", "p_spawn_points_end"),
+        ## UID: 132 - Begin
+        #
+        (party_set_flags, ":lair_found", pf_is_static|pf_always_visible|pf_hide_defenders|pf_label_small, 1),
+        #
+        ## UID: 132 - End
+        (assign ,":result", "qst_destroy_bandit_lair"),
+        (assign, ":relevant_party", ":lair_found"),
+      (else_try),  #3 - bounty on bandit party
+        (is_between, ":giver_troop", mayors_begin, mayors_end),
+        (neg|check_quest_active, "qst_track_down_bandits"),
+        (quest_slot_eq, "qst_track_down_bandits", slot_quest_dont_give_again_remaining_days, 0),
+        (assign, ":cur_town", -1),
+        (try_for_range, ":town", towns_begin, towns_end),
+          (party_slot_eq, ":town", slot_town_elder, ":giver_troop"),
+          (assign, ":cur_town", ":town"),
+        (try_end),
+        (gt, ":cur_town", -1),
+        (call_script, "script_merchant_road_info_to_s42", ":cur_town"),
+        (assign, ":bandit_party_found", reg0),
+        (party_is_active, ":bandit_party_found"),
+        (gt, ":bandit_party_found", 0),
 
         (try_begin),
             (eq, "$cheat_mode", 1),
@@ -20997,6 +20988,11 @@ scripts = [
 #rebellion changes begin -Arma
      (try_for_range, ":pretender", pretenders_begin, pretenders_end),
         (neq, ":pretender", "$supported_pretender"),
+        ## UID: 130 - Begin
+        #
+        (neg|troop_slot_eq, ":pretender", slot_troop_banned, 1),
+        #
+        ## UID: 130 - End
         (troop_slot_eq, ":pretender", slot_troop_cur_center, ":center_no"),
         (party_add_members, ":party_no_to_collect_heroes", ":pretender", 1),
      (try_end),
@@ -24073,7 +24069,12 @@ scripts = [
             (store_faction_of_party, ":enemy_village_faction", ":enemy_village_no"),
             (try_begin),
               (party_slot_eq, ":enemy_village_no", slot_town_lord, "trp_player"),
-              (store_relation, ":reln", "fac_player_supporters_faction", ":faction_no"),
+              ## UID: 125 - Begin
+              #
+              #(store_relation, ":reln", "fac_player_supporters_faction", ":faction_no"),
+              (store_relation, ":reln", "$players_kingdom", ":faction_no"),
+              #
+              ## UID: 125 - End
             (else_try),
               (store_relation, ":reln", ":enemy_village_faction", ":faction_no"),
             (try_end),
@@ -24116,7 +24117,12 @@ scripts = [
               (try_begin),
                 (store_faction_of_party, ":village_faction", ":ai_object"),
                 (this_or_next|party_slot_eq, ":ai_object", slot_town_lord, "trp_player"),
-                (eq, ":village_faction", "fac_player_supporters_faction"),
+                ## UID: 125 - Begin
+                #
+                #(eq, ":village_faction", "fac_player_supporters_faction"),
+                (             eq, ":village_faction", "$players_kingdom"),
+                #
+                ## UID: 125 - End
                 (store_distance_to_party_from_party, ":dist", "p_main_party", ":ai_object"),
                 (this_or_next|lt, ":dist", 30),
                 ## UID: 9 - Begin
@@ -40229,7 +40235,17 @@ scripts = [
      ]),
   
   # script_set_items_for_tournament
-  # Input: arg1 = horse_chance, arg2 = lance_chance (with horse only), arg3 = sword_chance, arg4 = axe_chance, arg5 = bow_chance (without horse only), arg6 = javelin_chance (with horse only), arg7 = mounted_bow_chance (with horse only), arg8 = crossbow_sword_chance, arg9 = armor_item_begin, arg10 = helm_item_begin
+  # Input:
+  #  arg1 = horse_chance
+  #  arg2 = lance_chance (with horse only)
+  #  arg3 = sword_chance
+  #  arg4 = axe_chance
+  #  arg5 = bow_chance (without horse only)
+  #  arg6 = javelin_chance (with horse only)
+  #  arg7 = mounted_bow_chance (with horse only)
+  #  arg8 = crossbow_sword_chance
+  #  arg9 = armor_item_begin
+  #  arg10 = helm_item_begin
   # Output: none (sets mt_arena_melee_fight items)
   ("set_items_for_tournament",
     [
@@ -55273,6 +55289,86 @@ scripts = [
     ]),
   #
   ## UID: 115 - End
+
+  ## UID: 131 - Begin
+  #
+  ("is_king", [
+      (store_script_param, ":kingdom", 1),
+      (store_script_param, ":troop", 2),
+      (assign, reg0, 0),
+      (try_begin),
+        (faction_slot_eq, ":kingdom", slot_faction_state, sfs_active),
+        (faction_slot_eq, ":kingdom", slot_faction_leader, ":troop"),
+        (assign, reg0, 1),
+      (try_end),
+    ]),
+
+  ("is_marshall", [
+      (store_script_param, ":kingdom", 1),
+      (store_script_param, ":troop", 2),
+      (call_script, "script_is_king", ":kingdom", ":troop"),
+      (assign, reg1, 0),
+      (try_begin),
+        (eq, reg0, 0), #is not king.
+        (faction_slot_eq, ":kingdom", slot_faction_state, sfs_active),
+        (faction_slot_eq, ":kingdom", slot_faction_marshall, ":troop"),
+        (assign, reg1, 1),
+      (try_end),
+    ]),
+  #
+  ## UID: 131 - End
+
+  ## UID: 133 - Begin
+  #
+  ("shield_bash", [
+      (this_or_next|multiplayer_is_server),
+      (neg|game_in_multiplayer_mode),
+      (get_player_agent_no,":player_agent"),
+      (try_begin),
+        (gt, ":player_agent", 0),
+        (agent_get_animation, ":anim", ":player_agent",0),
+        (agent_get_horse, ":my_horse", ":player_agent"),
+        (agent_get_wielded_item, ":shield_item", ":player_agent", 1),
+        (try_begin),
+          (neq, ":anim", "anim_shield_bash"),
+          (eq, ":my_horse", -1),
+          (is_between, ":shield_item", shields_begin, shields_end),
+          (agent_set_animation, ":player_agent","anim_shield_bash"),
+          (agent_get_position, pos63,":player_agent"),
+          (position_move_y,pos63,75),#75 cm directly ahead, so it's not a cuboid space around player center
+          #(agent_get_troop_id, ":id", ":player_agent"),
+          #(call_script, "script_is_male", ":id"),
+          #(try_begin),
+          #  (ge, reg0, 1),
+          #  (agent_play_sound, ":player_agent", "snd_man_yell"),
+          #(else_try),
+          #  (agent_play_sound, ":player_agent", "snd_woman_yell"),
+          #(try_end),
+
+          (try_for_agents,":agent"),
+            (gt, ":agent", 0),
+            (neg|agent_is_ally,":agent"),#don't bash allies
+            (agent_is_human, ":agent"),#stop if not human
+            (agent_is_active,":agent"),
+            (agent_is_alive,":agent"),
+            (try_begin),
+              (agent_get_position,pos62,":agent"),
+              (get_distance_between_positions,":dist",pos63,pos62),
+              (lt,":dist",100),#Set this to whatever you like- 1 meter radius clears a big section of crowd
+              (agent_get_horse, ":horse", ":agent"),
+              (eq, ":horse", -1),
+              (neq,":agent",":player_agent"),
+              (agent_play_sound, ":player_agent", "snd_wooden_hit_low_armor_high_damage"),
+              (position_move_y,pos62,-25),
+              (agent_set_position, ":agent", pos62),
+              (agent_set_animation, ":agent","anim_shield_strike"),
+            (try_end),
+          (try_end),
+        (try_end),
+      (try_end),
+    ]),
+  #
+  ## UID: 133 - End
   
   ## EOF
 ]

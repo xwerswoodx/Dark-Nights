@@ -767,6 +767,18 @@ common_health_regen = (5, 0, 0, [], [
 #
 ## UID: 88 - End
 
+## UID: 133 - Begin
+#
+common_shield_bash = (0, 0, 0, [
+    (key_is_down, key_right_mouse_button),
+    (key_clicked, key_left_mouse_button),
+    (neg|main_hero_fallen),
+],[
+    (call_script, "script_shield_bash"),
+])
+#
+## UID: 133 - End
+
 common_battle_tab_press = (
   ti_tab_pressed, 0, 0, [],
   [
@@ -2539,11 +2551,16 @@ mission_templates = [
       #
       ## UID: 35 - End
       common_battle_inventory,
-        ## UID: 88 - Begin
-        #
-        common_health_regen,
-        #
-        ## UID: 88 - End
+      ## UID: 88 - Begin
+      #
+      common_health_regen,
+      #
+      ## UID: 88 - End
+      ## UID: 133 - Begin
+      #
+      common_shield_bash,
+      #
+      ## UID: 133 - End
 
       #AI Triggers
       (0, 0, ti_once, [
@@ -2643,6 +2660,11 @@ mission_templates = [
         common_health_regen,
         #
         ## UID: 88 - End
+        ## UID: 133 - Begin
+        #
+        common_shield_bash,
+        #
+        ## UID: 133 - End
     ]),
 
     ("village_raid", mtf_battle_mode|mtf_synch_inventory,charge, "You lead your men to battle.", [
@@ -2742,7 +2764,12 @@ mission_templates = [
         common_health_regen,
         #
         ## UID: 88 - End
-
+        ## UID: 133 - Begin
+        #
+        common_shield_bash,
+        #
+        ## UID: 133 - End
+        
 ##      #AI Tiggers
 ##      (0, 0, ti_once, [
 ##          (store_mission_timer_a,reg(1)),(ge,reg(1),4),
@@ -2979,6 +3006,11 @@ mission_templates = [
         common_health_regen,
         #
         ## UID: 88 - End
+        ## UID: 133 - Begin
+        #
+        common_shield_bash,
+        #
+        ## UID: 133 - End
     ]),
 
     ("besiege_inner_battle_town_center", mtf_battle_mode, -1, "You attack the walls of the castle...", [
@@ -3049,6 +3081,11 @@ mission_templates = [
         common_health_regen,
         #
         ## UID: 88 - End
+        ## UID: 133 - Begin
+        #
+        common_shield_bash,
+        #
+        ## UID: 133 - End
     ]),
 
     ("castle_attack_walls_defenders_sally", mtf_battle_mode|mtf_synch_inventory, -1, "You attack the walls of the castle...", [
@@ -3155,6 +3192,11 @@ mission_templates = [
         common_health_regen,
         #
         ## UID: 88 - End
+        ## UID: 133 - Begin
+        #
+        common_shield_bash,
+        #
+        ## UID: 133 - End
     ]),
 
     ("castle_attack_walls_belfry", mtf_battle_mode|mtf_synch_inventory, -1, "You attack the walls of the castle...", [
@@ -3240,6 +3282,11 @@ mission_templates = [
         common_health_regen,
         #
         ## UID: 88 - End
+        ## UID: 133 - Begin
+        #
+        common_shield_bash,
+        #
+        ## UID: 133 - End
     ]),
 
     ("castle_attack_walls_ladder", mtf_battle_mode|mtf_synch_inventory, -1, "You attack the walls of the castle...", [
@@ -3289,7 +3336,11 @@ mission_templates = [
         common_health_regen,
         #
         ## UID: 88 - End
-
+        ## UID: 133 - Begin
+        #
+        common_shield_bash,
+        #
+        ## UID: 133 - End
         (ti_on_agent_killed_or_wounded, 0, 0, [], [
             (store_trigger_param_1, ":dead_agent_no"),
             (store_trigger_param_2, ":killer_agent_no"),
@@ -4336,6 +4387,16 @@ mission_templates = [
             (try_end),
         ]),
 
+        ## UID: 88 - Begin
+        #
+        common_health_regen,
+        #
+        ## UID: 88 - End
+        ## UID: 133 - Begin
+        #
+        common_shield_bash,
+        #
+        ## UID: 133 - End
         (ti_battle_window_opened, 0, 0, [], [(eq, "$g_mt_mode", abm_training),(start_presentation, "prsnt_arena_training")]),
 
         (0, 0, ti_once, [], [
@@ -15542,7 +15603,11 @@ mission_templates = [
         common_health_regen,
         #
         ## UID: 88 - End
-
+        ## UID: 133 - Begin
+        #
+        common_shield_bash,
+        #
+        ## UID: 133 - End
        (1, 4, ti_once,
        [
          (assign, ":continue", 0),
@@ -16567,7 +16632,12 @@ mission_templates = [
         common_health_regen,
         #
         ## UID: 88 - End
-
+        ## UID: 133 - Begin
+        #
+        common_shield_bash,
+        #
+        ## UID: 133 - End
+        
         (1, 4, ti_once, [(main_hero_fallen)], [
             (assign, "$pin_player_fallen", 1),
             (str_store_string, s5, "str_retreat"),
@@ -16694,6 +16764,11 @@ mission_templates = [
         common_health_regen,
         #
         ## UID: 88 - End
+        ## UID: 133 - Begin
+        #
+        common_shield_bash,
+        #
+        ## UID: 133 - End
 
         (1, 4, ti_once, [(main_hero_fallen)], [
             (assign, "$pin_player_fallen", 1),

@@ -1151,6 +1151,12 @@ slot_troop_saved_item_gloves_mod               = 967
 slot_troop_saved_item_horse_mod                = 968
 #
 ## UID: 62 - End
+
+## UID: 130 - Begin
+#
+slot_troop_banned = 970
+#
+## UID: 130 - End
 											
 ########################################################
 ##  PLAYER SLOTS           #############################

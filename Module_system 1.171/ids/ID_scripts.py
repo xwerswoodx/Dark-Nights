@@ -676,3 +676,6 @@ script_unset_alliance = 674
 script_is_ally = 675
 script_has_free_alliance_slot = 676
 script_get_alliance_slot = 677
+script_is_king = 678
+script_is_marshall = 679
+script_shield_bash = 680

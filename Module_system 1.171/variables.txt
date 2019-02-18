@@ -1247,3 +1247,4 @@ leading_boar
 g_lotterys
 player_cur_troop_level
 player_cur_troop_prom
+disable_npc_quit
