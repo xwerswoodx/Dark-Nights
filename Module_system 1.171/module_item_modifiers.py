@@ -1,51 +1,49 @@
 # -*- coding: cp1254 -*-
 imods = [
-    #("uid", "Name", multiplier, divider, ["Special Name"]),
-    # multiplier: 1 = 1, 0.5 = 5, 0.55 = 55, 1.9 = 19
-    # divider: 1 = 1 0.5 = 10, 0.55 = 100, 1.9 = 10
+    #("uid", "Name", pricing, unknown (could be chance to get), specificName),
     ("plain", "Plain", 1, 1), #Armor(6), Shield(3), Weapon(6), Ammo(2), Horse(5), Food(2)
-    ("cracked", "Cracked", 5, 10), #Armor(12), Shield(5), Weapon(10)
-    ("rusty", "Rusty", 55, 100), #Armor(10), Weapon(8)
-    ("bent", "Bent", 65, 100), #Weapon(9), Ammo(3)
-    ("chipped", "Chipped", 72, 100), #Weapon(7)
-    ("battered", "Battered", 75, 100), #Armor(8), Shield(4)
-    ("poor", "Poor", 80, 10),
-    ("crude", "Crude", 83, 100), #Armor(7)
-    ("old", "Old", 86, 100),
-    ("cheap", "Cheap", 9, 10),
-    ("fine", "Fine", 19, 10),
-    ("well_made", "Well Made", 25, 10),
-    ("sharp", "Sharp", 16, 10),
-    ("balanced", "Balanced", 35, 10), #Weapon(4), Ammo
-    ("tempered", "Tempered", 67, 10), #Weapon(2)
-    ("deadly", "Deadly", 85, 10),
-    ("exquisite", "Exquisite", 145, 10),
-    ("masterwork", "Masterwork", 175, 10), #Weapon(1)
-    ("heavy", "Heavy", 19, 10), #Weapon(5), Horse(3)
-    ("strong", "Strong", 49, 10), #Weapon(3)
-    ("powerful", "Powerful", 32, 10),
-    ("tattered", "Tattered", 5, 10), #Armor(11)
-    ("ragged", "Ragged", 7, 10), #Armor(9)
-    ("rough", "Rough", 6, 10),
-    ("sturdy", "Sturdy", 17, 10), #Armor(5)
-    ("thick", "Thick", 26, 10), #Armor(4), Shield(2)
-    ("hardened", "Hardened", 39, 10), #Armor(3)
-    ("reinforced", "Reinforced", 65, 10), #Armor(2), Shield(1)
-    ("superb", "Superb", 25, 10),
-    ("lordly", "Lordly", 115, 10), #Armor(1)
-    ("lame", "Lame", 4, 10), #Horse(7)
-    ("swaybacked", "Swaybacked", 6, 10),
-    ("stubborn", "Stubborn", 9, 10), #Horse(4)
-    ("timid", "Timid", 18, 10), #Horse(6)
-    ("meek", "Meek", 18, 10),
-    ("spirited", "Spirited", 65, 10), #Horse(2)
-    ("champion", "Champion", 145, 10), #Horse(1)
+    ("cracked", "Cracked", 0.5, 1), #Armor(12), Shield(5), Weapon(10)
+    ("rusty", "Rusty", 0.55, 1), #Armor(10), Weapon(8)
+    ("bent", "Bent", 0.65, 1), #Weapon(9), Ammo(3)
+    ("chipped", "Chipped", 0.72, 1), #Weapon(7)
+    ("battered", "Battered", 0.75, 1), #Armor(8), Shield(4)
+    ("poor", "Poor", 0.8, 1),
+    ("crude", "Crude", 0.83, 1), #Armor(7)
+    ("old", "Old", 0.86, 1),
+    ("cheap", "Cheap", 0.9, 1),
+    ("fine", "Fine", 1.9, 0.6),
+    ("well_made", "Well Made", 2.5, 0.5),
+    ("sharp", "Sharp", 1.6, 0.6),
+    ("balanced", "Balanced", 3.5, 0.5), #Weapon(4), Ammo
+    ("tempered", "Tempered", 6.7, 0.4), #Weapon(2)
+    ("deadly", "Deadly", 8.5, 0.3),
+    ("exquisite", "Exquisite", 14.5, 0.3),
+    ("masterwork", "Masterwork", 17.5, 0.3), #Weapon(1)
+    ("heavy", "Heavy", 1.9, 0.7), #Weapon(5), Horse(3)
+    ("strong", "Strong", 4.9, 0.4), #Weapon(3)
+    ("powerful", "Powerful", 3.2, 0.4),
+    ("tattered", "Tattered", 0.5, 1), #Armor(11)
+    ("ragged", "Ragged", 0.7, 1), #Armor(9)
+    ("rough", "Rough", 0.6, 1),
+    ("sturdy", "Sturdy", 1.7, 0.5), #Armor(5)
+    ("thick", "Thick", 2.6, 0.35), #Armor(4), Shield(2)
+    ("hardened", "Hardened", 3.9, 0.3), #Armor(3)
+    ("reinforced", "Reinforced", 6.5, 0.25), #Armor(2), Shield(1)
+    ("superb", "Superb", 2.5, 0.25),
+    ("lordly", "Lordly", 11.5, 0.25), #Armor(1)
+    ("lame", "Lame", 0.4, 1), #Horse(7)
+    ("swaybacked", "Swaybacked", 0.6, 1),
+    ("stubborn", "Stubborn", 0.9, 1), #Horse(4)
+    ("timid", "Timid", 1.8, 1), #Horse(6)
+    ("meek", "Meek", 1.8, 1),
+    ("spirited", "Spirited", 6.5, 0.6), #Horse(2)
+    ("champion", "Champion", 14.5, 0.2), #Horse(1)
     ("fresh", "Fresh", 1, 1), #Food(1)
     ("day_old", "Day Old", 1, 1), #Food(3)
-    ("two_day_old", "Two Day Old", 9, 10), #Food(4)
-    ("smelling", "Smelling", 4, 10), #Food(5)
-    ("rotten", "Rotten", 5, 100), #Food(6)
-    ("large_bag", "Large Bag", 19, 10), #Ammo(1)
+    ("two_day_old", "Two Days Old", 0.9, 1), #Food(4)
+    ("smelling", "Smelling", 0.4, 1), #Food(5)
+    ("rotten", "Rotten", 0.05, 1), #Food(6)
+    ("large_bag", "Large Bag", 1.9, 0.3), #Ammo(1)
 ]
 
 ## Sorted list of modifiers

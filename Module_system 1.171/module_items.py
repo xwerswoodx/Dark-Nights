@@ -6,9 +6,11 @@ from module_constants import *
 #from header_operations import *
 #from header_triggers import *
 from ids.ID_factions import *
+from ids.ID_item_modifiers import *
 from headers.header_items import  *
 from headers.header_operations import *
 from headers.header_triggers import *
+from headers.header_item_modifiers import *
 #
 ## UID: 121 - End
 
@@ -864,14 +866,7 @@ items = [
 
  ## UID: 120 - Begin
  #
- ["spak_skeleton_bandit_1", "Skeleton Armor", [("skeleton_bandit_1",0)], itp_type_body_armor|itp_covers_legs|itp_civilian|itp_unique,0,785, weight(8)|abundance(100)|head_armor(0)|body_armor(39)|leg_armor(14)|difficulty(0) ,imodbits_cloth ],
- ["spak_skeleton_bandit_2", "Skeleton Armor", [("skeleton_bandit_2",0)], itp_type_body_armor|itp_covers_legs|itp_civilian|itp_unique,0,740, weight(8)|abundance(100)|head_armor(0)|body_armor(35)|leg_armor(13)|difficulty(0) ,imodbits_cloth ],
- ["spak_skeleton_bandit_3", "Skeleton Armor", [("skeleton_bandit_3",0)], itp_type_body_armor|itp_covers_legs|itp_civilian|itp_unique,0,700, weight(7)|abundance(100)|head_armor(0)|body_armor(30)|leg_armor(12)|difficulty(0) ,imodbits_cloth ],
- ["spak_skeleton_bandit_b", "Skeleton Boot", [("skeleton_bandit_b",0)], itp_type_foot_armor  |itp_civilian | itp_attach_armature|itp_unique,0,174 , weight(1.1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth ],
- ["spak_skeleton_bandit_b2", "Skeleton Boot", [("skeleton_bandit_b2",0)], itp_type_foot_armor  |itp_civilian | itp_attach_armature|itp_unique,0,151, weight(1.1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(15)|difficulty(0) ,imodbits_cloth ],
- ["spak_skeleton_bandit_b3", "Skeleton Boot", [("skeleton_bandit_b3",0)], itp_type_foot_armor  |itp_civilian | itp_attach_armature|itp_unique,0,128, weight(1.0)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(12)|difficulty(0) ,imodbits_cloth ],
-
- ["spak_2full_plate_armor", "Full Plate Armor", [("2full_plate_armor",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs ,0,6953 , weight(28)|abundance(100)|head_armor(3)|body_armor(57)|leg_armor(18)|difficulty(9) ,imodbits_plate ],
+ ["spak_2full_plate_armor", "Full Plate Armor", [("2full_plate_armor",0)], itp_merchandise|itp_type_body_armor|itp_covers_legs, 0, 6953 , weight(28)|abundance(100)|head_armor(3)|body_armor(57)|leg_armor(18)|difficulty(9) ,imodbits_plate ],
  ["spak_splate_armor", "Splate Armor", [("splate_armor",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs ,0,6753 , weight(27)|abundance(100)|head_armor(0)|body_armor(57)|leg_armor(18)|difficulty(9) ,imodbits_plate ],
  ["spak_splate_armor2", "Splate Armor", [("splate_armor2",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs ,0,6853 , weight(27)|abundance(100)|head_armor(0)|body_armor(54)|leg_armor(25)|difficulty(9) ,imodbits_plate ],
  ["spak_elite_cavalary", "Wolf Armor", [("elite_cavalary",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs ,0,5500, weight(24)|abundance(100)|head_armor(0)|body_armor(54)|leg_armor(14)|difficulty(9) ,imodbits_plate ],
@@ -1675,6 +1670,8 @@ items = [
  ["heavy_throwing_axes_melee", "Heavy Throwing Axe", [("throwing_axe_b",0)], itp_type_one_handed_wpn |itp_primary|itp_bonus_against_shield,itc_scimitar,
   620, weight(1)|difficulty(4)|spd_rtng(97) | swing_damage(32,cut)|weapon_length(53),imodbits_thrown_minus_heavy ],
 
+
+
 ["hunting_bow",         "Hunting Bow", [("hunting_bow",0),("hunting_bow_carry",ixmesh_carry)],itp_type_bow |itp_merchandise|itp_primary|itp_two_handed,itcf_shoot_bow|itcf_carry_bow_back, 
 17 , weight(1)|difficulty(0)|spd_rtng(100) | shoot_speed(52) | thrust_damage(15 ,  pierce),imodbits_bow ],
 ["short_bow",         "Short Bow", [("short_bow",0),("short_bow_carry",ixmesh_carry)], itp_type_bow |itp_merchandise|itp_primary|itp_two_handed ,itcf_shoot_bow|itcf_carry_bow_back, 
@@ -1868,6 +1865,33 @@ items = [
   15083, weight(1.13)|difficulty(20)|spd_rtng(120)|weapon_length(100)|swing_damage(69, cut)|thrust_damage(60, pierce), imodbits_sword_high],
  #
  ## UID: 4 - End
+
+ ## UID: 120 - Begin
+ #
+ ["spak_skeleton_bandit_1", "Skeleton Armor", [("skeleton_bandit_1",0)], itp_type_body_armor|itp_covers_legs|itp_civilian|itp_unique,0, 1, weight(8)|abundance(0)|head_armor(0)|body_armor(39)|leg_armor(14)|difficulty(0) ,imodbits_cloth ],
+ ["spak_skeleton_bandit_2", "Skeleton Armor", [("skeleton_bandit_2",0)], itp_type_body_armor|itp_covers_legs|itp_civilian|itp_unique,0, 1, weight(8)|abundance(0)|head_armor(0)|body_armor(35)|leg_armor(13)|difficulty(0) ,imodbits_cloth ],
+ ["spak_skeleton_bandit_3", "Skeleton Armor", [("skeleton_bandit_3",0)], itp_type_body_armor|itp_covers_legs|itp_civilian|itp_unique,0, 1, weight(7)|abundance(0)|head_armor(0)|body_armor(30)|leg_armor(12)|difficulty(0) ,imodbits_cloth ],
+ ["spak_skeleton_bandit_b", "Skeleton Boot", [("skeleton_bandit_b",0)], itp_type_foot_armor|itp_civilian|itp_attach_armature|itp_unique,0,1 , weight(1.1)|abundance(0)|head_armor(0)|body_armor(0)|leg_armor(16)|difficulty(0) ,imodbits_cloth ],
+ ["spak_skeleton_bandit_b2", "Skeleton Boot", [("skeleton_bandit_b2",0)], itp_type_foot_armor|itp_civilian|itp_attach_armature|itp_unique,0,1, weight(1.1)|abundance(0)|head_armor(0)|body_armor(0)|leg_armor(15)|difficulty(0) ,imodbits_cloth ],
+ ["spak_skeleton_bandit_b3", "Skeleton Boot", [("skeleton_bandit_b3",0)], itp_type_foot_armor|itp_civilian|itp_attach_armature|itp_unique,0,1, weight(1.0)|abundance(0)|head_armor(0)|body_armor(0)|leg_armor(12)|difficulty(0) ,imodbits_cloth ],
+ ["spak_skeleton_hand_L", "Skeleton Gauntlets", [("skeleton_hand_L",0)], itp_type_hand_armor|itp_civilian|itp_force_attach_left_hand|itp_force_attach_right_hand|itp_unique, 0, 1, weight(0.55)|abundance(0)|body_armor(7)|difficulty(0), imodbits_armor],
+ ["spak_skeleton_head", "Skeleton Head", [("skltface_a",0)], itp_type_head_armor|itp_civilian|itp_fit_to_head|itp_covers_head|itp_covers_beard|itp_covers_hair|itp_unique, 0, 1, weight(2)|head_armor(18), imodbits_armor],
+ #
+ ## UID: 120 - End
+
+ ## UID: 151 - Begin
+ #
+ ["upgrade_stone_red", "Upgrade Stone", [("stone_red", 0)], itp_type_goods|itp_unique, 0, 25000, weight(10)|abundance(0), imodbits_none],
+ ["upgrade_stone_blue", "Upgrade Stone", [("stone_blue", 0)], itp_type_goods|itp_unique, 0, 25000, weight(10)|abundance(0), imodbits_none],
+ ["upgrade_stone_black", "Upgrade Stone", [("stone_black", 0)], itp_type_goods|itp_unique, 0, 25000, weight(10)|abundance(0), imodbits_none],
+ ["upgrade_stone_gray", "Upgrade Stone", [("stone_gray", 0)], itp_type_goods|itp_unique, 0, 25000, weight(10)|abundance(0), imodbits_none],
+ ["upgrade_stone_green", "Upgrade Stone", [("stone_green", 0)], itp_type_goods|itp_unique, 0, 25000, weight(10)|abundance(0), imodbits_none],
+ ["upgrade_stone_yellow", "Upgrade Stone", [("stone_yellow", 0)], itp_type_goods|itp_unique, 0, 25000, weight(10)|abundance(0), imodbits_none],
+ ["upgrade_stone_pink", "Upgrade Stone", [("stone_pink", 0)], itp_type_goods|itp_unique, 0, 25000, weight(10)|abundance(0), imodbits_none],
+ ["upgrade_stone_purple", "Upgrade Stone", [("stone_purple", 0)], itp_type_goods|itp_unique, 0, 25000, weight(10)|abundance(0), imodbits_none],
+ ["upgrade_stone_orange", "Upgrade Stone", [("stone_orange", 0)], itp_type_goods|itp_unique, 0, 25000, weight(10)|abundance(0), imodbits_none],
+ #
+ ## UID: 151 - End
  
  ["items_end", "Items End", [("shield_round_a",0)], 0, 0, 1, 0, 0],
 

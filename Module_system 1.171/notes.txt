@@ -1,0 +1,15 @@
+Known Bugs:
+tf_female; Ladies seems like a man so dialogs should be changed with gender.
+Troop ratio sometimes goes invisible. When player use Inventory, Character, Quest buttons.
+
+1. Lord olup baþka lorda gittiðinde beyim diyorsun.
+2. Derebeyiniz olabilir miyim beyim.
+3. Moral düþünce asker ayrýlmasý.
+7. Ulaklarýn çevirisi eksik.
+9. Kendi krallýðýný kurunca herkesin sana savaþ açmasý.
+10. Çok yüksek askere sahipken sana saldýran lordlar.
+11. Ýkna yüksek olduðu halde ikna edememek.
+13. Evlenebilecek sivil.
+17. Turnuvada kalkan kullanmamasý.
+18. Turnuva kalkan renklerinin kaymasý.
+19. Kaçaklar, haydutlar vb takýma alýnabilecek.

@@ -6,8 +6,8 @@
 
 
 
-from header_common import *
-from header_item_modifiers import *
+from headers.header_common import *
+from headers.header_item_modifiers import *
 
 #item flags
 itp_type_horse           = 0x0000000000000001

@@ -4,6 +4,7 @@ import string
 import time
 import types
 import sys
+import re
 
 # Colorama - Begin
 # Check: https://pypi.python.org/pypi/colorama#downloads
@@ -227,32 +228,33 @@ def get_id_value(tag, identifier, tag_uses):
     return (tag_type, id_no)
 
 def convert_to_identifier(s0):
-  s1 = string.replace(s0," ","_")
-  s2 = string.replace(s1,"'","_")
-  s3 = string.replace(s2,"`","_")
-  s4 = string.replace(s3,"(","_")
-  s5 = string.replace(s4,")","_")
-  s6 = string.replace(s5,"-","_")
-  s7 = string.replace(s6,",","")
-  s8 = string.replace(s7,"|","")
-  s9 = string.replace(s8,"\t","_") #Tab
-  s10 = string.lower(s9)
-  return s10
+    s0 = s0.replace(" ", "_")
+    s0 = s0.replace("'", "_")
+    s0 = s0.replace("`", "_")
+    s0 = s0.replace("(", "_")
+    s0 = s0.replace(")", "_")
+    s0 = s0.replace("-", "_")
+    s0 = s0.replace(",", "_")
+    s0 = s0.replace("|", "")
+    s0 = s0.replace("\t", "_")
+    return s0.lower()
 
 def convert_to_identifier_with_no_lowercase(s0):
-  s1 = string.replace(s0," ","_")
-  s2 = string.replace(s1,"'","_")
-  s3 = string.replace(s2,"`","_")
-  s4 = string.replace(s3,"(","_")
-  s5 = string.replace(s4,")","_")
-  s6 = string.replace(s5,"-","_")
-  s7 = string.replace(s6,",","")
-  s8 = string.replace(s7,"|","")
-  s9 = string.replace(s8,"\t","_") #Tab
-  return s9
+    s0 = s0.replace(" ", "_")
+    s0 = s0.replace("'", "_")
+    s0 = s0.replace("`", "_")
+    s0 = s0.replace("(", "_")
+    s0 = s0.replace(")", "_")
+    s0 = s0.replace("-", "_")
+    s0 = s0.replace(",", "_")
+    s0 = s0.replace("|", "")
+    s0 = s0.replace("\t", "_")
+    return s0
 
 def replace_spaces(s0):
-  return string.replace(string.replace(s0,"\t","_")," ","_")
+    s0 = s0.replace("\t", "_")
+    s0 = s0.replace(" ", "_")
+    return s0
 
 def create_autoid(sentence, auto_ids):
     text = sentence[3]
@@ -261,16 +263,19 @@ def create_autoid(sentence, auto_ids):
     done = 0
     auto_id = "dlga_" + token_ipt + ":" + token_opt
     done = 0
-    if not auto_ids.has_key(auto_id):
+    if not auto_id in auto_ids:
+    #if not auto_ids.has_key(auto_id):
         done = 1
     else:
-        if auto_ids.has_key(auto_id) and (auto_ids[auto_id] == text):
+        #if auto_ids.has_key(auto_id) and (auto_ids[auto_id] == text):
+        if auto_id in auto_ids and (auto_ids[auto_id] == text):
             done = 1
 
     if not done:
         number = 1
         new_auto_id = auto_id + "." + str(number)
-        while auto_ids.has_key(new_auto_id):
+        #while auto_ids.has_key(new_auto_id):
+        while new_auto_id in auto_ids:
             number += 1
             new_auto_id = auto_id + "." + str(number)
         auto_id = new_auto_id
@@ -286,7 +291,7 @@ def compile_sentence_tokens(sentences):
         output_token_id = -1
         output_token = sentence[4]
         found = 0
-        for i_t in xrange(len(dialog_states)):
+        for i_t in range(len(dialog_states)):
             if output_token == dialog_states[i_t]:
                 output_token_id = i_t
                 found = 1
@@ -301,7 +306,7 @@ def compile_sentence_tokens(sentences):
         input_token_id = -1
         input_token = sentence[1]
         found = 0
-        for i_t in xrange(len(dialog_states)):
+        for i_t in range(len(dialog_states)):
             if input_token == dialog_states[i_t]:
                 input_token_id = i_t
                 dialog_state_usages[i_t] = dialog_state_usages[i_t] + 1
@@ -314,14 +319,14 @@ def compile_sentence_tokens(sentences):
     for dialog_state in dialog_states:
         file.write("%s\n"%dialog_state)
     file.close()
-    for i_t in xrange(len(dialog_states)):
+    for i_t in range(len(dialog_states)):
         if dialog_state_usages[i_t] == 0:
             print(strs.error + "Output token " + dialog_states[i_t] + " not found.")
     return (input_tokens, output_tokens)
 
 def save_triggers(file,template_name,triggers,variable_list,variable_uses,tag_uses,quick_strings):
     file.write("%d\n"%len(triggers))
-    for i in xrange(len(triggers)):
+    for i in range(len(triggers)):
         trigger = triggers[i]
         file.write("%f %f %f "%(trigger[0],trigger[1],trigger[2]))
         save_statement_block(file, 0, 1, trigger[3], variable_list, variable_uses,tag_uses,quick_strings)
@@ -368,16 +373,16 @@ def save_psys_keys(file, keys1, keys2):
   
 def compile_relations():
     relations = []
-    for i in xrange(len(factions)):
+    for i in range(len(factions)):
         r = [0.0 for j in range(len(factions))]
         relations.append(r)
-    for i_faction in xrange(len(factions)):
+    for i_faction in range(len(factions)):
         relations[i_faction][i_faction] = factions[i_faction][3]
         rels = factions[i_faction][4]
         for rel in rels:
             rel_name = rel[0]
             other_pos = -1
-            for j_f in xrange(len(factions)):
+            for j_f in range(len(factions)):
                 if factions[j_f][0] == rel_name:
                     other_pos = j_f
             if other_pos == -1:
@@ -419,7 +424,7 @@ def compile_sounds(sounds):
     for sound in sounds:
         sound_files = sound[2]
         sound_flags = sound[1]
-        for i_sound_file in xrange(len(sound_files)):
+        for i_sound_file in range(len(sound_files)):
             sound_file = sound_files[i_sound_file]
             if (type(sound_file) != type([])):
                 sound_file = [sound_file, 0]
@@ -441,7 +446,7 @@ def compile_action_sets(actions):
     action_codes = []
     for action in actions:
         index = -1
-        for i_action_code in xrange(len(action_codes)):
+        for i_action_code in range(len(action_codes)):
             if action_codes[i_action_code] == action[0]:
                 index = i_action_code
                 break
@@ -454,7 +459,7 @@ def compile_action_sets(actions):
     return action_codes
 
 def decompile_action_sets(actions, args):
-    for i_action in xrange(len(actions)):
+    for i_action in range(len(actions)):
         action = actions[i_action]
         action[0] = args[i_action]
     return actions
@@ -498,19 +503,20 @@ def insert_quick_string_with_auto_id(sentence,quick_strings):
 
 def search_quick_string_keys(key, quick_strings):
   index = -1
-  for i in xrange(len(quick_strings)):
+  for i in range(len(quick_strings)):
     if quick_strings[i][0] == key:
       index = i
   return index
 
 def check_varible_not_defined(variable_string, variables_list):
-    for i_t in xrange(len(variables_list)):
+    for i_t in range(len(variables_list)):
         if variable_string == variables_list[i_t]:
             print(strs.warn + "Variable " + variable_string + "used for both local and global contexts.")
             break
 
 def get_identifier_value(str, tag_uses):
-    underscore_pos = string.find(str, "_")
+    ##underscore_pos = string.find(str, "_")
+    underscore_pos = str.find("_")
     result = -1
     if (underscore_pos > 0):
         tag_str = str[0:underscore_pos]
@@ -531,7 +537,7 @@ def get_variable(variable_string,variables_list,variable_uses):
     found = 0
     result = -1
     var_string = variable_string[1:]
-    for i_t in xrange(len(variables_list)):
+    for i_t in range(len(variables_list)):
         if var_string == variables_list[i_t]:
             found = 1
             result = i_t
@@ -552,7 +558,7 @@ def get_variable(variable_string,variables_list,variable_uses):
 
 def process_param(param,global_vars_list,global_var_uses, local_vars_list, local_var_uses, tag_uses, quick_strings):
     result = 0
-    if (type(param) == types.StringType):
+    if (type(param) is str):
         if (param[0] == '$'):
             check_varible_not_defined(param[1:], local_vars_list)
             result = get_variable(param, global_vars_list,global_var_uses)
@@ -578,13 +584,13 @@ def save_statement(file, opcode, no_variables, statement, variable_list, variabl
         if (is_lhs_operation(opcode) == 1):
             if (lenstatement > 0):
                 param = statement[1]
-                if (type(param) == types.StringType):
+                if (type(param) is str):
                     if (param[0] == ':'):
                         add_variable(param[1:], local_vars_list, local_var_uses)
     else:
         lenstatement = 0
     file.write("%d %d "%(opcode, lenstatement))
-    for i in xrange(lenstatement):
+    for i in range(lenstatement):
         operand = process_param(statement[i + 1],variable_list,variable_uses,local_vars_list,local_var_uses,tag_uses,quick_strings)
         file.write("%d "%operand)
 
@@ -597,10 +603,10 @@ def save_statement_block(file, statement_name, can_fail_statement, statement_blo
     store_script_param_2_uses = 0
     current_depth = 0
     can_fail = 0
-    for i in xrange(len(statement_block)):
+    for i in range(len(statement_block)):
         statement = statement_block[i]
 
-        if ((type(statement) != types.ListType) and (type(statement) != types.TupleType)):
+        if ((type(statement) is not list) and (type(statement) is not tuple)):
             opcode = statement
             no_variables = 1
         else:
@@ -650,9 +656,15 @@ def save_simple_triggers(file, temps, variable_list, variable_uses, tag_uses, qu
   file.write("\n")
 
 def clear_module():
-    files = [file for file in glob.glob("*.pyc")]
-    for file in files:
-        os.remove(file)
+##    files = [file for file in glob.glob("*.pyc")]
+##    for file in files:
+##        os.remove(file)
+    if os.path.exists("./__pycache__"):
+        os.system("rm -rf ./__pycache__")
+    if os.path.exists("./ids/__pycache__"):
+        os.system("rm -rf ./ids/__pycache__")
+    if os.path.exists("./headers/__pycache__"):
+        os.system("rm -rf ./headers/__pycache__")
 
 def is_lhs_operation(op_code):
   found = 0
@@ -676,7 +688,7 @@ def is_can_fail_operation(op_code):
 
 def add_variable(variable_string, variables_list, variable_uses):
   found = 0
-  for i_t in xrange(len(variables_list)):
+  for i_t in range(len(variables_list)):
     if variable_string == variables_list[i_t]:
       found = 1
       variable_uses[i_t] = variable_uses[i_t] - 1
@@ -687,14 +699,14 @@ def add_variable(variable_string, variables_list, variable_uses):
 
 def compile_global_vars_in_statement(statement, variable_list, variable_uses):
   opcode = 0
-  if ((type(statement) != types.ListType) and (type(statement) != types.TupleType)):
+  if ((type(statement) is not list) and (type(statement) is not tuple)):
     opcode = statement
   else:
     opcode = statement[0]
     if (is_lhs_operation_for_global_vars(opcode) == 1):
       if (len(statement) > 1):
         param = statement[1]
-        if (type(param) == types.StringType):
+        if (type(param) is str):
           if (statement[1][0] == '$'):
             add_variable(statement[1][1:], variable_list, variable_uses)
 
@@ -704,11 +716,11 @@ def compile_global_vars(statement_block, variable_list, variable_uses):
 
 def save_variables(variables_list, variable_uses):
   file = open(export_dir + "variables.txt", "w")
-  for i in xrange(len(variables_list)):
+  for i in range(len(variables_list)):
     file.write("%s\n"%variables_list[i])
   file.close()
   file = open(export_dir + "variable_uses.txt","w")
-  for i in xrange(len(variables_list)):
+  for i in range(len(variables_list)):
     file.write("%d\n"%variable_uses[i])
   file.close()
 
@@ -717,7 +729,7 @@ def save_quick_strings(quick_strings):
     langFile = open(language_dir + "quick_strings.csv", "w")
 
     file.write("%d\n"%len(quick_strings))
-    for i in xrange(len(quick_strings)):
+    for i in range(len(quick_strings)):
         langFile.write("%s|%s\n"%(quick_strings[i][0], quick_strings[i][1].replace("_"," ")))
         file.write("%s %s\n"%(quick_strings[i][0],replace_spaces(quick_strings[i][1])))
     file.close()
@@ -725,8 +737,8 @@ def save_quick_strings(quick_strings):
 
 def save_tag_uses(tag_uses):
     file = open(export_dir + "tag_uses.txt","w")
-    for i in xrange(len(tag_uses)):
-        for j in xrange(len(tag_uses[i])):
+    for i in range(len(tag_uses)):
+        for j in range(len(tag_uses[i])):
             file.write("%d %d %d;" % (i, j, tag_uses[i][j]))
         file.write("\n")
     file.close()
@@ -755,7 +767,8 @@ def compile_init():
         var_list = file.readlines()
         file.close()
         for variable in var_list:
-            var = string.strip(variable)
+            #var = string.strip(variable)
+            var = variable.strip()
             if var:
                 variables.append(var)
                 variable_uses.append(int(1))
@@ -764,7 +777,7 @@ def compile_init():
         print(strs.error + "variables.txt not found in your module system, creating a new one...")
 
     tag_uses = []
-    for i in xrange(tags_end):
+    for i in range(tags_end):
         sub_tag_uses = []
         tag_uses.append(sub_tag_uses)
 
@@ -773,14 +786,15 @@ def compile_init():
         var_list = file.readlines()
         file.close()
         for variable in var_list:
-            var = string.strip(variable).split(';')
+            ##var = string.strip(variable).split(';')
+            var = variable.strip().split(';')
             if var:
                 for v1 in var:
                     v2 = v1.split(' ')
                     if len(v2) >= 3:
                         if len(tag_uses[int(v2[0])]) <= int(v2[1]):
                             num_to_add = int(v2[1]) + 1 - len(tag_uses[int(v2[0])])
-                            for i in xrange(num_to_add):
+                            for i in range(num_to_add):
                                 tag_uses[int(v2[0])].append(0)
                         tag_uses[int(v2[0])][int(v2[1])] = int(v2[2])
 
@@ -791,7 +805,8 @@ def compile_init():
         file.close()
 
         for arg in str_list:
-            arg = string.strip(arg)
+            ##arg = string.strip(arg)
+            arg = arg.strip()
             if arg:
                 args = arg.split(' ')
                 if len(args) == 2:
@@ -855,7 +870,7 @@ def compile_init():
         except:
             print(strs.error + "Error in presentation " + str(presentation))
 
-    for i_script in xrange(len(scripts)):
+    for i_script in range(len(scripts)):
         try:
             func = scripts[i_script]
             if (type(func[1]) == temp_type):
@@ -875,112 +890,16 @@ def compile_init():
         save_variables(variables, variable_uses)
     except:
         print(strs.error + "An error occured while saving variables.")
-
-    #Setting ID addresses, we need to write them first to use them in later actions to make compile quick.
-##    file = open("./ID_map_icons.py", "w")
-##    for i in xrange(len(map_icons)):
-##      file.write("icon_%s = %d\n"%(convert_to_identifier(map_icons[i][0]), i))
-##    file.close()
-##    file = open("./ID_strings.py", "w")
-##    for i in xrange(len(strings)):
-##      file.write("str_%s = %d\n"%(convert_to_identifier(strings[i][0]), i))
-##    file.close()
-##    file = open("./ID_skills.py", "w")
-##    for i in xrange(len(skills)):
-##      file.write("skl_%s = %d\n"%(convert_to_identifier(skills[i][0]), i))
-##    file.close()
-##    file = open("./ID_musics.py", "w")
-##    for i in xrange(len(tracks)):
-##      file.write("track_%s = %d\n"%(convert_to_identifier(tracks[i][0]), i))
-##    file.close()
-##    file = open("./ID_animations.py", "w")
-##    for i in xrange(len(animations)):
-##      file.write("anim_%s = %d\n"%(convert_to_identifier(animations[i][0]), i))
-##    file.close()
-##    file = open("./ID_meshes.py", "w")
-##    for i in xrange(len(meshes)):
-##      file.write("mesh_%s = %d\n"%(convert_to_identifier(meshes[i][0]), i))
-##    file.close()
-##    file = open("./ID_sounds.py", "w")
-##    for i in xrange(len(sounds)):
-##      file.write("snd_%s = %d\n"%(convert_to_identifier(sounds[i][0]), i))
-##    file.close()
-##    file = open("./ID_factions.py", "w")
-##    for i in xrange(len(factions)):
-##      file.write("fac_%s = %d\n"%(convert_to_identifier(factions[i][0]), i))
-##    file.close()
-##    file = open("./ID_items.py", "w")
-##    for i in xrange(len(items)):
-##      file.write("itm_%s = %d\n"%(convert_to_identifier(items[i][0]), i))
-##    file.close()
-##    file = open("./ID_scenes.py", "w")
-##    for i in xrange(len(scenes)):
-##      file.write("scn_%s = %d\n"%(convert_to_identifier(scenes[i][0]), i))
-##    file.close()
-##    file = open("./ID_troops.py", "w")
-##    for i in xrange(len(troops)):
-##      file.write("trp_%s = %d\n"%(convert_to_identifier(troops[i][0]), i))
-##    file.close()
-##    file = open("./ID_particle_systems.py", "w")
-##    for i in xrange(len(particle_systems)):
-##      file.write("psys_%s = %d\n"%(convert_to_identifier(particle_systems[i][0]), i))
-##    file.close()
-##    file = open("./ID_scene_props.py", "w")
-##    for i in xrange(len(scene_props)):
-##      file.write("spr_%s = %d\n"%(convert_to_identifier(scene_props[i][0]), i))
-##    file.close()
-##    file = open("./ID_tableau_materials.py", "w")
-##    for i in xrange(len(tableaus)):
-##      file.write("tableau_%s = %d\n"%(convert_to_identifier(tableaus[i][0]), i))
-##    file.close()
-##    file = open("./ID_presentations.py", "w")
-##    for i in xrange(len(presentations)):
-##      file.write("prsnt_%s = %d\n"%(convert_to_identifier(presentations[i][0]), i))
-##    file.close()
-##    file = open("./ID_party_templates.py", "w")
-##    for i in xrange(len(party_templates)):
-##      file.write("pt_%s = %d\n"%(convert_to_identifier(party_templates[i][0]), i))
-##    file.close()
-##    file = open("./ID_parties.py", "w")
-##    for i in xrange(len(parties)):
-##      file.write("p_%s = %d\n"%(convert_to_identifier(parties[i][0]), i))
-##    file.close()
-##    file = open("./ID_quests.py", "w")
-##    for i in xrange(len(quests)):
-##      file.write("qst_%s = %d\n"%(convert_to_identifier(quests[i][0]), i))
-##      file.write("qsttag_%s = %d\n\n"%(quests[i][0], opmask_quest_index|i))
-##    file.close()
-##    file = open("./ID_info_pages.py", "w")
-##    for i in xrange(len(info_pages)):
-##      file.write("ip_%s = %d\n"%(convert_to_identifier(info_pages[i][0]), i))
-##    file.close()
-##    file = open("./ID_mission_templates.py", "w")
-##    for i in xrange(len(mission_templates)):
-##      file.write("mst_%s = %d\n"%(convert_to_identifier(mission_templates[i][0]), i))
-##    file.close()
-##    file = open("./ID_menus.py", "w")
-##    for i in xrange(len(game_menus)):
-##      file.write("menu_%s = %d\n"%(convert_to_identifier(game_menus[i][0]), i))
-##    file.close()
-##    file = open("./ID_postfx_params.py", "w")
-##    for i in xrange(len(postfx_params)):
-##      file.write("pfx_%s = %d\n"%(convert_to_identifier(postfx_params[i][0]), i))
-##    file.close()
     
     #Item Modifiers:
-    file = open("./headers/header_item_modifiers.py", "w")
     langFile = open(language_dir + "item_modifiers.csv", "w")
-    i = 1
-    for imod in xrange(len(imods)):
-        file.write("imod_%s = %d\n"%(convert_to_identifier(imods[imod][0]), imod))
-        file.write("imodbit_%s = %d\n"%(convert_to_identifier(imods[imod][0]), i))
-        file.write("imodmul_%s = %d\n"%(convert_to_identifier(imods[imod][0]), imods[imod][2]))
-        file.write("imoddiv_%s = %d\n\n"%(convert_to_identifier(imods[imod][0]), imods[imod][3]))
-        i *= 2
+    file = open(data_dir + "item_modifiers.txt", "w")
     for imod in imods:
         if (len(imod) > 4):
+            file.write("imod_%s %s %.6f %.6f\n"%(convert_to_identifier(imod[0]), replace_spaces(imod[4].replace("%n", imod[1])), imod[2], imod[3]))
             langFile.write("imod_%s|%s\n"%(convert_to_identifier(imod[0]), imod[4].replace("%n", imod[1])))
         else:
+            file.write("imod_%s %s %.6f %.6f\n"%(convert_to_identifier(imod[0]), replace_spaces(imod[1]) + "_%s", imod[2], imod[3]))
             langFile.write("imod_%s|%s\n"%(convert_to_identifier(imod[0]), imod[1] + " %s"))
     file.close()
     langFile.close()
@@ -990,7 +909,7 @@ def compile_init():
 ##    ifile = open("./ID_map_icons.py", "w")
     file.write("map_icons_file version 1\n")
     file.write("%d\n"%len(map_icons))
-    for i_map_icon in xrange(len(map_icons)):
+    for i_map_icon in range(len(map_icons)):
         map_icon = map_icons[i_map_icon]
         temp = []
         if (len(map_icon) >= 8):
@@ -1013,7 +932,7 @@ def compile_init():
 ##    ifile = open("./ID_strings.py", "w")
     file.write("stringsfile version 1\n")
     file.write("%d\n"%len(strings))
-    for i_string in xrange(len(strings)):
+    for i_string in range(len(strings)):
         arg = strings[i_string]
         langFile.write("str_%s|%s\n"%(convert_to_identifier(arg[0]), arg[1]))
         file.write("str_%s %s\n"%(convert_to_identifier(arg[0]), replace_spaces(arg[1])))
@@ -1029,7 +948,7 @@ def compile_init():
     langFile = open(language_dir + "skills.txt", "w")
 
     file.write("%d\n"%len(skills))
-    for i_skill in xrange(len(skills)):
+    for i_skill in range(len(skills)):
         skill = skills[i_skill]
         langFile.write("skl_%s|%s\n"%(skill[0], skill[1]))
         langFile.write("skl_%s_desc|%s\n"%(skill[0], skill[4]))
@@ -1044,7 +963,7 @@ def compile_init():
     file = open(export_dir + "music.txt", "w")
 ##    ifile = open("./ID_music.py", "w")
     file.write("%d\n"%len(tracks))
-    for i_track in xrange(len(tracks)):
+    for i_track in range(len(tracks)):
         track = tracks[i_track]
         file.write("%s %d %d\n"%(track[1], track[2], (track[2] | track[3])))
 ##        ifile.write("track_%s = %d\n"%(track[0], i_track))
@@ -1058,7 +977,7 @@ def compile_init():
     args = compile_action_sets(animations)
 ##    args = animations
     file.write("%d\n"%len(args))
-    for i_action_code in xrange(len(args)):
+    for i_action_code in range(len(args)):
 ##        ifile.write("anim_%s = %d\n"%(args[i_action_code], i_action_code))
         action_found = 0
         for action in animations:
@@ -1087,7 +1006,7 @@ def compile_init():
     file = open(export_dir + "meshes.txt", "w")
 ##    ifile = open("./ID_meshes.py", "w")
     file.write("%d\n"%len(meshes))
-    for i_mesh in xrange(len(meshes)):
+    for i_mesh in range(len(meshes)):
         mesh = meshes[i_mesh]
         file.write("mesh_%s %d %s %f %f %f %f %f %f %f %f %f\n"%(mesh[0], mesh[1], replace_spaces(mesh[2]), mesh[3], mesh[4], mesh[5], mesh[6], mesh[7], mesh[8], mesh[9], mesh[10], mesh[11]))
 ##        ifile.write("mesh_%s = %d\n"%(mesh[0], i_mesh))
@@ -1104,7 +1023,7 @@ def compile_init():
     for sound_sample in args:
         file.write(" %s %d\n"%sound_sample)
     file.write("%d\n"%len(sounds))
-    for i_sound in xrange(len(sounds)):
+    for i_sound in range(len(sounds)):
         sound = sounds[i_sound]
 ##        ifile.write("snd_%s = %d\n"%(sound[0], i_sound))
         file.write("snd_%s %d %d "%(sound[0], sound[1], len(sound[2])))
@@ -1125,7 +1044,7 @@ def compile_init():
     if (len(skins) > 16):
         skn = skins[0:15]
     file.write("%d\n"%len(skn))
-    for i_skin in xrange(len(skn)):
+    for i_skin in range(len(skn)):
         skin = skn[i_skin]
         blood_particles_1 = 0
         blood_particles_2 = 0
@@ -1159,7 +1078,7 @@ def compile_init():
         file.write("%d\n"%len(constraints))
         for constraint in constraints:
             file.write("\n%f %d %d "%(constraint[0], constraint[1], len(constraint) - 2))
-            for i_pair in xrange(len(constraint)):
+            for i_pair in range(len(constraint)):
                 if i_pair > 1:
                     file.write(" %f %d"%(constraint[i_pair][0], constraint[i_pair][1]))
         file.write("\n")
@@ -1175,7 +1094,7 @@ def compile_init():
     file.write("factionsfile version 1\n")
     file.write("%d\n"%len(factions))
     relations = compile_relations()
-    for i_faction in xrange(len(factions)):
+    for i_faction in range(len(factions)):
         faction = factions[i_faction]
         fac_color = 0xAAAAAA
         if len(faction) == 7:
@@ -1203,7 +1122,7 @@ def compile_init():
     langFile = open(language_dir + "item_kinds.csv", "w")
     file.write("itemsfile version 3\n")
     file.write("%d\n"%len(items))
-    for i_item in xrange(len(items)):
+    for i_item in range(len(items)):
         item = items[i_item]
 ##        ifile.write("itm_%s = %d\n"%(convert_to_identifier(item[0]), i_item))
         langFile.write("itm_%s|%s\n"%(convert_to_identifier(item[0]), item[1]))
@@ -1233,7 +1152,7 @@ def compile_init():
 ##    ifile = open("./ID_scenes.py", "w")
     file.write("scenesfile version 1\n")
     file.write(" %d\n"%len(scenes))
-    for i_scene in xrange(len(scenes)):
+    for i_scene in range(len(scenes)):
         scene = scenes[i_scene]
 ##        ifile.write("scn_%s = %d\n"%(convert_to_identifier(scene[0]), i_scene))
         file.write("scn_%s %s %d %s %s %f %f %f %f %f %s "%(convert_to_identifier(scene[0]), replace_spaces(scene[0]), scene[1], scene[2], scene[3], scene[4][0], scene[4][1], scene[5][0], scene[5][1], scene[6], scene[7]))
@@ -1264,7 +1183,7 @@ def compile_init():
     langFile = open(language_dir + "troops.csv", "w")
     file.write("troopsfile version 2\n")
     file.write("%d \n"%len(troops))
-    for i_troop in xrange(len(troops)):
+    for i_troop in range(len(troops)):
         troop = troops[i_troop]
         troop_len = len(troop)
         if troop_len == 11:
@@ -1288,7 +1207,7 @@ def compile_init():
                 file.write("%d %d "%(inventory_item[0], inventory_item[1]<<24))
             else:
                 file.write("%d 0 "%inventory_item)
-        for i in xrange(64 - len(inventory_list)):
+        for i in range(64 - len(inventory_list)):
             file.write("-1 0 ")
         file.write("\n ")
         attrib = troop[8]
@@ -1299,25 +1218,25 @@ def compile_init():
         starting_level = (attrib >> level_bits) & level_mask
         file.write(" %d %d %d %d %d\n"%(strength, agility, intelligence, charisma, starting_level))
         wp_word = troop[9]
-        for wp in xrange(7):
+        for wp in range(7):
             wp_level = wp_word & 0x3FF
             file.write(" %d"%wp_level)
             wp_word = wp_word >> 10
         file.write("\n")
 
         skill_array = troop[10]
-        for i in xrange(6):
+        for i in range(6):
             file.write("%d "%((skill_array >> (i * 32)) & 0xffffffff))
         file.write("\n  ")
 
         face_keys = [troop[11], troop[12]]
         for fckey in (face_keys):
             word_keys = []
-            for word_no in xrange(4):
+            for word_no in range(4):
                 word_keys.append((fckey >> (64 * word_no)) & 0xFFFFFFFFFFFFFFFF)
-            for word_no in xrange(4):
+            for word_no in range(4):
                 file.write("%d "%(word_keys[3 - word_no]))
-            file.write("\n")
+        file.write("\n")
     file.close()
 ##    ifile.close()
     langFile.close()
@@ -1327,7 +1246,7 @@ def compile_init():
 ##    ifile = open("./ID_particle_systems.py", "w")
     file.write("particle_systemsfile version 1\n")
     file.write("%d\n"%len(particle_systems))
-    for i_psys in xrange(len(particle_systems)):
+    for i_psys in range(len(particle_systems)):
         psys = particle_systems[i_psys]
 ##        ifile.write("psys_%s = %d\n"%(psys[0], i_psys))
         file.write("psys_%s %d %s  %d %f %f %f %f %f \n"%(psys[0], psys[1], psys[2], psys[3], psys[4], psys[5], psys[6], psys[7], psys[8]))
@@ -1356,7 +1275,7 @@ def compile_init():
 ##    ifile = open("./ID_scene_props.py", "w")
     file.write("scene_propsfile version 1\n")
     file.write(" %d\n"%len(scene_props))
-    for i_scene_prop in xrange(len(scene_props)):
+    for i_scene_prop in range(len(scene_props)):
         scene_prop = scene_props[i_scene_prop]
 ##        ifile.write("spr_%s = %d\n"%(scene_prop[0], i_scene_prop))
         file.write("spr_%s %d %d %s %s "%(scene_prop[0], scene_prop[1], get_spr_hit_points(scene_prop[1]), scene_prop[2], scene_prop[3]))
@@ -1369,7 +1288,7 @@ def compile_init():
     file = open(export_dir + "tableau_materials.txt", "w")
 ##    ifile = open("./ID_tableau_materials.py", "w")
     file.write("%d\n"%len(tableaus))
-    for i_tableau in xrange(len(tableaus)):
+    for i_tableau in range(len(tableaus)):
         tableau = tableaus[i_tableau]
         file.write("tab_%s %d %s %d %d %d %d %d %d"%(tableau[0], tableau[1], tableau[2], tableau[3], tableau[4], tableau[5], tableau[6], tableau[7], tableau[8]))
 ##        ifile.write("tableau_%s = %d\n"%(tableau[0], i_tableau))
@@ -1383,7 +1302,7 @@ def compile_init():
 ##    ifile = open("./ID_presentations.py", "w")
     file.write("presentationsfile version 1\n")
     file.write(" %d\n"%len(presentations))
-    for i_presentation in xrange(len(presentations)):
+    for i_presentation in range(len(presentations)):
         presentation = presentations[i_presentation]
 ##        ifile.write("prsnt_%s = %d\n"%(presentation[0], i_presentation))
         file.write("prsnt_%s %d %d "%(presentation[0], presentation[1], presentation[2]))
@@ -1398,7 +1317,7 @@ def compile_init():
     langFile = open(language_dir + "party_templates.csv", "w")
     file.write("partytemplatesfile version 1\n")
     file.write("%d\n"%len(party_templates))
-    for i_party_template in xrange(len(party_templates)):
+    for i_party_template in range(len(party_templates)):
         party_template = party_templates[i_party_template]
         langFile.write("pt_%s|%s\n"%(convert_to_identifier(party_template[0]), party_template[1]))
 ##        ifile.write("pt_%s = %d\n"%(convert_to_identifier(party_template[0]), i_party_template))
@@ -1409,7 +1328,7 @@ def compile_init():
             members = members[0:6]
         for party_template_member in members:
             save_party_template_troop(file, party_template_member)
-        for i in xrange(6 - len(members)):
+        for i in range(6 - len(members)):
             save_party_template_troop(file, 0)
         file.write("\n")
     file.close()
@@ -1422,7 +1341,7 @@ def compile_init():
     langFile = open(language_dir + "parties.csv", "w")
     file.write("partiesfile version 1\n")
     file.write("%d %d\n"%(len(parties), len(parties)))
-    for i_party in xrange(len(parties)):
+    for i_party in range(len(parties)):
         party = parties[i_party]
 ##        ifile.write("p_%s = %d\n"%(convert_to_identifier(party[0]), i_party))
         langFile.write("p_%s|%s\n"%(convert_to_identifier(party[0]), party[1]))
@@ -1431,7 +1350,7 @@ def compile_init():
 
         menu_no = 0
         menu_param = party[3]
-        if (type(menu_param) == types.StringType):
+        if (type(menu_param) is str):
             menu_no = find_object(game_menus, menu_param)
             if menu_no < 0:
                 print(strs.error + "Unable to find menu " + menu_param)
@@ -1442,7 +1361,7 @@ def compile_init():
 
         ai_behavior_object = 0
         ai_param = party[8]
-        if (type(ai_param) == types.StringType):
+        if (type(ai_param) is str):
             ai_behavior_object = find_object(parties, ai_param)
             if (ai_behavior_object < 0):
                 print(strs.error + "Unable to find party " + ai_param)
@@ -1472,7 +1391,7 @@ def compile_init():
     langFile = open(language_dir + "quests.csv", "w")
     file.write("questsfile version 1\n")
     file.write("%d\n"%len(quests))
-    for i_quest in xrange(len(quests)):
+    for i_quest in range(len(quests)):
         quest = quests[i_quest]
         langFile.write("qst_%s|%s\n"%(quest[0], quest[1]))
 ##        ifile.write("qst_%s = %d\n"%(quest[0], i_quest))
@@ -1489,7 +1408,7 @@ def compile_init():
     langFile = open(language_dir + "info_pages.csv", "w")
     file.write("infopagesfile version 1\n")
     file.write("%d\n"%len(info_pages))
-    for i_info_page in xrange(len(info_pages)):
+    for i_info_page in range(len(info_pages)):
         info_page = info_pages[i_info_page]
         langFile.write("ip_%s|%s\n"%(info_page[0], info_page[1]))
         langFile.write("ip_%s_text|%s\n"%(info_page[0], info_page[2]))
@@ -1505,7 +1424,7 @@ def compile_init():
 ##    ifile = open("./ID_scripts.py", "w")
     file.write("scriptsfile version 1\n")
     file.write("%d\n"%len(scripts))
-    for i_script in xrange(len(scripts)):
+    for i_script in range(len(scripts)):
         func = scripts[i_script]
 ##        ifile.write("script_%s = %d\n"%(convert_to_identifier(func[0]), i_script))
         if (type(func[1]) == temp_type):
@@ -1524,7 +1443,7 @@ def compile_init():
 ##    ifile = open("./ID_mission_templates.py", "w")
     file.write("missionsfile version 1\n")
     file.write(" %d\n"%len(mission_templates))
-    for i_mission_template in xrange(len(mission_templates)):
+    for i_mission_template in range(len(mission_templates)):
         mission_template = mission_templates[i_mission_template]
 ##        ifile.write("mst_%s = %d\n"%(convert_to_identifier(mission_template[0]), i_mission_template))
         file.write("mst_%s %s %d  %d\n"%(convert_to_identifier(mission_template[0]), convert_to_identifier(mission_template[0]), mission_template[1], mission_template[2]))
@@ -1543,7 +1462,7 @@ def compile_init():
     langFile = open(language_dir + "game_menus.csv", "w")
     file.write("menusfile version 1\n")
     file.write(" %d\n"%len(game_menus))
-    for i_game_menu in xrange(len(game_menus)):
+    for i_game_menu in range(len(game_menus)):
         game_menu = game_menus[i_game_menu]
 ##        ifile.write("menu_%s = %d\n"%(game_menu[0], i_game_menu))
         langFile.write("menu_%s|%s\n"%(game_menu[0], game_menu[2]))
@@ -1570,7 +1489,7 @@ def compile_init():
     file = open(export_dir + "simple_triggers.txt", "w")
     file.write("simple_triggers_file version 1\n")
     file.write("%d\n"%len(simple_triggers))
-    for i_simple_trigger in xrange(len(simple_triggers)):
+    for i_simple_trigger in range(len(simple_triggers)):
         simple_trigger = simple_triggers[i_simple_trigger]
         file.write("%f "%simple_trigger[0])
         save_statement_block(file, 0, 1, simple_trigger[1], variables, variable_uses, tag_uses, quick_strings)
@@ -1581,7 +1500,7 @@ def compile_init():
     file = open(export_dir + "triggers.txt", "w")
     file.write("triggersfile version 1\n")
     file.write("%d\n"%len(triggers))
-    for i in xrange(len(triggers)):
+    for i in range(len(triggers)):
         trigger = triggers[i]
         file.write("%f %f %f "%(trigger[0],trigger[1],trigger[2]))
         save_statement_block(file,0,1,trigger[3], variables, variable_uses, tag_uses, quick_strings)
@@ -1596,7 +1515,7 @@ def compile_init():
     file.write("%d\n"%len(dialogs))
     (input_states,output_states) = compile_sentence_tokens(dialogs)
     auto_ids = {}
-    for i_sentence in xrange(len(dialogs)):
+    for i_sentence in range(len(dialogs)):
         sentence = dialogs[i_sentence]
         try:
             dialog_id = create_autoid(sentence, auto_ids)
@@ -1614,6 +1533,7 @@ def compile_init():
                 file.write("%s "%sencente[6])
             else:
                 file.write("NO_VOICEOVER ")
+                
             file.write("\n")
             langFile.write("\n")
         except:
@@ -1626,7 +1546,7 @@ def compile_init():
 ##    ifile = open("./ID_postfx_params.py", "w")
     file.write("postfx_paramsfile version 1\n")
     file.write("%d\n"%len(postfx_params))
-    for i_postfx_param in xrange(len(postfx_params)):
+    for i_postfx_param in range(len(postfx_params)):
         postfx_param = postfx_params[i_postfx_param]
 ##        ifile.write("pfx_%s = %d\n"%(postfx_param[0], i_postfx_param))
         file.write("pfx_%s %d %d"%(postfx_param[0], postfx_param[1], postfx_param[2]))
@@ -1648,7 +1568,8 @@ def compile_init():
         var_list = file.readlines()
         file.close()
         for variable in var_list:
-            var = string.strip(variable)
+            ##var = string.strip(variable)
+            var = variable.strip()
             if var:
                 variables.append(var)
                 variable_uses.append(int(1))
@@ -1665,9 +1586,43 @@ def compile_init():
     save_variables(variables, variable_uses)
     save_tag_uses(tag_uses)
     save_quick_strings(quick_strings)
+
+    ## UID: 141 - Begin
+    #
+    file = open("version.txt", 'r')
+    cVersion = "0.1"
+    cFirst = "1"
+    cVercur = "1"
+    cVerbool = 0
+    while True:
+        readn = file.readline()
+        if not readn:
+            break
+        if re.match(r".*\[v[0-9]\.[0-9]+\]", readn):
+            cur = readn.split('[')[1].split(']')[0].replace("v", "")
+            cVersion = cur
+            cVerbool = 1
+
+        if re.match(r"^[1-9][0-9]*\..*", readn):
+            cur = readn.split('.')[0]
+            if cVerbool:
+                cFirst = cur
+                cVerbool = 0
+            cVercur = cur
+    cCur = int(cVercur) - int(cFirst)
+    file.close()
+    #
+    ## UID: 141 - End
     end_time = int(round(time.time() * 1000))
     diff_time = str((end_time - start_time) / 1000.0)
     #clear_module() #Clean the module system at the end...
-    print(colors.dgreen + "Compiling completed in " + colors.dcyan + diff_time + colors.dgreen + " milliseconds.")
+
+    ## UID: 141 - Begin
+    #
+    #print(colors.dgreen + "Compiling completed in " + colors.dcyan + diff_time + colors.dgreen + " milliseconds.")
+    print(colors.dgreen + "Compiling version " + colors.dcyan + "v" + cVersion + "." + str(cCur) + colors.dgreen + " completed in " + colors.dcyan + diff_time + colors.dgreen + " milliseconds.")
+    #
+    ## UID: 141 - End
+
 
 compile_init()

@@ -1,4 +1,4 @@
-profenix:
+﻿profenix:
 +Askerlere handa bira ısmarlayıp (1000 dinar karşılığında) morallerini yükseltebiliriz, hatta askerleri karıya götürme olayı da olabilir :D
   * Kadın ve yemek kiralama var, ayrıca orjinal içki ısmarlama sisteminde ufak değişiklik yapılacak.
 -Köylere yağmaya karşı koruma olarak en fazla 50 asker olmak üzere asker koyabiliriz.
@@ -188,9 +188,9 @@ mehmet11212:
   * Haydut kampları yeniden kodlandı henüz deneme aşamasında olsa da sorunsuz görünüyor.
 &Hanlarda oturan insanlara tıklayınca İngilizce yazıyor How is life tarzı bunların Türkçeleştirilmesi hoş olur.
   * Türkçeleştirmelere az önem veriyorum kodlama yaparken, ancak bu sürümde eksiksiz yapmaya çalışacağım.
-+Başka krallığın inşa ettirdiği yapı , o şehri falan ele geçirince hala o krallığın yapısı gibi görünüyor mesela atıyorum sarranidler  ulak karakolu yapmış diyelim Tulga şehrine , sen Tulga'yı alsında sarı renkte ulak karakolu duruyor.
++Başka krallığın inşa ettirdiği yapı, o şehri falan ele geçirince hala o krallığın yapısı gibi görünüyor mesela atıyorum sarranidler  ulak karakolu yapmış diyelim Tulga şehrine , sen Tulga'yı alsında sarı renkte ulak karakolu duruyor.
   * Bu sorun düzeltildi.
-&Mühendis alım , yani genel olarak inşaat ekranı tamamı ile İngilizce.
+&Mühendis alım, yani genel olarak inşaat ekranı tamamı ile İngilizce.
   * Mühendis sistemi kalktı ancak yeni bir sistem var.
 &Kara şövalyeler birisiyle savaşırken tıkladığımda sadece ayrıl seçeneği var .
   * İki tarafta düşmansa böyle olabiliyor.

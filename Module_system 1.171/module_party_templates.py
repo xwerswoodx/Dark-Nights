@@ -90,7 +90,12 @@ party_templates = [
   ## UID: 122 - Begin
   #
   #("dark_hunters","Dark Hunters",icon_dedal_map_swadia_king_b,0,fac_dark_knights,soldier_personality,[(trp_dark_knight,8,32),(trp_dark_hunter,6,24),(trp_dark_pikeman,8,32)]),
-  ("dark_hunters","Dark Hunters",icon_dedal_map_swadia_king_b,0,fac_dark_knights,soldier_personality,[(trp_dark_lord,1,5),(trp_dark_knight_2,7,11),(trp_dark_cavalary,6,10),(trp_master_dark_crossbowman,6,11),(trp_dark_lord_archer,3,9),(trp_dark_pikeman,4,9)]),
+  ## UID: 138 - Begin
+  #
+  #("dark_hunters","Dark Hunters",icon_dedal_map_swadia_king_b,0,fac_dark_knights,soldier_personality,[(trp_dark_lord,1,5),(trp_dark_knight_2,7,11),(trp_dark_cavalary,6,10),(trp_master_dark_crossbowman,6,11),(trp_dark_lord_archer,3,9),(trp_dark_pikeman,4,9)]),
+  ("dark_hunters","Dark Hunters",icon_dedal_map_swadia_king_b,0,fac_dark_knights,soldier_personality,[(trp_dark_lord,1,5),(trp_dark_knight_2,7,11),(trp_dark_cavalary,6,10),(trp_master_dark_crossbowman,6,11),(trp_dark_lord_archer,3,9),(trp_dark_champion,4,9)]),
+  #
+  ## UID: 138 - End
   #
   ## UID: 122 - End
   ## UID: 95 - Begin

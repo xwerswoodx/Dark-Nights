@@ -711,5 +711,11 @@ meshes = [
   #
   ## UID: 43 - End
 
+  ## UID: 146 - Begin
+  #
+  ("party_window", 0, "pwindow", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  #
+  ## UID: 146 - End
+
   ## EOF
 ]

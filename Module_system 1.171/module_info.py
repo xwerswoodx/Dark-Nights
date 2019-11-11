@@ -10,3 +10,9 @@ export_dir = "D:/Program Files/Steam/steamapps/common/MountBlade Warband/Modules
 language_dir = export_dir + "/languages/build/"
 #
 ## UID: 6 - End
+
+##
+#
+data_dir = export_dir + "/Data/"
+#
+##

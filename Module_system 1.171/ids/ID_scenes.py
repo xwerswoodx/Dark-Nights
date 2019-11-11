@@ -664,3 +664,4 @@ scn_bandit_2_camp = 662
 scn_bandit_end = 663
 scn_town_bank = 664
 scn_out_mine = 665
+scn_ptown_1 = 666

@@ -365,4 +365,15 @@ map_icons = [
   ("boar", 0.2, "boar", 0.2, snd_footstep_grass, 0.15, 0.173, 0),
   #
   ## UID: 80 - End
+
+  ## UID: 152 - Begin
+  #
+  ("cozur_lighthouse", mcn_no_shadow, "lighthouse", 0.45, 0),
+  ("cozur_lighthouse_grey", mcn_no_shadow, "lighthouse_2_grey", 0.45, 0),
+  ("cozur_lighthouse_white", mcn_no_shadow, "lighthouse_2_white", 0.45, 0),
+  ("cozur_lighthouse_dorne", mcn_no_shadow, "lighthouse_2_dorne", 0.45, 0),
+  ("cozur_lighthouse_essos", mcn_no_shadow, "lighthouse_2_essos", 0.45, 0),
+  ("cozur_lighthouse_essos2", mcn_no_shadow, "lighthouse_2_essos2", 0.45, 0),
+  #
+  ## UID: 152 - End
 ]

@@ -855,6 +855,8 @@ strings = [
   ("npc16_backstory_a", "Well, {reg0?sir:madame}, as long as I can remember I've had a weakness for pretty things, and it's gotten me into trouble, you see."),
   ("npc17_backstory_a", "I was a chef in Shariz but when the war starts our lord decide to close every restaurant at the city to stock more food in city inventory."),
   ("npc18_backstory_a", "Ah, if you want to know maybe I can tell you. By the way my name is Gale"),
+  #
+  ## UID: 114 - End
   
   #backstory main body
   ("npc1_backstory_b", "I had a bit of a misunderstanding {s19}in {s20} about a horse that I found tied up outside the inn. It was the spitting image of a beast that threw me a few days back and ran off. Naturally I untied it for a closer look. As it turns out, the horse belonged to a merchant, a pinch-faced old goat who wouldn't accept that it all was a simple misunderstanding, and went off to get the guard."),
@@ -4356,21 +4358,20 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("merchant_and_you_call_some_townsmen_and_guards_to_get_ready_and_you_get_out_from_tavern", "You leave the tavern and go out to the streets. Nervous looking young men are waiting in every street corner. You can see they have daggers and clubs concealed under their clothes, and catch a mixture of fear, anticipation and pride in the quick looks they throw at you as you pass by. Praying that your enemies have not been alarmed by this all too obvious bunch of plotters, you check your weapons for one last time and prepare yourself for the action ahead."),
   ("town_fight_ended_you_and_citizens_cleaned_town_from_bandits", "The remaining few bandits scatter off to the town's narrow alleys, only to be hunted down one by one by the angry townsfolk. Making sure that your victory is complete and all the wounded have been taken care of, you and the merchant head to his house to review the day's events."),
   ("town_fight_ended_you_and_citizens_cleaned_town_from_bandits_you_wounded", "You fall down with that last blow, unable to move and trying hard not to pass out. Soon the sounds of fighting filling the street gives way to the cheers of the townsmen and you realize with relief that your side won the day. Soon, friendly arms pick you up from the ground and you let yourself drift off to a blissful sleep. Hours later, you wake up in the merchants house."),
-  
-  
- ("journey_to_reyvadin", "You have come through the Vaegir highlands, a plateau exposed to the bitter winds from the north. The land here is frozen for most of the year, but the forests are rich with fur-bearing game, and the rivers are teaming with fish. The riches of the land draw the traders, but the traders in turn draw bandits. You saw the occasional dark figure mounted on a shaggy pony, watching the passage of your caravan from a snowy ridge, and were glad when the spires of Reyvadin came into view across the wide valley of the Boluk river."),
 
- ("journey_to_praven", "You came by caravan through the heartland of Calradia. Green shoots of wheat, barley and oats are beginning to push through the dark soil of the rolling hills, and on the lower slopes of the snowcapped mountains, herds of cattle and sheep are grazing on the spring grass. Occasionally, too, you catch sight of one of the great warhorses that are the pride of the Swadian nobility. The land here is rich -- but also troubled, as the occasional burnt-out farm bears witness. You keep a wide berth of the forests, where desperate men have taken refuge, and it is some relief when you crest a ridge and catch sight of the great port of Praven, its rooftops made golden by the last rays of the setting sun."),
-
+  ("journey_to_reyvadin", "You have come through the Vaegir highlands, a plateau exposed to the bitter winds from the north. The land here is frozen for most of the year, but the forests are rich with fur-bearing game, and the rivers are teaming with fish. The riches of the land draw the traders, but the traders in turn draw bandits. You saw the occasional dark figure mounted on a shaggy pony, watching the passage of your caravan from a snowy ridge, and were glad when the spires of Reyvadin came into view across the wide valley of the Boluk river."),
+  ("journey_to_praven", "You came by caravan through the heartland of Calradia. Green shoots of wheat, barley and oats are beginning to push through the dark soil of the rolling hills, and on the lower slopes of the snowcapped mountains, herds of cattle and sheep are grazing on the spring grass. Occasionally, too, you catch sight of one of the great warhorses that are the pride of the Swadian nobility. The land here is rich -- but also troubled, as the occasional burnt-out farm bears witness. You keep a wide berth of the forests, where desperate men have taken refuge, and it is some relief when you crest a ridge and catch sight of the great port of Praven, its rooftops made golden by the last rays of the setting sun."),
   ("journey_to_jelkala", "You came by ship, skirting the cliffs where the Rhodok highlands meet the sea. Much of the coastline was obscured by tendrils of fog that snaked down the river valleys, but occasionally you caught sight of a castle watchtower rising above the mists -- and on one occasion, a beacon fire burning to warn of an enemy warband. You knew that you were relatively safe at sea, as you were too far south to risk encountering the sea raiders who trouble the coasts of the Nordic lands, but it was still a relief to reach the Selver estuary, gateway to the port of Jelkala, and see a Rhodok galley riding at anchor, its pennants fluttering in the evening breeze."),
-
   ("journey_to_sargoth", "You took passage with a trading longship, carrying gyrfalcons from the furthest reaches of the north to be bartered for linen and wool. It sailed early in the season, but the master reckoned that the risks of drifting ice and later winter storms could be justified by arriving ahead of the Sea Raiders, who by April would be sailing forth from their island lairs to ravage Calradia's coasts. It was some relief when your ship came in sight of the delta of the Vyl and Boluk rivers, and a short while later, rowed past tidal flats and coastal marshes to the city of Sargoth, home to the Sea Raiders' distant kinsmen, the Nordic lords, who a few generations ago had carved themselves a kingdom in this rich but troubled land."),
-
   ("journey_to_tulga", "You came with a caravan, crossing the mountains that border Calradia on the north and east, bringing spices from faraway lands to trade for wool and salt. The passes were still choked with snow, and it was hard going, but at last you crested a ridge and saw before you the Calradian steppes. On some hillsides the thin grass of spring was already turning yellow, but the lower slopes of the mountains were still a vibrant green. Herds of sheep and tawny steppe ponies drifted across them like clouds, testifying to the wealth of the Khergit khans. From time to time small groups of horsemen would follow your caravan from a distance, perhaps sizing up how well you could defend the wealth you carried, so it was with some relief that you saw the towers of Tulga rising up from the plains."),
-
-
   ("journey_to_shariz", "You came with a caravan, crossing the great desert to the east of Calradia. The bedouin guides chose your route carefully, leapfrogging through treacherous dune fields and across empty gravel plains to low-lying oases rich with orchards and date palms. Your great fear was that the caravan might lose its way and perish of thirst. The small bands of raiders who hovered just out of bowshot, waiting to pick off stragglers, were oddly a comfort -- at least water could be no more than a day's ride away. It was a great relief when the mountains came into view, and on the evening of the following day you crested a rocky pass and in the distance could make out the sea, and the towers of Shariz silhouetted against the sunset."),
-
+  ## UID: 140 - Begin
+  #
+  ("journey_to_lanchaster", "You have come through the Umalelith snowy mountains. The land here is always snowy and cold but it is the best place to hide from the others. You seems like really miss the sun view but Lanchaster is the one of the best places to start adventure. The Kingdom of Umalelith has different type of soldiers and animals that are never used by other kingdoms and these make them one of the strongest nation of the Calradia but they do not like sunshine so they never have any dream to control all Calradia."),
+  ("journey_to_hillford", "You came with a caravan, crossing the great desert to the south-east of Calradia. The caravan master guides you to choose your route carefully because Calradia desert is one of the hardest place to find your way without knowing. There is always sandstorms that makes everything hard for every citizen to leave but some women build a kingdom here for getting revenge from the lords. As you wish to work with them, you moved to Hillford to find job."),
+  #
+  ## UID: 140 - End
+  
   ("lost_tavern_duel_ordinary", "You slump to the floor, stunned by the drunk's last blow. Your attacker's rage immediately seems to slacken. He drops into a chair and sits there watching you, muttering under his breath, almost regretfully. A few of the other patrons manage to coax him to his feet and bundle him out the door. One of the others attends to your wounds, and soon you too are back on your feet, unsteady but alive."),  
   ("lost_tavern_duel_assassin", "You slump to the floor, stunned by your attacker's last blow. Slowly and deliberately, he kneels down by your side, pulling a long knife from under his clothes. But before he can finish you off, the tavernkeeper, who seems to have regained his courage, comes up from behind and gives your attacker a clout behind the head. He loses his balance, and then, seeing that his chance to kill you has been lost, makes a dash for the door. He gets away. Meanwhile, the other tavern patrons bind your wounds and haul you to a back room to rest and recover."),  
   ("lost_startup_hideout_attack", "You recover consciousness a short while later, and see that the kidnappers have celebrated their victory by breaking open a cask of wine, and have forgotten to take a few elementary precautions -- like binding your hands and feet. You manage to slip away. Based on the boisterous sounds coming from the hideout, you suspect that you may yet have some time to gather a few more followers and launch another attack."),  
@@ -4710,5 +4711,37 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("s9s_patrol_party", "{s9}'s Patrol Party"),
   #
   ## UID: 62 - End
+
+  ## UID: 140 - Begin
+  #
+  ("mcc_zero", "0"),
+  ("mcc_skl_ironflesh", "Ironflesh"),
+  ("mcc_skl_powerstrike", "Power Strike"),
+  ("mcc_skl_powerthrow", "Power Throw"),
+  ("mcc_skl_powerdraw", "Power Draw"),
+  ("mcc_skl_weaponmaster", "Weapon Master"),
+  ("mcc_skl_shield", "Shield"),
+  ("mcc_skl_athletics", "Athletics"),
+  ("mcc_skl_riding", "Riding"),
+  ("mcc_skl_horsearchery", "Horse Archery"),
+  ("mcc_skl_looting", "Looting"),
+  ("mcc_skl_taste_id", "Taste Identification"),
+  ("mcc_skl_literacy", "Literacy"),
+  ("mcc_skl_trainer", "Trainer"),
+  ("mcc_skl_tracking", "Tracking"),
+  ("mcc_skl_tactics", "Tactics"),
+  ("mcc_skl_pathfinding", "Path-finding"),
+  ("mcc_skl_spotting", "Spotting"),
+  ("mcc_skl_inventorymanagement", "Inventory Mgmt."),
+  ("mcc_skl_woundtreatment", "Wound Treatment"),
+  ("mcc_skl_surgery", "Surgery"),
+  ("mcc_skl_firstaid", "First Aid"),
+  ("mcc_skl_engineer", "Engineer"),
+  ("mcc_skl_persuasion", "Persuasion"),
+  ("mcc_skl_prisonermanagement", "Prisoner Mgmt."),
+  ("mcc_skl_leadership", "Leadership"),
+  ("mcc_skl_trade", "Trade"),
+  #
+  ## UID: 140 - End
   
 ]

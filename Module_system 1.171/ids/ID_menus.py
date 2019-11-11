@@ -234,3 +234,4 @@ menu_messenger_post = 232
 menu_deer_herd = 233
 menu_boar_herd = 234
 menu_tunnel = 235
+menu_pirate_town = 236

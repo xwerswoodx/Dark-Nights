@@ -8,15 +8,10 @@
 --- Savaş Çığlığı (OSP: Chel)
 --- Sataşma (OSP: Chel)
 - Bir kale fethinden sonra size verilmediği zaman gelen para miktarı arttırıldı. (1000 + (level x 50) + (nam / 2)) (10000 nam 20 level olduğunuzu düşünürsek: (1000 + (20x50) + (10000/2)) = 7000 Dinar
-- Savaş sırasında çantanın açılması ayarlandı.
-- Savaştan kazanılan para arttırıldı.
 - Savaş sırasında ölünce kameraya geçmesi eklendi. (OSP: MadVader)
 - Dolaşmaya çıkma seçeneğinde artık kişi tek başına spawn olacak.
 - Eğer kişinin sancağı var ise, kamp>bir işe giriş menüsünden onu değiştirebilmesi ayarlandı.
 - Artık gözcü kulesinde dinlenme için köy ile olan bağ kontrol ediliyor.
-- Labirent eşyaları eklendi. (OSP: Albertus Magnus)
---- Gelecek ile ilgili planlamalar var.
---- Hammer eklendi.
 - Kadınlar için takılar eklendi. (OSP: Broken_one)
 - Yeni samuray giysileri eklendi. (OSP: SacredStoneHead)
 --- Kote
@@ -24,7 +19,6 @@
 --- Yoroi
 --- Suneate
 - Gizli kasalara yeni samuray giysileride eklendi ve kasalar üç şehre eklendi.
-- Karakter menüsünde, beceriler yazısının ve ikonunun becerilerin üzerinde olma sorunu giderildi.
 - Ulak karakolu ve gözcü kulesi artık köyün durumuna göre simge alıyor.
 --- Binalar, köy saldırı altında veya yağmalanmışsa kullanılamaz hale geliyor.
 - Dini inanç şehir ve köy menülerine eklendi.
@@ -44,3 +38,5 @@
 - Leydilerin lordları aldatması.
 - Krallıkların asilerinin bir anda ortaya çıkıp krallığa savaş açması.
 - Yiyecek içecek için skill eklenecek (Taste Identification) ve yiyecek içecek masrafı ona göre düşecek.
+
+{sir/madam}

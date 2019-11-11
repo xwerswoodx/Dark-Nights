@@ -4391,6 +4391,8 @@
   *** itm_spak_skeleton_bandit_b
   *** itm_spak_skeleton_bandit_b2
   *** itm_spak_skeleton_bandit_b3
+  *** itm_spak_skeleton_hand_L
+  *** itm_spak_skeleton_head
   *** itm_spak_2full_plate_armor
   *** itm_spak_splate_armor
   *** itm_spak_splate_armor2
@@ -4608,6 +4610,10 @@
   *** itm_spak_skeleton_bandit_b2_pl
   *** itm_spak_skeleton_bandit_b3
   *** itm_spak_skeleton_bandit_b3_pl
+  *** itm_spak_skeleton_hand_L
+  *** itm_spak_skeleton_hand_L_pl
+  *** itm_spak_skeleton_head
+  *** itm_spak_skeleton_head_pl
   *** itm_spak_2full_plate_armor
   *** itm_spak_2full_plate_armor_pl
   *** itm_spak_splate_armor
@@ -5494,7 +5500,606 @@
   *** itm_shield_amazon_2_pl
   *** itm_throwing_daggers_2
   *** itm_throwing_daggers_2_pl
+  
+138. Upgrading dark knights from merchanary troops cancelled.
+  * module_troops.py
+  ** Removed:
+  *** trp_dark_archer
+  *** trp_dark_hunter
+  *** trp_dark_pikeman
+  * module_party_templates.py
+  ** Replaced:
+  *** pt_dark_hunters
+  * module_triggers.py
+  ** Edited:
+  *** 24h trigger to add dark knight.
+  
+139. Patrol dialogs added to game.
+  * module_dialogs.py
+  ** Added:
+  *** dlga_start:patrol_talk_defender
+  *** dlga_start:patrol_talk_defender.1
+  *** dlga_patrol_talk_defender:patrol_talk_defender_predemand
+  *** dlga_patrol_talk_defender_predemand:patrol_talk_defender_demand
+  *** dlga_patrol_talk_defender_demand:patrol_talk_defender_usur
+  *** dlga_patrol_talk_defender_usur:patrol_talk_defender_verify
+  *** dlga_patrol_talk_defender_verify:patrol_talk_defender_verify_cancel
+  *** dlga_patrol_talk_defender_verify_cancel:close_window
+  *** dlga_patrol_talk_defender_verify:patrol_talk_defender_verify_commit
+  *** dlga_patrol_talk_defender_usur:patrol_talk_defender_verify_b
+  *** dlga_patrol_talk_defender_verify_b:patrol_talk_defender_verify_cancel
+  *** dlga_patrol_talk_defender_verify_b:patrol_talk_defender_verify_commit
+  *** dlga_patrol_talk_defender_verify_commit:close_window
+  *** dlga_patrol_talk_defender_demand:patrol_pretalk_defender
+  *** dlga_patrol_pretalk_defender:patrol_talk_defender
+  *** dlga_patrol_talk_defender:patrol_talk_defender_us
+  *** dlga_patrol_talk_defender_us:close_window
+  *** dlga_patrol_talk_defender:close_window
+  *** dlga_patrol_talk_defender:close_window.1
+  *** dlga_start:patrol_talk
+  *** dlga_patrol_talk:patrol_talk_do
+  *** dlga_patrol_talk_do:patrol_talk_do_answer
+  *** dlga_patrol_talk_do_answer:patrol_pretalk
+  *** dlga_patrol_talk:close_window
+  *** dlga_patrol_pretalk:patrol_talk
+  *** dlga_start:patrol_talk_attacker
+  *** dlga_start:patrol_talk_attacker.1
+  *** dlga_start:patrol_talk_attacker.2
+  *** dlga_patrol_talk_attacker:close_window
+  *** dlga_patrol_talk_attacker:close_window.1
+  *** dlga_patrol_talk_attacker:patrol_talk_attacker_predemand
+  *** dlga_patrol_talk_attacker_predemand:patrol_talk_attacker_demand
+  *** dlga_patrol_talk_attacker_demand:patrol_talk_attacker_usur
+  *** dlga_patrol_talk_attacker_usur:patrol_talk_attacker_verify
+  *** dlga_patrol_talk_attacker_verify:patrol_talk_attacker_verify_cancel
+  *** dlga_patrol_talk_attacker_verify_cancel:close_window
+  *** dlga_patrol_talk_attacker_verify:patrol_talk_attacker_verify_commit
+  *** dlga_patrol_talk_attacker_usur:patrol_talk_attacker_verify_b
+  *** dlga_patrol_talk_attacker_verify_b:patrol_talk_attacker_verify_cancel
+  *** dlga_patrol_talk_attacker_verify_b:patrol_talk_attacker_verify_commit
+  *** dlga_patrol_talk_attacker_verify_commit:close_window
+  *** dlga_patrol_talk_attacker_demand:patrol_pretalk_attacker
+  *** dlga_patrol_pretalk_attacker:patrol_talk_attacker
+  *** dlga_patrol_talk_attacker:close_window.2
+  ** Removed:
+  *** dlga_start:patrol_lord
+  *** dlga_patrol_lord:close_window
+  * dialogs.csv
+  ** Added:
+  *** dlga_start:patrol_talk_defender
+  *** dlga_start:patrol_talk_defender.1
+  *** dlga_patrol_talk_defender:patrol_talk_defender_predemand
+  *** dlga_patrol_talk_defender_predemand:patrol_talk_defender_demand
+  *** dlga_patrol_talk_defender_demand:patrol_talk_defender_usur
+  *** dlga_patrol_talk_defender_usur:patrol_talk_defender_verify
+  *** dlga_patrol_talk_defender_verify:patrol_talk_defender_verify_cancel
+  *** dlga_patrol_talk_defender_verify_cancel:close_window
+  *** dlga_patrol_talk_defender_verify:patrol_talk_defender_verify_commit
+  *** dlga_patrol_talk_defender_usur:patrol_talk_defender_verify_b
+  *** dlga_patrol_talk_defender_verify_b:patrol_talk_defender_verify_cancel
+  *** dlga_patrol_talk_defender_verify_b:patrol_talk_defender_verify_commit
+  *** dlga_patrol_talk_defender_verify_commit:close_window
+  *** dlga_patrol_talk_defender_demand:patrol_pretalk_defender
+  *** dlga_patrol_pretalk_defender:patrol_talk_defender
+  *** dlga_patrol_talk_defender:patrol_talk_defender_us
+  *** dlga_patrol_talk_defender_us:close_window
+  *** dlga_patrol_talk_defender:close_window
+  *** dlga_patrol_talk_defender:close_window.1
+  *** dlga_start:patrol_talk
+  *** dlga_patrol_talk:patrol_talk_do
+  *** dlga_patrol_talk_do:patrol_talk_do_answer
+  *** dlga_patrol_talk_do_answer:patrol_pretalk
+  *** dlga_patrol_talk:close_window
+  *** dlga_patrol_pretalk:patrol_talk
+  *** dlga_start:patrol_talk_attacker
+  *** dlga_start:patrol_talk_attacker.1
+  *** dlga_start:patrol_talk_attacker.2
+  *** dlga_patrol_talk_attacker:close_window
+  *** dlga_patrol_talk_attacker:close_window.1
+  *** dlga_patrol_talk_attacker:patrol_talk_attacker_predemand
+  *** dlga_patrol_talk_attacker_predemand:patrol_talk_attacker_demand
+  *** dlga_patrol_talk_attacker_demand:patrol_talk_attacker_usur
+  *** dlga_patrol_talk_attacker_usur:patrol_talk_attacker_verify
+  *** dlga_patrol_talk_attacker_verify:patrol_talk_attacker_verify_cancel
+  *** dlga_patrol_talk_attacker_verify_cancel:close_window
+  *** dlga_patrol_talk_attacker_verify:patrol_talk_attacker_verify_commit
+  *** dlga_patrol_talk_attacker_usur:patrol_talk_attacker_verify_b
+  *** dlga_patrol_talk_attacker_verify_b:patrol_talk_attacker_verify_cancel
+  *** dlga_patrol_talk_attacker_verify_b:patrol_talk_attacker_verify_commit
+  *** dlga_patrol_talk_attacker_verify_commit:close_window
+  *** dlga_patrol_talk_attacker_demand:patrol_pretalk_attacker
+  *** dlga_patrol_pretalk_attacker:patrol_talk_attacker
+  *** dlga_patrol_talk_attacker:close_window.2
 
-Known Bugs:
-tf_female; Ladies seems like a man so dialogs should be changed with gender.
-Troop ratio sometimes goes invisible. When player use Inventory, Character, Quest buttons.
+140. New starting presentation added and modified for Dark Nights module. (OSP: mercury19 and Windyplains)
+  * module_strings.py
+  ** Added:
+  *** str_journey_to_lanchaster
+  *** str_journey_to_hillford
+  *** str_mcc_zero
+  *** str_mcc_skl_ironflesh
+  *** str_mcc_skl_powerstrike
+  *** str_mcc_skl_powerthrow
+  *** str_mcc_skl_powerdraw
+  *** str_mcc_skl_weaponmaster
+  *** str_mcc_skl_shield
+  *** str_mcc_skl_athletics
+  *** str_mcc_skl_riding
+  *** str_mcc_skl_horsearchery
+  *** str_mcc_skl_looting
+  *** str_mcc_skl_taste_id
+  *** str_mcc_skl_literacy
+  *** str_mcc_skl_trainer
+  *** str_mcc_skl_tracking
+  *** str_mcc_skl_tactics
+  *** str_mcc_skl_pathfinding
+  *** str_mcc_skl_spotting
+  *** str_mcc_skl_inventorymanagement
+  *** str_mcc_skl_woundtreatment
+  *** str_mcc_skl_surgery
+  *** str_mcc_skl_firstaid
+  *** str_mcc_skl_engineer
+  *** str_mcc_skl_persuasion
+  *** str_mcc_skl_prisonermanagement
+  *** str_mcc_skl_leadership
+  *** str_mcc_skl_trade
+  * module_simple_triggers.py
+  ** Added:
+  *** 1h trigger for banner check.
+  * module_scripts.py
+  ** Added:
+  *** script_mcc_default_settings
+  *** script_mcc_end_presentation_begin_game
+  *** script_mcc_add_skill_display
+  *** script_mcc_get_character_background_text
+  *** script_mcc_generate_skill_set
+  * module_presentations.py
+  ** Added:
+  *** prsnt_mcc_character_creation
+  * module_game_menus.py
+  ** Replaced:
+  *** mnu_start_game_0:mno_continue
+  *** mnu_start_phase_2
+  ** Removed:
+  *** mnu_start_game_0:mno_modder
+  * module_constants.py
+  ** Added:
+  *** limit_to_stats
+  *** equip_the_player
+  *** dnm_cb_noble
+  *** dnm_cb_merchant
+  *** dnm_cb_guard
+  *** dnm_cb_forester
+  *** dnm_cb_nomad
+  *** dnm_cb_thief
+  *** dnm_cb_priest
+  *** dnm_cb2_page
+  *** dnm_cb2_apprentice
+  *** dnm_cb2_urchin
+  *** dnm_cb2_steppe_child
+  *** dnm_cb2_merchants_helper
+  *** dnm_cb2_mummer
+  *** dnm_cb2_courtier
+  *** dnm_cb2_noble
+  *** dnm_cb2_acolyte
+  *** dnm_cb3_slaver
+  *** dnm_cb3_bandit
+  *** dnm_cb3_gladiator
+  *** dnm_cb3_thief
+  *** dnm_cb3_bravo
+  *** dnm_cb3_merc
+  *** dnm_cb3_poacher
+  *** dnm_cb3_craftsman
+  *** dnm_cb3_peddler
+  *** dnm_cb3_preacher
+  *** dnm_cb3_troubadour
+  *** dnm_cb3_student
+  *** dnm_cb3_squire
+  *** dnm_cb3_lady_in_waiting
+  *** dnm_cb4_duty
+  *** dnm_cb4_revenge
+  *** dnm_cb4_loss
+  *** dnm_cb4_wanderlust
+  *** dnm_cb4_fervor
+  *** dnm_cb4_disown
+  *** dnm_cb4_greed
+  *** dnm_ch_realistic
+  *** dnm_ch_hard
+  *** dnm_ch_normal
+  *** dnm_ch_easy
+  *** dnm_ch_casual
+  *** dnm_cr_christianity
+  *** dnm_cr_islam
+  *** dnm_cr_hinduism
+  *** dnm_cr_buddhism
+  *** dnm_cr_atheism
+  *** dnm_cr_tengrism
+  *** dnm_cr_norse
+  *** dnm_cr_sikhism
+  *** dnm_cr_judaism
+  *** dnm_kingdom_1
+  *** dnm_kingdom_2
+  *** dnm_kingdom_3
+  *** dnm_kingdom_4
+  *** dnm_kingdom_5
+  *** dnm_kingdom_6
+  *** dnm_kingdom_7
+  *** dnm_kingdom_8
+  * game_menus.csv
+  ** Replaced:
+  *** menu_start_phase_2
+  * game_strings.csv
+  ** Added:
+  *** str_journey_to_lanchaster
+  *** str_journey_to_hillford
+  *** str_mcc_zero
+  *** str_mcc_skl_ironflesh
+  *** str_mcc_skl_powerstrike
+  *** str_mcc_skl_powerthrow
+  *** str_mcc_skl_powerdraw
+  *** str_mcc_skl_weaponmaster
+  *** str_mcc_skl_shield
+  *** str_mcc_skl_athletics
+  *** str_mcc_skl_riding
+  *** str_mcc_skl_horsearchery
+  *** str_mcc_skl_looting
+  *** str_mcc_skl_taste_id
+  *** str_mcc_skl_literacy
+  *** str_mcc_skl_trainer
+  *** str_mcc_skl_tracking
+  *** str_mcc_skl_tactics
+  *** str_mcc_skl_pathfinding
+  *** str_mcc_skl_spotting
+  *** str_mcc_skl_inventorymanagement
+  *** str_mcc_skl_woundtreatment
+  *** str_mcc_skl_surgery
+  *** str_mcc_skl_firstaid
+  *** str_mcc_skl_engineer
+  *** str_mcc_skl_persuasion
+  *** str_mcc_skl_prisonermanagement
+  *** str_mcc_skl_leadership
+  *** str_mcc_skl_trade
+  ** Replaced:
+  *** str_noble
+  *** str_common
+  *** str_may_find_that_you_are_able_to_take_your_place_among_calradias_great_lords_relatively_quickly
+  *** str_may_face_some_difficulties_establishing_yourself_as_an_equal_among_calradias_great_lords
+  *** str_may_face_great_difficulties_establishing_yourself_as_an_equal_among_calradias_great_lords
+  * quick_strings.csv
+  ** Added:
+  *** qstr_Back
+  *** qstr_Done
+  *** qstr_Default
+  *** qstr_Character_Creation
+  *** qstr_Background:
+  *** qstr_Biography:
+  *** qstr_a_christian
+  *** qstr_Christian
+  *** qstr_a_muslim
+  *** qstr_Muslim
+  *** qstr_a_hindu
+  *** qstr_Hindu
+  *** qstr_a_buddhist
+  *** qstr_Buddhist
+  *** qstr_an_atheist
+  *** qstr_Atheist
+  *** qstr_a_tengir
+  *** qstr_Tengrist
+  *** qstr_a_nors
+  *** qstr_Nors
+  *** qstr_a_sikhist
+  *** qstr_Sikhist
+  *** qstr_a_judaist
+  *** qstr_Judaist
+  *** qstr_I_am_a...
+  *** qstr_My_father_was...
+  *** qstr_Growing_up_I_was...
+  *** qstr_As_an_adult_I_became
+  *** qstr_I_am_adventuring...
+  *** qstr_I_am_travelling_to_t
+  *** qstr_My_life_as_hard_as_a
+  *** qstr_Man
+  *** qstr_Woman
+  *** qstr_a_priest
+  *** qstr_a_thief
+  *** qstr_a_steppe_nomad
+  *** qstr_a_hunter
+  *** qstr_a_veteran_warrior
+  *** qstr_a_travelling_merchan
+  *** qstr_an_impoverished_nobl
+  *** qstr_an_acolyte
+  *** qstr_a_noble_in_training
+  *** qstr_a_courtier
+  *** qstr_a_mummer
+  *** qstr_a_shop_assistant
+  *** qstr_a_steppe_child
+  *** qstr_a_street_urchin
+  *** qstr_a__thief
+  *** qstr_a_craftsman_s_appren
+  *** qstr_a_page_at_a_nobleman
+  *** qstr_a_squire
+  *** qstr_a_lady_in_waiting
+  *** qstr_a_university_student
+  *** qstr_a_troubadour
+  *** qstr_a_preacher
+  *** qstr_a_goods_peddler
+  *** qstr_a_smith
+  *** qstr_a_game_poacher
+  *** qstr_a_mercenary
+  *** qstr_a_bravo
+  *** qstr_a_gladiator
+  *** qstr_a_bandit
+  *** qstr_a_slave_trader
+  *** qstr_a_cleric_acolyte
+  *** qstr_a_slaver
+  *** qstr_for_money_and_power
+  *** qstr_because_I_was_forced
+  *** qstr_because_of_religious
+  *** qstr_because_of_wanderlus
+  *** qstr_because_I_lost_a_lov
+  *** qstr_for_personal_revenge
+  *** qstr_out_of_a_sense_of_du
+  *** qstr_Casual
+  *** qstr_Easy
+  *** qstr_Moderate
+  *** qstr_Hard
+  *** qstr_Realistic
+  *** qstr_{s1}
+  *** qstr_Stat_Changes:
+  *** qstr_Str
+  *** qstr_Agi
+  *** qstr_Int
+  *** qstr_Cha
+  *** qstr_Gold
+  *** qstr_Renown
+  *** qstr_One_Handed
+  *** qstr_Two_Handed
+  *** qstr_Polearms
+  *** qstr_Bows
+  *** qstr_Crossbows
+  *** qstr_Throwing
+  *** qstr_personal_revenge
+  *** qstr_lust_for_money_and_p
+  *** qstr_the_loss_of_a_loved_
+  *** qstr_wanderlust
+  *** qstr_being_forced_out_of_
+  *** qstr_religious_fervor
+  *** qstr_a_sense_of_duty
+  *** qstr_[{s3}]:_You_were_bor
+  *** qstr_You_came_into_the_wo
+  *** qstr_You_were_born_the_{r
+  *** qstr_As_a_child_your_fami
+  *** qstr_You_were_the_{reg3?d
+  *** qstr_You_were_a_child_of_
+  *** qstr_As_the_{reg3?daughte
+  *** qstr_A_{reg3?daughter:son
+  *** qstr_{s1}_Your_father_was
+  *** qstr_As_a_{reg3?girl:boy}
+  *** qstr_As_a_{reg3?girl:boy}_
+  *** qstr_As_a_{reg3?girl:boy}_g
+  *** qstr_As_a_{reg3?girl:boy}_gr
+  *** qstr_As_a_{reg3?girl:boy}_gro
+  *** qstr_As_a_{reg3?girl:boy}_grow
+  *** qstr_As_a_{reg3?girl:boy}_growi
+  *** qstr_As_a_boy_growing_out
+  *** qstr_As_a_girl_growing_ou
+  *** qstr_As_a_{reg3?girl:boy}_growin
+  *** qstr_{s1}^^_You_started_t
+  *** qstr_Though_the_distincti
+  *** qstr_Though_the_distinctio
+  *** qstr_Though_the_distinction
+  *** qstr_Though_the_distinction_
+  *** qstr_Though_the_distinction_f
+  *** qstr_Though_the_distinction_fe
+  *** qstr_Though_the_distinction_fel
+  *** qstr_Though_the_distinction_felt
+  *** qstr_Though_the_distinction_felt_
+  *** qstr_Though_the_distinction_felt_s
+  *** qstr_Though_the_distinction_felt_su
+  *** qstr_You_became_a_gladiat
+  *** qstr_You_became_a_bandit.
+  *** qstr_You_became_a_slave_t
+  *** qstr_{s1}^^_Then_as_a_you
+  *** qstr_Only_you_know_exactl
+  *** qstr_Only_you_know_exactly
+  *** qstr_Only_you_know_exactly_
+  *** qstr_Only_you_know_exactly_w
+  *** qstr_Only_you_know_exactly_wh
+  *** qstr_Only_you_know_exactly_wha
+  *** qstr_As_war_begins_to_tea
+  *** qstr_{s1}^^_But_soon_ever
+  *** qstr_^{s1}^^_As_a_{s3}_{s
+  *** qstr_ERROR:_No_valid_fact
+  *** qstr_Kielian_Sultanate
+  *** qstr_Kingdom_of_Umalelith
+  *** qstr_Sarranid_Sultanate
+  *** qstr_Kingdom_of_the_Rhodo
+  *** qstr_Kingdom_of_the_Nords
+  *** qstr_Khergit_Khanate
+  *** qstr_Kingdom_of_the_Vaegi
+  *** qstr_Kingdom_of_Swadia
+  * variables.txt
+  ** Added:
+  *** g_presentation_obj_1
+  *** g_presentation_obj_2
+  *** g_presentation_obj_3
+  *** g_presentation_obj_gender
+  *** g_presentation_obj_hardness
+  *** g_presentation_obj_religion
+  *** g_presentation_obj_father
+  *** g_presentation_obj_early
+  *** g_presentation_obj_adult
+  *** g_presentation_obj_reason
+  *** g_presentation_obj_region
+  *** g_presentation_obj_story
+  *** g_presentation_obj_strength
+  *** g_presentation_obj_agility
+  *** g_presentation_obj_intel
+  *** g_presentation_obj_charisma
+  *** g_presentation_obj_gold
+  *** g_presentation_obj_renown
+  *** g_presentation_obj_onehand
+  *** g_presentation_obj_twohand
+  *** g_presentation_obj_polearm
+  *** g_presentation_obj_bow
+  *** g_presentation_obj_xbow
+  *** g_presentation_obj_throw
+  *** background_answer_5
+  *** g_modder
+  *** g_presentation_obj_modder
+  
+141. Calculation of version number automatically added to compile.py.
+  * compile.py
+  ** Edited:
+  *** compile_init
+  
+142. Prisoner Managament and Leadership nerfed.
+  * module_constants.py
+  ** Replaced:
+  *** party_size_base
+  *** party_size_per_skill
+  *** party_size_without_level
+  *** party_prisoner_base
+  *** party_prisoner_per_skill
+  
+143. Now amount of the soldier increases for every map parties.
+  * module_scripts.py
+  ** Added:
+  *** script_add_troop_for_parties
+  * module_triggers.py
+  ** Removed:
+  *** 24h trigger for dark knight and desert cavalries.
+  ** Added:
+  *** 24h trigger for calling script_add_troop_for_parties
+  
+144. Now in cheat mode and difficulty affects the lord's decision to join you.
+  * module_dialogs.py
+  ** Edited:
+  *** dlga_lord_recruit_3_claim:lord_recruit_4
+  * module_simple_triggers.py
+  ** Edited:
+  *** 24h trigger for impatience drop.
+  
+145. Selecting previous range is added to cheat menu.
+  * module_game_menus.py
+  ** Added:
+  *** mnu_cheat_find_item:mno_cheat_find_item_prev_range
+  
+146. Reserved!
+
+147. Pirate town added.
+  * module_parties.py
+  ** Added:
+  *** p_ptown_1
+  
+148. Changed budget calculation system. Now game difficulty affect the budget calculation.
+  * module_presentations.py
+  ** Edited:
+  *** presentation_budget_report
+  * module_scripts.py
+  ** Added:
+  *** script_get_lord_count
+  
+149. Added male (OSP: Iboltax) & female (OSP: Waswar, Adeline, Full Invasion 2 Team) face and hair mod.
+  * module_skins.py
+  ** Edited:
+  *** skin_man
+  *** skin_woman
+  ** Replaced:
+  *** man_face_keys
+  *** woman_face_keys
+  
+150. Fixed joining kingdom dialogs. Now females can join Khelian Sultanate easily and males can't join.
+  * module_dialogs.py
+  **
+
+151. Reserved
+
+152. The sea update!
+  * module_constants.py
+  ** Added:
+  *** slot_center_building_port
+  *** slot_party_state
+  *** slot_party_destination
+  *** slot_exit_port
+  *** slot_using_port
+  *** slot_entry_port
+  *** slot_entry_center
+  *** slot_ai_behavior
+  *** slot_party_flag
+  *** slot_ai_target_position
+  *** slot_port_bound_center
+  *** slot_party_original_ai_state
+  *** slot_party_original_ai_object
+  *** slot_party_original_ai_substate
+  *** slot_party_save_icon
+  *** ports_begin
+  *** ports_end
+  * module_dialogs.py
+  ** Edited:
+  *** dlga_lord_tell_mission_follow_spy_accepted:close_window
+  *** dlga_lord_mission_accepted:close_window
+  *** dlga_sacrificed_messenger_3:close_window
+  *** dlga_runaway_serf_go_back:close_window
+  *** dlga_escort_merchant_caravan_quest_brief:merchant_quest_taken
+  *** dlga_start:close_window.39
+  *** dlga_kidnapped_girl_quest_brief:kidnapped_girl_quest_taken
+  *** dlga_bandits_awaiting_ransom_pay:close_window
+  * module_game_menus.py
+  ** Edited:
+  *** mnu_cattle_herd:mno_cattle_drive_away
+  * module_map_icons.py
+  ** Added:
+  *** icon_cozur_lighthouse
+  *** icon_cozur_lighthouse_grey
+  *** icon_cozur_lighthouse_white
+  *** icon_cozur_lighthouse_dorne
+  *** icon_cozur_lighthouse_essos
+  *** icon_cozur_lighthouse_essos2
+  * module_parties.py
+  ** Added:
+  *** p_port_1
+  *** p_port_2
+  *** p_port_3
+  *** p_port_4
+  *** p_port_5
+  *** p_port_6
+  *** p_port_7
+  *** p_port_8
+  *** p_port_9
+  *** p_port_10
+  *** p_port_11
+  *** p_port_12
+  *** p_port_13
+  *** p_port_14
+  *** p_ports_end
+  * module_scripts.py
+  ** Edited:
+  *** script_game_start
+  *** script_add_routed_party
+  *** script_cf_create_kingdom_party
+  *** script_village_set_state
+  *** script_party_set_ai_state
+  *** script_process_hero_ai
+  *** script_begin_assault_on_center
+  *** script_create_village_farmer_party
+  ** Added:
+  *** script_party_on_water
+  *** script_get_closest_port
+  *** script_get_closest_port_center
+  *** script_party_set_ai_object
+  * module_simple_triggers.py
+  ** Edited:
+  *** 8h trigger for merchant thinking
+  *** 8h trigger for village farmers thinking
+  *** 3h trigger to check capital
+  ** Added:
+  *** 1h trigger to send lords/ladies on sea
+  * module_triggers.py
+  ** Edited:
+  *** 2h trigger for prisoner train parties
+  *** 1.5h trigger for messenger parties
+  *** 0.2h trigger for peasant quest
+  *** 0.5h trigger for spy quest
+  *** 0.1h trigger for merchant quest
+  

@@ -15,6 +15,7 @@ from headers.header_items import *
 #
 ## UID: 85 - End
 from ids.ID_skills import *
+from ids.ID_item_modifiers import *
 from headers.header_triggers import *
 from headers.header_troops import *
 from headers.header_music import *
@@ -69,6 +70,17 @@ simple_triggers = [
       (neg|is_currently_night),
       (rest_for_hours, 0, 0, 0), #stop resting
     ]),
+
+  ## UID: 140 - Begin
+  #
+  (1, [
+      (map_free),
+      (eq, "$player_needs_a_banner", 1),
+      (assign, "$player_needs_a_banner", 0),
+      (start_presentation, "prsnt_banner_selection"),
+    ]),
+  #
+  ## UID: 140 - End
 
 
   (0,
@@ -685,32 +697,32 @@ simple_triggers = [
    []),
 
   #Checking if the troops are resting at a half payment point
-  (6,
-   [(store_current_day, ":cur_day"),
-    (try_begin),
-      (neq, ":cur_day", "$g_last_half_payment_check_day"),
-      (assign, "$g_last_half_payment_check_day", ":cur_day"),
+  (6, [
+      (store_current_day, ":cur_day"),
       (try_begin),
-        (eq, "$g_half_payment_checkpoint", 1),
-        (val_add, "$g_cur_week_half_daily_wage_payments", 1), #half payment for yesterday
+        (neq, ":cur_day", "$g_last_half_payment_check_day"),
+        (assign, "$g_last_half_payment_check_day", ":cur_day"),
+        (try_begin),
+          (eq, "$g_half_payment_checkpoint", 1),
+          (val_add, "$g_cur_week_half_daily_wage_payments", 1), #half payment for yesterday
+        (try_end),
+        (assign, "$g_half_payment_checkpoint", 1),
       (try_end),
-      (assign, "$g_half_payment_checkpoint", 1),
-    (try_end),
-    (assign, ":resting_at_manor_or_walled_center", 0),
-    (try_begin),
-      (neg|map_free),
-      (ge, "$g_last_rest_center", 0),
-      ## UID: 9 - Begin
-      #
-      #(this_or_next|party_slot_eq, "$g_last_rest_center", slot_center_has_manor, 1),
-      (this_or_next|party_slot_ge, "$g_last_rest_center", slot_center_building_manor, 1),
-      #
-      ## UID: 9 - End
-      (             is_between, "$g_last_rest_center", walled_centers_begin, walled_centers_end),
-      (assign, ":resting_at_manor_or_walled_center", 1),
-    (try_end),
-    (eq, ":resting_at_manor_or_walled_center", 0),
-    (assign, "$g_half_payment_checkpoint", 0),
+      (assign, ":resting_at_manor_or_walled_center", 0),
+      (try_begin),
+        (neg|map_free),
+        (ge, "$g_last_rest_center", 0),
+        ## UID: 9 - Begin
+        #
+        #(this_or_next|party_slot_eq, "$g_last_rest_center", slot_center_has_manor, 1),
+        (this_or_next|party_slot_ge, "$g_last_rest_center", slot_center_building_manor, 1),
+        #
+        ## UID: 9 - End
+        (             is_between, "$g_last_rest_center", walled_centers_begin, walled_centers_end),
+        (assign, ":resting_at_manor_or_walled_center", 1),
+      (try_end),
+      (eq, ":resting_at_manor_or_walled_center", 0),
+      (assign, "$g_half_payment_checkpoint", 0),
     ]),
 
 #diplomatic indices
@@ -987,34 +999,39 @@ simple_triggers = [
     #  (try_end),
       ]),#
 
-   (24,
-    [	  
-	(try_for_range, ":kingdom_hero", active_npcs_begin, active_npcs_end),
-		(troop_get_slot, ":impatience", ":kingdom_hero", slot_troop_intrigue_impatience),
-		(val_sub, ":impatience", 5),
-		(val_max, ":impatience", 0),
-		(troop_set_slot, ":kingdom_hero", slot_troop_intrigue_impatience, ":impatience"),
-	(try_end),
-	
-	(store_random_in_range, ":controversy_deduction", 1, 3),
-	(val_min, ":controversy_deduction", 2),
-#	(assign, ":controversy_deduction", 1),
-	
-	#This reduces controversy by one each round
-	(try_for_range, ":active_npc", active_npcs_begin, active_npcs_end),
-		(troop_get_slot, ":controversy", ":active_npc", slot_troop_controversy),
-		(ge, ":controversy", 1),
-		(val_sub, ":controversy", ":controversy_deduction"),
-		(val_max, ":controversy", 0),
-		(troop_set_slot, ":active_npc", slot_troop_controversy, ":controversy"),
-	(try_end),
-	
-	(troop_get_slot, ":controversy", "trp_player", slot_troop_controversy),
-	(val_sub, ":controversy", ":controversy_deduction"),
-	(val_max, ":controversy", 0),
-	(troop_set_slot, "trp_player", slot_troop_controversy, ":controversy"),
-	
-	]),
+  (24, [
+      (try_for_range, ":kingdom_hero", active_npcs_begin, active_npcs_end),
+        (troop_get_slot, ":impatience", ":kingdom_hero", slot_troop_intrigue_impatience),
+        ## UID: 144 - Begin
+        #
+        #(val_sub, ":impatience", 5),
+        (store_sub, ":diff", 5, "$g_difficulty"),
+        (val_mul, ":diff", 5),
+        (val_sub, ":impatience", ":diff"),
+        #
+        ## UID: 144 - End
+        (val_max, ":impatience", 0),
+        (troop_set_slot, ":kingdom_hero", slot_troop_intrigue_impatience, ":impatience"),
+      (try_end),
+
+      (store_random_in_range, ":controversy_deduction", 1, 3),
+      (val_min, ":controversy_deduction", 2),
+      #(assign, ":controversy_deduction", 1),
+
+      #This reduces controversy by one each round
+      (try_for_range, ":active_npc", active_npcs_begin, active_npcs_end),
+        (troop_get_slot, ":controversy", ":active_npc", slot_troop_controversy),
+        (ge, ":controversy", 1),
+        (val_sub, ":controversy", ":controversy_deduction"),
+        (val_max, ":controversy", 0),
+        (troop_set_slot, ":active_npc", slot_troop_controversy, ":controversy"),
+      (try_end),
+
+      (troop_get_slot, ":controversy", "trp_player", slot_troop_controversy),
+      (val_sub, ":controversy", ":controversy_deduction"),
+      (val_max, ":controversy", 0),
+      (troop_set_slot, "trp_player", slot_troop_controversy, ":controversy"),
+    ]),
 		
     #POLITICAL TRIGGERS
 	#POLITICAL TRIGGER #1`
@@ -2065,7 +2082,6 @@ simple_triggers = [
        (try_end),
     ]),
 
-
   #Troop AI: Merchants thinking
   ## UID: 79 - Begin
   #
@@ -2142,7 +2158,12 @@ simple_triggers = [
               (call_script, "script_do_merchant_town_trade", ":party_no", ":cur_center"),
             (try_end),
             (party_set_ai_behavior, ":party_no", ai_bhvr_travel_to_party),
-            (party_set_ai_object, ":party_no", ":target_center"),
+            ## UID: 152 - Begin
+            #
+            #(party_set_ai_object, ":party_no", ":target_center"),
+            (call_script, "script_party_set_ai_object", ":party_no", ":target_center"),
+            #
+            ## UID: 152 - End
             (party_set_flags, ":party_no", pf_default_behavior, 0),
             (party_set_slot, ":party_no", slot_party_ai_state, spai_trading_with_town),
             (party_set_slot, ":party_no", slot_party_ai_object, ":target_center"),
@@ -2154,10 +2175,10 @@ simple_triggers = [
           (get_party_ai_object, ":object_town", ":party_no"),
           (party_slot_ge, ":object_town", slot_town_is_coastal, 1),
           (store_distance_to_party_from_party, ":dist", ":party_no", ":object_town"),
-          (party_get_position, pos0, ":object_town"),     
+          (party_get_position, pos0, ":object_town"),
           (party_get_slot, ":radius", ":object_town", slot_town_is_coastal),
           (val_add, ":radius", 3),
-          (lt, ":dist", ":radius"),               
+          (lt, ":dist", ":radius"),
           (assign, ":cur_center", ":object_town"),
           (store_faction_of_party, ":merchant_faction", ":party_no"),
           (faction_get_slot, ":num_towns", ":merchant_faction", slot_faction_num_towns),
@@ -2210,7 +2231,7 @@ simple_triggers = [
             (party_get_position, pos0, ":target_center"),
             (party_get_slot, ":radius", ":target_center", slot_town_is_coastal),
             (map_get_water_position_around_position, pos1, pos0, ":radius"),
-            (val_add, ":radius", 2),           
+            (val_add, ":radius", 3),           
             (gt, ":target_dist", ":radius"), #was 5 #Ensures that they aren't already at the target party...just a redundancy check, as there is with caravans
             (try_begin),
               (eq, ":do_trade", 1),
@@ -2220,7 +2241,12 @@ simple_triggers = [
    
             (party_set_ai_behavior, ":party_no", ai_bhvr_travel_to_point),
             (party_set_ai_target_position, ":party_no", pos1),
-            (party_set_ai_object, ":party_no", ":target_center"),
+            ## UID: 152 - Begin
+            #
+            #(party_set_ai_object, ":party_no", ":target_center"),
+            (call_script, "script_party_set_ai_object", ":party_no", ":target_center"),
+            #
+            ## UID: 152 - End
             (party_set_flags, ":party_no", pf_default_behavior, 0),
             (party_set_slot, ":party_no", slot_party_ai_state, spai_trading_with_town),
             (party_set_slot, ":party_no", slot_party_ai_object, ":target_center"),
@@ -2259,7 +2285,12 @@ simple_triggers = [
            (party_set_slot, ":party_no", slot_party_ai_object, ":market_town"),
            (party_set_slot, ":party_no", slot_party_ai_state, spai_trading_with_town),
            (party_set_ai_behavior, ":party_no", ai_bhvr_travel_to_party),
-           (party_set_ai_object, ":party_no", ":market_town"),
+           ## UID: 152 - Begin
+           #
+           #(party_set_ai_object, ":party_no", ":market_town"),
+           (call_script, "script_party_set_ai_object", ":party_no", ":market_town"),
+           #
+           ## UID: 152 - End
          (else_try),
            (try_begin),
              (party_get_slot, ":cur_ai_object", ":party_no", slot_party_ai_object),
@@ -2310,7 +2341,12 @@ simple_triggers = [
            (party_set_slot, ":party_no", slot_party_ai_object, ":home_center"),
            (party_set_slot, ":party_no", slot_party_ai_state, spai_trading_with_town),
            (party_set_ai_behavior, ":party_no", ai_bhvr_travel_to_party),
-           (party_set_ai_object, ":party_no", ":home_center"),
+            ## UID: 152 - Begin
+            #
+            #(party_set_ai_object, ":party_no", ":home_center"),
+            (call_script, "script_party_set_ai_object", ":party_no", ":home_center"),
+            #
+            ## UID: 152 - End
          (try_end),
        (try_end),
     ]),
@@ -3068,116 +3104,114 @@ simple_triggers = [
 
   # Adding tournaments to towns
   # Adding bandits to towns and villages
-  (24,
-   [(assign, ":num_active_tournaments", 0),
-    (try_for_range, ":center_no", towns_begin, towns_end),
-      (party_get_slot, ":has_tournament", ":center_no", slot_town_has_tournament),
-      (try_begin),
-        (eq, ":has_tournament", 1),#tournament ended, simulate
-        (call_script, "script_fill_tournament_participants_troop", ":center_no", 0),
-        (call_script, "script_sort_tournament_participant_troops"),#may not be needed
-        (call_script, "script_get_num_tournament_participants"),
-        (store_sub, ":needed_to_remove_randomly", reg0, 1),
-        (call_script, "script_remove_tournament_participants_randomly", ":needed_to_remove_randomly"),
-        (call_script, "script_sort_tournament_participant_troops"),
-        (troop_get_slot, ":winner_troop", "trp_tournament_participants", 0),
+  (24, [
+      (assign, ":num_active_tournaments", 0),
+      (try_for_range, ":center_no", towns_begin, towns_end),
+        (party_get_slot, ":has_tournament", ":center_no", slot_town_has_tournament),
         (try_begin),
-          (is_between, ":winner_troop", active_npcs_begin, active_npcs_end),
-          (str_store_troop_name_link, s1, ":winner_troop"),
-          (str_store_party_name_link, s2, ":center_no"),
-          (display_message, "@{s1} has won the tournament at {s2}."),
-          (call_script, "script_change_troop_renown", ":winner_troop", 20),
+          (eq, ":has_tournament", 1), #tournament ended, simulate
+          (call_script, "script_fill_tournament_participants_troop", ":center_no", 0),
+          (call_script, "script_sort_tournament_participant_troops"),#may not be needed
+          (call_script, "script_get_num_tournament_participants"),
+          (store_sub, ":needed_to_remove_randomly", reg0, 1),
+          (call_script, "script_remove_tournament_participants_randomly", ":needed_to_remove_randomly"),
+          (call_script, "script_sort_tournament_participant_troops"),
+          (troop_get_slot, ":winner_troop", "trp_tournament_participants", 0),
+          (try_begin),
+            (is_between, ":winner_troop", active_npcs_begin, active_npcs_end),
+            (str_store_troop_name_link, s1, ":winner_troop"),
+            (str_store_party_name_link, s2, ":center_no"),
+            (display_message, "@{s1} has won the tournament at {s2}."),
+            (call_script, "script_change_troop_renown", ":winner_troop", 20),
+          (try_end),
+        (try_end),
+        (val_sub, ":has_tournament", 1),
+        (val_max, ":has_tournament", 0),
+        (party_set_slot, ":center_no", slot_town_has_tournament, ":has_tournament"),
+        (try_begin),
+          (gt, ":has_tournament", 0),
+          (val_add, ":num_active_tournaments", 1),
         (try_end),
       (try_end),
-      (val_sub, ":has_tournament", 1),
-      (val_max, ":has_tournament", 0),
-      (party_set_slot, ":center_no", slot_town_has_tournament, ":has_tournament"),
-      (try_begin),
-        (gt, ":has_tournament", 0),
-        (val_add, ":num_active_tournaments", 1),
-      (try_end),
-    (try_end),
-    
-    (try_for_range, ":center_no", centers_begin, centers_end),
-      (this_or_next|party_slot_eq, ":center_no", slot_party_type, spt_town),
-      (party_slot_eq, ":center_no", slot_party_type, spt_village),
-      (party_get_slot, ":has_bandits", ":center_no", slot_center_has_bandits),
-      (try_begin),
-        (le, ":has_bandits", 0),
-        (assign, ":continue", 0),
+
+      (try_for_range, ":center_no", centers_begin, centers_end),
+        (this_or_next|party_slot_eq, ":center_no", slot_party_type, spt_town),
+        (             party_slot_eq, ":center_no", slot_party_type, spt_village),
+        (party_get_slot, ":has_bandits", ":center_no", slot_center_has_bandits),
         (try_begin),
-          (check_quest_active, "qst_deal_with_night_bandits"),
-          (quest_slot_eq, "qst_deal_with_night_bandits", slot_quest_target_center, ":center_no"),
-          (neg|check_quest_succeeded, "qst_deal_with_night_bandits"),
-          (assign, ":continue", 1),
+          (le, ":has_bandits", 0),
+          (assign, ":continue", 0),
+          (try_begin),
+            (check_quest_active, "qst_deal_with_night_bandits"),
+            (quest_slot_eq, "qst_deal_with_night_bandits", slot_quest_target_center, ":center_no"),
+            (neg|check_quest_succeeded, "qst_deal_with_night_bandits"),
+            (assign, ":continue", 1),
+          (else_try),
+            (store_random_in_range, ":random_no", 0, 100),
+            (lt, ":random_no", 3),
+            (assign, ":continue", 1),
+          (try_end),
+          (try_begin),
+            (eq, ":continue", 1),
+            (store_random_in_range, ":random_no", 0, 3),
+            (try_begin),
+              (eq, ":random_no", 0),
+              (assign, ":bandit_troop", "trp_bandit"),
+            (else_try),
+              (eq, ":random_no", 1),
+              (assign, ":bandit_troop", "trp_mountain_bandit"),
+            (else_try),
+              (assign, ":bandit_troop", "trp_forest_bandit"),
+            (try_end),
+            (party_set_slot, ":center_no", slot_center_has_bandits, ":bandit_troop"),
+            (try_begin),
+              (eq, "$cheat_mode", 1),
+              (str_store_party_name, s1, ":center_no"),
+              (display_message, "@{!}{s1} is infested by bandits (at night)."),
+            (try_end),
+          (try_end),
         (else_try),
-          (store_random_in_range, ":random_no", 0, 100),
-          (lt, ":random_no", 3),
-          (assign, ":continue", 1),
-        (try_end),
-        (try_begin),
-          (eq, ":continue", 1),
-          (store_random_in_range, ":random_no", 0, 3),
           (try_begin),
-            (eq, ":random_no", 0),
-            (assign, ":bandit_troop", "trp_bandit"),
-          (else_try),
-            (eq, ":random_no", 1),
-            (assign, ":bandit_troop", "trp_mountain_bandit"),
-          (else_try),
-            (assign, ":bandit_troop", "trp_forest_bandit"),
-          (try_end),
-          (party_set_slot, ":center_no", slot_center_has_bandits, ":bandit_troop"),
-          (try_begin),
-            (eq, "$cheat_mode", 1),
-            (str_store_party_name, s1, ":center_no"),
-            (display_message, "@{!}{s1} is infested by bandits (at night)."),
-          (try_end),
-        (try_end),
-      (else_try),
-        (try_begin),
-          (assign, ":random_chance", 40),
-          (try_begin),
-            (party_slot_eq, ":center_no", slot_party_type, spt_town),
-            (assign, ":random_chance", 20),
-          (try_end),
-          (store_random_in_range, ":random_no", 0, 100),
-          (lt, ":random_no", ":random_chance"),
-          (party_set_slot, ":center_no", slot_center_has_bandits, 0),
-          (try_begin),
-            (eq, "$cheat_mode", 1),
-            (str_store_party_name, s1, ":center_no"),
-            (display_message, "@{s1} is no longer infested by bandits (at night)."),
+            (assign, ":random_chance", 40),
+            (try_begin),
+              (party_slot_eq, ":center_no", slot_party_type, spt_town),
+              (assign, ":random_chance", 20),
+            (try_end),
+            (store_random_in_range, ":random_no", 0, 100),
+            (lt, ":random_no", ":random_chance"),
+            (party_set_slot, ":center_no", slot_center_has_bandits, 0),
+            (try_begin),
+              (eq, "$cheat_mode", 1),
+              (str_store_party_name, s1, ":center_no"),
+              (display_message, "@{s1} is no longer infested by bandits (at night)."),
+            (try_end),
           (try_end),
         (try_end),
       (try_end),
-    (try_end),
-	
-    (try_for_range, ":faction_no", kingdoms_begin, kingdoms_end),
-	  (faction_slot_eq, ":faction_no", slot_faction_ai_state, sfai_feast),
-		
-	  (faction_get_slot, ":faction_object", ":faction_no", slot_faction_ai_object),
-	  (is_between, ":faction_object", towns_begin, towns_end),
-	  
-	  (party_slot_ge, ":faction_object", slot_town_has_tournament, 1),
-	  #continue holding tournaments during the feast
-      (party_set_slot, ":faction_object", slot_town_has_tournament, 2),
-    (try_end),
-	
-	(try_begin),
-      (lt, ":num_active_tournaments", 3),
-      (store_random_in_range, ":random_no", 0, 100),
-      #Add new tournaments with a 30% chance if there are less than 3 tournaments going on
-      (lt, ":random_no", 30),
-      (store_random_in_range, ":random_town", towns_begin, towns_end),
-      (store_random_in_range, ":random_days", 12, 15),
-      (party_set_slot, ":random_town", slot_town_has_tournament, ":random_days"),
+
+      (try_for_range, ":faction_no", kingdoms_begin, kingdoms_end),
+        (faction_slot_eq, ":faction_no", slot_faction_ai_state, sfai_feast),
+        (faction_get_slot, ":faction_object", ":faction_no", slot_faction_ai_object),
+        (is_between, ":faction_object", towns_begin, towns_end),
+        (party_slot_ge, ":faction_object", slot_town_has_tournament, 1),
+        #continue holding tournaments during the feast
+        (party_set_slot, ":faction_object", slot_town_has_tournament, 2),
+      (try_end),
+
       (try_begin),
-        (eq, "$cheat_mode", 1),
-        (str_store_party_name, s1, ":random_town"),
-        (display_message, "@{!}{s1} is holding a tournament."),
+        (lt, ":num_active_tournaments", 3),
+        (store_random_in_range, ":random_no", 0, 100),
+        #Add new tournaments with a 30% chance if there are less than 3 tournaments going on
+        (lt, ":random_no", 30),
+        (store_random_in_range, ":random_town", towns_begin, towns_end),
+        (store_random_in_range, ":random_days", 12, 15),
+        (party_set_slot, ":random_town", slot_town_has_tournament, ":random_days"),
+        (try_begin),
+          (eq, "$cheat_mode", 1),
+          (str_store_party_name, s1, ":random_town"),
+          (display_message, "@{!}{s1} is holding a tournament."),
+        (try_end),
       (try_end),
-    (try_end),
     ]),
 
   (3,
@@ -3434,13 +3468,23 @@ simple_triggers = [
             (lt, ":distance", 3),
             (party_set_ai_behavior, ":bandit_party", ai_bhvr_patrol_party),
             (party_template_get_slot, ":spawnpoint", ":bandit_party_template", slot_party_template_lair_spawnpoint),
-            (party_set_ai_object, ":bandit_party", ":spawnpoint"),
+            ## UID: 152 - Begin
+            #
+            #(party_set_ai_object, ":bandit_party", ":spawnpoint"),
+            (call_script, "script_party_set_ai_object", ":bandit_party", ":spawnpoint"),
+            #
+            ## UID: 152 - End
             (party_set_ai_patrol_radius, ":bandit_party", 45),
           (else_try),
             (lt, ":bandit_lair", "p_spawn_points_end"),
             (party_set_ai_behavior, ":bandit_party", ai_bhvr_patrol_party),
             (party_template_get_slot, ":spawnpoint", ":bandit_party_template", slot_party_template_lair_spawnpoint),
-            (party_set_ai_object, ":bandit_party", ":spawnpoint"),
+            ## UID: 152 - Begin
+            #
+            #(party_set_ai_object, ":bandit_party", ":spawnpoint"),
+            (call_script, "script_party_set_ai_object", ":bandit_party", ":spawnpoint"),
+            #
+            ## UID: 152 - End
             (party_set_ai_patrol_radius, ":bandit_party", 45),
           (try_end),
         (try_end),
@@ -4636,5 +4680,192 @@ simple_triggers = [
 ##      (item_set_slot, "itm_wine", slot_item_food_bonus, 5),
 ##      (item_set_slot, "itm_ale", slot_item_food_bonus, 4),
 ##   ]),
+
+  ## UID: 152 - Begin
+  #
+  (1, [
+      (try_for_parties, ":party_no"),
+        (assign, ":target_center", -1),
+        (assign, ":dist", -1),
+        (assign, ":entry_center", -1),
+        (assign, ":cur_icon", -1),
+        (assign, ":port", -1),
+        (assign, ":exit_port", -1),
+        (assign, ":behavior", -1),
+        (assign, ":party_ai_state", -1),
+        (assign, ":ai_object", -1),
+      
+        (party_is_active, ":party_no"),
+        (try_begin), # Moving party from land to sea
+          (party_slot_eq, ":party_no", slot_using_port, 1),
+          (party_get_slot, ":entry_center", ":party_no", slot_entry_center),
+          (store_distance_to_party_from_party, ":dist", ":party_no", ":entry_center"),
+          (le, ":dist", 0),
+          (try_begin),
+            (party_get_icon, ":cur_icon", ":party_no"),
+            (party_set_slot, ":party_no", slot_party_save_icon, ":cur_icon"),
+          (try_end),
+          (party_get_slot, ":port", ":party_no", slot_entry_port),
+          (party_is_active, ":port"),  
+          (try_begin),
+              (party_relocate_near_party, ":party_no", ":port", 0),
+          (else_try),
+              (display_message, "@ Report Relocation bug"),
+          (try_end),
+          (party_set_icon, ":party_no", "icon_ship"),
+          (party_set_flags, ":party_no", pf_is_ship, 1),   
+          (party_get_slot, ":exit_port", ":party_no", slot_exit_port),
+          (party_is_active, ":exit_port"),
+          (try_begin), # If party wants to get back on land
+            (party_slot_ge, ":party_no", slot_exit_port, 1),
+            (party_get_slot, ":exit_port", ":party_no", slot_exit_port),         
+            (is_between, ":exit_port", ports_begin, ports_end),
+            (party_set_slot, ":party_no", slot_using_port, 2),            
+            (party_set_ai_behavior, ":party_no", ai_bhvr_travel_to_party),
+            (party_set_ai_object, ":party_no", ":exit_port"),
+            # Porshy: We don't need to try_for_parties inside try_for_parties. Because it can cause lag on game to try so many parties again and again every hour, just use: slot_troop_leaded_party slot to get lord's party.
+            # Accompany fix. This will update all pathing of lords that follow the player
+            #(try_for_parties, ":lord"),
+            #  (party_slot_eq, ":lord", slot_party_type, spt_kingdom_hero_party),
+            #  (party_slot_eq, ":lord", slot_party_ai_state, spai_accompanying_army),
+            #  (get_party_ai_object, ":ai_object", ":lord"),
+            #  (eq, ":ai_object", ":party_no"),
+            #  (assign, "$g_party_no", ":lord"),
+            #  (assign, "$g_target_center", ":party_no"),
+            #  (call_script, "script_calculate_distances"),
+            #(try_end),
+            (try_for_range, ":lord", active_npcs_begin, active_npcs_end),
+              (troop_get_slot, ":lord_party", ":lord", slot_troop_leaded_party),
+              (party_is_active, ":lord_party"),
+              (party_get_attached_to, ":attach", ":lord_party"),
+              (lt, ":attach", 1),
+              (party_slot_eq, ":lord_party", slot_party_type, spt_kingdom_hero_party),
+              (party_slot_eq, ":lord_party", slot_party_ai_state, spai_accompanying_army),
+              (get_party_ai_object, ":ai_object", ":lord_party"),
+              (eq, ":ai_object", ":party_no"),
+              (call_script, "script_party_set_ai_object", ":lord_party", ":party_no"),
+            (try_end),
+          (else_try), # If party stays on water
+            (party_get_slot, ":behavior", ":party_no", slot_ai_behavior),
+            (party_set_ai_behavior, ":party_no", ":behavior"),      
+            (party_get_slot, ":target_center", ":party_no", slot_party_destination),
+            (try_begin),
+              (party_slot_ge, ":party_no", slot_party_original_ai_state, 1),
+              (party_get_slot, ":party_ai_state", ":party_no", slot_party_original_ai_state),
+              (party_set_slot, ":party_no", slot_party_ai_state, ":party_ai_state"),   
+              (party_set_slot, ":party_no", slot_party_original_ai_state, -1),
+            (try_end),
+            (party_set_slot, ":party_no", slot_using_port, -1),
+            (party_set_slot, ":party_no", slot_exit_port, -1),
+            (party_set_slot, ":party_no", slot_entry_port, -1),
+            (party_set_slot, ":party_no", slot_entry_center, -1),   
+            (party_set_slot, ":party_no", slot_party_destination, -1), 
+            (party_set_ai_object, ":party_no", ":target_center"),
+            # Porshy: Replaced same with last.
+            # Accompany fix. This will update all pathing of lords that follow the party
+            (try_for_range, ":lord", active_npcs_begin, active_npcs_end),
+              (troop_get_slot, ":lord_party", ":lord", slot_troop_leaded_party),
+              (party_is_active, ":lord_party"),
+              (party_get_attached_to, ":attach", ":lord_party"),
+              (lt, ":attach", 1),
+              (party_slot_eq, ":lord_party", slot_party_type, spt_kingdom_hero_party),
+              (party_slot_eq, ":lord_party", slot_party_ai_state, spai_accompanying_army),
+              (get_party_ai_object, ":ai_object", ":lord_party"),
+              (eq, ":ai_object", ":party_no"),
+              (call_script, "script_party_set_ai_object", ":lord_party", ":party_no"),
+            (try_end),
+          (try_end),
+        (else_try), # Moving units from sea to land
+          (party_slot_eq, ":party_no", slot_using_port, 2),
+          (party_get_slot, ":exit_port", ":party_no", slot_exit_port),
+          (party_is_active, ":exit_port"),
+          (store_distance_to_party_from_party, ":dist", ":party_no", ":exit_port"),
+          (le, ":dist", 0),
+          (party_get_slot, ":target", ":exit_port", slot_port_bound_center),
+          (party_is_active, ":party_no"),
+          (party_is_active, ":target"),
+          (party_get_slot, ":icon", ":party_no", slot_party_save_icon),
+          (party_set_icon, ":party_no", ":icon"),
+          (party_set_flags, ":party_no", pf_is_ship, 0),
+          (party_set_slot, ":party_no", slot_exit_port, -1),
+          (party_set_slot, ":party_no", slot_entry_port, -1),
+          (party_set_slot, ":party_no", slot_using_port, -1),
+          (party_set_slot, ":party_no", slot_entry_center, -1),      
+          (party_get_slot, ":behavior", ":party_no", slot_ai_behavior),
+          (party_set_ai_behavior, ":party_no", ":behavior"),
+          (try_begin),
+            (party_slot_ge, ":party_no", slot_party_original_ai_state, 1),
+            (party_get_slot, ":party_ai_state", ":party_no", slot_party_original_ai_state),
+            (party_set_slot, ":party_no", slot_party_ai_state, ":party_ai_state"),
+            (party_set_slot, ":party_no", slot_party_original_ai_state, -1),
+          (try_end),
+          (party_get_slot, ":target_center", ":party_no", slot_party_destination),
+          (party_set_slot, ":party_no", slot_party_destination, -1),
+          (party_set_ai_object, ":party_no", ":target_center"),
+          (try_begin),
+            (party_slot_eq, ":party_no", slot_party_type, spt_village_farmer),
+            (party_set_flags, ":party_no", pf_civilian),
+          (else_try),
+            (party_slot_eq, ":party_no", slot_party_type, spt_kingdom_caravan),
+            (party_set_flags, ":party_no", pf_show_faction),
+          (try_end),
+          (party_get_position, pos0, ":exit_port"),
+          (assign, ":ub", 10),
+          (assign, ":radius", 1),
+          (assign, ":iteration", 1),
+          (try_for_range, ":iteration", 0, ":ub"),
+            (try_begin),
+              (map_get_land_position_around_position, pos1, pos0, ":radius"),
+              (party_set_position, ":party_no", pos1),
+              (assign, ":ub", 1),
+            (else_try),
+              (le, ":iteration", 8),
+              (val_add, ":radius", 1),
+              (val_add, ":iteration", 1),
+            (else_try),
+              (party_relocate_near_party, ":party_no", ":target", 1),
+            (else_try),
+              (display_message, "@ Report Relocation 2 bug"),
+            (try_end),
+          (try_end),
+
+          # Fixing recruiting and raiding
+          (try_begin),
+            (this_or_next|party_slot_eq, ":party_no", slot_party_ai_state, spai_visiting_village),
+            (party_slot_eq, ":party_no", slot_party_ai_state, spai_patrolling_around_center),
+            (party_is_active, ":target_center"),
+            (party_get_position, pos1, ":target_center"),
+            (map_get_random_position_around_position, pos2, pos1, 1),
+            (party_set_ai_behavior, ":party_no", ai_bhvr_travel_to_point),
+            (party_set_ai_target_position, ":party_no", pos2),
+          (else_try),
+            (this_or_next|party_slot_eq, ":party_no", slot_party_ai_state, spai_besieging_center),   
+            (party_slot_eq, ":party_no", slot_party_ai_state, spai_raiding_around_center),   
+            (party_is_active, ":target_center"),
+            (party_get_position, pos1, ":target_center"),
+            (map_get_random_position_around_position, pos2, pos1, 2),
+            (party_set_ai_behavior, ":party_no", ai_bhvr_travel_to_point),
+            (party_set_ai_target_position, ":party_no", pos2),
+          (try_end),
+
+          # Marshall fix
+          # Accompany fix. This will update all pathing of lords that follow the player
+          (try_for_range, ":lord", active_npcs_begin, active_npcs_end),
+            (troop_get_slot, ":lord_party", ":lord", slot_troop_leaded_party),
+            (party_is_active, ":lord_party"),
+            (party_get_attached_to, ":attach", ":lord_party"),
+            (lt, ":attach", 1),
+            (party_slot_eq, ":lord_party", slot_party_type, spt_kingdom_hero_party),
+            (party_slot_eq, ":lord_party", slot_party_ai_state, spai_accompanying_army),
+            (get_party_ai_object, ":ai_object", ":lord_party"),
+            (eq, ":ai_object", ":party_no"),
+            (call_script, "script_party_set_ai_object", ":lord_party", ":party_no"),
+          (try_end),
+          # Marshall fix
+        (try_end), #land->sea vs sea->land
+      (try_end),   #party loop
+   ]),
+  #
+  ## UID: 152 - End
 
 ]

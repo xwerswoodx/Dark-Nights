@@ -188,15 +188,21 @@ triggers = [
 #                         (party_set_ai_object,"$pout_party","$pout_town"),
 #                    ]),
 
-  (2.0, 0, 0, [(store_random_party_of_template, reg(2), "pt_prisoner_train_party"),
-               (party_is_in_any_town,reg(2)),
-               ],
-              [(store_faction_of_party, ":faction_no", reg(2)),
-               (call_script,"script_cf_select_random_walled_center_with_faction", ":faction_no", -1),
-               (party_set_ai_behavior,reg(2),ai_bhvr_travel_to_party),
-               (party_set_ai_object,reg(2),reg0),
-               (party_set_flags, reg(2), pf_default_behavior, 0),
-            ]),
+  (2.0, 0, 0, [
+      (store_random_party_of_template, reg(2), "pt_prisoner_train_party"),
+      (party_is_in_any_town,reg(2)),
+    ], [
+        (store_faction_of_party, ":faction_no", reg(2)),
+        (call_script,"script_cf_select_random_walled_center_with_faction", ":faction_no", -1),
+        (party_set_ai_behavior,reg(2),ai_bhvr_travel_to_party),
+        ## UID: 152 - Begin
+        #
+        #(party_set_ai_object,reg(2),reg0),
+        (call_script, "script_party_set_ai_object", reg(2), reg0),
+        #
+        ## UID: 152 - End
+        (party_set_flags, reg(2), pf_default_behavior, 0),
+    ]),
 
   ## UID: 12 - Begin
   #
@@ -225,33 +231,43 @@ triggers = [
         (spawn_around_party, ":town_no", "pt_desert_cavalry"),
     ]),
 
-  (24.0, 0, 0.0, [
-      (store_num_parties_of_template, ":total_dark_knight", "pt_dark_hunters"),
-      (store_num_parties_of_template, ":total_desert_cavalry", "pt_desert_cavalry"),
-      (this_or_next|gt, ":total_dark_knight", 0),
-      (             gt, ":total_desert_cavalry", 0),
-    ], [
-        (try_for_parties, ":party"),
-          (store_random_in_range, ":dk", "trp_dark_knight", "trp_desert_cavalry"),
-          ## UID: 95 - Begin
-          #
-          #(assign, ":dc", "trp_desert_cavalry"),
-          (store_random_in_range, ":dc", "trp_desert_cavalry", "trp_musician_male"),
-          #
-          ## UID: 95 - End
-
-          (party_get_template_id, ":template", ":party"),
-          (try_begin),
-            (eq, ":template", "pt_dark_hunters"),
-            (party_add_members, ":party", ":dk", 1),
-          (else_try),
-            (eq, ":template", "pt_desert_cavalry"),
-            (party_add_members, ":party", ":dc", 1),
-          (try_end),
-        (try_end),
-    ]),      
+  ## UID: 143 - Begin
+  #
+  #(24.0, 0, 0.0, [
+  #    (store_num_parties_of_template, ":total_dark_knight", "pt_dark_hunters"),
+  #    (store_num_parties_of_template, ":total_desert_cavalry", "pt_desert_cavalry"),
+  #    (this_or_next|gt, ":total_dark_knight", 0),
+  #    (             gt, ":total_desert_cavalry", 0),
+  #  ], [
+  #      (try_for_parties, ":party"),
+  #        ## UID: 138 - Begin
+  #        #
+  #        #(store_random_in_range, ":dk", "trp_dark_knight", "trp_desert_cavalry"),
+  #        (store_random_in_range, ":dk", "trp_dark_recruit", "trp_desert_cavalry"),
+  #        #
+  #        ## UID: 138 - End
+  #        ## UID: 95 - Begin
+  #        #
+  #        #(assign, ":dc", "trp_desert_cavalry"),
+  #        (store_random_in_range, ":dc", "trp_desert_cavalry", "trp_town_walker_1"),
+  #        #
+  #        ## UID: 95 - End
+  #
+  #        (party_get_template_id, ":template", ":party"),
+  #        (try_begin),
+  #          (eq, ":template", "pt_dark_hunters"),
+  #          (party_add_members, ":party", ":dk", 1),
+  #        (else_try),
+  #          (eq, ":template", "pt_desert_cavalry"),
+  #          (party_add_members, ":party", ":dc", 1),
+  #        (try_end),
+  #      (try_end),
+  #  ]), 
   #
   ## UID: 12 - End
+  (24.0, 0, 0.0, [], [(call_script, "script_add_troop_for_parties")]),
+  #
+  ## UID: 143 - End
 
   ## UID: 78 - Begin
   #
@@ -786,14 +802,20 @@ triggers = [
 #    (party_set_ai_object,"$pout_party","$pout_town"),
 #    ]),
 
-  (1.5, 0, 0, [(store_random_party_of_template, reg(2), "pt_messenger_party"),
-               (party_is_in_any_town,reg(2)),
-               ],
-   [(store_faction_of_party, ":faction_no", reg(2)),
-    (call_script,"script_cf_select_random_walled_center_with_faction", ":faction_no", -1),
-    (party_set_ai_behavior,reg(2),ai_bhvr_travel_to_party),
-    (party_set_ai_object,reg(2),reg0),
-    (party_set_flags, reg(2), pf_default_behavior, 0),
+  (1.5, 0, 0, [
+      (store_random_party_of_template, reg(2), "pt_messenger_party"),
+      (party_is_in_any_town,reg(2)),
+    ], [
+        (store_faction_of_party, ":faction_no", reg(2)),
+        (call_script,"script_cf_select_random_walled_center_with_faction", ":faction_no", -1),
+        (party_set_ai_behavior,reg(2),ai_bhvr_travel_to_party),
+        ## UID: 152 - Begin
+        #
+        #(party_set_ai_object,reg(2),reg0),
+        (call_script, "script_party_set_ai_object", reg(2), reg0),
+        #
+        ## UID: 152 - End
+        (party_set_flags, reg(2), pf_default_behavior, 0),
     ]),
   
   
@@ -854,11 +876,13 @@ triggers = [
           (lt, ":random_no", 10),
           (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_merchant_caravan),
         (try_end),
-##        (try_begin),
-##          (store_random_in_range, ":random_no", 0, 100),
-##          (lt, ":random_no", 10),
-##          (call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_prisoner_train),
-##        (try_end),
+        #
+        ## UID: 79 - End
+        #(try_begin),
+          #(store_random_in_range, ":random_no", 0, 100),
+          #(lt, ":random_no", 10),
+          #(call_script, "script_create_kingdom_party_if_below_limit", ":cur_kingdom", spt_prisoner_train),
+        #(try_end),
       (try_end),
     ]),
 
@@ -1067,76 +1091,91 @@ triggers = [
     ],
    []
    ),
-# Runaway Peasants quest
-  (0.2, 0.0, 0.0,
-   [
-       (check_quest_active, "qst_bring_back_runaway_serfs"),
-       (neg|check_quest_concluded, "qst_bring_back_runaway_serfs"),
-       (quest_get_slot, ":quest_object_center", "qst_bring_back_runaway_serfs", slot_quest_object_center),
-       (quest_get_slot, ":quest_target_center", "qst_bring_back_runaway_serfs", slot_quest_target_center),
-       (try_begin),
-         (party_is_active, "$qst_bring_back_runaway_serfs_party_1"),
-         (try_begin),
-           (party_is_in_town, "$qst_bring_back_runaway_serfs_party_1", ":quest_target_center"),
-           (remove_party, "$qst_bring_back_runaway_serfs_party_1"),
-           (val_add, "$qst_bring_back_runaway_serfs_num_parties_fleed", 1),
-         (else_try),
-           (party_is_in_town, "$qst_bring_back_runaway_serfs_party_1", ":quest_object_center"),
-           (remove_party, "$qst_bring_back_runaway_serfs_party_1"),
-           (val_add, "$qst_bring_back_runaway_serfs_num_parties_returned", 1),
-         (else_try),
-           (store_distance_to_party_from_party, ":cur_distance", "p_main_party", "$qst_bring_back_runaway_serfs_party_1"),
-           (gt, ":cur_distance", 3),
-           (party_set_ai_object, "$qst_bring_back_runaway_serfs_party_1", ":quest_target_center"),
-         (try_end),
-       (try_end),
-       (try_begin),
-         (party_is_active, "$qst_bring_back_runaway_serfs_party_2"),
-         (try_begin),
-           (party_is_in_town, "$qst_bring_back_runaway_serfs_party_2", ":quest_target_center"),
-           (remove_party, "$qst_bring_back_runaway_serfs_party_2"),
-           (val_add, "$qst_bring_back_runaway_serfs_num_parties_fleed", 1),
-         (else_try),
-           (party_is_in_town, "$qst_bring_back_runaway_serfs_party_2", ":quest_object_center"),
-           (remove_party, "$qst_bring_back_runaway_serfs_party_2"),
-           (val_add, "$qst_bring_back_runaway_serfs_num_parties_returned", 1),
-         (else_try),
-           (store_distance_to_party_from_party, ":cur_distance", "p_main_party", "$qst_bring_back_runaway_serfs_party_2"),
-           (gt, ":cur_distance", 3),
-           (party_set_ai_object, "$qst_bring_back_runaway_serfs_party_2", ":quest_target_center"),
-         (try_end),
-       (try_end),
-       (try_begin),
-         (party_is_active, "$qst_bring_back_runaway_serfs_party_3"),
-         (try_begin),
-           (party_is_in_town, "$qst_bring_back_runaway_serfs_party_3", ":quest_target_center"),
-           (remove_party, "$qst_bring_back_runaway_serfs_party_3"),
-           (val_add, "$qst_bring_back_runaway_serfs_num_parties_fleed", 1),
-         (else_try),
-           (party_is_in_town, "$qst_bring_back_runaway_serfs_party_3", ":quest_object_center"),
-           (remove_party, "$qst_bring_back_runaway_serfs_party_3"),
-           (val_add, "$qst_bring_back_runaway_serfs_num_parties_returned", 1),
-         (else_try),
-           (store_distance_to_party_from_party, ":cur_distance", "p_main_party", "$qst_bring_back_runaway_serfs_party_3"),
-           (gt, ":cur_distance", 3),
-           (party_set_ai_object, "$qst_bring_back_runaway_serfs_party_3", ":quest_target_center"),
-         (try_end),
-       (try_end),
-       (assign, ":sum_removed", "$qst_bring_back_runaway_serfs_num_parties_returned"),
-       (val_add, ":sum_removed", "$qst_bring_back_runaway_serfs_num_parties_fleed"),
-       (ge, ":sum_removed", 3),
-       (try_begin),
-         (ge, "$qst_bring_back_runaway_serfs_num_parties_returned", 3),
-         (call_script, "script_succeed_quest", "qst_bring_back_runaway_serfs"),
-       (else_try),
-         (eq, "$qst_bring_back_runaway_serfs_num_parties_returned", 0),
-         (call_script, "script_fail_quest", "qst_bring_back_runaway_serfs"),
-       (else_try),
-         (call_script, "script_conclude_quest", "qst_bring_back_runaway_serfs"),
-       (try_end),
-    ],
-   []
-   ),
+
+  # Runaway Peasants quest
+  (0.2, 0.0, 0.0, [
+      (check_quest_active, "qst_bring_back_runaway_serfs"),
+      (neg|check_quest_concluded, "qst_bring_back_runaway_serfs"),
+      (quest_get_slot, ":quest_object_center", "qst_bring_back_runaway_serfs", slot_quest_object_center),
+      (quest_get_slot, ":quest_target_center", "qst_bring_back_runaway_serfs", slot_quest_target_center),
+      (try_begin),
+        (party_is_active, "$qst_bring_back_runaway_serfs_party_1"),
+        (try_begin),
+          (party_is_in_town, "$qst_bring_back_runaway_serfs_party_1", ":quest_target_center"),
+          (remove_party, "$qst_bring_back_runaway_serfs_party_1"),
+          (val_add, "$qst_bring_back_runaway_serfs_num_parties_fleed", 1),
+        (else_try),
+          (party_is_in_town, "$qst_bring_back_runaway_serfs_party_1", ":quest_object_center"),
+          (remove_party, "$qst_bring_back_runaway_serfs_party_1"),
+          (val_add, "$qst_bring_back_runaway_serfs_num_parties_returned", 1),
+        (else_try),
+          (store_distance_to_party_from_party, ":cur_distance", "p_main_party", "$qst_bring_back_runaway_serfs_party_1"),
+          (gt, ":cur_distance", 3),
+          ## UID: 152 - Begin
+          #
+          #(party_set_ai_object, "$qst_bring_back_runaway_serfs_party_1", ":quest_target_center"),
+          (call_script, "script_party_set_ai_object", "$qst_bring_back_runaway_serfs_party_1", ":quest_target_center"),
+          #
+          ## UID: 152 - End
+        (try_end),
+      (try_end),
+      (try_begin),
+        (party_is_active, "$qst_bring_back_runaway_serfs_party_2"),
+        (try_begin),
+          (party_is_in_town, "$qst_bring_back_runaway_serfs_party_2", ":quest_target_center"),
+          (remove_party, "$qst_bring_back_runaway_serfs_party_2"),
+          (val_add, "$qst_bring_back_runaway_serfs_num_parties_fleed", 1),
+        (else_try),
+          (party_is_in_town, "$qst_bring_back_runaway_serfs_party_2", ":quest_object_center"),
+          (remove_party, "$qst_bring_back_runaway_serfs_party_2"),
+          (val_add, "$qst_bring_back_runaway_serfs_num_parties_returned", 1),
+        (else_try),
+          (store_distance_to_party_from_party, ":cur_distance", "p_main_party", "$qst_bring_back_runaway_serfs_party_2"),
+          (gt, ":cur_distance", 3),
+          ## UID: 152 - Begin
+          #
+          #(party_set_ai_object, "$qst_bring_back_runaway_serfs_party_2", ":quest_target_center"),
+          (call_script, "script_party_set_ai_object", "$qst_bring_back_runaway_serfs_party_2", ":quest_target_center"),
+          #
+          ## UID: 152 - End
+        (try_end),
+      (try_end),
+      (try_begin),
+        (party_is_active, "$qst_bring_back_runaway_serfs_party_3"),
+        (try_begin),
+          (party_is_in_town, "$qst_bring_back_runaway_serfs_party_3", ":quest_target_center"),
+          (remove_party, "$qst_bring_back_runaway_serfs_party_3"),
+          (val_add, "$qst_bring_back_runaway_serfs_num_parties_fleed", 1),
+        (else_try),
+          (party_is_in_town, "$qst_bring_back_runaway_serfs_party_3", ":quest_object_center"),
+          (remove_party, "$qst_bring_back_runaway_serfs_party_3"),
+          (val_add, "$qst_bring_back_runaway_serfs_num_parties_returned", 1),
+        (else_try),
+          (store_distance_to_party_from_party, ":cur_distance", "p_main_party", "$qst_bring_back_runaway_serfs_party_3"),
+          (gt, ":cur_distance", 3),
+          ## UID: 152 - Begin
+          #
+          #(party_set_ai_object, "$qst_bring_back_runaway_serfs_party_3", ":quest_target_center"),
+          (call_script, "script_party_set_ai_object", "$qst_bring_back_runaway_serfs_party_3", ":quest_target_center"),
+          #
+          ## UID: 152 - End
+        (try_end),
+      (try_end),
+      (assign, ":sum_removed", "$qst_bring_back_runaway_serfs_num_parties_returned"),
+      (val_add, ":sum_removed", "$qst_bring_back_runaway_serfs_num_parties_fleed"),
+      (ge, ":sum_removed", 3),
+      (try_begin),
+        (ge, "$qst_bring_back_runaway_serfs_num_parties_returned", 3),
+        (call_script, "script_succeed_quest", "qst_bring_back_runaway_serfs"),
+      (else_try),
+        (eq, "$qst_bring_back_runaway_serfs_num_parties_returned", 0),
+        (call_script, "script_fail_quest", "qst_bring_back_runaway_serfs"),
+      (else_try),
+        (call_script, "script_conclude_quest", "qst_bring_back_runaway_serfs"),
+      (try_end),
+   ],
+  []
+  ),
 ### Defend Nobles Against Peasants quest
 ##  (0.2, 0.0, 0.0,
 ##   [
@@ -1630,10 +1669,14 @@ triggers = [
        (try_end),
        (try_begin),
          (eq, ":abort_meeting", 1),
-         (party_set_ai_object, "$qst_follow_spy_spy_party", ":quest_giver_center"),
-         
-         (party_set_ai_object, "$qst_follow_spy_spy_partners_party", ":quest_object_center"),
-         
+         ## UID: 152 - Begin
+         #
+         #(party_set_ai_object, "$qst_follow_spy_spy_party", ":quest_giver_center"),
+         (call_script, "script_party_set_ai_object", "$qst_follow_spy_spy_party", ":quest_giver_center"),
+         #(party_set_ai_object, "$qst_follow_spy_spy_partners_party", ":quest_object_center"),
+         (call_script, "script_party_set_ai_object", "$qst_follow_spy_spy_partners_party", ":quest_giver_center"),
+         #
+         ## UID: 152 - End
          (party_set_ai_behavior, "$qst_follow_spy_spy_party", ai_bhvr_travel_to_party),
          (party_set_ai_behavior, "$qst_follow_spy_spy_partners_party", ai_bhvr_travel_to_party),
          (party_set_flags, "$qst_follow_spy_spy_party", pf_default_behavior, 0),
@@ -1754,17 +1797,24 @@ triggers = [
                      (party_set_flags, ":quest_target_party", pf_default_behavior, 0),
                    (try_end),
                    ]),
-  (0.1, 0.0, 0.1, [(check_quest_active, "qst_escort_merchant_caravan"),
-                    (eq, "$escort_merchant_caravan_mode", 0),
-                    ],
-                   [(quest_get_slot, ":quest_target_party", "qst_escort_merchant_caravan", slot_quest_target_party),
-                    (try_begin),
-                      (party_is_active, ":quest_target_party"),
-                      (party_set_ai_behavior, ":quest_target_party", ai_bhvr_escort_party),
-                      (party_set_flags, ":quest_target_party", pf_default_behavior, 0),
-                      (party_set_ai_object, ":quest_target_party", "p_main_party"),
-                    (try_end),
-                    ]),
+
+  (0.1, 0.0, 0.1, [
+      (check_quest_active, "qst_escort_merchant_caravan"),
+      (eq, "$escort_merchant_caravan_mode", 0),
+    ], [
+        (quest_get_slot, ":quest_target_party", "qst_escort_merchant_caravan", slot_quest_target_party),
+        (try_begin),
+          (party_is_active, ":quest_target_party"),
+          (party_set_ai_behavior, ":quest_target_party", ai_bhvr_escort_party),
+          (party_set_flags, ":quest_target_party", pf_default_behavior, 0),
+          ## UID: 152 - Begin
+          #
+          #(party_set_ai_object, ":quest_target_party", "p_main_party"),
+          (call_script, "script_party_set_ai_object", ":quest_target_party", "p_main_party"),
+          #
+          ## UID: 152 - End
+          (try_end),
+    ]),
 
   (0.1, 0, 0.0, [(check_quest_active, "qst_escort_merchant_caravan"),
                  (quest_get_slot, ":quest_target_party", "qst_escort_merchant_caravan", slot_quest_target_party),

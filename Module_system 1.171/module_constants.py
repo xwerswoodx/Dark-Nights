@@ -52,6 +52,79 @@ religion_judaism = 8
 #
 ## UID: 36 - End
 
+## UID: 140 - Begin
+#
+limit_to_stats                         = 0
+equip_the_player                       = 1
+
+dnm_cb_noble = 6
+dnm_cb_merchant = 5
+dnm_cb_guard = 4
+dnm_cb_forester = 3
+dnm_cb_nomad = 2
+dnm_cb_thief = 1
+dnm_cb_priest = 0
+
+dnm_cb2_page = 8
+dnm_cb2_apprentice = 7
+dnm_cb2_urchin  = 6
+dnm_cb2_steppe_child = 5
+dnm_cb2_merchants_helper = 4
+dnm_cb2_mummer = 3
+dnm_cb2_courtier = 2
+dnm_cb2_noble = 1
+dnm_cb2_acolyte = 0
+
+dnm_cb3_slaver = 12
+dnm_cb3_bandit = 11
+dnm_cb3_gladiator = 10
+dnm_cb3_thief = 9
+dnm_cb3_bravo = 8
+dnm_cb3_merc = 7
+dnm_cb3_poacher = 6
+dnm_cb3_craftsman = 5
+dnm_cb3_peddler = 4
+dnm_cb3_preacher = 3
+dnm_cb3_troubadour = 2
+dnm_cb3_student = 1
+dnm_cb3_squire = 0
+dnm_cb3_lady_in_waiting = 0
+
+dnm_cb4_duty = 6
+dnm_cb4_revenge = 5
+dnm_cb4_loss    = 4
+dnm_cb4_wanderlust =  3
+dnm_cb4_fervor = 2
+dnm_cb4_disown  = 1
+dnm_cb4_greed  = 0
+
+dnm_ch_realistic = 4
+dnm_ch_hard = 3
+dnm_ch_normal = 2
+dnm_ch_easy = 1
+dnm_ch_casual = 0
+
+dnm_cr_christianity = 8
+dnm_cr_islam = 7
+dnm_cr_hinduism = 6
+dnm_cr_buddhism = 5
+dnm_cr_atheism = 4
+dnm_cr_tengrism = 3
+dnm_cr_norse = 2
+dnm_cr_sikhism = 1
+dnm_cr_judaism = 0
+
+dnm_kingdom_1 = 7
+dnm_kingdom_2 = 6
+dnm_kingdom_3 = 5
+dnm_kingdom_4 = 4
+dnm_kingdom_5 = 3
+dnm_kingdom_6 = 2
+dnm_kingdom_7 = 1
+dnm_kingdom_8 = 0
+#
+## UID: 140 - End
+
 ########################################################
 ##  ITEM SLOTS             #############################
 ########################################################
@@ -695,6 +768,28 @@ slot_town_is_coastal = 701
 #
 ## UID: 79 - End
 
+## UID: 152 - Begin
+#
+slot_center_building_port       = 705 #Maybe later I add this as an upgrade...
+slot_party_state                = 706
+slot_party_destination          = 707
+slot_exit_port                  = 708
+slot_using_port                 = 709 #0 not using ports, 1 going from land to water, 2 going from water to land
+slot_entry_port                 = 710
+slot_entry_center               = 711
+slot_ai_behavior                = 712
+slot_party_flag                 = 713
+slot_ai_target_position         = 714
+slot_port_bound_center          = slot_village_bound_center #I cancelled other slots, slot_center_port_is will be saved on slot_center_building_port and slot_ports_center_is changed to slot_port_bound_center which equals to slot_village_bound_center
+slot_party_original_ai_state    = 715
+slot_party_original_ai_object   = 716
+slot_party_original_ai_substate = 717
+slot_party_save_icon            = 718
+ports_begin = "p_port_1"
+ports_end = "p_ports_end"
+#
+## UID: 152 - End
+
 
 ## UID: 16 - Begin
 #
@@ -727,6 +822,12 @@ spt_ship               = 16
 spt_cattle_herd        = 17
 spt_bandit_lair       = 18
 #spt_deserter           = 20
+
+## UID: 152 - Begin
+#
+spt_port               = 21
+#
+## UID: 152 - End
 
 kingdom_party_types_begin = spt_kingdom_caravan
 kingdom_party_types_end = spt_kingdom_hero_party + 1
@@ -1114,6 +1215,11 @@ troop_slots_reserved_for_relations_start        = 165 #this is based on id_troop
 slot_troop_relations_begin				= 0 #this creates an array for relations between troops
 											#Right now, lords start at 165 and run to around 290, including pretenders
 
+## UID: 150 - Begin
+#
+#
+## UID: 150 - End
+
 ## UID: 100 - Begin
 #
 slot_player_order_item                         = 700
@@ -1364,6 +1470,11 @@ tc_prison_break               = 18
 tc_escape               	  = 19
 tc_give_center_to_fief        = 20
 tc_merchants_house            = 21
+## UID: 147 - Begin
+#
+tc_pirate_talk                = 22
+#
+## UID: 147 - End
 
 
 #Troop Commentaries begin
@@ -2057,15 +2168,15 @@ arena_grand_prize = 250 #250 Extra if player win.
 ## UID: 19 - Begin
 #
 #Party size
-party_size_base = 30
+party_size_base = 10
 party_size_per_level = 2
-party_size_per_skill = 25
+party_size_per_skill = 15
 party_size_renown = 25
-party_size_without_level = 1
+party_size_without_level = 0
 
-party_prisoner_base = 25
+party_prisoner_base = 5
 party_prisoner_per_level = 1
-party_prisoner_per_skill = 25
+party_prisoner_per_skill = 10
 party_prisoner_renown = 50
 party_prisoner_without_level = 0
 #

@@ -1143,7 +1143,7 @@ val_rshift             = 2101 # (val_rshift, <destination>, <value>), # shifts t
 
 val_add                = 2105	#dest, operand ::       dest = dest + operand
 				# (val_add,<destination>,<value>),
-val_sub                = 2106	#dest, operand ::       dest = dest + operand
+val_sub                = 2106	#dest, operand ::       dest = dest - operand
 				# (val_sub,<destination>,<value>),
 val_mul                = 2107	#dest, operand ::       dest = dest * operand
 				# (val_mul,<destination>,<value>),

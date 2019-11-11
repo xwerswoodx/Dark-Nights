@@ -429,5 +429,31 @@ parties = [
   #
   ## UID: 109 - End
 
+  ## UID: 147 - Begin
+  #
+  ("ptown_1", "Lagoon Bay", icon_village_deserted_a|pf_is_static, no_menu, pt_none, fac_commoners, 0, ai_bhvr_hold, 0, (-164, 66), [], 0),
+  #
+  ## UID: 147 - End
+
+  ## UID: 152 - Begin
+  #
+  ("port_1", "Port", icon_cozur_lighthouse|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (65.44, 119.68), []),
+  ("port_2", "Port", icon_cozur_lighthouse|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (-1.28, 104.95), []),
+  ("port_3", "Port", icon_cozur_lighthouse|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (-0.09, 85.83), []),
+  ("port_4", "Port", icon_cozur_lighthouse|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (-16.20, 84.38), []),
+  ("port_5", "Port", icon_cozur_lighthouse|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (-53.99, 80.75), []),
+  ("port_6", "Port", icon_cozur_lighthouse|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (-125.42, 101.20), []),
+  ("port_7", "Port", icon_cozur_lighthouse|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (-96.99, 30.07), []),
+  ("port_8", "Port", icon_cozur_lighthouse|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (-133.40, 41.38), []),
+  ("port_9", "Port", icon_cozur_lighthouse|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (-146.29, 13), []),
+  ("port_10", "Port", icon_cozur_lighthouse|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (-136.52, -51.07), []), 
+  ("port_11", "Port", icon_cozur_lighthouse|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (-77.23, -105.20), []), 
+  ("port_12", "Port", icon_cozur_lighthouse|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (-13.31, -88.31), []),
+  ("port_13", "Port", icon_cozur_lighthouse|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (6.73, -107.45), []),
+  ("port_14", "Port", icon_cozur_lighthouse|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (-85.41, 48.81), []),
+  ("ports_end", "{!}", icon_cozur_lighthouse|pf_is_static|pf_disabled, no_menu, pt_none, fac_neutral, 0, ai_bhvr_hold, 0, (0.1, 0), []),
+  #
+  ## UID: 152 - End
+
   ## EOF
   ]

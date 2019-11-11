@@ -52,3 +52,5 @@ prsnt_troop_ratio_bar = 50
 prsnt_world_map = 51
 prsnt_taragoth_lords_report = 52
 prsnt_faction_troop_trees = 53
+prsnt_mcc_character_creation = 54
+prsnt_test = 55

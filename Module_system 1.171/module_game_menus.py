@@ -24,6 +24,7 @@ from headers.header_common import *
 from headers.header_operations import *
 from headers.header_item_modifiers import *
 from ids.ID_skills import *
+from ids.ID_item_modifiers import *
 from headers.header_troops import *
 from headers.header_parties import *
 from headers.header_items import *
@@ -78,75 +79,65 @@ def menu_text_color(color):
 game_menus = [
   ("start_game_0", menu_text_color(0xFF000000)|mnf_disable_all_keys,
    "Welcome, adventurer, to Mount and Blade: Warband. Before beginning the game you must create your character. Remember that in the traditional medieval society depicted in the game, war and politics are usually dominated by male members of the nobility. That does not however mean that you should not choose to play a female character, or one who is not of noble birth. Male nobles may have a somewhat easier start, but women and commoners can attain all of the same goals -- and in fact may have a much more interesting if more challenging early game.",
-   "none", [], [
-       ## UID: 12 - Begin
-       #
-       #("continue",[],"Continue...", [(jump_to_menu, "mnu_start_game_1")]),
-       ("continue", [], "Continue...", [(jump_to_menu, "mnu_start_game_difficulty")]),
-       #
-       ## UID: 12 - End
-       ("go_back", [], "Go back", [(change_screen_quit)]),
-       ## UID: 14 - Begin
-       #
-       ("modder", [], "Module Editor Start", [
-##           (try_for_range, ":skill", 0, 42),
-##             (troop_raise_skill, "trp_player", ":skill", 5),
-##           (try_end),
-##           (try_for_range, ":wpt", 0, 7),
-##             (troop_raise_proficiency, "trp_player", ":wpt", 400),
-##           (try_end),
-##           (try_for_range, ":attr", 0, 5),
-##             (troop_raise_attribute, "trp_player", ":attr", 30),
-##           (try_end),
-##           (troop_set_name, "trp_player", "@Mod Editor"),
-##           (troop_add_gold, "trp_player", 9999999),
-##           (troop_add_item, "trp_player", "itm_persius_sword_01", 17),
-##           (troop_add_item, "trp_player", "itm_heater_shield", 17),
-##           (troop_add_item, "trp_player", "itm_heater_shield", 17),
-##           (troop_add_item, "trp_player", "itm_sanjarinati", 20),
-##           (troop_add_item, "trp_player", "itm_bascinet", 17),
-##           (troop_add_item, "trp_player", "itm_guard_helmet", 17),
-##           (troop_add_item, "trp_player", "itm_black_armor", 17),
-##           (troop_add_item, "trp_player", "itm_black_greaves", 17),
-##           (troop_add_item, "trp_player", "itm_smoked_fish", 0),
-##           (assign, "$town_entered", 1),
-##           (assign, "$current_town", "p_town_1"),
-##           (assign, "$g_encountered_party", "p_town_1"),
-##           (jump_to_menu, "mnu_town"),
-##           (set_jump_mission, "mt_town_default"),
-##           (jump_to_scene, "scn_town_1_room"),
-##           (modify_visitors_at_site, "scn_town_1_room"),
-##           (reset_visitors),
-##           (set_visitor, 0, "trp_player"),
-##           (change_screen_mission),
-           (assign, "$g_difficulty", 2),
-           (party_relocate_near_party, "p_main_party", "p_town_6", 2),
-           (change_screen_return),
-        ]),
-       #
-       ## UID: 14 - End
+   "none", [
+     #(call_script, "script_mcc_default_settings"),
+     #(start_presentation, "prsnt_mcc_character_creation"),
+    ], [
+     ## UID: 12 - Begin
+     #
+     #("continue",[],"Continue...", [(jump_to_menu, "mnu_start_game_1")]),
+     ## UID: 140 - Begin
+     #
+     #("continue", [], "Continue...", [(jump_to_menu, "mnu_start_game_difficulty")]),
+     ("continue", [], "Continue...", [
+         (call_script, "script_mcc_default_settings"),
+         (start_presentation, "prsnt_mcc_character_creation"),
+      ]),
+     #
+     ## UID: 140 - End
+     #
+     ## UID: 12 - End
+     ("go_back", [], "Go back", [(change_screen_quit)]),
+
+     ## UID: 140 - Begin
+     #
+     ## UID: 14 - Begin
+     #
+     #("modder", [], "Module Editor Start", [
+     #    (assign, "$g_difficulty", 2),
+     #    (party_relocate_near_party, "p_main_party", "p_town_6", 2),
+     #    (change_screen_return),
+     # ]),
+     #
+     ## UID: 14 - End
+     #
+     ## UID: 140 - End
     ]),
 
-  ("start_phase_2", mnf_disable_all_keys, "You hear about Calradia, a land torn between rival kingdoms battling each other for supremacy, a haven for knights and mercenaries,  cutthroats and adventurers, all willing to risk their lives in pursuit of fortune, power, or glory... In this land which holds great dangers and even greater opportunities, you believe you may leave your past behind and start a new life. You feel that finally, you hold the key of your destiny in your hands, free to choose as you will, and that whatever course you take, great adventures will await you. Drawn by the stories you hear about Calradia and its kingdoms, you...", "none", [], [
-      ## UID: 14 - Begin
-      #
-      ("modder", [], "Module Editor Start", [
-          (try_for_range, ":skill", 0, 42),
-            (troop_raise_skill, "trp_player", ":skill", 10),
-          (try_end),
-          (try_for_range, ":wpt", 0, 7),
-            (troop_raise_proficiency, "trp_player", ":wpt", 400),
-          (try_end),
-          (try_for_range, ":attr", 0, 5),
-            (troop_raise_attribute, "trp_player", ":attr", 30),
-          (try_end),
-          (troop_set_name, "trp_player", "@Mod Editor"),
-          (party_set_name, "p_main_party", "@Mod Editor"),
-          (troop_add_gold, "trp_player", 9999999),
-          (troop_add_item, "trp_player", "itm_persius_sword_01", imod_masterwork),
-          (troop_add_item, "trp_player", "itm_steel_shield", imod_reinforced),
-          (troop_add_item, "trp_player", "itm_sanjarinati", imod_champion),
-          (troop_add_item, "trp_player", "itm_gauntlets", imod_lordly),
+  ## UID: 140 - Begin
+  #
+  ("start_phase_2", mnf_disable_all_keys, "{!}{s16}", "none", [
+    (str_store_party_name, s1, "$g_starting_town"),
+    (str_store_string, s16, "$g_journey_string"),
+    (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
+    (try_begin),
+      (eq, "$g_modder", 1),
+      (try_for_range, ":skill", 0, 42),
+        (troop_raise_skill, "trp_player", ":skill", 10),
+        (le, ":skill", 6),
+        (store_proficiency_level, ":cur", "trp_player", ":skill"),
+        (store_sub, ":add", 699, ":cur"),
+        (troop_raise_proficiency, "trp_player", ":skill", ":add"),
+        (le, ":skill", 4),
+        (troop_raise_attribute, "trp_player", ":skill", 63),
+      (try_end),
+      (troop_set_name, "trp_player", "@Mod Editor"),
+      (party_set_name, "p_main_party", "@Mod Editor"),
+      (troop_add_gold, "trp_player", 9999999),
+      (troop_add_item, "trp_player", "itm_persius_sword_01", imod_masterwork),
+      (troop_add_item, "trp_player", "itm_steel_shield", imod_reinforced),
+      (troop_add_item, "trp_player", "itm_sanjarinati", imod_champion),
+      (troop_add_item, "trp_player", "itm_gauntlets", imod_lordly),
           (troop_add_item, "trp_player", "itm_guard_helmet", imod_lordly),
           (troop_add_item, "trp_player", "itm_black_armor", imod_lordly),
           (troop_add_item, "trp_player", "itm_black_greaves", imod_lordly),
@@ -160,12 +151,12 @@ game_menus = [
             (call_script, "script_recruit_troop_as_companion", ":npc"),
             (try_for_range, ":skill", 0, 42),
               (troop_raise_skill, ":npc", ":skill", 10),
-            (try_end),
-            (try_for_range, ":wpt", 0, 7),
-              (troop_raise_proficiency, ":npc", ":wpt", 400),
-            (try_end),
-            (try_for_range, ":attr", 0, 5),
-              (troop_raise_attribute, ":npc", ":attr", 30),
+              (le, ":skill", 6),
+              (store_proficiency_level, ":cur", ":npc", ":skill"),
+              (store_sub, ":add", 699, ":cur"),
+              (troop_raise_proficiency, ":npc", ":skill", 699),
+              (le, ":skill", 4),
+              (troop_raise_attribute, ":npc", ":skill", 63),
             (try_end),
             (troop_add_item, ":npc", "itm_persius_sword_01", imod_masterwork),
             (troop_add_item, ":npc", "itm_steel_shield", imod_reinforced),
@@ -180,152 +171,214 @@ game_menus = [
             (troop_add_item, ":npc", "itm_bodkin_arrows", imod_large_bag),
             (troop_equip_items, ":npc"),
           (try_end),
-          ## UID: 63 - Begin
-          #
-          (call_script, "script_set_plural_name", "trp_player"),
-          #
-          ## UID: 63 - End
-          (change_screen_return),
-        ]),
-      #
-      ## UID: 14 - End
+    (try_end),
+    (call_script, "script_set_plural_name", "trp_player"),
+    (change_screen_return)
+  ], [
+    ("continue",[], "Continue...", [(change_screen_return)]),
+  ]),
 
-      ("town_1", [(eq, "$current_startup_quest_phase", 0)], "Join a caravan to Praven, in the Kingdom of Swadia.", [
-          (assign, "$current_town", "p_town_6"),
-          (assign, "$g_starting_town", "$current_town"),
-          ## UID: 55 - Begin
-          #
-##          (assign, "$g_journey_string", "str_journey_to_praven"),
-##          (jump_to_menu, "mnu_start_phase_2_5"),
-          ## UID: 63 - Begin
-          #
-          (call_script, "script_set_plural_name", "trp_player"),
-          #
-          ## UID: 63 - End
-          (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
-          (change_screen_return),
-          #
-          ## UID: 55 - End
-        ]),
-
-      ("town_2",[(eq, "$current_startup_quest_phase", 0)], "Join a caravan to Reyvadin, in the Kingdom of the Vaegirs.", [
-          (assign, "$current_town", "p_town_8"),
-          (assign, "$g_starting_town", "$current_town"),
-          ## UID: 55 - Begin
-          #
-##          (assign, "$g_journey_string", "str_journey_to_reyvadin"),
-##          (jump_to_menu, "mnu_start_phase_2_5"),
-          ## UID: 63 - Begin
-          #
-          (call_script, "script_set_plural_name", "trp_player"),
-          #
-          ## UID: 63 - End
-          (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
-          (change_screen_return),
-          #
-          ## UID: 55 - End
-        ]),
-
-      ("town_3",[(eq, "$current_startup_quest_phase", 0)], "Join a caravan to Tulga, in the Khergit Khanate.", [
-          (assign, "$current_town", "p_town_10"),
-          (assign, "$g_starting_town", "$current_town"),
-          ## UID: 55 - Begin
-          #
-##          (assign, "$g_journey_string", "str_journey_to_tulga"),
-##          (jump_to_menu, "mnu_start_phase_2_5"),
-          ## UID: 63 - Begin
-          #
-          (call_script, "script_set_plural_name", "trp_player"),
-          #
-          ## UID: 63 - End
-          (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
-          (change_screen_return),
-          #
-          ## UID: 55 - End
-        ]),
-
-      ("town_4",[(eq, "$current_startup_quest_phase", 0)], "Take a ship to Sargoth, in the Kingdom of the Nords.", [
-          (assign, "$current_town", "p_town_1"),
-          (assign, "$g_starting_town", "$current_town"),
-          ## UID: 55 - Begin
-          #
-##          (assign, "$g_journey_string", "str_journey_to_sargoth"),
-##          (jump_to_menu, "mnu_start_phase_2_5"),
-          ## UID: 63 - Begin
-          #
-          (call_script, "script_set_plural_name", "trp_player"),
-          #
-          ## UID: 63 - End
-          (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
-          (change_screen_return),
-          #
-          ## UID: 55 - End
-        ]),
-
-      ("town_5", [(eq, "$current_startup_quest_phase", 0)], "Yake a ship to Jelkala, in the Kingdom of the Rhodoks.", [
-          (assign, "$current_town", "p_town_5"),
-          (assign, "$g_starting_town", "$current_town"),
-          ## UID: 55 - Begin
-          #
-##          (assign, "$g_journey_string", "str_journey_to_jelkala"),
-##          (jump_to_menu, "mnu_start_phase_2_5"),
-          ## UID: 63 - Begin
-          #
-          (call_script, "script_set_plural_name", "trp_player"),
-          #
-          ## UID: 63 - End
-          (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
-          (change_screen_return),
-          #
-          ## UID: 55 - End
-        ]),
-
-      ("town_6", [(eq, "$current_startup_quest_phase", 0)], "Join a caravan to Shariz, in the Sarranid Sultanate.", [
-          (assign, "$current_town", "p_town_19"),
-          (assign, "$g_starting_town", "$current_town"),
-          ## UID: 55 - Begin
-          #
-##          (assign, "$g_journey_string", "str_journey_to_shariz"),
-##          (jump_to_menu, "mnu_start_phase_2_5"),
-          ## UID: 63 - Begin
-          #
-          (call_script, "script_set_plural_name", "trp_player"),
-          #
-          ## UID: 63 - End
-          (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
-          (change_screen_return),
-          #
-          ## UID: 55 - End
-        ]),
-
-      ## UID: 55 - Begin
-      #
-      ("town_7", [(eq, "$current_startup_quest_phase", 0)], "Join a caravan to Ashborne, in the Kingdom of the Umalelith", [
-          (assign, "$current_town", "p_town_25"),
-          (assign, "$g_starting_town", "$current_town"),
-          ## UID: 63 - Begin
-          #
-          (call_script, "script_set_plural_name", "trp_player"),
-          #
-          ## UID: 63 - End
-          (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
-          (change_screen_return),
-        ]),
-
-      ("town_8", [(eq, "$current_startup_quest_phase", 0)], "Join a caravan to Hillford, in the Kielian Sultanate", [
-          (assign, "$current_town", "p_town_23"),
-          (assign, "$g_starting_town", "$current_town"),
-          ## UID: 63 - Begin
-          #
-          (call_script, "script_set_plural_name", "trp_player"),
-          #
-          ## UID: 63 - End
-          (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
-          (change_screen_return),
-        ]),
-      #
-      ## UID: 55 - End
-    ]),
+##  ("start_phase_2", mnf_disable_all_keys, "You hear about Calradia, a land torn between rival kingdoms battling each other for supremacy, a haven for knights and mercenaries,  cutthroats and adventurers, all willing to risk their lives in pursuit of fortune, power, or glory... In this land which holds great dangers and even greater opportunities, you believe you may leave your past behind and start a new life. You feel that finally, you hold the key of your destiny in your hands, free to choose as you will, and that whatever course you take, great adventures will await you. Drawn by the stories you hear about Calradia and its kingdoms, you...", "none", [], [
+##      ## UID: 14 - Begin
+##      #
+##      ("modder", [], "Module Editor Start", [
+##          (try_for_range, ":skill", 0, 42),
+##            (troop_raise_skill, "trp_player", ":skill", 10),
+##          (try_end),
+##          (try_for_range, ":wpt", 0, 7),
+##            (troop_raise_proficiency, "trp_player", ":wpt", 400),
+##          (try_end),
+##          (try_for_range, ":attr", 0, 5),
+##            (troop_raise_attribute, "trp_player", ":attr", 30),
+##          (try_end),
+##          (troop_set_name, "trp_player", "@Mod Editor"),
+##          (party_set_name, "p_main_party", "@Mod Editor"),
+##          (troop_add_gold, "trp_player", 9999999),
+##          (troop_add_item, "trp_player", "itm_persius_sword_01", imod_masterwork),
+##          (troop_add_item, "trp_player", "itm_steel_shield", imod_reinforced),
+##          (troop_add_item, "trp_player", "itm_sanjarinati", imod_champion),
+##          (troop_add_item, "trp_player", "itm_gauntlets", imod_lordly),
+##          (troop_add_item, "trp_player", "itm_guard_helmet", imod_lordly),
+##          (troop_add_item, "trp_player", "itm_black_armor", imod_lordly),
+##          (troop_add_item, "trp_player", "itm_black_greaves", imod_lordly),
+##          (troop_add_items, "trp_player", "itm_smoked_fish", 9),
+##          (troop_add_items, "trp_player", "itm_tea", 6),
+##          (troop_add_item, "trp_player", "itm_fp_bow_01", imod_masterwork),
+##          (troop_add_item, "trp_player", "itm_bodkin_arrows", imod_large_bag),
+##          (troop_equip_items, "trp_player"),
+##          (party_relocate_near_party, "p_main_party", "p_town_6", 2),
+##          (try_for_range, ":npc", companions_begin, companions_end),
+##            (call_script, "script_recruit_troop_as_companion", ":npc"),
+##            (try_for_range, ":skill", 0, 42),
+##              (troop_raise_skill, ":npc", ":skill", 10),
+##            (try_end),
+##            (try_for_range, ":wpt", 0, 7),
+##              (troop_raise_proficiency, ":npc", ":wpt", 400),
+##            (try_end),
+##            (try_for_range, ":attr", 0, 5),
+##              (troop_raise_attribute, ":npc", ":attr", 30),
+##            (try_end),
+##            (troop_add_item, ":npc", "itm_persius_sword_01", imod_masterwork),
+##            (troop_add_item, ":npc", "itm_steel_shield", imod_reinforced),
+##            (troop_add_item, ":npc", "itm_sanjarinati", imod_champion),
+##            (troop_add_item, ":npc", "itm_gauntlets", imod_lordly),
+##            (troop_add_item, ":npc", "itm_guard_helmet", imod_lordly),
+##            (troop_add_item, ":npc", "itm_black_armor", imod_lordly),
+##            (troop_add_item, ":npc", "itm_black_greaves", imod_lordly),
+##            (troop_add_items, ":npc", "itm_smoked_fish", 9),
+##            (troop_add_items, ":npc", "itm_tea", 6),
+##            (troop_add_item, ":npc", "itm_fp_bow_01", imod_masterwork),
+##            (troop_add_item, ":npc", "itm_bodkin_arrows", imod_large_bag),
+##            (troop_equip_items, ":npc"),
+##          (try_end),
+##          ## UID: 63 - Begin
+##          #
+##          (call_script, "script_set_plural_name", "trp_player"),
+##          #
+##          ## UID: 63 - End
+##          (change_screen_return),
+##        ]),
+##      #
+##      ## UID: 14 - End
+##
+##      ("town_1", [(eq, "$current_startup_quest_phase", 0)], "Join a caravan to Praven, in the Kingdom of Swadia.", [
+##          (assign, "$current_town", "p_town_6"),
+##          (assign, "$g_starting_town", "$current_town"),
+##          ## UID: 55 - Begin
+##          #
+####          (assign, "$g_journey_string", "str_journey_to_praven"),
+####          (jump_to_menu, "mnu_start_phase_2_5"),
+##          ## UID: 63 - Begin
+##          #
+##          (call_script, "script_set_plural_name", "trp_player"),
+##          #
+##          ## UID: 63 - End
+##          (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
+##          (change_screen_return),
+##          #
+##          ## UID: 55 - End
+##        ]),
+##
+##      ("town_2",[(eq, "$current_startup_quest_phase", 0)], "Join a caravan to Reyvadin, in the Kingdom of the Vaegirs.", [
+##          (assign, "$current_town", "p_town_8"),
+##          (assign, "$g_starting_town", "$current_town"),
+##          ## UID: 55 - Begin
+##          #
+####          (assign, "$g_journey_string", "str_journey_to_reyvadin"),
+####          (jump_to_menu, "mnu_start_phase_2_5"),
+##          ## UID: 63 - Begin
+##          #
+##          (call_script, "script_set_plural_name", "trp_player"),
+##          #
+##          ## UID: 63 - End
+##          (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
+##          (change_screen_return),
+##          #
+##          ## UID: 55 - End
+##        ]),
+##
+##      ("town_3",[(eq, "$current_startup_quest_phase", 0)], "Join a caravan to Tulga, in the Khergit Khanate.", [
+##          (assign, "$current_town", "p_town_10"),
+##          (assign, "$g_starting_town", "$current_town"),
+##          ## UID: 55 - Begin
+##          #
+####          (assign, "$g_journey_string", "str_journey_to_tulga"),
+####          (jump_to_menu, "mnu_start_phase_2_5"),
+##          ## UID: 63 - Begin
+##          #
+##          (call_script, "script_set_plural_name", "trp_player"),
+##          #
+##          ## UID: 63 - End
+##          (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
+##          (change_screen_return),
+##          #
+##          ## UID: 55 - End
+##        ]),
+##
+##      ("town_4",[(eq, "$current_startup_quest_phase", 0)], "Take a ship to Sargoth, in the Kingdom of the Nords.", [
+##          (assign, "$current_town", "p_town_1"),
+##          (assign, "$g_starting_town", "$current_town"),
+##          ## UID: 55 - Begin
+##          #
+####          (assign, "$g_journey_string", "str_journey_to_sargoth"),
+####          (jump_to_menu, "mnu_start_phase_2_5"),
+##          ## UID: 63 - Begin
+##          #
+##          (call_script, "script_set_plural_name", "trp_player"),
+##          #
+##          ## UID: 63 - End
+##          (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
+##          (change_screen_return),
+##          #
+##          ## UID: 55 - End
+##        ]),
+##
+##      ("town_5", [(eq, "$current_startup_quest_phase", 0)], "Yake a ship to Jelkala, in the Kingdom of the Rhodoks.", [
+##          (assign, "$current_town", "p_town_5"),
+##          (assign, "$g_starting_town", "$current_town"),
+##          ## UID: 55 - Begin
+##          #
+####          (assign, "$g_journey_string", "str_journey_to_jelkala"),
+####          (jump_to_menu, "mnu_start_phase_2_5"),
+##          ## UID: 63 - Begin
+##          #
+##          (call_script, "script_set_plural_name", "trp_player"),
+##          #
+##          ## UID: 63 - End
+##          (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
+##          (change_screen_return),
+##          #
+##          ## UID: 55 - End
+##        ]),
+##
+##      ("town_6", [(eq, "$current_startup_quest_phase", 0)], "Join a caravan to Shariz, in the Sarranid Sultanate.", [
+##          (assign, "$current_town", "p_town_19"),
+##          (assign, "$g_starting_town", "$current_town"),
+##          ## UID: 55 - Begin
+##          #
+####          (assign, "$g_journey_string", "str_journey_to_shariz"),
+####          (jump_to_menu, "mnu_start_phase_2_5"),
+##          ## UID: 63 - Begin
+##          #
+##          (call_script, "script_set_plural_name", "trp_player"),
+##          #
+##          ## UID: 63 - End
+##          (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
+##          (change_screen_return),
+##          #
+##          ## UID: 55 - End
+##        ]),
+##
+##      ## UID: 55 - Begin
+##      #
+##      ("town_7", [(eq, "$current_startup_quest_phase", 0)], "Join a caravan to Ashborne, in the Kingdom of the Umalelith", [
+##          (assign, "$current_town", "p_town_25"),
+##          (assign, "$g_starting_town", "$current_town"),
+##          ## UID: 63 - Begin
+##          #
+##          (call_script, "script_set_plural_name", "trp_player"),
+##          #
+##          ## UID: 63 - End
+##          (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
+##          (change_screen_return),
+##        ]),
+##
+##      ("town_8", [(eq, "$current_startup_quest_phase", 0)], "Join a caravan to Hillford, in the Kielian Sultanate", [
+##          (assign, "$current_town", "p_town_23"),
+##          (assign, "$g_starting_town", "$current_town"),
+##          ## UID: 63 - Begin
+##          #
+##          (call_script, "script_set_plural_name", "trp_player"),
+##          #
+##          ## UID: 63 - End
+##          (party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
+##          (change_screen_return),
+##        ]),
+##      #
+##      ## UID: 55 - End
+##    ]),
+  #
+  ## UID: 140 - End
  
   (
     "start_game_3",mnf_disable_all_keys,
@@ -1921,14 +1974,8 @@ game_menus = [
     ]
   ),
 
-  (
-    "auto_return",0,
-    "{!}This menu automatically returns to caller.",
-    "none",
-    [(change_screen_return, 0)],
-    [
-    ]
-  ),
+  ("auto_return", 0, "{!}This menu automatically returns to caller.", "none", [(change_screen_return, 0)], []),
+  
   ("morale_report",0,
    "{s1}",
    "none",
@@ -2964,11 +3011,21 @@ game_menus = [
 ##            (call_script, "script_set_prefix", "trp_player"),
 ##            (item_get_slot, reg0, "itm_bread", slot_item_food_bonus),
 ##          (display_message, "@{reg0} - {reg1} - {reg2} - {reg3} - {reg4}"),
-          (store_random_in_range, ":type", 0, 1),
-          (try_begin),
-            (eq, ":type", 0),
-            (troop_add_merchandise_with_faction, "trp_player", "fac_kingdom_1", itp_type_horse, 1),
-            (display_message, "@{reg0} - {reg1} - {reg2}"),
+##          (store_random_in_range, ":type", 0, 1),
+##          (try_begin),
+##            (eq, ":type", 0),
+##            (troop_add_merchandise_with_faction, "trp_player", "fac_kingdom_1", itp_type_horse, 1),
+##            (display_message, "@{reg0} - {reg1} - {reg2}"),
+##          (try_end),
+##          (str_store_faction_name, s1, "$players_kingdom"),
+##          (assign, reg1, "$players_kingdom"),
+##          (call_script, "script_is_king", "$players_kingdom", "trp_player"),
+##          (display_message, "@{reg0} - {s1} [{reg1}]"),
+##          (start_presentation, "prsnt_test"),
+          (try_for_range, ":center", villages_begin, villages_end),
+            (party_slot_ge, ":center", slot_village_infested_by_bandits, 1),
+            (str_store_party_name, s2, ":center"),
+            (display_message, "@Infected: {s2}"),
           (try_end),
         ]),
 
@@ -3140,6 +3197,21 @@ game_menus = [
       (try_end),
       (jump_to_menu, "mnu_cheat_find_item"),
     ]),
+
+    ## UID: 145 - Begin
+    #
+    ("cheat_find_item_prev_range",[], "Move to previous item range.", [
+      (val_sub, "$cheat_find_item_range_begin", max_inventory_items),
+      (try_begin),
+        (lt, "$cheat_find_item_range_begin", 0),
+        (store_div, ":last", "itm_items_end", max_inventory_items),
+        (val_mul, ":last", max_inventory_items),
+        (assign, "$cheat_find_item_range_begin", ":last"),
+      (try_end),
+      (jump_to_menu, "mnu_cheat_find_item"),
+    ]),    
+    #
+    ## UID: 145 - End
 
     ("cheat_find_item_choose_this",[], "Choose from this range.", [
       (troop_clear_inventory, "trp_find_item_cheat"),
@@ -3700,49 +3772,50 @@ game_menus = [
       ]
   ),
 
-  ("cattle_herd",mnf_scale_picture,
+  ("cattle_herd", mnf_scale_picture,
    "You encounter a herd of cattle.",
-   "none",
-   [(play_sound, "snd_cow_moo"),
-    (set_background_mesh, "mesh_pic_cattle"),
-   ],
-    [
-      ("cattle_drive_away",[],"Drive the cattle onward.",
-       [
+   "none", [
+     (play_sound, "snd_cow_moo"),
+     (set_background_mesh, "mesh_pic_cattle"),
+    ], [
+      ("cattle_drive_away",[],"Drive the cattle onward.", [
         (party_set_slot, "$g_encountered_party", slot_cattle_driven_by_player, 1),
         ## UID: 17 - Begin
         #
-##        (party_set_ai_behavior, "$g_encountered_party", ai_bhvr_driven_by_party),
+        #(party_set_ai_behavior, "$g_encountered_party", ai_bhvr_driven_by_party),
         (party_set_ai_behavior, "$g_encountered_party", ai_bhvr_escort_party),
         #
         ## UID: 17 - End
-        (party_set_ai_object,"$g_encountered_party", "p_main_party"),
+
+        ## UID: 152 - Begin
+        #
+        #(party_set_ai_object,"$g_encountered_party", "p_main_party"),
+        (call_script, "script_party_set_ai_object", "$g_encountered_party", "p_main_party"),
+        #
+        ## UID: 152 - End
         (change_screen_return),
-        ]
-       ),
-      ("cattle_stop",[],"Bring the herd to a stop.",
-       [
+      ]),
+
+      ("cattle_stop",[],"Bring the herd to a stop.", [
         (party_set_slot, "$g_encountered_party", slot_cattle_driven_by_player, 0),
         (party_set_ai_behavior, "$g_encountered_party", ai_bhvr_hold),
         (change_screen_return),
-        ]
-       ),
-      ("cattle_kill",[(assign, ":continue", 1),
-                      (try_begin),
-                        (check_quest_active, "qst_move_cattle_herd"),
-                        (quest_slot_eq, "qst_move_cattle_herd", slot_quest_target_party, "$g_encountered_party"),
-                        (assign, ":continue", 0),
-                      (try_end),
-                      (eq, ":continue", 1)],"Slaughter some of the animals.",
-       [(jump_to_menu, "mnu_cattle_herd_kill"),
-        ]
-       ),
-      ("leave",[],"Leave.",
-       [(change_screen_return),
-        ]
-       ),
-      ]
-  ),
+      ]),
+
+      ("cattle_kill", [
+        (assign, ":continue", 1),
+        (try_begin),
+          (check_quest_active, "qst_move_cattle_herd"),
+          (quest_slot_eq, "qst_move_cattle_herd", slot_quest_target_party, "$g_encountered_party"),
+          (assign, ":continue", 0),
+        (try_end),
+        (eq, ":continue", 1)
+      ], "Slaughter some of the animals.", [
+        (jump_to_menu, "mnu_cattle_herd_kill"),
+      ]),
+
+      ("leave",[],"Leave.", [(change_screen_return)]),
+    ]),
 
   ("cattle_herd_kill",0,
    "How many animals do you want to slaughter?",
@@ -16420,6 +16493,28 @@ game_menus = [
     ]),
   #
   ## UID: 109 - End
+
+  ## UID: 147 - Begin
+  #
+  ("pirate_town", 0, "You are visiting pirate town...", "none", [], [
+    ("pirate_town_enter", [(str_store_party_name, s1, "$g_encountered_party")], "Enter to {s1}", [
+      (set_jump_entry, 0),
+      (set_jump_mission, "mt_town_default"),
+      (mission_tpl_entry_set_override_flags, "mt_town_default", 0, af_override_horse),
+      (jump_to_scene, "scn_ptown_1"),
+      (scene_set_slot, "scn_ptown_1", slot_scene_visited, 1),
+      (assign, "$talk_context", tc_pirate_talk),
+      (modify_visitors_at_site, "scn_ptown_1"),
+      (reset_visitors),
+      #(set_visitor, ":cur_entry", ":mercenary_troop"),
+      (change_screen_mission),
+    ]),
+
+    ("pirate_town_leave", [], "Leave", [(change_screen_return)]),
+  ]),
+  #
+  ## UID: 147 - End
+
   
   ## EOF
  ]
